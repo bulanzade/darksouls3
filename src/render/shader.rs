@@ -50,6 +50,12 @@ impl ShaderProgram {
         }
     }
 
+    pub fn uniform_3f(&self, gl: &GL, name: &str, x: f32, y: f32, z: f32) {
+        if let Some(loc) = self.uniforms.get(name) {
+            gl.uniform3f(Some(loc), x, y, z);
+        }
+    }
+
     pub fn uniform_4f(&self, gl: &GL, name: &str, x: f32, y: f32, z: f32, w: f32) {
         if let Some(loc) = self.uniforms.get(name) {
             gl.uniform4f(Some(loc), x, y, z, w);
