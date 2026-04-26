@@ -1,4 +1,5 @@
 pub mod ai;
+pub mod audio;
 pub mod bridge;
 pub mod combat;
 pub mod core;
