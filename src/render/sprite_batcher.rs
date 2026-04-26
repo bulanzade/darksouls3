@@ -125,6 +125,12 @@ impl SpriteBatcher {
         );
         gl.vertex_attrib_divisor(5, 1);
 
+        // a_uv_rect (vec4) — offset 36 (= 9 floats), instanced
+        let uv_rect_offset = (9 * std::mem::size_of::<f32>()) as i32;
+        gl.enable_vertex_attrib_array(6);
+        gl.vertex_attrib_pointer_with_i32(6, 4, GL::FLOAT, false, instance_stride, uv_rect_offset);
+        gl.vertex_attrib_divisor(6, 1);
+
         // Unbind
         gl.bind_vertex_array(None);
         gl.bind_buffer(GL::ARRAY_BUFFER, None);
