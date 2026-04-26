@@ -1,7 +1,9 @@
+pub mod ai;
 pub mod bridge;
 pub mod combat;
 pub mod core;
 pub mod dragonbones;
 pub mod entity;
 pub mod render;
+pub mod rpg;
 pub mod world;
