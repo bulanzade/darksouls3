@@ -1,3 +1,4 @@
+pub mod animation_blender;
 #[allow(non_snake_case)]
 pub mod animation_player;
 pub mod armature;
