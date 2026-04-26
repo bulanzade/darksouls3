@@ -1,7 +1,9 @@
 use crate::core::camera::Camera2D;
 use crate::core::input::InputState;
+use crate::core::input::KeyCode;
 use crate::core::time::{Time, FIXED_DT};
-use crate::core::transform::Transform;
+use crate::entity::entity_trait::{Entity, EntityState};
+use crate::entity::player::Player;
 use crate::render::gl_context::GlContext;
 use crate::render::sprite_batcher::SpriteBatcher;
 use crate::render::texture::Texture;
@@ -19,8 +21,7 @@ struct Game {
     time: Time,
     input: InputState,
     camera: Camera2D,
-    player: Transform,
-    player_speed: f32,
+    player: Player,
     chunk: Chunk,
     tileset: Tileset,
     collision: CollisionGrid,
@@ -53,8 +54,7 @@ pub fn wasm_main() {
         time: Time::new(),
         input: InputState::new(),
         camera: Camera2D::new(960.0, 540.0),
-        player: Transform::new(256.0, 256.0),
-        player_speed: 120.0,
+        player: Player::new(1, 256.0, 256.0),
         chunk,
         tileset,
         collision,
@@ -98,7 +98,7 @@ pub fn wasm_main() {
         .unwrap();
     keyup_closure.into_js_value();
 
-    log::info!("DS2D initialized — WASD/arrows to move");
+    log::info!("DS2D initialized — WASD/arrows to move, Space to roll, J to attack");
     request_next_frame();
 }
 
@@ -187,23 +187,46 @@ fn tick(game: &mut Game, timestamp_ms: f64) {
 }
 
 fn fixed_update(game: &mut Game, dt: f32) {
-    let (dx, dy) = game.input.movement();
-    game.player.x += dx * game.player_speed * dt;
-    game.player.y += dy * game.player_speed * dt;
+    // Extract input data before mutating player to avoid borrow conflict
+    let mv = game.input.movement();
+    let attack = game.input.pressed(KeyCode::J);
+    let roll = game.input.pressed(KeyCode::Space);
 
-    // Resolve collision against chunk solid tiles
+    // Apply input directly to player fields
+    {
+        let player = &mut game.player;
+        match player.state {
+            EntityState::Idle | EntityState::Moving => {
+                if mv.0 != 0.0 || mv.1 != 0.0 {
+                    player.facing = mv.1.atan2(mv.0);
+                    player.state = EntityState::Moving;
+                } else {
+                    player.state = EntityState::Idle;
+                }
+                if roll {
+                    player.state = EntityState::Rolling;
+                    player.roll_timer = player.roll_duration;
+                }
+                if attack {
+                    player.state = EntityState::Attacking;
+                    player.attack_timer = player.attack_duration;
+                }
+            }
+            _ => {} // Can't act during attack/roll/stagger/dead
+        }
+    }
+
+    game.player.update(dt);
+
+    // Collision resolution
     let chunk_offset = game.chunk.world_offset();
-    let (rx, ry) = game.collision.resolve_aabb(
-        chunk_offset,
-        game.player.x,
-        game.player.y,
-        16.0,
-        16.0,
-    );
-    game.player.x = rx;
-    game.player.y = ry;
+    let (px, py) = game.player.position();
+    let (rx, ry) = game.collision.resolve_aabb(chunk_offset, px, py, 16.0, 16.0);
+    game.player.set_position(rx, ry);
 
-    game.camera.follow(game.player.x, game.player.y, 5.0, dt);
+    // Camera follows player
+    let (px, py) = game.player.position();
+    game.camera.follow(px, py, 5.0, dt);
     game.camera.update(dt);
 }
 
@@ -247,13 +270,6 @@ fn render(game: &mut Game) {
     }
 
     // --- Draw player ---
-    let instance = game.player.to_instance_data(
-        32.0,
-        32.0,
-        [0.0, 0.0, 1.0, 1.0],
-        [1.0, 1.0, 1.0, 1.0],
-    );
-
-    game.batcher.draw(instance, &game.texture, gl);
+    game.player.render(&mut game.batcher, &game.texture, gl);
     game.batcher.flush(gl);
 }
