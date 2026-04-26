@@ -2,7 +2,8 @@ use crate::core::camera::Camera2D;
 use crate::core::input::InputState;
 use crate::core::input::KeyCode;
 use crate::core::time::{Time, FIXED_DT};
-use crate::entity::entity_trait::{Entity, EntityState};
+use crate::entity::enemy::Enemy;
+use crate::entity::entity_trait::{DamageInfo, Entity, EntityState};
 use crate::entity::player::Player;
 use crate::render::gl_context::GlContext;
 use crate::render::sprite_batcher::SpriteBatcher;
@@ -22,6 +23,7 @@ struct Game {
     input: InputState,
     camera: Camera2D,
     player: Player,
+    enemy: Enemy,
     chunk: Chunk,
     tileset: Tileset,
     collision: CollisionGrid,
@@ -55,6 +57,7 @@ pub fn wasm_main() {
         input: InputState::new(),
         camera: Camera2D::new(960.0, 540.0),
         player: Player::new(1, 256.0, 256.0),
+        enemy: Enemy::new_hollow_soldier(2, 200.0, 200.0),
         chunk,
         tileset,
         collision,
@@ -228,6 +231,43 @@ fn fixed_update(game: &mut Game, dt: f32) {
     let (rx, ry) = game.collision.resolve_aabb(chunk_offset, px, py, 16.0, 16.0);
     game.player.set_position(rx, ry);
 
+    // Enemy AI — track player position
+    let (px, py) = game.player.position();
+    game.enemy.update_ai(px, py, dt);
+
+    // --- Combat collision ---
+    let (px, py) = game.player.position();
+    let (ex, ey) = game.enemy.position();
+
+    // Distance between player and enemy
+    let dx = px - ex;
+    let dy = py - ey;
+    let combat_dist = (dx * dx + dy * dy).sqrt();
+
+    // Player attacks enemy
+    if *game.player.state() == EntityState::Attacking && game.player.attack_timer > 0.0 && combat_dist < 40.0 {
+        let dmg = DamageInfo {
+            damage: 50,
+            knockback_x: 0.0,
+            knockback_y: 0.0,
+            poise_damage: 20.0,
+            attacker_id: game.player.id(),
+        };
+        game.enemy.take_damage(&dmg);
+    }
+
+    // Enemy attacks player
+    if *game.enemy.state() == EntityState::Attacking && combat_dist < game.enemy.attack_range {
+        let dmg = DamageInfo {
+            damage: game.enemy.damage,
+            knockback_x: 0.0,
+            knockback_y: 0.0,
+            poise_damage: 10.0,
+            attacker_id: game.enemy.id(),
+        };
+        game.player.take_damage(&dmg);
+    }
+
     // Camera follows player
     let (px, py) = game.player.position();
     game.camera.follow(px, py, 5.0, dt);
@@ -275,5 +315,9 @@ fn render(game: &mut Game) {
 
     // --- Draw player ---
     game.player.render(&mut game.batcher, &game.texture, gl);
+
+    // --- Draw enemy ---
+    game.enemy.render(&mut game.batcher, &game.texture, gl);
+
     game.batcher.flush(gl);
 }
