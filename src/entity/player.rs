@@ -1,3 +1,4 @@
+use crate::combat::stamina::StaminaPool;
 use crate::core::input::{InputState, KeyCode};
 use crate::core::transform::Transform;
 use crate::entity::entity_trait::{DamageInfo, Entity, EntityId, EntityState};
@@ -19,6 +20,7 @@ pub struct Player {
     pub roll_timer: f32,
     pub roll_duration: f32,
     pub stagger_timer: f32,
+    pub stamina: StaminaPool,
 }
 
 impl Player {
@@ -36,6 +38,7 @@ impl Player {
             roll_timer: 0.0,
             roll_duration: 0.25,
             stagger_timer: 0.0,
+            stamina: StaminaPool::new(100.0),
         }
     }
 
@@ -51,12 +54,16 @@ impl Player {
                 }
 
                 if input.pressed(KeyCode::Space) {
-                    self.state = EntityState::Rolling;
-                    self.roll_timer = self.roll_duration;
+                    if self.stamina.consume(25.0) {
+                        self.state = EntityState::Rolling;
+                        self.roll_timer = self.roll_duration;
+                    }
                 }
                 if input.pressed(KeyCode::J) {
-                    self.state = EntityState::Attacking;
-                    self.attack_timer = self.attack_duration;
+                    if self.stamina.consume(20.0) {
+                        self.state = EntityState::Attacking;
+                        self.attack_timer = self.attack_duration;
+                    }
                 }
             }
             _ => {} // Can't act during attack/roll/stagger/dead
@@ -89,6 +96,9 @@ impl Entity for Player {
     }
 
     fn update(&mut self, dt: f32) {
+        let is_acting = matches!(self.state, EntityState::Attacking | EntityState::Rolling | EntityState::Blocking);
+        self.stamina.update(dt, is_acting);
+
         match self.state {
             EntityState::Moving => {
                 let speed = self.speed * dt;

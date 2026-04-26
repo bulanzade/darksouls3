@@ -1,4 +1,5 @@
 pub mod bridge;
+pub mod combat;
 pub mod core;
 pub mod dragonbones;
 pub mod entity;

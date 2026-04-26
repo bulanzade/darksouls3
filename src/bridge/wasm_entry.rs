@@ -204,12 +204,16 @@ fn fixed_update(game: &mut Game, dt: f32) {
                     player.state = EntityState::Idle;
                 }
                 if roll {
-                    player.state = EntityState::Rolling;
-                    player.roll_timer = player.roll_duration;
+                    if player.stamina.consume(25.0) {
+                        player.state = EntityState::Rolling;
+                        player.roll_timer = player.roll_duration;
+                    }
                 }
                 if attack {
-                    player.state = EntityState::Attacking;
-                    player.attack_timer = player.attack_duration;
+                    if player.stamina.consume(20.0) {
+                        player.state = EntityState::Attacking;
+                        player.attack_timer = player.attack_duration;
+                    }
                 }
             }
             _ => {} // Can't act during attack/roll/stagger/dead
