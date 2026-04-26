@@ -5,6 +5,7 @@ pub mod combat;
 pub mod core;
 pub mod dragonbones;
 pub mod entity;
+pub mod game;
 pub mod render;
 pub mod rpg;
 pub mod world;

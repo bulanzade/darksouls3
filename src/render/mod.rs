@@ -4,4 +4,5 @@ pub mod post_process;
 pub mod shader;
 pub mod sprite_batcher;
 pub mod texture;
+pub mod ui_renderer;
 pub mod vertex;
