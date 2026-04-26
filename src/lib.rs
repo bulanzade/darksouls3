@@ -8,4 +8,5 @@ pub mod entity;
 pub mod game;
 pub mod render;
 pub mod rpg;
+pub mod save;
 pub mod world;
