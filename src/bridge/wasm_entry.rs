@@ -677,11 +677,56 @@ fn render(game: &mut Game) {
     // --- Draw enemies ---
     for enemy in &game.enemies {
         enemy.render(&mut game.batcher, &game.texture, gl);
+        // Health bar above enemy
+        if !enemy.is_dead() {
+            let (ex, ey) = enemy.position();
+            let hp_ratio = enemy.hp as f32 / enemy.max_hp as f32;
+            let bar_w = 26.0;
+            let bar_h = 3.0;
+            let bar_y = ey - 20.0;
+            // Background
+            game.batcher.draw(
+                InstanceData::new(ex, bar_y, bar_w, bar_h, [0.0, 0.0, 1.0, 1.0], [0.2, 0.2, 0.2, 0.8]),
+                &game.texture, gl,
+            );
+            // Foreground
+            let fg_w = bar_w * hp_ratio;
+            let fg_x = ex - bar_w * 0.5 + fg_w * 0.5;
+            let hp_color: [f32; 4] = if hp_ratio > 0.5 {
+                [0.2, 0.8, 0.2, 0.9]
+            } else if hp_ratio > 0.25 {
+                [0.8, 0.8, 0.2, 0.9]
+            } else {
+                [0.9, 0.2, 0.2, 0.9]
+            };
+            game.batcher.draw(
+                InstanceData::new(fg_x, bar_y, fg_w, bar_h, [0.0, 0.0, 1.0, 1.0], hp_color),
+                &game.texture, gl,
+            );
+        }
     }
 
     // --- Draw boss ---
     if let Some(ref boss) = game.boss {
         boss.render(&mut game.batcher, &game.texture, gl);
+        // Health bar above boss
+        if !boss.is_dead() {
+            let (bx, by) = boss.position();
+            let hp_ratio = boss.hp as f32 / boss.max_hp as f32;
+            let bar_w = 48.0;
+            let bar_h = 4.0;
+            let bar_y = by - 30.0;
+            game.batcher.draw(
+                InstanceData::new(bx, bar_y, bar_w, bar_h, [0.0, 0.0, 1.0, 1.0], [0.2, 0.2, 0.2, 0.8]),
+                &game.texture, gl,
+            );
+            let fg_w = bar_w * hp_ratio;
+            let fg_x = bx - bar_w * 0.5 + fg_w * 0.5;
+            game.batcher.draw(
+                InstanceData::new(fg_x, bar_y, fg_w, bar_h, [0.0, 0.0, 1.0, 1.0], [0.8, 0.2, 0.8, 0.9]),
+                &game.texture, gl,
+            );
+        }
     }
 
     // --- Draw player ---
