@@ -2,7 +2,7 @@ pub const FIXED_DT: f64 = 1.0 / 60.0;
 const MAX_FRAME_TIME: f64 = 0.1; // 100 ms
 
 pub struct Time {
-    accumulator: f64,
+    pub accumulator: f64,
     last_timestamp: Option<f64>,
 }
 

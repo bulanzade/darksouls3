@@ -8,6 +8,7 @@ pub struct UiRenderer {
     vao: web_sys::WebGlVertexArrayObject,
     _quad_vbo: web_sys::WebGlBuffer,
     instance_vbo: web_sys::WebGlBuffer,
+    white_tex: web_sys::WebGlTexture,
 }
 
 impl UiRenderer {
@@ -109,11 +110,22 @@ impl UiRenderer {
         gl.bind_vertex_array(None);
         gl.bind_buffer(GL::ARRAY_BUFFER, None);
 
+        // Create a 1x1 white texture for UI bars (texture * color = color)
+        let white_tex = gl.create_texture().ok_or("Failed to create white tex")?;
+        gl.bind_texture(GL::TEXTURE_2D, Some(&white_tex));
+        gl.tex_image_2d_with_i32_and_i32_and_i32_and_format_and_type_and_opt_u8_array(
+            GL::TEXTURE_2D, 0, GL::RGBA as i32, 1, 1, 0,
+            GL::RGBA, GL::UNSIGNED_BYTE, Some(&[255, 255, 255, 255]),
+        ).map_err(|_| "Failed to upload white tex")?;
+        gl.tex_parameteri(GL::TEXTURE_2D, GL::TEXTURE_MIN_FILTER, GL::NEAREST as i32);
+        gl.tex_parameteri(GL::TEXTURE_2D, GL::TEXTURE_MAG_FILTER, GL::NEAREST as i32);
+
         Ok(Self {
             shader,
             vao,
             _quad_vbo: quad_vbo,
             instance_vbo,
+            white_tex,
         })
     }
 
@@ -132,6 +144,11 @@ impl UiRenderer {
     ) {
         self.shader.bind(gl);
         self.shader.uniform_matrix4fv(gl, "u_projection", projection);
+
+        // Bind white texture so tex_color = white, output = vertex color
+        gl.active_texture(GL::TEXTURE0);
+        gl.bind_texture(GL::TEXTURE_2D, Some(&self.white_tex));
+        self.shader.uniform_1i(gl, "u_texture", 0);
 
         // Build two instances: background (full width) and foreground (filled portion)
         let bg =

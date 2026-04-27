@@ -4,14 +4,72 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DS2D - Dark Souls 2D</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; height: 100%; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        #game-canvas { display: block; image-rendering: pixelated; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        #ui-overlay {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 960px; height: 540px;
+            pointer-events: none;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #ddd;
+        }
+        #ui-overlay .menu {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        #ui-overlay .menu-item {
+            padding: 8px 32px; font-size: 22px; color: #888; cursor: default;
+        }
+        #ui-overlay .menu-item.selected {
+            color: #e8c840; text-shadow: 0 0 12px rgba(232,200,64,0.6);
+        }
+        #ui-overlay .death-title {
+            position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 36px; color: #c44; letter-spacing: 8px; text-shadow: 0 0 20px rgba(200,0,0,0.5);
+        }
+        #ui-overlay .hud-text {
+            position: absolute; top: 6px; left: 230px; font-size: 14px; color: #aaa;
+        }
+        #ui-overlay .souls {
+            position: absolute; top: 6px; left: 20px; font-size: 14px; color: #cc9;
+        }
+        #ui-overlay .boss-name {
+            position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+            font-size: 14px; color: #c8c; text-align: center;
+        }
+        #ui-overlay .controls {
+            position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+            font-size: 12px; color: #555; text-align: center;
+        }
+    </style>
 </head>
 <body>
     <canvas id="game-canvas" width="960" height="540"></canvas>
+    <div id="ui-overlay">
+        <div class="menu" id="menu" style="display:none"></div>
+        <div class="death-title" id="death-title" style="display:none">YOU DIED</div>
+        <div class="hud-text" id="hud-text"></div>
+        <div class="souls" id="souls-text"></div>
+        <div class="boss-name" id="boss-name" style="display:none"></div>
+        <div class="controls" id="controls">WASD move · Space roll · J attack · E estus</div>
+    </div>
     <script type="module">
-        import init from './pkg/ds2d.js';
+        const v = Date.now();
+        import init, { js_keydown, js_keyup, js_debug_state } from './pkg/ds2d.js';
         async function run() {
-            await init();
+            await init('./pkg/ds2d_bg.wasm?v=' + v);
+            window.js_keydown = js_keydown;
+            window.js_keyup = js_keyup;
+            window.js_debug_state = js_debug_state;
+            window.addEventListener('keydown', (e) => {
+                e.preventDefault();
+                js_keydown(e.key);
+            });
+            window.addEventListener('keyup', (e) => {
+                js_keyup(e.key);
+            });
         }
         run();
     </script>

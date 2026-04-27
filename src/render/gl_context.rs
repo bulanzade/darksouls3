@@ -24,7 +24,7 @@ impl GlContext {
             .dyn_into()
             .map_err(|_| "Context is not WebGL2")?;
 
-        gl.enable(WebGl2RenderingContext::DEPTH_TEST);
+        // No depth test for 2D — draw order determines visibility
         gl.enable(WebGl2RenderingContext::BLEND);
         gl.blend_func(
             WebGl2RenderingContext::SRC_ALPHA,
@@ -38,7 +38,7 @@ impl GlContext {
         let gl = &self.gl;
         gl.clear_color(r, g, b, a);
         gl.clear(
-            WebGl2RenderingContext::COLOR_BUFFER_BIT | WebGl2RenderingContext::DEPTH_BUFFER_BIT,
+            WebGl2RenderingContext::COLOR_BUFFER_BIT,
         );
     }
 

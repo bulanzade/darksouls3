@@ -20,6 +20,7 @@ pub struct Boss {
     pub attack_timer: f32,
     pub attack_duration: f32,
     pub stagger_timer: f32,
+    pub has_hit_this_attack: bool,
 }
 
 impl Boss {
@@ -65,6 +66,7 @@ impl Boss {
             attack_timer: 0.0,
             attack_duration: 0.8,
             stagger_timer: 0.0,
+            has_hit_this_attack: false,
         }
     }
 
@@ -108,6 +110,7 @@ impl Boss {
                 if self.attack_timer <= 0.0 {
                     self.state = EntityState::Attacking;
                     self.attack_timer = self.attack_duration;
+                    self.has_hit_this_attack = false;
                 }
             }
             BossDirective::PhaseTransition => {

@@ -111,7 +111,7 @@ pub fn low_hp(ctx: &TransitionContext) -> bool {
     ctx.hp_ratio < 0.3
 }
 pub fn attack_done(ctx: &TransitionContext) -> bool {
-    ctx.state_timer > 0.6
+    ctx.state_timer > 1.2
 }
 pub fn retreat_done(ctx: &TransitionContext) -> bool {
     ctx.state_timer > 1.0

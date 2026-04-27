@@ -20,6 +20,7 @@ pub struct Enemy {
     pub spawn_y: f32,
     pub fsm: StateMachine,
     pub aggro: AggroTable,
+    pub has_hit_this_attack: bool,
 }
 
 impl Enemy {
@@ -69,11 +70,11 @@ impl Enemy {
             ],
         });
 
-        // ATTACK -> CHASE after attack animation
+        // ATTACK -> CHASE after attack + recovery
         fsm.add_state(StateDef {
             id: ATTACK,
             name: "Attack".into(),
-            duration: Some(0.6),
+            duration: Some(1.5),
             transitions: vec![Transition {
                 target: CHASE,
                 condition: attack_done,
@@ -117,7 +118,7 @@ impl Enemy {
             }],
         });
 
-        let aggro = AggroTable::new(200.0, 350.0);
+        let aggro = AggroTable::new(120.0, 250.0);
 
         Self {
             id,
@@ -127,12 +128,13 @@ impl Enemy {
             speed: 60.0,
             state: EntityState::Idle,
             facing: 0.0,
-            damage: 30,
+            damage: 20,
             attack_range: 36.0,
             spawn_x: x,
             spawn_y: y,
             fsm,
             aggro,
+            has_hit_this_attack: false,
         }
     }
 
@@ -196,6 +198,9 @@ impl Enemy {
                 self.state = EntityState::Moving;
             }
             ATTACK => {
+                if self.state != EntityState::Attacking {
+                    self.has_hit_this_attack = false;
+                }
                 self.state = EntityState::Attacking;
             }
             RETREAT => {

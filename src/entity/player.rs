@@ -20,6 +20,7 @@ pub struct Player {
     pub roll_timer: f32,
     pub roll_duration: f32,
     pub stagger_timer: f32,
+    pub invuln_timer: f32,
     pub stamina: StaminaPool,
 }
 
@@ -38,6 +39,7 @@ impl Player {
             roll_timer: 0.0,
             roll_duration: 0.25,
             stagger_timer: 0.0,
+            invuln_timer: 0.0,
             stamina: StaminaPool::new(100.0),
         }
     }
@@ -98,6 +100,9 @@ impl Entity for Player {
     fn update(&mut self, dt: f32) {
         let is_acting = matches!(self.state, EntityState::Attacking | EntityState::Rolling | EntityState::Blocking);
         self.stamina.update(dt, is_acting);
+        if self.invuln_timer > 0.0 {
+            self.invuln_timer -= dt;
+        }
 
         match self.state {
             EntityState::Moving => {
@@ -146,9 +151,13 @@ impl Entity for Player {
     }
 
     fn take_damage(&mut self, info: &DamageInfo) {
+        if self.invuln_timer > 0.0 {
+            return;
+        }
         self.hp -= info.damage;
         self.state = EntityState::Staggered;
-        self.stagger_timer = 0.3;
+        self.stagger_timer = 0.2;
+        self.invuln_timer = 0.8;
         if self.hp <= 0 {
             self.hp = 0;
             self.state = EntityState::Dead;

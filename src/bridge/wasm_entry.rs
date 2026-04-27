@@ -83,9 +83,9 @@ pub fn wasm_main() {
 
     // Create enemies
     let enemies = vec![
-        Enemy::new_hollow_soldier(2, 180.0, 180.0),
-        Enemy::new_hollow_soldier(3, 350.0, 200.0),
-        Enemy::new_hollow_soldier(4, 150.0, 380.0),
+        Enemy::new_hollow_soldier(2, 100.0, 100.0),
+        Enemy::new_hollow_soldier(3, 400.0, 100.0),
+        Enemy::new_hollow_soldier(4, 400.0, 400.0),
     ];
 
     // Initial lights
@@ -100,7 +100,12 @@ pub fn wasm_main() {
         texture,
         time: Time::new(),
         input: InputState::new(),
-        camera: Camera2D::new(screen_w, screen_h),
+        camera: {
+            let mut cam = Camera2D::new(screen_w, screen_h);
+            cam.x = 256.0;
+            cam.y = 256.0;
+            cam
+        },
         player: Player::new(1, 256.0, 256.0),
         enemies,
         boss: None,
@@ -127,41 +132,92 @@ pub fn wasm_main() {
         GAME = Some(game);
     }
 
-    // Keyboard event listeners
-    let window = web_sys::window().unwrap();
-
-    let keydown_closure = Closure::wrap(Box::new(|e: web_sys::KeyboardEvent| {
-        let code = e.key_code() as usize;
-        unsafe {
-            let game_ptr = &raw mut GAME;
-            if let Some(g) = &mut *game_ptr {
-                g.input.set_key(code, true);
-            }
-        }
-    }) as Box<dyn FnMut(web_sys::KeyboardEvent)>);
-
-    window
-        .add_event_listener_with_callback("keydown", keydown_closure.as_ref().unchecked_ref())
-        .unwrap();
-    keydown_closure.into_js_value();
-
-    let keyup_closure = Closure::wrap(Box::new(|e: web_sys::KeyboardEvent| {
-        let code = e.key_code() as usize;
-        unsafe {
-            let game_ptr = &raw mut GAME;
-            if let Some(g) = &mut *game_ptr {
-                g.input.set_key(code, false);
-            }
-        }
-    }) as Box<dyn FnMut(web_sys::KeyboardEvent)>);
-
-    window
-        .add_event_listener_with_callback("keyup", keyup_closure.as_ref().unchecked_ref())
-        .unwrap();
-    keyup_closure.into_js_value();
-
-    log::info!("DS2D initialized — WASD/arrows to move, Space to roll, J to attack, E for estus");
+    log::info!("DS2D v2 initialized — WASD/arrows to move, Space to roll, J to attack, E for estus");
     request_next_frame();
+}
+
+/// Called from JavaScript on keydown. `key` is the KeyboardEvent.key string.
+#[wasm_bindgen]
+pub fn js_keydown(key: &str) {
+    let idx = key_to_idx(key);
+    if idx < 256 {
+        unsafe {
+            let game_ptr = &raw mut GAME;
+            if let Some(g) = &mut *game_ptr {
+                g.input.set_key(idx, true);
+            }
+        }
+    }
+}
+
+/// Called from JavaScript on keyup.
+#[wasm_bindgen]
+pub fn js_keyup(key: &str) {
+    let idx = key_to_idx(key);
+    if idx < 256 {
+        unsafe {
+            let game_ptr = &raw mut GAME;
+            if let Some(g) = &mut *game_ptr {
+                g.input.set_key(idx, false);
+            }
+        }
+    }
+}
+
+/// Returns game state info for debugging.
+#[wasm_bindgen]
+pub fn js_debug_state() -> String {
+    unsafe {
+        let game_ptr = &raw mut GAME;
+        if let Some(g) = &mut *game_ptr {
+            let state = match g.state {
+                GameState::TitleScreen => "TitleScreen",
+                GameState::Playing => "Playing",
+                GameState::DeathScreen => "DeathScreen",
+                GameState::BonfireMenu => "BonfireMenu",
+                _ => "Other",
+            };
+            let enemies: Vec<String> = g.enemies.iter().enumerate().map(|(i, e)| {
+                let (ex, ey) = e.position();
+                let dist = ((g.player.transform.x - ex).powi(2) + (g.player.transform.y - ey).powi(2)).sqrt();
+                format!("{}:({:.0},{:.0}) d={:.0} s={:?}", i, ex, ey, dist, e.state)
+            }).collect();
+            format!(
+                "state={} hp={} inv={} pos=({:.0},{:.0}) enemies=[{}] acc={:.3}",
+                state, g.player.hp, g.player.invuln_timer,
+                g.player.transform.x, g.player.transform.y,
+                enemies.join(" "),
+                g.time.accumulator,
+            )
+        } else {
+            "GAME not initialized".into()
+        }
+    }
+}
+
+/// Map KeyboardEvent.key() string to our KeyCode index.
+/// Uses the same values as the KeyCode enum so the rest of the code works unchanged.
+fn key_to_idx(key: &str) -> usize {
+    match key {
+        " " => 32,
+        "Shift" | "ShiftLeft" => 16,
+        "Enter" => 13,
+        "Escape" => 27,
+        "ArrowLeft" => 37,
+        "ArrowUp" => 38,
+        "ArrowRight" => 39,
+        "ArrowDown" => 40,
+        "a" | "A" => 65,
+        "d" | "D" => 68,
+        "e" | "E" => 69,
+        "i" | "I" => 73,
+        "j" | "J" => 74,
+        "k" | "K" => 75,
+        "l" | "L" => 76,
+        "s" | "S" => 83,
+        "w" | "W" => 87,
+        _ => 255,
+    }
 }
 
 fn create_test_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
@@ -236,11 +292,13 @@ fn tick(game: &mut Game, timestamp_ms: f64) {
     let fixed_dt = FIXED_DT as f32;
 
     while game.time.should_fixed_update() {
-        game.input.begin_frame();
         fixed_update(game, fixed_dt);
     }
 
     render(game);
+
+    // Clear press flags AFTER game logic has consumed them
+    game.input.begin_frame();
 }
 
 fn fixed_update(game: &mut Game, dt: f32) {
@@ -259,11 +317,12 @@ fn update_title_screen(game: &mut Game) {
             match action {
                 MenuAction::NewGame => {
                     game.state = GameState::Playing;
+                    game.time.accumulator = 0.0;
                     game.player = Player::new(1, 256.0, 256.0);
                     game.enemies = vec![
-                        Enemy::new_hollow_soldier(2, 180.0, 180.0),
-                        Enemy::new_hollow_soldier(3, 350.0, 200.0),
-                        Enemy::new_hollow_soldier(4, 150.0, 380.0),
+                        Enemy::new_hollow_soldier(2, 100.0, 100.0),
+                        Enemy::new_hollow_soldier(3, 400.0, 100.0),
+                        Enemy::new_hollow_soldier(4, 400.0, 400.0),
                     ];
                     game.boss = None;
                     game.boss_active = false;
@@ -273,6 +332,7 @@ fn update_title_screen(game: &mut Game) {
                 }
                 MenuAction::Continue => {
                     game.state = GameState::Playing;
+                    game.time.accumulator = 0.0;
                 }
                 _ => {}
             }
@@ -377,7 +437,7 @@ fn update_playing(game: &mut Game, dt: f32) {
             }
         }
 
-        if *enemy.state() == EntityState::Attacking && dist < enemy.attack_range {
+        if *enemy.state() == EntityState::Attacking && dist < enemy.attack_range && !enemy.has_hit_this_attack {
             if *game.player.state() != EntityState::Rolling {
                 let dmg = DamageInfo {
                     damage: enemy.damage,
@@ -387,6 +447,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                     attacker_id: enemy.id(),
                 };
                 game.player.take_damage(&dmg);
+                enemy.has_hit_this_attack = true;
             }
         }
     }
@@ -411,7 +472,7 @@ fn update_playing(game: &mut Game, dt: f32) {
             }
         }
 
-        if *boss.state() == EntityState::Attacking && dist < 60.0 {
+        if *boss.state() == EntityState::Attacking && dist < 60.0 && !boss.has_hit_this_attack {
             if *game.player.state() != EntityState::Rolling {
                 let dmg = DamageInfo {
                     damage: boss.damage,
@@ -421,6 +482,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                     attacker_id: boss.id(),
                 };
                 game.player.take_damage(&dmg);
+                boss.has_hit_this_attack = true;
             }
         }
     }
@@ -461,13 +523,14 @@ fn update_death(game: &mut Game) {
                     game.souls = 0; // Lost souls
                     game.bonfire.rest();
                     game.enemies = vec![
-                        Enemy::new_hollow_soldier(2, 180.0, 180.0),
-                        Enemy::new_hollow_soldier(3, 350.0, 200.0),
-                        Enemy::new_hollow_soldier(4, 150.0, 380.0),
+                        Enemy::new_hollow_soldier(2, 100.0, 100.0),
+                        Enemy::new_hollow_soldier(3, 400.0, 100.0),
+                        Enemy::new_hollow_soldier(4, 400.0, 400.0),
                     ];
                     game.boss = None;
                     game.boss_active = false;
                     game.boss_defeated = false;
+                    game.time.accumulator = 0.0;
                     game.state = GameState::Playing;
                 }
                 MenuAction::QuitToTitle => {
@@ -563,26 +626,10 @@ fn render(game: &mut Game) {
 
     game.batcher.flush(gl);
 
-    // --- Lighting pass ---
-    let light_proj = game.camera.projection_matrix();
-    let (_cam_x, _cam_y) = (game.camera.x, game.camera.y);
-    game.light_renderer.render_lights(
-        gl,
-        &game.lights,
-        &light_proj,
-        game.screen_w,
-        game.screen_h,
-    );
-
-    // --- Post-processing pass ---
-    game.post_processor.render(
-        gl,
-        0.4,                                    // vignette
-        [0.02, 0.02, 0.04, 0.3],               // fog color
-        [300.0, 500.0],                          // fog distance
-        0.95,                                    // brightness
-        0.9,                                     // saturation
-    );
+    // TODO: re-enable lighting and post-processing once framebuffer is set up.
+    // Without a render-to-texture FBO, these passes draw over the scene incorrectly.
+    // game.light_renderer.render_lights(...);
+    // game.post_processor.render(...);
 
     // --- HUD (screen-space) ---
     let ui_proj = UiRenderer::screen_projection(game.screen_w, game.screen_h);
@@ -633,13 +680,19 @@ fn render(game: &mut Game) {
         &ui_proj,
     );
 
-    // --- Menu overlays ---
+    // --- Menu overlay bars (background darkening for title/death) ---
     match game.state {
         GameState::TitleScreen => {
-            draw_menu_overlay(gl, &game.ui_renderer, &ui_proj, &game.menu, game.screen_w, game.screen_h);
+            game.ui_renderer.draw_bar(
+                gl, game.screen_w * 0.5, game.screen_h * 0.5,
+                game.screen_w, game.screen_h,
+                1.0,
+                [0.0, 0.0, 0.0, 0.5],
+                [0.0, 0.0, 0.0, 0.5],
+                &ui_proj,
+            );
         }
         GameState::DeathScreen => {
-            // Darken screen
             game.ui_renderer.draw_bar(
                 gl, game.screen_w * 0.5, game.screen_h * 0.5,
                 game.screen_w, game.screen_h,
@@ -648,59 +701,89 @@ fn render(game: &mut Game) {
                 [0.0, 0.0, 0.0, 0.7],
                 &ui_proj,
             );
-            draw_menu_overlay(gl, &game.ui_renderer, &ui_proj, &game.menu, game.screen_w, game.screen_h);
-        }
-        GameState::BonfireMenu => {
-            draw_menu_overlay(gl, &game.ui_renderer, &ui_proj, &game.menu, game.screen_w, game.screen_h);
         }
         _ => {}
     }
+
+    // --- DOM text overlay ---
+    update_dom_ui(game);
 }
 
-fn draw_menu_overlay(
-    gl: &web_sys::WebGl2RenderingContext,
-    ui: &UiRenderer,
-    proj: &[f32; 16],
-    menu: &MenuState,
-    screen_w: f32,
-    screen_h: f32,
-) {
-    // Dark background for menu
-    ui.draw_bar(
-        gl,
-        screen_w * 0.5,
-        screen_h * 0.5,
-        screen_w,
-        screen_h,
-        1.0,
-        [0.0, 0.0, 0.0, 0.5],
-        [0.0, 0.0, 0.0, 0.5],
-        proj,
-    );
+fn update_dom_ui(game: &Game) {
+    let window = match web_sys::window() {
+        Some(w) => w,
+        None => return,
+    };
+    let document = match window.document() {
+        Some(d) => d,
+        None => return,
+    };
 
-    // Menu items as bars
-    let item_h = 24.0;
-    let spacing = 32.0;
-    let start_y = screen_h * 0.5 - (menu.items.len() as f32 * spacing) * 0.5;
-
-    for (i, _item) in menu.items.iter().enumerate() {
-        let y = start_y + i as f32 * spacing;
-        let is_selected = i == menu.selected_index;
-        let color: [f32; 4] = if is_selected {
-            [0.9, 0.8, 0.3, 0.9]
+    // Menu
+    if let Some(menu_el) = document.get_element_by_id("menu") {
+        if matches!(game.state, GameState::TitleScreen | GameState::DeathScreen | GameState::BonfireMenu) {
+            let html: String = game.menu.items.iter().enumerate().map(|(i, item)| {
+                if i == game.menu.selected_index {
+                    format!("<div class=\"menu-item selected\">▸ {}</div>", item.label)
+                } else {
+                    format!("<div class=\"menu-item\">{}</div>", item.label)
+                }
+            }).collect::<Vec<_>>().join("");
+            let _ = menu_el.set_attribute("style", "");
+            menu_el.set_inner_html(&html);
         } else {
-            [0.5, 0.5, 0.5, 0.7]
+            let _ = menu_el.set_attribute("style", "display:none");
+            menu_el.set_inner_html("");
+        }
+    }
+
+    // Death title
+    if let Some(el) = document.get_element_by_id("death-title") {
+        if game.state == GameState::DeathScreen {
+            let _ = el.set_attribute("style", "");
+        } else {
+            let _ = el.set_attribute("style", "display:none");
+        }
+    }
+
+    // HUD text
+    if let Some(el) = document.get_element_by_id("hud-text") {
+        let hp = game.player.hp;
+        let max_hp = game.player.max_hp;
+        let stamina = game.player.stamina.current as i32;
+        let max_sta = game.player.stamina.maximum as i32;
+        let state_name = match game.player.state {
+            EntityState::Idle => "Idle",
+            EntityState::Moving => "Moving",
+            EntityState::Attacking => "ATTACK",
+            EntityState::Rolling => "ROLL",
+            EntityState::Staggered => "STAGGER",
+            EntityState::Dead => "DEAD",
+            EntityState::Blocking => "BLOCK",
         };
-        ui.draw_bar(
-            gl,
-            screen_w * 0.5,
-            y,
-            160.0,
-            item_h,
-            1.0,
-            [0.1, 0.1, 0.1, 0.6],
-            color,
-            proj,
-        );
+        el.set_text_content(Some(&format!(
+            "HP {}/{} | STA {}/{} | {}",
+            hp, max_hp, stamina, max_sta, state_name
+        )));
+    }
+
+    // Souls
+    if let Some(el) = document.get_element_by_id("souls-text") {
+        el.set_text_content(Some(&format!("Souls: {} | Estus: {}/{}",
+            game.souls, game.bonfire.estus_charges, game.bonfire.estus_max)));
+    }
+
+    // Boss name
+    if let Some(el) = document.get_element_by_id("boss-name") {
+        if let Some(ref boss) = game.boss {
+            if !boss.is_dead() {
+                let _ = el.set_attribute("style", "");
+                el.set_text_content(Some(&format!("BOSS — HP: {}/{}", boss.hp, boss.max_hp)));
+            } else {
+                let _ = el.set_attribute("style", "display:none");
+            }
+        } else {
+            let _ = el.set_attribute("style", "display:none");
+        }
     }
 }

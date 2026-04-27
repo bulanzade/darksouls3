@@ -22,32 +22,34 @@ pub enum KeyCode {
 
 pub struct InputState {
     keys: [bool; 256],
-    keys_prev: [bool; 256],
+    just_pressed: [bool; 256],
 }
 
 impl InputState {
     pub fn new() -> Self {
         Self {
             keys: [false; 256],
-            keys_prev: [false; 256],
+            just_pressed: [false; 256],
         }
     }
 
-    /// Call at the start of each fixed-update tick to snapshot previous state.
+    /// Call at the start of each render tick to clear one-shot press flags.
     pub fn begin_frame(&mut self) {
-        self.keys_prev = self.keys;
+        self.just_pressed = [false; 256];
     }
 
     pub fn set_key(&mut self, code: usize, pressed: bool) {
         if code < 256 {
+            if pressed && !self.keys[code] {
+                self.just_pressed[code] = true;
+            }
             self.keys[code] = pressed;
         }
     }
 
-    /// Rising edge — key was just pressed this frame.
+    /// Key was pressed since last begin_frame() (event-based, won't miss fast taps).
     pub fn pressed(&self, key: KeyCode) -> bool {
-        let i = key as usize;
-        self.keys[i] && !self.keys_prev[i]
+        self.just_pressed[key as usize]
     }
 
     /// Key is currently held down.
@@ -57,8 +59,7 @@ impl InputState {
 
     /// Falling edge — key was just released this frame.
     pub fn released(&self, key: KeyCode) -> bool {
-        let i = key as usize;
-        !self.keys[i] && self.keys_prev[i]
+        !self.keys[key as usize]
     }
 
     /// Returns a normalized (x, y) movement vector from WASD / arrow keys.
