@@ -52,6 +52,9 @@ struct Game {
     // Boss tracking
     boss_active: bool,
     boss_defeated: bool,
+    // Bonfire world position
+    bonfire_x: f32,
+    bonfire_y: f32,
     // Screen dimensions
     screen_w: f32,
     screen_h: f32,
@@ -81,17 +84,17 @@ pub fn wasm_main() {
     let post_processor = PostProcessor::new(gl).expect("Failed to create post-processor");
     let ui_renderer = UiRenderer::new(gl).expect("Failed to create UI renderer");
 
-    // Create enemies
+    // Create enemies — placed in Room 2 (Enemy Hall)
     let enemies = vec![
-        Enemy::new_hollow_soldier(2, 100.0, 100.0),
-        Enemy::new_hollow_soldier(3, 400.0, 100.0),
-        Enemy::new_hollow_soldier(4, 400.0, 400.0),
+        Enemy::new_hollow_soldier(2, 600.0, 150.0),
+        Enemy::new_hollow_soldier(3, 750.0, 200.0),
+        Enemy::new_hollow_soldier(4, 680.0, 300.0),
     ];
 
     // Initial lights
     let lights = vec![
-        Light { x: 256.0, y: 256.0, radius: 200.0, color: [0.9, 0.8, 0.6], intensity: 0.4 },
-        Light { x: 100.0, y: 100.0, radius: 150.0, color: [0.3, 0.3, 0.8], intensity: 0.2 },
+        Light { x: 200.0, y: 200.0, radius: 250.0, color: [0.9, 0.8, 0.6], intensity: 0.4 },
+        Light { x: 700.0, y: 200.0, radius: 200.0, color: [0.3, 0.3, 0.8], intensity: 0.2 },
     ];
 
     let game = Game {
@@ -102,11 +105,11 @@ pub fn wasm_main() {
         input: InputState::new(),
         camera: {
             let mut cam = Camera2D::new(screen_w, screen_h);
-            cam.x = 256.0;
-            cam.y = 256.0;
+            cam.x = 200.0;
+            cam.y = 200.0;
             cam
         },
-        player: Player::new(1, 256.0, 256.0),
+        player: Player::new(1, 200.0, 200.0),
         enemies,
         boss: None,
         chunk,
@@ -124,6 +127,8 @@ pub fn wasm_main() {
         audio: AudioEngine,
         boss_active: false,
         boss_defeated: false,
+        bonfire_x: 200.0,
+        bonfire_y: 200.0,
         screen_w,
         screen_h,
     };
@@ -175,6 +180,7 @@ pub fn js_debug_state() -> String {
                 GameState::Playing => "Playing",
                 GameState::DeathScreen => "DeathScreen",
                 GameState::BonfireMenu => "BonfireMenu",
+                GameState::Victory => "Victory",
                 _ => "Other",
             };
             let enemies: Vec<String> = g.enemies.iter().enumerate().map(|(i, e)| {
@@ -307,6 +313,7 @@ fn fixed_update(game: &mut Game, dt: f32) {
         GameState::Playing => update_playing(game, dt),
         GameState::DeathScreen => update_death(game),
         GameState::BonfireMenu => update_bonfire_menu(game),
+        GameState::Victory => update_victory(game),
         _ => {}
     }
 }
@@ -318,11 +325,11 @@ fn update_title_screen(game: &mut Game) {
                 MenuAction::NewGame => {
                     game.state = GameState::Playing;
                     game.time.accumulator = 0.0;
-                    game.player = Player::new(1, 256.0, 256.0);
+                    game.player = Player::new(1, 200.0, 200.0);
                     game.enemies = vec![
-                        Enemy::new_hollow_soldier(2, 100.0, 100.0),
-                        Enemy::new_hollow_soldier(3, 400.0, 100.0),
-                        Enemy::new_hollow_soldier(4, 400.0, 400.0),
+                        Enemy::new_hollow_soldier(2, 620.0, 160.0),
+                        Enemy::new_hollow_soldier(3, 740.0, 200.0),
+                        Enemy::new_hollow_soldier(4, 680.0, 320.0),
                     ];
                     game.boss = None;
                     game.boss_active = false;
@@ -351,6 +358,21 @@ fn update_playing(game: &mut Game, dt: f32) {
     let attack = game.input.pressed(KeyCode::J);
     let roll = game.input.pressed(KeyCode::Space);
     let estus = game.input.pressed(KeyCode::E);
+    let interact = game.input.pressed(KeyCode::Enter);
+
+    // Bonfire interaction
+    if interact {
+        let (px, py) = game.player.position();
+        let dx = px - game.bonfire_x;
+        let dy = py - game.bonfire_y;
+        let dist = (dx * dx + dy * dy).sqrt();
+        if dist < 40.0 {
+            game.state = GameState::BonfireMenu;
+            game.menu = MenuState::bonfire_menu();
+            game.time.accumulator = 0.0;
+            return;
+        }
+    }
 
     // Estus healing
     if estus && game.player.hp < game.player.max_hp {
@@ -489,7 +511,7 @@ fn update_playing(game: &mut Game, dt: f32) {
 
     // --- Spawn boss when all enemies dead ---
     if !game.boss_active && !game.boss_defeated && game.enemies.iter().all(|e| e.is_dead()) {
-        game.boss = Some(Boss::new_test_boss(10, 400.0, 300.0));
+        game.boss = Some(Boss::new_test_boss(10, 736.0, 688.0));
         game.boss_active = true;
     }
 
@@ -506,6 +528,15 @@ fn update_playing(game: &mut Game, dt: f32) {
     // Audio listener position
     game.audio.set_listener_position(px, py);
 
+    // Check victory
+    if game.boss_defeated {
+        if let Some(ref boss) = game.boss {
+            if boss.is_dead() {
+                game.state = GameState::Victory;
+            }
+        }
+    }
+
     // Check player death
     if game.player.is_dead() {
         game.state = GameState::DeathScreen;
@@ -519,13 +550,13 @@ fn update_death(game: &mut Game) {
             match action {
                 MenuAction::Continue => {
                     // Respawn at bonfire
-                    game.player = Player::new(1, 256.0, 256.0);
+                    game.player = Player::new(1, 200.0, 200.0);
                     game.souls = 0; // Lost souls
                     game.bonfire.rest();
                     game.enemies = vec![
-                        Enemy::new_hollow_soldier(2, 100.0, 100.0),
-                        Enemy::new_hollow_soldier(3, 400.0, 100.0),
-                        Enemy::new_hollow_soldier(4, 400.0, 400.0),
+                        Enemy::new_hollow_soldier(2, 620.0, 160.0),
+                        Enemy::new_hollow_soldier(3, 740.0, 200.0),
+                        Enemy::new_hollow_soldier(4, 680.0, 320.0),
                     ];
                     game.boss = None;
                     game.boss_active = false;
@@ -576,6 +607,18 @@ fn update_bonfire_menu(game: &mut Game) {
     }
 }
 
+fn update_victory(game: &mut Game) {
+    if game.input.pressed(KeyCode::Enter) {
+        game.state = GameState::TitleScreen;
+        game.menu = MenuState::title_screen();
+        game.boss_active = false;
+        game.boss_defeated = false;
+        game.boss = None;
+        game.souls = 0;
+        game.time.accumulator = 0.0;
+    }
+}
+
 fn render(game: &mut Game) {
     let gl = &game.gl_ctx.gl;
     game.gl_ctx.clear(0.02, 0.02, 0.04, 1.0);
@@ -583,12 +626,21 @@ fn render(game: &mut Game) {
     let projection = game.camera.projection_matrix();
     game.batcher.set_projection(gl, &projection);
 
-    // --- Draw tilemap ---
+    // --- Draw tilemap (only visible tiles) ---
     let (off_x, off_y) = game.chunk.world_offset();
     let tile_size = TILE_SIZE as f32;
+    let cam_x = game.camera.x;
+    let cam_y = game.camera.y;
+    let half_w = game.screen_w * 0.5 + tile_size;
+    let half_h = game.screen_h * 0.5 + tile_size;
 
-    for y in 0..crate::world::chunk::CHUNK_SIZE {
-        for x in 0..crate::world::chunk::CHUNK_SIZE {
+    let min_tx = (((cam_x - half_w - off_x) / tile_size).floor() as i32).max(0);
+    let max_tx = (((cam_x + half_w - off_x) / tile_size).ceil() as i32).min(crate::world::chunk::CHUNK_SIZE as i32 - 1);
+    let min_ty = (((cam_y - half_h - off_y) / tile_size).floor() as i32).max(0);
+    let max_ty = (((cam_y + half_h - off_y) / tile_size).ceil() as i32).min(crate::world::chunk::CHUNK_SIZE as i32 - 1);
+
+    for y in min_ty as usize..=max_ty as usize {
+        for x in min_tx as usize..=max_tx as usize {
             let tile_id = game.chunk.tiles[y][x];
             if tile_id == TileId::Empty {
                 continue;
@@ -609,6 +661,17 @@ fn render(game: &mut Game) {
             );
             game.batcher.draw(instance, &game.tileset_texture, gl);
         }
+    }
+
+    // --- Draw bonfire ---
+    {
+        let bonfire_data = InstanceData::new(
+            game.bonfire_x, game.bonfire_y,
+            24.0, 24.0,
+            [0.0, 0.0, 1.0, 1.0],
+            [1.0, 0.6, 0.1, 0.9],
+        );
+        game.batcher.draw(bonfire_data, &game.texture, gl);
     }
 
     // --- Draw enemies ---
@@ -680,7 +743,7 @@ fn render(game: &mut Game) {
         &ui_proj,
     );
 
-    // --- Menu overlay bars (background darkening for title/death) ---
+    // --- Menu overlay bars (background darkening for title/death/victory) ---
     match game.state {
         GameState::TitleScreen => {
             game.ui_renderer.draw_bar(
@@ -699,6 +762,16 @@ fn render(game: &mut Game) {
                 1.0,
                 [0.0, 0.0, 0.0, 0.7],
                 [0.0, 0.0, 0.0, 0.7],
+                &ui_proj,
+            );
+        }
+        GameState::Victory => {
+            game.ui_renderer.draw_bar(
+                gl, game.screen_w * 0.5, game.screen_h * 0.5,
+                game.screen_w, game.screen_h,
+                1.0,
+                [0.0, 0.0, 0.0, 0.6],
+                [0.0, 0.0, 0.0, 0.6],
                 &ui_proj,
             );
         }
@@ -737,10 +810,17 @@ fn update_dom_ui(game: &Game) {
         }
     }
 
-    // Death title
+    // Death title / Victory title
     if let Some(el) = document.get_element_by_id("death-title") {
         if game.state == GameState::DeathScreen {
+            el.set_text_content(Some("YOU DIED"));
             let _ = el.set_attribute("style", "");
+        } else if game.state == GameState::Victory {
+            el.set_text_content(Some(&format!(
+                "VICTORY\nSouls: {}\nPress Enter to return to title",
+                game.souls
+            )));
+            let _ = el.set_attribute("style", "color: #e8c840; text-shadow: 0 0 20px rgba(232,200,64,0.6);");
         } else {
             let _ = el.set_attribute("style", "display:none");
         }
@@ -761,10 +841,21 @@ fn update_dom_ui(game: &Game) {
             EntityState::Dead => "DEAD",
             EntityState::Blocking => "BLOCK",
         };
-        el.set_text_content(Some(&format!(
+        let mut text = format!(
             "HP {}/{} | STA {}/{} | {}",
             hp, max_hp, stamina, max_sta, state_name
-        )));
+        );
+        // Bonfire proximity hint
+        if game.state == GameState::Playing {
+            let (px, py) = game.player.position();
+            let dx = px - game.bonfire_x;
+            let dy = py - game.bonfire_y;
+            let dist = (dx * dx + dy * dy).sqrt();
+            if dist < 40.0 {
+                text.push_str(" | [Enter] Bonfire");
+            }
+        }
+        el.set_text_content(Some(&text));
     }
 
     // Souls

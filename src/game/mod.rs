@@ -7,6 +7,7 @@ pub enum GameState {
     LevelUpMenu,
     DeathScreen,
     GameOver,
+    Victory,
 }
 
 #[derive(Clone, Debug)]
