@@ -723,7 +723,7 @@ fn update_playing(game: &mut Game, dt: f32) {
 
         if player_attacking && dist < 56.0 {
             let dmg = DamageInfo {
-                damage: 50,
+                damage: 100,
                 knockback_x: 0.0,
                 knockback_y: 0.0,
                 poise_damage: 20.0,
@@ -736,7 +736,7 @@ fn update_playing(game: &mut Game, dt: f32) {
             }
         }
 
-        if *boss.state() == EntityState::Attacking && dist < 60.0 && !boss.has_hit_this_attack {
+        if *boss.state() == EntityState::Attacking && dist < 48.0 && !boss.has_hit_this_attack {
             if *game.player.state() != EntityState::Rolling {
                 let dmg = DamageInfo {
                     damage: boss.damage,

@@ -38,7 +38,7 @@ impl Player {
             attack_timer: 0.0,
             attack_duration: 0.3,
             roll_timer: 0.0,
-            roll_duration: 0.25,
+            roll_duration: 0.35,
             stagger_timer: 0.0,
             invuln_timer: 0.0,
             flash_timer: 0.0,

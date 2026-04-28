@@ -32,8 +32,8 @@ impl BonfireState {
     pub fn new() -> Self {
         Self {
             unlocked_bonfires: vec!["majula".into()],
-            estus_charges: 3,
-            estus_max: 3,
+            estus_charges: 5,
+            estus_max: 5,
         }
     }
 
