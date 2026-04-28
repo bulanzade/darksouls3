@@ -237,10 +237,22 @@ pub fn wasm_main() {
         Enemy::new_mini_boss(9, 1264.0, 1280.0),
     ];
 
-    // Initial lights
+    // Initial lights — player torch + ambient torches along corridors
     let lights = vec![
         Light { x: 200.0, y: 200.0, radius: 250.0, color: [0.9, 0.8, 0.6], intensity: 0.4 },
         Light { x: 700.0, y: 200.0, radius: 200.0, color: [0.3, 0.3, 0.8], intensity: 0.2 },
+        // Corridor torches
+        Light { x: 500.0, y: 300.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+        Light { x: 800.0, y: 350.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+        // Room 3 torches
+        Light { x: 450.0, y: 700.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+        Light { x: 700.0, y: 750.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+        // Room 4 torches
+        Light { x: 1200.0, y: 500.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+        Light { x: 1400.0, y: 650.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+        // Boss arena torches
+        Light { x: 1700.0, y: 300.0, radius: 200.0, color: [0.8, 0.2, 0.4], intensity: 0.2 },
+        Light { x: 1800.0, y: 500.0, radius: 200.0, color: [0.8, 0.2, 0.4], intensity: 0.2 },
     ];
 
     let player_tex = create_player_texture(&gl);
@@ -1458,7 +1470,7 @@ fn update_playing(game: &mut Game, dt: f32) {
     }
     game.projectiles.retain(|p| p.timer > 0.0);
 
-    // --- Update lights to follow player ---
+    // --- Update lights — player torch follows player ---
     if !game.lights.is_empty() {
         game.lights[0].x = px;
         game.lights[0].y = py;
@@ -1717,6 +1729,22 @@ fn render(game: &mut Game) {
             [1.0, 1.0, 1.0, 1.0],
         );
         game.batcher.draw(bonfire_data, &game.bonfire_tex, gl);
+    }
+
+    // --- Draw wall torches (at light positions, skip player light [0] and bonfire light [1]) ---
+    for i in 2..game.lights.len() {
+        let light = &game.lights[i];
+        let flicker = ((game.time.accumulator as f32 * (3.0 + i as f32 * 0.7)).sin() * 0.2 + 0.8);
+        // Torch bracket (brown)
+        game.batcher.draw(
+            InstanceData::new(light.x, light.y - 6.0, 6.0, 8.0, [0.0, 0.0, 1.0, 1.0], [0.5, 0.35, 0.2, 1.0]),
+            &game.white_tex, gl,
+        );
+        // Flame (orange flickering)
+        game.batcher.draw(
+            InstanceData::new(light.x, light.y - 12.0, 5.0 * flicker, 6.0 * flicker, [0.0, 0.0, 1.0, 1.0], [1.0, 0.6, 0.1, 0.9]),
+            &game.white_tex, gl,
+        );
     }
 
     // --- Draw world items ---
