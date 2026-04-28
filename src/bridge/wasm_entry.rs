@@ -110,6 +110,8 @@ struct Game {
     damage_taken: u32,
     death_count: u32,
     play_time: f32,
+    // Treasure chests
+    chests: Vec<TreasureChest>,
 }
 
 struct WorldItem {
@@ -187,6 +189,13 @@ enum BufferedAction {
     HeavyAttack,
     Roll,
     None,
+}
+
+struct TreasureChest {
+    x: f32,
+    y: f32,
+    opened: bool,
+    loot: ItemKind,
 }
 
 static mut GAME: Option<Game> = None;
@@ -319,6 +328,15 @@ pub fn wasm_main() {
         damage_taken: 0,
         death_count: 0,
         play_time: 0.0,
+        chests: vec![
+            // Room 3 (Treasure room)
+            TreasureChest { x: 480.0, y: 680.0, opened: false, loot: ItemKind::SoulOrb(500) },
+            TreasureChest { x: 560.0, y: 780.0, opened: false, loot: ItemKind::EstusShard },
+            // Boss arena
+            TreasureChest { x: 1780.0, y: 350.0, opened: false, loot: ItemKind::SoulOrb(2000) },
+            // Corridor near poison
+            TreasureChest { x: 1000.0, y: 900.0, opened: false, loot: ItemKind::PurpleMoss },
+        ],
     };
 
     unsafe {
@@ -925,6 +943,37 @@ fn update_playing(game: &mut Game, dt: f32) {
                     game.audio.play_sfx("estus", 0.08, 0.0);
                 }
                 ItemKind::HomewardBone => {}
+            }
+        }
+    }
+
+    // Chest interaction
+    if interact {
+        for chest in &mut game.chests {
+            if chest.opened { continue; }
+            let dx = px - chest.x;
+            let dy = py - chest.y;
+            let dist = (dx * dx + dy * dy).sqrt();
+            if dist < 30.0 {
+                chest.opened = true;
+                match &chest.loot {
+                    ItemKind::SoulOrb(n) => {
+                        game.souls += *n;
+                        game.audio.play_sfx("souls", 0.1, 0.0);
+                    }
+                    ItemKind::EstusShard => {
+                        game.bonfire.estus_max += 1;
+                        game.bonfire.estus_charges = game.bonfire.estus_max;
+                        game.audio.play_sfx("estus", 0.1, 0.0);
+                    }
+                    ItemKind::PurpleMoss => {
+                        game.player.poison_timer = 0.0;
+                        game.audio.play_sfx("estus", 0.08, 0.0);
+                    }
+                    ItemKind::HomewardBone => {}
+                }
+                game.camera.add_shake(2.0);
+                break;
             }
         }
     }
@@ -1679,17 +1728,41 @@ fn render(game: &mut Game) {
             ItemKind::HomewardBone => (0.8, 0.7, 0.5),
             ItemKind::PurpleMoss => (0.6, 0.2, 0.8),
         };
-        // Floating bob effect
         let bob = (item.y * 0.05).sin() * 3.0;
         game.batcher.draw(
             InstanceData::new(item.x, item.y + bob, 12.0, 12.0, [0.0, 0.0, 1.0, 1.0], [r, g, b, 0.9]),
             &game.white_tex, gl,
         );
-        // Glow
         game.batcher.draw(
             InstanceData::new(item.x, item.y + bob, 20.0, 20.0, [0.0, 0.0, 1.0, 1.0], [r, g, b, 0.2]),
             &game.white_tex, gl,
         );
+    }
+
+    // --- Draw treasure chests ---
+    for chest in &game.chests {
+        let (color, size) = if chest.opened {
+            ([0.4, 0.35, 0.25, 0.6], 16.0) // Dim when opened
+        } else {
+            ([0.8, 0.65, 0.2, 1.0], 20.0) // Golden when closed
+        };
+        // Chest body
+        game.batcher.draw(
+            InstanceData::new(chest.x, chest.y, size, size * 0.7, [0.0, 0.0, 1.0, 1.0], color),
+            &game.white_tex, gl,
+        );
+        if !chest.opened {
+            // Lock/clasp
+            game.batcher.draw(
+                InstanceData::new(chest.x, chest.y - 2.0, 6.0, 4.0, [0.0, 0.0, 1.0, 1.0], [0.9, 0.8, 0.3, 1.0]),
+                &game.white_tex, gl,
+            );
+            // Glow
+            game.batcher.draw(
+                InstanceData::new(chest.x, chest.y, size + 10.0, size + 10.0, [0.0, 0.0, 1.0, 1.0], [0.8, 0.6, 0.1, 0.15]),
+                &game.white_tex, gl,
+            );
+        }
     }
 
     // --- Draw bloodstain ---
@@ -2286,6 +2359,17 @@ fn update_dom_ui(game: &Game) {
             let dist = (dx * dx + dy * dy).sqrt();
             if dist < 40.0 {
                 text.push_str(" | [Enter] Bonfire");
+            }
+            // Chest proximity hint
+            for chest in &game.chests {
+                if chest.opened { continue; }
+                let cdx = px - chest.x;
+                let cdy = py - chest.y;
+                let cdist = (cdx * cdx + cdy * cdy).sqrt();
+                if cdist < 30.0 {
+                    text.push_str(" | [Enter] Open Chest");
+                    break;
+                }
             }
         }
         el.set_text_content(Some(&text));
