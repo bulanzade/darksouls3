@@ -184,7 +184,7 @@ pub fn wasm_main() {
 
     let batcher = SpriteBatcher::new(gl).expect("Failed to create sprite batcher");
     let texture = create_test_texture(gl);
-    let tileset = Tileset::test_tileset(64, 16);
+    let tileset = Tileset::test_tileset(80, 16);
     let chunk = Chunk::test_chunk((0, 0));
     let collision = CollisionGrid::from_chunk(&chunk, &tileset);
     let tileset_texture = create_tileset_texture(gl);
@@ -626,7 +626,7 @@ fn create_bonfire_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
 }
 
 fn create_tileset_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
-    let width: u32 = 64;
+    let width: u32 = 80;
     let height: u32 = 16;
     let mut data = vec![0u8; (width * height * 4) as usize];
 
@@ -695,6 +695,28 @@ fn create_tileset_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
         // Moss patches
         for x in 2..6 { set_px(&mut data, tx_off + x, 14, 40, 55, 35, 255); set_px(&mut data, tx_off + x, 15, 35, 50, 30, 255); }
         for x in 10..14 { set_px(&mut data, tx_off + x, 13, 40, 55, 35, 255); }
+    }
+
+    // Tile 4: Poison swamp — sickly green with bubbles
+    {
+        let tx_off = 4 * 16;
+        for ty in 0..16u32 {
+            for tx in 0..16u32 {
+                let px = tx_off + tx;
+                let noise = ((tx * 7 + ty * 11) % 9) as u8;
+                set_px(&mut data, px, ty, 20 + noise / 2, 50 + noise, 20 + noise / 3, 220);
+            }
+        }
+        // Poison bubbles
+        set_px(&mut data, tx_off + 4, 6, 60, 120, 40, 255);
+        set_px(&mut data, tx_off + 5, 5, 60, 130, 40, 255);
+        set_px(&mut data, tx_off + 10, 8, 50, 110, 35, 255);
+        set_px(&mut data, tx_off + 11, 7, 55, 120, 38, 255);
+        set_px(&mut data, tx_off + 7, 12, 45, 100, 30, 255);
+        set_px(&mut data, tx_off + 8, 11, 50, 110, 32, 255);
+        // Toxic highlights
+        set_px(&mut data, tx_off + 3, 3, 80, 160, 50, 240);
+        set_px(&mut data, tx_off + 12, 4, 70, 150, 45, 240);
     }
 
     Texture::from_rgba(gl, &data, width, height).expect("Failed to create tileset texture")
@@ -1012,6 +1034,19 @@ fn update_playing(game: &mut Game, dt: f32) {
     let (px, py) = game.player.position();
     let (rx, ry) = game.collision.resolve_aabb(chunk_offset, px, py, 16.0, 16.0);
     game.player.set_position(rx, ry);
+
+    // Poison tile check
+    let tile_size = TILE_SIZE as f32;
+    let tx = ((rx - chunk_offset.0) / tile_size) as usize;
+    let ty = ((ry - chunk_offset.1) / tile_size) as usize;
+    if tx < CHUNK_SIZE && ty < CHUNK_SIZE {
+        if game.chunk.tiles[ty][tx] == TileId::Poison {
+            if game.player.poison_timer <= 0.0 {
+                game.player.poison_timer = 8.0; // 8 seconds of poison
+                game.player.poison_tick = 0.5;
+            }
+        }
+    }
 
     // Enemy AI updates
     let (px, py) = game.player.position();
@@ -1827,6 +1862,19 @@ fn render(game: &mut Game) {
             1.0,
             [c[0], c[1], c[2], c[3] * alpha],
             [c[0], c[1], c[2], c[3] * alpha],
+            &ui_proj,
+        );
+    }
+
+    // --- Poison overlay ---
+    if game.player.poison_timer > 0.0 {
+        let pulse = ((game.time.accumulator as f32 * 2.0).sin() * 0.1 + 0.15);
+        game.ui_renderer.draw_bar(
+            gl, game.screen_w * 0.5, game.screen_h * 0.5,
+            game.screen_w, game.screen_h,
+            1.0,
+            [0.0, 0.3, 0.0, pulse],
+            [0.0, 0.3, 0.0, pulse],
             &ui_proj,
         );
     }

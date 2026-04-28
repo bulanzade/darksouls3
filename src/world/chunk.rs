@@ -71,6 +71,23 @@ impl Chunk {
         // Room 7: Boss arena (top-right)
         carve(&mut chunk.tiles, 100, 3, 118, 48);
 
+        // Poison patches (Room 3 treasure room — partial coverage)
+        for y in 42..55 {
+            for x in 32..45 {
+                if (x + y) % 3 != 0 { // Patchy coverage
+                    chunk.tiles[y][x] = TileId::Poison;
+                }
+            }
+        }
+        // Poison patch in corridor 4→5
+        for y in 60..68 {
+            for x in 75..82 {
+                if (x + y) % 2 == 0 {
+                    chunk.tiles[y][x] = TileId::Poison;
+                }
+            }
+        }
+
         chunk
     }
 

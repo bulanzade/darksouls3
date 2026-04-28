@@ -34,6 +34,9 @@ pub struct Player {
     pub endurance: u32,  // increases stamina
     pub strength: u32,   // increases damage
     pub base_damage: i32,
+    // Status effects
+    pub poison_timer: f32,
+    pub poison_tick: f32,
 }
 
 impl Player {
@@ -64,6 +67,8 @@ impl Player {
             endurance: 5,
             strength: 5,
             base_damage: 50,
+            poison_timer: 0.0,
+            poison_tick: 0.0,
         }
     }
 
@@ -118,6 +123,19 @@ impl Entity for Player {
         }
         if self.flash_timer > 0.0 {
             self.flash_timer -= dt;
+        }
+        // Poison tick
+        if self.poison_timer > 0.0 {
+            self.poison_timer -= dt;
+            self.poison_tick -= dt;
+            if self.poison_tick <= 0.0 {
+                self.poison_tick = 0.5; // Damage every 0.5s
+                self.hp -= 5;
+                if self.hp <= 0 {
+                    self.hp = 0;
+                    self.state = EntityState::Dead;
+                }
+            }
         }
 
         match self.state {
@@ -199,6 +217,13 @@ impl Entity for Player {
             batcher.draw(instance, texture, gl);
             return;
         }
+
+        // Green tint when poisoned
+        let color = if self.poison_timer > 0.0 {
+            [color[0] * 0.5, color[1], color[2] * 0.5, color[3]]
+        } else {
+            color
+        };
 
         let uv = [frame as f32 * 0.25, 0.0, (frame + 1) as f32 * 0.25, 1.0];
         let instance = self.transform.to_instance_data(32.0, 32.0, uv, color);

@@ -6,6 +6,7 @@ pub enum TileId {
     Ground = 1,
     Wall = 2,
     WallTop = 3,
+    Poison = 4,
 }
 
 impl TileId {
@@ -15,6 +16,7 @@ impl TileId {
             1 => TileId::Ground,
             2 => TileId::Wall,
             3 => TileId::WallTop,
+            4 => TileId::Poison,
             _ => TileId::Empty,
         }
     }
@@ -79,6 +81,14 @@ impl Tileset {
                 uv_w: tile_w,
                 uv_h: tile_h,
                 solid: true,
+            },
+            // Poison — fifth slot, not solid but toxic
+            TileDef {
+                uv_x: 4.0 * tile_w,
+                uv_y: 0.0,
+                uv_w: tile_w,
+                uv_h: tile_h,
+                solid: false,
             },
         ];
 
