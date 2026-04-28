@@ -624,6 +624,7 @@ fn update_playing(game: &mut Game, dt: f32) {
             game.state = GameState::BonfireMenu;
             game.menu = MenuState::bonfire_menu();
             game.time.accumulator = 0.0;
+            game.audio.play_sfx("bonfire", 0.06, 0.0);
             return;
         }
     }
@@ -637,6 +638,7 @@ fn update_playing(game: &mut Game, dt: f32) {
         if dist < 24.0 {
             game.souls += game.bloodstain_souls;
             game.has_bloodstain = false;
+            game.audio.play_sfx("souls", 0.08, 0.0);
         }
     }
 
@@ -648,6 +650,7 @@ fn update_playing(game: &mut Game, dt: f32) {
         let heal = game.bonfire.use_estus();
         if heal > 0 {
             game.player.hp = (game.player.hp + heal).min(game.player.max_hp);
+            game.audio.play_sfx("estus", 0.08, 0.0);
         }
     }
 
@@ -731,9 +734,11 @@ fn update_playing(game: &mut Game, dt: f32) {
             };
             enemy.take_damage(&dmg);
             game.camera.add_shake(3.0);
+            game.audio.play_sfx("hit", 0.12, 0.0);
             if enemy.is_dead() {
                 game.souls += 100;
                 game.camera.add_shake(6.0);
+                game.audio.play_sfx("enemy_die", 0.1, 0.0);
                 // Spawn soul orbs
                 let (ex, ey) = enemy.position();
                 for _ in 0..5 {
@@ -759,6 +764,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                 };
                 game.player.take_damage(&dmg);
                 game.camera.add_shake(8.0);
+                game.audio.play_sfx("player_hit", 0.15, 0.0);
                 enemy.has_hit_this_attack = true;
             }
         }
@@ -779,10 +785,12 @@ fn update_playing(game: &mut Game, dt: f32) {
             };
             boss.take_damage(&dmg);
             game.camera.add_shake(4.0);
+            game.audio.play_sfx("hit", 0.12, 0.0);
             if boss.is_dead() && !game.boss_defeated {
                 game.boss_defeated = true;
                 game.souls += 5000;
                 game.camera.add_shake(15.0);
+                game.audio.play_sfx("boss_die", 0.2, 0.0);
             }
         }
 
@@ -797,6 +805,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                 };
                 game.player.take_damage(&dmg);
                 game.camera.add_shake(12.0);
+                game.audio.play_sfx("player_hit", 0.18, 0.0);
                 boss.has_hit_this_attack = true;
             }
         }
@@ -833,6 +842,7 @@ fn update_playing(game: &mut Game, dt: f32) {
         if let Some(ref boss) = game.boss {
             if boss.is_dead() {
                 game.state = GameState::Victory;
+                game.audio.play_sfx("victory", 0.12, 0.0);
             }
         }
     }
@@ -850,6 +860,7 @@ fn update_playing(game: &mut Game, dt: f32) {
         game.souls = 0;
         game.state = GameState::DeathScreen;
         game.menu = MenuState::death_screen();
+        game.audio.play_sfx("death", 0.15, 0.0);
     }
 }
 

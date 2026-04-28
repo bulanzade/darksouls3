@@ -58,15 +58,83 @@
     <script type="module">
         const v = Date.now();
         import init, { js_keydown, js_keyup, js_debug_state } from './pkg/ds2d.js';
+
+        // --- Web Audio procedural SFX ---
+        let audioCtx = null;
+
+        function getAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioCtx;
+        }
+
+        function playTone(freq, duration, type, volume, pan) {
+            const ctx = getAudio();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            const panner = ctx.createStereoPanner();
+            osc.type = type || 'square';
+            osc.frequency.setValueAtTime(freq, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(freq * 0.5, ctx.currentTime + duration);
+            gain.gain.setValueAtTime(volume || 0.15, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+            panner.pan.setValueAtTime(pan || 0, ctx.currentTime);
+            osc.connect(gain);
+            gain.connect(panner);
+            panner.connect(ctx.destination);
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + duration);
+        }
+
+        function playNoise(duration, volume) {
+            const ctx = getAudio();
+            const bufferSize = ctx.sampleRate * duration;
+            const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+            const source = ctx.createBufferSource();
+            source.buffer = buffer;
+            const gain = ctx.createGain();
+            gain.gain.setValueAtTime(volume || 0.1, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+            source.connect(gain);
+            gain.connect(ctx.destination);
+            source.start(ctx.currentTime);
+        }
+
+        const sfxHandlers = {
+            'attack':      () => { playTone(200, 0.15, 'sawtooth', 0.12); playNoise(0.08, 0.06); },
+            'hit':         () => { playTone(120, 0.2, 'square', 0.15); playNoise(0.1, 0.1); },
+            'player_hit':  () => { playTone(80, 0.3, 'sawtooth', 0.2); playTone(60, 0.4, 'square', 0.1); },
+            'enemy_die':   () => { playTone(300, 0.1, 'square', 0.1); playTone(200, 0.2, 'sawtooth', 0.08); },
+            'boss_die':    () => { playTone(100, 0.8, 'sawtooth', 0.25); playTone(50, 1.0, 'square', 0.15); playNoise(0.5, 0.15); },
+            'roll':        () => { playNoise(0.15, 0.06); },
+            'estus':       () => { playTone(400, 0.1, 'sine', 0.08); playTone(600, 0.15, 'sine', 0.06); playTone(800, 0.2, 'sine', 0.04); },
+            'bonfire':     () => { playTone(300, 0.3, 'sine', 0.05); playTone(350, 0.3, 'sine', 0.04); },
+            'souls':       () => { playTone(600, 0.1, 'sine', 0.06); playTone(900, 0.15, 'sine', 0.04); },
+            'death':       () => { playTone(100, 1.0, 'sawtooth', 0.15); playTone(50, 1.5, 'square', 0.1); },
+            'victory':     () => { playTone(400, 0.2, 'sine', 0.1); setTimeout(() => playTone(500, 0.2, 'sine', 0.1), 200); setTimeout(() => playTone(600, 0.4, 'sine', 0.12), 400); },
+            'menu_select': () => { playTone(500, 0.05, 'square', 0.06); },
+            'menu_confirm':() => { playTone(600, 0.08, 'square', 0.08); playTone(800, 0.1, 'square', 0.06); },
+        };
+
+        window.ds2d_play_sfx = function(sound_id, volume, pan) {
+            const handler = sfxHandlers[sound_id];
+            if (handler) handler();
+        };
+
         async function run() {
             await init('./pkg/ds2d_bg.wasm?v=' + v);
             window.js_keydown = js_keydown;
             window.js_keyup = js_keyup;
             window.js_debug_state = js_debug_state;
+            // Init audio on first user interaction
             window.addEventListener('keydown', (e) => {
                 e.preventDefault();
+                if (!audioCtx) getAudio();
                 js_keydown(e.key);
-            });
+            }, { once: false });
             window.addEventListener('keyup', (e) => {
                 js_keyup(e.key);
             });
