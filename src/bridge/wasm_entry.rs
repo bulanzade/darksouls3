@@ -1133,8 +1133,9 @@ fn update_death(game: &mut Game) {
                 MenuAction::Continue => {
                     // Respawn at bonfire
                     game.player = Player::new(1, 200.0, 200.0);
-                    game.souls = 0; // Lost souls
+                    game.souls = 0;
                     game.bonfire.rest();
+                    game.bonfire.estus_charges = game.bonfire.estus_max;
                     game.enemies = vec![
                         Enemy::new_hollow_soldier(2, 600.0, 120.0),
                         Enemy::new_archer(3, 750.0, 200.0),
@@ -1148,6 +1149,7 @@ fn update_death(game: &mut Game) {
                     game.boss = None;
                     game.boss_active = false;
                     game.boss_defeated = false;
+                    game.projectiles.clear();
                     game.time.accumulator = 0.0;
                     game.state_timer = 0.0;
                     game.state = GameState::Playing;
@@ -1179,6 +1181,23 @@ fn update_bonfire_menu(game: &mut Game) {
                 MenuAction::Rest => {
                     game.bonfire.rest();
                     game.player.hp = game.player.max_hp;
+                    game.bonfire.estus_charges = game.bonfire.estus_max;
+                    game.player.stamina.current = game.player.stamina.maximum;
+                    // Respawn enemies (reset to initial spawns)
+                    game.enemies = vec![
+                        Enemy::new_hollow_soldier(2, 620.0, 120.0),
+                        Enemy::new_archer(3, 780.0, 200.0),
+                        Enemy::new_hollow_soldier(4, 700.0, 320.0),
+                        Enemy::new_archer(5, 1200.0, 500.0),
+                        Enemy::new_hollow_soldier(6, 1350.0, 600.0),
+                        Enemy::new_knight(7, 1450.0, 700.0),
+                        Enemy::new_hollow_soldier(8, 1250.0, 800.0),
+                        Enemy::new_mini_boss(9, 1264.0, 1280.0),
+                    ];
+                    game.boss = None;
+                    game.boss_active = false;
+                    game.boss_defeated = false;
+                    game.projectiles.clear();
                     // Auto-save at bonfire
                     let save = SaveData {
                         player_level: game.player.level,
