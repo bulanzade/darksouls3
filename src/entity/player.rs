@@ -114,6 +114,12 @@ impl Entity for Player {
                 let speed = self.speed * dt;
                 self.transform.x += self.facing.cos() * speed;
                 self.transform.y += self.facing.sin() * speed;
+                // Flip sprite based on horizontal facing
+                if self.facing.cos() < 0.0 {
+                    self.transform.scale_x = -1.0;
+                } else {
+                    self.transform.scale_x = 1.0;
+                }
             }
             EntityState::Rolling => {
                 self.roll_timer -= dt;

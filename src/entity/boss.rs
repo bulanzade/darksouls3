@@ -106,6 +106,7 @@ impl Boss {
                 let speed = self.speed * speed_multiplier * dt;
                 self.transform.x += self.facing.cos() * speed;
                 self.transform.y += self.facing.sin() * speed;
+                self.transform.scale_x = if self.facing.cos() < 0.0 { -1.0 } else { 1.0 };
                 self.state = EntityState::Moving;
             }
             BossDirective::Attack => {

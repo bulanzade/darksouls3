@@ -975,6 +975,19 @@ fn render(game: &mut Game) {
     // --- Draw player ---
     game.player.render(&mut game.batcher, &game.player_tex, gl);
 
+    // --- Draw attack swing effect ---
+    if *game.player.state() == EntityState::Attacking {
+        let (px, py) = game.player.position();
+        let facing = game.player.facing;
+        let swing_offset = 24.0;
+        let sx = px + facing.cos() * swing_offset;
+        let sy = py + facing.sin() * swing_offset;
+        game.batcher.draw(
+            InstanceData::new(sx, sy, 20.0, 20.0, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 0.6, 0.4]),
+            &game.white_tex, gl,
+        );
+    }
+
     game.batcher.flush(gl);
 
     // TODO: re-enable lighting and post-processing once framebuffer is set up.
