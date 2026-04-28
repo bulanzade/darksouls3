@@ -3,6 +3,7 @@ use crate::core::camera::Camera2D;
 use crate::core::input::InputState;
 use crate::core::input::KeyCode;
 use crate::core::time::{Time, FIXED_DT};
+use crate::ai::state_machine::{STAGGERED, RANGED_ATTACK};
 use crate::entity::boss::Boss;
 use crate::entity::enemy::Enemy;
 use crate::entity::entity_trait::{DamageInfo, Entity, EntityState};
@@ -17,7 +18,7 @@ use crate::render::ui_renderer::UiRenderer;
 use crate::render::vertex::InstanceData;
 use crate::save::bonfire::BonfireState;
 use crate::save::save_manager::{self, SaveData};
-use crate::world::chunk::Chunk;
+use crate::world::chunk::{Chunk, CHUNK_SIZE};
 use crate::world::collision::CollisionGrid;
 use crate::world::tileset::{TileId, Tileset, TILE_SIZE};
 use wasm_bindgen::prelude::*;
@@ -73,6 +74,23 @@ struct Game {
     has_bloodstain: bool,
     // Soul orbs (floating particles from enemy kills)
     soul_orbs: Vec<SoulOrb>,
+    // World item pickups
+    items: Vec<WorldItem>,
+    // Enemy projectiles (arrows)
+    projectiles: Vec<Projectile>,
+}
+
+struct WorldItem {
+    x: f32,
+    y: f32,
+    kind: ItemKind,
+    collected: bool,
+}
+
+enum ItemKind {
+    SoulOrb(u32),      // grants N souls
+    EstusShard,         // increases max estus by 1
+    HomewardBone,       // unused for now
 }
 
 struct SoulOrb {
@@ -81,6 +99,15 @@ struct SoulOrb {
     vy: f32,
     timer: f32,
     max_time: f32,
+}
+
+struct Projectile {
+    x: f32,
+    y: f32,
+    vx: f32,
+    vy: f32,
+    damage: i32,
+    timer: f32,
 }
 
 static mut GAME: Option<Game> = None;
@@ -107,11 +134,17 @@ pub fn wasm_main() {
     let post_processor = PostProcessor::new(gl).expect("Failed to create post-processor");
     let ui_renderer = UiRenderer::new(gl).expect("Failed to create UI renderer");
 
-    // Create enemies — placed in Room 2 (Enemy Hall)
+    // Create enemies — placed across the dungeon
     let enemies = vec![
-        Enemy::new_hollow_soldier(2, 600.0, 150.0),
-        Enemy::new_hollow_soldier(3, 750.0, 200.0),
-        Enemy::new_hollow_soldier(4, 680.0, 300.0),
+        // Room 2: hollow soldiers + archer
+        Enemy::new_hollow_soldier(2, 620.0, 120.0),
+        Enemy::new_archer(3, 780.0, 200.0),
+        Enemy::new_hollow_soldier(4, 700.0, 320.0),
+        // Room 4: archer + soldiers + knight
+        Enemy::new_archer(5, 1200.0, 500.0),
+        Enemy::new_hollow_soldier(6, 1350.0, 600.0),
+        Enemy::new_knight(7, 1450.0, 700.0),
+        Enemy::new_hollow_soldier(8, 1250.0, 800.0),
     ];
 
     // Initial lights
@@ -171,6 +204,17 @@ pub fn wasm_main() {
         bloodstain_souls: 0,
         has_bloodstain: false,
         soul_orbs: Vec::new(),
+        items: vec![
+            // Room 3 (Treasure): items
+            WorldItem { x: 520.0, y: 700.0, kind: ItemKind::SoulOrb(200), collected: false },
+            WorldItem { x: 700.0, y: 800.0, kind: ItemKind::SoulOrb(300), collected: false },
+            WorldItem { x: 820.0, y: 650.0, kind: ItemKind::EstusShard, collected: false },
+            // Corridors - scattered souls
+            WorldItem { x: 1300.0, y: 750.0, kind: ItemKind::SoulOrb(500), collected: false },
+            // Boss arena entrance
+            WorldItem { x: 1700.0, y: 500.0, kind: ItemKind::SoulOrb(1000), collected: false },
+        ],
+        projectiles: Vec::new(),
     };
 
     unsafe {
@@ -581,9 +625,13 @@ fn update_title_screen(game: &mut Game) {
                     game.state_timer = 0.0;
                     game.player = Player::new(1, 200.0, 200.0);
                     game.enemies = vec![
-                        Enemy::new_hollow_soldier(2, 620.0, 160.0),
-                        Enemy::new_hollow_soldier(3, 740.0, 200.0),
-                        Enemy::new_hollow_soldier(4, 680.0, 320.0),
+                        Enemy::new_hollow_soldier(2, 600.0, 120.0),
+                        Enemy::new_archer(3, 750.0, 200.0),
+                        Enemy::new_hollow_soldier(4, 650.0, 300.0),
+                        Enemy::new_archer(5, 1150.0, 500.0),
+                        Enemy::new_hollow_soldier(6, 1300.0, 600.0),
+                        Enemy::new_knight(7, 1400.0, 650.0),
+                        Enemy::new_hollow_soldier(8, 1200.0, 750.0),
                     ];
                     game.boss = None;
                     game.boss_active = false;
@@ -603,9 +651,13 @@ fn update_title_screen(game: &mut Game) {
                         game.souls = save.souls;
                         game.bonfire = save.bonfire.clone();
                         game.enemies = vec![
-                            Enemy::new_hollow_soldier(2, 620.0, 160.0),
-                            Enemy::new_hollow_soldier(3, 740.0, 200.0),
-                            Enemy::new_hollow_soldier(4, 680.0, 320.0),
+                            Enemy::new_hollow_soldier(2, 620.0, 120.0),
+                            Enemy::new_archer(3, 780.0, 200.0),
+                            Enemy::new_hollow_soldier(4, 700.0, 320.0),
+                            Enemy::new_archer(5, 1200.0, 500.0),
+                            Enemy::new_hollow_soldier(6, 1350.0, 600.0),
+                            Enemy::new_knight(7, 1450.0, 700.0),
+                            Enemy::new_hollow_soldier(8, 1250.0, 800.0),
                         ];
                         game.boss = None;
                         game.boss_active = false;
@@ -630,6 +682,8 @@ fn update_title_screen(game: &mut Game) {
 fn update_playing(game: &mut Game, dt: f32) {
     let mv = game.input.movement();
     let attack = game.input.pressed(KeyCode::J);
+    let heavy_attack = game.input.pressed(KeyCode::K);
+    let block_held = game.input.held(KeyCode::L);
     let roll = game.input.pressed(KeyCode::Space);
     let estus = game.input.pressed(KeyCode::E);
     let interact = game.input.pressed(KeyCode::Enter);
@@ -659,6 +713,30 @@ fn update_playing(game: &mut Game, dt: f32) {
             game.souls += game.bloodstain_souls;
             game.has_bloodstain = false;
             game.audio.play_sfx("souls", 0.08, 0.0);
+        }
+    }
+
+    // Item pickup
+    let (px, py) = game.player.position();
+    for item in &mut game.items {
+        if item.collected { continue; }
+        let dx = px - item.x;
+        let dy = py - item.y;
+        let dist = (dx * dx + dy * dy).sqrt();
+        if dist < 20.0 {
+            item.collected = true;
+            match &item.kind {
+                ItemKind::SoulOrb(n) => {
+                    game.souls += *n;
+                    game.audio.play_sfx("souls", 0.08, 0.0);
+                }
+                ItemKind::EstusShard => {
+                    game.bonfire.estus_max += 1;
+                    game.bonfire.estus_charges = game.bonfire.estus_max;
+                    game.audio.play_sfx("estus", 0.1, 0.0);
+                }
+                ItemKind::HomewardBone => {}
+            }
         }
     }
 
@@ -695,7 +773,27 @@ fn update_playing(game: &mut Game, dt: f32) {
                     if player.stamina.consume(20.0) {
                         player.state = EntityState::Attacking;
                         player.attack_timer = player.attack_duration;
+                        player.is_heavy_attack = false;
                     }
+                }
+                if heavy_attack {
+                    if player.stamina.consume(40.0) {
+                        player.state = EntityState::Attacking;
+                        player.attack_timer = player.heavy_attack_duration;
+                        player.is_heavy_attack = true;
+                    }
+                }
+                if block_held {
+                    player.state = EntityState::Blocking;
+                    player.parry_timer = player.parry_window;
+                    player.block_timer = 0.0;
+                }
+            }
+            EntityState::Blocking => {
+                if block_held {
+                    player.block_timer = 0.0;
+                } else {
+                    player.state = EntityState::Idle;
                 }
             }
             _ => {}
@@ -721,6 +819,23 @@ fn update_playing(game: &mut Game, dt: f32) {
         if enemy.flash_timer > 0.0 {
             enemy.flash_timer -= dt;
         }
+        // Archer shooting
+        if enemy.should_shoot(dt) && enemy.aggro.has_target() {
+            let dx = enemy.aggro.last_known_x - enemy.transform.x;
+            let dy = enemy.aggro.last_known_y - enemy.transform.y;
+            let dist = (dx * dx + dy * dy).sqrt();
+            if dist > 1.0 {
+                let speed = 200.0;
+                game.projectiles.push(Projectile {
+                    x: enemy.transform.x,
+                    y: enemy.transform.y,
+                    vx: dx / dist * speed,
+                    vy: dy / dist * speed,
+                    damage: enemy.damage,
+                    timer: 2.0,
+                });
+            }
+        }
     }
 
     // Boss AI update
@@ -736,6 +851,10 @@ fn update_playing(game: &mut Game, dt: f32) {
     // --- Combat: player vs enemies ---
     let (px, py) = game.player.position();
     let player_attacking = *game.player.state() == EntityState::Attacking && game.player.attack_timer > 0.0;
+    let is_heavy = game.player.is_heavy_attack;
+    let attack_range = if is_heavy { 56.0 } else { 40.0 };
+    let attack_damage = if is_heavy { game.player.damage() * 2 } else { game.player.damage() };
+    let attack_knockback = if is_heavy { 12.0 } else { 6.0 };
 
     for enemy in &mut game.enemies {
         if enemy.is_dead() {
@@ -744,16 +863,22 @@ fn update_playing(game: &mut Game, dt: f32) {
         let (ex, ey) = enemy.position();
         let dist = ((px - ex) * (px - ex) + (py - ey) * (py - ey)).sqrt();
 
-        if player_attacking && dist < 40.0 {
+        if player_attacking && dist < attack_range {
+            // Knight blocking — reduce damage
+            let final_damage = if enemy.try_block() {
+                (attack_damage as f32 * 0.3) as i32
+            } else {
+                attack_damage
+            };
             let dmg = DamageInfo {
-                damage: game.player.damage(),
+                damage: final_damage,
                 knockback_x: 0.0,
                 knockback_y: 0.0,
-                poise_damage: 20.0,
+                poise_damage: if is_heavy { 40.0 } else { 20.0 },
                 attacker_id: game.player.id(),
             };
             enemy.take_damage(&dmg);
-            game.camera.add_shake(3.0);
+            game.camera.add_shake(if is_heavy { 6.0 } else { 3.0 });
             game.audio.play_sfx("hit", 0.12, 0.0);
             if enemy.is_dead() {
                 game.souls += 100;
@@ -783,8 +908,20 @@ fn update_playing(game: &mut Game, dt: f32) {
                     attacker_id: enemy.id(),
                 };
                 game.player.take_damage(&dmg);
-                game.camera.add_shake(8.0);
-                game.audio.play_sfx("player_hit", 0.15, 0.0);
+
+                // Parry — stagger enemy
+                if game.player.is_parrying() {
+                    enemy.fsm.current_state = STAGGERED;
+                    enemy.fsm.state_timer = 0.0;
+                    enemy.state = EntityState::Staggered;
+                    game.audio.play_sfx("hit", 0.15, 0.0);
+                } else if *game.player.state() == EntityState::Blocking {
+                    // Block — push enemy back slightly
+                    game.audio.play_sfx("hit", 0.08, 0.0);
+                } else {
+                    game.camera.add_shake(8.0);
+                    game.audio.play_sfx("player_hit", 0.15, 0.0);
+                }
                 enemy.has_hit_this_attack = true;
             }
         }
@@ -795,16 +932,16 @@ fn update_playing(game: &mut Game, dt: f32) {
         let (bx, by) = boss.position();
         let dist = ((px - bx) * (px - bx) + (py - by) * (py - by)).sqrt();
 
-        if player_attacking && dist < 56.0 {
+        if player_attacking && dist < attack_range + 16.0 {
             let dmg = DamageInfo {
-                damage: game.player.damage() * 2,
+                damage: if is_heavy { attack_damage * 2 } else { game.player.damage() * 2 },
                 knockback_x: 0.0,
                 knockback_y: 0.0,
-                poise_damage: 20.0,
+                poise_damage: if is_heavy { 40.0 } else { 20.0 },
                 attacker_id: game.player.id(),
             };
             boss.take_damage(&dmg);
-            game.camera.add_shake(4.0);
+            game.camera.add_shake(if is_heavy { 8.0 } else { 4.0 });
             game.audio.play_sfx("hit", 0.12, 0.0);
             if boss.is_dead() && !game.boss_defeated {
                 game.boss_defeated = true;
@@ -824,8 +961,17 @@ fn update_playing(game: &mut Game, dt: f32) {
                     attacker_id: boss.id(),
                 };
                 game.player.take_damage(&dmg);
-                game.camera.add_shake(12.0);
-                game.audio.play_sfx("player_hit", 0.18, 0.0);
+
+                if game.player.is_parrying() {
+                    boss.state = EntityState::Staggered;
+                    boss.stagger_timer = 0.5;
+                    game.audio.play_sfx("hit", 0.18, 0.0);
+                } else if *game.player.state() == EntityState::Blocking {
+                    game.audio.play_sfx("hit", 0.1, 0.0);
+                } else {
+                    game.camera.add_shake(12.0);
+                    game.audio.play_sfx("player_hit", 0.18, 0.0);
+                }
                 boss.has_hit_this_attack = true;
             }
         }
@@ -833,7 +979,7 @@ fn update_playing(game: &mut Game, dt: f32) {
 
     // --- Spawn boss when all enemies dead ---
     if !game.boss_active && !game.boss_defeated && game.enemies.iter().all(|e| e.is_dead()) {
-        game.boss = Some(Boss::new_test_boss(10, 736.0, 688.0));
+        game.boss = Some(Boss::new_test_boss(10, 1750.0, 400.0));
         game.boss_active = true;
     }
 
@@ -843,6 +989,36 @@ fn update_playing(game: &mut Game, dt: f32) {
         orb.timer -= dt;
     }
     game.soul_orbs.retain(|orb| orb.timer > 0.0);
+
+    // --- Update projectiles ---
+    let (px, py) = game.player.position();
+    for proj in &mut game.projectiles {
+        proj.x += proj.vx * dt;
+        proj.y += proj.vy * dt;
+        proj.timer -= dt;
+
+        // Check collision with player
+        if *game.player.state() != EntityState::Rolling {
+            let dx = px - proj.x;
+            let dy = py - proj.y;
+            let dist = (dx * dx + dy * dy).sqrt();
+            if dist < 18.0 {
+                let dmg = DamageInfo {
+                    damage: proj.damage,
+                    knockback_x: 0.0, knockback_y: 0.0,
+                    poise_damage: 5.0,
+                    attacker_id: 99,
+                };
+                game.player.take_damage(&dmg);
+                if !game.player.is_parrying() && *game.player.state() != EntityState::Blocking {
+                    game.camera.add_shake(4.0);
+                    game.audio.play_sfx("player_hit", 0.1, 0.0);
+                }
+                proj.timer = 0.0;
+            }
+        }
+    }
+    game.projectiles.retain(|p| p.timer > 0.0);
 
     // --- Update lights to follow player ---
     if !game.lights.is_empty() {
@@ -894,9 +1070,13 @@ fn update_death(game: &mut Game) {
                     game.souls = 0; // Lost souls
                     game.bonfire.rest();
                     game.enemies = vec![
-                        Enemy::new_hollow_soldier(2, 620.0, 160.0),
-                        Enemy::new_hollow_soldier(3, 740.0, 200.0),
-                        Enemy::new_hollow_soldier(4, 680.0, 320.0),
+                        Enemy::new_hollow_soldier(2, 600.0, 120.0),
+                        Enemy::new_archer(3, 750.0, 200.0),
+                        Enemy::new_hollow_soldier(4, 650.0, 300.0),
+                        Enemy::new_archer(5, 1150.0, 500.0),
+                        Enemy::new_hollow_soldier(6, 1300.0, 600.0),
+                        Enemy::new_knight(7, 1400.0, 650.0),
+                        Enemy::new_hollow_soldier(8, 1200.0, 750.0),
                     ];
                     game.boss = None;
                     game.boss_active = false;
@@ -1057,6 +1237,27 @@ fn render(game: &mut Game) {
         game.batcher.draw(bonfire_data, &game.bonfire_tex, gl);
     }
 
+    // --- Draw world items ---
+    for item in &game.items {
+        if item.collected { continue; }
+        let (r, g, b) = match &item.kind {
+            ItemKind::SoulOrb(_) => (0.6, 0.8, 1.0),
+            ItemKind::EstusShard => (0.2, 0.9, 0.3),
+            ItemKind::HomewardBone => (0.8, 0.7, 0.5),
+        };
+        // Floating bob effect
+        let bob = (item.y * 0.05).sin() * 3.0;
+        game.batcher.draw(
+            InstanceData::new(item.x, item.y + bob, 12.0, 12.0, [0.0, 0.0, 1.0, 1.0], [r, g, b, 0.9]),
+            &game.white_tex, gl,
+        );
+        // Glow
+        game.batcher.draw(
+            InstanceData::new(item.x, item.y + bob, 20.0, 20.0, [0.0, 0.0, 1.0, 1.0], [r, g, b, 0.2]),
+            &game.white_tex, gl,
+        );
+    }
+
     // --- Draw bloodstain ---
     if game.has_bloodstain {
         let bloodstain_data = InstanceData::new(
@@ -1100,6 +1301,14 @@ fn render(game: &mut Game) {
         }
     }
 
+    // --- Draw projectiles (arrows) ---
+    for proj in &game.projectiles {
+        game.batcher.draw(
+            InstanceData::new(proj.x, proj.y, 8.0, 3.0, [0.0, 0.0, 1.0, 1.0], [0.8, 0.6, 0.2, 1.0]),
+            &game.white_tex, gl,
+        );
+    }
+
     // --- Draw boss ---
     if let Some(ref boss) = game.boss {
         if !boss.is_dead() {
@@ -1139,29 +1348,67 @@ fn render(game: &mut Game) {
     if *game.player.state() == EntityState::Attacking {
         let (px, py) = game.player.position();
         let facing = game.player.facing;
-        let swing_offset = 24.0;
-        let sx = px + facing.cos() * swing_offset;
-        let sy = py + facing.sin() * swing_offset;
-        game.batcher.draw(
-            InstanceData::new(sx, sy, 20.0, 20.0, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 0.6, 0.4]),
-            &game.white_tex, gl,
-        );
+        if game.player.is_heavy_attack {
+            let swing_offset = 30.0;
+            let sx = px + facing.cos() * swing_offset;
+            let sy = py + facing.sin() * swing_offset;
+            game.batcher.draw(
+                InstanceData::new(sx, sy, 32.0, 32.0, [0.0, 0.0, 1.0, 1.0], [1.0, 0.7, 0.1, 0.5]),
+                &game.white_tex, gl,
+            );
+        } else {
+            let swing_offset = 24.0;
+            let sx = px + facing.cos() * swing_offset;
+            let sy = py + facing.sin() * swing_offset;
+            game.batcher.draw(
+                InstanceData::new(sx, sy, 20.0, 20.0, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 0.6, 0.4]),
+                &game.white_tex, gl,
+            );
+        }
     }
 
     game.batcher.flush(gl);
 
-    // TODO: re-enable lighting and post-processing once framebuffer is set up.
-    // Without a render-to-texture FBO, these passes draw over the scene incorrectly.
-    // game.light_renderer.render_lights(...);
-    // game.post_processor.render(...);
-
-    // --- HUD (screen-space) ---
+    // --- HUD projection (used by vignette + HUD elements) ---
     let ui_proj = UiRenderer::screen_projection(game.screen_w, game.screen_h);
 
-    // HP bar
+    // --- Ambient darkness vignette ---
+    // Darken screen edges to create dungeon atmosphere.
+    // The player is always at screen center, so edges are far from the player.
+    {
+        let cx = game.screen_w * 0.5;
+        let cy = game.screen_h * 0.5;
+        let edge_dark = [0.0, 0.0, 0.0, 0.5];
+        let mid_dark = [0.0, 0.0, 0.0, 0.25];
+
+        // Edge strips (top, bottom, left, right) — darkest
+        let strip = 60.0;
+        // Top
+        game.ui_renderer.draw_bar(gl, cx, strip * 0.5, game.screen_w, strip, 1.0, edge_dark, edge_dark, &ui_proj);
+        // Bottom
+        game.ui_renderer.draw_bar(gl, cx, game.screen_h - strip * 0.5, game.screen_w, strip, 1.0, edge_dark, edge_dark, &ui_proj);
+        // Left
+        game.ui_renderer.draw_bar(gl, strip * 0.5, cy, strip, game.screen_h, 1.0, edge_dark, edge_dark, &ui_proj);
+        // Right
+        game.ui_renderer.draw_bar(gl, game.screen_w - strip * 0.5, cy, strip, game.screen_h, 1.0, edge_dark, edge_dark, &ui_proj);
+
+        // Mid strips (lighter darkness, wider area)
+        let mid_strip = 120.0;
+        game.ui_renderer.draw_bar(gl, cx, strip + mid_strip * 0.5, game.screen_w, mid_strip, 1.0, mid_dark, mid_dark, &ui_proj);
+        game.ui_renderer.draw_bar(gl, cx, game.screen_h - strip - mid_strip * 0.5, game.screen_w, mid_strip, 1.0, mid_dark, mid_dark, &ui_proj);
+        game.ui_renderer.draw_bar(gl, strip + mid_strip * 0.5, cy, mid_strip, game.screen_h, 1.0, mid_dark, mid_dark, &ui_proj);
+        game.ui_renderer.draw_bar(gl, game.screen_w - strip - mid_strip * 0.5, cy, mid_strip, game.screen_h, 1.0, mid_dark, mid_dark, &ui_proj);
+    }
+
+    // --- HUD (screen-space) ---
+
+    // HP bar (x,y = center of bar)
     let hp_ratio = game.player.hp as f32 / game.player.max_hp as f32;
+    let hp_bar_w = 200.0;
+    let hp_bar_h = 16.0;
+    let hp_bar_x = 20.0 + hp_bar_w * 0.5; // left edge at x=20
     game.ui_renderer.draw_bar(
-        gl, 20.0, 20.0, 200.0, 16.0,
+        gl, hp_bar_x, 20.0, hp_bar_w, hp_bar_h,
         hp_ratio,
         [0.15, 0.15, 0.15, 0.8],
         [0.7, 0.1, 0.1, 0.9],
@@ -1170,8 +1417,11 @@ fn render(game: &mut Game) {
 
     // Stamina bar
     let stamina_ratio = game.player.stamina.current / game.player.stamina.maximum;
+    let sta_bar_w = 200.0;
+    let sta_bar_h = 12.0;
+    let sta_bar_x = 20.0 + sta_bar_w * 0.5;
     game.ui_renderer.draw_bar(
-        gl, 20.0, 42.0, 200.0, 12.0,
+        gl, sta_bar_x, 42.0, sta_bar_w, sta_bar_h,
         stamina_ratio,
         [0.15, 0.15, 0.15, 0.8],
         [0.1, 0.5, 0.1, 0.9],
@@ -1183,7 +1433,7 @@ fn render(game: &mut Game) {
         if !boss.is_dead() {
             let boss_hp_ratio = boss.hp as f32 / boss.max_hp as f32;
             let boss_bar_w = 400.0;
-            let boss_bar_x = (game.screen_w - boss_bar_w) * 0.5;
+            let boss_bar_x = game.screen_w * 0.5; // center of screen
             game.ui_renderer.draw_bar(
                 gl, boss_bar_x, 20.0, boss_bar_w, 14.0,
                 boss_hp_ratio,
@@ -1196,13 +1446,96 @@ fn render(game: &mut Game) {
 
     // Estus indicator
     let estus_ratio = game.bonfire.estus_charges as f32 / game.bonfire.estus_max as f32;
+    let estus_bar_w = 60.0;
     game.ui_renderer.draw_bar(
-        gl, 20.0, 58.0, 60.0, 10.0,
-        if estus_ratio > 0.0 { 1.0 } else { 0.0 },
+        gl, 20.0 + estus_bar_w * 0.5, 58.0, estus_bar_w, 10.0,
+        if estus_ratio > 0.0 { estus_ratio } else { 0.0 },
         [0.15, 0.15, 0.15, 0.8],
         [0.9, 0.7, 0.1, 0.9],
         &ui_proj,
     );
+
+    // --- Mini-map (top-right corner) ---
+    {
+        let map_size = 150.0;
+        let map_left = game.screen_w - map_size - 10.0;
+        let map_top = 10.0;
+        let map_cx = map_left + map_size * 0.5;
+        let map_cy = map_top + map_size * 0.5;
+        let world_size = CHUNK_SIZE as f32 * TILE_SIZE as f32;
+        let scale = map_size / world_size;
+
+        // Background
+        game.ui_renderer.draw_bar(
+            gl, map_cx, map_cy, map_size + 4.0, map_size + 4.0,
+            1.0, [0.0, 0.0, 0.0, 0.7], [0.0, 0.0, 0.0, 0.7], &ui_proj,
+        );
+
+        // Draw each tile as a tiny rectangle (sample every 4 tiles)
+        let step = 4;
+        for ty in (0..CHUNK_SIZE).step_by(step) {
+            for tx in (0..CHUNK_SIZE).step_by(step) {
+                let tile = game.chunk.tiles[ty][tx];
+                if tile == TileId::Empty { continue; }
+                let is_wall = tile == TileId::Wall;
+                let color: [f32; 4] = if is_wall {
+                    [0.25, 0.22, 0.2, 0.9]
+                } else {
+                    [0.55, 0.48, 0.35, 1.0]
+                };
+                // Tile world position → map pixel position
+                let dot_x = map_left + (tx as f32 * TILE_SIZE as f32) * scale;
+                let dot_y = map_top + (ty as f32 * TILE_SIZE as f32) * scale;
+                let s = step as f32 * TILE_SIZE as f32 * scale;
+                game.ui_renderer.draw_bar(
+                    gl, dot_x + s * 0.5, dot_y + s * 0.5, s, s,
+                    1.0, color, color, &ui_proj,
+                );
+            }
+        }
+
+        // Player dot (cyan)
+        let (ppx, ppy) = game.player.position();
+        let pdx = map_left + ppx * scale;
+        let pdy = map_top + ppy * scale;
+        game.ui_renderer.draw_bar(
+            gl, pdx, pdy, 6.0, 6.0,
+            1.0, [0.2, 0.9, 1.0, 1.0], [0.2, 0.9, 1.0, 1.0], &ui_proj,
+        );
+
+        // Enemy dots (red)
+        for enemy in &game.enemies {
+            if enemy.is_dead() { continue; }
+            let (ex, ey) = enemy.position();
+            let edx = map_left + ex * scale;
+            let edy = map_top + ey * scale;
+            game.ui_renderer.draw_bar(
+                gl, edx, edy, 4.0, 4.0,
+                1.0, [1.0, 0.2, 0.2, 1.0], [1.0, 0.2, 0.2, 1.0], &ui_proj,
+            );
+        }
+
+        // Boss dot (purple)
+        if let Some(ref boss) = game.boss {
+            if !boss.is_dead() {
+                let (bx, by) = boss.position();
+                let bdx = map_left + bx * scale;
+                let bdy = map_top + by * scale;
+                game.ui_renderer.draw_bar(
+                    gl, bdx, bdy, 6.0, 6.0,
+                    1.0, [0.9, 0.1, 0.9, 1.0], [0.9, 0.1, 0.9, 1.0], &ui_proj,
+                );
+            }
+        }
+
+        // Bonfire dot (orange)
+        let bfx = map_left + game.bonfire_x * scale;
+        let bfy = map_top + game.bonfire_y * scale;
+        game.ui_renderer.draw_bar(
+            gl, bfx, bfy, 4.0, 4.0,
+            1.0, [1.0, 0.7, 0.2, 1.0], [1.0, 0.7, 0.2, 1.0], &ui_proj,
+        );
+    }
 
     // --- Menu overlay bars (background darkening for title/death/victory) ---
     match game.state {
@@ -1344,6 +1677,7 @@ fn update_dom_ui(game: &Game) {
 
     // Souls
     if let Some(el) = document.get_element_by_id("souls-text") {
+        let enemies_alive = game.enemies.iter().filter(|e| !e.is_dead()).count();
         el.set_text_content(Some(&format!("Souls: {} | Estus: {}/{}",
             game.souls, game.bonfire.estus_charges, game.bonfire.estus_max)));
     }

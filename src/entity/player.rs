@@ -17,11 +17,16 @@ pub struct Player {
     // Combat state
     pub attack_timer: f32,
     pub attack_duration: f32,
+    pub is_heavy_attack: bool,
+    pub heavy_attack_duration: f32,
     pub roll_timer: f32,
     pub roll_duration: f32,
     pub stagger_timer: f32,
     pub invuln_timer: f32,
     pub flash_timer: f32,
+    pub parry_timer: f32,
+    pub block_timer: f32,
+    pub parry_window: f32,
     pub stamina: StaminaPool,
     // RPG stats
     pub level: u32,
@@ -38,16 +43,21 @@ impl Player {
             transform: Transform::new(x, y),
             hp: 500,
             max_hp: 500,
-            speed: 120.0,
+            speed: 240.0,
             state: EntityState::Idle,
             facing: 0.0,
             attack_timer: 0.0,
             attack_duration: 0.3,
+            is_heavy_attack: false,
+            heavy_attack_duration: 0.6,
             roll_timer: 0.0,
             roll_duration: 0.35,
             stagger_timer: 0.0,
             invuln_timer: 0.0,
             flash_timer: 0.0,
+            parry_timer: 0.0,
+            block_timer: 0.0,
+            parry_window: 0.25,
             stamina: StaminaPool::new(100.0),
             level: 1,
             vigor: 5,
@@ -69,6 +79,10 @@ impl Player {
         self.max_hp = 500 + ((self.vigor - 5) as i32) * 50;
         self.stamina.maximum = 100.0 + ((self.endurance - 5) as f32) * 15.0;
         self.stamina.current = self.stamina.current.min(self.stamina.maximum);
+    }
+
+    pub fn is_parrying(&self) -> bool {
+        self.state == EntityState::Blocking && self.parry_timer > 0.0
     }
 }
 
@@ -130,6 +144,7 @@ impl Entity for Player {
             EntityState::Attacking => {
                 self.attack_timer -= dt;
                 if self.attack_timer <= 0.0 {
+                    self.is_heavy_attack = false;
                     self.state = EntityState::Idle;
                 }
             }
@@ -137,6 +152,17 @@ impl Entity for Player {
                 self.stagger_timer -= dt;
                 if self.stagger_timer <= 0.0 {
                     self.state = EntityState::Idle;
+                }
+            }
+            EntityState::Blocking => {
+                if self.parry_timer > 0.0 {
+                    self.parry_timer -= dt;
+                }
+                if self.block_timer > 0.0 {
+                    self.block_timer -= dt;
+                    if self.block_timer <= 0.0 {
+                        self.state = EntityState::Idle;
+                    }
                 }
             }
             _ => {}
@@ -152,8 +178,21 @@ impl Entity for Player {
         let color = match self.state {
             EntityState::Idle => [1.0, 1.0, 1.0, 1.0],
             EntityState::Moving => [0.9, 0.9, 0.7, 1.0],
-            EntityState::Attacking => [1.0, 0.4, 0.4, 1.0],
+            EntityState::Attacking => {
+                if self.is_heavy_attack {
+                    [1.0, 0.8, 0.2, 1.0]
+                } else {
+                    [1.0, 0.4, 0.4, 1.0]
+                }
+            }
             EntityState::Rolling => [0.4, 0.7, 1.0, 0.7],
+            EntityState::Blocking => {
+                if self.parry_timer > 0.0 {
+                    [0.2, 1.0, 1.0, 1.0] // cyan during parry window
+                } else {
+                    [0.5, 0.5, 0.8, 1.0] // blue-grey when blocking
+                }
+            }
             EntityState::Staggered => [1.0, 0.2, 0.2, 1.0],
             EntityState::Dead => [0.3, 0.3, 0.3, 0.5],
             _ => [1.0, 1.0, 1.0, 1.0],
@@ -167,6 +206,26 @@ impl Entity for Player {
         if self.invuln_timer > 0.0 {
             return;
         }
+
+        // Parry window — deflect and stagger attacker (handled by caller)
+        if self.state == EntityState::Blocking && self.parry_timer > 0.0 {
+            self.flash_timer = 0.15;
+            return;
+        }
+
+        // Block — reduce damage by 70%, consume stamina
+        if self.state == EntityState::Blocking {
+            let blocked = (info.damage as f32 * 0.3) as i32;
+            self.hp -= blocked;
+            self.stamina.consume(15.0);
+            self.flash_timer = 0.1;
+            if self.hp <= 0 {
+                self.hp = 0;
+                self.state = EntityState::Dead;
+            }
+            return;
+        }
+
         self.hp -= info.damage;
         self.state = EntityState::Staggered;
         self.stagger_timer = 0.2;

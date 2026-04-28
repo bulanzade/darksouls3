@@ -93,6 +93,7 @@ pub const RETREAT: StateId = 4;
 pub const RETURN: StateId = 5;
 pub const STAGGERED: StateId = 6;
 pub const DEAD: StateId = 7;
+pub const RANGED_ATTACK: StateId = 8;
 
 // Helper transition conditions
 pub fn always(_: &TransitionContext) -> bool {
@@ -115,4 +116,7 @@ pub fn attack_done(ctx: &TransitionContext) -> bool {
 }
 pub fn retreat_done(ctx: &TransitionContext) -> bool {
     ctx.state_timer > 1.0
+}
+pub fn target_in_range(ctx: &TransitionContext) -> bool {
+    ctx.distance_to_target < 250.0 && ctx.distance_to_target > 60.0 && ctx.can_see_target
 }
