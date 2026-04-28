@@ -22,6 +22,8 @@ pub struct Boss {
     pub stagger_timer: f32,
     pub has_hit_this_attack: bool,
     pub flash_timer: f32,
+    pub is_charging: bool,
+    pub charge_speed: f32,
 }
 
 impl Boss {
@@ -56,8 +58,8 @@ impl Boss {
         Self {
             id,
             transform: Transform::new(x, y),
-            hp: 500,
-            max_hp: 500,
+            hp: 800,
+            max_hp: 800,
             speed: 40.0,
             state: EntityState::Idle,
             facing: 0.0,
@@ -69,6 +71,8 @@ impl Boss {
             stagger_timer: 0.0,
             has_hit_this_attack: false,
             flash_timer: 0.0,
+            is_charging: false,
+            charge_speed: 300.0,
         }
     }
 
@@ -114,6 +118,7 @@ impl Boss {
                     self.state = EntityState::Attacking;
                     self.attack_timer = self.attack_duration;
                     self.has_hit_this_attack = false;
+                    self.is_charging = true;
                 }
             }
             BossDirective::PhaseTransition => {
@@ -121,10 +126,16 @@ impl Boss {
             }
         }
 
-        // Tick attack timer
+        // Tick attack timer — charge toward player while attacking
         if self.attack_timer > 0.0 {
+            if self.is_charging {
+                let speed = self.charge_speed * dt;
+                self.transform.x += self.facing.cos() * speed;
+                self.transform.y += self.facing.sin() * speed;
+            }
             self.attack_timer -= dt;
             if self.attack_timer <= 0.0 {
+                self.is_charging = false;
                 self.state = EntityState::Moving;
             }
         }
@@ -159,24 +170,47 @@ impl Entity for Boss {
     fn update(&mut self, _dt: f32) {}
 
     fn render(&self, batcher: &mut SpriteBatcher, texture: &Texture, gl: &GL) {
+        let phase_idx = self.boss_ctrl.current_phase_index();
+        let size = 48.0 + phase_idx as f32 * 8.0; // Grows each phase
+
         if self.flash_timer > 0.0 {
-            let instance = self.transform.to_instance_data(48.0, 48.0, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0]);
+            let instance = self.transform.to_instance_data(size, size, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0]);
             batcher.draw(instance, texture, gl);
             return;
         }
-        let _phase = self.boss_ctrl.current_phase_index();
+
         let color = match self.state {
-            EntityState::Idle => [0.8, 0.2, 0.8, 1.0],
-            EntityState::Moving => [0.9, 0.3, 0.9, 1.0],
-            EntityState::Attacking => [1.0, 0.0, 0.0, 1.0],
+            EntityState::Idle => match phase_idx {
+                0 => [0.8, 0.2, 0.8, 1.0],
+                1 => [0.9, 0.1, 0.6, 1.0],
+                _ => [1.0, 0.0, 0.3, 1.0],
+            },
+            EntityState::Moving => match phase_idx {
+                0 => [0.9, 0.3, 0.9, 1.0],
+                1 => [1.0, 0.2, 0.7, 1.0],
+                _ => [1.0, 0.1, 0.4, 1.0],
+            },
+            EntityState::Attacking => {
+                if self.is_charging {
+                    [1.0, 0.5, 0.0, 1.0] // Orange when charging
+                } else {
+                    [1.0, 0.0, 0.0, 1.0]
+                }
+            }
             EntityState::Staggered => [1.0, 1.0, 0.0, 1.0],
             EntityState::Dead => [0.2, 0.2, 0.2, 0.3],
             _ => [0.8, 0.2, 0.8, 1.0],
         };
-        // Boss is bigger: 48x48
-        let instance =
-            self.transform
-                .to_instance_data(48.0, 48.0, [0.0, 0.0, 1.0, 1.0], color);
+
+        // Charge trail effect
+        if self.is_charging {
+            batcher.draw(
+                self.transform.to_instance_data(size * 0.8, size * 0.8, [0.0, 0.0, 1.0, 1.0], [1.0, 0.3, 0.0, 0.3]),
+                texture, gl,
+            );
+        }
+
+        let instance = self.transform.to_instance_data(size, size, [0.0, 0.0, 1.0, 1.0], color);
         batcher.draw(instance, texture, gl);
     }
 
