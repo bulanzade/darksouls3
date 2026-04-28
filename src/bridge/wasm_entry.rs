@@ -65,6 +65,11 @@ struct Game {
     // Screen dimensions
     screen_w: f32,
     screen_h: f32,
+    // Bloodstain (soul retrieval)
+    bloodstain_x: f32,
+    bloodstain_y: f32,
+    bloodstain_souls: u32,
+    has_bloodstain: bool,
 }
 
 static mut GAME: Option<Game> = None;
@@ -150,6 +155,10 @@ pub fn wasm_main() {
         bonfire_y: 200.0,
         screen_w,
         screen_h,
+        bloodstain_x: 0.0,
+        bloodstain_y: 0.0,
+        bloodstain_souls: 0,
+        has_bloodstain: false,
     };
 
     unsafe {
@@ -608,6 +617,18 @@ fn update_playing(game: &mut Game, dt: f32) {
         }
     }
 
+    // Bloodstain soul retrieval
+    if game.has_bloodstain {
+        let (px, py) = game.player.position();
+        let dx = px - game.bloodstain_x;
+        let dy = py - game.bloodstain_y;
+        let dist = (dx * dx + dy * dy).sqrt();
+        if dist < 24.0 {
+            game.souls += game.bloodstain_souls;
+            game.has_bloodstain = false;
+        }
+    }
+
     // Tick state transition timer
     game.state_timer += dt;
 
@@ -698,8 +719,10 @@ fn update_playing(game: &mut Game, dt: f32) {
                 attacker_id: game.player.id(),
             };
             enemy.take_damage(&dmg);
+            game.camera.add_shake(3.0);
             if enemy.is_dead() {
                 game.souls += 100;
+                game.camera.add_shake(6.0);
             }
         }
 
@@ -713,6 +736,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                     attacker_id: enemy.id(),
                 };
                 game.player.take_damage(&dmg);
+                game.camera.add_shake(8.0);
                 enemy.has_hit_this_attack = true;
             }
         }
@@ -732,9 +756,11 @@ fn update_playing(game: &mut Game, dt: f32) {
                 attacker_id: game.player.id(),
             };
             boss.take_damage(&dmg);
+            game.camera.add_shake(4.0);
             if boss.is_dead() && !game.boss_defeated {
                 game.boss_defeated = true;
                 game.souls += 5000;
+                game.camera.add_shake(15.0);
             }
         }
 
@@ -748,6 +774,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                     attacker_id: boss.id(),
                 };
                 game.player.take_damage(&dmg);
+                game.camera.add_shake(12.0);
                 boss.has_hit_this_attack = true;
             }
         }
@@ -783,6 +810,15 @@ fn update_playing(game: &mut Game, dt: f32) {
 
     // Check player death
     if game.player.is_dead() {
+        // Drop bloodstain with souls
+        if game.souls > 0 {
+            let (dx, dy) = game.player.position();
+            game.bloodstain_x = dx;
+            game.bloodstain_y = dy;
+            game.bloodstain_souls = game.souls;
+            game.has_bloodstain = true;
+        }
+        game.souls = 0;
         game.state = GameState::DeathScreen;
         game.menu = MenuState::death_screen();
     }
@@ -948,6 +984,17 @@ fn render(game: &mut Game) {
             [1.0, 1.0, 1.0, 1.0],
         );
         game.batcher.draw(bonfire_data, &game.bonfire_tex, gl);
+    }
+
+    // --- Draw bloodstain ---
+    if game.has_bloodstain {
+        let bloodstain_data = InstanceData::new(
+            game.bloodstain_x, game.bloodstain_y,
+            16.0, 16.0,
+            [0.0, 0.0, 1.0, 1.0],
+            [0.8, 0.1, 0.1, 0.7],
+        );
+        game.batcher.draw(bloodstain_data, &game.white_tex, gl);
     }
 
     // --- Draw enemies ---
