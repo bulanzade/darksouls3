@@ -70,6 +70,16 @@ struct Game {
     bloodstain_y: f32,
     bloodstain_souls: u32,
     has_bloodstain: bool,
+    // Soul orbs (floating particles from enemy kills)
+    soul_orbs: Vec<SoulOrb>,
+}
+
+struct SoulOrb {
+    x: f32,
+    y: f32,
+    vy: f32,
+    timer: f32,
+    max_time: f32,
 }
 
 static mut GAME: Option<Game> = None;
@@ -159,6 +169,7 @@ pub fn wasm_main() {
         bloodstain_y: 0.0,
         bloodstain_souls: 0,
         has_bloodstain: false,
+        soul_orbs: Vec::new(),
     };
 
     unsafe {
@@ -723,6 +734,17 @@ fn update_playing(game: &mut Game, dt: f32) {
             if enemy.is_dead() {
                 game.souls += 100;
                 game.camera.add_shake(6.0);
+                // Spawn soul orbs
+                let (ex, ey) = enemy.position();
+                for _ in 0..5 {
+                    game.soul_orbs.push(SoulOrb {
+                        x: ex + (game.soul_orbs.len() as f32 % 3.0 - 1.0) * 6.0,
+                        y: ey,
+                        vy: 30.0 + (game.soul_orbs.len() as f32 % 5.0) * 8.0,
+                        timer: 0.6 + (game.soul_orbs.len() as f32 % 3.0) * 0.2,
+                        max_time: 0.6 + (game.soul_orbs.len() as f32 % 3.0) * 0.2,
+                    });
+                }
             }
         }
 
@@ -785,6 +807,13 @@ fn update_playing(game: &mut Game, dt: f32) {
         game.boss = Some(Boss::new_test_boss(10, 736.0, 688.0));
         game.boss_active = true;
     }
+
+    // --- Update soul orbs ---
+    for orb in &mut game.soul_orbs {
+        orb.y += orb.vy * dt;
+        orb.timer -= dt;
+    }
+    game.soul_orbs.retain(|orb| orb.timer > 0.0);
 
     // --- Update lights to follow player ---
     if !game.lights.is_empty() {
@@ -1050,6 +1079,15 @@ fn render(game: &mut Game) {
                 &game.white_tex, gl,
             );
         }
+    }
+
+    // --- Draw soul orbs ---
+    for orb in &game.soul_orbs {
+        let alpha = (orb.timer / orb.max_time).min(1.0);
+        game.batcher.draw(
+            InstanceData::new(orb.x, orb.y, 8.0, 8.0, [0.0, 0.0, 1.0, 1.0], [0.6, 0.8, 1.0, alpha]),
+            &game.white_tex, gl,
+        );
     }
 
     // --- Draw player ---
