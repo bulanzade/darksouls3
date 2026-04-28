@@ -99,6 +99,8 @@ struct Game {
     damage_numbers: Vec<DamageNumber>,
     // Enemy death dissolve particles
     death_particles: Vec<DeathParticle>,
+    // Level-up flash timer
+    level_up_flash: f32,
 }
 
 struct WorldItem {
@@ -112,6 +114,7 @@ enum ItemKind {
     SoulOrb(u32),      // grants N souls
     EstusShard,         // increases max estus by 1
     HomewardBone,       // unused for now
+    PurpleMoss,         // cures poison
 }
 
 struct SoulOrb {
@@ -274,6 +277,10 @@ pub fn wasm_main() {
             WorldItem { x: 1300.0, y: 750.0, kind: ItemKind::SoulOrb(500), collected: false },
             // Boss arena entrance
             WorldItem { x: 1700.0, y: 500.0, kind: ItemKind::SoulOrb(1000), collected: false },
+            // Purple moss (cure poison) - near poison area in Room 3
+            WorldItem { x: 600.0, y: 750.0, kind: ItemKind::PurpleMoss, collected: false },
+            // Second moss near corridor poison
+            WorldItem { x: 1100.0, y: 1000.0, kind: ItemKind::PurpleMoss, collected: false },
         ],
         projectiles: Vec::new(),
         death_anim_timer: 0.0,
@@ -287,6 +294,7 @@ pub fn wasm_main() {
         riposte_target_id: 0,
         damage_numbers: Vec::new(),
         death_particles: Vec::new(),
+        level_up_flash: 0.0,
     };
 
     unsafe {
@@ -888,6 +896,10 @@ fn update_playing(game: &mut Game, dt: f32) {
                     game.bonfire.estus_charges = game.bonfire.estus_max;
                     game.audio.play_sfx("estus", 0.1, 0.0);
                 }
+                ItemKind::PurpleMoss => {
+                    game.player.poison_timer = 0.0;
+                    game.audio.play_sfx("estus", 0.08, 0.0);
+                }
                 ItemKind::HomewardBone => {}
             }
         }
@@ -955,6 +967,11 @@ fn update_playing(game: &mut Game, dt: f32) {
         p.timer -= dt;
     }
     game.death_particles.retain(|p| p.timer > 0.0);
+
+    // Tick level-up flash
+    if game.level_up_flash > 0.0 {
+        game.level_up_flash -= dt;
+    }
 
     // Estus healing
     if estus && game.player.hp < game.player.max_hp {
@@ -1490,9 +1507,9 @@ fn update_level_up_menu(game: &mut Game) {
         if game.souls >= cost {
             let idx = game.menu.selected_index;
             match idx {
-                0 => { game.player.vigor += 1; game.souls -= cost; game.player.level += 1; game.player.apply_stats(); game.player.hp = game.player.max_hp; }
-                1 => { game.player.endurance += 1; game.souls -= cost; game.player.level += 1; game.player.apply_stats(); }
-                2 => { game.player.strength += 1; game.souls -= cost; game.player.level += 1; game.player.apply_stats(); }
+                0 => { game.player.vigor += 1; game.souls -= cost; game.player.level += 1; game.player.apply_stats(); game.player.hp = game.player.max_hp; game.level_up_flash = 1.5; }
+                1 => { game.player.endurance += 1; game.souls -= cost; game.player.level += 1; game.player.apply_stats(); game.level_up_flash = 1.5; }
+                2 => { game.player.strength += 1; game.souls -= cost; game.player.level += 1; game.player.apply_stats(); game.level_up_flash = 1.5; }
                 3 => { game.state = GameState::BonfireMenu; game.menu = MenuState::bonfire_menu(); }
                 _ => {}
             }
@@ -1564,6 +1581,16 @@ fn render(game: &mut Game) {
 
     // --- Draw bonfire ---
     {
+        // Warm glow aura (pulsing)
+        let pulse = ((game.time.accumulator as f32 * 1.5).sin() * 0.15 + 0.85);
+        game.batcher.draw(
+            InstanceData::new(game.bonfire_x, game.bonfire_y, 64.0 * pulse, 64.0 * pulse, [0.0, 0.0, 1.0, 1.0], [0.9, 0.6, 0.1, 0.12]),
+            &game.white_tex, gl,
+        );
+        game.batcher.draw(
+            InstanceData::new(game.bonfire_x, game.bonfire_y, 48.0 * pulse, 48.0 * pulse, [0.0, 0.0, 1.0, 1.0], [1.0, 0.7, 0.2, 0.15]),
+            &game.white_tex, gl,
+        );
         let bonfire_data = InstanceData::new(
             game.bonfire_x, game.bonfire_y,
             32.0, 32.0,
@@ -1580,6 +1607,7 @@ fn render(game: &mut Game) {
             ItemKind::SoulOrb(_) => (0.6, 0.8, 1.0),
             ItemKind::EstusShard => (0.2, 0.9, 0.3),
             ItemKind::HomewardBone => (0.8, 0.7, 0.5),
+            ItemKind::PurpleMoss => (0.6, 0.2, 0.8),
         };
         // Floating bob effect
         let bob = (item.y * 0.05).sin() * 3.0;
@@ -2147,6 +2175,18 @@ fn update_dom_ui(game: &Game) {
         }
     }
 
+    // Level-up flash text
+    if let Some(el) = document.get_element_by_id("level-up-text") {
+        if game.level_up_flash > 0.0 {
+            let alpha = (game.level_up_flash / 1.5).min(1.0);
+            let _ = el.set_attribute("style", &format!("opacity: {}; color: #e8c840; font-size: 32px; text-shadow: 0 0 20px rgba(232,200,64,0.8); letter-spacing: 8px;", alpha));
+            el.set_text_content(Some(&format!("LEVEL {}", game.player.level)));
+        } else {
+            let _ = el.set_attribute("style", "display:none");
+            el.set_text_content(Some(""));
+        }
+    }
+
     // HUD text
     if let Some(el) = document.get_element_by_id("hud-text") {
         let hp = game.player.hp;
@@ -2181,9 +2221,14 @@ fn update_dom_ui(game: &Game) {
 
     // Souls
     if let Some(el) = document.get_element_by_id("souls-text") {
-        let enemies_alive = game.enemies.iter().filter(|e| !e.is_dead()).count();
-        el.set_text_content(Some(&format!("Souls: {} | Estus: {}/{}",
-            game.souls, game.bonfire.estus_charges, game.bonfire.estus_max)));
+        let mut text = format!("Souls: {} | Estus: {}/{}",
+            game.souls, game.bonfire.estus_charges, game.bonfire.estus_max);
+        if game.player.poison_timer > 0.0 {
+            text.push_str(&format!(" | POISONED ({:.0}s)", game.player.poison_timer));
+        }
+        el.set_text_content(Some(&text));
+        // Tint text when poisoned
+        let _ = el.set_attribute("style", if game.player.poison_timer > 0.0 { "color: #6c6;" } else { "" });
     }
 
     // Boss name

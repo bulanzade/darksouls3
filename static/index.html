@@ -39,6 +39,11 @@
             position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
             font-size: 14px; color: #c8c; text-align: center;
         }
+        #ui-overlay .level-up {
+            position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 32px; color: #e8c840; letter-spacing: 8px;
+            text-shadow: 0 0 20px rgba(232,200,64,0.8);
+        }
         #ui-overlay .controls {
             position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
             font-size: 12px; color: #555; text-align: center;
@@ -53,6 +58,7 @@
         <div class="hud-text" id="hud-text"></div>
         <div class="souls" id="souls-text"></div>
         <div class="boss-name" id="boss-name" style="display:none"></div>
+        <div class="level-up" id="level-up-text" style="display:none"></div>
         <div class="controls" id="controls">WASD move · Space roll · J attack · K heavy · L block · E estus</div>
     </div>
     <script type="module">
