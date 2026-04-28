@@ -21,7 +21,7 @@ impl BonfireDef {
     }
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct BonfireState {
     pub unlocked_bonfires: Vec<String>,
     pub estus_charges: u32,

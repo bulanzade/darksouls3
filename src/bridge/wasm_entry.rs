@@ -16,6 +16,7 @@ use crate::render::texture::Texture;
 use crate::render::ui_renderer::UiRenderer;
 use crate::render::vertex::InstanceData;
 use crate::save::bonfire::BonfireState;
+use crate::save::save_manager::{self, SaveData};
 use crate::world::chunk::Chunk;
 use crate::world::collision::CollisionGrid;
 use crate::world::tileset::{TileId, Tileset, TILE_SIZE};
@@ -591,6 +592,25 @@ fn update_title_screen(game: &mut Game) {
                     game.bonfire = BonfireState::new();
                 }
                 MenuAction::Continue => {
+                    if let Some(save) = save_manager::load_from_localstorage() {
+                        game.player = Player::new(1, 200.0, 200.0);
+                        game.player.level = save.player_level;
+                        game.player.vigor = save.vigor;
+                        game.player.endurance = save.endurance;
+                        game.player.strength = save.strength;
+                        game.player.apply_stats();
+                        game.player.hp = game.player.max_hp;
+                        game.souls = save.souls;
+                        game.bonfire = save.bonfire.clone();
+                        game.enemies = vec![
+                            Enemy::new_hollow_soldier(2, 620.0, 160.0),
+                            Enemy::new_hollow_soldier(3, 740.0, 200.0),
+                            Enemy::new_hollow_soldier(4, 680.0, 320.0),
+                        ];
+                        game.boss = None;
+                        game.boss_active = false;
+                        game.boss_defeated = false;
+                    }
                     game.state = GameState::Playing;
                     game.time.accumulator = 0.0;
                     game.state_timer = 0.0;
@@ -912,6 +932,17 @@ fn update_bonfire_menu(game: &mut Game) {
                 MenuAction::Rest => {
                     game.bonfire.rest();
                     game.player.hp = game.player.max_hp;
+                    // Auto-save at bonfire
+                    let save = SaveData {
+                        player_level: game.player.level,
+                        vigor: game.player.vigor,
+                        endurance: game.player.endurance,
+                        strength: game.player.strength,
+                        souls: game.souls,
+                        bonfire: game.bonfire.clone(),
+                        current_room: "dungeon".into(),
+                    };
+                    save_manager::save_to_localstorage(&save);
                 }
                 MenuAction::LevelUp => {
                     game.state = GameState::LevelUpMenu;
