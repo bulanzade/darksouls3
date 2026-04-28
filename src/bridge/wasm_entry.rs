@@ -101,6 +101,9 @@ struct Game {
     death_particles: Vec<DeathParticle>,
     // Level-up flash timer
     level_up_flash: f32,
+    // Input buffer for queued actions
+    input_buffer: BufferedAction,
+    input_buffer_timer: f32,
 }
 
 struct WorldItem {
@@ -170,6 +173,14 @@ struct DeathParticle {
     vy: f32,
     timer: f32,
     size: f32,
+}
+
+#[derive(Clone, Copy, PartialEq)]
+enum BufferedAction {
+    Attack,
+    HeavyAttack,
+    Roll,
+    None,
 }
 
 static mut GAME: Option<Game> = None;
@@ -295,6 +306,8 @@ pub fn wasm_main() {
         damage_numbers: Vec::new(),
         death_particles: Vec::new(),
         level_up_flash: 0.0,
+        input_buffer: BufferedAction::None,
+        input_buffer_timer: 0.0,
     };
 
     unsafe {
@@ -973,6 +986,14 @@ fn update_playing(game: &mut Game, dt: f32) {
         game.level_up_flash -= dt;
     }
 
+    // Tick input buffer
+    if game.input_buffer_timer > 0.0 {
+        game.input_buffer_timer -= dt;
+        if game.input_buffer_timer <= 0.0 {
+            game.input_buffer = BufferedAction::None;
+        }
+    }
+
     // Estus healing
     if estus && game.player.hp < game.player.max_hp {
         let heal = game.bonfire.use_estus();
@@ -985,6 +1006,21 @@ fn update_playing(game: &mut Game, dt: f32) {
 
     // Player input
     {
+        // Buffer actions during stagger/attack/roll
+        if attack || heavy_attack || roll {
+            let can_act = matches!(game.player.state, EntityState::Idle | EntityState::Moving);
+            if !can_act {
+                if attack { game.input_buffer = BufferedAction::Attack; }
+                else if heavy_attack { game.input_buffer = BufferedAction::HeavyAttack; }
+                else if roll { game.input_buffer = BufferedAction::Roll; }
+                game.input_buffer_timer = 0.3; // 300ms buffer window
+            }
+        }
+
+        // Execute buffered action when player returns to idle/moving
+        let buffered = game.input_buffer;
+        let buffer_valid = game.input_buffer_timer > 0.0;
+
         let player = &mut game.player;
         match player.state {
             EntityState::Idle | EntityState::Moving => {
@@ -994,13 +1030,17 @@ fn update_playing(game: &mut Game, dt: f32) {
                 } else {
                     player.state = EntityState::Idle;
                 }
-                if roll {
+                // Execute buffered action or fresh input
+                let do_attack = attack || (buffer_valid && buffered == BufferedAction::Attack);
+                let do_heavy = heavy_attack || (buffer_valid && buffered == BufferedAction::HeavyAttack);
+                let do_roll = roll || (buffer_valid && buffered == BufferedAction::Roll);
+
+                if do_roll {
                     if player.stamina.consume(25.0) {
                         player.state = EntityState::Rolling;
                         player.roll_timer = player.roll_duration;
-                        // Spawn dust particles
                         let (rx, ry) = player.position();
-                        let roll_dir = player.facing + std::f32::consts::PI; // Behind the roll
+                        let roll_dir = player.facing + std::f32::consts::PI;
                         for i in 0..4 {
                             let spread = (i as f32 - 1.5) * 0.4;
                             game.dust_particles.push(DustParticle {
@@ -1011,20 +1051,26 @@ fn update_playing(game: &mut Game, dt: f32) {
                                 timer: 0.3 + i as f32 * 0.05,
                             });
                         }
+                        game.input_buffer = BufferedAction::None;
+                        game.input_buffer_timer = 0.0;
                     }
                 }
-                if attack {
+                if do_attack {
                     if player.stamina.consume(20.0) {
                         player.state = EntityState::Attacking;
                         player.attack_timer = player.attack_duration;
                         player.is_heavy_attack = false;
+                        game.input_buffer = BufferedAction::None;
+                        game.input_buffer_timer = 0.0;
                     }
                 }
-                if heavy_attack {
+                if do_heavy {
                     if player.stamina.consume(40.0) {
                         player.state = EntityState::Attacking;
                         player.attack_timer = player.heavy_attack_duration;
                         player.is_heavy_attack = true;
+                        game.input_buffer = BufferedAction::None;
+                        game.input_buffer_timer = 0.0;
                     }
                 }
                 if block_held {
