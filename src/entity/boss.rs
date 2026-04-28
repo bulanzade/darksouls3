@@ -21,6 +21,7 @@ pub struct Boss {
     pub attack_duration: f32,
     pub stagger_timer: f32,
     pub has_hit_this_attack: bool,
+    pub flash_timer: f32,
 }
 
 impl Boss {
@@ -67,6 +68,7 @@ impl Boss {
             attack_duration: 0.8,
             stagger_timer: 0.0,
             has_hit_this_attack: false,
+            flash_timer: 0.0,
         }
     }
 
@@ -156,6 +158,11 @@ impl Entity for Boss {
     fn update(&mut self, _dt: f32) {}
 
     fn render(&self, batcher: &mut SpriteBatcher, texture: &Texture, gl: &GL) {
+        if self.flash_timer > 0.0 {
+            let instance = self.transform.to_instance_data(48.0, 48.0, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0]);
+            batcher.draw(instance, texture, gl);
+            return;
+        }
         let _phase = self.boss_ctrl.current_phase_index();
         let color = match self.state {
             EntityState::Idle => [0.8, 0.2, 0.8, 1.0],
@@ -177,6 +184,7 @@ impl Entity for Boss {
             return;
         } // Invulnerable during phase transition
         self.hp -= info.damage;
+        self.flash_timer = 0.12;
         self.stagger_timer = 0.2;
         if self.hp <= 0 {
             self.hp = 0;

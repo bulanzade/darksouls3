@@ -29,6 +29,8 @@ struct Game {
     player_tex: Texture,
     enemy_tex: Texture,
     boss_tex: Texture,
+    white_tex: Texture,
+    bonfire_tex: Texture,
     time: Time,
     input: InputState,
     camera: Camera2D,
@@ -105,6 +107,8 @@ pub fn wasm_main() {
     let player_tex = create_player_texture(&gl);
     let enemy_tex = create_enemy_texture(&gl);
     let boss_tex = create_boss_texture(&gl);
+    let white_tex = create_white_texture(&gl);
+    let bonfire_tex = create_bonfire_texture(&gl);
 
     let game = Game {
         gl_ctx,
@@ -113,6 +117,8 @@ pub fn wasm_main() {
         player_tex,
         enemy_tex,
         boss_tex,
+        white_tex,
+        bonfire_tex,
         time: Time::new(),
         input: InputState::new(),
         camera: {
@@ -280,7 +286,7 @@ fn create_player_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
     // Belt
     for x in 5..11 { set(&mut data, x, 8, 80, 60, 30, 255); }
     // Legs
-    for y in 9..12 { set(&mut data, y, 6, 80, 80, 90, 255); set(&mut data, y, 9, 80, 80, 90, 255); }
+    for y in 9..12 { set(&mut data, 6, y, 80, 80, 90, 255); set(&mut data, 9, y, 80, 80, 90, 255); }
     // Sword (right side)
     for y in 2..10 { set(&mut data, 12, y, 200, 200, 210, 255); }
     set(&mut data, 11, 5, 160, 140, 60, 255); // guard
@@ -288,8 +294,8 @@ fn create_player_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
     // Shield (left side)
     for y in 4..8 { for x in 2..5 { set(&mut data, x, y, 60, 80, 140, 255); } }
     // Boots
-    for y in 12..14 { set(&mut data, y, 5, 60, 50, 40, 255); set(&mut data, y, 6, 60, 50, 40, 255); }
-    for y in 12..14 { set(&mut data, y, 9, 60, 50, 40, 255); set(&mut data, y, 10, 60, 50, 40, 255); }
+    for y in 12..14 { set(&mut data, 5, y, 60, 50, 40, 255); set(&mut data, 6, y, 60, 50, 40, 255); }
+    for y in 12..14 { set(&mut data, 9, y, 60, 50, 40, 255); set(&mut data, 10, y, 60, 50, 40, 255); }
     Texture::from_rgba(gl, &data, 16, 16).expect("Failed to create player texture")
 }
 
@@ -359,32 +365,142 @@ fn create_boss_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
     Texture::from_rgba(gl, &data, s, s).expect("Failed to create boss texture")
 }
 
+fn create_white_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
+    let data: [u8; 4] = [0xFF, 0xFF, 0xFF, 0xFF];
+    Texture::from_rgba(gl, &data, 1, 1).expect("Failed to create white texture")
+}
+
+fn create_bonfire_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
+    // 32x32 bonfire sprite with coals and flames
+    let s: u32 = 32;
+    let mut data = vec![0u8; (s * s * 4) as usize];
+    let set = |data: &mut Vec<u8>, x: u32, y: u32, r: u8, g: u8, b: u8, a: u8| {
+        let i = ((y * s + x) * 4) as usize;
+        data[i] = r; data[i+1] = g; data[i+2] = b; data[i+3] = a;
+    };
+    // Stone base
+    for x in 8..24 { for y in 22..28 {
+        let shade = if (x + y) % 3 == 0 { 80 } else { 90 };
+        set(&mut data, x, y, shade, shade, shade + 10, 255);
+    }}
+    // Darker stone edges
+    for x in 8..24 {
+        set(&mut data, x, 21, 60, 60, 65, 255);
+        set(&mut data, x, 28, 60, 60, 65, 255);
+    }
+    for y in 21..29 {
+        set(&mut data, 7, y, 60, 60, 65, 255);
+        set(&mut data, 24, y, 60, 60, 65, 255);
+    }
+    // Coals (glowing embers)
+    for x in 10..22 { for y in 20..23 {
+        let glow = if (x * 7 + y * 13) % 5 < 2 { 255 } else { 200 };
+        set(&mut data, x, y, glow, glow / 3, 0, 255);
+    }}
+    // Flame core (inner bright)
+    for x in 13..19 { for y in 12..20 {
+        set(&mut data, x, y, 255, 220, 100, 255);
+    }}
+    // Flame mid (orange)
+    for x in 12..20 { for y in 8..16 {
+        let a = if (x + y) % 3 == 0 { 200 } else { 255 };
+        set(&mut data, x, y, 255, 140, 20, a);
+    }}
+    // Flame outer (red-orange)
+    for x in 11..21 { for y in 6..12 {
+        let a = if (x * 3 + y * 7) % 4 < 2 { 180 } else { 230 };
+        set(&mut data, x, y, 220, 80, 10, a);
+    }}
+    // Flame tips
+    set(&mut data, 14, 5, 200, 60, 10, 200);
+    set(&mut data, 15, 4, 180, 50, 10, 160);
+    set(&mut data, 16, 3, 160, 40, 5, 120);
+    set(&mut data, 17, 4, 180, 50, 10, 160);
+    set(&mut data, 18, 5, 200, 60, 10, 200);
+    // Sparks
+    set(&mut data, 10, 7, 255, 200, 50, 200);
+    set(&mut data, 21, 8, 255, 180, 40, 180);
+    set(&mut data, 12, 5, 255, 220, 80, 150);
+    set(&mut data, 19, 6, 255, 200, 60, 170);
+    // Sword inserted in bonfire
+    for y in 10..22 { set(&mut data, 15, y, 160, 160, 170, 255); set(&mut data, 16, y, 140, 140, 150, 255); }
+    // Blade reflection in fire
+    set(&mut data, 15, 14, 200, 180, 100, 255);
+    set(&mut data, 16, 15, 200, 180, 100, 255);
+
+    Texture::from_rgba(gl, &data, s, s).expect("Failed to create bonfire texture")
+}
+
 fn create_tileset_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
     let width: u32 = 64;
     let height: u32 = 16;
     let mut data = vec![0u8; (width * height * 4) as usize];
 
-    let tile_colors: [[u8; 4]; 4] = [
-        [0, 0, 0, 0],
-        [139, 90, 43, 255],
-        [100, 100, 100, 255],
-        [60, 60, 60, 255],
-    ];
+    let set_px = |data: &mut Vec<u8>, px: u32, py: u32, r: u8, g: u8, b: u8, a: u8| {
+        let offset = ((py * width + px) * 4) as usize;
+        data[offset] = r; data[offset+1] = g; data[offset+2] = b; data[offset+3] = a;
+    };
 
-    for tile_idx in 0..4u32 {
-        let tile_x_offset = tile_idx * 16;
-        let color = tile_colors[tile_idx as usize];
+    // Tile 0: Empty (transparent) — already zeros
+
+    // Tile 1: Ground — dark stone floor with variation and cracks
+    {
+        let tx_off = 1 * 16;
         for ty in 0..16u32 {
             for tx in 0..16u32 {
-                let px = tile_x_offset + tx;
-                let py = ty;
-                let offset = ((py * width + px) * 4) as usize;
-                data[offset] = color[0];
-                data[offset + 1] = color[1];
-                data[offset + 2] = color[2];
-                data[offset + 3] = color[3];
+                let px = tx_off + tx;
+                let noise = ((tx * 7 + ty * 13) % 17) as u8;
+                let base_r = 100u8.saturating_add(noise / 3);
+                let base_g = 75u8.saturating_add(noise / 4);
+                let base_b = 45u8.saturating_add(noise / 5);
+                set_px(&mut data, px, ty, base_r, base_g, base_b, 255);
             }
         }
+        // Cracks
+        for i in 3..9 { set_px(&mut data, tx_off + i, 7, 70, 50, 30, 255); }
+        for i in 5..12 { set_px(&mut data, tx_off + i, 11, 65, 45, 25, 255); }
+        // Border shadows
+        for x in 0..16 { set_px(&mut data, tx_off + x, 0, 85, 60, 35, 255); }
+        for y in 0..16 { set_px(&mut data, tx_off, y, 85, 60, 35, 255); }
+    }
+
+    // Tile 2: Wall — grey stone blocks with mortar lines
+    {
+        let tx_off = 2 * 16;
+        for ty in 0..16u32 {
+            for tx in 0..16u32 {
+                let px = tx_off + tx;
+                let noise = ((tx * 11 + ty * 7) % 13) as u8;
+                let base = 85u8.saturating_add(noise / 2);
+                set_px(&mut data, px, ty, base, base, base + 5, 255);
+            }
+        }
+        // Mortar lines (horizontal)
+        for x in 0..16 { set_px(&mut data, tx_off + x, 4, 55, 55, 58, 255); }
+        for x in 0..16 { set_px(&mut data, tx_off + x, 9, 55, 55, 58, 255); }
+        for x in 0..16 { set_px(&mut data, tx_off + x, 14, 55, 55, 58, 255); }
+        // Mortar lines (vertical, offset for brick pattern)
+        for y in 0..4 { set_px(&mut data, tx_off + 5, y, 55, 55, 58, 255); set_px(&mut data, tx_off + 11, y, 55, 55, 58, 255); }
+        for y in 5..9 { set_px(&mut data, tx_off + 3, y, 55, 55, 58, 255); set_px(&mut data, tx_off + 8, y, 55, 55, 58, 255); set_px(&mut data, tx_off + 13, y, 55, 55, 58, 255); }
+        for y in 10..14 { set_px(&mut data, tx_off + 6, y, 55, 55, 58, 255); set_px(&mut data, tx_off + 12, y, 55, 55, 58, 255); }
+        // Top highlight
+        for x in 0..16 { set_px(&mut data, tx_off + x, 0, 105, 105, 110, 255); }
+    }
+
+    // Tile 3: Dark wall / decoration with moss
+    {
+        let tx_off = 3 * 16;
+        for ty in 0..16u32 {
+            for tx in 0..16u32 {
+                let px = tx_off + tx;
+                let noise = ((tx * 5 + ty * 9) % 11) as u8;
+                let base = 50u8.saturating_add(noise / 3);
+                set_px(&mut data, px, ty, base, base, base + 3, 255);
+            }
+        }
+        // Moss patches
+        for x in 2..6 { set_px(&mut data, tx_off + x, 14, 40, 55, 35, 255); set_px(&mut data, tx_off + x, 15, 35, 50, 30, 255); }
+        for x in 10..14 { set_px(&mut data, tx_off + x, 13, 40, 55, 35, 255); }
     }
 
     Texture::from_rgba(gl, &data, width, height).expect("Failed to create tileset texture")
@@ -545,12 +661,18 @@ fn update_playing(game: &mut Game, dt: f32) {
             continue;
         }
         enemy.update_ai(px, py, dt);
+        if enemy.flash_timer > 0.0 {
+            enemy.flash_timer -= dt;
+        }
     }
 
     // Boss AI update
     if let Some(ref mut boss) = game.boss {
         if !boss.is_dead() {
             boss.update_ai(px, py, dt);
+        }
+        if boss.flash_timer > 0.0 {
+            boss.flash_timer -= dt;
         }
     }
 
@@ -788,18 +910,18 @@ fn render(game: &mut Game) {
     {
         let bonfire_data = InstanceData::new(
             game.bonfire_x, game.bonfire_y,
-            24.0, 24.0,
+            32.0, 32.0,
             [0.0, 0.0, 1.0, 1.0],
-            [1.0, 0.6, 0.1, 0.9],
+            [1.0, 1.0, 1.0, 1.0],
         );
-        game.batcher.draw(bonfire_data, &game.texture, gl);
+        game.batcher.draw(bonfire_data, &game.bonfire_tex, gl);
     }
 
     // --- Draw enemies ---
     for enemy in &game.enemies {
-        enemy.render(&mut game.batcher, &game.enemy_tex, gl);
-        // Health bar above enemy
         if !enemy.is_dead() {
+            enemy.render(&mut game.batcher, &game.enemy_tex, gl);
+            // Health bar above enemy
             let (ex, ey) = enemy.position();
             let hp_ratio = enemy.hp as f32 / enemy.max_hp as f32;
             let bar_w = 26.0;
@@ -808,7 +930,7 @@ fn render(game: &mut Game) {
             // Background
             game.batcher.draw(
                 InstanceData::new(ex, bar_y, bar_w, bar_h, [0.0, 0.0, 1.0, 1.0], [0.2, 0.2, 0.2, 0.8]),
-                &game.texture, gl,
+                &game.white_tex, gl,
             );
             // Foreground
             let fg_w = bar_w * hp_ratio;
@@ -822,30 +944,30 @@ fn render(game: &mut Game) {
             };
             game.batcher.draw(
                 InstanceData::new(fg_x, bar_y, fg_w, bar_h, [0.0, 0.0, 1.0, 1.0], hp_color),
-                &game.texture, gl,
+                &game.white_tex, gl,
             );
         }
     }
 
     // --- Draw boss ---
     if let Some(ref boss) = game.boss {
-        boss.render(&mut game.batcher, &game.boss_tex, gl);
-        // Health bar above boss
         if !boss.is_dead() {
+            boss.render(&mut game.batcher, &game.boss_tex, gl);
+            // Health bar above boss
             let (bx, by) = boss.position();
             let hp_ratio = boss.hp as f32 / boss.max_hp as f32;
             let bar_w = 48.0;
             let bar_h = 4.0;
-            let bar_y = by - 30.0;
+            let bar_y = by - 34.0;
             game.batcher.draw(
                 InstanceData::new(bx, bar_y, bar_w, bar_h, [0.0, 0.0, 1.0, 1.0], [0.2, 0.2, 0.2, 0.8]),
-                &game.texture, gl,
+                &game.white_tex, gl,
             );
             let fg_w = bar_w * hp_ratio;
             let fg_x = bx - bar_w * 0.5 + fg_w * 0.5;
             game.batcher.draw(
                 InstanceData::new(fg_x, bar_y, fg_w, bar_h, [0.0, 0.0, 1.0, 1.0], [0.8, 0.2, 0.8, 0.9]),
-                &game.texture, gl,
+                &game.white_tex, gl,
             );
         }
     }

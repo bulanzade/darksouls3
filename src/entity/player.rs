@@ -21,6 +21,7 @@ pub struct Player {
     pub roll_duration: f32,
     pub stagger_timer: f32,
     pub invuln_timer: f32,
+    pub flash_timer: f32,
     pub stamina: StaminaPool,
 }
 
@@ -40,6 +41,7 @@ impl Player {
             roll_duration: 0.25,
             stagger_timer: 0.0,
             invuln_timer: 0.0,
+            flash_timer: 0.0,
             stamina: StaminaPool::new(100.0),
         }
     }
@@ -103,6 +105,9 @@ impl Entity for Player {
         if self.invuln_timer > 0.0 {
             self.invuln_timer -= dt;
         }
+        if self.flash_timer > 0.0 {
+            self.flash_timer -= dt;
+        }
 
         match self.state {
             EntityState::Moving => {
@@ -136,6 +141,11 @@ impl Entity for Player {
     }
 
     fn render(&self, batcher: &mut SpriteBatcher, texture: &Texture, gl: &GL) {
+        if self.flash_timer > 0.0 {
+            let instance = self.transform.to_instance_data(32.0, 32.0, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0]);
+            batcher.draw(instance, texture, gl);
+            return;
+        }
         let color = match self.state {
             EntityState::Idle => [1.0, 1.0, 1.0, 1.0],
             EntityState::Moving => [0.9, 0.9, 0.7, 1.0],
@@ -158,6 +168,7 @@ impl Entity for Player {
         self.state = EntityState::Staggered;
         self.stagger_timer = 0.2;
         self.invuln_timer = 0.8;
+        self.flash_timer = 0.12;
         if self.hp <= 0 {
             self.hp = 0;
             self.state = EntityState::Dead;

@@ -6,10 +6,10 @@ pub struct SpriteVertex {
 }
 
 pub const QUAD_VERTICES: [SpriteVertex; 4] = [
-    SpriteVertex { pos: [-0.5, -0.5], uv: [0.0, 0.0] },
-    SpriteVertex { pos: [ 0.5, -0.5], uv: [1.0, 0.0] },
-    SpriteVertex { pos: [ 0.5,  0.5], uv: [1.0, 1.0] },
-    SpriteVertex { pos: [-0.5,  0.5], uv: [0.0, 1.0] },
+    SpriteVertex { pos: [-0.5, -0.5], uv: [0.0, 1.0] },
+    SpriteVertex { pos: [ 0.5, -0.5], uv: [1.0, 1.0] },
+    SpriteVertex { pos: [ 0.5,  0.5], uv: [1.0, 0.0] },
+    SpriteVertex { pos: [-0.5,  0.5], uv: [0.0, 0.0] },
 ];
 
 pub const QUAD_INDICES: [u16; 6] = [0, 1, 2, 0, 2, 3];

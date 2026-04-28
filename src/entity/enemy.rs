@@ -21,6 +21,7 @@ pub struct Enemy {
     pub fsm: StateMachine,
     pub aggro: AggroTable,
     pub has_hit_this_attack: bool,
+    pub flash_timer: f32,
 }
 
 impl Enemy {
@@ -135,6 +136,7 @@ impl Enemy {
             fsm,
             aggro,
             has_hit_this_attack: false,
+            flash_timer: 0.0,
         }
     }
 
@@ -251,6 +253,11 @@ impl Entity for Enemy {
     }
 
     fn render(&self, batcher: &mut SpriteBatcher, texture: &Texture, gl: &GL) {
+        if self.flash_timer > 0.0 {
+            let instance = self.transform.to_instance_data(28.0, 28.0, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0]);
+            batcher.draw(instance, texture, gl);
+            return;
+        }
         let color = match self.state {
             EntityState::Idle => [0.6, 0.6, 0.6, 1.0],
             EntityState::Moving => [0.7, 0.6, 0.4, 1.0],
@@ -267,6 +274,7 @@ impl Entity for Enemy {
 
     fn take_damage(&mut self, info: &DamageInfo) {
         self.hp -= info.damage;
+        self.flash_timer = 0.12;
         self.aggro.add_threat(info.damage as f32 * 2.0);
         self.fsm.current_state = STAGGERED;
         self.fsm.state_timer = 0.0;
