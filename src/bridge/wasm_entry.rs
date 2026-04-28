@@ -104,6 +104,12 @@ struct Game {
     // Input buffer for queued actions
     input_buffer: BufferedAction,
     input_buffer_timer: f32,
+    // Game statistics
+    enemies_killed: u32,
+    damage_dealt: u32,
+    damage_taken: u32,
+    death_count: u32,
+    play_time: f32,
 }
 
 struct WorldItem {
@@ -308,6 +314,11 @@ pub fn wasm_main() {
         level_up_flash: 0.0,
         input_buffer: BufferedAction::None,
         input_buffer_timer: 0.0,
+        enemies_killed: 0,
+        damage_dealt: 0,
+        damage_taken: 0,
+        death_count: 0,
+        play_time: 0.0,
     };
 
     unsafe {
@@ -921,6 +932,9 @@ fn update_playing(game: &mut Game, dt: f32) {
     // Tick state transition timer
     game.state_timer += dt;
 
+    // Track play time
+    game.play_time += dt;
+
     // Tick boss intro timer
     if game.boss_intro_timer > 0.0 {
         game.boss_intro_timer -= dt;
@@ -1206,6 +1220,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                 timer: 0.8,
                 is_player_damage: false,
             });
+            game.damage_dealt += if blocked { (attack_damage as f32 * 0.3) as u32 } else { actual_damage as u32 };
             // Stagger burst on hit
             if !blocked {
                 game.stagger_bursts.push(BlockSpark { x: ex, y: ey, timer: 0.2 });
@@ -1221,6 +1236,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                 game.screen_flash = Some(ScreenFlash { timer: 0.15, max_timer: 0.15, color: [1.0, 0.9, 0.3, 0.3] });
             }
             if enemy.is_dead() {
+                game.enemies_killed += 1;
                 let soul_reward = match enemy.kind {
                     crate::entity::enemy::EnemyKind::HollowSoldier => 100,
                     crate::entity::enemy::EnemyKind::Archer => 150,
@@ -1278,11 +1294,12 @@ fn update_playing(game: &mut Game, dt: f32) {
                     game.stagger_bursts.push(BlockSpark { x: (px + ex) * 0.5, y: (py + ey) * 0.5, timer: 0.3 });
                     game.audio.play_sfx("hit", 0.15, 0.0);
                 } else if *game.player.state() == EntityState::Blocking {
-                    // Block — push enemy back slightly
+                    game.damage_taken += (enemy.damage as f32 * 0.3) as u32;
                     game.audio.play_sfx("hit", 0.08, 0.0);
                 } else {
                     game.camera.add_shake(8.0);
                     game.audio.play_sfx("player_hit", 0.15, 0.0);
+                    game.damage_taken += enemy.damage as u32;
                     // Damage number on player
                     game.damage_numbers.push(DamageNumber {
                         x: px,
@@ -1426,6 +1443,7 @@ fn update_playing(game: &mut Game, dt: f32) {
             game.has_bloodstain = true;
         }
         game.souls = 0;
+        game.death_count += 1;
         game.death_anim_timer = 0.0; // Start death animation
         game.state = GameState::DeathScreen;
         game.menu = MenuState::death_screen();
@@ -2211,11 +2229,13 @@ fn update_dom_ui(game: &Game) {
                 let _ = el.set_attribute("style", "opacity: 0;");
             }
         } else if game.state == GameState::Victory {
+            let mins = (game.play_time / 60.0) as u32;
+            let secs = (game.play_time % 60.0) as u32;
             el.set_text_content(Some(&format!(
-                "VICTORY\nSouls: {}\nPress Enter to return to title",
-                game.souls
+                "VICTORY\n\nTime: {}:{:02}\nEnemies Slain: {}\nDamage Dealt: {}\nDamage Taken: {}\nDeaths: {}\nLevel: {}\nSouls: {}\n\nPress Enter to return to title",
+                mins, secs, game.enemies_killed, game.damage_dealt, game.damage_taken, game.death_count, game.player.level, game.souls
             )));
-            let _ = el.set_attribute("style", "color: #e8c840; text-shadow: 0 0 20px rgba(232,200,64,0.6);");
+            let _ = el.set_attribute("style", "color: #e8c840; text-shadow: 0 0 20px rgba(232,200,64,0.6); white-space: pre-line;");
         } else {
             let _ = el.set_attribute("style", "display:none");
         }
