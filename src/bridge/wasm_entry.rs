@@ -26,6 +26,9 @@ struct Game {
     gl_ctx: GlContext,
     batcher: SpriteBatcher,
     texture: Texture,
+    player_tex: Texture,
+    enemy_tex: Texture,
+    boss_tex: Texture,
     time: Time,
     input: InputState,
     camera: Camera2D,
@@ -52,6 +55,8 @@ struct Game {
     // Boss tracking
     boss_active: bool,
     boss_defeated: bool,
+    // Grace period after state transition to prevent accidental interactions
+    state_timer: f32,
     // Bonfire world position
     bonfire_x: f32,
     bonfire_y: f32,
@@ -97,10 +102,17 @@ pub fn wasm_main() {
         Light { x: 700.0, y: 200.0, radius: 200.0, color: [0.3, 0.3, 0.8], intensity: 0.2 },
     ];
 
+    let player_tex = create_player_texture(&gl);
+    let enemy_tex = create_enemy_texture(&gl);
+    let boss_tex = create_boss_texture(&gl);
+
     let game = Game {
         gl_ctx,
         batcher,
         texture,
+        player_tex,
+        enemy_tex,
+        boss_tex,
         time: Time::new(),
         input: InputState::new(),
         camera: {
@@ -127,6 +139,7 @@ pub fn wasm_main() {
         audio: AudioEngine,
         boss_active: false,
         boss_defeated: false,
+        state_timer: 0.0,
         bonfire_x: 200.0,
         bonfire_y: 200.0,
         screen_w,
@@ -244,6 +257,108 @@ fn create_test_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
     Texture::from_rgba(gl, &data, size, size).expect("Failed to create test texture")
 }
 
+fn create_player_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
+    // 16x16 knight sprite
+    let mut data = vec![0u8; 16 * 16 * 4];
+    let set = |data: &mut Vec<u8>, x: u32, y: u32, r: u8, g: u8, b: u8, a: u8| {
+        let i = ((y * 16 + x) * 4) as usize;
+        data[i] = r; data[i+1] = g; data[i+2] = b; data[i+3] = a;
+    };
+    // Helmet (silver)
+    for x in 6..10 { set(&mut data, x, 1, 180, 180, 200, 255); }
+    for x in 5..11 { set(&mut data, x, 2, 160, 160, 180, 255); }
+    for x in 5..11 { set(&mut data, x, 3, 140, 140, 160, 255); }
+    // Visor
+    set(&mut data, 6, 2, 40, 40, 60, 255);
+    set(&mut data, 9, 2, 40, 40, 60, 255);
+    set(&mut data, 7, 3, 40, 40, 60, 255);
+    set(&mut data, 8, 3, 40, 40, 60, 255);
+    // Face
+    for x in 6..10 { set(&mut data, x, 4, 220, 180, 140, 255); }
+    // Body (armor)
+    for y in 5..9 { for x in 5..11 { set(&mut data, x, y, 100, 100, 120, 255); } }
+    // Belt
+    for x in 5..11 { set(&mut data, x, 8, 80, 60, 30, 255); }
+    // Legs
+    for y in 9..12 { set(&mut data, y, 6, 80, 80, 90, 255); set(&mut data, y, 9, 80, 80, 90, 255); }
+    // Sword (right side)
+    for y in 2..10 { set(&mut data, 12, y, 200, 200, 210, 255); }
+    set(&mut data, 11, 5, 160, 140, 60, 255); // guard
+    set(&mut data, 13, 5, 160, 140, 60, 255); // guard
+    // Shield (left side)
+    for y in 4..8 { for x in 2..5 { set(&mut data, x, y, 60, 80, 140, 255); } }
+    // Boots
+    for y in 12..14 { set(&mut data, y, 5, 60, 50, 40, 255); set(&mut data, y, 6, 60, 50, 40, 255); }
+    for y in 12..14 { set(&mut data, y, 9, 60, 50, 40, 255); set(&mut data, y, 10, 60, 50, 40, 255); }
+    Texture::from_rgba(gl, &data, 16, 16).expect("Failed to create player texture")
+}
+
+fn create_enemy_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
+    // 16x16 hollow soldier sprite
+    let mut data = vec![0u8; 16 * 16 * 4];
+    let set = |data: &mut Vec<u8>, x: u32, y: u32, r: u8, g: u8, b: u8, a: u8| {
+        let i = ((y * 16 + x) * 4) as usize;
+        data[i] = r; data[i+1] = g; data[i+2] = b; data[i+3] = a;
+    };
+    // Head (pale, hollow)
+    for x in 6..10 { set(&mut data, x, 2, 100, 90, 80, 255); }
+    for x in 5..11 { set(&mut data, x, 3, 90, 80, 70, 255); }
+    for x in 5..11 { set(&mut data, x, 4, 110, 95, 80, 255); }
+    // Hollow eyes
+    set(&mut data, 6, 3, 20, 20, 20, 255); set(&mut data, 9, 3, 20, 20, 20, 255);
+    // Torn body
+    for y in 5..9 { for x in 5..11 { set(&mut data, x, y, 70, 60, 50, 255); } }
+    // Rags
+    set(&mut data, 5, 6, 80, 70, 55, 255); set(&mut data, 10, 7, 80, 70, 55, 255);
+    // Legs
+    for y in 9..12 { set(&mut data, 6, y, 60, 55, 45, 255); set(&mut data, 9, y, 60, 55, 45, 255); }
+    // Sword
+    for y in 3..8 { set(&mut data, 12, y, 140, 140, 140, 255); }
+    set(&mut data, 11, 5, 100, 80, 40, 255);
+    // Boots
+    for y in 12..14 { set(&mut data, 5, y, 50, 45, 35, 255); set(&mut data, 6, y, 50, 45, 35, 255); }
+    for y in 12..14 { set(&mut data, 9, y, 50, 45, 35, 255); set(&mut data, 10, y, 50, 45, 35, 255); }
+    Texture::from_rgba(gl, &data, 16, 16).expect("Failed to create enemy texture")
+}
+
+fn create_boss_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
+    // 24x24 demon boss sprite
+    let s = 24u32;
+    let mut data = vec![0u8; (s * s * 4) as usize];
+    let set = |data: &mut Vec<u8>, x: u32, y: u32, r: u8, g: u8, b: u8, a: u8| {
+        let i = ((y * s + x) * 4) as usize;
+        data[i] = r; data[i+1] = g; data[i+2] = b; data[i+3] = a;
+    };
+    // Horns
+    set(&mut data, 6, 0, 80, 20, 20, 255); set(&mut data, 5, 1, 80, 20, 20, 255);
+    set(&mut data, 17, 0, 80, 20, 20, 255); set(&mut data, 18, 1, 80, 20, 20, 255);
+    // Head
+    for x in 8..16 { set(&mut data, x, 2, 60, 15, 15, 255); }
+    for x in 7..17 { for y in 3..6 { set(&mut data, x, y, 70, 20, 25, 255); } }
+    // Glowing eyes
+    set(&mut data, 9, 4, 255, 200, 50, 255); set(&mut data, 10, 4, 255, 200, 50, 255);
+    set(&mut data, 13, 4, 255, 200, 50, 255); set(&mut data, 14, 4, 255, 200, 50, 255);
+    // Mouth
+    for x in 10..14 { set(&mut data, x, 5, 40, 10, 10, 255); }
+    // Torso
+    for x in 6..18 { for y in 6..14 { set(&mut data, x, y, 55, 15, 20, 255); } }
+    // Armor plates
+    for x in 8..16 { for y in 7..10 { set(&mut data, x, y, 80, 30, 35, 255); } }
+    // Arms
+    for y in 7..12 { set(&mut data, 4, y, 60, 20, 25, 255); set(&mut data, 5, y, 60, 20, 25, 255); }
+    for y in 7..12 { set(&mut data, 18, y, 60, 20, 25, 255); set(&mut data, 19, y, 60, 20, 25, 255); }
+    // Weapon (great sword)
+    for y in 1..14 { set(&mut data, 21, y, 150, 150, 160, 255); set(&mut data, 22, y, 130, 130, 140, 255); }
+    set(&mut data, 20, 8, 120, 100, 40, 255); set(&mut data, 23, 8, 120, 100, 40, 255);
+    // Legs
+    for y in 14..20 { set(&mut data, 8, y, 50, 15, 18, 255); set(&mut data, 9, y, 50, 15, 18, 255); }
+    for y in 14..20 { set(&mut data, 14, y, 50, 15, 18, 255); set(&mut data, 15, y, 50, 15, 18, 255); }
+    // Feet
+    for y in 20..22 { for x in 7..11 { set(&mut data, x, y, 40, 12, 12, 255); } }
+    for y in 20..22 { for x in 13..17 { set(&mut data, x, y, 40, 12, 12, 255); } }
+    Texture::from_rgba(gl, &data, s, s).expect("Failed to create boss texture")
+}
+
 fn create_tileset_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
     let width: u32 = 64;
     let height: u32 = 16;
@@ -325,6 +440,7 @@ fn update_title_screen(game: &mut Game) {
                 MenuAction::NewGame => {
                     game.state = GameState::Playing;
                     game.time.accumulator = 0.0;
+                    game.state_timer = 0.0;
                     game.player = Player::new(1, 200.0, 200.0);
                     game.enemies = vec![
                         Enemy::new_hollow_soldier(2, 620.0, 160.0),
@@ -340,6 +456,7 @@ fn update_title_screen(game: &mut Game) {
                 MenuAction::Continue => {
                     game.state = GameState::Playing;
                     game.time.accumulator = 0.0;
+                    game.state_timer = 0.0;
                 }
                 _ => {}
             }
@@ -360,8 +477,8 @@ fn update_playing(game: &mut Game, dt: f32) {
     let estus = game.input.pressed(KeyCode::E);
     let interact = game.input.pressed(KeyCode::Enter);
 
-    // Bonfire interaction
-    if interact {
+    // Bonfire interaction (skip for first 0.5s after state change)
+    if interact && game.state_timer > 0.5 {
         let (px, py) = game.player.position();
         let dx = px - game.bonfire_x;
         let dy = py - game.bonfire_y;
@@ -373,6 +490,9 @@ fn update_playing(game: &mut Game, dt: f32) {
             return;
         }
     }
+
+    // Tick state transition timer
+    game.state_timer += dt;
 
     // Estus healing
     if estus && game.player.hp < game.player.max_hp {
@@ -562,6 +682,7 @@ fn update_death(game: &mut Game) {
                     game.boss_active = false;
                     game.boss_defeated = false;
                     game.time.accumulator = 0.0;
+                    game.state_timer = 0.0;
                     game.state = GameState::Playing;
                 }
                 MenuAction::QuitToTitle => {
@@ -676,7 +797,7 @@ fn render(game: &mut Game) {
 
     // --- Draw enemies ---
     for enemy in &game.enemies {
-        enemy.render(&mut game.batcher, &game.texture, gl);
+        enemy.render(&mut game.batcher, &game.enemy_tex, gl);
         // Health bar above enemy
         if !enemy.is_dead() {
             let (ex, ey) = enemy.position();
@@ -708,7 +829,7 @@ fn render(game: &mut Game) {
 
     // --- Draw boss ---
     if let Some(ref boss) = game.boss {
-        boss.render(&mut game.batcher, &game.texture, gl);
+        boss.render(&mut game.batcher, &game.boss_tex, gl);
         // Health bar above boss
         if !boss.is_dead() {
             let (bx, by) = boss.position();
@@ -730,7 +851,7 @@ fn render(game: &mut Game) {
     }
 
     // --- Draw player ---
-    game.player.render(&mut game.batcher, &game.texture, gl);
+    game.player.render(&mut game.batcher, &game.player_tex, gl);
 
     game.batcher.flush(gl);
 

@@ -74,10 +74,10 @@ impl InputState {
             dx += 1.0;
         }
         if self.held(KeyCode::W) || self.held(KeyCode::Up) {
-            dy -= 1.0;
+            dy += 1.0;
         }
         if self.held(KeyCode::S) || self.held(KeyCode::Down) {
-            dy += 1.0;
+            dy -= 1.0;
         }
 
         // Normalize diagonal movement
