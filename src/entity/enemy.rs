@@ -260,6 +260,63 @@ impl Enemy {
         self.is_dead() && self.death_timer <= 0.0
     }
 
+    pub fn new_mini_boss(id: EntityId, x: f32, y: f32) -> Self {
+        let mut fsm = StateMachine::new(IDLE);
+
+        fsm.add_state(StateDef {
+            id: IDLE, name: "Idle".into(), duration: None,
+            transitions: vec![Transition { target: ALERT, condition: target_close, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: ALERT, name: "Alert".into(), duration: Some(0.2),
+            transitions: vec![Transition { target: CHASE, condition: always, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: CHASE, name: "Chase".into(), duration: None,
+            transitions: vec![
+                Transition { target: ATTACK, condition: |ctx| ctx.distance_to_target < 50.0, priority: 3 },
+                Transition { target: RANGED_ATTACK, condition: |ctx| ctx.distance_to_target < 200.0 && ctx.distance_to_target > 80.0 && ctx.can_see_target, priority: 2 },
+                Transition { target: RETURN, condition: target_far, priority: 1 },
+            ],
+        });
+        fsm.add_state(StateDef {
+            id: RANGED_ATTACK, name: "RangedAttack".into(), duration: Some(0.8),
+            transitions: vec![Transition { target: CHASE, condition: always, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: ATTACK, name: "Attack".into(), duration: Some(2.0),
+            transitions: vec![
+                Transition { target: RETREAT, condition: low_hp, priority: 2 },
+                Transition { target: CHASE, condition: attack_done, priority: 1 },
+            ],
+        });
+        fsm.add_state(StateDef {
+            id: RETREAT, name: "Retreat".into(), duration: Some(0.6),
+            transitions: vec![Transition { target: CHASE, condition: retreat_done, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: RETURN, name: "Return".into(), duration: None,
+            transitions: vec![Transition { target: IDLE, condition: |ctx| ctx.distance_to_target < 10.0, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: STAGGERED, name: "Staggered".into(), duration: Some(0.15),
+            transitions: vec![Transition { target: CHASE, condition: always, priority: 1 }],
+        });
+
+        let aggro = AggroTable::new(300.0, 600.0);
+        Self {
+            id, transform: Transform::new(x, y),
+            hp: 600, max_hp: 600, speed: 70.0,
+            state: EntityState::Idle, facing: 0.0,
+            damage: 45, attack_range: 50.0,
+            spawn_x: x, spawn_y: y, fsm, aggro,
+            has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
+            kind: EnemyKind::Knight,
+            shoot_timer: 0.0, shoot_cooldown: 1.5,
+            block_chance: 0.3,
+        }
+    }
+
     pub fn should_shoot(&mut self, dt: f32) -> bool {
         if self.kind != EnemyKind::Archer { return false; }
         self.shoot_timer -= dt;

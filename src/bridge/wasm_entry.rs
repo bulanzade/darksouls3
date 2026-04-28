@@ -145,6 +145,8 @@ pub fn wasm_main() {
         Enemy::new_hollow_soldier(6, 1350.0, 600.0),
         Enemy::new_knight(7, 1450.0, 700.0),
         Enemy::new_hollow_soldier(8, 1250.0, 800.0),
+        // Room 5: Mini-boss
+        Enemy::new_mini_boss(9, 1264.0, 1280.0),
     ];
 
     // Initial lights
@@ -689,6 +691,7 @@ fn update_title_screen(game: &mut Game) {
                         Enemy::new_hollow_soldier(6, 1300.0, 600.0),
                         Enemy::new_knight(7, 1400.0, 650.0),
                         Enemy::new_hollow_soldier(8, 1200.0, 750.0),
+                        Enemy::new_mini_boss(9, 1264.0, 1280.0),
                     ];
                     game.boss = None;
                     game.boss_active = false;
@@ -715,6 +718,7 @@ fn update_title_screen(game: &mut Game) {
                             Enemy::new_hollow_soldier(6, 1350.0, 600.0),
                             Enemy::new_knight(7, 1450.0, 700.0),
                             Enemy::new_hollow_soldier(8, 1250.0, 800.0),
+                            Enemy::new_mini_boss(9, 1264.0, 1280.0),
                         ];
                         game.boss = None;
                         game.boss_active = false;
@@ -938,7 +942,12 @@ fn update_playing(game: &mut Game, dt: f32) {
             game.camera.add_shake(if is_heavy { 6.0 } else { 3.0 });
             game.audio.play_sfx("hit", 0.12, 0.0);
             if enemy.is_dead() {
-                game.souls += 100;
+                let soul_reward = match enemy.kind {
+                    crate::entity::enemy::EnemyKind::HollowSoldier => 100,
+                    crate::entity::enemy::EnemyKind::Archer => 150,
+                    crate::entity::enemy::EnemyKind::Knight => 200,
+                };
+                game.souls += soul_reward;
                 game.camera.add_shake(6.0);
                 game.audio.play_sfx("enemy_die", 0.1, 0.0);
                 // Spawn soul orbs
@@ -1134,6 +1143,7 @@ fn update_death(game: &mut Game) {
                         Enemy::new_hollow_soldier(6, 1300.0, 600.0),
                         Enemy::new_knight(7, 1400.0, 650.0),
                         Enemy::new_hollow_soldier(8, 1200.0, 750.0),
+                        Enemy::new_mini_boss(9, 1264.0, 1280.0),
                     ];
                     game.boss = None;
                     game.boss_active = false;
