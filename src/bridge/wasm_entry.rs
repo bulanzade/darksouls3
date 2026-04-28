@@ -329,39 +329,96 @@ fn create_test_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
 }
 
 fn create_player_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
-    // 16x16 knight sprite
-    let mut data = vec![0u8; 16 * 16 * 4];
-    let set = |data: &mut Vec<u8>, x: u32, y: u32, r: u8, g: u8, b: u8, a: u8| {
-        let i = ((y * 16 + x) * 4) as usize;
+    // 64x16 sprite atlas: 4 frames (idle, walk, attack, block)
+    // Each frame is 16x16
+    let frame_w: u32 = 16;
+    let total_w: u32 = 64;
+    let h: u32 = 16;
+    let mut data = vec![0u8; (total_w * h * 4) as usize];
+    let set = |data: &mut Vec<u8>, frame: u32, x: u32, y: u32, r: u8, g: u8, b: u8, a: u8| {
+        let px = frame * frame_w + x;
+        let i = ((y * total_w + px) * 4) as usize;
         data[i] = r; data[i+1] = g; data[i+2] = b; data[i+3] = a;
     };
-    // Helmet (silver)
-    for x in 6..10 { set(&mut data, x, 1, 180, 180, 200, 255); }
-    for x in 5..11 { set(&mut data, x, 2, 160, 160, 180, 255); }
-    for x in 5..11 { set(&mut data, x, 3, 140, 140, 160, 255); }
-    // Visor
-    set(&mut data, 6, 2, 40, 40, 60, 255);
-    set(&mut data, 9, 2, 40, 40, 60, 255);
-    set(&mut data, 7, 3, 40, 40, 60, 255);
-    set(&mut data, 8, 3, 40, 40, 60, 255);
-    // Face
-    for x in 6..10 { set(&mut data, x, 4, 220, 180, 140, 255); }
-    // Body (armor)
-    for y in 5..9 { for x in 5..11 { set(&mut data, x, y, 100, 100, 120, 255); } }
-    // Belt
-    for x in 5..11 { set(&mut data, x, 8, 80, 60, 30, 255); }
-    // Legs
-    for y in 9..12 { set(&mut data, 6, y, 80, 80, 90, 255); set(&mut data, 9, y, 80, 80, 90, 255); }
-    // Sword (right side)
-    for y in 2..10 { set(&mut data, 12, y, 200, 200, 210, 255); }
-    set(&mut data, 11, 5, 160, 140, 60, 255); // guard
-    set(&mut data, 13, 5, 160, 140, 60, 255); // guard
-    // Shield (left side)
-    for y in 4..8 { for x in 2..5 { set(&mut data, x, y, 60, 80, 140, 255); } }
-    // Boots
-    for y in 12..14 { set(&mut data, 5, y, 60, 50, 40, 255); set(&mut data, 6, y, 60, 50, 40, 255); }
-    for y in 12..14 { set(&mut data, 9, y, 60, 50, 40, 255); set(&mut data, 10, y, 60, 50, 40, 255); }
-    Texture::from_rgba(gl, &data, 16, 16).expect("Failed to create player texture")
+
+    // Frame 0: Idle — standing with sword at rest
+    {
+        let f = 0;
+        // Helmet
+        for x in 6..10 { set(&mut data, f, x, 1, 180, 180, 200, 255); }
+        for x in 5..11 { set(&mut data, f, x, 2, 160, 160, 180, 255); }
+        for x in 5..11 { set(&mut data, f, x, 3, 140, 140, 160, 255); }
+        set(&mut data, f, 6, 2, 40, 40, 60, 255); set(&mut data, f, 9, 2, 40, 40, 60, 255);
+        for x in 6..10 { set(&mut data, f, x, 4, 220, 180, 140, 255); }
+        for y in 5..9 { for x in 5..11 { set(&mut data, f, x, y, 100, 100, 120, 255); } }
+        for x in 5..11 { set(&mut data, f, x, 8, 80, 60, 30, 255); }
+        for y in 9..12 { set(&mut data, f, 6, y, 80, 80, 90, 255); set(&mut data, f, 9, y, 80, 80, 90, 255); }
+        for y in 2..10 { set(&mut data, f, 12, y, 200, 200, 210, 255); }
+        set(&mut data, f, 11, 5, 160, 140, 60, 255); set(&mut data, f, 13, 5, 160, 140, 60, 255);
+        for y in 4..8 { for x in 2..5 { set(&mut data, f, x, y, 60, 80, 140, 255); } }
+        for y in 12..14 { set(&mut data, f, 5, y, 60, 50, 40, 255); set(&mut data, f, 6, y, 60, 50, 40, 255); }
+        for y in 12..14 { set(&mut data, f, 9, y, 60, 50, 40, 255); set(&mut data, f, 10, y, 60, 50, 40, 255); }
+    }
+
+    // Frame 1: Walk — legs spread, slight lean
+    {
+        let f = 1;
+        for x in 6..10 { set(&mut data, f, x, 1, 180, 180, 200, 255); }
+        for x in 5..11 { set(&mut data, f, x, 2, 160, 160, 180, 255); }
+        for x in 5..11 { set(&mut data, f, x, 3, 140, 140, 160, 255); }
+        set(&mut data, f, 6, 2, 40, 40, 60, 255); set(&mut data, f, 9, 2, 40, 40, 60, 255);
+        for x in 6..10 { set(&mut data, f, x, 4, 220, 180, 140, 255); }
+        for y in 5..9 { for x in 5..11 { set(&mut data, f, x, y, 100, 100, 120, 255); } }
+        for x in 5..11 { set(&mut data, f, x, 8, 80, 60, 30, 255); }
+        // Legs spread (walking pose)
+        for y in 9..12 { set(&mut data, f, 5, y, 80, 80, 90, 255); set(&mut data, f, 10, y, 80, 80, 90, 255); }
+        for y in 2..10 { set(&mut data, f, 12, y, 200, 200, 210, 255); }
+        set(&mut data, f, 11, 5, 160, 140, 60, 255); set(&mut data, f, 13, 5, 160, 140, 60, 255);
+        for y in 4..8 { for x in 2..5 { set(&mut data, f, x, y, 60, 80, 140, 255); } }
+        for y in 12..14 { set(&mut data, f, 4, y, 60, 50, 40, 255); set(&mut data, f, 5, y, 60, 50, 40, 255); }
+        for y in 12..14 { set(&mut data, f, 10, y, 60, 50, 40, 255); set(&mut data, f, 11, y, 60, 50, 40, 255); }
+    }
+
+    // Frame 2: Attack — sword swung forward
+    {
+        let f = 2;
+        for x in 6..10 { set(&mut data, f, x, 1, 180, 180, 200, 255); }
+        for x in 5..11 { set(&mut data, f, x, 2, 160, 160, 180, 255); }
+        for x in 5..11 { set(&mut data, f, x, 3, 140, 140, 160, 255); }
+        set(&mut data, f, 6, 2, 40, 40, 60, 255); set(&mut data, f, 9, 2, 40, 40, 60, 255);
+        for x in 6..10 { set(&mut data, f, x, 4, 220, 180, 140, 255); }
+        for y in 5..9 { for x in 5..11 { set(&mut data, f, x, y, 100, 100, 120, 255); } }
+        for x in 5..11 { set(&mut data, f, x, 8, 80, 60, 30, 255); }
+        for y in 9..12 { set(&mut data, f, 6, y, 80, 80, 90, 255); set(&mut data, f, 9, y, 80, 80, 90, 255); }
+        // Sword extended forward (horizontal)
+        for x in 11..15 { set(&mut data, f, x, 5, 200, 200, 210, 255); }
+        set(&mut data, f, 10, 5, 160, 140, 60, 255);
+        set(&mut data, f, 11, 4, 160, 140, 60, 255);
+        for y in 4..8 { for x in 2..5 { set(&mut data, f, x, y, 60, 80, 140, 255); } }
+        for y in 12..14 { set(&mut data, f, 5, y, 60, 50, 40, 255); set(&mut data, f, 6, y, 60, 50, 40, 255); }
+        for y in 12..14 { set(&mut data, f, 9, y, 60, 50, 40, 255); set(&mut data, f, 10, y, 60, 50, 40, 255); }
+    }
+
+    // Frame 3: Block — shield raised
+    {
+        let f = 3;
+        for x in 6..10 { set(&mut data, f, x, 1, 180, 180, 200, 255); }
+        for x in 5..11 { set(&mut data, f, x, 2, 160, 160, 180, 255); }
+        for x in 5..11 { set(&mut data, f, x, 3, 140, 140, 160, 255); }
+        set(&mut data, f, 6, 2, 40, 40, 60, 255); set(&mut data, f, 9, 2, 40, 40, 60, 255);
+        for x in 6..10 { set(&mut data, f, x, 4, 220, 180, 140, 255); }
+        for y in 5..9 { for x in 5..11 { set(&mut data, f, x, y, 100, 100, 120, 255); } }
+        for x in 5..11 { set(&mut data, f, x, 8, 80, 60, 30, 255); }
+        for y in 9..12 { set(&mut data, f, 6, y, 80, 80, 90, 255); set(&mut data, f, 9, y, 80, 80, 90, 255); }
+        for y in 2..10 { set(&mut data, f, 12, y, 200, 200, 210, 255); }
+        // Shield raised (larger, higher position)
+        for y in 2..8 { for x in 1..5 { set(&mut data, f, x, y, 50, 70, 150, 255); } }
+        for y in 2..8 { set(&mut data, f, 1, y, 80, 100, 180, 255); }
+        for y in 12..14 { set(&mut data, f, 5, y, 60, 50, 40, 255); set(&mut data, f, 6, y, 60, 50, 40, 255); }
+        for y in 12..14 { set(&mut data, f, 9, y, 60, 50, 40, 255); set(&mut data, f, 10, y, 60, 50, 40, 255); }
+    }
+
+    Texture::from_rgba(gl, &data, total_w, h).expect("Failed to create player texture")
 }
 
 fn create_enemy_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {

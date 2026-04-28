@@ -170,35 +170,38 @@ impl Entity for Player {
     }
 
     fn render(&self, batcher: &mut SpriteBatcher, texture: &Texture, gl: &GL) {
+        let (frame, color) = match self.state {
+            EntityState::Idle => (0, [1.0, 1.0, 1.0, 1.0]),
+            EntityState::Moving => (1, [1.0, 1.0, 0.9, 1.0]),
+            EntityState::Attacking => {
+                if self.is_heavy_attack {
+                    (2, [1.0, 0.8, 0.2, 1.0])
+                } else {
+                    (2, [1.0, 0.4, 0.4, 1.0])
+                }
+            }
+            EntityState::Rolling => (1, [0.4, 0.7, 1.0, 0.7]),
+            EntityState::Blocking => {
+                if self.parry_timer > 0.0 {
+                    (3, [0.2, 1.0, 1.0, 1.0])
+                } else {
+                    (3, [0.5, 0.5, 0.8, 1.0])
+                }
+            }
+            EntityState::Staggered => (0, [1.0, 0.2, 0.2, 1.0]),
+            EntityState::Dead => (0, [0.3, 0.3, 0.3, 0.5]),
+            _ => (0, [1.0, 1.0, 1.0, 1.0]),
+        };
+
         if self.flash_timer > 0.0 {
-            let instance = self.transform.to_instance_data(32.0, 32.0, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0]);
+            let uv = [frame as f32 * 0.25, 0.0, (frame + 1) as f32 * 0.25, 1.0];
+            let instance = self.transform.to_instance_data(32.0, 32.0, uv, [1.0, 1.0, 1.0, 1.0]);
             batcher.draw(instance, texture, gl);
             return;
         }
-        let color = match self.state {
-            EntityState::Idle => [1.0, 1.0, 1.0, 1.0],
-            EntityState::Moving => [0.9, 0.9, 0.7, 1.0],
-            EntityState::Attacking => {
-                if self.is_heavy_attack {
-                    [1.0, 0.8, 0.2, 1.0]
-                } else {
-                    [1.0, 0.4, 0.4, 1.0]
-                }
-            }
-            EntityState::Rolling => [0.4, 0.7, 1.0, 0.7],
-            EntityState::Blocking => {
-                if self.parry_timer > 0.0 {
-                    [0.2, 1.0, 1.0, 1.0] // cyan during parry window
-                } else {
-                    [0.5, 0.5, 0.8, 1.0] // blue-grey when blocking
-                }
-            }
-            EntityState::Staggered => [1.0, 0.2, 0.2, 1.0],
-            EntityState::Dead => [0.3, 0.3, 0.3, 0.5],
-            _ => [1.0, 1.0, 1.0, 1.0],
-        };
 
-        let instance = self.transform.to_instance_data(32.0, 32.0, [0.0, 0.0, 1.0, 1.0], color);
+        let uv = [frame as f32 * 0.25, 0.0, (frame + 1) as f32 * 0.25, 1.0];
+        let instance = self.transform.to_instance_data(32.0, 32.0, uv, color);
         batcher.draw(instance, texture, gl);
     }
 
