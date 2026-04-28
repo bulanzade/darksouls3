@@ -23,6 +23,12 @@ pub struct Player {
     pub invuln_timer: f32,
     pub flash_timer: f32,
     pub stamina: StaminaPool,
+    // RPG stats
+    pub level: u32,
+    pub vigor: u32,      // increases HP
+    pub endurance: u32,  // increases stamina
+    pub strength: u32,   // increases damage
+    pub base_damage: i32,
 }
 
 impl Player {
@@ -43,35 +49,26 @@ impl Player {
             invuln_timer: 0.0,
             flash_timer: 0.0,
             stamina: StaminaPool::new(100.0),
+            level: 1,
+            vigor: 5,
+            endurance: 5,
+            strength: 5,
+            base_damage: 50,
         }
     }
 
-    pub fn handle_input(&mut self, input: &InputState) {
-        match self.state {
-            EntityState::Idle | EntityState::Moving => {
-                let (mx, my) = input.movement();
-                if mx != 0.0 || my != 0.0 {
-                    self.facing = my.atan2(mx);
-                    self.state = EntityState::Moving;
-                } else {
-                    self.state = EntityState::Idle;
-                }
+    pub fn damage(&self) -> i32 {
+        self.base_damage + (self.strength as i32 - 5) * 10
+    }
 
-                if input.pressed(KeyCode::Space) {
-                    if self.stamina.consume(25.0) {
-                        self.state = EntityState::Rolling;
-                        self.roll_timer = self.roll_duration;
-                    }
-                }
-                if input.pressed(KeyCode::J) {
-                    if self.stamina.consume(20.0) {
-                        self.state = EntityState::Attacking;
-                        self.attack_timer = self.attack_duration;
-                    }
-                }
-            }
-            _ => {} // Can't act during attack/roll/stagger/dead
-        }
+    pub fn level_up_cost(&self) -> u32 {
+        self.level * 100
+    }
+
+    pub fn apply_stats(&mut self) {
+        self.max_hp = 500 + ((self.vigor - 5) as i32) * 50;
+        self.stamina.maximum = 100.0 + ((self.endurance - 5) as f32) * 15.0;
+        self.stamina.current = self.stamina.current.min(self.stamina.maximum);
     }
 }
 

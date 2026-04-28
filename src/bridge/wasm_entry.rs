@@ -544,6 +544,7 @@ fn fixed_update(game: &mut Game, dt: f32) {
         GameState::Playing => update_playing(game, dt),
         GameState::DeathScreen => update_death(game),
         GameState::BonfireMenu => update_bonfire_menu(game),
+        GameState::LevelUpMenu => update_level_up_menu(game),
         GameState::Victory => update_victory(game),
         _ => {}
     }
@@ -658,6 +659,7 @@ fn update_playing(game: &mut Game, dt: f32) {
     let (px, py) = game.player.position();
     for enemy in &mut game.enemies {
         if enemy.is_dead() {
+            enemy.tick_death(dt);
             continue;
         }
         enemy.update_ai(px, py, dt);
@@ -689,7 +691,7 @@ fn update_playing(game: &mut Game, dt: f32) {
 
         if player_attacking && dist < 40.0 {
             let dmg = DamageInfo {
-                damage: 50,
+                damage: game.player.damage(),
                 knockback_x: 0.0,
                 knockback_y: 0.0,
                 poise_damage: 20.0,
@@ -723,7 +725,7 @@ fn update_playing(game: &mut Game, dt: f32) {
 
         if player_attacking && dist < 56.0 {
             let dmg = DamageInfo {
-                damage: 100,
+                damage: game.player.damage() * 2,
                 knockback_x: 0.0,
                 knockback_y: 0.0,
                 poise_damage: 20.0,
@@ -829,15 +831,46 @@ fn update_bonfire_menu(game: &mut Game) {
         return;
     }
     if game.input.pressed(KeyCode::Enter) {
-        if let Some(action) = game.menu.current_action() {
+        if let Some(action) = game.menu.current_action().cloned() {
             match action {
                 MenuAction::Rest => {
                     game.bonfire.rest();
                     game.player.hp = game.player.max_hp;
                 }
+                MenuAction::LevelUp => {
+                    game.state = GameState::LevelUpMenu;
+                    game.menu = MenuState::level_up_menu();
+                }
                 MenuAction::Resume => {
                     game.state = GameState::Playing;
                 }
+                _ => {}
+            }
+        }
+    }
+    if game.input.pressed(KeyCode::Up) {
+        game.menu.move_up();
+    }
+    if game.input.pressed(KeyCode::Down) {
+        game.menu.move_down();
+    }
+}
+
+fn update_level_up_menu(game: &mut Game) {
+    if game.input.pressed(KeyCode::Escape) {
+        game.state = GameState::BonfireMenu;
+        game.menu = MenuState::bonfire_menu();
+        return;
+    }
+    if game.input.pressed(KeyCode::Enter) {
+        let cost = game.player.level_up_cost();
+        if game.souls >= cost {
+            let idx = game.menu.selected_index;
+            match idx {
+                0 => { game.player.vigor += 1; game.souls -= cost; game.player.level += 1; game.player.apply_stats(); game.player.hp = game.player.max_hp; }
+                1 => { game.player.endurance += 1; game.souls -= cost; game.player.level += 1; game.player.apply_stats(); }
+                2 => { game.player.strength += 1; game.souls -= cost; game.player.level += 1; game.player.apply_stats(); }
+                3 => { game.state = GameState::BonfireMenu; game.menu = MenuState::bonfire_menu(); }
                 _ => {}
             }
         }
@@ -1076,6 +1109,16 @@ fn render(game: &mut Game) {
                 &ui_proj,
             );
         }
+        GameState::LevelUpMenu => {
+            game.ui_renderer.draw_bar(
+                gl, game.screen_w * 0.5, game.screen_h * 0.5,
+                game.screen_w, game.screen_h,
+                1.0,
+                [0.0, 0.0, 0.0, 0.6],
+                [0.0, 0.0, 0.0, 0.6],
+                &ui_proj,
+            );
+        }
         _ => {}
     }
 
@@ -1095,16 +1138,29 @@ fn update_dom_ui(game: &Game) {
 
     // Menu
     if let Some(menu_el) = document.get_element_by_id("menu") {
-        if matches!(game.state, GameState::TitleScreen | GameState::DeathScreen | GameState::BonfireMenu) {
+        if matches!(game.state, GameState::TitleScreen | GameState::DeathScreen | GameState::BonfireMenu | GameState::LevelUpMenu) {
+            let header = if game.state == GameState::LevelUpMenu {
+                format!("<div class=\"menu-item\" style=\"color:#aaa;font-size:16px\">Level {} · Souls: {} · Cost: {}</div>", game.player.level, game.souls, game.player.level_up_cost())
+            } else {
+                String::new()
+            };
             let html: String = game.menu.items.iter().enumerate().map(|(i, item)| {
+                let extra = if game.state == GameState::LevelUpMenu && i < 3 {
+                    match i {
+                        0 => format!(" [{}]", game.player.vigor),
+                        1 => format!(" [{}]", game.player.endurance),
+                        2 => format!(" [{}]", game.player.strength),
+                        _ => String::new(),
+                    }
+                } else { String::new() };
                 if i == game.menu.selected_index {
-                    format!("<div class=\"menu-item selected\">▸ {}</div>", item.label)
+                    format!("<div class=\"menu-item selected\">▸ {}{}</div>", item.label, extra)
                 } else {
-                    format!("<div class=\"menu-item\">{}</div>", item.label)
+                    format!("<div class=\"menu-item\">{}{}</div>", item.label, extra)
                 }
             }).collect::<Vec<_>>().join("");
             let _ = menu_el.set_attribute("style", "");
-            menu_el.set_inner_html(&html);
+            menu_el.set_inner_html(&format!("{}{}", header, html));
         } else {
             let _ = menu_el.set_attribute("style", "display:none");
             menu_el.set_inner_html("");
@@ -1143,8 +1199,8 @@ fn update_dom_ui(game: &Game) {
             EntityState::Blocking => "BLOCK",
         };
         let mut text = format!(
-            "HP {}/{} | STA {}/{} | {}",
-            hp, max_hp, stamina, max_sta, state_name
+            "HP {}/{} | STA {}/{} | DMG {} | Lv{} | {}",
+            hp, max_hp, stamina, max_sta, game.player.damage(), game.player.level, state_name
         );
         // Bonfire proximity hint
         if game.state == GameState::Playing {

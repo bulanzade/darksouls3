@@ -52,6 +52,31 @@ impl MenuState {
         }
     }
 
+    pub fn level_up_menu() -> Self {
+        Self {
+            current: GameState::LevelUpMenu,
+            selected_index: 0,
+            items: vec![
+                MenuItem {
+                    label: "Vigor (+HP)".into(),
+                    action: MenuAction::LevelUp,
+                },
+                MenuItem {
+                    label: "Endurance (+STA)".into(),
+                    action: MenuAction::LevelUp,
+                },
+                MenuItem {
+                    label: "Strength (+DMG)".into(),
+                    action: MenuAction::LevelUp,
+                },
+                MenuItem {
+                    label: "Back".into(),
+                    action: MenuAction::Resume,
+                },
+            ],
+        }
+    }
+
     pub fn bonfire_menu() -> Self {
         Self {
             current: GameState::BonfireMenu,

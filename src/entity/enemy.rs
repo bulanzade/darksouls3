@@ -22,6 +22,7 @@ pub struct Enemy {
     pub aggro: AggroTable,
     pub has_hit_this_attack: bool,
     pub flash_timer: f32,
+    pub death_timer: f32,
 }
 
 impl Enemy {
@@ -137,6 +138,17 @@ impl Enemy {
             aggro,
             has_hit_this_attack: false,
             flash_timer: 0.0,
+            death_timer: 0.0,
+        }
+    }
+
+    pub fn is_fully_dead(&self) -> bool {
+        self.is_dead() && self.death_timer <= 0.0
+    }
+
+    pub fn tick_death(&mut self, dt: f32) {
+        if self.death_timer > 0.0 {
+            self.death_timer -= dt;
         }
     }
 
@@ -254,12 +266,19 @@ impl Entity for Enemy {
     }
 
     fn render(&self, batcher: &mut SpriteBatcher, texture: &Texture, gl: &GL) {
+        if self.death_timer <= 0.0 && self.is_dead() {
+            return;
+        }
         if self.flash_timer > 0.0 {
             let instance = self.transform.to_instance_data(28.0, 28.0, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0]);
             batcher.draw(instance, texture, gl);
             return;
         }
         let color = match self.state {
+            EntityState::Dead => {
+                let alpha = (self.death_timer / 1.0).max(0.0);
+                [0.3, 0.3, 0.3, alpha]
+            }
             EntityState::Idle => [0.6, 0.6, 0.6, 1.0],
             EntityState::Moving => [0.7, 0.6, 0.4, 1.0],
             EntityState::Attacking => [1.0, 0.3, 0.3, 1.0],
@@ -284,6 +303,7 @@ impl Entity for Enemy {
             self.hp = 0;
             self.fsm.current_state = DEAD;
             self.state = EntityState::Dead;
+            self.death_timer = 1.0;
         }
     }
 
