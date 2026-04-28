@@ -78,6 +78,14 @@ struct Game {
     items: Vec<WorldItem>,
     // Enemy projectiles (arrows)
     projectiles: Vec<Projectile>,
+    // Death animation timer (fades in over 2s)
+    death_anim_timer: f32,
+    // Boss intro text timer (fades out over 3s)
+    boss_intro_timer: f32,
+    // Heal particle effect timer
+    heal_effect_timer: f32,
+    // Block spark effects (visual feedback for knight blocking)
+    block_sparks: Vec<BlockSpark>,
 }
 
 struct WorldItem {
@@ -107,6 +115,12 @@ struct Projectile {
     vx: f32,
     vy: f32,
     damage: i32,
+    timer: f32,
+}
+
+struct BlockSpark {
+    x: f32,
+    y: f32,
     timer: f32,
 }
 
@@ -217,6 +231,10 @@ pub fn wasm_main() {
             WorldItem { x: 1700.0, y: 500.0, kind: ItemKind::SoulOrb(1000), collected: false },
         ],
         projectiles: Vec::new(),
+        death_anim_timer: 0.0,
+        boss_intro_timer: 0.0,
+        heal_effect_timer: 0.0,
+        block_sparks: Vec::new(),
     };
 
     unsafe {
@@ -804,12 +822,29 @@ fn update_playing(game: &mut Game, dt: f32) {
     // Tick state transition timer
     game.state_timer += dt;
 
+    // Tick boss intro timer
+    if game.boss_intro_timer > 0.0 {
+        game.boss_intro_timer -= dt;
+    }
+
+    // Tick heal effect timer
+    if game.heal_effect_timer > 0.0 {
+        game.heal_effect_timer -= dt;
+    }
+
+    // Tick block sparks
+    for spark in &mut game.block_sparks {
+        spark.timer -= dt;
+    }
+    game.block_sparks.retain(|s| s.timer > 0.0);
+
     // Estus healing
     if estus && game.player.hp < game.player.max_hp {
         let heal = game.bonfire.use_estus();
         if heal > 0 {
             game.player.hp = (game.player.hp + heal).min(game.player.max_hp);
             game.audio.play_sfx("estus", 0.08, 0.0);
+            game.heal_effect_timer = 0.8; // Show heal particles
         }
     }
 
@@ -926,7 +961,8 @@ fn update_playing(game: &mut Game, dt: f32) {
 
         if player_attacking && dist < attack_range {
             // Knight blocking — reduce damage
-            let final_damage = if enemy.try_block() {
+            let blocked = enemy.try_block();
+            let final_damage = if blocked {
                 (attack_damage as f32 * 0.3) as i32
             } else {
                 attack_damage
@@ -941,6 +977,10 @@ fn update_playing(game: &mut Game, dt: f32) {
             enemy.take_damage(&dmg);
             game.camera.add_shake(if is_heavy { 6.0 } else { 3.0 });
             game.audio.play_sfx("hit", 0.12, 0.0);
+            // Knight block spark
+            if blocked {
+                game.block_sparks.push(BlockSpark { x: ex, y: ey, timer: 0.3 });
+            }
             if enemy.is_dead() {
                 let soul_reward = match enemy.kind {
                     crate::entity::enemy::EnemyKind::HollowSoldier => 100,
@@ -1047,6 +1087,7 @@ fn update_playing(game: &mut Game, dt: f32) {
     if !game.boss_active && !game.boss_defeated && game.enemies.iter().all(|e| e.is_dead()) {
         game.boss = Some(Boss::new_test_boss(10, 1750.0, 400.0));
         game.boss_active = true;
+        game.boss_intro_timer = 3.0; // Show boss name for 3 seconds
     }
 
     // --- Update soul orbs ---
@@ -1120,6 +1161,7 @@ fn update_playing(game: &mut Game, dt: f32) {
             game.has_bloodstain = true;
         }
         game.souls = 0;
+        game.death_anim_timer = 0.0; // Start death animation
         game.state = GameState::DeathScreen;
         game.menu = MenuState::death_screen();
         game.audio.play_sfx("death", 0.15, 0.0);
@@ -1127,6 +1169,11 @@ fn update_playing(game: &mut Game, dt: f32) {
 }
 
 fn update_death(game: &mut Game) {
+    game.death_anim_timer += FIXED_DT as f32;
+    // Only allow input after death animation completes (2.5s)
+    if game.death_anim_timer < 2.5 {
+        return;
+    }
     if game.input.pressed(KeyCode::Enter) {
         if let Some(action) = game.menu.current_action() {
             match action {
@@ -1152,6 +1199,7 @@ fn update_death(game: &mut Game) {
                     game.projectiles.clear();
                     game.time.accumulator = 0.0;
                     game.state_timer = 0.0;
+                    game.death_anim_timer = 0.0;
                     game.state = GameState::Playing;
                 }
                 MenuAction::QuitToTitle => {
@@ -1395,6 +1443,27 @@ fn render(game: &mut Game) {
         );
     }
 
+    // --- Draw block sparks (when knight blocks) ---
+    for spark in &game.block_sparks {
+        let alpha = spark.timer / 0.3;
+        // Shield spark - blue/white flash
+        for i in 0..4 {
+            let angle = (i as f32 / 4.0) * std::f32::consts::TAU + spark.timer * 10.0;
+            let r = 12.0 * (1.0 - alpha);
+            let ox = spark.x + angle.cos() * r;
+            let oy = spark.y + angle.sin() * r;
+            game.batcher.draw(
+                InstanceData::new(ox, oy, 8.0, 8.0, [0.0, 0.0, 1.0, 1.0], [0.5, 0.7, 1.0, alpha]),
+                &game.white_tex, gl,
+            );
+        }
+        // Center flash
+        game.batcher.draw(
+            InstanceData::new(spark.x, spark.y, 20.0, 20.0, [0.0, 0.0, 1.0, 1.0], [0.3, 0.5, 1.0, alpha * 0.4]),
+            &game.white_tex, gl,
+        );
+    }
+
     // --- Draw boss ---
     if let Some(ref boss) = game.boss {
         if !boss.is_dead() {
@@ -1429,6 +1498,28 @@ fn render(game: &mut Game) {
 
     // --- Draw player ---
     game.player.render(&mut game.batcher, &game.player_tex, gl);
+
+    // --- Heal effect (green particles around player) ---
+    if game.heal_effect_timer > 0.0 {
+        let (px, py) = game.player.position();
+        let t = game.heal_effect_timer;
+        let alpha = t / 0.8;
+        for i in 0..6 {
+            let angle = (i as f32 / 6.0) * std::f32::consts::TAU + t * 4.0;
+            let radius = 20.0 * (1.0 - alpha);
+            let ox = px + angle.cos() * radius;
+            let oy = py + angle.sin() * radius;
+            game.batcher.draw(
+                InstanceData::new(ox, oy, 6.0, 6.0, [0.0, 0.0, 1.0, 1.0], [0.2, 0.9, 0.3, alpha * 0.8]),
+                &game.white_tex, gl,
+            );
+        }
+        // Healing ring
+        game.batcher.draw(
+            InstanceData::new(px, py, 40.0 * (1.0 + (1.0 - alpha) * 0.5), 40.0 * (1.0 + (1.0 - alpha) * 0.5), [0.0, 0.0, 1.0, 1.0], [0.3, 1.0, 0.4, alpha * 0.3]),
+            &game.white_tex, gl,
+        );
+    }
 
     // --- Draw attack swing effect ---
     if *game.player.state() == EntityState::Attacking {
@@ -1530,16 +1621,26 @@ fn render(game: &mut Game) {
         }
     }
 
-    // Estus indicator
-    let estus_ratio = game.bonfire.estus_charges as f32 / game.bonfire.estus_max as f32;
-    let estus_bar_w = 60.0;
-    game.ui_renderer.draw_bar(
-        gl, 20.0 + estus_bar_w * 0.5, 58.0, estus_bar_w, 10.0,
-        if estus_ratio > 0.0 { estus_ratio } else { 0.0 },
-        [0.15, 0.15, 0.15, 0.8],
-        [0.9, 0.7, 0.1, 0.9],
-        &ui_proj,
-    );
+    // Estus indicator — show individual flask charges as small squares
+    {
+        let flask_size = 10.0;
+        let flask_gap = 3.0;
+        let start_x = 20.0;
+        let flask_y = 58.0;
+        for i in 0..game.bonfire.estus_max {
+            let x = start_x + flask_size * 0.5 + i as f32 * (flask_size + flask_gap);
+            let filled = i < game.bonfire.estus_charges;
+            let color: [f32; 4] = if filled {
+                [0.9, 0.7, 0.1, 0.9] // Gold for available
+            } else {
+                [0.2, 0.2, 0.2, 0.6] // Dark grey for used
+            };
+            game.ui_renderer.draw_bar(
+                gl, x, flask_y, flask_size, flask_size,
+                1.0, color, color, &ui_proj,
+            );
+        }
+    }
 
     // --- Mini-map (top-right corner) ---
     {
@@ -1636,12 +1737,15 @@ fn render(game: &mut Game) {
             );
         }
         GameState::DeathScreen => {
+            let t = game.death_anim_timer;
+            // Fade to black over 1.5s
+            let black_alpha = (t / 1.5).min(0.85);
             game.ui_renderer.draw_bar(
                 gl, game.screen_w * 0.5, game.screen_h * 0.5,
                 game.screen_w, game.screen_h,
                 1.0,
-                [0.0, 0.0, 0.0, 0.7],
-                [0.0, 0.0, 0.0, 0.7],
+                [0.0, 0.0, 0.0, black_alpha],
+                [0.0, 0.0, 0.0, black_alpha],
                 &ui_proj,
             );
         }
@@ -1716,8 +1820,20 @@ fn update_dom_ui(game: &Game) {
     // Death title / Victory title
     if let Some(el) = document.get_element_by_id("death-title") {
         if game.state == GameState::DeathScreen {
-            el.set_text_content(Some("YOU DIED"));
-            let _ = el.set_attribute("style", "");
+            let t = game.death_anim_timer;
+            // Text fades in after 0.5s, grows from small
+            if t > 0.5 {
+                let text_alpha = ((t - 0.5) / 1.0).min(1.0);
+                let scale = 0.5 + text_alpha * 0.5;
+                el.set_text_content(Some("YOU DIED"));
+                let _ = el.set_attribute("style", &format!(
+                    "opacity: {}; transform: translate(-50%, -50%) scale({:.2});",
+                    text_alpha, scale
+                ));
+            } else {
+                el.set_text_content(Some(""));
+                let _ = el.set_attribute("style", "opacity: 0;");
+            }
         } else if game.state == GameState::Victory {
             el.set_text_content(Some(&format!(
                 "VICTORY\nSouls: {}\nPress Enter to return to title",
@@ -1772,8 +1888,25 @@ fn update_dom_ui(game: &Game) {
     if let Some(el) = document.get_element_by_id("boss-name") {
         if let Some(ref boss) = game.boss {
             if !boss.is_dead() {
-                let _ = el.set_attribute("style", "");
-                el.set_text_content(Some(&format!("BOSS — HP: {}/{}", boss.hp, boss.max_hp)));
+                if game.boss_intro_timer > 0.0 {
+                    // Boss intro animation: big text fades in/out
+                    let t = game.boss_intro_timer;
+                    let alpha = if t > 2.0 {
+                        (3.0 - t) / 1.0 // Fade in during first second
+                    } else if t > 1.0 {
+                        1.0 // Hold
+                    } else {
+                        t / 1.0 // Fade out
+                    };
+                    let _ = el.set_attribute("style", &format!(
+                        "font-size: 42px; color: #e8c840; text-shadow: 0 0 30px rgba(232,200,64,0.8); opacity: {}; top: 25%; letter-spacing: 12px;",
+                        alpha
+                    ));
+                    el.set_text_content(Some("DEMON KNIGHT"));
+                } else {
+                    let _ = el.set_attribute("style", "font-size: 14px; color: #c8c; top: 6px;");
+                    el.set_text_content(Some(&format!("DEMON KNIGHT — HP: {}/{}", boss.hp, boss.max_hp)));
+                }
             } else {
                 let _ = el.set_attribute("style", "display:none");
             }
