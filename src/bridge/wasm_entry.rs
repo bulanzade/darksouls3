@@ -95,6 +95,10 @@ struct Game {
     // Parry riposte window timer
     riposte_timer: f32,
     riposte_target_id: EntityId,
+    // Floating damage numbers
+    damage_numbers: Vec<DamageNumber>,
+    // Enemy death dissolve particles
+    death_particles: Vec<DeathParticle>,
 }
 
 struct WorldItem {
@@ -145,6 +149,24 @@ struct ScreenFlash {
     timer: f32,
     max_timer: f32,
     color: [f32; 4],
+}
+
+struct DamageNumber {
+    x: f32,
+    y: f32,
+    vy: f32,
+    value: i32,
+    timer: f32,
+    is_player_damage: bool,
+}
+
+struct DeathParticle {
+    x: f32,
+    y: f32,
+    vx: f32,
+    vy: f32,
+    timer: f32,
+    size: f32,
 }
 
 static mut GAME: Option<Game> = None;
@@ -263,6 +285,8 @@ pub fn wasm_main() {
         stagger_bursts: Vec::new(),
         riposte_timer: 0.0,
         riposte_target_id: 0,
+        damage_numbers: Vec::new(),
+        death_particles: Vec::new(),
     };
 
     unsafe {
@@ -893,6 +917,23 @@ fn update_playing(game: &mut Game, dt: f32) {
         game.riposte_timer -= dt;
     }
 
+    // Tick damage numbers
+    for dn in &mut game.damage_numbers {
+        dn.y += dn.vy * dt;
+        dn.vy -= 30.0 * dt; // Slow down
+        dn.timer -= dt;
+    }
+    game.damage_numbers.retain(|d| d.timer > 0.0);
+
+    // Tick death particles
+    for p in &mut game.death_particles {
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.vy += 60.0 * dt; // Gravity
+        p.timer -= dt;
+    }
+    game.death_particles.retain(|p| p.timer > 0.0);
+
     // Estus healing
     if estus && game.player.hp < game.player.max_hp {
         let heal = game.bonfire.use_estus();
@@ -1047,8 +1088,9 @@ fn update_playing(game: &mut Game, dt: f32) {
                 && *enemy.state() == EntityState::Staggered;
             let riposte_multiplier = if is_riposte { 3.0 } else { 1.0 };
 
+            let actual_damage = (final_damage as f32 * riposte_multiplier) as i32;
             let dmg = DamageInfo {
-                damage: (final_damage as f32 * riposte_multiplier) as i32,
+                damage: actual_damage,
                 knockback_x: 0.0,
                 knockback_y: 0.0,
                 poise_damage: if is_heavy { 40.0 } else { 20.0 },
@@ -1057,6 +1099,15 @@ fn update_playing(game: &mut Game, dt: f32) {
             enemy.take_damage(&dmg);
             game.camera.add_shake(if is_riposte { 10.0 } else if is_heavy { 6.0 } else { 3.0 });
             game.audio.play_sfx(if is_riposte { "hit" } else { "hit" }, if is_riposte { 0.2 } else { 0.12 }, 0.0);
+            // Damage number
+            game.damage_numbers.push(DamageNumber {
+                x: ex + ((game.damage_numbers.len() as f32 % 5.0) - 2.0) * 4.0,
+                y: ey - 24.0,
+                vy: -40.0,
+                value: if blocked { (attack_damage as f32 * 0.3) as i32 } else { actual_damage },
+                timer: 0.8,
+                is_player_damage: false,
+            });
             // Stagger burst on hit
             if !blocked {
                 game.stagger_bursts.push(BlockSpark { x: ex, y: ey, timer: 0.2 });
@@ -1080,8 +1131,21 @@ fn update_playing(game: &mut Game, dt: f32) {
                 game.souls += soul_reward;
                 game.camera.add_shake(6.0);
                 game.audio.play_sfx("enemy_die", 0.1, 0.0);
-                // Spawn soul orbs
+                // Spawn death dissolve particles
                 let (ex, ey) = enemy.position();
+                for i in 0..12 {
+                    let angle = (i as f32 / 12.0) * std::f32::consts::TAU;
+                    let speed = 40.0 + (i as f32 % 4.0) * 15.0;
+                    game.death_particles.push(DeathParticle {
+                        x: ex + (i as f32 % 3.0 - 1.0) * 6.0,
+                        y: ey + (i as f32 % 3.0 - 1.0) * 6.0,
+                        vx: angle.cos() * speed,
+                        vy: angle.sin() * speed - 30.0,
+                        timer: 0.4 + (i as f32 % 4.0) * 0.1,
+                        size: 4.0 + (i as f32 % 3.0) * 2.0,
+                    });
+                }
+                // Spawn soul orbs
                 for _ in 0..5 {
                     game.soul_orbs.push(SoulOrb {
                         x: ex + (game.soul_orbs.len() as f32 % 3.0 - 1.0) * 6.0,
@@ -1121,6 +1185,15 @@ fn update_playing(game: &mut Game, dt: f32) {
                 } else {
                     game.camera.add_shake(8.0);
                     game.audio.play_sfx("player_hit", 0.15, 0.0);
+                    // Damage number on player
+                    game.damage_numbers.push(DamageNumber {
+                        x: px,
+                        y: py - 24.0,
+                        vy: -50.0,
+                        value: enemy.damage,
+                        timer: 0.8,
+                        is_player_damage: true,
+                    });
                 }
                 enemy.has_hit_this_attack = true;
             }
@@ -1582,6 +1655,35 @@ fn render(game: &mut Game) {
             &game.white_tex, gl,
         );
     }
+
+    // --- Draw damage numbers ---
+    for dn in &game.damage_numbers {
+        let alpha = (dn.timer / 0.8).min(1.0);
+        let color: [f32; 4] = if dn.is_player_damage {
+            [1.0, 0.3, 0.3, alpha]
+        } else {
+            [1.0, 1.0, 0.5, alpha]
+        };
+        let size = 6.0 + (dn.value as f32 / 20.0).min(8.0);
+        game.batcher.draw(
+            InstanceData::new(dn.x, dn.y, size + 2.0, size + 2.0, [0.0, 0.0, 1.0, 1.0], [0.0, 0.0, 0.0, alpha * 0.5]),
+            &game.white_tex, gl,
+        );
+        game.batcher.draw(
+            InstanceData::new(dn.x, dn.y, size, size, [0.0, 0.0, 1.0, 1.0], color),
+            &game.white_tex, gl,
+        );
+    }
+
+    // --- Draw death dissolve particles ---
+    for p in &game.death_particles {
+        let alpha = (p.timer / 0.7).min(1.0);
+        game.batcher.draw(
+            InstanceData::new(p.x, p.y, p.size, p.size, [0.0, 0.0, 1.0, 1.0], [0.4, 0.3, 0.2, alpha * 0.8]),
+            &game.white_tex, gl,
+        );
+    }
+
     if let Some(ref boss) = game.boss {
         if !boss.is_dead() {
             boss.render(&mut game.batcher, &game.boss_tex, gl);
@@ -1638,24 +1740,45 @@ fn render(game: &mut Game) {
         );
     }
 
-    // --- Draw attack swing effect ---
+    // --- Draw attack swing effect (arc trail) ---
     if *game.player.state() == EntityState::Attacking {
         let (px, py) = game.player.position();
         let facing = game.player.facing;
-        if game.player.is_heavy_attack {
-            let swing_offset = 30.0;
-            let sx = px + facing.cos() * swing_offset;
-            let sy = py + facing.sin() * swing_offset;
+        let t = game.player.attack_timer;
+        let total = if game.player.is_heavy_attack { game.player.heavy_attack_duration } else { game.player.attack_duration };
+        let progress = 1.0 - (t / total);
+        let range = if game.player.is_heavy_attack { 36.0 } else { 28.0 };
+        let arc_span = if game.player.is_heavy_attack { 1.2 } else { 0.8 }; // radians
+
+        // Draw arc of small rectangles
+        let steps = if game.player.is_heavy_attack { 8 } else { 5 };
+        for i in 0..steps {
+            let frac = i as f32 / steps as f32;
+            let arc_t = (frac + progress * 0.3).min(1.0);
+            let angle = facing - arc_span * 0.5 + arc_span * arc_t;
+            let dist = range * (0.6 + frac * 0.4);
+            let sx = px + angle.cos() * dist;
+            let sy = py + angle.sin() * dist;
+            let alpha = (1.0 - frac) * 0.6 * (1.0 - progress * 0.5);
+            let size = if game.player.is_heavy_attack { 10.0 - frac * 4.0 } else { 7.0 - frac * 3.0 };
+            let color: [f32; 4] = if game.player.is_heavy_attack {
+                [1.0, 0.6 + frac * 0.2, 0.1, alpha]
+            } else {
+                [1.0, 0.9, 0.5, alpha]
+            };
             game.batcher.draw(
-                InstanceData::new(sx, sy, 32.0, 32.0, [0.0, 0.0, 1.0, 1.0], [1.0, 0.7, 0.1, 0.5]),
+                InstanceData::new(sx, sy, size, size * 0.4, [0.0, 0.0, 1.0, 1.0], color),
                 &game.white_tex, gl,
             );
-        } else {
-            let swing_offset = 24.0;
-            let sx = px + facing.cos() * swing_offset;
-            let sy = py + facing.sin() * swing_offset;
+        }
+
+        // Impact point
+        if progress > 0.3 && progress < 0.7 {
+            let sx = px + facing.cos() * range;
+            let sy = py + facing.sin() * range;
+            let alpha = 0.4 * (1.0 - (progress - 0.3) / 0.4);
             game.batcher.draw(
-                InstanceData::new(sx, sy, 20.0, 20.0, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 0.6, 0.4]),
+                InstanceData::new(sx, sy, 16.0, 16.0, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 1.0, alpha]),
                 &game.white_tex, gl,
             );
         }
