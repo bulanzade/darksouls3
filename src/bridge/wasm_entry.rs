@@ -1426,8 +1426,8 @@ fn update_playing(game: &mut Game, dt: f32) {
         }
     }
 
-    // --- Spawn boss when all enemies dead ---
-    if !game.boss_active && !game.boss_defeated && game.enemies.iter().all(|e| e.is_dead()) {
+    // --- Spawn boss when mini-boss (last enemy) is killed ---
+    if !game.boss_active && !game.boss_defeated && game.enemies.last().map_or(false, |e| e.is_dead()) {
         game.boss = Some(Boss::new_test_boss(10, 1750.0, 400.0));
         game.boss_active = true;
         game.boss_intro_timer = 3.0; // Show boss name for 3 seconds

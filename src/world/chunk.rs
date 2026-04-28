@@ -58,16 +58,16 @@ impl Chunk {
         carve(&mut chunk.tiles, 34, 24, 58, 42);
         // Room 3: Treasure room
         carve(&mut chunk.tiles, 28, 38, 58, 60);
-        // Corridor 3→4 (overlapping east wall)
-        carve(&mut chunk.tiles, 56, 38, 75, 60);
+        // Corridor 3→4 (overlapping east wall, widened north for smooth transition)
+        carve(&mut chunk.tiles, 56, 34, 75, 60);
         // Room 4: More enemies
         carve(&mut chunk.tiles, 70, 28, 100, 60);
-        // Corridor 4→5 (overlapping south wall)
-        carve(&mut chunk.tiles, 70, 56, 100, 75);
+        // Corridor 4→5 (overlapping south wall, widened for smooth transition)
+        carve(&mut chunk.tiles, 68, 54, 102, 75);
         // Room 5: Mini-boss chamber
         carve(&mut chunk.tiles, 58, 68, 100, 92);
-        // Corridor 5→7 (wide east to boss)
-        carve(&mut chunk.tiles, 96, 28, 118, 68);
+        // Corridor 5→7 (wide east to boss, widened for smooth transition)
+        carve(&mut chunk.tiles, 96, 26, 118, 70);
         // Room 7: Boss arena (top-right)
         carve(&mut chunk.tiles, 100, 3, 118, 48);
 
