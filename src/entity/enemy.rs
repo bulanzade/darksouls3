@@ -34,6 +34,10 @@ pub struct Enemy {
     pub shoot_timer: f32,
     pub shoot_cooldown: f32,
     pub block_chance: f32,
+    // Patrol
+    pub patrol_timer: f32,
+    pub patrol_dir: f32,
+    pub patrol_range: f32,
 }
 
 impl Enemy {
@@ -154,6 +158,9 @@ impl Enemy {
             shoot_timer: 0.0,
             shoot_cooldown: 2.0,
             block_chance: 0.0,
+            patrol_timer: 0.0,
+            patrol_dir: 1.0,
+            patrol_range: 30.0,
         }
     }
 
@@ -204,6 +211,9 @@ impl Enemy {
             kind: EnemyKind::Archer,
             shoot_timer: 0.0, shoot_cooldown: 2.0,
             block_chance: 0.0,
+            patrol_timer: 0.0,
+            patrol_dir: 1.0,
+            patrol_range: 25.0,
         }
     }
 
@@ -253,6 +263,9 @@ impl Enemy {
             kind: EnemyKind::Knight,
             shoot_timer: 0.0, shoot_cooldown: 2.0,
             block_chance: 0.4,
+            patrol_timer: 0.0,
+            patrol_dir: 1.0,
+            patrol_range: 35.0,
         }
     }
 
@@ -314,6 +327,9 @@ impl Enemy {
             kind: EnemyKind::Knight,
             shoot_timer: 0.0, shoot_cooldown: 1.5,
             block_chance: 0.3,
+            patrol_timer: 0.0,
+            patrol_dir: 1.0,
+            patrol_range: 40.0,
         }
     }
 
@@ -375,6 +391,20 @@ impl Enemy {
                         self.transform.x += self.facing.cos() * speed;
                         self.transform.y += self.facing.sin() * speed;
                     }
+                } else {
+                    // Patrol: walk back and forth near spawn
+                    self.patrol_timer += dt;
+                    if self.patrol_timer > 2.0 {
+                        self.patrol_timer = 0.0;
+                        self.patrol_dir = -self.patrol_dir;
+                    }
+                    let speed = self.speed * 0.3 * dt;
+                    let dx = self.transform.x - self.spawn_x;
+                    if dx.abs() > self.patrol_range {
+                        self.patrol_dir = -dx.signum();
+                    }
+                    self.transform.x += self.patrol_dir * speed;
+                    self.transform.scale_x = if self.patrol_dir < 0.0 { -1.0 } else { 1.0 };
                 }
                 self.state = EntityState::Idle;
             }
