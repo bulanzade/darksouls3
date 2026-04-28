@@ -130,6 +130,66 @@
             if (handler) handler();
         };
 
+        // --- Procedural Combat Music ---
+        let combatMusicActive = false;
+        let combatMusicNodes = [];
+
+        function startCombatMusic() {
+            if (combatMusicActive) return;
+            combatMusicActive = true;
+            const ctx = getAudio();
+
+            // Dark ambient drone
+            const drone = ctx.createOscillator();
+            drone.type = 'sawtooth';
+            drone.frequency.setValueAtTime(55, ctx.currentTime);
+            const droneGain = ctx.createGain();
+            droneGain.gain.setValueAtTime(0.04, ctx.currentTime);
+            drone.connect(droneGain);
+            droneGain.connect(ctx.destination);
+            drone.start();
+
+            // Tension pulse (low bass hit)
+            const pulse = ctx.createOscillator();
+            pulse.type = 'square';
+            pulse.frequency.setValueAtTime(40, ctx.currentTime);
+            const pulseGain = ctx.createGain();
+            pulseGain.gain.setValueAtTime(0.03, ctx.currentTime);
+            pulse.connect(pulseGain);
+            pulseGain.connect(ctx.destination);
+            pulse.start();
+
+            // Slow LFO on drone for movement
+            const lfo = ctx.createOscillator();
+            lfo.type = 'sine';
+            lfo.frequency.setValueAtTime(0.3, ctx.currentTime);
+            const lfoGain = ctx.createGain();
+            lfoGain.gain.setValueAtTime(8, ctx.currentTime);
+            lfo.connect(lfoGain);
+            lfoGain.connect(drone.frequency);
+            lfo.start();
+
+            combatMusicNodes = [drone, pulse, lfo, droneGain, pulseGain, lfoGain];
+        }
+
+        function stopCombatMusic() {
+            if (!combatMusicActive) return;
+            combatMusicActive = false;
+            const ctx = getAudio();
+            for (const node of combatMusicNodes) {
+                try {
+                    if (node.stop) node.stop(ctx.currentTime + 0.5);
+                    if (node.disconnect) node.disconnect();
+                } catch(e) {}
+            }
+            combatMusicNodes = [];
+        }
+
+        window.ds2d_combat_music = function(active) {
+            if (active) startCombatMusic();
+            else stopCombatMusic();
+        };
+
         async function run() {
             await init('./pkg/ds2d_bg.wasm?v=' + v);
             window.js_keydown = js_keydown;

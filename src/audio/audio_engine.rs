@@ -6,9 +6,15 @@ export function ds2d_play_sfx_js(sound_id, volume, pan) {
         window.ds2d_play_sfx(sound_id, volume, pan);
     }
 }
+export function ds2d_combat_music_js(active) {
+    if (window.ds2d_combat_music) {
+        window.ds2d_combat_music(active);
+    }
+}
 "#)]
 extern "C" {
     fn ds2d_play_sfx_js(sound_id: &str, volume: f32, pan: f32);
+    fn ds2d_combat_music_js(active: bool);
 }
 
 pub struct AudioEngine;
@@ -19,6 +25,10 @@ impl AudioEngine {
     }
 
     pub fn set_listener_position(&self, _x: f32, _y: f32) {}
+
+    pub fn set_combat_music(&self, active: bool) {
+        ds2d_combat_music_js(active);
+    }
 
     pub fn spatial_params(
         listener_x: f32,

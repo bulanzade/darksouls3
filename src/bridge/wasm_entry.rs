@@ -1422,6 +1422,11 @@ fn update_playing(game: &mut Game, dt: f32) {
     // Audio listener position
     game.audio.set_listener_position(px, py);
 
+    // Combat music — start when enemies are aggro'd
+    let any_aggro = game.enemies.iter().any(|e| !e.is_dead() && e.aggro.has_target());
+    let boss_aggro = game.boss.as_ref().map_or(false, |b| !b.is_dead() && b.aggro.has_target());
+    game.audio.set_combat_music(any_aggro || boss_aggro);
+
     // Check victory
     if game.boss_defeated {
         if let Some(ref boss) = game.boss {
@@ -1445,6 +1450,7 @@ fn update_playing(game: &mut Game, dt: f32) {
         game.souls = 0;
         game.death_count += 1;
         game.death_anim_timer = 0.0; // Start death animation
+        game.audio.set_combat_music(false);
         game.state = GameState::DeathScreen;
         game.menu = MenuState::death_screen();
         game.audio.play_sfx("death", 0.15, 0.0);
