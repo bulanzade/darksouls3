@@ -119,6 +119,8 @@ struct Game {
     play_time: f32,
     // Treasure chests
     chests: Vec<TreasureChest>,
+    // NPCs
+    npcs: Vec<Npc>,
 }
 
 struct WorldItem {
@@ -204,6 +206,24 @@ struct TreasureChest {
     y: f32,
     opened: bool,
     loot: ItemKind,
+}
+
+struct Npc {
+    x: f32,
+    y: f32,
+    name: String,
+    color: [f32; 4],
+    dialogue: Vec<String>,
+    dialogue_index: usize,
+    talking: bool,
+    kind: NpcKind,
+}
+
+#[derive(Clone, Copy, PartialEq)]
+enum NpcKind {
+    LevelUp,      // Emerald Herald — spend souls to level up
+    Merchant,     // Buy items with souls
+    Blacksmith,   // Upgrade weapons
 }
 
 static mut GAME: Option<Game> = None;
@@ -364,6 +384,38 @@ pub fn wasm_main() {
             TreasureChest { x: 1780.0, y: 350.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Uchigatana) },
             // Corridor near poison
             TreasureChest { x: 1000.0, y: 900.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::GreatAxe) },
+        ],
+        npcs: vec![
+            // Emerald Herald at bonfire — level up NPC
+            Npc {
+                x: 240.0, y: 180.0,
+                name: "Emerald Herald".into(),
+                color: [0.2, 0.9, 0.7, 1.0],
+                dialogue: vec![
+                    "Welcome to the land of Drangleic.".into(),
+                    "You will lose your souls, again and again.".into(),
+                    "But fear not. Seek strength. The rest is up to you.".into(),
+                    "[Enter] Level Up".into(),
+                ],
+                dialogue_index: 0,
+                talking: false,
+                kind: NpcKind::LevelUp,
+            },
+            // Merchant in Room 3 — sells items
+            Npc {
+                x: 580.0, y: 720.0,
+                name: "Merchant".into(),
+                color: [0.8, 0.7, 0.3, 1.0],
+                dialogue: vec![
+                    "Heh heh... Something catch your eye?".into(),
+                    "I've got estus shards, purple moss...".into(),
+                    "All for the low price of your souls.".into(),
+                    "[Enter] Buy Estus Shard (500 souls)".into(),
+                ],
+                dialogue_index: 0,
+                talking: false,
+                kind: NpcKind::Merchant,
+            },
         ],
     };
 
@@ -1158,6 +1210,64 @@ fn update_playing(game: &mut Game, dt: f32) {
         game.input_buffer_timer -= dt;
         if game.input_buffer_timer <= 0.0 {
             game.input_buffer = BufferedAction::None;
+        }
+    }
+
+    // NPC dialogue interaction
+    let any_npc_talking = game.npcs.iter().any(|n| n.talking);
+    if any_npc_talking {
+        // Advance dialogue or close
+        if interact {
+            for npc in &mut game.npcs {
+                if npc.talking {
+                    npc.dialogue_index += 1;
+                    if npc.dialogue_index >= npc.dialogue.len() {
+                        npc.talking = false;
+                        npc.dialogue_index = 0;
+                    } else if npc.dialogue_index == npc.dialogue.len() - 1 {
+                        // Last line — execute NPC action
+                        match npc.kind {
+                            NpcKind::LevelUp => {
+                                let cost = game.player.level_up_cost();
+                                if game.souls >= cost as u32 {
+                                    game.souls -= cost as u32;
+                                    game.player.level += 1;
+                                    game.player.strength += 1;
+                                    game.player.apply_stats();
+                                    game.level_up_flash = 0.5;
+                                }
+                            }
+                            NpcKind::Merchant => {
+                                if game.souls >= 500 {
+                                    game.souls -= 500;
+                                    game.bonfire.estus_max += 1;
+                                    game.bonfire.estus_charges = game.bonfire.estus_max;
+                                }
+                            }
+                            NpcKind::Blacksmith => {}
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        if game.input.consume_pressed(KeyCode::Escape) {
+            for npc in &mut game.npcs {
+                npc.talking = false;
+                npc.dialogue_index = 0;
+            }
+        }
+    } else if interact {
+        // Start talking to nearby NPC
+        for npc in &mut game.npcs {
+            let dx = px - npc.x;
+            let dy = py - npc.y;
+            let dist = (dx * dx + dy * dy).sqrt();
+            if dist < 40.0 {
+                npc.talking = true;
+                npc.dialogue_index = 0;
+                break;
+            }
         }
     }
 
@@ -1979,6 +2089,27 @@ fn render(game: &mut Game) {
         game.batcher.draw(bloodstain_data, &game.white_tex, gl);
     }
 
+    // --- Draw NPCs ---
+    for npc in &game.npcs {
+        let bob = (game.play_time * 2.0).sin() * 2.0;
+        game.batcher.draw(
+            InstanceData::new(npc.x, npc.y + bob, 28.0, 28.0, [0.0, 0.0, 1.0, 1.0], npc.color),
+            &game.white_tex, gl,
+        );
+        // Name above NPC
+        let proximity = {
+            let dx = game.player.transform.x - npc.x;
+            let dy = game.player.transform.y - npc.y;
+            (dx * dx + dy * dy).sqrt() < 50.0
+        };
+        if proximity {
+            game.batcher.draw(
+                InstanceData::new(npc.x, npc.y - 24.0, 6.0, 6.0, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 0.0, 0.8]),
+                &game.white_tex, gl,
+            );
+        }
+    }
+
     // --- Draw enemies ---
     for enemy in &game.enemies {
         if !enemy.is_dead() {
@@ -2599,6 +2730,16 @@ fn update_dom_ui(game: &Game) {
                     break;
                 }
             }
+            // NPC proximity hint
+            for npc in &game.npcs {
+                let ndx = px - npc.x;
+                let ndy = py - npc.y;
+                let ndist = (ndx * ndx + ndy * ndy).sqrt();
+                if ndist < 40.0 {
+                    text.push_str(&format!(" | [Enter] Talk to {}", npc.name));
+                    break;
+                }
+            }
         }
         el.set_text_content(Some(&text));
     }
@@ -2643,6 +2784,20 @@ fn update_dom_ui(game: &Game) {
             }
         } else {
             let _ = el.set_attribute("style", "display:none");
+        }
+    }
+
+    // NPC dialogue box — reuse boss-name element
+    if let Some(el) = document.get_element_by_id("boss-name") {
+        let talking_npc: Option<&Npc> = game.npcs.iter().find(|n| n.talking);
+        if let Some(npc) = talking_npc {
+            let line = npc.dialogue.get(npc.dialogue_index).map(|s| s.as_str()).unwrap_or("...");
+            let text = format!("{}: {}", npc.name, line);
+            let _ = el.set_attribute("style",
+                "font-size: 16px; color: #eee; background: rgba(0,0,0,0.85); padding: 12px 24px; \
+                 border: 1px solid #888; border-radius: 4px; top: 70%; left: 50%; \
+                 transform: translateX(-50%); white-space: nowrap;");
+            el.set_text_content(Some(&text));
         }
     }
 }
