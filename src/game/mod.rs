@@ -52,6 +52,27 @@ impl MenuState {
         }
     }
 
+    pub fn title_screen_with_save_check() -> Self {
+        let has_save = crate::save::save_manager::has_save();
+        let mut items = vec![
+            MenuItem {
+                label: "New Game".into(),
+                action: MenuAction::NewGame,
+            },
+        ];
+        if has_save {
+            items.push(MenuItem {
+                label: "Continue".into(),
+                action: MenuAction::Continue,
+            });
+        }
+        Self {
+            current: GameState::TitleScreen,
+            selected_index: 0,
+            items,
+        }
+    }
+
     pub fn level_up_menu() -> Self {
         Self {
             current: GameState::LevelUpMenu,

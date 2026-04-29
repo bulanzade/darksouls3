@@ -305,7 +305,7 @@ pub fn wasm_main() {
         scene_texture,
         lights,
         state: GameState::TitleScreen,
-        menu: MenuState::title_screen(),
+        menu: MenuState::title_screen_with_save_check(),
         souls: 0,
         bonfire: BonfireState::new(),
         audio: AudioEngine,
@@ -905,15 +905,23 @@ fn update_title_screen(game: &mut Game) {
                 }
                 MenuAction::Continue => {
                     if let Some(save) = save_manager::load_from_localstorage() {
-                        game.player = Player::new(1, 200.0, 200.0);
+                        game.player = Player::new(1, save.player_x, save.player_y);
                         game.player.level = save.player_level;
                         game.player.vigor = save.vigor;
                         game.player.endurance = save.endurance;
                         game.player.strength = save.strength;
                         game.player.apply_stats();
-                        game.player.hp = game.player.max_hp;
+                        game.player.hp = save.player_hp;
+                        // Restore weapon
+                        if save.alt_weapon_name.is_some() {
+                            game.player.alt_weapon = Some(crate::combat::weapon::Weapon::longsword());
+                        }
                         game.souls = save.souls;
                         game.bonfire = save.bonfire.clone();
+                        game.enemies_killed = save.enemies_killed;
+                        game.play_time = save.play_time;
+                        game.death_count = save.death_count;
+                        game.boss_defeated = !save.bosses_defeated.is_empty();
                         game.enemies = vec![
                             Enemy::new_hollow_soldier(2, 620.0, 120.0),
                             Enemy::new_archer(3, 780.0, 200.0),
@@ -926,7 +934,8 @@ fn update_title_screen(game: &mut Game) {
                         ];
                         game.boss = None;
                         game.boss_active = false;
-                        game.boss_defeated = false;
+                        game.camera.x = save.player_x;
+                        game.camera.y = save.player_y;
                     }
                     game.state = GameState::Playing;
                     game.time.accumulator = 0.0;
@@ -1696,7 +1705,7 @@ fn update_death(game: &mut Game) {
                 }
                 MenuAction::QuitToTitle => {
                     game.state = GameState::TitleScreen;
-                    game.menu = MenuState::title_screen();
+                    game.menu = MenuState::title_screen_with_save_check();
                 }
                 _ => {}
             }
@@ -1739,6 +1748,7 @@ fn update_bonfire_menu(game: &mut Game) {
                     game.boss_defeated = false;
                     game.projectiles.clear();
                     // Auto-save at bonfire
+                    let (px, py) = game.player.position();
                     let save = SaveData {
                         player_level: game.player.level,
                         vigor: game.player.vigor,
@@ -1747,6 +1757,17 @@ fn update_bonfire_menu(game: &mut Game) {
                         souls: game.souls,
                         bonfire: game.bonfire.clone(),
                         current_room: "dungeon".into(),
+                        player_hp: game.player.hp,
+                        player_x: px,
+                        player_y: py,
+                        weapon_name: game.player.weapon.name.clone(),
+                        alt_weapon_name: game.player.alt_weapon.as_ref().map(|w| w.name.clone()),
+                        bosses_defeated: if game.boss_defeated { vec!["boss1".into()] } else { vec![] },
+                        enemies_killed: game.enemies_killed,
+                        items_collected: game.items.iter().filter(|i| i.collected).map(|_| "item".into()).collect(),
+                        chests_opened: game.chests.iter().filter(|c| c.opened).map(|_| "chest".into()).collect(),
+                        play_time: game.play_time,
+                        death_count: game.death_count,
                     };
                     save_manager::save_to_localstorage(&save);
                 }

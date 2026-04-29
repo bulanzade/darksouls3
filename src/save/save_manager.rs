@@ -21,6 +21,17 @@ pub struct SaveData {
     pub souls: u32,
     pub bonfire: BonfireState,
     pub current_room: String,
+    pub player_hp: i32,
+    pub player_x: f32,
+    pub player_y: f32,
+    pub weapon_name: String,
+    pub alt_weapon_name: Option<String>,
+    pub bosses_defeated: Vec<String>,
+    pub enemies_killed: u32,
+    pub items_collected: Vec<String>,
+    pub chests_opened: Vec<String>,
+    pub play_time: f32,
+    pub death_count: u32,
 }
 
 // ---------------------------------------------------------------------------
