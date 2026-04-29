@@ -159,6 +159,9 @@ struct Game {
     fog_gates: Vec<FogGate>,
     // Bosses defeated per area
     bosses_defeated: Vec<String>,
+    // Inventory
+    inventory: Vec<InventoryItem>,
+    show_inventory: bool,
 }
 
 struct WorldItem {
@@ -174,6 +177,30 @@ enum ItemKind {
     HomewardBone,       // unused for now
     PurpleMoss,         // cures poison
     WeaponDrop(crate::combat::weapon::WeaponType),
+    ArmorDrop(ArmorSlot, String),  // (slot, armor name)
+    RingDrop(String),               // ring name
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+enum ArmorSlot {
+    Head,
+    Chest,
+    Legs,
+    Hands,
+}
+
+#[derive(Clone, Debug)]
+struct InventoryItem {
+    name: String,
+    kind: InventoryItemKind,
+}
+
+#[derive(Clone, Debug)]
+enum InventoryItemKind {
+    Weapon(crate::combat::weapon::WeaponType),
+    Armor(ArmorSlot, String),
+    Ring(String),
+    Consumable(String),
 }
 
 struct SoulOrb {
@@ -369,6 +396,8 @@ pub fn wasm_main() {
         area: AreaId::CardinalTower,
         fog_gates: vec![],
         bosses_defeated: vec![],
+        inventory: vec![],
+        show_inventory: false,
         tileset_texture,
         light_renderer,
         post_processor,
@@ -1080,6 +1109,16 @@ fn update_playing(game: &mut Game, dt: f32) {
     let estus = game.input.consume_pressed(KeyCode::E);
     let interact = game.input.consume_pressed(KeyCode::Enter);
     let lock_on_toggle = game.input.consume_pressed(KeyCode::Tab);
+    let inventory_toggle = game.input.consume_pressed(KeyCode::I);
+
+    // Inventory toggle
+    if inventory_toggle {
+        game.show_inventory = !game.show_inventory;
+    }
+    // Skip game logic while inventory is open
+    if game.show_inventory {
+        return;
+    }
 
     // Bonfire interaction (skip for first 0.5s after state change)
     if interact && game.state_timer > 0.5 {
@@ -1174,10 +1213,13 @@ fn update_playing(game: &mut Game, dt: f32) {
                 }
                 ItemKind::PurpleMoss => {
                     game.player.poison_timer = 0.0;
+                    game.inventory.push(InventoryItem { name: "Purple Moss".into(), kind: InventoryItemKind::Consumable("PurpleMoss".into()) });
                     game.audio.play_sfx("estus", 0.08, 0.0);
                 }
                 ItemKind::HomewardBone => {}
                 ItemKind::WeaponDrop(wt) => {
+                    game.inventory.push(InventoryItem { name: format!("{:?}", wt), kind: InventoryItemKind::Weapon(*wt) });
+                    // Also auto-equip to alt slot
                     use crate::combat::weapon::WeaponType;
                     let weapon = match wt {
                         WeaponType::GreatAxe => crate::combat::weapon::Weapon::great_axe(),
@@ -1191,6 +1233,41 @@ fn update_playing(game: &mut Game, dt: f32) {
                     } else {
                         game.player.alt_weapon = Some(weapon);
                     }
+                    game.audio.play_sfx("souls", 0.08, 0.0);
+                }
+                ItemKind::ArmorDrop(slot, name) => {
+                    game.inventory.push(InventoryItem { name: name.clone(), kind: InventoryItemKind::Armor(*slot, name.clone()) });
+                    // Auto-equip
+                    let armor = match name.as_str() {
+                        "Hollow Soldier Helm" => crate::rpg::equipment::ArmorPiece::hollow_soldier_helm(),
+                        "Hollow Soldier Armor" => crate::rpg::equipment::ArmorPiece::hollow_soldier_chest(),
+                        "Knight Helm" => crate::rpg::equipment::ArmorPiece::knight_helm(),
+                        "Knight Armor" => crate::rpg::equipment::ArmorPiece::knight_chest(),
+                        _ => crate::rpg::equipment::ArmorPiece::none(),
+                    };
+                    match slot {
+                        ArmorSlot::Head => game.player.equipment.head = armor,
+                        ArmorSlot::Chest => game.player.equipment.chest = armor,
+                        ArmorSlot::Legs => game.player.equipment.legs = armor,
+                        ArmorSlot::Hands => game.player.equipment.hands = armor,
+                    }
+                    game.player.apply_stats();
+                    game.audio.play_sfx("souls", 0.08, 0.0);
+                }
+                ItemKind::RingDrop(name) => {
+                    let ring = match name.as_str() {
+                        "Life Ring" => crate::rpg::equipment::Ring::life_ring(),
+                        "Chloranthy Ring" => crate::rpg::equipment::Ring::chloranthy(),
+                        "Ring of the Lion" => crate::rpg::equipment::Ring::lion_ring(),
+                        _ => return,
+                    };
+                    game.inventory.push(InventoryItem { name: name.clone(), kind: InventoryItemKind::Ring(name.clone()) });
+                    if game.player.equipment.ring_1.is_none() {
+                        game.player.equipment.ring_1 = Some(ring);
+                    } else if game.player.equipment.ring_2.is_none() {
+                        game.player.equipment.ring_2 = Some(ring);
+                    }
+                    game.player.apply_stats();
                     game.audio.play_sfx("souls", 0.08, 0.0);
                 }
             }
@@ -1222,6 +1299,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                     }
                     ItemKind::HomewardBone => {}
                     ItemKind::WeaponDrop(wt) => {
+                        game.inventory.push(InventoryItem { name: format!("{:?}", wt), kind: InventoryItemKind::Weapon(*wt) });
                         use crate::combat::weapon::WeaponType;
                         let weapon = match wt {
                             WeaponType::GreatAxe => crate::combat::weapon::Weapon::great_axe(),
@@ -1235,6 +1313,40 @@ fn update_playing(game: &mut Game, dt: f32) {
                         } else {
                             game.player.alt_weapon = Some(weapon);
                         }
+                        game.audio.play_sfx("souls", 0.08, 0.0);
+                    }
+                    ItemKind::ArmorDrop(slot, name) => {
+                        game.inventory.push(InventoryItem { name: name.clone(), kind: InventoryItemKind::Armor(*slot, name.clone()) });
+                        let armor = match name.as_str() {
+                            "Hollow Soldier Helm" => crate::rpg::equipment::ArmorPiece::hollow_soldier_helm(),
+                            "Hollow Soldier Armor" => crate::rpg::equipment::ArmorPiece::hollow_soldier_chest(),
+                            "Knight Helm" => crate::rpg::equipment::ArmorPiece::knight_helm(),
+                            "Knight Armor" => crate::rpg::equipment::ArmorPiece::knight_chest(),
+                            _ => crate::rpg::equipment::ArmorPiece::none(),
+                        };
+                        match slot {
+                            ArmorSlot::Head => game.player.equipment.head = armor,
+                            ArmorSlot::Chest => game.player.equipment.chest = armor,
+                            ArmorSlot::Legs => game.player.equipment.legs = armor,
+                            ArmorSlot::Hands => game.player.equipment.hands = armor,
+                        }
+                        game.player.apply_stats();
+                        game.audio.play_sfx("souls", 0.08, 0.0);
+                    }
+                    ItemKind::RingDrop(name) => {
+                        let ring = match name.as_str() {
+                            "Life Ring" => crate::rpg::equipment::Ring::life_ring(),
+                            "Chloranthy Ring" => crate::rpg::equipment::Ring::chloranthy(),
+                            "Ring of the Lion" => crate::rpg::equipment::Ring::lion_ring(),
+                            _ => return,
+                        };
+                        game.inventory.push(InventoryItem { name: name.clone(), kind: InventoryItemKind::Ring(name.clone()) });
+                        if game.player.equipment.ring_1.is_none() {
+                            game.player.equipment.ring_1 = Some(ring);
+                        } else if game.player.equipment.ring_2.is_none() {
+                            game.player.equipment.ring_2 = Some(ring);
+                        }
+                        game.player.apply_stats();
                         game.audio.play_sfx("souls", 0.08, 0.0);
                     }
                 }
@@ -2153,8 +2265,9 @@ fn load_area(game: &mut Game, area: AreaId) {
             ];
             game.chests = vec![
                 TreasureChest { x: 700.0, y: 250.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Dagger) },
-                TreasureChest { x: 750.0, y: 1000.0, opened: false, loot: ItemKind::SoulOrb(1000) },
-                TreasureChest { x: 950.0, y: 1300.0, opened: false, loot: ItemKind::EstusShard },
+                TreasureChest { x: 750.0, y: 1000.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Chest, "Hollow Soldier Armor".into()) },
+                TreasureChest { x: 950.0, y: 1300.0, opened: false, loot: ItemKind::RingDrop("Life Ring".into()) },
+                TreasureChest { x: 600.0, y: 550.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Head, "Hollow Soldier Helm".into()) },
             ];
             game.npcs = vec![
                 Npc { x: 250.0, y: 150.0, name: "Merchant".into(), color: [0.8, 0.7, 0.3, 1.0],
@@ -2287,10 +2400,10 @@ fn load_area(game: &mut Game, area: AreaId) {
                 WorldItem { x: 650.0, y: 1050.0, kind: ItemKind::SoulOrb(1500), collected: false },
             ];
             game.chests = vec![
-                TreasureChest { x: 300.0, y: 450.0, opened: false, loot: ItemKind::SoulOrb(800) },
+                TreasureChest { x: 300.0, y: 450.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Chest, "Knight Armor".into()) },
                 TreasureChest { x: 650.0, y: 600.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Spear) },
-                TreasureChest { x: 850.0, y: 850.0, opened: false, loot: ItemKind::EstusShard },
-                TreasureChest { x: 900.0, y: 1100.0, opened: false, loot: ItemKind::SoulOrb(2000) },
+                TreasureChest { x: 850.0, y: 850.0, opened: false, loot: ItemKind::RingDrop("Chloranthy Ring".into()) },
+                TreasureChest { x: 900.0, y: 1100.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Head, "Knight Helm".into()) },
             ];
             game.npcs = vec![];
             game.lights = vec![
@@ -2465,6 +2578,8 @@ fn render(game: &mut Game) {
             ItemKind::HomewardBone => (0.8, 0.7, 0.5),
             ItemKind::PurpleMoss => (0.6, 0.2, 0.8),
             ItemKind::WeaponDrop(_) => (0.9, 0.6, 0.1),
+            ItemKind::ArmorDrop(_, _) => (0.5, 0.5, 0.8),
+            ItemKind::RingDrop(_) => (0.9, 0.8, 0.2),
         };
         let bob = (item.y * 0.05).sin() * 3.0;
         game.batcher.draw(
@@ -3193,6 +3308,39 @@ fn update_dom_ui(game: &Game) {
         el.set_text_content(Some(&text));
         // Tint text when poisoned
         let _ = el.set_attribute("style", if game.player.poison_timer > 0.0 { "color: #6c6;" } else { "" });
+    }
+
+    // Inventory panel (I key to toggle)
+    if let Some(el) = document.get_element_by_id("menu") {
+        if game.show_inventory {
+            let defense = game.player.equipment.total_defense();
+            let weight = game.player.equipment.total_weight();
+            let equip_load = game.player.equipment.equip_load_percent(40.0 + 10.0 * 1.5);
+            let roll_type = if equip_load < 0.3 { "Fast" } else if equip_load < 0.7 { "Medium" } else { "Fat" };
+
+            let mut html = String::from("<div style='color:#e8c840;font-size:20px;text-align:center;margin-bottom:8px'>INVENTORY</div>");
+            html.push_str(&format!("<div style='color:#aaa;font-size:14px'>DEF: {:.0} | Weight: {:.1} | Roll: {}</div>", defense, weight, roll_type));
+            html.push_str("<div style='color:#888;font-size:12px;margin:4px 0'>— Weapons —</div>");
+            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>Right: {}</div>", game.player.weapon.name));
+            if let Some(ref alt) = game.player.alt_weapon {
+                html.push_str(&format!("<div style='color:#999;font-size:13px'>Alt: {} [1 to swap]</div>", alt.name));
+            }
+            html.push_str("<div style='color:#888;font-size:12px;margin:4px 0'>— Equipment —</div>");
+            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>Head: {}</div>", game.player.equipment.head.name));
+            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>Chest: {}</div>", game.player.equipment.chest.name));
+            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>Ring 1: {}</div>", game.player.equipment.ring_1.as_ref().map_or("—", |r| &r.name)));
+            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>Ring 2: {}</div>", game.player.equipment.ring_2.as_ref().map_or("—", |r| &r.name)));
+            if !game.inventory.is_empty() {
+                html.push_str("<div style='color:#888;font-size:12px;margin:4px 0'>— Bag —</div>");
+                for item in &game.inventory {
+                    html.push_str(&format!("<div style='color:#aaa;font-size:13px'>· {}</div>", item.name));
+                }
+            }
+            html.push_str("<div style='color:#666;font-size:12px;margin-top:8px'>Press I to close</div>");
+            let _ = el.set_attribute("style", "display:block; background:rgba(0,0,0,0.9); padding:16px; border:1px solid #555; border-radius:4px; max-width:400px; margin:40px auto; white-space:pre-line;");
+            el.set_text_content(None);
+            el.set_inner_html(&html);
+        }
     }
 
     // Boss name
