@@ -174,7 +174,8 @@ impl Entity for Player {
 
     fn update(&mut self, dt: f32) {
         let is_acting = matches!(self.state, EntityState::Attacking | EntityState::Rolling | EntityState::Blocking);
-        self.stamina.update(dt, is_acting);
+        let regen_bonus = self.equipment.stamina_regen_bonus();
+        self.stamina.update_with_bonus(dt, is_acting, regen_bonus);
         if self.invuln_timer > 0.0 {
             self.invuln_timer -= dt;
         }

@@ -1789,7 +1789,8 @@ fn update_playing(game: &mut Game, dt: f32) {
                     crate::entity::enemy::EnemyKind::DarkMage => 300,
                     crate::entity::enemy::EnemyKind::Mimic => 500,
                 };
-                game.souls += soul_reward;
+                let soul_bonus = game.player.equipment.soul_bonus();
+                game.souls += (soul_reward as f32 * (1.0 + soul_bonus)) as u32;
                 game.camera.add_shake(6.0);
                 game.audio.play_sfx("enemy_die", 0.1, 0.0);
                 // Spawn death dissolve particles
