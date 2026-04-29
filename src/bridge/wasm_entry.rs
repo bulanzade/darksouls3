@@ -1691,9 +1691,13 @@ fn update_playing(game: &mut Game, dt: f32) {
     let ty = ((ry - chunk_offset.1) / tile_size) as usize;
     if tx < CHUNK_SIZE && ty < CHUNK_SIZE {
         if game.chunk.tiles[ty][tx] == TileId::Poison {
-            if game.player.poison_timer <= 0.0 {
-                game.player.poison_timer = 8.0; // 8 seconds of poison
-                game.player.poison_tick = 0.5;
+            let resist = game.player.equipment.poison_resist();
+            if game.player.poison_timer <= 0.0 && resist < 1.0 {
+                // Chance to resist based on equipment
+                if (game.enemies_killed as f32 * 0.618).fract() >= resist {
+                    game.player.poison_timer = 8.0 * (1.0 - resist); // Shorter with resist
+                    game.player.poison_tick = 0.5;
+                }
             }
         }
     }
