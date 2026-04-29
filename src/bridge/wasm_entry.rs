@@ -1683,7 +1683,13 @@ fn update_playing(game: &mut Game, dt: f32) {
 
     // --- Spawn boss when mini-boss (last enemy) is killed ---
     if !game.boss_active && !game.boss_defeated && game.enemies.last().map_or(false, |e| e.is_dead()) {
-        game.boss = Some(Boss::new_test_boss(10, 1750.0, 400.0));
+        // Spawn random boss variety
+        let boss_type = (game.enemies_killed * 1103515245 + 12345) as usize % 3;
+        game.boss = Some(match boss_type {
+            0 => Boss::new_test_boss(10, 1750.0, 400.0),
+            1 => Boss::new_dragonrider(10, 1750.0, 400.0),
+            _ => Boss::new_ruin_sentinel(10, 1750.0, 400.0),
+        });
         game.boss_active = true;
         game.boss_intro_timer = 3.0; // Show boss name for 3 seconds
     }
@@ -2774,10 +2780,10 @@ fn update_dom_ui(game: &Game) {
                         "font-size: 42px; color: #e8c840; text-shadow: 0 0 30px rgba(232,200,64,0.8); opacity: {}; top: 25%; letter-spacing: 12px;",
                         alpha
                     ));
-                    el.set_text_content(Some("DEMON KNIGHT"));
+                    el.set_text_content(Some(&boss.name));
                 } else {
                     let _ = el.set_attribute("style", "font-size: 14px; color: #c8c; top: 6px;");
-                    el.set_text_content(Some(&format!("DEMON KNIGHT — HP: {}/{}", boss.hp, boss.max_hp)));
+                    el.set_text_content(Some(&format!("{} — HP: {}/{}", boss.name, boss.hp, boss.max_hp)));
                 }
             } else {
                 let _ = el.set_attribute("style", "display:none");

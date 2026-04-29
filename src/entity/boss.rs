@@ -6,6 +6,13 @@ use crate::render::sprite_batcher::SpriteBatcher;
 use crate::render::texture::Texture;
 use web_sys::WebGl2RenderingContext as GL;
 
+#[derive(Clone, Copy, PartialEq)]
+pub enum BossType {
+    DemonKnight,
+    Dragonrider,
+    RuinSentinel,
+}
+
 pub struct Boss {
     pub id: EntityId,
     pub transform: Transform,
@@ -24,6 +31,8 @@ pub struct Boss {
     pub flash_timer: f32,
     pub is_charging: bool,
     pub charge_speed: f32,
+    pub boss_type: BossType,
+    pub name: String,
 }
 
 impl Boss {
@@ -73,6 +82,94 @@ impl Boss {
             flash_timer: 0.0,
             is_charging: false,
             charge_speed: 300.0,
+            boss_type: BossType::DemonKnight,
+            name: "DEMON KNIGHT".into(),
+        }
+    }
+
+    pub fn new_dragonrider(id: EntityId, x: f32, y: f32) -> Self {
+        let phases = vec![
+            BossPhase {
+                health_threshold: 1.0,
+                speed_multiplier: 1.3,
+                damage_multiplier: 1.0,
+                attack_cooldown: 1.5,
+                new_attack_damage: 40,
+                phase_name: "Phase 1".into(),
+            },
+            BossPhase {
+                health_threshold: 0.4,
+                speed_multiplier: 1.6,
+                damage_multiplier: 1.3,
+                attack_cooldown: 1.0,
+                new_attack_damage: 55,
+                phase_name: "Phase 2 - Mounted Fury".into(),
+            },
+        ];
+
+        Self {
+            id,
+            transform: Transform::new(x, y),
+            hp: 1000,
+            max_hp: 1000,
+            speed: 55.0,
+            state: EntityState::Idle,
+            facing: 0.0,
+            damage: 40,
+            boss_ctrl: BossController::new(phases),
+            aggro: AggroTable::new(400.0, 600.0),
+            attack_timer: 0.0,
+            attack_duration: 0.6,
+            stagger_timer: 0.0,
+            has_hit_this_attack: false,
+            flash_timer: 0.0,
+            is_charging: false,
+            charge_speed: 400.0,
+            boss_type: BossType::Dragonrider,
+            name: "DRAGONRIDER".into(),
+        }
+    }
+
+    pub fn new_ruin_sentinel(id: EntityId, x: f32, y: f32) -> Self {
+        let phases = vec![
+            BossPhase {
+                health_threshold: 1.0,
+                speed_multiplier: 1.0,
+                damage_multiplier: 1.0,
+                attack_cooldown: 2.0,
+                new_attack_damage: 35,
+                phase_name: "Phase 1".into(),
+            },
+            BossPhase {
+                health_threshold: 0.5,
+                speed_multiplier: 1.5,
+                damage_multiplier: 1.2,
+                attack_cooldown: 1.2,
+                new_attack_damage: 50,
+                phase_name: "Phase 2 - Shield Break".into(),
+            },
+        ];
+
+        Self {
+            id,
+            transform: Transform::new(x, y),
+            hp: 600,
+            max_hp: 600,
+            speed: 50.0,
+            state: EntityState::Idle,
+            facing: 0.0,
+            damage: 35,
+            boss_ctrl: BossController::new(phases),
+            aggro: AggroTable::new(250.0, 450.0),
+            attack_timer: 0.0,
+            attack_duration: 0.7,
+            stagger_timer: 0.0,
+            has_hit_this_attack: false,
+            flash_timer: 0.0,
+            is_charging: false,
+            charge_speed: 350.0,
+            boss_type: BossType::RuinSentinel,
+            name: "RUIN SENTINEL".into(),
         }
     }
 
@@ -171,7 +268,12 @@ impl Entity for Boss {
 
     fn render(&self, batcher: &mut SpriteBatcher, texture: &Texture, gl: &GL) {
         let phase_idx = self.boss_ctrl.current_phase_index();
-        let size = 48.0 + phase_idx as f32 * 8.0; // Grows each phase
+        let (base_size, idle_color, move_color) = match self.boss_type {
+            BossType::DemonKnight => (48.0, [0.8f32,0.2,0.8], [0.9f32,0.3,0.9]),
+            BossType::Dragonrider => (52.0, [0.8f32,0.4,0.1], [0.9f32,0.5,0.2]),
+            BossType::RuinSentinel => (44.0, [0.3f32,0.5,0.8], [0.4f32,0.6,0.9]),
+        };
+        let size = base_size + phase_idx as f32 * 6.0;
 
         if self.flash_timer > 0.0 {
             let instance = self.transform.to_instance_data(size, size, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0]);
@@ -181,25 +283,21 @@ impl Entity for Boss {
 
         let color = match self.state {
             EntityState::Idle => match phase_idx {
-                0 => [0.8, 0.2, 0.8, 1.0],
-                1 => [0.9, 0.1, 0.6, 1.0],
+                0 => [idle_color[0], idle_color[1], idle_color[2], 1.0],
+                1 => [idle_color[0] + 0.1, idle_color[1] - 0.1, idle_color[2] - 0.2, 1.0],
                 _ => [1.0, 0.0, 0.3, 1.0],
             },
-            EntityState::Moving => match phase_idx {
-                0 => [0.9, 0.3, 0.9, 1.0],
-                1 => [1.0, 0.2, 0.7, 1.0],
-                _ => [1.0, 0.1, 0.4, 1.0],
-            },
+            EntityState::Moving => [move_color[0], move_color[1], move_color[2], 1.0],
             EntityState::Attacking => {
                 if self.is_charging {
-                    [1.0, 0.5, 0.0, 1.0] // Orange when charging
+                    [1.0, 0.5, 0.0, 1.0]
                 } else {
                     [1.0, 0.0, 0.0, 1.0]
                 }
             }
             EntityState::Staggered => [1.0, 1.0, 0.0, 1.0],
             EntityState::Dead => [0.2, 0.2, 0.2, 0.3],
-            _ => [0.8, 0.2, 0.8, 1.0],
+            _ => [idle_color[0], idle_color[1], idle_color[2], 1.0],
         };
 
         // Charge trail effect
