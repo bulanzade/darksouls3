@@ -47,6 +47,9 @@ struct Game {
     light_renderer: LightRenderer,
     post_processor: PostProcessor,
     ui_renderer: UiRenderer,
+    // Framebuffer for post-processing
+    scene_fbo: web_sys::WebGlFramebuffer,
+    scene_texture: web_sys::WebGlTexture,
     // Lights
     lights: Vec<Light>,
     // Game state
@@ -222,6 +225,9 @@ pub fn wasm_main() {
     let post_processor = PostProcessor::new(gl).expect("Failed to create post-processor");
     let ui_renderer = UiRenderer::new(gl).expect("Failed to create UI renderer");
 
+    // Create off-screen FBO for post-processing
+    let (scene_fbo, scene_texture) = create_scene_fbo(gl, screen_w, screen_h);
+
     // Create enemies — placed across the dungeon
     let enemies = vec![
         // Room 2: hollow soldiers + archer
@@ -288,6 +294,8 @@ pub fn wasm_main() {
         light_renderer,
         post_processor,
         ui_renderer,
+        scene_fbo,
+        scene_texture,
         lights,
         state: GameState::TitleScreen,
         menu: MenuState::title_screen(),
@@ -685,6 +693,32 @@ fn create_bonfire_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
     set(&mut data, 16, 15, 200, 180, 100, 255);
 
     Texture::from_rgba(gl, &data, s, s).expect("Failed to create bonfire texture")
+}
+
+fn create_scene_fbo(
+    gl: &web_sys::WebGl2RenderingContext,
+    width: f32,
+    height: f32,
+) -> (web_sys::WebGlFramebuffer, web_sys::WebGlTexture) {
+    use web_sys::WebGl2RenderingContext as GL;
+    let tex = gl.create_texture().unwrap();
+    gl.bind_texture(GL::TEXTURE_2D, Some(&tex));
+    gl.tex_image_2d_with_i32_and_i32_and_i32_and_format_and_type_and_opt_u8_array(
+        GL::TEXTURE_2D, 0, GL::RGBA as i32,
+        width as i32, height as i32, 0,
+        GL::RGBA, GL::UNSIGNED_BYTE, None,
+    ).unwrap();
+    gl.tex_parameteri(GL::TEXTURE_2D, GL::TEXTURE_MIN_FILTER, GL::LINEAR as i32);
+    gl.tex_parameteri(GL::TEXTURE_2D, GL::TEXTURE_MAG_FILTER, GL::LINEAR as i32);
+    gl.tex_parameteri(GL::TEXTURE_2D, GL::TEXTURE_WRAP_S, GL::CLAMP_TO_EDGE as i32);
+    gl.tex_parameteri(GL::TEXTURE_2D, GL::TEXTURE_WRAP_T, GL::CLAMP_TO_EDGE as i32);
+
+    let fbo = gl.create_framebuffer().unwrap();
+    gl.bind_framebuffer(GL::FRAMEBUFFER, Some(&fbo));
+    gl.framebuffer_texture_2d(GL::FRAMEBUFFER, GL::COLOR_ATTACHMENT0, GL::TEXTURE_2D, Some(&tex), 0);
+    gl.bind_framebuffer(GL::FRAMEBUFFER, None);
+    gl.bind_texture(GL::TEXTURE_2D, None);
+    (fbo, tex)
 }
 
 fn create_tileset_texture(gl: &web_sys::WebGl2RenderingContext) -> Texture {
@@ -1668,6 +1702,11 @@ fn update_victory(game: &mut Game) {
 
 fn render(game: &mut Game) {
     let gl = &game.gl_ctx.gl;
+    use web_sys::WebGl2RenderingContext as GL;
+
+    // --- Pass 1: Render scene to FBO ---
+    gl.bind_framebuffer(GL::FRAMEBUFFER, Some(&game.scene_fbo));
+    gl.viewport(0, 0, game.screen_w as i32, game.screen_h as i32);
     game.gl_ctx.clear(0.02, 0.02, 0.04, 1.0);
 
     let projection = game.camera.projection_matrix();
@@ -2020,36 +2059,26 @@ fn render(game: &mut Game) {
 
     game.batcher.flush(gl);
 
+    // --- Pass 2: Post-processing composite to screen ---
+    gl.bind_framebuffer(GL::FRAMEBUFFER, None);
+    gl.viewport(0, 0, game.screen_w as i32, game.screen_h as i32);
+    gl.clear_color(0.0, 0.0, 0.0, 1.0);
+    gl.clear(GL::COLOR_BUFFER_BIT);
+
+    // Bind scene texture and run composite shader
+    gl.active_texture(GL::TEXTURE0);
+    gl.bind_texture(GL::TEXTURE_2D, Some(&game.scene_texture));
+    game.post_processor.render(
+        gl,
+        1.2,                                               // vignette intensity
+        [0.02, 0.02, 0.04, 0.6],                          // fog color + alpha
+        [game.screen_h * 0.3, game.screen_h * 0.7],       // fog distance range
+        1.0,                                               // brightness
+        0.85,                                              // saturation (slightly desaturated)
+    );
+
     // --- HUD projection (used by vignette + HUD elements) ---
     let ui_proj = UiRenderer::screen_projection(game.screen_w, game.screen_h);
-
-    // --- Ambient darkness vignette ---
-    // Darken screen edges to create dungeon atmosphere.
-    // The player is always at screen center, so edges are far from the player.
-    {
-        let cx = game.screen_w * 0.5;
-        let cy = game.screen_h * 0.5;
-        let edge_dark = [0.0, 0.0, 0.0, 0.5];
-        let mid_dark = [0.0, 0.0, 0.0, 0.25];
-
-        // Edge strips (top, bottom, left, right) — darkest
-        let strip = 60.0;
-        // Top
-        game.ui_renderer.draw_bar(gl, cx, strip * 0.5, game.screen_w, strip, 1.0, edge_dark, edge_dark, &ui_proj);
-        // Bottom
-        game.ui_renderer.draw_bar(gl, cx, game.screen_h - strip * 0.5, game.screen_w, strip, 1.0, edge_dark, edge_dark, &ui_proj);
-        // Left
-        game.ui_renderer.draw_bar(gl, strip * 0.5, cy, strip, game.screen_h, 1.0, edge_dark, edge_dark, &ui_proj);
-        // Right
-        game.ui_renderer.draw_bar(gl, game.screen_w - strip * 0.5, cy, strip, game.screen_h, 1.0, edge_dark, edge_dark, &ui_proj);
-
-        // Mid strips (lighter darkness, wider area)
-        let mid_strip = 120.0;
-        game.ui_renderer.draw_bar(gl, cx, strip + mid_strip * 0.5, game.screen_w, mid_strip, 1.0, mid_dark, mid_dark, &ui_proj);
-        game.ui_renderer.draw_bar(gl, cx, game.screen_h - strip - mid_strip * 0.5, game.screen_w, mid_strip, 1.0, mid_dark, mid_dark, &ui_proj);
-        game.ui_renderer.draw_bar(gl, strip + mid_strip * 0.5, cy, mid_strip, game.screen_h, 1.0, mid_dark, mid_dark, &ui_proj);
-        game.ui_renderer.draw_bar(gl, game.screen_w - strip - mid_strip * 0.5, cy, mid_strip, game.screen_h, 1.0, mid_dark, mid_dark, &ui_proj);
-    }
 
     // --- Screen flash (parry, riposte) ---
     if let Some(ref flash) = game.screen_flash {

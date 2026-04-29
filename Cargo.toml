@@ -28,6 +28,7 @@ features = [
   "WebGlVertexArrayObject",
   "WebGlUniformLocation",
   "WebGlTexture",
+  "WebGlFramebuffer",
   "KeyboardEvent",
   "EventTarget",
   "Performance",
