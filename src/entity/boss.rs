@@ -194,6 +194,7 @@ impl Boss {
         // Face target
         let dx = self.aggro.last_known_x - self.transform.x;
         let dy = self.aggro.last_known_y - self.transform.y;
+        let dist = (dx * dx + dy * dy).sqrt();
         self.facing = dy.atan2(dx);
 
         let hp_ratio = self.hp as f32 / self.max_hp as f32;
@@ -209,24 +210,68 @@ impl Boss {
                 self.transform.y += self.facing.sin() * speed;
                 self.transform.scale_x = if self.facing.cos() < 0.0 { -1.0 } else { 1.0 };
                 self.state = EntityState::Moving;
+
+                // Boss-specific chase behaviors
+                match self.boss_type {
+                    BossType::Dragonrider => {
+                        // Dragonrider strafes before charging
+                        let perp = self.facing + std::f32::consts::FRAC_PI_2;
+                        let strafe_dir = if (self.transform.x * 7.0 + self.transform.y * 13.0) as i32 % 2 == 0 { 1.0 } else { -1.0 };
+                        self.transform.x += perp.cos() * speed * 0.4 * strafe_dir;
+                        self.transform.y += perp.sin() * speed * 0.4 * strafe_dir;
+                    }
+                    BossType::RuinSentinel => {
+                        // Ruin Sentinel lunges forward periodically
+                        if dist > 100.0 && dist < 300.0 {
+                            let lunge = self.speed * speed_multiplier * 2.5 * dt;
+                            self.transform.x += self.facing.cos() * lunge;
+                            self.transform.y += self.facing.sin() * lunge;
+                        }
+                    }
+                    _ => {}
+                }
             }
             BossDirective::Attack => {
                 if self.attack_timer <= 0.0 {
                     self.state = EntityState::Attacking;
-                    self.attack_timer = self.attack_duration;
                     self.has_hit_this_attack = false;
-                    self.is_charging = true;
+
+                    match self.boss_type {
+                        BossType::DemonKnight => {
+                            // Ground slam — short charge, big damage
+                            self.attack_timer = 1.0;
+                            self.is_charging = true;
+                            self.attack_duration = 1.0;
+                        }
+                        BossType::Dragonrider => {
+                            // Charge attack — long lunge toward player
+                            self.attack_timer = 0.6;
+                            self.is_charging = true;
+                            self.attack_duration = 0.6;
+                        }
+                        BossType::RuinSentinel => {
+                            // Quick combo — short attack, can chain
+                            self.attack_timer = 0.5;
+                            self.is_charging = true;
+                            self.attack_duration = 0.5;
+                        }
+                    }
                 }
             }
             BossDirective::PhaseTransition => {
-                self.state = EntityState::Idle; // Invulnerable during transition
+                self.state = EntityState::Idle;
             }
         }
 
         // Tick attack timer — charge toward player while attacking
         if self.attack_timer > 0.0 {
             if self.is_charging {
-                let speed = self.charge_speed * dt;
+                let charge_mult = match self.boss_type {
+                    BossType::DemonKnight => 1.0,    // Slow charge, big hitbox
+                    BossType::Dragonrider => 2.0,     // Fast charge
+                    BossType::RuinSentinel => 1.5,    // Medium leap
+                };
+                let speed = self.charge_speed * charge_mult * dt;
                 self.transform.x += self.facing.cos() * speed;
                 self.transform.y += self.facing.sin() * speed;
             }
@@ -235,6 +280,14 @@ impl Boss {
                 self.is_charging = false;
                 self.state = EntityState::Moving;
             }
+        }
+
+        // Flash timer tick
+        if self.flash_timer > 0.0 {
+            self.flash_timer -= dt;
+        }
+        if self.stagger_timer > 0.0 {
+            self.stagger_timer -= dt;
         }
     }
 
