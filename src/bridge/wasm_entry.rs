@@ -1018,25 +1018,20 @@ fn update_title_screen(game: &mut Game) {
         if let Some(action) = game.menu.current_action() {
             match action {
                 MenuAction::NewGame => {
-                    game.state = GameState::Playing;
-                    game.time.accumulator = 0.0;
-                    game.state_timer = 0.0;
-                    game.player = Player::new(1, 200.0, 200.0);
-                    game.enemies = vec![
-                        Enemy::new_hollow_soldier(2, 600.0, 120.0),
-                        Enemy::new_archer(3, 750.0, 200.0),
-                        Enemy::new_hollow_soldier(4, 650.0, 300.0),
-                        Enemy::new_archer(5, 1150.0, 500.0),
-                        Enemy::new_hollow_soldier(6, 1300.0, 600.0),
-                        Enemy::new_knight(7, 1400.0, 650.0),
-                        Enemy::new_hollow_soldier(8, 1200.0, 750.0),
-                        Enemy::new_mini_boss(9, 1264.0, 1280.0),
-                    ];
-                    game.boss = None;
-                    game.boss_active = false;
+                    game.player = Player::new(1, 320.0, 320.0);
                     game.boss_defeated = false;
                     game.souls = 0;
                     game.bonfire = BonfireState::new();
+                    game.enemies_killed = 0;
+                    game.damage_dealt = 0;
+                    game.damage_taken = 0;
+                    game.death_count = 0;
+                    game.play_time = 0.0;
+                    game.bosses_defeated = vec![];
+                    game.inventory = vec![];
+                    game.has_bloodstain = false;
+                    game.bloodstain_souls = 0;
+                    load_area(game, AreaId::Majula);
                 }
                 MenuAction::Continue => {
                     if let Some(save) = save_manager::load_from_localstorage() {
@@ -1466,7 +1461,15 @@ fn update_playing(game: &mut Game, dt: f32) {
                                     game.bonfire.estus_charges = game.bonfire.estus_max;
                                 }
                             }
-                            NpcKind::Blacksmith => {}
+                            NpcKind::Blacksmith => {
+                                if game.souls >= 1000 {
+                                    game.souls -= 1000;
+                                    game.player.weapon.base_damage += 15;
+                                    if let Some(ref mut alt) = game.player.alt_weapon {
+                                        alt.base_damage += 15;
+                                    }
+                                }
+                            }
                         }
                     }
                     break;
