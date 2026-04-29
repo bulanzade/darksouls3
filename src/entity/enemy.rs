@@ -355,7 +355,7 @@ impl Enemy {
         }
     }
 
-    pub fn update_ai(&mut self, target_x: f32, target_y: f32, dt: f32) {
+    pub fn update_ai(&mut self, target_x: f32, target_y: f32, dt: f32, nav_grid: &crate::world::nav_grid::NavGrid, chunk_offset: (f32, f32)) {
         self.aggro.check_detection(
             self.transform.x,
             self.transform.y,
@@ -421,7 +421,29 @@ impl Enemy {
                 if self.aggro.has_target() {
                     let dx = self.aggro.last_known_x - self.transform.x;
                     let dy = self.aggro.last_known_y - self.transform.y;
-                    self.facing = dy.atan2(dx);
+                    let dist = (dx * dx + dy * dy).sqrt();
+
+                    // Use pathfinding: find next waypoint toward target
+                    let start = nav_grid.world_to_cell(self.transform.x - chunk_offset.0, self.transform.y - chunk_offset.1);
+                    let goal = nav_grid.world_to_cell(self.aggro.last_known_x - chunk_offset.0, self.aggro.last_known_y - chunk_offset.1);
+
+                    let move_dir = if dist < 50.0 {
+                        // Close enough — move directly toward target
+                        dy.atan2(dx)
+                    } else if let Some(next) = nav_grid.find_path(start, goal).get(1).copied() {
+                        // Follow pathfinding route
+                        let (wx, wy) = nav_grid.cell_to_world(next);
+                        let nwx = wx + chunk_offset.0;
+                        let nwy = wy + chunk_offset.1;
+                        let ndx = nwx - self.transform.x;
+                        let ndy = nwy - self.transform.y;
+                        ndy.atan2(ndx)
+                    } else {
+                        // No path found — move directly
+                        dy.atan2(dx)
+                    };
+
+                    self.facing = move_dir;
                     let speed = self.speed * dt;
                     self.transform.x += self.facing.cos() * speed;
                     self.transform.y += self.facing.sin() * speed;

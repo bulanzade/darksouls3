@@ -1,4 +1,5 @@
 use crate::combat::stamina::StaminaPool;
+use crate::combat::weapon::Weapon;
 use crate::core::input::{InputState, KeyCode};
 use crate::core::transform::Transform;
 use crate::entity::entity_trait::{DamageInfo, Entity, EntityId, EntityState};
@@ -33,7 +34,9 @@ pub struct Player {
     pub vigor: u32,      // increases HP
     pub endurance: u32,  // increases stamina
     pub strength: u32,   // increases damage
-    pub base_damage: i32,
+    // Weapon system
+    pub weapon: Weapon,
+    pub alt_weapon: Option<Weapon>,
     // Status effects
     pub poison_timer: f32,
     pub poison_tick: f32,
@@ -66,14 +69,36 @@ impl Player {
             vigor: 5,
             endurance: 5,
             strength: 5,
-            base_damage: 50,
+            weapon: Weapon::longsword(),
+            alt_weapon: None,
             poison_timer: 0.0,
             poison_tick: 0.0,
         }
     }
 
     pub fn damage(&self) -> i32 {
-        self.base_damage + (self.strength as i32 - 5) * 10
+        let base = self.weapon.base_damage;
+        let scaling = (self.strength as f32 * self.weapon.strength_scaling
+            + self.endurance as f32 * self.weapon.dexterity_scaling) * 2.0;
+        (base as f32 + scaling) as i32
+    }
+
+    /// Light attack stamina cost from weapon moveset.
+    pub fn light_stamina_cost(&self) -> f32 {
+        self.weapon.get_moveset().light_attack_chain()[0].stamina_cost
+    }
+
+    /// Heavy attack stamina cost from weapon moveset.
+    pub fn heavy_stamina_cost(&self) -> f32 {
+        self.weapon.get_moveset().heavy_attack().stamina_cost
+    }
+
+    /// Swap primary and alt weapons.
+    pub fn swap_weapon(&mut self) {
+        if let Some(alt) = self.alt_weapon.take() {
+            let old = std::mem::replace(&mut self.weapon, alt);
+            self.alt_weapon = Some(old);
+        }
     }
 
     pub fn level_up_cost(&self) -> u32 {

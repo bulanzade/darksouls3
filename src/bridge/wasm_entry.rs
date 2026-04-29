@@ -20,6 +20,7 @@ use crate::save::bonfire::BonfireState;
 use crate::save::save_manager::{self, SaveData};
 use crate::world::chunk::{Chunk, CHUNK_SIZE};
 use crate::world::collision::CollisionGrid;
+use crate::world::nav_grid::NavGrid;
 use crate::world::tileset::{TileId, Tileset, TILE_SIZE};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
@@ -42,6 +43,7 @@ struct Game {
     chunk: Chunk,
     tileset: Tileset,
     collision: CollisionGrid,
+    nav_grid: NavGrid,
     tileset_texture: Texture,
     // Rendering subsystems
     light_renderer: LightRenderer,
@@ -62,6 +64,8 @@ struct Game {
     // Boss tracking
     boss_active: bool,
     boss_defeated: bool,
+    // Lock-on targeting
+    lock_on_target: Option<EntityId>,
     // Grace period after state transition to prevent accidental interactions
     state_timer: f32,
     // Bonfire world position
@@ -129,6 +133,7 @@ enum ItemKind {
     EstusShard,         // increases max estus by 1
     HomewardBone,       // unused for now
     PurpleMoss,         // cures poison
+    WeaponDrop(crate::combat::weapon::WeaponType),
 }
 
 struct SoulOrb {
@@ -219,6 +224,7 @@ pub fn wasm_main() {
     let tileset = Tileset::test_tileset(80, 16);
     let chunk = Chunk::test_chunk((0, 0));
     let collision = CollisionGrid::from_chunk(&chunk, &tileset);
+    let nav_grid = NavGrid::from_collision_grid(&collision, CHUNK_SIZE, 2);
     let tileset_texture = create_tileset_texture(gl);
 
     let light_renderer = LightRenderer::new(gl).expect("Failed to create light renderer");
@@ -290,6 +296,7 @@ pub fn wasm_main() {
         chunk,
         tileset,
         collision,
+        nav_grid,
         tileset_texture,
         light_renderer,
         post_processor,
@@ -304,6 +311,7 @@ pub fn wasm_main() {
         audio: AudioEngine,
         boss_active: false,
         boss_defeated: false,
+        lock_on_target: None,
         state_timer: 0.0,
         bonfire_x: 200.0,
         bonfire_y: 200.0,
@@ -353,9 +361,9 @@ pub fn wasm_main() {
             TreasureChest { x: 480.0, y: 680.0, opened: false, loot: ItemKind::SoulOrb(500) },
             TreasureChest { x: 560.0, y: 780.0, opened: false, loot: ItemKind::EstusShard },
             // Boss arena
-            TreasureChest { x: 1780.0, y: 350.0, opened: false, loot: ItemKind::SoulOrb(2000) },
+            TreasureChest { x: 1780.0, y: 350.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Uchigatana) },
             // Corridor near poison
-            TreasureChest { x: 1000.0, y: 900.0, opened: false, loot: ItemKind::PurpleMoss },
+            TreasureChest { x: 1000.0, y: 900.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::GreatAxe) },
         ],
     };
 
@@ -414,12 +422,17 @@ pub fn js_debug_state() -> String {
                 let dist = ((g.player.transform.x - ex).powi(2) + (g.player.transform.y - ey).powi(2)).sqrt();
                 format!("{}:({:.0},{:.0}) d={:.0} s={:?}", i, ex, ey, dist, e.state)
             }).collect();
+            let lock = match g.lock_on_target {
+                Some(tid) => format!(" lock={}", tid),
+                None => " lock=none".into(),
+            };
             format!(
-                "state={} hp={} inv={} pos=({:.0},{:.0}) enemies=[{}] acc={:.3}",
+                "state={} hp={} inv={} pos=({:.0},{:.0}) enemies=[{}] acc={:.3}{}",
                 state, g.player.hp, g.player.invuln_timer,
                 g.player.transform.x, g.player.transform.y,
                 enemies.join(" "),
                 g.time.accumulator,
+                lock,
             )
         } else {
             "GAME not initialized".into()
@@ -447,7 +460,10 @@ fn key_to_idx(key: &str) -> usize {
         "k" | "K" => 75,
         "l" | "L" => 76,
         "s" | "S" => 83,
+        "Tab" => 9,
         "w" | "W" => 87,
+        "1" => 49,
+        "2" => 50,
         _ => 255,
     }
 }
@@ -936,6 +952,7 @@ fn update_playing(game: &mut Game, dt: f32) {
     let roll = game.input.pressed(KeyCode::Space);
     let estus = game.input.consume_pressed(KeyCode::E);
     let interact = game.input.consume_pressed(KeyCode::Enter);
+    let lock_on_toggle = game.input.consume_pressed(KeyCode::Tab);
 
     // Bonfire interaction (skip for first 0.5s after state change)
     if interact && game.state_timer > 0.5 {
@@ -989,6 +1006,22 @@ fn update_playing(game: &mut Game, dt: f32) {
                     game.audio.play_sfx("estus", 0.08, 0.0);
                 }
                 ItemKind::HomewardBone => {}
+                ItemKind::WeaponDrop(wt) => {
+                    use crate::combat::weapon::WeaponType;
+                    let weapon = match wt {
+                        WeaponType::GreatAxe => crate::combat::weapon::Weapon::great_axe(),
+                        WeaponType::Dagger => crate::combat::weapon::Weapon::dagger(),
+                        WeaponType::Spear => crate::combat::weapon::Weapon::spear(),
+                        WeaponType::Uchigatana => crate::combat::weapon::Weapon::uchigatana(),
+                        _ => crate::combat::weapon::Weapon::longsword(),
+                    };
+                    if game.player.alt_weapon.is_none() {
+                        game.player.alt_weapon = Some(weapon);
+                    } else {
+                        game.player.alt_weapon = Some(weapon);
+                    }
+                    game.audio.play_sfx("souls", 0.08, 0.0);
+                }
             }
         }
     }
@@ -1017,6 +1050,22 @@ fn update_playing(game: &mut Game, dt: f32) {
                         game.audio.play_sfx("estus", 0.08, 0.0);
                     }
                     ItemKind::HomewardBone => {}
+                    ItemKind::WeaponDrop(wt) => {
+                        use crate::combat::weapon::WeaponType;
+                        let weapon = match wt {
+                            WeaponType::GreatAxe => crate::combat::weapon::Weapon::great_axe(),
+                            WeaponType::Dagger => crate::combat::weapon::Weapon::dagger(),
+                            WeaponType::Spear => crate::combat::weapon::Weapon::spear(),
+                            WeaponType::Uchigatana => crate::combat::weapon::Weapon::uchigatana(),
+                            _ => crate::combat::weapon::Weapon::longsword(),
+                        };
+                        if game.player.alt_weapon.is_none() {
+                            game.player.alt_weapon = Some(weapon);
+                        } else {
+                            game.player.alt_weapon = Some(weapon);
+                        }
+                        game.audio.play_sfx("souls", 0.08, 0.0);
+                    }
                 }
                 game.camera.add_shake(2.0);
                 break;
@@ -1113,6 +1162,50 @@ fn update_playing(game: &mut Game, dt: f32) {
         }
     }
 
+    // Lock-on targeting
+    if lock_on_toggle {
+        let (px, py) = game.player.position();
+        if game.lock_on_target.is_some() {
+            game.lock_on_target = None;
+        } else {
+            let mut best: Option<(EntityId, f32)> = None;
+            for e in &game.enemies {
+                if e.is_dead() { continue; }
+                let (ex, ey) = e.position();
+                let d = ((px - ex) * (px - ex) + (py - ey) * (py - ey)).sqrt();
+                if best.map_or(true, |(_, bd)| d < bd) {
+                    best = Some((e.id(), d));
+                }
+            }
+            if let Some((id, _)) = best {
+                game.lock_on_target = Some(id);
+            }
+        }
+    }
+    // Invalidate lock-on if target died
+    if let Some(tid) = game.lock_on_target {
+        let still_alive = game.enemies.iter().any(|e| e.id() == tid && !e.is_dead())
+            || game.boss.as_ref().map_or(false, |b| b.id() == tid && !b.is_dead());
+        if !still_alive { game.lock_on_target = None; }
+    }
+
+    // Lock-on facing override: make player face the locked target
+    let lock_on_pos: Option<(f32, f32)> = if let Some(tid) = game.lock_on_target {
+        game.enemies.iter().find(|e| e.id() == tid).map(|e| e.position())
+            .or_else(|| game.boss.as_ref().and_then(|b| if b.id() == tid { Some(b.position()) } else { None }))
+    } else {
+        None
+    };
+    if let Some((tx, ty)) = lock_on_pos {
+        let (px2, py2) = game.player.position();
+        game.player.facing = (ty - py2).atan2(tx - px2);
+    }
+
+    // Weapon swap (1/2 keys)
+    if game.input.consume_pressed(KeyCode::Num1) {
+        game.player.swap_weapon();
+    }
+
     // Player input
     {
         // Buffer actions during stagger/attack/roll
@@ -1134,7 +1227,10 @@ fn update_playing(game: &mut Game, dt: f32) {
         match player.state {
             EntityState::Idle | EntityState::Moving => {
                 if mv.0 != 0.0 || mv.1 != 0.0 {
-                    player.facing = mv.1.atan2(mv.0);
+                    // When locked on, keep facing toward target instead of movement direction
+                    if game.lock_on_target.is_none() {
+                        player.facing = mv.1.atan2(mv.0);
+                    }
                     player.state = EntityState::Moving;
                 } else {
                     player.state = EntityState::Idle;
@@ -1165,7 +1261,8 @@ fn update_playing(game: &mut Game, dt: f32) {
                     }
                 }
                 if do_attack {
-                    if player.stamina.consume(20.0) {
+                    let cost = player.light_stamina_cost();
+                    if player.stamina.consume(cost) {
                         player.state = EntityState::Attacking;
                         player.attack_timer = player.attack_duration;
                         player.is_heavy_attack = false;
@@ -1174,7 +1271,8 @@ fn update_playing(game: &mut Game, dt: f32) {
                     }
                 }
                 if do_heavy {
-                    if player.stamina.consume(40.0) {
+                    let cost = player.heavy_stamina_cost();
+                    if player.stamina.consume(cost) {
                         player.state = EntityState::Attacking;
                         player.attack_timer = player.heavy_attack_duration;
                         player.is_heavy_attack = true;
@@ -1227,7 +1325,7 @@ fn update_playing(game: &mut Game, dt: f32) {
             enemy.tick_death(dt);
             continue;
         }
-        enemy.update_ai(px, py, dt);
+        enemy.update_ai(px, py, dt, &game.nav_grid, chunk_offset);
         if enemy.flash_timer > 0.0 {
             enemy.flash_timer -= dt;
         }
@@ -1248,6 +1346,10 @@ fn update_playing(game: &mut Game, dt: f32) {
                 });
             }
         }
+        // Resolve enemy collision with walls
+        let (ex, ey) = enemy.position();
+        let (rx, ry) = game.collision.resolve_aabb(chunk_offset, ex, ey, 14.0, 14.0);
+        enemy.set_position(rx, ry);
     }
 
     // Boss AI update
@@ -1510,8 +1612,14 @@ fn update_playing(game: &mut Game, dt: f32) {
         game.lights[0].y = py;
     }
 
-    // Camera follows player
-    game.camera.follow(px, py, 5.0, dt);
+    // Camera follows player (or midpoint between player and lock-on target)
+    if let Some((tx, ty)) = lock_on_pos {
+        let mid_x = (px + tx) * 0.5;
+        let mid_y = (py + ty) * 0.5;
+        game.camera.follow(mid_x, mid_y, 4.0, dt);
+    } else {
+        game.camera.follow(px, py, 5.0, dt);
+    }
     game.camera.update(dt);
 
     // Audio listener position
@@ -1794,6 +1902,7 @@ fn render(game: &mut Game) {
             ItemKind::EstusShard => (0.2, 0.9, 0.3),
             ItemKind::HomewardBone => (0.8, 0.7, 0.5),
             ItemKind::PurpleMoss => (0.6, 0.2, 0.8),
+            ItemKind::WeaponDrop(_) => (0.9, 0.6, 0.1),
         };
         let bob = (item.y * 0.05).sin() * 3.0;
         game.batcher.draw(
@@ -1876,6 +1985,46 @@ fn render(game: &mut Game) {
             };
             game.batcher.draw(
                 InstanceData::new(fg_x, bar_y, fg_w, bar_h, [0.0, 0.0, 1.0, 1.0], hp_color),
+                &game.white_tex, gl,
+            );
+        }
+    }
+
+    // --- Lock-on indicator ---
+    if let Some(tid) = game.lock_on_target {
+        let target_pos = game.enemies.iter().find(|e| e.id() == tid).map(|e| e.position())
+            .or_else(|| game.boss.as_ref().and_then(|b| if b.id() == tid { Some(b.position()) } else { None }));
+        if let Some((tx, ty)) = target_pos {
+            let pulse = 0.7 + 0.3 * (game.play_time * 4.0).sin();
+            let indicator_y = ty - 26.0;
+            // Outer ring — 8 dots in a circle
+            for i in 0..8 {
+                let a = (i as f32 / 8.0) * std::f32::consts::TAU + game.play_time * 2.0;
+                let r = 12.0;
+                let dx = a.cos() * r;
+                let dy = a.sin() * r;
+                game.batcher.draw(
+                    InstanceData::new(tx + dx, indicator_y + dy, 4.0, 4.0, [0.0, 0.0, 1.0, 1.0],
+                        [1.0, 0.85, 0.1, 0.8 * pulse]),
+                    &game.white_tex, gl,
+                );
+            }
+            // Inner diamond — 4 dots
+            for i in 0..4 {
+                let a = (i as f32 / 4.0) * std::f32::consts::TAU;
+                let r = 5.0;
+                let dx = a.cos() * r;
+                let dy = a.sin() * r;
+                game.batcher.draw(
+                    InstanceData::new(tx + dx, indicator_y + dy, 3.0, 3.0, [0.0, 0.0, 1.0, 1.0],
+                        [1.0, 0.9, 0.2, 0.9]),
+                    &game.white_tex, gl,
+                );
+            }
+            // Center bright dot
+            game.batcher.draw(
+                InstanceData::new(tx, indicator_y, 3.0, 3.0, [0.0, 0.0, 1.0, 1.0],
+                    [1.0, 1.0, 0.5, 1.0]),
                 &game.white_tex, gl,
             );
         }
@@ -2405,8 +2554,9 @@ fn update_dom_ui(game: &Game) {
             EntityState::Blocking => "BLOCK",
         };
         let mut text = format!(
-            "HP {}/{} | STA {}/{} | DMG {} | Lv{} | {}",
-            hp, max_hp, stamina, max_sta, game.player.damage(), game.player.level, state_name
+            "HP {}/{} | STA {}/{} | DMG {} | Lv{} | {} | {}",
+            hp, max_hp, stamina, max_sta, game.player.damage(), game.player.level, state_name,
+            game.player.weapon.name
         );
         // Bonfire proximity hint
         if game.state == GameState::Playing {

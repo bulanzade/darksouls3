@@ -17,7 +17,10 @@ pub enum KeyCode {
     K        = 75,
     L        = 76,
     S        = 83,
+    Tab      = 9,
     W        = 87,
+    Num1     = 49,
+    Num2     = 50,
 }
 
 pub struct InputState {
