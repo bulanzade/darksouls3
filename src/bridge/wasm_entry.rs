@@ -2177,7 +2177,7 @@ fn load_area(game: &mut Game, area: AreaId) {
 
     match area {
         AreaId::Majula => {
-            let mut chunk = Chunk::new((1, 0));
+            let mut chunk = Chunk::new((0, 0));
             for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
             for y in 5..45 { for x in 5..55 { chunk.tiles[y][x] = TileId::Ground; } }
             // Water pool
@@ -2225,7 +2225,7 @@ fn load_area(game: &mut Game, area: AreaId) {
         }
         AreaId::ForestOfGiants => {
             // Forest: large outdoor area with dense trees, hollows, and assassins
-            let mut chunk = Chunk::new((2, 0));
+            let mut chunk = Chunk::new((0, 0));
             for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
             // Main clearing
             for y in 5..50 { for x in 5..55 { chunk.tiles[y][x] = TileId::Ground; } }
@@ -2352,7 +2352,7 @@ fn load_area(game: &mut Game, area: AreaId) {
         }
         AreaId::LostBastille => {
             // Fortress prison — tight corridors, many enemies, traps
-            let mut chunk = Chunk::new((3, 0));
+            let mut chunk = Chunk::new((0, 0));
             for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
             // Entry hall
             for y in 5..20 { for x in 5..40 { chunk.tiles[y][x] = TileId::Ground; } }
