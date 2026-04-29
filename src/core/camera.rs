@@ -52,11 +52,12 @@ impl Camera2D {
         let half_h = self.viewport_h / (2.0 * self.zoom);
         let cx = self.x + self.shake_offset_x;
         let cy = self.y + self.shake_offset_y;
+        // Y-down: swap bottom/top so increasing Y goes downward on screen
         orthographic(
             cx - half_w,
             cx + half_w,
-            cy - half_h,
             cy + half_h,
+            cy - half_h,
             -1.0,
             1.0,
         )

@@ -1042,7 +1042,7 @@ fn update_playing(game: &mut Game, dt: f32) {
     // Tick damage numbers
     for dn in &mut game.damage_numbers {
         dn.y += dn.vy * dt;
-        dn.vy -= 30.0 * dt; // Slow down
+        dn.vy += 30.0 * dt; // Gravity (Y-down: positive = downward pull)
         dn.timer -= dt;
     }
     game.damage_numbers.retain(|d| d.timer > 0.0);
@@ -1051,7 +1051,7 @@ fn update_playing(game: &mut Game, dt: f32) {
     for p in &mut game.death_particles {
         p.x += p.vx * dt;
         p.y += p.vy * dt;
-        p.vy += 60.0 * dt; // Gravity
+        p.vy += 60.0 * dt; // Gravity (Y-down: pulls downward)
         p.timer -= dt;
     }
     game.death_particles.retain(|p| p.timer > 0.0);
@@ -1088,7 +1088,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                 if attack { game.input_buffer = BufferedAction::Attack; }
                 else if heavy_attack { game.input_buffer = BufferedAction::HeavyAttack; }
                 else if roll { game.input_buffer = BufferedAction::Roll; }
-                game.input_buffer_timer = 0.3; // 300ms buffer window
+                game.input_buffer_timer = 0.5; // 500ms buffer window
             }
         }
 
@@ -1315,7 +1315,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                         x: ex + (i as f32 % 3.0 - 1.0) * 6.0,
                         y: ey + (i as f32 % 3.0 - 1.0) * 6.0,
                         vx: angle.cos() * speed,
-                        vy: angle.sin() * speed - 30.0,
+                        vy: -(angle.sin() * speed) + 30.0,
                         timer: 0.4 + (i as f32 % 4.0) * 0.1,
                         size: 4.0 + (i as f32 % 3.0) * 2.0,
                     });
@@ -1325,7 +1325,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                     game.soul_orbs.push(SoulOrb {
                         x: ex + (game.soul_orbs.len() as f32 % 3.0 - 1.0) * 6.0,
                         y: ey,
-                        vy: 30.0 + (game.soul_orbs.len() as f32 % 5.0) * 8.0,
+                        vy: -(30.0 + (game.soul_orbs.len() as f32 % 5.0) * 8.0),
                         timer: 0.6 + (game.soul_orbs.len() as f32 % 3.0) * 0.2,
                         max_time: 0.6 + (game.soul_orbs.len() as f32 % 3.0) * 0.2,
                     });
