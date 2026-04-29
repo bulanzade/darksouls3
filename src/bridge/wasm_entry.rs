@@ -25,6 +25,19 @@ use crate::world::tileset::{TileId, Tileset, TILE_SIZE};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
+#[derive(Clone, Copy, PartialEq)]
+enum AreaId {
+    Dungeon,      // Default dungeon
+    Majula,       // Hub area with NPCs
+}
+
+fn area_name(area: AreaId) -> &'static str {
+    match area {
+        AreaId::Dungeon => "Dungeon",
+        AreaId::Majula => "Majula",
+    }
+}
+
 struct Game {
     gl_ctx: GlContext,
     batcher: SpriteBatcher,
@@ -125,6 +138,8 @@ struct Game {
     chests: Vec<TreasureChest>,
     // NPCs
     npcs: Vec<Npc>,
+    // Current area
+    area: AreaId,
 }
 
 struct WorldItem {
@@ -321,6 +336,7 @@ pub fn wasm_main() {
         tileset,
         collision,
         nav_grid,
+        area: AreaId::Dungeon,
         tileset_texture,
         light_renderer,
         post_processor,
@@ -1916,6 +1932,14 @@ fn update_bonfire_menu(game: &mut Game) {
                 MenuAction::Resume => {
                     game.state = GameState::Playing;
                 }
+                MenuAction::Travel => {
+                    // Toggle between Dungeon and Majula
+                    let new_area = match game.area {
+                        AreaId::Dungeon => AreaId::Majula,
+                        AreaId::Majula => AreaId::Dungeon,
+                    };
+                    load_area(game, new_area);
+                }
                 _ => {}
             }
         }
@@ -1925,6 +1949,140 @@ fn update_bonfire_menu(game: &mut Game) {
     }
     if game.input.pressed(KeyCode::Down) {
         game.menu.move_down();
+    }
+}
+
+fn load_area(game: &mut Game, area: AreaId) {
+    game.area = area;
+    game.state = GameState::Playing;
+    game.time.accumulator = 0.0;
+    game.state_timer = 0.0;
+    game.lock_on_target = None;
+
+    match area {
+        AreaId::Dungeon => {
+            game.chunk = Chunk::test_chunk((0, 0));
+            game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
+            game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
+            game.player = Player::new(1, game.bonfire_x, game.bonfire_y);
+            // Restore stats from bonfire
+            game.player.hp = game.player.max_hp;
+            game.enemies = vec![
+                Enemy::new_hollow_soldier(2, 620.0, 120.0),
+                Enemy::new_archer(3, 780.0, 200.0),
+                Enemy::new_hollow_soldier(4, 700.0, 320.0),
+                Enemy::new_archer(5, 1200.0, 500.0),
+                Enemy::new_hollow_soldier(6, 1350.0, 600.0),
+                Enemy::new_knight(7, 1450.0, 700.0),
+                Enemy::new_hollow_soldier(8, 1250.0, 800.0),
+                Enemy::new_mini_boss(9, 1264.0, 1280.0),
+            ];
+            game.boss = None;
+            game.boss_active = false;
+            game.items = vec![
+                WorldItem { x: 520.0, y: 700.0, kind: ItemKind::SoulOrb(200), collected: false },
+                WorldItem { x: 700.0, y: 800.0, kind: ItemKind::SoulOrb(300), collected: false },
+                WorldItem { x: 820.0, y: 650.0, kind: ItemKind::EstusShard, collected: false },
+                WorldItem { x: 1300.0, y: 750.0, kind: ItemKind::SoulOrb(500), collected: false },
+                WorldItem { x: 1700.0, y: 500.0, kind: ItemKind::SoulOrb(1000), collected: false },
+                WorldItem { x: 600.0, y: 750.0, kind: ItemKind::PurpleMoss, collected: false },
+                WorldItem { x: 1100.0, y: 1000.0, kind: ItemKind::PurpleMoss, collected: false },
+            ];
+            game.chests = vec![
+                TreasureChest { x: 480.0, y: 680.0, opened: false, loot: ItemKind::SoulOrb(500) },
+                TreasureChest { x: 560.0, y: 780.0, opened: false, loot: ItemKind::EstusShard },
+                TreasureChest { x: 1780.0, y: 350.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Uchigatana) },
+                TreasureChest { x: 1000.0, y: 900.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::GreatAxe) },
+            ];
+            game.npcs = vec![
+                Npc { x: 240.0, y: 180.0, name: "Emerald Herald".into(), color: [0.2, 0.9, 0.7, 1.0],
+                    dialogue: vec!["Welcome to the land of Drangleic.".into(), "You will lose your souls, again and again.".into(),
+                        "But fear not. Seek strength. The rest is up to you.".into(), "[Enter] Level Up".into()],
+                    dialogue_index: 0, talking: false, kind: NpcKind::LevelUp },
+                Npc { x: 580.0, y: 720.0, name: "Merchant".into(), color: [0.8, 0.7, 0.3, 1.0],
+                    dialogue: vec!["Heh heh... Something catch your eye?".into(), "I've got estus shards, purple moss...".into(),
+                        "All for the low price of your souls.".into(), "[Enter] Buy Estus Shard (500 souls)".into()],
+                    dialogue_index: 0, talking: false, kind: NpcKind::Merchant },
+            ];
+            game.lights = vec![
+                Light { x: 200.0, y: 200.0, radius: 250.0, color: [0.9, 0.8, 0.6], intensity: 0.4 },
+                Light { x: 700.0, y: 200.0, radius: 200.0, color: [0.3, 0.3, 0.8], intensity: 0.2 },
+                Light { x: 500.0, y: 300.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 800.0, y: 350.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 450.0, y: 700.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 700.0, y: 750.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 1200.0, y: 500.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 1400.0, y: 650.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 1700.0, y: 300.0, radius: 200.0, color: [0.8, 0.2, 0.4], intensity: 0.2 },
+                Light { x: 1800.0, y: 500.0, radius: 200.0, color: [0.8, 0.2, 0.4], intensity: 0.2 },
+            ];
+            game.bonfire_x = 200.0;
+            game.bonfire_y = 200.0;
+            game.camera.x = 200.0;
+            game.camera.y = 200.0;
+            game.projectiles.clear();
+            game.soul_orbs.clear();
+            game.death_particles.clear();
+            game.damage_numbers.clear();
+        }
+        AreaId::Majula => {
+            // Small safe hub — open area with bonfire and NPCs
+            let mut chunk = Chunk::new((1, 0));
+            for y in 0..CHUNK_SIZE {
+                for x in 0..CHUNK_SIZE {
+                    chunk.tiles[y][x] = TileId::Wall;
+                }
+            }
+            // Carve a large open area
+            for y in 5..40 {
+                for x in 5..45 {
+                    chunk.tiles[y][x] = TileId::Ground;
+                }
+            }
+            // Add some decoration
+            for y in 8..12 {
+                for x in 20..25 {
+                    chunk.tiles[y][x] = TileId::Poison; // Water feature
+                }
+            }
+            game.chunk = chunk;
+            game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
+            game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
+            game.player = Player::new(1, 320.0, 320.0);
+            game.player.hp = game.player.max_hp;
+            game.enemies = vec![]; // Safe zone
+            game.boss = None;
+            game.boss_active = false;
+            game.items = vec![];
+            game.chests = vec![];
+            game.npcs = vec![
+                Npc { x: 360.0, y: 300.0, name: "Emerald Herald".into(), color: [0.2, 0.9, 0.7, 1.0],
+                    dialogue: vec!["You seek a way to break the curse?".into(), "The path lies ahead, through the dungeon.".into(),
+                        "Return here when you need rest.".into(), "[Enter] Level Up".into()],
+                    dialogue_index: 0, talking: false, kind: NpcKind::LevelUp },
+                Npc { x: 300.0, y: 350.0, name: "Blacksmith".into(), color: [0.7, 0.5, 0.2, 1.0],
+                    dialogue: vec!["I can strengthen your weapon.".into(), "Bring me the materials, and I'll do the rest.".into(),
+                        "[Enter] Upgrade Weapon (1000 souls)".into()],
+                    dialogue_index: 0, talking: false, kind: NpcKind::Blacksmith },
+                Npc { x: 380.0, y: 370.0, name: "Merchant".into(), color: [0.8, 0.7, 0.3, 1.0],
+                    dialogue: vec!["Welcome, welcome!".into(), "I have everything an undead could need.".into(),
+                        "[Enter] Buy Estus Shard (500 souls)".into()],
+                    dialogue_index: 0, talking: false, kind: NpcKind::Merchant },
+            ];
+            game.lights = vec![
+                Light { x: 320.0, y: 320.0, radius: 300.0, color: [0.95, 0.9, 0.7], intensity: 0.5 },
+                Light { x: 300.0, y: 350.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.2 },
+                Light { x: 380.0, y: 370.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.2 },
+            ];
+            game.bonfire_x = 320.0;
+            game.bonfire_y = 320.0;
+            game.camera.x = 320.0;
+            game.camera.y = 320.0;
+            game.projectiles.clear();
+            game.soul_orbs.clear();
+            game.death_particles.clear();
+            game.damage_numbers.clear();
+        }
     }
 }
 
@@ -2779,10 +2937,10 @@ fn update_dom_ui(game: &Game) {
         el.set_text_content(Some(&text));
     }
 
-    // Souls
+    // Souls + area name
     if let Some(el) = document.get_element_by_id("souls-text") {
-        let mut text = format!("Souls: {} | Estus: {}/{}",
-            game.souls, game.bonfire.estus_charges, game.bonfire.estus_max);
+        let mut text = format!("{} | Souls: {} | Estus: {}/{}",
+            area_name(game.area), game.souls, game.bonfire.estus_charges, game.bonfire.estus_max);
         if game.player.poison_timer > 0.0 {
             text.push_str(&format!(" | POISONED ({:.0}s)", game.player.poison_timer));
         }
