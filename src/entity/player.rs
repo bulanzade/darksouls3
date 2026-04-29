@@ -5,6 +5,7 @@ use crate::core::transform::Transform;
 use crate::entity::entity_trait::{DamageInfo, Entity, EntityId, EntityState};
 use crate::render::sprite_batcher::SpriteBatcher;
 use crate::render::texture::Texture;
+use crate::rpg::equipment::Equipment;
 use web_sys::WebGl2RenderingContext as GL;
 
 pub struct Player {
@@ -37,6 +38,8 @@ pub struct Player {
     // Weapon system
     pub weapon: Weapon,
     pub alt_weapon: Option<Weapon>,
+    // Equipment
+    pub equipment: Equipment,
     // Status effects
     pub poison_timer: f32,
     pub poison_tick: f32,
@@ -71,6 +74,7 @@ impl Player {
             strength: 5,
             weapon: Weapon::longsword(),
             alt_weapon: None,
+            equipment: Equipment::default(),
             poison_timer: 0.0,
             poison_tick: 0.0,
         }
@@ -80,7 +84,8 @@ impl Player {
         let base = self.weapon.base_damage;
         let scaling = (self.strength as f32 * self.weapon.strength_scaling
             + self.endurance as f32 * self.weapon.dexterity_scaling) * 2.0;
-        (base as f32 + scaling) as i32
+        let bonus = 1.0 + self.equipment.damage_bonus();
+        ((base as f32 + scaling) * bonus) as i32
     }
 
     /// Light attack stamina cost from weapon moveset.
@@ -101,12 +106,26 @@ impl Player {
         }
     }
 
+    /// Roll speed affected by equip load
+    pub fn roll_speed_multiplier(&self) -> f32 {
+        let load = self.equipment.equip_load_percent(40.0 + self.vitality() as f32 * 1.5);
+        if load < 0.3 { 1.3 }
+        else if load < 0.7 { 1.0 }
+        else { 0.6 }
+    }
+
+    fn vitality(&self) -> u32 {
+        10 // Base vitality — could be a stat
+    }
+
     pub fn level_up_cost(&self) -> u32 {
         self.level * 100
     }
 
     pub fn apply_stats(&mut self) {
-        self.max_hp = 500 + ((self.vigor - 5) as i32) * 50;
+        let hp_bonus = self.equipment.hp_bonus();
+        self.max_hp = (500.0 + ((self.vigor - 5) as f32) * 50.0) as i32;
+        self.max_hp = (self.max_hp as f32 * (1.0 + hp_bonus)) as i32;
         self.stamina.maximum = 100.0 + ((self.endurance - 5) as f32) * 15.0;
         self.stamina.current = self.stamina.current.min(self.stamina.maximum);
     }
@@ -279,7 +298,10 @@ impl Entity for Player {
             return;
         }
 
-        self.hp -= info.damage;
+        // Apply defense from equipment
+        let defense = self.equipment.total_defense();
+        let reduced = (info.damage as f32 - defense).max(1.0) as i32;
+        self.hp -= reduced;
         self.state = EntityState::Staggered;
         self.stagger_timer = 0.2;
         self.invuln_timer = 0.8;

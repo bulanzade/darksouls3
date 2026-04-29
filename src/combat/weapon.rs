@@ -1,6 +1,7 @@
 use crate::combat::moveset::{LongswordMoveset, WeaponMoveset};
+use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub enum WeaponType {
     Longsword,
     GreatAxe,
@@ -9,7 +10,7 @@ pub enum WeaponType {
     Uchigatana,
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Weapon {
     pub name: String,
     pub weapon_type: WeaponType,
