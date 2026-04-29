@@ -1008,6 +1008,7 @@ fn fixed_update(game: &mut Game, dt: f32) {
         GameState::DeathScreen => update_death(game),
         GameState::BonfireMenu => update_bonfire_menu(game),
         GameState::LevelUpMenu => update_level_up_menu(game),
+        GameState::TravelMenu => update_travel_menu(game),
         GameState::Victory => update_victory(game),
         _ => {}
     }
@@ -2131,14 +2132,8 @@ fn update_bonfire_menu(game: &mut Game) {
                     game.state = GameState::Playing;
                 }
                 MenuAction::Travel => {
-                    // Cycle through available areas
-                    let new_area = match game.area {
-                        AreaId::Majula => AreaId::ForestOfGiants,
-                        AreaId::ForestOfGiants => AreaId::CardinalTower,
-                        AreaId::CardinalTower => AreaId::LostBastille,
-                        AreaId::LostBastille => AreaId::Majula,
-                    };
-                    load_area(game, new_area);
+                    game.state = GameState::TravelMenu;
+                    game.menu = MenuState::travel_menu();
                 }
                 _ => {}
             }
@@ -2455,6 +2450,31 @@ fn update_level_up_menu(game: &mut Game) {
     }
     if game.input.pressed(KeyCode::Down) {
         game.menu.move_down();
+    }
+}
+
+fn update_travel_menu(game: &mut Game) {
+    if game.input.consume_pressed(KeyCode::Escape) {
+        game.state = GameState::BonfireMenu;
+        game.menu = MenuState::bonfire_menu();
+        return;
+    }
+    if game.input.pressed(KeyCode::Up) {
+        game.menu.move_up();
+    }
+    if game.input.pressed(KeyCode::Down) {
+        game.menu.move_down();
+    }
+    if game.input.consume_pressed(KeyCode::Enter) {
+        let idx = game.menu.selected_index;
+        let areas = [AreaId::Majula, AreaId::ForestOfGiants, AreaId::CardinalTower, AreaId::LostBastille];
+        if idx < 4 {
+            load_area(game, areas[idx]);
+        } else {
+            // Back
+            game.state = GameState::BonfireMenu;
+            game.menu = MenuState::bonfire_menu();
+        }
     }
 }
 
@@ -3175,7 +3195,7 @@ fn update_dom_ui(game: &Game) {
 
     // Menu
     if let Some(menu_el) = document.get_element_by_id("menu") {
-        if matches!(game.state, GameState::TitleScreen | GameState::DeathScreen | GameState::BonfireMenu | GameState::LevelUpMenu) {
+        if matches!(game.state, GameState::TitleScreen | GameState::DeathScreen | GameState::BonfireMenu | GameState::LevelUpMenu | GameState::TravelMenu) {
             let header = if game.state == GameState::LevelUpMenu {
                 format!("<div class=\"menu-item\" style=\"color:#aaa;font-size:16px\">Level {} · Souls: {} · Cost: {}</div>", game.player.level, game.souls, game.player.level_up_cost())
             } else {

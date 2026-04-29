@@ -5,6 +5,7 @@ pub enum GameState {
     Paused,
     BonfireMenu,
     LevelUpMenu,
+    TravelMenu,
     DeathScreen,
     GameOver,
     Victory,
@@ -149,6 +150,20 @@ impl MenuState {
     pub fn move_down(&mut self) {
         if self.selected_index < self.items.len() - 1 {
             self.selected_index += 1;
+        }
+    }
+
+    pub fn travel_menu() -> Self {
+        Self {
+            current: GameState::TravelMenu,
+            selected_index: 0,
+            items: vec![
+                MenuItem { label: "Majula".into(), action: MenuAction::Travel },
+                MenuItem { label: "Forest of Fallen Giants".into(), action: MenuAction::Travel },
+                MenuItem { label: "Cardinal Tower".into(), action: MenuAction::Travel },
+                MenuItem { label: "The Lost Bastille".into(), action: MenuAction::Travel },
+                MenuItem { label: "Back".into(), action: MenuAction::Resume },
+            ],
         }
     }
 
