@@ -2375,7 +2375,7 @@ fn load_area(game: &mut Game, area: AreaId) {
                 FogGate { x: 100.0, y: 100.0, w: 32.0, h: 80.0, destination: AreaId::Majula, dest_x: 380.0, dest_y: 600.0, active: true },
                 FogGate { x: 1800.0, y: 400.0, w: 32.0, h: 80.0, destination: AreaId::LostBastille, dest_x: 200.0, dest_y: 200.0, active: true },
                 // Boss fog gate — Dragonrider in boss arena (tiles 100-118, 3-48)
-                FogGate { x: 1568.0, y: 576.0, w: 32.0, h: 80.0, destination: AreaId::CardinalTower, dest_x: 1744.0, dest_y: 400.0, active: !dragonrider_defeated },
+                FogGate { x: 1568.0, y: 640.0, w: 48.0, h: 120.0, destination: AreaId::CardinalTower, dest_x: 1744.0, dest_y: 400.0, active: !dragonrider_defeated },
             ];
         }
         AreaId::LostBastille => {
@@ -3386,6 +3386,11 @@ fn update_dom_ui(game: &Game) {
     if let Some(el) = document.get_element_by_id("souls-text") {
         let mut text = format!("{} | Souls: {} | Estus: {}/{}",
             area_name(game.area), game.souls, game.bonfire.estus_charges, game.bonfire.estus_max);
+        // Show consumable hint
+        let has_moss = game.inventory.iter().any(|i| matches!(&i.kind, InventoryItemKind::Consumable(n) if n == "PurpleMoss"));
+        let has_bone = game.inventory.iter().any(|i| matches!(&i.kind, InventoryItemKind::Consumable(n) if n == "HomewardBone"));
+        if has_moss { text.push_str(" | [Q] Moss"); }
+        if has_bone { text.push_str(" | [Q] Bone"); }
         if game.player.poison_timer > 0.0 {
             text.push_str(&format!(" | POISONED ({:.0}s)", game.player.poison_timer));
         }
@@ -3417,7 +3422,12 @@ fn update_dom_ui(game: &Game) {
             if !game.inventory.is_empty() {
                 html.push_str("<div style='color:#888;font-size:12px;margin:4px 0'>— Bag —</div>");
                 for item in &game.inventory {
-                    html.push_str(&format!("<div style='color:#aaa;font-size:13px'>· {}</div>", item.name));
+                    let desc = match &item.kind {
+                        InventoryItemKind::Consumable(n) if n == "PurpleMoss" => " (Q to use: cures poison)",
+                        InventoryItemKind::Consumable(n) if n == "HomewardBone" => " (Q to use: teleport to bonfire)",
+                        _ => "",
+                    };
+                    html.push_str(&format!("<div style='color:#aaa;font-size:13px'>· {}{}</div>", item.name, desc));
                 }
             }
             html.push_str("<div style='color:#666;font-size:12px;margin-top:8px'>Press I to close</div>");

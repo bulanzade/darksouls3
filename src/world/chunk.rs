@@ -67,9 +67,9 @@ impl Chunk {
         // Room 5: Mini-boss chamber
         carve(&mut chunk.tiles, 58, 68, 100, 92);
         // Corridor 5→7 (wide east to boss, widened for smooth transition)
-        carve(&mut chunk.tiles, 96, 26, 118, 70);
-        // Room 7: Boss arena (top-right)
-        carve(&mut chunk.tiles, 100, 3, 118, 48);
+        carve(&mut chunk.tiles, 96, 20, 118, 75);
+        // Room 7: Boss arena (top-right, extra large)
+        carve(&mut chunk.tiles, 98, 3, 118, 48);
 
         // Poison patches (Room 3 treasure room — partial coverage)
         for y in 42..55 {
