@@ -25,18 +25,33 @@ use crate::world::tileset::{TileId, Tileset, TILE_SIZE};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Debug)]
 enum AreaId {
-    Dungeon,      // Default dungeon
-    Majula,       // Hub area with NPCs
+    Majula,            // Hub
+    ForestOfGiants,    // Area 1
+    CardinalTower,     // Area 2 (was Dungeon)
+    LostBastille,      // Area 3
 }
 
 fn area_name(area: AreaId) -> &'static str {
     match area {
-        AreaId::Dungeon => "Dungeon",
         AreaId::Majula => "Majula",
+        AreaId::ForestOfGiants => "Forest of Fallen Giants",
+        AreaId::CardinalTower => "Cardinal Tower",
+        AreaId::LostBastille => "The Lost Bastille",
     }
 }
+
+fn area_boss(area: AreaId) -> Option<BossType> {
+    match area {
+        AreaId::ForestOfGiants => Some(BossType::DemonKnight),
+        AreaId::CardinalTower => Some(BossType::Dragonrider),
+        AreaId::LostBastille => Some(BossType::RuinSentinel),
+        _ => None,
+    }
+}
+
+use crate::entity::boss::BossType;
 
 struct Game {
     gl_ctx: GlContext,
@@ -140,6 +155,10 @@ struct Game {
     npcs: Vec<Npc>,
     // Current area
     area: AreaId,
+    // Fog gates (area transitions and boss doors)
+    fog_gates: Vec<FogGate>,
+    // Bosses defeated per area
+    bosses_defeated: Vec<String>,
 }
 
 struct WorldItem {
@@ -245,6 +264,17 @@ enum NpcKind {
     Blacksmith,   // Upgrade weapons
 }
 
+struct FogGate {
+    x: f32,
+    y: f32,
+    w: f32,
+    h: f32,
+    destination: AreaId,
+    dest_x: f32,
+    dest_y: f32,
+    active: bool, // deactivated after boss is dead
+}
+
 static mut GAME: Option<Game> = None;
 
 #[wasm_bindgen(start)]
@@ -336,7 +366,9 @@ pub fn wasm_main() {
         tileset,
         collision,
         nav_grid,
-        area: AreaId::Dungeon,
+        area: AreaId::CardinalTower,
+        fog_gates: vec![],
+        bosses_defeated: vec![],
         tileset_texture,
         light_renderer,
         post_processor,
@@ -979,7 +1011,7 @@ fn update_title_screen(game: &mut Game) {
                 }
                 MenuAction::Continue => {
                     if let Some(save) = save_manager::load_from_localstorage() {
-                        game.player = Player::new(1, save.player_x, save.player_y);
+                        // Restore player stats first
                         game.player.level = save.player_level;
                         game.player.vigor = save.vigor;
                         game.player.endurance = save.endurance;
@@ -995,19 +1027,18 @@ fn update_title_screen(game: &mut Game) {
                         game.enemies_killed = save.enemies_killed;
                         game.play_time = save.play_time;
                         game.death_count = save.death_count;
-                        game.boss_defeated = !save.bosses_defeated.is_empty();
-                        game.enemies = vec![
-                            Enemy::new_hollow_soldier(2, 620.0, 120.0),
-                            Enemy::new_archer(3, 780.0, 200.0),
-                            Enemy::new_hollow_soldier(4, 700.0, 320.0),
-                            Enemy::new_archer(5, 1200.0, 500.0),
-                            Enemy::new_hollow_soldier(6, 1350.0, 600.0),
-                            Enemy::new_knight(7, 1450.0, 700.0),
-                            Enemy::new_hollow_soldier(8, 1250.0, 800.0),
-                            Enemy::new_mini_boss(9, 1264.0, 1280.0),
-                        ];
-                        game.boss = None;
-                        game.boss_active = false;
+                        game.bosses_defeated = save.bosses_defeated.clone();
+                        // Determine saved area and load it
+                        let saved_area = match save.current_room.as_str() {
+                            "Majula" => AreaId::Majula,
+                            "ForestOfGiants" => AreaId::ForestOfGiants,
+                            "LostBastille" => AreaId::LostBastille,
+                            _ => AreaId::CardinalTower,
+                        };
+                        load_area(game, saved_area);
+                        game.player.transform.x = save.player_x;
+                        game.player.transform.y = save.player_y;
+                        game.player.hp = save.player_hp;
                         game.camera.x = save.player_x;
                         game.camera.y = save.player_y;
                     }
@@ -1061,6 +1092,50 @@ fn update_playing(game: &mut Game, dt: f32) {
             game.menu = MenuState::bonfire_menu();
             game.time.accumulator = 0.0;
             game.audio.play_sfx("bonfire", 0.06, 0.0);
+            return;
+        }
+    }
+
+    // Fog gate collision detection
+    {
+        let (px, py) = game.player.position();
+        // Collect transitions first to avoid borrow issues
+        let mut boss_spawn = None;
+        let mut area_transition = None;
+        for gate in &game.fog_gates {
+            if !gate.active { continue; }
+            let in_x = px > gate.x - gate.w * 0.5 && px < gate.x + gate.w * 0.5;
+            let in_y = py > gate.y - gate.h * 0.5 && py < gate.y + gate.h * 0.5;
+            if in_x && in_y {
+                if gate.destination == game.area {
+                    boss_spawn = Some((gate.dest_x, gate.dest_y));
+                } else {
+                    area_transition = Some((gate.destination, gate.dest_x, gate.dest_y));
+                }
+                break;
+            }
+        }
+        if let Some((bx, by)) = boss_spawn {
+            if game.boss.is_none() && !game.boss_defeated {
+                if let Some(boss_type) = area_boss(game.area) {
+                    let boss = match boss_type {
+                        BossType::DemonKnight => crate::entity::boss::Boss::new_test_boss(100, bx, by),
+                        BossType::Dragonrider => crate::entity::boss::Boss::new_dragonrider(100, bx, by),
+                        BossType::RuinSentinel => crate::entity::boss::Boss::new_ruin_sentinel(100, bx, by),
+                    };
+                    game.boss = Some(boss);
+                    game.boss_active = true;
+                    game.boss_intro_timer = 3.0;
+                    game.state_timer = 0.0;
+                }
+            }
+        }
+        if let Some((dest_area, dx, dy)) = area_transition {
+            load_area(game, dest_area);
+            game.player.transform.x = dx;
+            game.player.transform.y = dy;
+            game.camera.x = dx;
+            game.camera.y = dy;
             return;
         }
     }
@@ -1594,6 +1669,9 @@ fn update_playing(game: &mut Game, dt: f32) {
                     crate::entity::enemy::EnemyKind::HollowSoldier => 100,
                     crate::entity::enemy::EnemyKind::Archer => 150,
                     crate::entity::enemy::EnemyKind::Knight => 200,
+                    crate::entity::enemy::EnemyKind::Assassin => 250,
+                    crate::entity::enemy::EnemyKind::DarkMage => 300,
+                    crate::entity::enemy::EnemyKind::Mimic => 500,
                 };
                 game.souls += soul_reward;
                 game.camera.add_shake(6.0);
@@ -1686,6 +1764,25 @@ fn update_playing(game: &mut Game, dt: f32) {
             game.audio.play_sfx("hit", 0.12, 0.0);
             if boss.is_dead() && !game.boss_defeated {
                 game.boss_defeated = true;
+                // Track which boss was defeated
+                let boss_name = match boss.boss_type {
+                    BossType::DemonKnight => "DemonKnight",
+                    BossType::Dragonrider => "Dragonrider",
+                    BossType::RuinSentinel => "RuinSentinel",
+                };
+                if !game.bosses_defeated.iter().any(|b| b == boss_name) {
+                    game.bosses_defeated.push(boss_name.into());
+                }
+                // Deactivate boss fog gates
+                for gate in &mut game.fog_gates {
+                    if gate.destination == game.area {
+                        gate.active = false;
+                    }
+                }
+                // Check if all bosses defeated — game complete
+                if game.bosses_defeated.len() >= 3 {
+                    game.state = GameState::Victory;
+                }
                 game.souls += 5000;
                 game.camera.add_shake(15.0);
                 game.slow_motion_timer = 1.5; // Slow-mo for 1.5s on boss death
@@ -1793,14 +1890,10 @@ fn update_playing(game: &mut Game, dt: f32) {
     let boss_aggro = game.boss.as_ref().map_or(false, |b| !b.is_dead() && b.aggro.has_target());
     game.audio.set_combat_music(any_aggro || boss_aggro);
 
-    // Check victory
-    if game.boss_defeated {
-        if let Some(ref boss) = game.boss {
-            if boss.is_dead() {
-                game.state = GameState::Victory;
-                game.audio.play_sfx("victory", 0.12, 0.0);
-            }
-        }
+    // Check victory — only if all 3 bosses defeated
+    if game.boss_defeated && game.bosses_defeated.len() >= 3 && game.slow_motion_timer <= 0.0 {
+        game.state = GameState::Victory;
+        game.audio.play_sfx("victory", 0.12, 0.0);
     }
 
     // Check player death
@@ -1886,21 +1979,11 @@ fn update_bonfire_menu(game: &mut Game) {
                     game.player.hp = game.player.max_hp;
                     game.bonfire.estus_charges = game.bonfire.estus_max;
                     game.player.stamina.current = game.player.stamina.maximum;
-                    // Respawn enemies (reset to initial spawns)
-                    game.enemies = vec![
-                        Enemy::new_hollow_soldier(2, 620.0, 120.0),
-                        Enemy::new_archer(3, 780.0, 200.0),
-                        Enemy::new_hollow_soldier(4, 700.0, 320.0),
-                        Enemy::new_archer(5, 1200.0, 500.0),
-                        Enemy::new_hollow_soldier(6, 1350.0, 600.0),
-                        Enemy::new_knight(7, 1450.0, 700.0),
-                        Enemy::new_hollow_soldier(8, 1250.0, 800.0),
-                        Enemy::new_mini_boss(9, 1264.0, 1280.0),
-                    ];
-                    game.boss = None;
-                    game.boss_active = false;
-                    game.boss_defeated = false;
-                    game.projectiles.clear();
+                    game.player.poison_timer = 0.0;
+                    // Reload current area to respawn enemies
+                    let current_area = game.area;
+                    load_area(game, current_area);
+                    game.player.hp = game.player.max_hp;
                     // Auto-save at bonfire
                     let (px, py) = game.player.position();
                     let save = SaveData {
@@ -1910,13 +1993,13 @@ fn update_bonfire_menu(game: &mut Game) {
                         strength: game.player.strength,
                         souls: game.souls,
                         bonfire: game.bonfire.clone(),
-                        current_room: "dungeon".into(),
+                        current_room: format!("{:?}", game.area),
                         player_hp: game.player.hp,
                         player_x: px,
                         player_y: py,
                         weapon_name: game.player.weapon.name.clone(),
                         alt_weapon_name: game.player.alt_weapon.as_ref().map(|w| w.name.clone()),
-                        bosses_defeated: if game.boss_defeated { vec!["boss1".into()] } else { vec![] },
+                        bosses_defeated: game.bosses_defeated.clone(),
                         enemies_killed: game.enemies_killed,
                         items_collected: game.items.iter().filter(|i| i.collected).map(|_| "item".into()).collect(),
                         chests_opened: game.chests.iter().filter(|c| c.opened).map(|_| "chest".into()).collect(),
@@ -1933,10 +2016,12 @@ fn update_bonfire_menu(game: &mut Game) {
                     game.state = GameState::Playing;
                 }
                 MenuAction::Travel => {
-                    // Toggle between Dungeon and Majula
+                    // Cycle through available areas
                     let new_area = match game.area {
-                        AreaId::Dungeon => AreaId::Majula,
-                        AreaId::Majula => AreaId::Dungeon,
+                        AreaId::Majula => AreaId::ForestOfGiants,
+                        AreaId::ForestOfGiants => AreaId::CardinalTower,
+                        AreaId::CardinalTower => AreaId::LostBastille,
+                        AreaId::LostBastille => AreaId::Majula,
                     };
                     load_area(game, new_area);
                 }
@@ -1953,20 +2038,155 @@ fn update_bonfire_menu(game: &mut Game) {
 }
 
 fn load_area(game: &mut Game, area: AreaId) {
+    let player_hp_ratio = game.player.hp as f32 / game.player.max_hp as f32;
     game.area = area;
     game.state = GameState::Playing;
     game.time.accumulator = 0.0;
     game.state_timer = 0.0;
     game.lock_on_target = None;
 
+    // Clear transient state
+    game.projectiles.clear();
+    game.soul_orbs.clear();
+    game.death_particles.clear();
+    game.damage_numbers.clear();
+    game.boss = None;
+    game.boss_active = false;
+    game.boss_defeated = false;
+    game.dust_particles.clear();
+    game.block_sparks.clear();
+    game.stagger_bursts.clear();
+    game.screen_flash = None;
+    game.input_buffer = BufferedAction::None;
+    game.input_buffer_timer = 0.0;
+
     match area {
-        AreaId::Dungeon => {
+        AreaId::Majula => {
+            let mut chunk = Chunk::new((1, 0));
+            for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
+            for y in 5..45 { for x in 5..55 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Water pool
+            for y in 20..28 { for x in 25..35 { chunk.tiles[y][x] = TileId::Poison; } }
+            // Paths leading out
+            for y in 20..30 { for x in 55..65 { chunk.tiles[y][x] = TileId::Ground; } }
+            for y in 45..55 { for x in 25..35 { chunk.tiles[y][x] = TileId::Ground; } }
+
+            game.chunk = chunk;
+            game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
+            game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
+            game.player.transform.x = 320.0;
+            game.player.transform.y = 320.0;
+            game.player.hp = game.player.max_hp;
+            game.enemies = vec![];
+            game.items = vec![
+                WorldItem { x: 450.0, y: 200.0, kind: ItemKind::SoulOrb(100), collected: false },
+            ];
+            game.chests = vec![];
+            game.npcs = vec![
+                Npc { x: 360.0, y: 300.0, name: "Emerald Herald".into(), color: [0.2, 0.9, 0.7, 1.0],
+                    dialogue: vec!["You seek a way to break the curse?".into(), "The path lies ahead, through the forest.".into(),
+                        "Return here when you need rest.".into(), "[Enter] Level Up".into()],
+                    dialogue_index: 0, talking: false, kind: NpcKind::LevelUp },
+                Npc { x: 300.0, y: 380.0, name: "Blacksmith".into(), color: [0.7, 0.5, 0.2, 1.0],
+                    dialogue: vec!["I can strengthen your weapon.".into(), "Bring me the materials, and I'll do the rest.".into(),
+                        "[Enter] Upgrade Weapon (1000 souls)".into()],
+                    dialogue_index: 0, talking: false, kind: NpcKind::Blacksmith },
+                Npc { x: 380.0, y: 400.0, name: "Merchant".into(), color: [0.8, 0.7, 0.3, 1.0],
+                    dialogue: vec!["Welcome, welcome!".into(), "I have everything an undead could need.".into(),
+                        "[Enter] Buy Estus Shard (500 souls)".into()],
+                    dialogue_index: 0, talking: false, kind: NpcKind::Merchant },
+            ];
+            game.lights = vec![
+                Light { x: 320.0, y: 320.0, radius: 300.0, color: [0.95, 0.9, 0.7], intensity: 0.5 },
+                Light { x: 300.0, y: 380.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.2 },
+                Light { x: 380.0, y: 400.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.2 },
+            ];
+            game.bonfire_x = 320.0;
+            game.bonfire_y = 320.0;
+            game.fog_gates = vec![
+                FogGate { x: 820.0, y: 380.0, w: 32.0, h: 80.0, destination: AreaId::ForestOfGiants, dest_x: 200.0, dest_y: 200.0, active: true },
+                FogGate { x: 380.0, y: 700.0, w: 80.0, h: 32.0, destination: AreaId::CardinalTower, dest_x: 200.0, dest_y: 200.0, active: true },
+            ];
+        }
+        AreaId::ForestOfGiants => {
+            // Forest: large outdoor area with dense trees, hollows, and assassins
+            let mut chunk = Chunk::new((2, 0));
+            for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
+            // Main clearing
+            for y in 5..50 { for x in 5..55 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Forest paths (winding corridors)
+            for y in 30..80 { for x in 20..35 { chunk.tiles[y][x] = TileId::Ground; } }
+            for y in 60..90 { for x in 35..70 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Boss arena
+            for y in 85..115 { for x in 30..90 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Side paths
+            for y in 10..25 { for x in 55..80 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Poison swamp area
+            for y in 40..55 { for x in 60..75 { chunk.tiles[y][x] = TileId::Poison; } }
+            // Ledges
+            for y in 95..100 { for x in 90..100 { chunk.tiles[y][x] = TileId::Ground; } }
+
+            game.chunk = chunk;
+            game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
+            game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
+            game.player.transform.x = 200.0;
+            game.player.transform.y = 200.0;
+            game.player.hp = (game.player.max_hp as f32 * player_hp_ratio) as i32;
+            game.enemies = vec![
+                Enemy::new_hollow_soldier(2, 350.0, 150.0),
+                Enemy::new_hollow_soldier(3, 400.0, 300.0),
+                Enemy::new_archer(4, 500.0, 200.0),
+                Enemy::new_assassin(5, 600.0, 450.0),
+                Enemy::new_hollow_soldier(6, 450.0, 600.0),
+                Enemy::new_assassin(7, 550.0, 700.0),
+                Enemy::new_knight(8, 700.0, 900.0),
+                Enemy::new_archer(9, 800.0, 850.0),
+                Enemy::new_hollow_soldier(10, 650.0, 1000.0),
+                Enemy::new_dark_mage(11, 900.0, 1100.0),
+            ];
+            game.items = vec![
+                WorldItem { x: 300.0, y: 250.0, kind: ItemKind::SoulOrb(200), collected: false },
+                WorldItem { x: 500.0, y: 500.0, kind: ItemKind::EstusShard, collected: false },
+                WorldItem { x: 700.0, y: 750.0, kind: ItemKind::SoulOrb(400), collected: false },
+                WorldItem { x: 600.0, y: 950.0, kind: ItemKind::PurpleMoss, collected: false },
+                WorldItem { x: 850.0, y: 1200.0, kind: ItemKind::SoulOrb(800), collected: false },
+            ];
+            game.chests = vec![
+                TreasureChest { x: 700.0, y: 250.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Dagger) },
+                TreasureChest { x: 750.0, y: 1000.0, opened: false, loot: ItemKind::SoulOrb(1000) },
+                TreasureChest { x: 950.0, y: 1300.0, opened: false, loot: ItemKind::EstusShard },
+            ];
+            game.npcs = vec![
+                Npc { x: 250.0, y: 150.0, name: "Merchant".into(), color: [0.8, 0.7, 0.3, 1.0],
+                    dialogue: vec!["Psst! Over here!".into(), "I've got rare goods from the forest.".into(),
+                        "[Enter] Buy Purple Moss (200 souls)".into()],
+                    dialogue_index: 0, talking: false, kind: NpcKind::Merchant },
+            ];
+            game.lights = vec![
+                Light { x: 200.0, y: 200.0, radius: 250.0, color: [0.7, 0.85, 0.5], intensity: 0.35 },
+                Light { x: 500.0, y: 400.0, radius: 200.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 700.0, y: 700.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 800.0, y: 1000.0, radius: 200.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 900.0, y: 1300.0, radius: 220.0, color: [0.8, 0.2, 0.4], intensity: 0.2 },
+            ];
+            game.bonfire_x = 200.0;
+            game.bonfire_y = 200.0;
+            let boss_defeated = game.bosses_defeated.iter().any(|b| b == "DemonKnight");
+            game.fog_gates = vec![
+                FogGate { x: 100.0, y: 50.0, w: 80.0, h: 32.0, destination: AreaId::Majula, dest_x: 500.0, dest_y: 350.0, active: true },
+                FogGate { x: 900.0, y: 1200.0, w: 32.0, h: 80.0, destination: AreaId::CardinalTower, dest_x: 200.0, dest_y: 200.0, active: true },
+                // Boss fog gate — only active if not defeated
+                FogGate { x: 880.0, y: 1400.0, w: 32.0, h: 80.0, destination: AreaId::ForestOfGiants, dest_x: 900.0, dest_y: 1500.0, active: !boss_defeated },
+            ];
+        }
+        AreaId::CardinalTower => {
+            // The original dungeon — stone tower with narrow corridors
             game.chunk = Chunk::test_chunk((0, 0));
             game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
             game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
-            game.player = Player::new(1, game.bonfire_x, game.bonfire_y);
-            // Restore stats from bonfire
-            game.player.hp = game.player.max_hp;
+            game.player.transform.x = game.bonfire_x;
+            game.player.transform.y = game.bonfire_y;
+            game.player.hp = (game.player.max_hp as f32 * player_hp_ratio) as i32;
             game.enemies = vec![
                 Enemy::new_hollow_soldier(2, 620.0, 120.0),
                 Enemy::new_archer(3, 780.0, 200.0),
@@ -1975,10 +2195,9 @@ fn load_area(game: &mut Game, area: AreaId) {
                 Enemy::new_hollow_soldier(6, 1350.0, 600.0),
                 Enemy::new_knight(7, 1450.0, 700.0),
                 Enemy::new_hollow_soldier(8, 1250.0, 800.0),
-                Enemy::new_mini_boss(9, 1264.0, 1280.0),
+                Enemy::new_dark_mage(9, 1100.0, 400.0),
+                Enemy::new_mini_boss(10, 1264.0, 1280.0),
             ];
-            game.boss = None;
-            game.boss_active = false;
             game.items = vec![
                 WorldItem { x: 520.0, y: 700.0, kind: ItemKind::SoulOrb(200), collected: false },
                 WorldItem { x: 700.0, y: 800.0, kind: ItemKind::SoulOrb(300), collected: false },
@@ -1986,7 +2205,6 @@ fn load_area(game: &mut Game, area: AreaId) {
                 WorldItem { x: 1300.0, y: 750.0, kind: ItemKind::SoulOrb(500), collected: false },
                 WorldItem { x: 1700.0, y: 500.0, kind: ItemKind::SoulOrb(1000), collected: false },
                 WorldItem { x: 600.0, y: 750.0, kind: ItemKind::PurpleMoss, collected: false },
-                WorldItem { x: 1100.0, y: 1000.0, kind: ItemKind::PurpleMoss, collected: false },
             ];
             game.chests = vec![
                 TreasureChest { x: 480.0, y: 680.0, opened: false, loot: ItemKind::SoulOrb(500) },
@@ -1996,94 +2214,105 @@ fn load_area(game: &mut Game, area: AreaId) {
             ];
             game.npcs = vec![
                 Npc { x: 240.0, y: 180.0, name: "Emerald Herald".into(), color: [0.2, 0.9, 0.7, 1.0],
-                    dialogue: vec!["Welcome to the land of Drangleic.".into(), "You will lose your souls, again and again.".into(),
-                        "But fear not. Seek strength. The rest is up to you.".into(), "[Enter] Level Up".into()],
+                    dialogue: vec!["The tower holds many secrets.".into(), "Beware the Dragonrider above.".into(),
+                        "[Enter] Level Up".into()],
                     dialogue_index: 0, talking: false, kind: NpcKind::LevelUp },
-                Npc { x: 580.0, y: 720.0, name: "Merchant".into(), color: [0.8, 0.7, 0.3, 1.0],
-                    dialogue: vec!["Heh heh... Something catch your eye?".into(), "I've got estus shards, purple moss...".into(),
-                        "All for the low price of your souls.".into(), "[Enter] Buy Estus Shard (500 souls)".into()],
-                    dialogue_index: 0, talking: false, kind: NpcKind::Merchant },
             ];
             game.lights = vec![
                 Light { x: 200.0, y: 200.0, radius: 250.0, color: [0.9, 0.8, 0.6], intensity: 0.4 },
                 Light { x: 700.0, y: 200.0, radius: 200.0, color: [0.3, 0.3, 0.8], intensity: 0.2 },
                 Light { x: 500.0, y: 300.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
                 Light { x: 800.0, y: 350.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
-                Light { x: 450.0, y: 700.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
-                Light { x: 700.0, y: 750.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
                 Light { x: 1200.0, y: 500.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
                 Light { x: 1400.0, y: 650.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
                 Light { x: 1700.0, y: 300.0, radius: 200.0, color: [0.8, 0.2, 0.4], intensity: 0.2 },
-                Light { x: 1800.0, y: 500.0, radius: 200.0, color: [0.8, 0.2, 0.4], intensity: 0.2 },
             ];
             game.bonfire_x = 200.0;
             game.bonfire_y = 200.0;
-            game.camera.x = 200.0;
-            game.camera.y = 200.0;
-            game.projectiles.clear();
-            game.soul_orbs.clear();
-            game.death_particles.clear();
-            game.damage_numbers.clear();
+            game.fog_gates = vec![
+                FogGate { x: 100.0, y: 100.0, w: 32.0, h: 80.0, destination: AreaId::Majula, dest_x: 380.0, dest_y: 600.0, active: true },
+                FogGate { x: 1800.0, y: 400.0, w: 32.0, h: 80.0, destination: AreaId::LostBastille, dest_x: 200.0, dest_y: 200.0, active: true },
+            ];
         }
-        AreaId::Majula => {
-            // Small safe hub — open area with bonfire and NPCs
-            let mut chunk = Chunk::new((1, 0));
-            for y in 0..CHUNK_SIZE {
-                for x in 0..CHUNK_SIZE {
-                    chunk.tiles[y][x] = TileId::Wall;
-                }
-            }
-            // Carve a large open area
-            for y in 5..40 {
-                for x in 5..45 {
-                    chunk.tiles[y][x] = TileId::Ground;
-                }
-            }
-            // Add some decoration
-            for y in 8..12 {
-                for x in 20..25 {
-                    chunk.tiles[y][x] = TileId::Poison; // Water feature
-                }
-            }
+        AreaId::LostBastille => {
+            // Fortress prison — tight corridors, many enemies, traps
+            let mut chunk = Chunk::new((3, 0));
+            for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
+            // Entry hall
+            for y in 5..20 { for x in 5..40 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Main corridor
+            for y in 20..30 { for x in 15..50 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Cell block 1
+            for y in 30..55 { for x in 5..45 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Connecting hall
+            for y in 35..45 { for x in 45..70 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Cell block 2
+            for y in 45..75 { for x in 50..90 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Lower corridor
+            for y in 75..85 { for x in 40..80 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Boss arena
+            for y in 85..115 { for x in 30..90 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Poison trap rooms
+            for y in 55..65 { for x in 10..20 { chunk.tiles[y][x] = TileId::Poison; } }
+            for y in 60..68 { for x in 75..85 { chunk.tiles[y][x] = TileId::Poison; } }
+
             game.chunk = chunk;
             game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
             game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
-            game.player = Player::new(1, 320.0, 320.0);
-            game.player.hp = game.player.max_hp;
-            game.enemies = vec![]; // Safe zone
-            game.boss = None;
-            game.boss_active = false;
-            game.items = vec![];
-            game.chests = vec![];
-            game.npcs = vec![
-                Npc { x: 360.0, y: 300.0, name: "Emerald Herald".into(), color: [0.2, 0.9, 0.7, 1.0],
-                    dialogue: vec!["You seek a way to break the curse?".into(), "The path lies ahead, through the dungeon.".into(),
-                        "Return here when you need rest.".into(), "[Enter] Level Up".into()],
-                    dialogue_index: 0, talking: false, kind: NpcKind::LevelUp },
-                Npc { x: 300.0, y: 350.0, name: "Blacksmith".into(), color: [0.7, 0.5, 0.2, 1.0],
-                    dialogue: vec!["I can strengthen your weapon.".into(), "Bring me the materials, and I'll do the rest.".into(),
-                        "[Enter] Upgrade Weapon (1000 souls)".into()],
-                    dialogue_index: 0, talking: false, kind: NpcKind::Blacksmith },
-                Npc { x: 380.0, y: 370.0, name: "Merchant".into(), color: [0.8, 0.7, 0.3, 1.0],
-                    dialogue: vec!["Welcome, welcome!".into(), "I have everything an undead could need.".into(),
-                        "[Enter] Buy Estus Shard (500 souls)".into()],
-                    dialogue_index: 0, talking: false, kind: NpcKind::Merchant },
+            game.player.transform.x = 200.0;
+            game.player.transform.y = 200.0;
+            game.player.hp = (game.player.max_hp as f32 * player_hp_ratio) as i32;
+            game.enemies = vec![
+                Enemy::new_hollow_soldier(2, 300.0, 150.0),
+                Enemy::new_archer(3, 450.0, 200.0),
+                Enemy::new_hollow_soldier(4, 350.0, 350.0),
+                Enemy::new_assassin(5, 200.0, 500.0),
+                Enemy::new_dark_mage(6, 600.0, 450.0),
+                Enemy::new_knight(7, 500.0, 600.0),
+                Enemy::new_assassin(8, 700.0, 550.0),
+                Enemy::new_hollow_soldier(9, 650.0, 700.0),
+                Enemy::new_archer(10, 800.0, 650.0),
+                Enemy::new_knight(11, 750.0, 800.0),
+                Enemy::new_dark_mage(12, 600.0, 900.0),
+                Enemy::new_mimic(13, 850.0, 750.0),
+                Enemy::new_hollow_soldier(14, 900.0, 1000.0),
+                Enemy::new_knight(15, 950.0, 1100.0),
             ];
+            game.items = vec![
+                WorldItem { x: 250.0, y: 300.0, kind: ItemKind::SoulOrb(300), collected: false },
+                WorldItem { x: 500.0, y: 500.0, kind: ItemKind::EstusShard, collected: false },
+                WorldItem { x: 700.0, y: 650.0, kind: ItemKind::SoulOrb(500), collected: false },
+                WorldItem { x: 550.0, y: 800.0, kind: ItemKind::PurpleMoss, collected: false },
+                WorldItem { x: 800.0, y: 900.0, kind: ItemKind::SoulOrb(800), collected: false },
+                WorldItem { x: 650.0, y: 1050.0, kind: ItemKind::SoulOrb(1500), collected: false },
+            ];
+            game.chests = vec![
+                TreasureChest { x: 300.0, y: 450.0, opened: false, loot: ItemKind::SoulOrb(800) },
+                TreasureChest { x: 650.0, y: 600.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Spear) },
+                TreasureChest { x: 850.0, y: 850.0, opened: false, loot: ItemKind::EstusShard },
+                TreasureChest { x: 900.0, y: 1100.0, opened: false, loot: ItemKind::SoulOrb(2000) },
+            ];
+            game.npcs = vec![];
             game.lights = vec![
-                Light { x: 320.0, y: 320.0, radius: 300.0, color: [0.95, 0.9, 0.7], intensity: 0.5 },
-                Light { x: 300.0, y: 350.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.2 },
-                Light { x: 380.0, y: 370.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.2 },
+                Light { x: 200.0, y: 200.0, radius: 200.0, color: [0.6, 0.6, 0.7], intensity: 0.3 },
+                Light { x: 400.0, y: 350.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 600.0, y: 500.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 750.0, y: 700.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 900.0, y: 900.0, radius: 200.0, color: [0.7, 0.4, 0.8], intensity: 0.2 },
+                Light { x: 800.0, y: 1200.0, radius: 220.0, color: [0.3, 0.3, 0.8], intensity: 0.25 },
             ];
-            game.bonfire_x = 320.0;
-            game.bonfire_y = 320.0;
-            game.camera.x = 320.0;
-            game.camera.y = 320.0;
-            game.projectiles.clear();
-            game.soul_orbs.clear();
-            game.death_particles.clear();
-            game.damage_numbers.clear();
+            game.bonfire_x = 200.0;
+            game.bonfire_y = 200.0;
+            let boss_defeated = game.bosses_defeated.iter().any(|b| b == "RuinSentinel");
+            game.fog_gates = vec![
+                FogGate { x: 80.0, y: 100.0, w: 32.0, h: 80.0, destination: AreaId::CardinalTower, dest_x: 1700.0, dest_y: 400.0, active: true },
+                // Boss fog gate
+                FogGate { x: 850.0, y: 1200.0, w: 32.0, h: 80.0, destination: AreaId::LostBastille, dest_x: 850.0, dest_y: 1350.0, active: !boss_defeated },
+            ];
         }
     }
+    game.camera.x = game.player.transform.x;
+    game.camera.y = game.player.transform.y;
 }
 
 fn update_level_up_menu(game: &mut Game) {
@@ -2193,6 +2422,22 @@ fn render(game: &mut Game) {
             [1.0, 1.0, 1.0, 1.0],
         );
         game.batcher.draw(bonfire_data, &game.bonfire_tex, gl);
+    }
+
+    // --- Draw fog gates ---
+    {
+        let pulse = ((game.time.accumulator as f32 * 1.2).sin() * 0.1 + 0.9);
+        for gate in &game.fog_gates {
+            if !gate.active { continue; }
+            let is_boss = gate.destination == game.area;
+            let color = if is_boss {
+                [0.6, 0.3, 0.8, 0.6 * pulse]
+            } else {
+                [0.4, 0.7, 0.9, 0.4 * pulse]
+            };
+            let instance = InstanceData::new(gate.x, gate.y, gate.w * 1.2, gate.h * 1.2, [0.0, 0.0, 1.0, 1.0], color);
+            game.batcher.draw(instance, &game.white_tex, gl);
+        }
     }
 
     // --- Draw wall torches (at light positions, skip player light [0] and bonfire light [1]) ---
@@ -2861,9 +3106,10 @@ fn update_dom_ui(game: &Game) {
         } else if game.state == GameState::Victory {
             let mins = (game.play_time / 60.0) as u32;
             let secs = (game.play_time % 60.0) as u32;
+            let bosses_list = game.bosses_defeated.join(", ");
             el.set_text_content(Some(&format!(
-                "VICTORY\n\nTime: {}:{:02}\nEnemies Slain: {}\nDamage Dealt: {}\nDamage Taken: {}\nDeaths: {}\nLevel: {}\nSouls: {}\n\nPress Enter to return to title",
-                mins, secs, game.enemies_killed, game.damage_dealt, game.damage_taken, game.death_count, game.player.level, game.souls
+                "VICTORY\n\nThe Curse is Broken.\n\nBosses Defeated: {}\nTime: {}:{:02}\nEnemies Slain: {}\nDamage Dealt: {}\nDamage Taken: {}\nDeaths: {}\nLevel: {}\nSouls: {}\n\nPress Enter to return to title",
+                bosses_list, mins, secs, game.enemies_killed, game.damage_dealt, game.damage_taken, game.death_count, game.player.level, game.souls
             )));
             let _ = el.set_attribute("style", "color: #e8c840; text-shadow: 0 0 20px rgba(232,200,64,0.6); white-space: pre-line;");
         } else {

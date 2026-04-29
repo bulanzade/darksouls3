@@ -11,6 +11,9 @@ pub enum EnemyKind {
     HollowSoldier,
     Archer,
     Knight,
+    Assassin,
+    DarkMage,
+    Mimic,
 }
 
 pub struct Enemy {
@@ -38,6 +41,14 @@ pub struct Enemy {
     pub patrol_timer: f32,
     pub patrol_dir: f32,
     pub patrol_range: f32,
+    // Assassin dodge cooldown
+    pub dodge_timer: f32,
+    pub dodge_dir: f32,
+    // Dark Mage teleport
+    pub teleport_timer: f32,
+    // Mimic
+    pub mimic_activated: bool,
+    pub grab_timer: f32,
 }
 
 impl Enemy {
@@ -161,6 +172,11 @@ impl Enemy {
             patrol_timer: 0.0,
             patrol_dir: 1.0,
             patrol_range: 30.0,
+            dodge_timer: 0.0,
+            dodge_dir: 1.0,
+            teleport_timer: 0.0,
+            mimic_activated: false,
+            grab_timer: 0.0,
         }
     }
 
@@ -214,6 +230,9 @@ impl Enemy {
             patrol_timer: 0.0,
             patrol_dir: 1.0,
             patrol_range: 25.0,
+            dodge_timer: 0.0, dodge_dir: 1.0,
+            teleport_timer: 0.0,
+            mimic_activated: false, grab_timer: 0.0,
         }
     }
 
@@ -266,6 +285,9 @@ impl Enemy {
             patrol_timer: 0.0,
             patrol_dir: 1.0,
             patrol_range: 35.0,
+            dodge_timer: 0.0, dodge_dir: 1.0,
+            teleport_timer: 0.0,
+            mimic_activated: false, grab_timer: 0.0,
         }
     }
 
@@ -330,11 +352,181 @@ impl Enemy {
             patrol_timer: 0.0,
             patrol_dir: 1.0,
             patrol_range: 40.0,
+            dodge_timer: 0.0, dodge_dir: 1.0,
+            teleport_timer: 0.0,
+            mimic_activated: false, grab_timer: 0.0,
+        }
+    }
+
+    pub fn new_assassin(id: EntityId, x: f32, y: f32) -> Self {
+        let mut fsm = StateMachine::new(IDLE);
+        fsm.add_state(StateDef {
+            id: IDLE, name: "Idle".into(), duration: None,
+            transitions: vec![Transition { target: ALERT, condition: target_close, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: ALERT, name: "Alert".into(), duration: Some(0.2),
+            transitions: vec![Transition { target: CHASE, condition: always, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: CHASE, name: "Chase".into(), duration: None,
+            transitions: vec![
+                Transition { target: ATTACK, condition: |ctx| ctx.distance_to_target < 32.0, priority: 3 },
+                Transition { target: RANGED_ATTACK, condition: |ctx| ctx.distance_to_target < 80.0 && ctx.distance_to_target > 30.0, priority: 2 },
+                Transition { target: RETURN, condition: target_far, priority: 1 },
+            ],
+        });
+        // RANGED_ATTACK is used for lunge/dodge attack
+        fsm.add_state(StateDef {
+            id: RANGED_ATTACK, name: "Lunge".into(), duration: Some(0.4),
+            transitions: vec![Transition { target: CHASE, condition: always, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: ATTACK, name: "Backstab".into(), duration: Some(0.8),
+            transitions: vec![Transition { target: RETREAT, condition: attack_done, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: RETREAT, name: "Retreat".into(), duration: Some(0.5),
+            transitions: vec![Transition { target: CHASE, condition: retreat_done, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: RETURN, name: "Return".into(), duration: None,
+            transitions: vec![Transition { target: IDLE, condition: |ctx| ctx.distance_to_target < 10.0, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: STAGGERED, name: "Staggered".into(), duration: Some(0.2),
+            transitions: vec![Transition { target: CHASE, condition: always, priority: 1 }],
+        });
+
+        let aggro = AggroTable::new(280.0, 500.0);
+        Self {
+            id, transform: Transform::new(x, y),
+            hp: 150, max_hp: 150, speed: 100.0,
+            state: EntityState::Idle, facing: 0.0,
+            damage: 30, attack_range: 32.0,
+            spawn_x: x, spawn_y: y, fsm, aggro,
+            has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
+            kind: EnemyKind::Assassin,
+            shoot_timer: 0.0, shoot_cooldown: 1.2,
+            block_chance: 0.0,
+            patrol_timer: 0.0, patrol_dir: 1.0, patrol_range: 40.0,
+            dodge_timer: 1.5, dodge_dir: 1.0,
+            teleport_timer: 0.0,
+            mimic_activated: false, grab_timer: 0.0,
+        }
+    }
+
+    pub fn new_dark_mage(id: EntityId, x: f32, y: f32) -> Self {
+        let mut fsm = StateMachine::new(IDLE);
+        fsm.add_state(StateDef {
+            id: IDLE, name: "Idle".into(), duration: None,
+            transitions: vec![Transition { target: ALERT, condition: target_close, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: ALERT, name: "Alert".into(), duration: Some(0.5),
+            transitions: vec![Transition { target: CHASE, condition: always, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: CHASE, name: "Chase".into(), duration: None,
+            transitions: vec![
+                Transition { target: RANGED_ATTACK, condition: |ctx| ctx.distance_to_target < 300.0 && ctx.distance_to_target > 60.0, priority: 3 },
+                Transition { target: ATTACK, condition: |ctx| ctx.distance_to_target < 60.0, priority: 2 },
+                Transition { target: RETURN, condition: target_far, priority: 1 },
+            ],
+        });
+        fsm.add_state(StateDef {
+            id: RANGED_ATTACK, name: "CastSpell".into(), duration: Some(1.2),
+            transitions: vec![
+                Transition { target: RETREAT, condition: |ctx| ctx.distance_to_target < 80.0, priority: 2 },
+                Transition { target: CHASE, condition: always, priority: 1 },
+            ],
+        });
+        fsm.add_state(StateDef {
+            id: ATTACK, name: "Melee".into(), duration: Some(1.0),
+            transitions: vec![Transition { target: RETREAT, condition: attack_done, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: RETREAT, name: "Teleport".into(), duration: Some(0.8),
+            transitions: vec![Transition { target: CHASE, condition: retreat_done, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: RETURN, name: "Return".into(), duration: None,
+            transitions: vec![Transition { target: IDLE, condition: |ctx| ctx.distance_to_target < 10.0, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: STAGGERED, name: "Staggered".into(), duration: Some(0.4),
+            transitions: vec![Transition { target: CHASE, condition: always, priority: 1 }],
+        });
+
+        let aggro = AggroTable::new(350.0, 550.0);
+        Self {
+            id, transform: Transform::new(x, y),
+            hp: 180, max_hp: 180, speed: 35.0,
+            state: EntityState::Idle, facing: 0.0,
+            damage: 40, attack_range: 60.0,
+            spawn_x: x, spawn_y: y, fsm, aggro,
+            has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
+            kind: EnemyKind::DarkMage,
+            shoot_timer: 0.0, shoot_cooldown: 2.5,
+            block_chance: 0.0,
+            patrol_timer: 0.0, patrol_dir: 1.0, patrol_range: 20.0,
+            dodge_timer: 0.0, dodge_dir: 1.0,
+            teleport_timer: 5.0,
+            mimic_activated: false, grab_timer: 0.0,
+        }
+    }
+
+    pub fn new_mimic(id: EntityId, x: f32, y: f32) -> Self {
+        let mut fsm = StateMachine::new(IDLE);
+        // Mimic starts in IDLE disguised as chest — activated on player proximity
+        fsm.add_state(StateDef {
+            id: IDLE, name: "Disguised".into(), duration: None,
+            transitions: vec![Transition { target: ALERT, condition: |ctx| ctx.distance_to_target < 40.0, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: ALERT, name: "Reveal".into(), duration: Some(0.5),
+            transitions: vec![Transition { target: ATTACK, condition: always, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: ATTACK, name: "Grab".into(), duration: Some(1.5),
+            transitions: vec![Transition { target: CHASE, condition: attack_done, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: CHASE, name: "Chase".into(), duration: None,
+            transitions: vec![
+                Transition { target: ATTACK, condition: |ctx| ctx.distance_to_target < 40.0, priority: 2 },
+                Transition { target: RETURN, condition: target_far, priority: 1 },
+            ],
+        });
+        fsm.add_state(StateDef {
+            id: RETURN, name: "Return".into(), duration: None,
+            transitions: vec![Transition { target: IDLE, condition: |ctx| ctx.distance_to_target < 10.0, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: STAGGERED, name: "Staggered".into(), duration: Some(0.3),
+            transitions: vec![Transition { target: CHASE, condition: always, priority: 1 }],
+        });
+
+        let aggro = AggroTable::new(40.0, 600.0); // Short detection, long memory
+        Self {
+            id, transform: Transform::new(x, y),
+            hp: 450, max_hp: 450, speed: 55.0,
+            state: EntityState::Idle, facing: 0.0,
+            damage: 60, attack_range: 40.0,
+            spawn_x: x, spawn_y: y, fsm, aggro,
+            has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
+            kind: EnemyKind::Mimic,
+            shoot_timer: 0.0, shoot_cooldown: 0.0,
+            block_chance: 0.0,
+            patrol_timer: 0.0, patrol_dir: 1.0, patrol_range: 0.0,
+            dodge_timer: 0.0, dodge_dir: 1.0,
+            teleport_timer: 0.0,
+            mimic_activated: false, grab_timer: 0.0,
         }
     }
 
     pub fn should_shoot(&mut self, dt: f32) -> bool {
-        if self.kind != EnemyKind::Archer { return false; }
+        if self.kind != EnemyKind::Archer && self.kind != EnemyKind::DarkMage { return false; }
         self.shoot_timer -= dt;
         if self.shoot_timer <= 0.0 {
             self.shoot_timer = self.shoot_cooldown;
@@ -344,7 +536,7 @@ impl Enemy {
     }
 
     pub fn try_block(&self) -> bool {
-        if self.kind != EnemyKind::Knight { return false; }
+        if self.kind != EnemyKind::Knight && self.kind != EnemyKind::Assassin { return false; }
         let r = (self.id * 1103515245 + 12345) as f32;
         (r % 100.0) < self.block_chance * 100.0
     }
@@ -423,15 +615,43 @@ impl Enemy {
                     let dy = self.aggro.last_known_y - self.transform.y;
                     let dist = (dx * dx + dy * dy).sqrt();
 
+                    // Assassin: dodge sideways periodically
+                    if self.kind == EnemyKind::Assassin {
+                        self.dodge_timer -= dt;
+                        if self.dodge_timer <= 0.0 {
+                            self.dodge_timer = 2.0 + (self.id as f32 % 1.5);
+                            self.dodge_dir = if (self.id as f32) % 2.0 < 1.0 { -1.0 } else { 1.0 };
+                            let perp = self.facing + std::f32::consts::FRAC_PI_2 * self.dodge_dir;
+                            self.transform.x += perp.cos() * 60.0;
+                            self.transform.y += perp.sin() * 60.0;
+                        }
+                    }
+
+                    // Dark Mage: teleport when low HP
+                    if self.kind == EnemyKind::DarkMage {
+                        self.teleport_timer -= dt;
+                        if self.teleport_timer <= 0.0 && self.hp < self.max_hp * 2 / 3 {
+                            self.teleport_timer = 6.0;
+                            // Teleport to a random offset
+                            let angle = (self.id as f32 * 1.7) % std::f32::consts::TAU;
+                            self.transform.x = self.spawn_x + angle.cos() * 120.0;
+                            self.transform.y = self.spawn_y + angle.sin() * 120.0;
+                            self.flash_timer = 0.3;
+                        }
+                    }
+
+                    // Mimic: reveal when chasing
+                    if self.kind == EnemyKind::Mimic && !self.mimic_activated {
+                        self.mimic_activated = true;
+                    }
+
                     // Use pathfinding: find next waypoint toward target
                     let start = nav_grid.world_to_cell(self.transform.x - chunk_offset.0, self.transform.y - chunk_offset.1);
                     let goal = nav_grid.world_to_cell(self.aggro.last_known_x - chunk_offset.0, self.aggro.last_known_y - chunk_offset.1);
 
                     let move_dir = if dist < 50.0 {
-                        // Close enough — move directly toward target
                         dy.atan2(dx)
                     } else if let Some(next) = nav_grid.find_path(start, goal).get(1).copied() {
-                        // Follow pathfinding route
                         let (wx, wy) = nav_grid.cell_to_world(next);
                         let nwx = wx + chunk_offset.0;
                         let nwy = wy + chunk_offset.1;
@@ -439,7 +659,6 @@ impl Enemy {
                         let ndy = nwy - self.transform.y;
                         ndy.atan2(ndx)
                     } else {
-                        // No path found — move directly
                         dy.atan2(dx)
                     };
 
@@ -520,6 +739,17 @@ impl Entity for Enemy {
             EnemyKind::HollowSoldier => (28.0, [0.6, 0.6, 0.6, 1.0]),
             EnemyKind::Archer => (24.0, [0.4, 0.7, 0.3, 1.0]),
             EnemyKind::Knight => (34.0, [0.5, 0.5, 0.7, 1.0]),
+            EnemyKind::Assassin => (22.0, [0.2, 0.2, 0.3, 1.0]),
+            EnemyKind::DarkMage => (30.0, [0.5, 0.2, 0.8, 1.0]),
+            EnemyKind::Mimic => {
+                if !self.mimic_activated {
+                    // Disguised as a treasure chest (golden box)
+                    let instance = self.transform.to_instance_data(28.0, 24.0, [0.0, 0.0, 1.0, 1.0], [0.8, 0.7, 0.2, 1.0]);
+                    batcher.draw(instance, texture, gl);
+                    return;
+                }
+                (38.0, [0.6, 0.4, 0.1, 1.0])
+            },
         };
         if self.flash_timer > 0.0 {
             let instance = self.transform.to_instance_data(size, size, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0]);
