@@ -22,6 +22,10 @@ pub enum KeyCode {
     W        = 87,
     Num1     = 49,
     Num2     = 50,
+    MouseLeft  = 128,
+    MouseRight = 129,
+    WheelUp    = 130,
+    WheelDown  = 131,
 }
 
 pub struct InputState {

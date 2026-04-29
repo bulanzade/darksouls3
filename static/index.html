@@ -62,7 +62,7 @@
         <div class="boss-name" id="boss-name" style="display:none"></div>
         <div class="level-up" id="level-up-text" style="display:none"></div>
         <canvas id="minimap-canvas" width="120" height="120" style="position:absolute;bottom:30px;right:10px;border:1px solid #333;background:rgba(0,0,0,0.7);image-rendering:pixelated;"></canvas>
-        <div class="controls" id="controls">WASD move · Space roll · J attack · K heavy · L block · E estus</div>
+        <div class="controls" id="controls">WASD move · LMB attack · RMB heavy · Space roll · L block · E estus · Scroll swap weapon</div>
     </div>
     <script type="module">
         const v = Date.now();
@@ -206,6 +206,25 @@
             }, { once: false });
             window.addEventListener('keyup', (e) => {
                 js_keyup(e.key);
+            });
+            // Mouse: left click = light attack, right click = heavy attack
+            const canvas = document.getElementById('game-canvas');
+            canvas.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                if (!audioCtx) getAudio();
+                if (e.button === 0) js_keydown('mouse_left');
+                if (e.button === 2) js_keydown('mouse_right');
+            });
+            canvas.addEventListener('mouseup', (e) => {
+                if (e.button === 0) js_keyup('mouse_left');
+                if (e.button === 2) js_keyup('mouse_right');
+            });
+            canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+            // Mouse wheel: swap weapons
+            canvas.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                if (e.deltaY < 0) js_keydown('wheel_up');
+                if (e.deltaY > 0) js_keydown('wheel_down');
             });
         }
         run();

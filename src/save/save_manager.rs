@@ -25,13 +25,17 @@ pub struct SaveData {
     pub player_x: f32,
     pub player_y: f32,
     pub weapon_name: String,
+    pub weapon_damage: i32,
     pub alt_weapon_name: Option<String>,
+    pub alt_weapon_damage: Option<i32>,
     pub bosses_defeated: Vec<String>,
     pub enemies_killed: u32,
     pub items_collected: Vec<String>,
     pub chests_opened: Vec<String>,
     pub play_time: f32,
     pub death_count: u32,
+    pub damage_dealt: u32,
+    pub damage_taken: u32,
 }
 
 // ---------------------------------------------------------------------------
