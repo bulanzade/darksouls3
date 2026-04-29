@@ -108,6 +108,10 @@ struct Game {
     death_particles: Vec<DeathParticle>,
     // Level-up flash timer
     level_up_flash: f32,
+    // Hitstop (freeze frames on heavy hit)
+    hitstop_timer: f32,
+    // Slow motion on boss death
+    slow_motion_timer: f32,
     // Input buffer for queued actions
     input_buffer: BufferedAction,
     input_buffer_timer: f32,
@@ -369,6 +373,8 @@ pub fn wasm_main() {
         damage_numbers: Vec::new(),
         death_particles: Vec::new(),
         level_up_flash: 0.0,
+        hitstop_timer: 0.0,
+        slow_motion_timer: 0.0,
         input_buffer: BufferedAction::None,
         input_buffer_timer: 0.0,
         enemies_killed: 0,
@@ -1006,6 +1012,19 @@ fn update_title_screen(game: &mut Game) {
 }
 
 fn update_playing(game: &mut Game, dt: f32) {
+    // Hitstop: freeze game logic for a few frames
+    if game.hitstop_timer > 0.0 {
+        game.hitstop_timer -= dt;
+        return;
+    }
+    // Slow motion on boss death
+    let dt = if game.slow_motion_timer > 0.0 {
+        game.slow_motion_timer -= dt;
+        dt * 0.2
+    } else {
+        dt
+    };
+
     let mv = game.input.movement();
     let attack = game.input.pressed(KeyCode::J);
     let heavy_attack = game.input.pressed(KeyCode::K);
@@ -1526,6 +1545,8 @@ fn update_playing(game: &mut Game, dt: f32) {
             };
             enemy.take_damage(&dmg);
             game.camera.add_shake(if is_riposte { 10.0 } else if is_heavy { 6.0 } else { 3.0 });
+            // Hitstop on hit
+            game.hitstop_timer = if is_heavy { 0.05 } else { 0.02 };
             game.audio.play_sfx(if is_riposte { "hit" } else { "hit" }, if is_riposte { 0.2 } else { 0.12 }, 0.0);
             // Damage number
             game.damage_numbers.push(DamageNumber {
@@ -1651,6 +1672,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                 game.boss_defeated = true;
                 game.souls += 5000;
                 game.camera.add_shake(15.0);
+                game.slow_motion_timer = 1.5; // Slow-mo for 1.5s on boss death
                 game.audio.play_sfx("boss_die", 0.2, 0.0);
             }
         }
@@ -2375,13 +2397,20 @@ fn render(game: &mut Game) {
     // Bind scene texture and run composite shader
     gl.active_texture(GL::TEXTURE0);
     gl.bind_texture(GL::TEXTURE_2D, Some(&game.scene_texture));
+    // Low HP warning: redder tint
+    let hp_ratio = game.player.hp as f32 / game.player.max_hp as f32;
+    let (brightness, saturation, fog_color) = if hp_ratio < 0.25 {
+        (0.9, 0.6, [0.08, 0.02, 0.02, 0.7]) // Red tint when low HP
+    } else {
+        (1.0, 0.85, [0.02, 0.02, 0.04, 0.6])
+    };
     game.post_processor.render(
         gl,
         1.2,                                               // vignette intensity
-        [0.02, 0.02, 0.04, 0.6],                          // fog color + alpha
+        fog_color,                                          // fog color + alpha
         [game.screen_h * 0.3, game.screen_h * 0.7],       // fog distance range
-        1.0,                                               // brightness
-        0.85,                                              // saturation (slightly desaturated)
+        brightness,                                         // brightness
+        saturation,                                         // saturation
     );
 
     // --- HUD projection (used by vignette + HUD elements) ---
