@@ -3314,7 +3314,9 @@ fn update_dom_ui(game: &Game) {
                 "VICTORY\n\nThe Curse is Broken.\n\nBosses Defeated: {}\nTime: {}:{:02}\nEnemies Slain: {}\nDamage Dealt: {}\nDamage Taken: {}\nDeaths: {}\nLevel: {}\nSouls: {}\n\nPress Enter to return to title",
                 bosses_list, mins, secs, game.enemies_killed, game.damage_dealt, game.damage_taken, game.death_count, game.player.level, game.souls
             )));
-            let _ = el.set_attribute("style", "color: #e8c840; text-shadow: 0 0 20px rgba(232,200,64,0.6); white-space: pre-line;");
+            let _ = el.set_attribute("style",
+                "color: #e8c840; text-shadow: 0 0 30px rgba(232,200,64,0.8), 0 0 60px rgba(232,200,64,0.3); \
+                 white-space: pre-line; letter-spacing: 4px; line-height: 1.6; font-size: 18px;");
         } else {
             let _ = el.set_attribute("style", "display:none");
         }
