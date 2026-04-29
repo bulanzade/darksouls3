@@ -22,44 +22,62 @@ pub enum KeyCode {
 
 pub struct InputState {
     keys: [bool; 256],
-    just_pressed: [bool; 256],
+    /// Counts down from INPUT_QUEUE_FRAMES when a key is first pressed.
+    /// Allows `pressed()` to return true for multiple frames, preventing
+    /// swallowed inputs when the game logic can't act immediately.
+    press_queue: [u8; 256],
 }
+
+/// How many frames a "pressed" event stays alive.
+const INPUT_QUEUE_FRAMES: u8 = 3;
 
 impl InputState {
     pub fn new() -> Self {
         Self {
             keys: [false; 256],
-            just_pressed: [false; 256],
+            press_queue: [0; 256],
         }
     }
 
-    /// Call at the start of each render tick to clear one-shot press flags.
+    /// Decrement press queue timers. Call at the end of each tick.
     pub fn begin_frame(&mut self) {
-        self.just_pressed = [false; 256];
+        for q in &mut self.press_queue {
+            if *q > 0 {
+                *q -= 1;
+            }
+        }
     }
 
     pub fn set_key(&mut self, code: usize, pressed: bool) {
         if code < 256 {
             if pressed && !self.keys[code] {
-                self.just_pressed[code] = true;
+                self.press_queue[code] = INPUT_QUEUE_FRAMES;
             }
             self.keys[code] = pressed;
         }
     }
 
-    /// Key was pressed since last begin_frame() (event-based, won't miss fast taps).
+    /// Key was pressed recently (within INPUT_QUEUE_FRAMES ticks).
+    /// Persists across frames so game logic won't miss fast taps.
     pub fn pressed(&self, key: KeyCode) -> bool {
-        self.just_pressed[key as usize]
+        self.press_queue[key as usize] > 0
+    }
+
+    /// Read and clear — returns true once per key press, then consumes the event.
+    /// Use for one-shot actions like estus, interact, menu confirm.
+    pub fn consume_pressed(&mut self, key: KeyCode) -> bool {
+        let idx = key as usize;
+        if self.press_queue[idx] > 0 {
+            self.press_queue[idx] = 0;
+            true
+        } else {
+            false
+        }
     }
 
     /// Key is currently held down.
     pub fn held(&self, key: KeyCode) -> bool {
         self.keys[key as usize]
-    }
-
-    /// Falling edge — key was just released this frame.
-    pub fn released(&self, key: KeyCode) -> bool {
-        !self.keys[key as usize]
     }
 
     /// Returns a normalized (x, y) movement vector from WASD / arrow keys.

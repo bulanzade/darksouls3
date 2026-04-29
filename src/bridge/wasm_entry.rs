@@ -829,7 +829,7 @@ fn fixed_update(game: &mut Game, dt: f32) {
 }
 
 fn update_title_screen(game: &mut Game) {
-    if game.input.pressed(KeyCode::Enter) {
+    if game.input.consume_pressed(KeyCode::Enter) {
         if let Some(action) = game.menu.current_action() {
             match action {
                 MenuAction::NewGame => {
@@ -900,8 +900,8 @@ fn update_playing(game: &mut Game, dt: f32) {
     let heavy_attack = game.input.pressed(KeyCode::K);
     let block_held = game.input.held(KeyCode::L);
     let roll = game.input.pressed(KeyCode::Space);
-    let estus = game.input.pressed(KeyCode::E);
-    let interact = game.input.pressed(KeyCode::Enter);
+    let estus = game.input.consume_pressed(KeyCode::E);
+    let interact = game.input.consume_pressed(KeyCode::Enter);
 
     // Bonfire interaction (skip for first 0.5s after state change)
     if interact && game.state_timer > 0.5 {
@@ -1524,7 +1524,7 @@ fn update_death(game: &mut Game) {
     if game.death_anim_timer < 2.5 {
         return;
     }
-    if game.input.pressed(KeyCode::Enter) {
+    if game.input.consume_pressed(KeyCode::Enter) {
         if let Some(action) = game.menu.current_action() {
             match action {
                 MenuAction::Continue => {
@@ -1569,11 +1569,11 @@ fn update_death(game: &mut Game) {
 }
 
 fn update_bonfire_menu(game: &mut Game) {
-    if game.input.pressed(KeyCode::Escape) {
+    if game.input.consume_pressed(KeyCode::Escape) {
         game.state = GameState::Playing;
         return;
     }
-    if game.input.pressed(KeyCode::Enter) {
+    if game.input.consume_pressed(KeyCode::Enter) {
         if let Some(action) = game.menu.current_action().cloned() {
             match action {
                 MenuAction::Rest => {
@@ -1628,12 +1628,12 @@ fn update_bonfire_menu(game: &mut Game) {
 }
 
 fn update_level_up_menu(game: &mut Game) {
-    if game.input.pressed(KeyCode::Escape) {
+    if game.input.consume_pressed(KeyCode::Escape) {
         game.state = GameState::BonfireMenu;
         game.menu = MenuState::bonfire_menu();
         return;
     }
-    if game.input.pressed(KeyCode::Enter) {
+    if game.input.consume_pressed(KeyCode::Enter) {
         let cost = game.player.level_up_cost();
         if game.souls >= cost {
             let idx = game.menu.selected_index;
@@ -1655,7 +1655,7 @@ fn update_level_up_menu(game: &mut Game) {
 }
 
 fn update_victory(game: &mut Game) {
-    if game.input.pressed(KeyCode::Enter) {
+    if game.input.consume_pressed(KeyCode::Enter) {
         game.state = GameState::TitleScreen;
         game.menu = MenuState::title_screen();
         game.boss_active = false;
