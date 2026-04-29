@@ -1,4 +1,4 @@
-use crate::combat::moveset::{LongswordMoveset, WeaponMoveset};
+use crate::combat::moveset::{LongswordMoveset, GreatAxeMoveset, DaggerMoveset, SpearMoveset, UchigatanaMoveset, WeaponMoveset};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
@@ -103,7 +103,10 @@ impl Weapon {
     pub fn get_moveset(&self) -> Box<dyn WeaponMoveset> {
         match self.weapon_type {
             WeaponType::Longsword => Box::new(LongswordMoveset),
-            _ => Box::new(LongswordMoveset),
+            WeaponType::GreatAxe => Box::new(GreatAxeMoveset),
+            WeaponType::Dagger => Box::new(DaggerMoveset),
+            WeaponType::Spear => Box::new(SpearMoveset),
+            WeaponType::Uchigatana => Box::new(UchigatanaMoveset),
         }
     }
 }

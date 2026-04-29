@@ -98,6 +98,19 @@ impl Player {
         self.weapon.get_moveset().heavy_attack().stamina_cost
     }
 
+    /// Light attack duration based on weapon moveset recovery frames.
+    pub fn light_attack_duration(&self) -> f32 {
+        let moveset = self.weapon.get_moveset();
+        let frames = moveset.light_attack_chain().get(0).map(|f| f.recovery_frames).unwrap_or(18);
+        frames as f32 / 60.0
+    }
+
+    /// Heavy attack duration based on weapon moveset recovery frames.
+    pub fn heavy_attack_duration(&self) -> f32 {
+        let frames = self.weapon.get_moveset().heavy_attack().recovery_frames;
+        frames as f32 / 60.0
+    }
+
     /// Swap primary and alt weapons.
     pub fn swap_weapon(&mut self) {
         if let Some(alt) = self.alt_weapon.take() {

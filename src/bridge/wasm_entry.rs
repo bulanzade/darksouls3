@@ -1493,7 +1493,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                     let cost = player.light_stamina_cost();
                     if player.stamina.consume(cost) {
                         player.state = EntityState::Attacking;
-                        player.attack_timer = player.attack_duration;
+                        player.attack_timer = player.light_attack_duration();
                         player.is_heavy_attack = false;
                         game.input_buffer = BufferedAction::None;
                         game.input_buffer_timer = 0.0;
@@ -1503,7 +1503,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                     let cost = player.heavy_stamina_cost();
                     if player.stamina.consume(cost) {
                         player.state = EntityState::Attacking;
-                        player.attack_timer = player.heavy_attack_duration;
+                        player.attack_timer = player.heavy_attack_duration();
                         player.is_heavy_attack = true;
                         game.input_buffer = BufferedAction::None;
                         game.input_buffer_timer = 0.0;
@@ -2750,7 +2750,7 @@ fn render(game: &mut Game) {
         let (px, py) = game.player.position();
         let facing = game.player.facing;
         let t = game.player.attack_timer;
-        let total = if game.player.is_heavy_attack { game.player.heavy_attack_duration } else { game.player.attack_duration };
+        let total = if game.player.is_heavy_attack { game.player.heavy_attack_duration() } else { game.player.light_attack_duration() };
         let progress = 1.0 - (t / total);
         let range = if game.player.is_heavy_attack { 36.0 } else { 28.0 };
         let arc_span = if game.player.is_heavy_attack { 1.2 } else { 0.8 }; // radians
