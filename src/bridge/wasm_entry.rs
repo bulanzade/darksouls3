@@ -94,6 +94,7 @@ struct Game {
     boss_defeated: bool,
     // Lock-on targeting
     lock_on_target: Option<EntityId>,
+    lock_on_pos: Option<(f32, f32)>,
     // Grace period after state transition to prevent accidental interactions
     state_timer: f32,
     // Bonfire world position
@@ -413,6 +414,7 @@ pub fn wasm_main() {
         boss_active: false,
         boss_defeated: false,
         lock_on_target: None,
+        lock_on_pos: None,
         state_timer: 0.0,
         bonfire_x: 200.0,
         bonfire_y: 200.0,
@@ -436,6 +438,8 @@ pub fn wasm_main() {
             WorldItem { x: 600.0, y: 750.0, kind: ItemKind::PurpleMoss, collected: false },
             // Second moss near corridor poison
             WorldItem { x: 1100.0, y: 1000.0, kind: ItemKind::PurpleMoss, collected: false },
+            // Homeward Bone near bonfire
+            WorldItem { x: 400.0, y: 600.0, kind: ItemKind::HomewardBone, collected: false },
         ],
         projectiles: Vec::new(),
         death_anim_timer: 0.0,
@@ -595,6 +599,7 @@ fn key_to_idx(key: &str) -> usize {
         "k" | "K" => 75,
         "l" | "L" => 76,
         "s" | "S" => 83,
+        "q" | "Q" => 81,
         "Tab" => 9,
         "w" | "W" => 87,
         "1" => 49,
@@ -1106,6 +1111,7 @@ fn update_playing(game: &mut Game, dt: f32) {
     let interact = game.input.consume_pressed(KeyCode::Enter);
     let lock_on_toggle = game.input.consume_pressed(KeyCode::Tab);
     let inventory_toggle = game.input.consume_pressed(KeyCode::I);
+    let use_consumable = game.input.consume_pressed(KeyCode::Q);
 
     // Inventory toggle
     if inventory_toggle {
@@ -1212,7 +1218,10 @@ fn update_playing(game: &mut Game, dt: f32) {
                     game.inventory.push(InventoryItem { name: "Purple Moss".into(), kind: InventoryItemKind::Consumable("PurpleMoss".into()) });
                     game.audio.play_sfx("estus", 0.08, 0.0);
                 }
-                ItemKind::HomewardBone => {}
+                ItemKind::HomewardBone => {
+                    game.inventory.push(InventoryItem { name: "Homeward Bone".into(), kind: InventoryItemKind::Consumable("HomewardBone".into()) });
+                    game.audio.play_sfx("souls", 0.08, 0.0);
+                }
                 ItemKind::WeaponDrop(wt) => {
                     game.inventory.push(InventoryItem { name: format!("{:?}", wt), kind: InventoryItemKind::Weapon(*wt) });
                     // Also auto-equip to alt slot
@@ -1293,7 +1302,10 @@ fn update_playing(game: &mut Game, dt: f32) {
                         game.player.poison_timer = 0.0;
                         game.audio.play_sfx("estus", 0.08, 0.0);
                     }
-                    ItemKind::HomewardBone => {}
+                    ItemKind::HomewardBone => {
+                        game.inventory.push(InventoryItem { name: "Homeward Bone".into(), kind: InventoryItemKind::Consumable("HomewardBone".into()) });
+                        game.audio.play_sfx("souls", 0.08, 0.0);
+                    }
                     ItemKind::WeaponDrop(wt) => {
                         game.inventory.push(InventoryItem { name: format!("{:?}", wt), kind: InventoryItemKind::Weapon(*wt) });
                         use crate::combat::weapon::WeaponType;
@@ -1507,6 +1519,29 @@ fn update_playing(game: &mut Game, dt: f32) {
         }
     }
 
+    // Consumable items (Q key)
+    if use_consumable {
+        let moss_idx = game.inventory.iter().position(|i| matches!(&i.kind, InventoryItemKind::Consumable(n) if n == "PurpleMoss"));
+        if let Some(idx) = moss_idx {
+            game.player.poison_timer = 0.0;
+            game.player.poison_tick = 0.0;
+            game.inventory.remove(idx);
+            game.audio.play_sfx("heal", 0.06, 0.0);
+        } else {
+            // Homeward Bone — teleport to last bonfire
+            let bone_idx = game.inventory.iter().position(|i| matches!(&i.kind, InventoryItemKind::Consumable(n) if n == "HomewardBone"));
+            if let Some(idx) = bone_idx {
+                game.inventory.remove(idx);
+                game.player.transform.x = game.bonfire_x;
+                game.player.transform.y = game.bonfire_y;
+                game.camera.x = game.bonfire_x;
+                game.camera.y = game.bonfire_y;
+                game.player.state = EntityState::Idle;
+                game.audio.play_sfx("teleport", 0.08, 0.0);
+            }
+        }
+    }
+
     // Lock-on targeting
     if lock_on_toggle {
         let (px, py) = game.player.position();
@@ -1535,13 +1570,13 @@ fn update_playing(game: &mut Game, dt: f32) {
     }
 
     // Lock-on facing override: make player face the locked target
-    let lock_on_pos: Option<(f32, f32)> = if let Some(tid) = game.lock_on_target {
+    game.lock_on_pos = if let Some(tid) = game.lock_on_target {
         game.enemies.iter().find(|e| e.id() == tid).map(|e| e.position())
             .or_else(|| game.boss.as_ref().and_then(|b| if b.id() == tid { Some(b.position()) } else { None }))
     } else {
         None
     };
-    if let Some((tx, ty)) = lock_on_pos {
+    if let Some((tx, ty)) = game.lock_on_pos {
         let (px2, py2) = game.player.position();
         game.player.facing = (ty - py2).atan2(tx - px2);
     }
@@ -1934,16 +1969,20 @@ fn update_playing(game: &mut Game, dt: f32) {
     }
 
     // --- Spawn boss when mini-boss (last enemy) is killed ---
-    if !game.boss_active && !game.boss_defeated && game.enemies.last().map_or(false, |e| e.is_dead()) {
-        // Spawn random boss variety
+    // Only auto-spawn in areas without a dedicated fog gate boss
+    let has_area_boss = area_boss(game.area).is_some();
+    if !has_area_boss && !game.boss_active && !game.boss_defeated && game.enemies.last().map_or(false, |e| e.is_dead()) {
         let boss_type = (game.enemies_killed * 1103515245 + 12345) as usize % 3;
+        let (px, py) = game.player.position();
+        let spawn_x = px + 200.0;
+        let spawn_y = py;
         game.boss = Some(match boss_type {
-            0 => Boss::new_test_boss(10, 1750.0, 400.0),
-            1 => Boss::new_dragonrider(10, 1750.0, 400.0),
-            _ => Boss::new_ruin_sentinel(10, 1750.0, 400.0),
+            0 => Boss::new_test_boss(10, spawn_x, spawn_y),
+            1 => Boss::new_dragonrider(10, spawn_x, spawn_y),
+            _ => Boss::new_ruin_sentinel(10, spawn_x, spawn_y),
         });
         game.boss_active = true;
-        game.boss_intro_timer = 3.0; // Show boss name for 3 seconds
+        game.boss_intro_timer = 3.0;
     }
 
     // --- Update soul orbs ---
@@ -1990,7 +2029,7 @@ fn update_playing(game: &mut Game, dt: f32) {
     }
 
     // Camera follows player (or midpoint between player and lock-on target)
-    if let Some((tx, ty)) = lock_on_pos {
+    if let Some((tx, ty)) = game.lock_on_pos {
         let mid_x = (px + tx) * 0.5;
         let mid_y = (py + ty) * 0.5;
         game.camera.follow(mid_x, mid_y, 4.0, dt);
@@ -2043,25 +2082,14 @@ fn update_death(game: &mut Game) {
         if let Some(action) = game.menu.current_action() {
             match action {
                 MenuAction::Continue => {
-                    // Respawn at bonfire
-                    game.player = Player::new(1, 200.0, 200.0);
+                    // Respawn at bonfire — reload current area
                     game.souls = 0;
                     game.bonfire.rest();
                     game.bonfire.estus_charges = game.bonfire.estus_max;
-                    game.enemies = vec![
-                        Enemy::new_hollow_soldier(2, 600.0, 120.0),
-                        Enemy::new_archer(3, 750.0, 200.0),
-                        Enemy::new_hollow_soldier(4, 650.0, 300.0),
-                        Enemy::new_archer(5, 1150.0, 500.0),
-                        Enemy::new_hollow_soldier(6, 1300.0, 600.0),
-                        Enemy::new_knight(7, 1400.0, 650.0),
-                        Enemy::new_hollow_soldier(8, 1200.0, 750.0),
-                        Enemy::new_mini_boss(9, 1264.0, 1280.0),
-                    ];
-                    game.boss = None;
-                    game.boss_active = false;
-                    game.boss_defeated = false;
-                    game.projectiles.clear();
+                    let current_area = game.area;
+                    load_area(game, current_area);
+                    game.player.hp = game.player.max_hp;
+                    game.player.state = EntityState::Idle;
                     game.time.accumulator = 0.0;
                     game.state_timer = 0.0;
                     game.death_anim_timer = 0.0;
@@ -2261,6 +2289,7 @@ fn load_area(game: &mut Game, area: AreaId) {
                 WorldItem { x: 700.0, y: 750.0, kind: ItemKind::SoulOrb(400), collected: false },
                 WorldItem { x: 600.0, y: 950.0, kind: ItemKind::PurpleMoss, collected: false },
                 WorldItem { x: 850.0, y: 1200.0, kind: ItemKind::SoulOrb(800), collected: false },
+                WorldItem { x: 900.0, y: 600.0, kind: ItemKind::HomewardBone, collected: false },
             ];
             game.chests = vec![
                 TreasureChest { x: 700.0, y: 250.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Dagger) },
@@ -2296,8 +2325,8 @@ fn load_area(game: &mut Game, area: AreaId) {
             game.chunk = Chunk::test_chunk((0, 0));
             game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
             game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
-            game.player.transform.x = game.bonfire_x;
-            game.player.transform.y = game.bonfire_y;
+            game.player.transform.x = 200.0;
+            game.player.transform.y = 200.0;
             game.player.hp = (game.player.max_hp as f32 * player_hp_ratio) as i32;
             game.enemies = vec![
                 Enemy::new_hollow_soldier(2, 620.0, 120.0),
@@ -2341,9 +2370,12 @@ fn load_area(game: &mut Game, area: AreaId) {
             ];
             game.bonfire_x = 200.0;
             game.bonfire_y = 200.0;
+            let dragonrider_defeated = game.bosses_defeated.iter().any(|b| b == "Dragonrider");
             game.fog_gates = vec![
                 FogGate { x: 100.0, y: 100.0, w: 32.0, h: 80.0, destination: AreaId::Majula, dest_x: 380.0, dest_y: 600.0, active: true },
                 FogGate { x: 1800.0, y: 400.0, w: 32.0, h: 80.0, destination: AreaId::LostBastille, dest_x: 200.0, dest_y: 200.0, active: true },
+                // Boss fog gate — Dragonrider in boss arena (tiles 100-118, 3-48)
+                FogGate { x: 1568.0, y: 576.0, w: 32.0, h: 80.0, destination: AreaId::CardinalTower, dest_x: 1744.0, dest_y: 400.0, active: !dragonrider_defeated },
             ];
         }
         AreaId::LostBastille => {
@@ -2397,6 +2429,7 @@ fn load_area(game: &mut Game, area: AreaId) {
                 WorldItem { x: 550.0, y: 800.0, kind: ItemKind::PurpleMoss, collected: false },
                 WorldItem { x: 800.0, y: 900.0, kind: ItemKind::SoulOrb(800), collected: false },
                 WorldItem { x: 650.0, y: 1050.0, kind: ItemKind::SoulOrb(1500), collected: false },
+                WorldItem { x: 350.0, y: 400.0, kind: ItemKind::HomewardBone, collected: false },
             ];
             game.chests = vec![
                 TreasureChest { x: 300.0, y: 450.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Chest, "Knight Armor".into()) },
@@ -2861,6 +2894,33 @@ fn render(game: &mut Game) {
 
     // --- Draw player ---
     game.player.render(&mut game.batcher, &game.player_tex, gl);
+
+    // --- Lock-on indicator (diamond above locked target) ---
+    if let Some((tx, ty)) = game.lock_on_pos {
+        let pulse = 0.8 + (game.state_timer * 6.0).sin() * 0.2;
+        let size = 12.0 * pulse;
+        let ly = ty - 30.0;
+        // Diamond shape: rotate 45 degrees
+        let angle = game.state_timer * 2.0;
+        let dx1 = angle.cos() * size * 0.5;
+        let dy1 = angle.sin() * size * 0.5;
+        game.batcher.draw(
+            InstanceData::new(tx + dx1, ly + dy1, 4.0, 4.0, [0.0, 0.0, 1.0, 1.0], [1.0, 0.8, 0.2, 0.9]),
+            &game.white_tex, gl,
+        );
+        game.batcher.draw(
+            InstanceData::new(tx - dy1, ly + dx1, 4.0, 4.0, [0.0, 0.0, 1.0, 1.0], [1.0, 0.8, 0.2, 0.9]),
+            &game.white_tex, gl,
+        );
+        game.batcher.draw(
+            InstanceData::new(tx - dx1, ly - dy1, 4.0, 4.0, [0.0, 0.0, 1.0, 1.0], [1.0, 0.8, 0.2, 0.9]),
+            &game.white_tex, gl,
+        );
+        game.batcher.draw(
+            InstanceData::new(tx + dy1, ly - dx1, 4.0, 4.0, [0.0, 0.0, 1.0, 1.0], [1.0, 0.8, 0.2, 0.9]),
+            &game.white_tex, gl,
+        );
+    }
 
     // --- Heal effect (green particles around player) ---
     if game.heal_effect_timer > 0.0 {
@@ -3410,5 +3470,93 @@ fn update_dom_ui(game: &Game) {
                  transform: translateX(-50%); white-space: nowrap;");
             el.set_text_content(Some(&text));
         }
+    }
+
+    // Minimap
+    if game.state == GameState::Playing {
+        if let Some(minimap_el) = document.get_element_by_id("minimap-canvas") {
+            let canvas: web_sys::HtmlCanvasElement = match minimap_el.dyn_into::<web_sys::HtmlCanvasElement>() {
+                Ok(c) => c,
+                Err(_) => return,
+            };
+            let ctx = match canvas.get_context("2d").ok().flatten() {
+                Some(ctx) => ctx.dyn_into::<web_sys::CanvasRenderingContext2d>().ok(),
+                None => None,
+            };
+            if let Some(ctx) = ctx {
+                let mm_w = 120.0_f64;
+                let mm_h = 120.0_f64;
+                let scale_x = mm_w / (CHUNK_SIZE as f64 * TILE_SIZE as f64);
+                let scale_y = mm_h / (CHUNK_SIZE as f64 * TILE_SIZE as f64);
+                let scale = scale_x.min(scale_y);
+                let (px, py) = game.player.position();
+
+                ctx.clear_rect(0.0, 0.0, mm_w, mm_h);
+
+                // Draw tiles (sample every 2 tiles for performance)
+                for ty in (0..CHUNK_SIZE).step_by(2) {
+                    for tx in (0..CHUNK_SIZE).step_by(2) {
+                        let tile = game.chunk.tiles[ty][tx];
+                        let color = match tile {
+                            TileId::Ground => "#333",
+                            TileId::Wall => "#1a1a1a",
+                            TileId::Poison => "#2a3a1a",
+                            _ => continue,
+                        };
+                        ctx.set_fill_style(&color.into());
+                        let mx = tx as f64 * TILE_SIZE as f64 * scale;
+                        let my = ty as f64 * TILE_SIZE as f64 * scale;
+                        let s = 2.0 * TILE_SIZE as f64 * scale;
+                        ctx.fill_rect(mx, my, s, s);
+                    }
+                }
+
+                // Draw enemies as red dots
+                ctx.set_fill_style(&"#c44".into());
+                for enemy in &game.enemies {
+                    if enemy.is_dead() { continue; }
+                    let (ex, ey) = enemy.position();
+                    ctx.begin_path();
+                    let _ = ctx.arc(ex as f64 * scale, ey as f64 * scale, 2.0, 0.0, std::f64::consts::TAU);
+                    ctx.fill();
+                }
+
+                // Draw boss as large red dot
+                if let Some(ref boss) = game.boss {
+                    if !boss.is_dead() {
+                        ctx.set_fill_style(&"#f80".into());
+                        let (bx, by) = boss.position();
+                        ctx.begin_path();
+                        let _ = ctx.arc(bx as f64 * scale, by as f64 * scale, 3.0, 0.0, std::f64::consts::TAU);
+                        ctx.fill();
+                    }
+                }
+
+                // Draw fog gates as blue bars
+                ctx.set_fill_style(&"#48f".into());
+                for gate in &game.fog_gates {
+                    if !gate.active { continue; }
+                    let gx = gate.x as f64 * scale;
+                    let gy = gate.y as f64 * scale;
+                    let gw = gate.w as f64 * scale;
+                    let gh = gate.h as f64 * scale;
+                    ctx.fill_rect(gx - gw * 0.5, gy - gh * 0.5, gw, gh);
+                }
+
+                // Draw player as bright dot
+                ctx.set_fill_style(&"#0f0".into());
+                ctx.begin_path();
+                let _ = ctx.arc(px as f64 * scale, py as f64 * scale, 2.5, 0.0, std::f64::consts::TAU);
+                ctx.fill();
+
+                // Draw bonfire as yellow dot
+                ctx.set_fill_style(&"#e8c840".into());
+                ctx.begin_path();
+                let _ = ctx.arc(game.bonfire_x as f64 * scale, game.bonfire_y as f64 * scale, 2.0, 0.0, std::f64::consts::TAU);
+                ctx.fill();
+            }
+        }
+    } else if let Some(minimap_el) = document.get_element_by_id("minimap-canvas") {
+        let _ = minimap_el.set_attribute("style", "display:none");
     }
 }

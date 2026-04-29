@@ -32,6 +32,7 @@ features = [
   "KeyboardEvent",
   "EventTarget",
   "Performance",
+  "CanvasRenderingContext2d",
 ]
 
 [profile.release]

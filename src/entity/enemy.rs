@@ -151,12 +151,12 @@ impl Enemy {
         Self {
             id,
             transform: Transform::new(x, y),
-            hp: 200,
-            max_hp: 200,
-            speed: 60.0,
+            hp: 300,
+            max_hp: 300,
+            speed: 70.0,
             state: EntityState::Idle,
             facing: 0.0,
-            damage: 20,
+            damage: 30,
             attack_range: 36.0,
             spawn_x: x,
             spawn_y: y,
@@ -219,9 +219,9 @@ impl Enemy {
         let aggro = AggroTable::new(350.0, 500.0);
         Self {
             id, transform: Transform::new(x, y),
-            hp: 120, max_hp: 120, speed: 45.0,
+            hp: 180, max_hp: 180, speed: 50.0,
             state: EntityState::Idle, facing: 0.0,
-            damage: 15, attack_range: 32.0,
+            damage: 25, attack_range: 32.0,
             spawn_x: x, spawn_y: y, fsm, aggro,
             has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::Archer,
@@ -274,9 +274,9 @@ impl Enemy {
         let aggro = AggroTable::new(250.0, 450.0);
         Self {
             id, transform: Transform::new(x, y),
-            hp: 350, max_hp: 350, speed: 50.0,
+            hp: 500, max_hp: 500, speed: 55.0,
             state: EntityState::Idle, facing: 0.0,
-            damage: 35, attack_range: 44.0,
+            damage: 45, attack_range: 44.0,
             spawn_x: x, spawn_y: y, fsm, aggro,
             has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::Knight,
@@ -341,9 +341,9 @@ impl Enemy {
         let aggro = AggroTable::new(300.0, 600.0);
         Self {
             id, transform: Transform::new(x, y),
-            hp: 600, max_hp: 600, speed: 70.0,
+            hp: 800, max_hp: 800, speed: 70.0,
             state: EntityState::Idle, facing: 0.0,
-            damage: 45, attack_range: 50.0,
+            damage: 55, attack_range: 50.0,
             spawn_x: x, spawn_y: y, fsm, aggro,
             has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::Knight,
@@ -401,9 +401,9 @@ impl Enemy {
         let aggro = AggroTable::new(280.0, 500.0);
         Self {
             id, transform: Transform::new(x, y),
-            hp: 150, max_hp: 150, speed: 100.0,
+            hp: 220, max_hp: 220, speed: 110.0,
             state: EntityState::Idle, facing: 0.0,
-            damage: 30, attack_range: 32.0,
+            damage: 40, attack_range: 32.0,
             spawn_x: x, spawn_y: y, fsm, aggro,
             has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::Assassin,
@@ -461,9 +461,9 @@ impl Enemy {
         let aggro = AggroTable::new(350.0, 550.0);
         Self {
             id, transform: Transform::new(x, y),
-            hp: 180, max_hp: 180, speed: 35.0,
+            hp: 250, max_hp: 250, speed: 40.0,
             state: EntityState::Idle, facing: 0.0,
-            damage: 40, attack_range: 60.0,
+            damage: 50, attack_range: 60.0,
             spawn_x: x, spawn_y: y, fsm, aggro,
             has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::DarkMage,
@@ -510,9 +510,9 @@ impl Enemy {
         let aggro = AggroTable::new(40.0, 600.0); // Short detection, long memory
         Self {
             id, transform: Transform::new(x, y),
-            hp: 450, max_hp: 450, speed: 55.0,
+            hp: 600, max_hp: 600, speed: 55.0,
             state: EntityState::Idle, facing: 0.0,
-            damage: 60, attack_range: 40.0,
+            damage: 70, attack_range: 40.0,
             spawn_x: x, spawn_y: y, fsm, aggro,
             has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::Mimic,

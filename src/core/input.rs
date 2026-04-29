@@ -17,6 +17,7 @@ pub enum KeyCode {
     K        = 75,
     L        = 76,
     S        = 83,
+    Q        = 81,
     Tab      = 9,
     W        = 87,
     Num1     = 49,
