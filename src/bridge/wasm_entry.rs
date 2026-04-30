@@ -2478,7 +2478,9 @@ fn load_area(game: &mut Game, area: AreaId) {
             carve_ellipse(&mut chunk, 96, 30, 22, 18);
             carve_ellipse(&mut chunk, 96, 30, 16, 12);
             for x in 70..119 { chunk.tiles[43][x] = TileId::Wall; }
-            fill_tiles(&mut chunk, TileId::Ground, 78, 41, 90, 45);
+            // Keep the arena entrance as a real door opening in the south wall so the fog gate
+            // visually reads as embedded in the wall rather than floating in front of it.
+            fill_tiles(&mut chunk, TileId::Ground, 76, 41, 88, 45);
             for x in 72..119 { chunk.tiles[10][x] = TileId::Wall; }
             for y in 10..51 { chunk.tiles[y][71] = TileId::Wall; chunk.tiles[y][118] = TileId::Wall; }
 
@@ -2534,7 +2536,7 @@ fn load_area(game: &mut Game, area: AreaId) {
             // Gundyr fog activates the boss; the upper-left Firelink door opens after he dies.
             let gundyr_defeated = game.bosses_defeated.iter().any(|b| b == "IudexGundyr");
             game.fog_gates = vec![
-                FogGate { x: 1312.0, y: 680.0, w: 192.0, h: 28.0, destination: AreaId::CemeteryOfAsh, dest_x: 1470.0, dest_y: 520.0, active: !gundyr_defeated },
+                FogGate { x: 1312.0, y: 688.0, w: 192.0, h: 28.0, destination: AreaId::CemeteryOfAsh, dest_x: 1470.0, dest_y: 520.0, active: !gundyr_defeated },
                 FogGate { x: 360.0, y: 160.0, w: 120.0, h: 32.0, destination: AreaId::FirelinkShrine, dest_x: 960.0, dest_y: 160.0, active: gundyr_defeated },
             ];
             // If Gundyr door was previously opened, keep it open
