@@ -25,17 +25,21 @@ use crate::world::tileset::{TileId, Tileset, TILE_SIZE};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
-#[derive(Clone, Copy, PartialEq, Debug)]
+#[derive(Clone, Copy, PartialEq, Debug, Eq, Hash)]
 enum AreaId {
-    FirelinkShrine,     // Hub
-    UndeadSettlement,   // Area 1
-    CathedralDeep,      // Area 2
-    Irithyll,           // Area 3
+    CemeteryOfAsh,
+    FirelinkShrine,
+    LothricWall,
+    UndeadSettlement,
+    CathedralDeep,
+    Irithyll,
 }
 
 fn area_name(area: AreaId) -> &'static str {
     match area {
+        AreaId::CemeteryOfAsh => "灰烬墓地",
         AreaId::FirelinkShrine => "传火祭祀场",
+        AreaId::LothricWall => "洛斯里克高墙",
         AreaId::UndeadSettlement => "不死聚落",
         AreaId::CathedralDeep => "幽邃教堂",
         AreaId::Irithyll => "冷冽谷的伊鲁席尔",
@@ -44,6 +48,8 @@ fn area_name(area: AreaId) -> &'static str {
 
 fn area_boss(area: AreaId) -> Option<BossType> {
     match area {
+        AreaId::CemeteryOfAsh => Some(BossType::IudexGundyr),
+        AreaId::LothricWall => Some(BossType::Vordt),
         AreaId::UndeadSettlement => Some(BossType::DemonKnight),
         AreaId::CathedralDeep => Some(BossType::Dragonrider),
         AreaId::Irithyll => Some(BossType::RuinSentinel),
@@ -52,6 +58,24 @@ fn area_boss(area: AreaId) -> Option<BossType> {
 }
 
 use crate::entity::boss::BossType;
+
+/// Stored area data — used to persist areas when switching between them
+struct StoredArea {
+    chunk: Chunk,
+    collision: CollisionGrid,
+    nav_grid: NavGrid,
+    enemies: Vec<Enemy>,
+    boss: Option<Boss>,
+    items: Vec<WorldItem>,
+    npcs: Vec<Npc>,
+    chests: Vec<TreasureChest>,
+    lights: Vec<Light>,
+    fog_gates: Vec<FogGate>,
+    bonfire_x: f32,
+    bonfire_y: f32,
+    boss_active: bool,
+    boss_defeated: bool,
+}
 
 struct Game {
     gl_ctx: GlContext,
@@ -80,6 +104,8 @@ struct Game {
     // Framebuffer for post-processing
     scene_fbo: web_sys::WebGlFramebuffer,
     scene_texture: web_sys::WebGlTexture,
+    // Secondary chunk for seamless neighbor rendering
+    neighbor_chunk: Option<(AreaId, Chunk, CollisionGrid)>,
     // Lights
     lights: Vec<Light>,
     // Game state
@@ -166,6 +192,10 @@ struct Game {
     // Inventory
     inventory: Vec<InventoryItem>,
     show_inventory: bool,
+    // Stored areas (for seamless transitions — Cemetery ↔ Firelink)
+    stored_areas: std::collections::HashMap<AreaId, StoredArea>,
+    // Gundyr door state (opened after defeating boss)
+    gundyr_door_open: bool,
 }
 
 struct WorldItem {
@@ -400,7 +430,7 @@ pub fn wasm_main() {
         tileset,
         collision,
         nav_grid,
-        area: AreaId::CathedralDeep,
+        area: AreaId::CemeteryOfAsh,
         fog_gates: vec![],
         bosses_defeated: vec![],
         ng_plus: 0,
@@ -512,6 +542,9 @@ pub fn wasm_main() {
                 kind: NpcKind::Merchant,
             },
         ],
+        neighbor_chunk: None,
+        stored_areas: std::collections::HashMap::new(),
+        gundyr_door_open: false,
     };
 
     unsafe {
@@ -1049,7 +1082,7 @@ fn update_title_screen(game: &mut Game) {
                     game.inventory = vec![];
                     game.has_bloodstain = false;
                     game.bloodstain_souls = 0;
-                    load_area(game, AreaId::FirelinkShrine);
+                    load_area(game, AreaId::CemeteryOfAsh);
                 }
                 MenuAction::Continue => {
                     if let Some(save) = save_manager::load_from_localstorage() {
@@ -1199,6 +1232,35 @@ fn update_playing(game: &mut Game, dt: f32) {
             game.player.transform.y = dy;
             game.camera.x = dx;
             game.camera.y = dy;
+            return;
+        }
+    }
+
+    // Seamless area boundary transitions (no fog gate — just walk across)
+    {
+        let (px, py) = game.player.position();
+        let map_size = CHUNK_SIZE as f32 * TILE_SIZE as f32; // 1920.0
+        if game.area == AreaId::CemeteryOfAsh && py > map_size - 32.0 {
+            // Player reached south edge of Cemetery → enter Firelink Shrine from north
+            // Store current area state
+            let player_hp_ratio = game.player.hp as f32 / game.player.max_hp as f32;
+            load_area(game, AreaId::FirelinkShrine);
+            game.player.transform.x = px;
+            game.player.transform.y = 32.0 + 16.0; // just inside north edge
+            game.player.hp = (game.player.max_hp as f32 * player_hp_ratio) as i32;
+            game.camera.x = game.player.transform.x;
+            game.camera.y = game.player.transform.y;
+            return;
+        }
+        if game.area == AreaId::FirelinkShrine && py < 32.0 {
+            // Player reached north edge of Firelink → enter Cemetery of Ash from south
+            let player_hp_ratio = game.player.hp as f32 / game.player.max_hp as f32;
+            load_area(game, AreaId::CemeteryOfAsh);
+            game.player.transform.x = px;
+            game.player.transform.y = map_size - 32.0 - 16.0;
+            game.player.hp = (game.player.max_hp as f32 * player_hp_ratio) as i32;
+            game.camera.x = game.player.transform.x;
+            game.camera.y = game.player.transform.y;
             return;
         }
     }
@@ -2007,6 +2069,8 @@ fn update_playing(game: &mut Game, dt: f32) {
                 game.boss_defeated = true;
                 // Track which boss was defeated
                 let boss_name = match boss.boss_type {
+                    BossType::IudexGundyr => "IudexGundyr",
+                    BossType::Vordt => "Vordt",
                     BossType::DemonKnight => "CurseRottedGreatwood",
                     BossType::Dragonrider => "DeaconsOfTheDeep",
                     BossType::RuinSentinel => "PontiffSulyvahn",
@@ -2300,6 +2364,110 @@ fn load_area(game: &mut Game, area: AreaId) {
     game.input_buffer_timer = 0.0;
 
     match area {
+        AreaId::CemeteryOfAsh => {
+            // Cemetery of Ash: Y-shaped tutorial area
+            // Chunk coord (0, -1) = north of Firelink Shrine
+            // Layout: start tomb → boss arena → central hub → south exit connects to Firelink
+            let mut chunk = Chunk::new((0, 0));
+            for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
+
+            // --- Starting tomb (enclosed room at north) ---
+            for y in 3..12 { for x in 50..70 { chunk.tiles[y][x] = TileId::Ground; } }
+            for x in 49..71 { chunk.tiles[2][x] = TileId::Wall; }
+            for x in 49..71 { chunk.tiles[12][x] = TileId::Wall; }
+            for y in 2..13 { chunk.tiles[y][49] = TileId::Wall; }
+            for y in 2..13 { chunk.tiles[y][70] = TileId::Wall; }
+
+            // --- Corridor: starting tomb → boss arena ---
+            for y in 12..18 { for x in 55..65 { chunk.tiles[y][x] = TileId::Ground; } }
+
+            // --- Boss arena (large rectangular area) ---
+            for y in 18..48 { for x in 35..85 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Boss arena walls — door at north (x:55..65) and south (x:55..65)
+            for x in 35..55 { chunk.tiles[17][x] = TileId::Wall; }
+            for x in 65..85 { chunk.tiles[17][x] = TileId::Wall; }
+            for x in 35..55 { chunk.tiles[48][x] = TileId::Wall; }
+            for x in 65..85 { chunk.tiles[48][x] = TileId::Wall; }
+            for y in 17..49 { chunk.tiles[y][34] = TileId::Wall; }
+            for y in 17..49 { chunk.tiles[y][85] = TileId::Wall; }
+            // Pillars inside arena
+            for x in 45..48 { for y in 25..28 { chunk.tiles[y][x] = TileId::Wall; } }
+            for x in 72..75 { for y in 25..28 { chunk.tiles[y][x] = TileId::Wall; } }
+            for x in 45..48 { for y in 38..41 { chunk.tiles[y][x] = TileId::Wall; } }
+            for x in 72..75 { for y in 38..41 { chunk.tiles[y][x] = TileId::Wall; } }
+
+            // --- Corridor: boss arena → central hub ---
+            for y in 48..58 { for x in 53..67 { chunk.tiles[y][x] = TileId::Ground; } }
+
+            // --- Central hub (large open area with shallow water) ---
+            for y in 58..90 { for x in 25..95 { chunk.tiles[y][x] = TileId::Ground; } }
+            for y in 65..78 { for x in 35..50 { chunk.tiles[y][x] = TileId::Poison; } }
+            for y in 67..75 { for x in 70..85 { chunk.tiles[y][x] = TileId::Poison; } }
+            for y in 70..73 { for x in 40..45 { chunk.tiles[y][x] = TileId::Ground; } }
+            for y in 70..73 { for x in 75..80 { chunk.tiles[y][x] = TileId::Ground; } }
+            for x in 30..34 { for y in 60..64 { chunk.tiles[y][x] = TileId::Wall; } }
+            for x in 86..90 { for y in 78..82 { chunk.tiles[y][x] = TileId::Wall; } }
+            for x in 40..45 { for y in 83..87 { chunk.tiles[y][x] = TileId::Wall; } }
+
+            // --- Southwest branch ---
+            for y in 90..105 { for x in 15..35 { chunk.tiles[y][x] = TileId::Ground; } }
+            for y in 105..115 { for x in 18..32 { chunk.tiles[y][x] = TileId::Ground; } }
+            for y in 94..102 { for x in 20..30 { chunk.tiles[y][x] = TileId::Poison; } }
+            for y in 94..102 { chunk.tiles[y][19] = TileId::Ground; }
+            for y in 94..102 { chunk.tiles[y][31] = TileId::Ground; }
+
+            // --- Southeast branch ---
+            for y in 90..100 { for x in 65..85 { chunk.tiles[y][x] = TileId::Ground; } }
+            for y in 100..110 { for x in 70..95 { chunk.tiles[y][x] = TileId::Ground; } }
+            for y in 110..115 { for x in 75..100 { chunk.tiles[y][x] = TileId::Ground; } }
+            for y in 92..97 { for x in 70..80 { chunk.tiles[y][x] = TileId::Poison; } }
+
+            // --- South exit path (connects to Firelink Shrine north edge) ---
+            // Open path centered at x:55..65, extending to the very south edge of the chunk
+            for y in 90..CHUNK_SIZE { for x in 53..67 { chunk.tiles[y][x] = TileId::Ground; } }
+
+            game.chunk = chunk;
+            game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
+            game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
+            game.player.transform.x = 960.0;
+            game.player.transform.y = 160.0;
+            game.player.hp = game.player.max_hp;
+            game.enemies = vec![];
+            game.items = vec![
+                WorldItem { x: 960.0, y: 120.0, kind: ItemKind::SoulOrb(100), collected: false },
+                WorldItem { x: 500.0, y: 1050.0, kind: ItemKind::SoulOrb(200), collected: false },
+                WorldItem { x: 560.0, y: 1150.0, kind: ItemKind::EstusShard, collected: false },
+                WorldItem { x: 1300.0, y: 1100.0, kind: ItemKind::SoulOrb(300), collected: false },
+                WorldItem { x: 400.0, y: 1650.0, kind: ItemKind::SoulOrb(200), collected: false },
+                WorldItem { x: 420.0, y: 1700.0, kind: ItemKind::HomewardBone, collected: false },
+                WorldItem { x: 1300.0, y: 1650.0, kind: ItemKind::PurpleMoss, collected: false },
+                WorldItem { x: 1400.0, y: 1750.0, kind: ItemKind::SoulOrb(500), collected: false },
+            ];
+            game.chests = vec![
+                TreasureChest { x: 1200.0, y: 1150.0, opened: false, loot: ItemKind::SoulOrb(500), is_mimic: false, mimic_revealed: false },
+                TreasureChest { x: 1450.0, y: 1800.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Dagger), is_mimic: false, mimic_revealed: false },
+            ];
+            game.npcs = vec![];
+            game.lights = vec![
+                Light { x: 960.0, y: 120.0, radius: 200.0, color: [0.9, 0.8, 0.5], intensity: 0.3 },
+                Light { x: 960.0, y: 560.0, radius: 300.0, color: [0.7, 0.5, 0.3], intensity: 0.25 },
+                Light { x: 700.0, y: 450.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.1 },
+                Light { x: 1200.0, y: 450.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.1 },
+                Light { x: 960.0, y: 1150.0, radius: 350.0, color: [0.6, 0.7, 0.8], intensity: 0.3 },
+                Light { x: 600.0, y: 1050.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 1300.0, y: 1100.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 400.0, y: 1550.0, radius: 150.0, color: [0.5, 0.5, 0.6], intensity: 0.1 },
+                Light { x: 1300.0, y: 1650.0, radius: 180.0, color: [0.5, 0.5, 0.6], intensity: 0.1 },
+            ];
+            game.bonfire_x = 0.0;
+            game.bonfire_y = 0.0;
+            // No fog gates to Firelink — seamless walk through south exit
+            // Boss fog gate only (activates Gundyr when entering arena)
+            let gundyr_defeated = game.bosses_defeated.iter().any(|b| b == "IudexGundyr");
+            game.fog_gates = vec![
+                FogGate { x: 896.0, y: 768.0, w: 128.0, h: 32.0, destination: AreaId::CemeteryOfAsh, dest_x: 960.0, dest_y: 576.0, active: !gundyr_defeated },
+            ];
+        }
         AreaId::FirelinkShrine => {
             // Firelink Shrine: hub with bonfire, NPCs, paths to other areas
             // Layout: central plaza with bonfire, buildings to west, cliff path east, sunken path south
@@ -2313,6 +2481,10 @@ fn load_area(game: &mut Game, area: AreaId) {
             for y in 20..35 { for x in 50..65 { chunk.tiles[y][x] = TileId::Ground; } }
             // Elevated platform (monument area)
             for y in 5..15 { for x in 20..35 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Northern entrance from Cemetery of Ash — aligned with Cemetery's south exit (x:53..67)
+            for y in 0..10 { for x in 53..67 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Connect north entrance to central plaza
+            for y in 8..15 { for x in 48..70 { chunk.tiles[y][x] = TileId::Ground; } }
             // Southern sunken path (toward Cathedral)
             for y in 38..55 { for x in 20..35 { chunk.tiles[y][x] = TileId::Ground; } }
             // Southeast path (toward Cathedral of the Deep)
@@ -2355,6 +2527,101 @@ fn load_area(game: &mut Game, area: AreaId) {
             game.fog_gates = vec![
                 FogGate { x: 855.0, y: 380.0, w: 64.0, h: 120.0, destination: AreaId::UndeadSettlement, dest_x: 200.0, dest_y: 200.0, active: true },
                 FogGate { x: 380.0, y: 700.0, w: 80.0, h: 32.0, destination: AreaId::CathedralDeep, dest_x: 200.0, dest_y: 200.0, active: true },
+                // No fog gate to Cemetery of Ash — seamless walk through north entrance
+            ];
+        }
+        AreaId::LothricWall => {
+            // Lothric Wall: high stone walls, dragon courtyard, Vordt boss
+            // Layout: entry ramparts → dragon courtyard → lower streets → boss arena
+            let mut chunk = Chunk::new((0, 0));
+            for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
+            // Entry ramparts (upper walls, narrow path)
+            for y in 5..25 { for x in 5..35 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Dragon courtyard (wide open area with dragon perch)
+            for y in 10..40 { for x in 30..70 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Dragon perch (elevated platform — wall-topped)
+            for y in 15..20 { for x in 55..65 { chunk.tiles[y][x] = TileId::Wall; } }
+            // Lower streets (winding path through ruins)
+            for y in 35..55 { for x in 20..55 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Side alleys
+            for y in 20..35 { for x in 65..90 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Market square
+            for y in 45..70 { for x in 40..80 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Underground passage
+            for y in 65..80 { for x in 50..65 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Boss arena (enclosed — Vordt)
+            for y in 80..105 { for x in 35..65 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Arena walls with north door (x:45..55)
+            for x in 35..45 { chunk.tiles[79][x] = TileId::Wall; }
+            for x in 55..65 { chunk.tiles[79][x] = TileId::Wall; }
+            for x in 35..65 { chunk.tiles[105][x] = TileId::Wall; }
+            for y in 79..106 { chunk.tiles[y][34] = TileId::Wall; }
+            for y in 79..106 { chunk.tiles[y][65] = TileId::Wall; }
+            // Debris in streets
+            for x in 25..30 { for y in 40..45 { chunk.tiles[y][x] = TileId::Wall; } }
+            for x in 70..75 { for y in 55..60 { chunk.tiles[y][x] = TileId::Wall; } }
+            // Bonfire near entry
+            game.bonfire_x = 200.0;
+            game.bonfire_y = 200.0;
+
+            game.chunk = chunk;
+            game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
+            game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
+            game.player.transform.x = 200.0;
+            game.player.transform.y = 200.0;
+            game.player.hp = (game.player.max_hp as f32 * player_hp_ratio) as i32;
+            game.enemies = vec![
+                // Entry ramparts
+                Enemy::new_hollow_soldier(2, 300.0, 150.0),
+                Enemy::new_archer(3, 400.0, 250.0),
+                // Dragon courtyard
+                Enemy::new_knight(4, 600.0, 300.0),
+                Enemy::new_hollow_soldier(5, 700.0, 400.0),
+                Enemy::new_archer(6, 800.0, 350.0),
+                // Side alleys
+                Enemy::new_assassin(7, 1200.0, 400.0),
+                Enemy::new_hollow_soldier(8, 1100.0, 500.0),
+                // Lower streets
+                Enemy::new_knight(9, 500.0, 650.0),
+                Enemy::new_dark_mage(10, 600.0, 750.0),
+                // Market square
+                Enemy::new_hollow_soldier(11, 700.0, 950.0),
+                Enemy::new_knight(12, 900.0, 1000.0),
+                Enemy::new_archer(13, 1000.0, 1100.0),
+                Enemy::new_dark_mage(14, 800.0, 1150.0),
+                // Near boss
+                Enemy::new_knight(15, 750.0, 1300.0),
+                Enemy::new_mini_boss(16, 800.0, 1400.0),
+            ];
+            game.items = vec![
+                WorldItem { x: 250.0, y: 200.0, kind: ItemKind::SoulOrb(200), collected: false },
+                WorldItem { x: 700.0, y: 350.0, kind: ItemKind::SoulOrb(300), collected: false },
+                WorldItem { x: 1200.0, y: 450.0, kind: ItemKind::EstusShard, collected: false },
+                WorldItem { x: 500.0, y: 700.0, kind: ItemKind::SoulOrb(200), collected: false },
+                WorldItem { x: 800.0, y: 1000.0, kind: ItemKind::PurpleMoss, collected: false },
+                WorldItem { x: 950.0, y: 1100.0, kind: ItemKind::SoulOrb(500), collected: false },
+                WorldItem { x: 700.0, y: 1350.0, kind: ItemKind::SoulOrb(1000), collected: false },
+                WorldItem { x: 600.0, y: 1500.0, kind: ItemKind::EstusShard, collected: false },
+            ];
+            game.chests = vec![
+                TreasureChest { x: 350.0, y: 300.0, opened: false, loot: ItemKind::SoulOrb(300), is_mimic: false, mimic_revealed: false },
+                TreasureChest { x: 1100.0, y: 500.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Spear), is_mimic: false, mimic_revealed: false },
+                TreasureChest { x: 900.0, y: 1050.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Chest, "Knight Armor".into()), is_mimic: true, mimic_revealed: false },
+                TreasureChest { x: 650.0, y: 1450.0, opened: false, loot: ItemKind::RingDrop("Steel Protection".into()), is_mimic: false, mimic_revealed: false },
+            ];
+            game.npcs = vec![];
+            game.lights = vec![
+                Light { x: 200.0, y: 200.0, radius: 250.0, color: [0.9, 0.8, 0.6], intensity: 0.4 },
+                Light { x: 700.0, y: 350.0, radius: 200.0, color: [0.5, 0.5, 0.7], intensity: 0.2 },
+                Light { x: 1000.0, y: 500.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 600.0, y: 700.0, radius: 200.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 800.0, y: 1050.0, radius: 200.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
+                Light { x: 900.0, y: 1400.0, radius: 220.0, color: [0.4, 0.5, 0.8], intensity: 0.25 },
+            ];
+            let vordt_defeated = game.bosses_defeated.iter().any(|b| b == "Vordt");
+            game.fog_gates = vec![
+                // Boss fog gate at arena north entrance
+                FogGate { x: 800.0, y: 1264.0, w: 128.0, h: 32.0, destination: AreaId::LothricWall, dest_x: 960.0, dest_y: 1500.0, active: !vordt_defeated },
             ];
         }
         AreaId::UndeadSettlement => {
@@ -2680,6 +2947,8 @@ fn load_area(game: &mut Game, area: AreaId) {
     game.boss_defeated = false;
     if let Some(boss_type) = area_boss(area) {
         let boss_name = match boss_type {
+            BossType::IudexGundyr => "IudexGundyr",
+            BossType::Vordt => "Vordt",
             BossType::DemonKnight => "CurseRottedGreatwood",
             BossType::Dragonrider => "DeaconsOfTheDeep",
             BossType::RuinSentinel => "PontiffSulyvahn",
@@ -2687,12 +2956,16 @@ fn load_area(game: &mut Game, area: AreaId) {
         let already_defeated = game.bosses_defeated.iter().any(|b| b == boss_name);
         if !already_defeated {
             let (cx, cy) = match area {
+                AreaId::CemeteryOfAsh => (960.0, 576.0),
+                AreaId::LothricWall => (960.0, 1500.0),
                 AreaId::UndeadSettlement => (960.0, 1600.0),
                 AreaId::CathedralDeep => (1280.0, 1040.0),
                 AreaId::Irithyll => (960.0, 1600.0),
                 _ => (400.0, 400.0),
             };
             let boss = match boss_type {
+                BossType::IudexGundyr => crate::entity::boss::Boss::new_iudex_gundyr(100, cx, cy),
+                BossType::Vordt => crate::entity::boss::Boss::new_vordt(100, cx, cy),
                 BossType::DemonKnight => crate::entity::boss::Boss::new_test_boss(100, cx, cy),
                 BossType::Dragonrider => crate::entity::boss::Boss::new_dragonrider(100, cx, cy),
                 BossType::RuinSentinel => crate::entity::boss::Boss::new_ruin_sentinel(100, cx, cy),
@@ -2703,6 +2976,8 @@ fn load_area(game: &mut Game, area: AreaId) {
     // Mark boss as defeated for current area (for fog gate deactivation)
     if let Some(boss_type) = area_boss(area) {
         let boss_name = match boss_type {
+            BossType::IudexGundyr => "IudexGundyr",
+            BossType::Vordt => "Vordt",
             BossType::DemonKnight => "CurseRottedGreatwood",
             BossType::Dragonrider => "DeaconsOfTheDeep",
             BossType::RuinSentinel => "PontiffSulyvahn",
@@ -2771,8 +3046,8 @@ fn update_travel_menu(game: &mut Game) {
     }
     if game.input.consume_pressed(KeyCode::Enter) {
         let idx = game.menu.selected_index;
-        let areas = [AreaId::FirelinkShrine, AreaId::UndeadSettlement, AreaId::CathedralDeep, AreaId::Irithyll];
-        if idx < 4 {
+        let areas = [AreaId::FirelinkShrine, AreaId::LothricWall, AreaId::UndeadSettlement, AreaId::CathedralDeep, AreaId::Irithyll];
+        if idx < 5 {
             load_area(game, areas[idx]);
         } else {
             // Back

@@ -159,6 +159,7 @@ impl MenuState {
             selected_index: 0,
             items: vec![
                 MenuItem { label: "传火祭祀场".into(), action: MenuAction::Travel },
+                MenuItem { label: "洛斯里克高墙".into(), action: MenuAction::Travel },
                 MenuItem { label: "不死聚落".into(), action: MenuAction::Travel },
                 MenuItem { label: "幽邃教堂".into(), action: MenuAction::Travel },
                 MenuItem { label: "冷冽谷的伊鲁席尔".into(), action: MenuAction::Travel },

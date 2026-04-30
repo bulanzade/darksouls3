@@ -8,6 +8,8 @@ use web_sys::WebGl2RenderingContext as GL;
 
 #[derive(Clone, Copy, PartialEq)]
 pub enum BossType {
+    IudexGundyr,
+    Vordt,
     DemonKnight,
     Dragonrider,
     RuinSentinel,
@@ -177,6 +179,94 @@ impl Boss {
         }
     }
 
+    pub fn new_iudex_gundyr(id: EntityId, x: f32, y: f32) -> Self {
+        let phases = vec![
+            BossPhase {
+                health_threshold: 1.0,
+                speed_multiplier: 1.0,
+                damage_multiplier: 1.0,
+                attack_cooldown: 2.5,
+                new_attack_damage: 25,
+                phase_name: "Phase 1".into(),
+            },
+            BossPhase {
+                health_threshold: 0.5,
+                speed_multiplier: 1.3,
+                damage_multiplier: 1.2,
+                attack_cooldown: 2.0,
+                new_attack_damage: 40,
+                phase_name: "Phase 2 - Pus of Man".into(),
+            },
+        ];
+
+        Self {
+            id,
+            transform: Transform::new(x, y),
+            hp: 800,
+            max_hp: 800,
+            speed: 35.0,
+            state: EntityState::Idle,
+            facing: 0.0,
+            damage: 35,
+            boss_ctrl: BossController::new(phases),
+            aggro: AggroTable::new(300.0, 500.0),
+            attack_timer: 0.0,
+            attack_duration: 0.8,
+            stagger_timer: 0.0,
+            has_hit_this_attack: false,
+            flash_timer: 0.0,
+            is_charging: false,
+            charge_speed: 250.0,
+            boss_type: BossType::IudexGundyr,
+            name: "灰烬审判者古达".into(),
+            boss_activated: false,
+        }
+    }
+
+    pub fn new_vordt(id: EntityId, x: f32, y: f32) -> Self {
+        let phases = vec![
+            BossPhase {
+                health_threshold: 1.0,
+                speed_multiplier: 1.1,
+                damage_multiplier: 1.0,
+                attack_cooldown: 2.0,
+                new_attack_damage: 35,
+                phase_name: "Phase 1".into(),
+            },
+            BossPhase {
+                health_threshold: 0.4,
+                speed_multiplier: 1.5,
+                damage_multiplier: 1.3,
+                attack_cooldown: 1.5,
+                new_attack_damage: 50,
+                phase_name: "Phase 2 - Beast".into(),
+            },
+        ];
+
+        Self {
+            id,
+            transform: Transform::new(x, y),
+            hp: 1100,
+            max_hp: 1100,
+            speed: 45.0,
+            state: EntityState::Idle,
+            facing: 0.0,
+            damage: 45,
+            boss_ctrl: BossController::new(phases),
+            aggro: AggroTable::new(350.0, 550.0),
+            attack_timer: 0.0,
+            attack_duration: 0.7,
+            stagger_timer: 0.0,
+            has_hit_this_attack: false,
+            flash_timer: 0.0,
+            is_charging: false,
+            charge_speed: 300.0,
+            boss_type: BossType::Vordt,
+            name: "冷冽谷的波尔多".into(),
+            boss_activated: false,
+        }
+    }
+
     pub fn update_ai(&mut self, target_x: f32, target_y: f32, dt: f32) {
         if self.is_dead() || !self.boss_activated {
             return;
@@ -241,6 +331,18 @@ impl Boss {
                     self.has_hit_this_attack = false;
 
                     match self.boss_type {
+                        BossType::Vordt => {
+                            // Ice mace charge — fast, wide sweep
+                            self.attack_timer = 0.7;
+                            self.is_charging = true;
+                            self.attack_duration = 0.7;
+                        }
+                        BossType::IudexGundyr => {
+                            // Halberd sweep — medium charge, balanced damage
+                            self.attack_timer = 0.8;
+                            self.is_charging = true;
+                            self.attack_duration = 0.8;
+                        }
                         BossType::DemonKnight => {
                             // Ground slam — short charge, big damage
                             self.attack_timer = 1.0;
@@ -271,6 +373,8 @@ impl Boss {
         if self.attack_timer > 0.0 {
             if self.is_charging {
                 let charge_mult = match self.boss_type {
+                    BossType::Vordt => 1.8,          // Fast charging beast
+                    BossType::IudexGundyr => 1.2,     // Moderate charge
                     BossType::DemonKnight => 1.0,    // Slow charge, big hitbox
                     BossType::Dragonrider => 2.0,     // Fast charge
                     BossType::RuinSentinel => 1.5,    // Medium leap
@@ -326,6 +430,8 @@ impl Entity for Boss {
     fn render(&self, batcher: &mut SpriteBatcher, texture: &Texture, gl: &GL) {
         let phase_idx = self.boss_ctrl.current_phase_index();
         let (base_size, idle_color, move_color) = match self.boss_type {
+            BossType::Vordt => (50.0, [0.4f32,0.5,0.7], [0.5f32,0.6,0.8]),
+            BossType::IudexGundyr => (46.0, [0.6f32,0.6,0.5], [0.7f32,0.7,0.6]),
             BossType::DemonKnight => (48.0, [0.8f32,0.2,0.8], [0.9f32,0.3,0.9]),
             BossType::Dragonrider => (52.0, [0.8f32,0.4,0.1], [0.9f32,0.5,0.2]),
             BossType::RuinSentinel => (44.0, [0.3f32,0.5,0.8], [0.4f32,0.6,0.9]),
