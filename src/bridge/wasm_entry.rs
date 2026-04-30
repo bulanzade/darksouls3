@@ -196,6 +196,8 @@ struct Game {
     stored_areas: std::collections::HashMap<AreaId, StoredArea>,
     // Gundyr door state (opened after defeating boss)
     gundyr_door_open: bool,
+    // Vordt defeated — demon transport pending
+    vordt_transport_done: bool,
 }
 
 struct WorldItem {
@@ -545,6 +547,7 @@ pub fn wasm_main() {
         neighbor_chunk: None,
         stored_areas: std::collections::HashMap::new(),
         gundyr_door_open: false,
+        vordt_transport_done: false,
     };
 
     unsafe {
@@ -1138,6 +1141,11 @@ fn update_title_screen(game: &mut Game) {
     }
 }
 
+fn rebuild_collision(game: &mut Game) {
+    game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
+    game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
+}
+
 fn update_playing(game: &mut Game, dt: f32) {
     // Hitstop: freeze game logic for a few frames
     if game.hitstop_timer > 0.0 {
@@ -1151,6 +1159,17 @@ fn update_playing(game: &mut Game, dt: f32) {
     } else {
         dt
     };
+
+    if game.area == AreaId::LothricWall && game.boss_defeated && !game.vordt_transport_done && game.slow_motion_timer <= 0.0 {
+        game.vordt_transport_done = true;
+        load_area(game, AreaId::UndeadSettlement);
+        game.player.transform.x = 960.0;
+        game.player.transform.y = 200.0;
+        game.camera.x = 960.0;
+        game.camera.y = 200.0;
+        game.pickup_notification = Some(("恶魔将你运送至不死聚落...".into(), 3.0));
+        return;
+    }
 
     let mv = game.input.movement();
     let shift_held = game.input.held(KeyCode::Shift);
@@ -1882,10 +1901,18 @@ fn update_playing(game: &mut Game, dt: f32) {
         enemy.set_position(rx, ry);
     }
 
-    // Boss AI update
+    // Boss AI update — during intro, boss stays in place
     if let Some(ref mut boss) = game.boss {
         if !boss.is_dead() {
-            boss.update_ai(px, py, dt);
+            if game.boss_intro_timer > 0.0 {
+                // Intro animation: boss stands still, only face the player
+                let dx = px - boss.transform.x;
+                let dy = py - boss.transform.y;
+                boss.facing = dy.atan2(dx);
+                boss.state = EntityState::Idle;
+            } else {
+                boss.update_ai(px, py, dt);
+            }
         }
         if boss.flash_timer > 0.0 {
             boss.flash_timer -= dt;
@@ -2050,6 +2077,7 @@ fn update_playing(game: &mut Game, dt: f32) {
     }
 
     // --- Combat: player vs boss ---
+    let mut gundyr_door = false;
     if let Some(ref mut boss) = game.boss {
         let (bx, by) = boss.position();
         let dist = ((px - bx) * (px - bx) + (py - by) * (py - by)).sqrt();
@@ -2078,6 +2106,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                 if !game.bosses_defeated.iter().any(|b| b == boss_name) {
                     game.bosses_defeated.push(boss_name.into());
                 }
+                let gundyr_door = boss.boss_type == BossType::IudexGundyr && !game.gundyr_door_open;
                 // Deactivate boss fog gates
                 for gate in &mut game.fog_gates {
                     if gate.destination == game.area {
@@ -2096,7 +2125,7 @@ fn update_playing(game: &mut Game, dt: f32) {
         }
 
         // Boss attacks player — skip during intro
-        if *boss.state() == EntityState::Attacking && dist < 48.0 && !boss.has_hit_this_attack && game.boss_intro_timer <= 0.0 {
+        if *boss.state() == EntityState::Attacking && dist < boss.attack_hit_range && !boss.has_hit_this_attack && game.boss_intro_timer <= 0.0 {
             if *game.player.state() != EntityState::Rolling {
                 let dmg = DamageInfo {
                     damage: boss.damage,
@@ -2126,6 +2155,15 @@ fn update_playing(game: &mut Game, dt: f32) {
                 boss.has_hit_this_attack = true;
             }
         }
+    }
+
+    // Open Gundyr's door after defeat
+    if gundyr_door {
+        game.gundyr_door_open = true;
+        for x in 53..67 {
+            game.chunk.tiles[48][x] = TileId::Ground;
+        }
+        rebuild_collision(game);
     }
 
     // --- Spawn boss when mini-boss (last enemy) is killed ---
@@ -2383,11 +2421,11 @@ fn load_area(game: &mut Game, area: AreaId) {
 
             // --- Boss arena (large rectangular area) ---
             for y in 18..48 { for x in 35..85 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Boss arena walls — door at north (x:55..65) and south (x:55..65)
+            // Boss arena walls — entrance at north (x:55..65), door at south (x:55..65, opens after defeating Gundyr)
             for x in 35..55 { chunk.tiles[17][x] = TileId::Wall; }
             for x in 65..85 { chunk.tiles[17][x] = TileId::Wall; }
-            for x in 35..55 { chunk.tiles[48][x] = TileId::Wall; }
-            for x in 65..85 { chunk.tiles[48][x] = TileId::Wall; }
+            // South wall — door is initially closed (wall tiles), opens after boss defeat
+            for x in 35..85 { chunk.tiles[48][x] = TileId::Wall; }
             for y in 17..49 { chunk.tiles[y][34] = TileId::Wall; }
             for y in 17..49 { chunk.tiles[y][85] = TileId::Wall; }
             // Pillars inside arena
@@ -2396,8 +2434,8 @@ fn load_area(game: &mut Game, area: AreaId) {
             for x in 45..48 { for y in 38..41 { chunk.tiles[y][x] = TileId::Wall; } }
             for x in 72..75 { for y in 38..41 { chunk.tiles[y][x] = TileId::Wall; } }
 
-            // --- Corridor: boss arena → central hub ---
-            for y in 48..58 { for x in 53..67 { chunk.tiles[y][x] = TileId::Ground; } }
+            // --- Corridor: boss arena → central hub (starts at y=49, y=48 is the door wall) ---
+            for y in 49..58 { for x in 53..67 { chunk.tiles[y][x] = TileId::Ground; } }
 
             // --- Central hub (large open area with shallow water) ---
             for y in 58..90 { for x in 25..95 { chunk.tiles[y][x] = TileId::Ground; } }
@@ -2465,8 +2503,16 @@ fn load_area(game: &mut Game, area: AreaId) {
             // Boss fog gate only (activates Gundyr when entering arena)
             let gundyr_defeated = game.bosses_defeated.iter().any(|b| b == "IudexGundyr");
             game.fog_gates = vec![
-                FogGate { x: 896.0, y: 768.0, w: 128.0, h: 32.0, destination: AreaId::CemeteryOfAsh, dest_x: 960.0, dest_y: 576.0, active: !gundyr_defeated },
+                // North entrance fog gate — activates boss when player enters arena
+                FogGate { x: 960.0, y: 288.0, w: 160.0, h: 32.0, destination: AreaId::CemeteryOfAsh, dest_x: 960.0, dest_y: 320.0, active: !gundyr_defeated },
             ];
+            // If Gundyr door was previously opened, keep it open
+            if game.gundyr_door_open {
+                for x in 53..67 {
+                    game.chunk.tiles[48][x] = TileId::Ground;
+                }
+                rebuild_collision(game);
+            }
         }
         AreaId::FirelinkShrine => {
             // Firelink Shrine: hub with bonfire, NPCs, paths to other areas
@@ -4162,10 +4208,10 @@ fn update_dom_ui(game: &Game) {
         }
     }
 
-    // Boss name
+    // Boss name — only show when boss is activated
     if let Some(el) = document.get_element_by_id("boss-name") {
         if let Some(ref boss) = game.boss {
-            if !boss.is_dead() {
+            if !boss.is_dead() && boss.boss_activated {
                 if game.boss_intro_timer > 0.0 {
                     // Boss intro animation: big text fades in/out
                     let t = game.boss_intro_timer;
