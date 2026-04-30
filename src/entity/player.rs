@@ -1,6 +1,5 @@
 use crate::combat::stamina::StaminaPool;
 use crate::combat::weapon::Weapon;
-use crate::core::input::{InputState, KeyCode};
 use crate::core::transform::Transform;
 use crate::entity::entity_trait::{DamageInfo, Entity, EntityId, EntityState};
 use crate::render::sprite_batcher::SpriteBatcher;
@@ -266,7 +265,6 @@ impl Entity for Player {
             }
             EntityState::Staggered => (0, [1.0, 0.2, 0.2, 1.0]),
             EntityState::Dead => (0, [0.3, 0.3, 0.3, 0.5]),
-            _ => (0, [1.0, 1.0, 1.0, 1.0]),
         };
 
         if self.flash_timer > 0.0 {

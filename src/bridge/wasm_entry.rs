@@ -3,7 +3,7 @@ use crate::core::camera::Camera2D;
 use crate::core::input::InputState;
 use crate::core::input::KeyCode;
 use crate::core::time::{Time, FIXED_DT};
-use crate::ai::state_machine::{STAGGERED, RANGED_ATTACK};
+use crate::ai::state_machine::STAGGERED;
 use crate::entity::boss::Boss;
 use crate::entity::enemy::Enemy;
 use crate::entity::entity_trait::{DamageInfo, Entity, EntityId, EntityState};
@@ -57,9 +57,14 @@ fn area_boss(area: AreaId) -> Option<BossType> {
     }
 }
 
+fn area_has_bonfire(area: AreaId) -> bool {
+    area != AreaId::CemeteryOfAsh
+}
+
 use crate::entity::boss::BossType;
 
 /// Stored area data — used to persist areas when switching between them
+#[allow(dead_code)]
 struct StoredArea {
     chunk: Chunk,
     collision: CollisionGrid,
@@ -77,6 +82,7 @@ struct StoredArea {
     boss_defeated: bool,
 }
 
+#[allow(dead_code)]
 struct Game {
     gl_ctx: GlContext,
     batcher: SpriteBatcher,
@@ -218,6 +224,7 @@ enum ItemKind {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+#[allow(dead_code)]
 enum ArmorSlot {
     Head,
     Chest,
@@ -232,6 +239,7 @@ struct InventoryItem {
 }
 
 #[derive(Clone, Debug)]
+#[allow(dead_code)]
 enum InventoryItemKind {
     Weapon(crate::combat::weapon::WeaponType),
     Armor(ArmorSlot, String),
@@ -323,6 +331,7 @@ struct Npc {
 }
 
 #[derive(Clone, Copy, PartialEq)]
+#[allow(dead_code)]
 enum NpcKind {
     LevelUp,      // Emerald Herald — spend souls to level up
     Merchant,     // Buy items with souls
@@ -1113,10 +1122,13 @@ fn update_title_screen(game: &mut Game) {
                         game.bosses_defeated = save.bosses_defeated.clone();
                         // Determine saved area and load it
                         let saved_area = match save.current_room.as_str() {
+                            "CemeteryOfAsh" => AreaId::CemeteryOfAsh,
                             "FirelinkShrine" | "Majula" => AreaId::FirelinkShrine,
+                            "LothricWall" => AreaId::LothricWall,
                             "UndeadSettlement" | "ForestOfGiants" => AreaId::UndeadSettlement,
+                            "CathedralDeep" => AreaId::CathedralDeep,
                             "Irithyll" | "LostBastille" => AreaId::Irithyll,
-                            _ => AreaId::CathedralDeep,
+                            _ => AreaId::FirelinkShrine,
                         };
                         load_area(game, saved_area);
                         game.player.transform.x = save.player_x;
@@ -1144,6 +1156,32 @@ fn update_title_screen(game: &mut Game) {
 fn rebuild_collision(game: &mut Game) {
     game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
     game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
+}
+
+fn fill_tiles(chunk: &mut Chunk, tile: TileId, x1: usize, y1: usize, x2: usize, y2: usize) {
+    debug_assert!(x1 <= x2 && y1 <= y2, "fill_tiles: inverted bounds ({x1},{y1})-({x2},{y2})");
+    let max = CHUNK_SIZE - 1;
+    for y in y1.min(max)..=y2.min(max) {
+        for x in x1.min(max)..=x2.min(max) {
+            chunk.tiles[y][x] = tile;
+        }
+    }
+}
+
+fn carve_ellipse(chunk: &mut Chunk, cx: i32, cy: i32, rx: i32, ry: i32) {
+    let min_y = (cy - ry).max(0) as usize;
+    let max_y = (cy + ry).min(CHUNK_SIZE as i32 - 1) as usize;
+    let min_x = (cx - rx).max(0) as usize;
+    let max_x = (cx + rx).min(CHUNK_SIZE as i32 - 1) as usize;
+    for y in min_y..=max_y {
+        for x in min_x..=max_x {
+            let nx = (x as i32 - cx) as f32 / rx as f32;
+            let ny = (y as i32 - cy) as f32 / ry as f32;
+            if nx * nx + ny * ny <= 1.0 {
+                chunk.tiles[y][x] = TileId::Ground;
+            }
+        }
+    }
 }
 
 fn update_playing(game: &mut Game, dt: f32) {
@@ -1201,7 +1239,7 @@ fn update_playing(game: &mut Game, dt: f32) {
     }
 
     // Bonfire interaction (skip for first 0.5s after state change)
-    if interact && game.state_timer > 0.5 {
+    if interact && game.state_timer > 0.5 && area_has_bonfire(game.area) {
         let (px, py) = game.player.position();
         let dx = px - game.bonfire_x;
         let dy = py - game.bonfire_y;
@@ -1234,8 +1272,12 @@ fn update_playing(game: &mut Game, dt: f32) {
                 break;
             }
         }
-        if let Some((_bx, _by)) = boss_spawn {
-            // Activate existing boss (pre-spawned at arena center)
+        if let Some((bx, by)) = boss_spawn {
+            // Enter the boss room through the fog door, then activate the pre-spawned boss.
+            game.player.transform.x = bx;
+            game.player.transform.y = by;
+            game.camera.x = bx;
+            game.camera.y = by;
             if let Some(ref mut boss) = game.boss {
                 if !boss.boss_activated && !boss.is_dead() {
                     boss.boss_activated = true;
@@ -1715,6 +1757,15 @@ fn update_playing(game: &mut Game, dt: f32) {
                     best = Some((e.id(), d));
                 }
             }
+            if let Some(boss) = game.boss.as_ref() {
+                if !boss.is_dead() && boss.boss_activated {
+                    let (bx, by) = boss.position();
+                    let d = ((px - bx) * (px - bx) + (py - by) * (py - by)).sqrt();
+                    if best.map_or(true, |(_, bd)| d < bd) {
+                        best = Some((boss.id(), d));
+                    }
+                }
+            }
             if let Some((id, _)) = best {
                 game.lock_on_target = Some(id);
             }
@@ -1925,8 +1976,6 @@ fn update_playing(game: &mut Game, dt: f32) {
     let is_heavy = game.player.is_heavy_attack;
     let attack_range = if is_heavy { 56.0 } else { 40.0 };
     let attack_damage = if is_heavy { game.player.damage() * 2 } else { game.player.damage() };
-    let attack_knockback = if is_heavy { 12.0 } else { 6.0 };
-
     for enemy in &mut game.enemies {
         if enemy.is_dead() {
             continue;
@@ -1941,13 +1990,6 @@ fn update_playing(game: &mut Game, dt: f32) {
                 (attack_damage as f32 * 0.3) as i32
             } else {
                 attack_damage
-            };
-            let dmg = DamageInfo {
-                damage: final_damage,
-                knockback_x: 0.0,
-                knockback_y: 0.0,
-                poise_damage: if is_heavy { 40.0 } else { 20.0 },
-                attacker_id: game.player.id(),
             };
             // Check for riposte (parried enemy — allow during riposte window)
             let is_riposte = game.riposte_timer > 0.0 && game.riposte_target_id == enemy.id();
@@ -2084,7 +2126,7 @@ fn update_playing(game: &mut Game, dt: f32) {
 
         if player_attacking && dist < attack_range + 16.0 && game.boss_intro_timer <= 0.0 {
             let dmg = DamageInfo {
-                damage: if is_heavy { attack_damage * 2 } else { game.player.damage() * 2 },
+                damage: attack_damage,
                 knockback_x: 0.0,
                 knockback_y: 0.0,
                 poise_damage: if is_heavy { 40.0 } else { 20.0 },
@@ -2106,15 +2148,15 @@ fn update_playing(game: &mut Game, dt: f32) {
                 if !game.bosses_defeated.iter().any(|b| b == boss_name) {
                     game.bosses_defeated.push(boss_name.into());
                 }
-                let gundyr_door = boss.boss_type == BossType::IudexGundyr && !game.gundyr_door_open;
+                gundyr_door = boss.boss_type == BossType::IudexGundyr && !game.gundyr_door_open;
                 // Deactivate boss fog gates
                 for gate in &mut game.fog_gates {
                     if gate.destination == game.area {
                         gate.active = false;
                     }
                 }
-                // Check if all bosses defeated — game complete
-                if game.bosses_defeated.len() >= 3 {
+                // Check if all five area bosses are defeated — game complete
+                if game.bosses_defeated.len() >= 5 {
                     game.state = GameState::Victory;
                 }
                 game.souls += 5000;
@@ -2125,7 +2167,7 @@ fn update_playing(game: &mut Game, dt: f32) {
         }
 
         // Boss attacks player — skip during intro
-        if *boss.state() == EntityState::Attacking && dist < boss.attack_hit_range && !boss.has_hit_this_attack && game.boss_intro_timer <= 0.0 {
+        if boss.current_attack_can_hit(px, py) && game.boss_intro_timer <= 0.0 {
             if *game.player.state() != EntityState::Rolling {
                 let dmg = DamageInfo {
                     damage: boss.damage,
@@ -2135,7 +2177,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                     attacker_id: boss.id(),
                 };
 
-                if game.player.is_parrying() {
+                if game.player.is_parrying() && boss.current_attack_can_be_parried() {
                     boss.state = EntityState::Staggered;
                     boss.stagger_timer = 2.0;
                     game.riposte_timer = 2.0;
@@ -2144,7 +2186,9 @@ fn update_playing(game: &mut Game, dt: f32) {
                     game.stagger_bursts.push(BlockSpark { x: (px + bx) * 0.5, y: (py + by) * 0.5, timer: 0.3 });
                     game.audio.play_sfx("hit", 0.18, 0.0);
                 } else if *game.player.state() == EntityState::Blocking {
-                    game.damage_taken += (boss.damage as f32 * 0.3) as u32;
+                    let chip = (boss.damage as f32 * 0.3) as i32;
+                    game.player.take_damage(&DamageInfo { damage: chip, ..dmg });
+                    game.damage_taken += chip as u32;
                     game.audio.play_sfx("hit", 0.1, 0.0);
                 } else {
                     game.player.take_damage(&dmg);
@@ -2160,9 +2204,7 @@ fn update_playing(game: &mut Game, dt: f32) {
     // Open Gundyr's door after defeat
     if gundyr_door {
         game.gundyr_door_open = true;
-        for x in 53..67 {
-            game.chunk.tiles[48][x] = TileId::Ground;
-        }
+        fill_tiles(&mut game.chunk, TileId::Ground, 52, 111, 68, 119);
         rebuild_collision(game);
     }
 
@@ -2244,8 +2286,8 @@ fn update_playing(game: &mut Game, dt: f32) {
     let boss_aggro = game.boss.as_ref().map_or(false, |b| !b.is_dead() && b.aggro.has_target());
     game.audio.set_combat_music(any_aggro || boss_aggro);
 
-    // Check victory — only if all 3 bosses defeated
-    if game.boss_defeated && game.bosses_defeated.len() >= 3 && game.slow_motion_timer <= 0.0 {
+    // Check victory — only if all five area bosses are defeated
+    if game.boss_defeated && game.bosses_defeated.len() >= 5 && game.slow_motion_timer <= 0.0 {
         game.state = GameState::Victory;
         game.audio.play_sfx("victory", 0.12, 0.0);
     }
@@ -2403,114 +2445,92 @@ fn load_area(game: &mut Game, area: AreaId) {
 
     match area {
         AreaId::CemeteryOfAsh => {
-            // Cemetery of Ash: Y-shaped tutorial area
-            // Chunk coord (0, -1) = north of Firelink Shrine
-            // Layout: start tomb → boss arena → central hub → south exit connects to Firelink
             let mut chunk = Chunk::new((0, 0));
             for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
 
-            // --- Starting tomb (enclosed room at north) ---
-            for y in 3..12 { for x in 50..70 { chunk.tiles[y][x] = TileId::Ground; } }
-            for x in 49..71 { chunk.tiles[2][x] = TileId::Wall; }
-            for x in 49..71 { chunk.tiles[12][x] = TileId::Wall; }
-            for y in 2..13 { chunk.tiles[y][49] = TileId::Wall; }
-            for y in 2..13 { chunk.tiles[y][70] = TileId::Wall; }
+            carve_ellipse(&mut chunk, 60, 8, 14, 5);
+            fill_tiles(&mut chunk, TileId::Ground, 54, 8, 66, 21);
+            carve_ellipse(&mut chunk, 51, 21, 12, 7);
+            fill_tiles(&mut chunk, TileId::Ground, 43, 20, 58, 33);
+            fill_tiles(&mut chunk, TileId::Ground, 37, 29, 50, 42);
 
-            // --- Corridor: starting tomb → boss arena ---
-            for y in 12..18 { for x in 55..65 { chunk.tiles[y][x] = TileId::Ground; } }
+            carve_ellipse(&mut chunk, 35, 43, 11, 8);
+            fill_tiles(&mut chunk, TileId::Ground, 29, 42, 44, 58);
+            carve_ellipse(&mut chunk, 43, 59, 14, 9);
+            fill_tiles(&mut chunk, TileId::Ground, 40, 56, 60, 68);
 
-            // --- Boss arena (large rectangular area) ---
-            for y in 18..48 { for x in 35..85 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Boss arena walls — entrance at north (x:55..65), door at south (x:55..65, opens after defeating Gundyr)
-            for x in 35..55 { chunk.tiles[17][x] = TileId::Wall; }
-            for x in 65..85 { chunk.tiles[17][x] = TileId::Wall; }
-            // South wall — door is initially closed (wall tiles), opens after boss defeat
-            for x in 35..85 { chunk.tiles[48][x] = TileId::Wall; }
-            for y in 17..49 { chunk.tiles[y][34] = TileId::Wall; }
-            for y in 17..49 { chunk.tiles[y][85] = TileId::Wall; }
-            // Pillars inside arena
-            for x in 45..48 { for y in 25..28 { chunk.tiles[y][x] = TileId::Wall; } }
-            for x in 72..75 { for y in 25..28 { chunk.tiles[y][x] = TileId::Wall; } }
-            for x in 45..48 { for y in 38..41 { chunk.tiles[y][x] = TileId::Wall; } }
-            for x in 72..75 { for y in 38..41 { chunk.tiles[y][x] = TileId::Wall; } }
+            fill_tiles(&mut chunk, TileId::Ground, 55, 23, 72, 32);
+            fill_tiles(&mut chunk, TileId::Ground, 70, 25, 84, 43);
+            carve_ellipse(&mut chunk, 86, 45, 12, 10);
+            fill_tiles(&mut chunk, TileId::Poison, 82, 42, 90, 49);
+            fill_tiles(&mut chunk, TileId::Ground, 84, 44, 88, 47);
 
-            // --- Corridor: boss arena → central hub (starts at y=49, y=48 is the door wall) ---
-            for y in 49..58 { for x in 53..67 { chunk.tiles[y][x] = TileId::Ground; } }
+            carve_ellipse(&mut chunk, 59, 73, 20, 12);
+            fill_tiles(&mut chunk, TileId::Ground, 52, 66, 68, 82);
+            fill_tiles(&mut chunk, TileId::Ground, 61, 78, 70, 88);
 
-            // --- Central hub (large open area with shallow water) ---
-            for y in 58..90 { for x in 25..95 { chunk.tiles[y][x] = TileId::Ground; } }
-            for y in 65..78 { for x in 35..50 { chunk.tiles[y][x] = TileId::Poison; } }
-            for y in 67..75 { for x in 70..85 { chunk.tiles[y][x] = TileId::Poison; } }
-            for y in 70..73 { for x in 40..45 { chunk.tiles[y][x] = TileId::Ground; } }
-            for y in 70..73 { for x in 75..80 { chunk.tiles[y][x] = TileId::Ground; } }
-            for x in 30..34 { for y in 60..64 { chunk.tiles[y][x] = TileId::Wall; } }
-            for x in 86..90 { for y in 78..82 { chunk.tiles[y][x] = TileId::Wall; } }
-            for x in 40..45 { for y in 83..87 { chunk.tiles[y][x] = TileId::Wall; } }
+            fill_tiles(&mut chunk, TileId::Ground, 55, 84, 68, 92);
+            carve_ellipse(&mut chunk, 60, 96, 27, 19);
+            carve_ellipse(&mut chunk, 60, 96, 20, 14);
+            for x in 33..88 { chunk.tiles[90][x] = TileId::Wall; }
+            fill_tiles(&mut chunk, TileId::Ground, 54, 88, 66, 92);
+            for x in 33..88 { chunk.tiles[116][x] = TileId::Wall; }
+            for y in 90..116 { chunk.tiles[y][32] = TileId::Wall; chunk.tiles[y][88] = TileId::Wall; }
 
-            // --- Southwest branch ---
-            for y in 90..105 { for x in 15..35 { chunk.tiles[y][x] = TileId::Ground; } }
-            for y in 105..115 { for x in 18..32 { chunk.tiles[y][x] = TileId::Ground; } }
-            for y in 94..102 { for x in 20..30 { chunk.tiles[y][x] = TileId::Poison; } }
-            for y in 94..102 { chunk.tiles[y][19] = TileId::Ground; }
-            for y in 94..102 { chunk.tiles[y][31] = TileId::Ground; }
+            fill_tiles(&mut chunk, TileId::Wall, 42, 84, 45, 87);
+            fill_tiles(&mut chunk, TileId::Wall, 75, 86, 78, 89);
+            fill_tiles(&mut chunk, TileId::Wall, 38, 101, 41, 104);
+            fill_tiles(&mut chunk, TileId::Wall, 79, 102, 82, 105);
+            fill_tiles(&mut chunk, TileId::Wall, 52, 112, 55, 114);
+            fill_tiles(&mut chunk, TileId::Wall, 66, 112, 69, 114);
 
-            // --- Southeast branch ---
-            for y in 90..100 { for x in 65..85 { chunk.tiles[y][x] = TileId::Ground; } }
-            for y in 100..110 { for x in 70..95 { chunk.tiles[y][x] = TileId::Ground; } }
-            for y in 110..115 { for x in 75..100 { chunk.tiles[y][x] = TileId::Ground; } }
-            for y in 92..97 { for x in 70..80 { chunk.tiles[y][x] = TileId::Poison; } }
-
-            // --- South exit path (connects to Firelink Shrine north edge) ---
-            // Open path centered at x:55..65, extending to the very south edge of the chunk
-            for y in 90..CHUNK_SIZE { for x in 53..67 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Blocked until Gundyr is defeated.
+            fill_tiles(&mut chunk, TileId::Ground, 54, 106, 66, 119);
+            for x in 52..69 { chunk.tiles[111][x] = TileId::Wall; }
 
             game.chunk = chunk;
             game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
             game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
             game.player.transform.x = 960.0;
-            game.player.transform.y = 160.0;
+            game.player.transform.y = 128.0;
             game.player.hp = game.player.max_hp;
-            game.enemies = vec![];
+            game.enemies = vec![
+                Enemy::new_hollow_soldier(2, 800.0, 360.0),
+                Enemy::new_hollow_soldier(3, 610.0, 680.0),
+                Enemy::new_archer(4, 1320.0, 700.0),
+                Enemy::new_knight(5, 880.0, 1080.0),
+                Enemy::new_hollow_soldier(6, 1120.0, 1340.0),
+            ];
             game.items = vec![
                 WorldItem { x: 960.0, y: 120.0, kind: ItemKind::SoulOrb(100), collected: false },
-                WorldItem { x: 500.0, y: 1050.0, kind: ItemKind::SoulOrb(200), collected: false },
-                WorldItem { x: 560.0, y: 1150.0, kind: ItemKind::EstusShard, collected: false },
-                WorldItem { x: 1300.0, y: 1100.0, kind: ItemKind::SoulOrb(300), collected: false },
-                WorldItem { x: 400.0, y: 1650.0, kind: ItemKind::SoulOrb(200), collected: false },
-                WorldItem { x: 420.0, y: 1700.0, kind: ItemKind::HomewardBone, collected: false },
-                WorldItem { x: 1300.0, y: 1650.0, kind: ItemKind::PurpleMoss, collected: false },
-                WorldItem { x: 1400.0, y: 1750.0, kind: ItemKind::SoulOrb(500), collected: false },
+                WorldItem { x: 690.0, y: 520.0, kind: ItemKind::SoulOrb(150), collected: false },
+                WorldItem { x: 1380.0, y: 720.0, kind: ItemKind::EstusShard, collected: false },
+                WorldItem { x: 900.0, y: 1160.0, kind: ItemKind::HomewardBone, collected: false },
+                WorldItem { x: 620.0, y: 1500.0, kind: ItemKind::SoulOrb(300), collected: false },
             ];
             game.chests = vec![
-                TreasureChest { x: 1200.0, y: 1150.0, opened: false, loot: ItemKind::SoulOrb(500), is_mimic: false, mimic_revealed: false },
-                TreasureChest { x: 1450.0, y: 1800.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Dagger), is_mimic: false, mimic_revealed: false },
+                TreasureChest { x: 1370.0, y: 760.0, opened: false, loot: ItemKind::SoulOrb(500), is_mimic: false, mimic_revealed: false },
             ];
             game.npcs = vec![];
             game.lights = vec![
-                Light { x: 960.0, y: 120.0, radius: 200.0, color: [0.9, 0.8, 0.5], intensity: 0.3 },
-                Light { x: 960.0, y: 560.0, radius: 300.0, color: [0.7, 0.5, 0.3], intensity: 0.25 },
-                Light { x: 700.0, y: 450.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.1 },
-                Light { x: 1200.0, y: 450.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.1 },
-                Light { x: 960.0, y: 1150.0, radius: 350.0, color: [0.6, 0.7, 0.8], intensity: 0.3 },
-                Light { x: 600.0, y: 1050.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
-                Light { x: 1300.0, y: 1100.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
-                Light { x: 400.0, y: 1550.0, radius: 150.0, color: [0.5, 0.5, 0.6], intensity: 0.1 },
-                Light { x: 1300.0, y: 1650.0, radius: 180.0, color: [0.5, 0.5, 0.6], intensity: 0.1 },
+                Light { x: 960.0, y: 128.0, radius: 190.0, color: [0.82, 0.78, 0.62], intensity: 0.22 },
+                Light { x: 690.0, y: 720.0, radius: 160.0, color: [0.78, 0.58, 0.34], intensity: 0.14 },
+                Light { x: 960.0, y: 1180.0, radius: 300.0, color: [0.95, 0.72, 0.38], intensity: 0.34 },
+                Light { x: 1370.0, y: 720.0, radius: 180.0, color: [0.55, 0.75, 0.9], intensity: 0.18 },
+                Light { x: 960.0, y: 1530.0, radius: 360.0, color: [0.55, 0.52, 0.62], intensity: 0.22 },
+                Light { x: 960.0, y: 1820.0, radius: 220.0, color: [0.72, 0.62, 0.48], intensity: 0.18 },
             ];
-            game.bonfire_x = 0.0;
-            game.bonfire_y = 0.0;
+            game.bonfire_x = -10000.0;
+            game.bonfire_y = -10000.0;
             // No fog gates to Firelink — seamless walk through south exit
             // Boss fog gate only (activates Gundyr when entering arena)
             let gundyr_defeated = game.bosses_defeated.iter().any(|b| b == "IudexGundyr");
             game.fog_gates = vec![
-                // North entrance fog gate — activates boss when player enters arena
-                FogGate { x: 960.0, y: 288.0, w: 160.0, h: 32.0, destination: AreaId::CemeteryOfAsh, dest_x: 960.0, dest_y: 320.0, active: !gundyr_defeated },
+                FogGate { x: 960.0, y: 1448.0, w: 192.0, h: 28.0, destination: AreaId::CemeteryOfAsh, dest_x: 960.0, dest_y: 1528.0, active: !gundyr_defeated },
             ];
             // If Gundyr door was previously opened, keep it open
             if game.gundyr_door_open {
-                for x in 53..67 {
-                    game.chunk.tiles[48][x] = TileId::Ground;
-                }
+                fill_tiles(&mut game.chunk, TileId::Ground, 52, 111, 68, 119);
                 rebuild_collision(game);
             }
         }
@@ -3002,7 +3022,7 @@ fn load_area(game: &mut Game, area: AreaId) {
         let already_defeated = game.bosses_defeated.iter().any(|b| b == boss_name);
         if !already_defeated {
             let (cx, cy) = match area {
-                AreaId::CemeteryOfAsh => (960.0, 576.0),
+                AreaId::CemeteryOfAsh => (960.0, 1540.0),
                 AreaId::LothricWall => (960.0, 1500.0),
                 AreaId::UndeadSettlement => (960.0, 1600.0),
                 AreaId::CathedralDeep => (1280.0, 1040.0),
@@ -3178,9 +3198,9 @@ fn render(game: &mut Game) {
     }
 
     // --- Draw bonfire ---
-    {
+    if area_has_bonfire(game.area) {
         // Warm glow aura (pulsing)
-        let pulse = ((game.time.accumulator as f32 * 1.5).sin() * 0.15 + 0.85);
+        let pulse = (game.time.accumulator as f32 * 1.5).sin() * 0.15 + 0.85;
         game.batcher.draw(
             InstanceData::new(game.bonfire_x, game.bonfire_y, 64.0 * pulse, 64.0 * pulse, [0.0, 0.0, 1.0, 1.0], [0.9, 0.6, 0.1, 0.12]),
             &game.white_tex, gl,
@@ -3200,7 +3220,7 @@ fn render(game: &mut Game) {
 
     // --- Draw fog gates as doorways ---
     {
-        let pulse = ((game.time.accumulator as f32 * 1.2).sin() * 0.1 + 0.9);
+        let pulse = (game.time.accumulator as f32 * 1.2).sin() * 0.1 + 0.9;
         for gate in &game.fog_gates {
             if !gate.active { continue; }
             let is_boss = gate.destination == game.area;
@@ -3269,7 +3289,7 @@ fn render(game: &mut Game) {
     // --- Draw wall torches (at light positions, skip player light [0] and bonfire light [1]) ---
     for i in 2..game.lights.len() {
         let light = &game.lights[i];
-        let flicker = ((game.time.accumulator as f32 * (3.0 + i as f32 * 0.7)).sin() * 0.2 + 0.8);
+        let flicker = (game.time.accumulator as f32 * (3.0 + i as f32 * 0.7)).sin() * 0.2 + 0.8;
         // Torch bracket (brown)
         game.batcher.draw(
             InstanceData::new(light.x, light.y - 6.0, 6.0, 8.0, [0.0, 0.0, 1.0, 1.0], [0.5, 0.35, 0.2, 1.0]),
@@ -3334,7 +3354,7 @@ fn render(game: &mut Game) {
 
     // --- Draw bloodstain ---
     if game.has_bloodstain {
-        let pulse = ((game.time.accumulator as f32).sin() * 0.3 + 0.7);
+        let pulse = (game.time.accumulator as f32).sin() * 0.3 + 0.7;
         // Glow
         game.batcher.draw(
             InstanceData::new(game.bloodstain_x, game.bloodstain_y, 32.0 * pulse, 32.0 * pulse, [0.0, 0.0, 1.0, 1.0], [0.8, 0.1, 0.1, 0.2 * pulse]),
@@ -3538,7 +3558,7 @@ fn render(game: &mut Game) {
     }
 
     if let Some(ref boss) = game.boss {
-        if !boss.is_dead() {
+        if !boss.is_dead() && boss.boss_activated {
             boss.render(&mut game.batcher, &game.boss_tex, gl);
             // Health bar above boss
             let (bx, by) = boss.position();
@@ -3710,7 +3730,7 @@ fn render(game: &mut Game) {
 
     // --- Poison overlay ---
     if game.player.poison_timer > 0.0 {
-        let pulse = ((game.time.accumulator as f32 * 2.0).sin() * 0.1 + 0.15);
+        let pulse = (game.time.accumulator as f32 * 2.0).sin() * 0.1 + 0.15;
         game.ui_renderer.draw_bar(
             gl, game.screen_w * 0.5, game.screen_h * 0.5,
             game.screen_w, game.screen_h,
@@ -3751,7 +3771,7 @@ fn render(game: &mut Game) {
 
     // Boss HP bar (center top)
     if let Some(ref boss) = game.boss {
-        if !boss.is_dead() {
+        if !boss.is_dead() && boss.boss_activated {
             let boss_hp_ratio = boss.hp as f32 / boss.max_hp as f32;
             let boss_bar_w = 400.0;
             let boss_bar_x = game.screen_w * 0.5; // center of screen
@@ -3939,12 +3959,14 @@ fn render(game: &mut Game) {
         }
 
         // Bonfire dot (orange)
-        let bfx = map_left + game.bonfire_x * scale;
-        let bfy = map_top + game.bonfire_y * scale;
-        game.ui_renderer.draw_bar(
-            gl, bfx, bfy, 4.0, 4.0,
-            1.0, [1.0, 0.7, 0.2, 1.0], [1.0, 0.7, 0.2, 1.0], &ui_proj,
-        );
+        if area_has_bonfire(game.area) {
+            let bfx = map_left + game.bonfire_x * scale;
+            let bfy = map_top + game.bonfire_y * scale;
+            game.ui_renderer.draw_bar(
+                gl, bfx, bfy, 4.0, 4.0,
+                1.0, [1.0, 0.7, 0.2, 1.0], [1.0, 0.7, 0.2, 1.0], &ui_proj,
+            );
+        }
     }
 
     // --- Menu overlay bars (background darkening for title/death/victory) ---
@@ -4107,7 +4129,7 @@ fn update_dom_ui(game: &Game) {
             game.player.weapon.name
         );
         // Bonfire proximity hint
-        if game.state == GameState::Playing {
+        if game.state == GameState::Playing && area_has_bonfire(game.area) {
             let (px, py) = game.player.position();
             let dx = px - game.bonfire_x;
             let dy = py - game.bonfire_y;
@@ -4265,6 +4287,10 @@ fn update_dom_ui(game: &Game) {
                 None => None,
             };
             if let Some(ctx) = ctx {
+                #[allow(deprecated)]
+                fn fill_style(ctx: &web_sys::CanvasRenderingContext2d, color: &str) {
+                    ctx.set_fill_style(&color.into());
+                }
                 let mm_w = 120.0_f64;
                 let mm_h = 120.0_f64;
                 let scale_x = mm_w / (CHUNK_SIZE as f64 * TILE_SIZE as f64);
@@ -4284,7 +4310,7 @@ fn update_dom_ui(game: &Game) {
                             TileId::Poison => "#2a3a1a",
                             _ => continue,
                         };
-                        ctx.set_fill_style(&color.into());
+                        fill_style(&ctx, color);
                         let mx = tx as f64 * TILE_SIZE as f64 * scale;
                         let my = ty as f64 * TILE_SIZE as f64 * scale;
                         let s = 2.0 * TILE_SIZE as f64 * scale;
@@ -4293,7 +4319,7 @@ fn update_dom_ui(game: &Game) {
                 }
 
                 // Draw enemies as red dots
-                ctx.set_fill_style(&"#c44".into());
+                fill_style(&ctx, "#c44");
                 for enemy in &game.enemies {
                     if enemy.is_dead() { continue; }
                     let (ex, ey) = enemy.position();
@@ -4305,7 +4331,7 @@ fn update_dom_ui(game: &Game) {
                 // Draw boss as large red dot
                 if let Some(ref boss) = game.boss {
                     if !boss.is_dead() {
-                        ctx.set_fill_style(&"#f80".into());
+                        fill_style(&ctx, "#f80");
                         let (bx, by) = boss.position();
                         ctx.begin_path();
                         let _ = ctx.arc(bx as f64 * scale, by as f64 * scale, 3.0, 0.0, std::f64::consts::TAU);
@@ -4314,7 +4340,7 @@ fn update_dom_ui(game: &Game) {
                 }
 
                 // Draw fog gates as blue bars
-                ctx.set_fill_style(&"#48f".into());
+                fill_style(&ctx, "#48f");
                 for gate in &game.fog_gates {
                     if !gate.active { continue; }
                     let gx = gate.x as f64 * scale;
@@ -4325,16 +4351,18 @@ fn update_dom_ui(game: &Game) {
                 }
 
                 // Draw player as bright dot
-                ctx.set_fill_style(&"#0f0".into());
+                fill_style(&ctx, "#0f0");
                 ctx.begin_path();
                 let _ = ctx.arc(px as f64 * scale, py as f64 * scale, 2.5, 0.0, std::f64::consts::TAU);
                 ctx.fill();
 
                 // Draw bonfire as yellow dot
-                ctx.set_fill_style(&"#e8c840".into());
-                ctx.begin_path();
-                let _ = ctx.arc(game.bonfire_x as f64 * scale, game.bonfire_y as f64 * scale, 2.0, 0.0, std::f64::consts::TAU);
-                ctx.fill();
+                if area_has_bonfire(game.area) {
+                    fill_style(&ctx, "#e8c840");
+                    ctx.begin_path();
+                    let _ = ctx.arc(game.bonfire_x as f64 * scale, game.bonfire_y as f64 * scale, 2.0, 0.0, std::f64::consts::TAU);
+                    ctx.fill();
+                }
             }
         }
     } else if let Some(minimap_el) = document.get_element_by_id("minimap-canvas") {

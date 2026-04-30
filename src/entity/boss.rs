@@ -66,6 +66,142 @@ pub struct Boss {
 }
 
 impl Boss {
+    pub fn attack_progress(&self) -> f32 {
+        if self.attack_duration <= 0.0 {
+            return 0.0;
+        }
+        (1.0 - self.attack_timer / self.attack_duration).clamp(0.0, 1.0)
+    }
+
+    pub fn current_attack_can_be_parried(&self) -> bool {
+        matches!(
+            self.current_attack,
+            BossAttack::HalberdOverhead
+                | BossAttack::ShoulderCharge
+                | BossAttack::HalberdSweep
+                | BossAttack::IceMaceCharge
+                | BossAttack::ChargeAttack
+                | BossAttack::ComboSlash
+                | BossAttack::ThrustAttack
+        )
+    }
+
+    pub fn current_attack_can_hit(&self, target_x: f32, target_y: f32) -> bool {
+        if self.state != EntityState::Attacking || self.has_hit_this_attack {
+            return false;
+        }
+
+        let t = self.attack_progress();
+        if !self.attack_active_at(t) {
+            return false;
+        }
+
+        let dx = target_x - self.transform.x;
+        let dy = target_y - self.transform.y;
+        let dist_sq = dx * dx + dy * dy;
+        let forward = dx * self.facing.cos() + dy * self.facing.sin();
+        let side = -dx * self.facing.sin() + dy * self.facing.cos();
+
+        match self.current_attack {
+            BossAttack::HalberdOverhead => in_front(forward, side, -10.0, 95.0, 32.0),
+            BossAttack::ShoulderCharge => in_front(forward, side, -18.0, 74.0, 38.0),
+            BossAttack::HalberdSweep => dist_sq <= 108.0 * 108.0 && forward > -38.0,
+            BossAttack::IceMaceCharge => in_front(forward, side, -14.0, 92.0, 44.0),
+            BossAttack::IceBreadth => forward > 8.0 && forward < 132.0 && side.abs() < forward * 0.55 + 20.0,
+            BossAttack::LeapingSlam => dist_sq <= 116.0 * 116.0,
+            BossAttack::GroundSlam => dist_sq <= 110.0 * 110.0,
+            BossAttack::SweepAttack => dist_sq <= 104.0 * 104.0 && forward > -42.0,
+            BossAttack::BodySlam => in_front(forward, side, -8.0, 105.0, 58.0),
+            BossAttack::FlameBurst => forward > 32.0 && forward < 178.0 && side.abs() < 30.0 + forward * 0.12,
+            BossAttack::ChargeAttack => in_front(forward, side, -14.0, 88.0, 36.0),
+            BossAttack::HolyGround => dist_sq <= 126.0 * 126.0,
+            BossAttack::ComboSlash => dist_sq <= 82.0 * 82.0 && forward > -24.0 && side.abs() < 72.0,
+            BossAttack::ThrustAttack => in_front(forward, side, 12.0, 150.0, 26.0),
+            BossAttack::ShadowClone => {
+                in_front(forward, side, 10.0, 112.0, 42.0)
+                    || in_front(forward, side, 42.0, 150.0, 56.0)
+            }
+        }
+    }
+
+    fn attack_active_at(&self, t: f32) -> bool {
+        match self.current_attack {
+            BossAttack::HalberdOverhead => (0.44..=0.68).contains(&t),
+            BossAttack::ShoulderCharge => (0.16..=0.88).contains(&t),
+            BossAttack::HalberdSweep => (0.34..=0.78).contains(&t),
+            BossAttack::IceMaceCharge => (0.20..=0.90).contains(&t),
+            BossAttack::IceBreadth => (0.38..=0.96).contains(&t),
+            BossAttack::LeapingSlam => (0.54..=0.78).contains(&t),
+            BossAttack::GroundSlam => (0.44..=0.70).contains(&t),
+            BossAttack::SweepAttack => (0.30..=0.74).contains(&t),
+            BossAttack::BodySlam => (0.52..=0.82).contains(&t),
+            BossAttack::FlameBurst => (0.42..=0.76).contains(&t),
+            BossAttack::ChargeAttack => (0.16..=0.88).contains(&t),
+            BossAttack::HolyGround => (0.54..=0.78).contains(&t),
+            BossAttack::ComboSlash => (0.18..=0.38).contains(&t) || (0.56..=0.80).contains(&t),
+            BossAttack::ThrustAttack => (0.34..=0.72).contains(&t),
+            BossAttack::ShadowClone => (0.54..=0.86).contains(&t),
+        }
+    }
+
+    fn choose_attack(&mut self, dist: f32) -> BossAttack {
+        let phase = self.boss_ctrl.current_phase_index();
+        let seq = self.attack_index;
+        self.attack_index += 1;
+
+        match self.boss_type {
+            BossType::IudexGundyr => {
+                if dist > 118.0 {
+                    BossAttack::ShoulderCharge
+                } else if phase > 0 && seq % 3 != 1 {
+                    BossAttack::HalberdSweep
+                } else if seq % 2 == 0 {
+                    BossAttack::HalberdOverhead
+                } else {
+                    BossAttack::HalberdSweep
+                }
+            }
+            BossType::Vordt => {
+                if phase > 0 && seq % 3 == 0 {
+                    BossAttack::IceMaceCharge
+                } else if dist < 82.0 {
+                    BossAttack::IceBreadth
+                } else if seq % 2 == 0 {
+                    BossAttack::LeapingSlam
+                } else {
+                    BossAttack::IceMaceCharge
+                }
+            }
+            BossType::DemonKnight => {
+                if dist > 105.0 {
+                    BossAttack::BodySlam
+                } else if phase > 1 || seq % 3 == 0 {
+                    BossAttack::GroundSlam
+                } else {
+                    BossAttack::SweepAttack
+                }
+            }
+            BossType::Dragonrider => {
+                if dist > 125.0 {
+                    BossAttack::FlameBurst
+                } else if phase > 0 && seq % 2 == 0 {
+                    BossAttack::HolyGround
+                } else {
+                    BossAttack::ChargeAttack
+                }
+            }
+            BossType::RuinSentinel => {
+                if phase > 0 && seq % 4 == 0 {
+                    BossAttack::ShadowClone
+                } else if dist > 86.0 {
+                    BossAttack::ThrustAttack
+                } else {
+                    BossAttack::ComboSlash
+                }
+            }
+        }
+    }
+
     pub fn new_test_boss(id: EntityId, x: f32, y: f32) -> Self {
         let phases = vec![
             BossPhase {
@@ -335,8 +471,9 @@ impl Boss {
         let hp_ratio = self.hp as f32 / self.max_hp as f32;
         let directive = self.boss_ctrl.update(hp_ratio, dt);
 
-        self.damage = self.boss_ctrl.current_phase().new_attack_damage;
-        let speed_multiplier = self.boss_ctrl.current_phase().speed_multiplier;
+        let phase = self.boss_ctrl.current_phase();
+        self.damage = (phase.new_attack_damage as f32 * phase.damage_multiplier) as i32;
+        let speed_multiplier = phase.speed_multiplier;
 
         // Tick attack timer first
         if self.attack_timer > 0.0 {
@@ -430,44 +567,7 @@ impl Boss {
                     self.state = EntityState::Attacking;
                     self.has_hit_this_attack = false;
 
-                    let attack = match self.boss_type {
-                        BossType::IudexGundyr => {
-                            match self.attack_index % 3 {
-                                0 => BossAttack::HalberdOverhead,
-                                1 => BossAttack::ShoulderCharge,
-                                _ => BossAttack::HalberdSweep,
-                            }
-                        }
-                        BossType::Vordt => {
-                            match self.attack_index % 3 {
-                                0 => BossAttack::IceMaceCharge,
-                                1 => BossAttack::IceBreadth,
-                                _ => BossAttack::LeapingSlam,
-                            }
-                        }
-                        BossType::DemonKnight => {
-                            match self.attack_index % 3 {
-                                0 => BossAttack::GroundSlam,
-                                1 => BossAttack::SweepAttack,
-                                _ => BossAttack::BodySlam,
-                            }
-                        }
-                        BossType::Dragonrider => {
-                            match self.attack_index % 3 {
-                                0 => BossAttack::FlameBurst,
-                                1 => BossAttack::ChargeAttack,
-                                _ => BossAttack::HolyGround,
-                            }
-                        }
-                        BossType::RuinSentinel => {
-                            match self.attack_index % 3 {
-                                0 => BossAttack::ComboSlash,
-                                1 => BossAttack::ThrustAttack,
-                                _ => BossAttack::ShadowClone,
-                            }
-                        }
-                    };
-                    self.attack_index += 1;
+                    let attack = self.choose_attack(dist);
 
                     self.current_attack = attack;
                     self.is_charging = false;
@@ -538,11 +638,6 @@ impl Boss {
                             self.attack_duration = 1.5;
                             self.attack_hit_range = 110.0;
                             self.is_charging = false;
-                        }
-                        BossAttack::HolyGround => {
-                            self.attack_timer = 1.5;
-                            self.attack_duration = 1.5;
-                            self.attack_hit_range = 110.0;
                         }
                         BossAttack::ComboSlash => {
                             self.attack_timer = 0.5;
@@ -637,6 +732,111 @@ impl Entity for Boss {
             0.0
         };
 
+        let dir_x = self.facing.cos();
+        let dir_y = self.facing.sin();
+        let side_x = -dir_y;
+        let side_y = dir_x;
+
+        // Boss identity silhouettes: weapon/limb layers stay visible even outside active hit frames.
+        match self.boss_type {
+            BossType::IudexGundyr => {
+                let carry = if self.state == EntityState::Attacking { -0.12 } else { -0.65 };
+                draw_rect(
+                    batcher, texture, gl,
+                    self.transform.x + dir_x * 20.0 + side_x * 10.0,
+                    self.transform.y + dir_y * 20.0 + side_y * 10.0,
+                    size * 1.55, size * 0.10,
+                    self.facing + carry,
+                    [0.62, 0.58, 0.48, 0.95],
+                );
+                draw_rect(
+                    batcher, texture, gl,
+                    self.transform.x + dir_x * 58.0 + side_x * 14.0,
+                    self.transform.y + dir_y * 58.0 + side_y * 14.0,
+                    size * 0.42, size * 0.24,
+                    self.facing + carry,
+                    [0.78, 0.76, 0.66, 0.95],
+                );
+                if phase_idx > 0 {
+                    for i in 0..5 {
+                        let a = self.facing + (i as f32 - 2.0) * 0.55;
+                        draw_rect(
+                            batcher, texture, gl,
+                            self.transform.x - dir_x * 4.0 + a.cos() * (size * 0.55),
+                            self.transform.y - dir_y * 4.0 + a.sin() * (size * 0.55),
+                            size * 0.62, size * 0.12,
+                            a,
+                            [0.06, 0.02, 0.08, 0.55],
+                        );
+                    }
+                }
+            }
+            BossType::Vordt => {
+                draw_rect(
+                    batcher, texture, gl,
+                    self.transform.x + dir_x * 28.0,
+                    self.transform.y + dir_y * 28.0,
+                    size * 0.72, size * 0.45,
+                    self.facing,
+                    [0.45, 0.62, 0.92, 0.58],
+                );
+                for i in 0..3 {
+                    let back = 18.0 + i as f32 * 14.0;
+                    draw_rect(
+                        batcher, texture, gl,
+                        self.transform.x - dir_x * back + side_x * ((i as f32 - 1.0) * 9.0),
+                        self.transform.y - dir_y * back + side_y * ((i as f32 - 1.0) * 9.0),
+                        size * 0.55, size * 0.08,
+                        self.facing,
+                        [0.55, 0.85, 1.0, 0.22],
+                    );
+                }
+            }
+            BossType::DemonKnight => {
+                for (ox, oy, rot) in [(-22.0, -8.0, -0.25), (20.0, 6.0, 0.18), (-10.0, 22.0, 0.04)] {
+                    draw_rect(
+                        batcher, texture, gl,
+                        self.transform.x + ox,
+                        self.transform.y + oy,
+                        size * 0.72, size * 0.12,
+                        self.facing + rot,
+                        [0.24, 0.10, 0.18, 0.72],
+                    );
+                }
+            }
+            BossType::Dragonrider => {
+                for (ox, oy) in [(-20.0, -12.0), (0.0, -18.0), (20.0, -10.0), (-12.0, 16.0), (14.0, 15.0)] {
+                    draw_rect(
+                        batcher, texture, gl,
+                        self.transform.x + ox,
+                        self.transform.y + oy,
+                        size * 0.34, size * 0.46,
+                        0.0,
+                        [0.62, 0.12, 0.08, 0.72],
+                    );
+                }
+            }
+            BossType::RuinSentinel => {
+                let glow = if phase_idx > 0 { 0.82 } else { 0.55 };
+                draw_rect(
+                    batcher, texture, gl,
+                    self.transform.x + dir_x * 28.0 + side_x * 13.0,
+                    self.transform.y + dir_y * 28.0 + side_y * 13.0,
+                    size * 1.05, size * 0.08,
+                    self.facing + 0.12,
+                    [0.45, 0.72, 1.0, glow],
+                );
+                draw_rect(
+                    batcher, texture, gl,
+                    self.transform.x + dir_x * 26.0 - side_x * 13.0,
+                    self.transform.y + dir_y * 26.0 - side_y * 13.0,
+                    size * 0.95, size * 0.08,
+                    self.facing - 0.16,
+                    [0.82, 0.38, 0.98, glow],
+                );
+            }
+        }
+
         // Charge trail effect (behind boss)
         if self.is_charging && self.state == EntityState::Attacking {
             for i in 1..4 {
@@ -652,66 +852,50 @@ impl Entity for Boss {
             }
         }
 
-        // Squash/stretch
         let (sx, sy) = if self.state == EntityState::Attacking {
             match self.current_attack {
-                // Overhead: windup = stretch tall, hit = squash wide
                 BossAttack::HalberdOverhead => {
                     if t < 0.4 { (0.85, 1.2 + t) } else { (1.3, 0.7) }
                 }
-                // Shoulder charge: lean forward, compress
                 BossAttack::ShoulderCharge => {
                     (0.8 + t * 0.5, 0.9 - t * 0.2)
                 }
-                // Sweep: wide stretch horizontally
                 BossAttack::HalberdSweep => {
                     if t < 0.3 { (1.2, 0.9) } else { (1.4, 0.8) }
                 }
-                // Ice mace: forward lean
                 BossAttack::IceMaceCharge => {
                     (0.9 + t * 0.4, 0.85)
                 }
-                // Ice breadth: puff up then release
                 BossAttack::IceBreadth => {
                     if t < 0.4 { (1.15, 1.15) } else { (0.9, 0.9) }
                 }
-                // Leap: jump up (shrink) then slam down (wide)
                 BossAttack::LeapingSlam => {
                     if t < 0.5 { (0.7, 0.6) } else { (1.5, 1.3) }
                 }
-                // Ground slam: raise then smash
                 BossAttack::GroundSlam => {
                     if t < 0.4 { (0.9, 1.3) } else { (1.4, 0.7) }
                 }
-                // Sweep: wide
                 BossAttack::SweepAttack => {
                     if t < 0.3 { (1.1, 0.9) } else { (1.3, 0.75) }
                 }
-                // Body slam: shrink then expand
                 BossAttack::BodySlam => {
                     if t < 0.5 { (0.7, 0.7) } else { (1.4, 1.3) }
                 }
-                // Flame: puff up
                 BossAttack::FlameBurst => {
                     if t < 0.5 { (1.1, 1.1) } else { (0.95, 0.95) }
                 }
-                // Charge: lean
                 BossAttack::ChargeAttack => {
                     (0.8 + t * 0.5, 0.9 - t * 0.15)
                 }
-                // Holy ground: float up then slam
                 BossAttack::HolyGround => {
                     if t < 0.5 { (0.9, 1.2) } else { (1.3, 0.8) }
                 }
-                // Combo: quick stretches
                 BossAttack::ComboSlash => {
                     if t < 0.3 { (1.2, 0.85) } else if t < 0.6 { (0.85, 1.0) } else { (1.2, 0.85) }
                 }
-                // Thrust: elongate forward
                 BossAttack::ThrustAttack => {
                     if t < 0.3 { (0.8, 1.1) } else { (1.4, 0.7) }
                 }
-                // Shadow clone: split effect
                 BossAttack::ShadowClone => {
                     if t < 0.5 { (1.0, 1.0) } else { (0.9, 0.9) }
                 }
@@ -724,11 +908,47 @@ impl Entity for Boss {
             (1.0, 1.0)
         };
 
+        let (body_forward, body_side) = if self.state == EntityState::Attacking {
+            match self.current_attack {
+                BossAttack::HalberdOverhead => {
+                    if t < 0.45 { (-7.0, 5.0) } else { (11.0, 0.0) }
+                }
+                BossAttack::ShoulderCharge | BossAttack::IceMaceCharge | BossAttack::ChargeAttack => (10.0, 0.0),
+                BossAttack::HalberdSweep | BossAttack::SweepAttack => {
+                    (3.0, if t < 0.5 { -5.0 } else { 5.0 })
+                }
+                BossAttack::IceBreadth | BossAttack::FlameBurst => (-3.0, 0.0),
+                BossAttack::LeapingSlam => {
+                    if t < 0.52 { (22.0 * t, 0.0) } else { (10.0, 0.0) }
+                }
+                BossAttack::GroundSlam | BossAttack::HolyGround => {
+                    if t < 0.48 { (-5.0, 0.0) } else { (7.0, 0.0) }
+                }
+                BossAttack::BodySlam => {
+                    if t < 0.48 { (-4.0, 0.0) } else { (18.0, 0.0) }
+                }
+                BossAttack::ComboSlash => {
+                    let side = if t < 0.5 { -7.0 } else { 7.0 };
+                    (3.0, side)
+                }
+                BossAttack::ThrustAttack => (12.0, 0.0),
+                BossAttack::ShadowClone => (2.0, 0.0),
+            }
+        } else {
+            (0.0, 0.0)
+        };
+
         let final_sx = size * sx;
         let final_sy = size * sy;
 
         // Draw boss body
-        let instance = self.transform.to_instance_data(final_sx, final_sy, [0.0, 0.0, 1.0, 1.0], color);
+        let mut body_transform = Transform::new(
+            self.transform.x + dir_x * body_forward + side_x * body_side,
+            self.transform.y + dir_y * body_forward + side_y * body_side,
+        );
+        body_transform.rotation = 0.0;
+        body_transform.scale_x = self.transform.scale_x.signum();
+        let instance = body_transform.to_instance_data(final_sx, final_sy, [0.0, 0.0, 1.0, 1.0], color);
         batcher.draw(instance, texture, gl);
 
         // Attack VFX — drawn ON TOP of boss
@@ -739,13 +959,24 @@ impl Entity for Boss {
             match self.current_attack {
                 // Halberd overhead — yellow slash arc
                 BossAttack::HalberdOverhead => {
+                    let shaft_center = if t < 0.45 { -28.0 } else { 54.0 };
+                    let shaft_angle = if t < 0.45 { self.facing - 0.95 } else { self.facing + 0.08 };
+                    draw_rect(
+                        batcher, texture, gl,
+                        self.transform.x + dir_x * shaft_center + side_x * 8.0,
+                        self.transform.y + dir_y * shaft_center + side_y * 8.0,
+                        size * 1.95, size * 0.11,
+                        shaft_angle,
+                        [0.88, 0.80, 0.56, 0.98],
+                    );
                     if t > 0.35 {
                         let arc_alpha = if t < 0.6 { (t - 0.35) * 4.0 } else { 1.0 - (t - 0.6) * 2.5 };
-                        batcher.draw(
-                            Transform::new(fx, fy).to_instance_data(
-                                size * 1.6, size * 0.4, [0.0, 0.0, 1.0, 1.0],
-                                [1.0, 0.9, 0.2, arc_alpha.max(0.0).min(1.0)]
-                            ), texture, gl,
+                        draw_rect(
+                            batcher, texture, gl,
+                            fx + dir_x * 22.0, fy + dir_y * 22.0,
+                            size * 1.72, size * 0.34,
+                            self.facing + 0.08,
+                            [1.0, 0.9, 0.2, arc_alpha.max(0.0).min(1.0)],
                         );
                     }
                 }
@@ -765,12 +996,18 @@ impl Entity for Boss {
                 BossAttack::HalberdSweep => {
                     if t > 0.25 {
                         let sweep_alpha = (1.0 - t).max(0.0);
-                        batcher.draw(
-                            Transform::new(self.transform.x, self.transform.y).to_instance_data(
-                                size * 2.0, size * 0.3, [0.0, 0.0, 1.0, 1.0],
-                                [1.0, 0.7, 0.1, sweep_alpha * 0.7]
-                            ), texture, gl,
-                        );
+                        for i in 0..4 {
+                            let offset = (i as f32 - 1.5) * 18.0;
+                            let reach = 32.0 + i as f32 * 12.0;
+                            draw_rect(
+                                batcher, texture, gl,
+                                self.transform.x + dir_x * reach + side_x * offset,
+                                self.transform.y + dir_y * reach + side_y * offset,
+                                size * 0.58, size * 0.14,
+                                self.facing,
+                                [1.0, 0.7, 0.1, sweep_alpha * 0.42],
+                            );
+                        }
                     }
                 }
                 // Ice mace — blue impact
@@ -788,15 +1025,17 @@ impl Entity for Boss {
                 BossAttack::IceBreadth => {
                     if t > 0.35 {
                         let breath_len = (t - 0.35) * 3.0;
-                        for i in 0..3 {
-                            let offset = (i as f32 - 1.0) * 12.0;
-                            let bx = fx + self.facing.cos() * breath_len * 20.0;
-                            let by = fy + self.facing.sin() * breath_len * 20.0 + offset;
-                            batcher.draw(
-                                Transform::new(bx, by).to_instance_data(
-                                    size * 0.6 * breath_len, size * 0.25, [0.0, 0.0, 1.0, 1.0],
-                                    [0.6, 0.9, 1.0, (1.0 - t) * 0.5]
-                                ), texture, gl,
+                        for i in 0..7 {
+                            let spread = (i as f32 - 3.0) * 0.16;
+                            let lane = i as f32 - 3.0;
+                            let bx = fx + dir_x * breath_len * 36.0 + side_x * lane * 10.0;
+                            let by = fy + dir_y * breath_len * 36.0 + side_y * lane * 10.0;
+                            draw_rect(
+                                batcher, texture, gl,
+                                bx, by,
+                                size * (0.45 + breath_len * 0.5), size * 0.16,
+                                self.facing + spread,
+                                [0.58, 0.90, 1.0, (1.0 - t).max(0.0) * 0.58],
                             );
                         }
                     }
@@ -827,6 +1066,17 @@ impl Entity for Boss {
                 BossAttack::GroundSlam => {
                     if t > 0.35 {
                         let ring_t = (t - 0.35) * 1.5;
+                        for i in 0..8 {
+                            let a = i as f32 * std::f32::consts::TAU / 8.0;
+                            draw_rect(
+                                batcher, texture, gl,
+                                self.transform.x + a.cos() * size * ring_t,
+                                self.transform.y + a.sin() * size * ring_t,
+                                size * 0.8, size * 0.12,
+                                a,
+                                [0.35, 0.13, 0.20, (1.0 - ring_t).max(0.0) * 0.55],
+                            );
+                        }
                         batcher.draw(
                             Transform::new(self.transform.x, self.transform.y).to_instance_data(
                                 size * (0.3 + ring_t * 2.5), size * (0.3 + ring_t * 2.5), [0.0, 0.0, 1.0, 1.0],
@@ -864,11 +1114,19 @@ impl Entity for Boss {
                         let flame_t = (t - 0.4) * 1.6;
                         let flame_x = self.transform.x + self.facing.cos() * (30.0 + flame_t * 80.0);
                         let flame_y = self.transform.y + self.facing.sin() * (30.0 + flame_t * 80.0);
-                        batcher.draw(
-                            Transform::new(flame_x, flame_y).to_instance_data(
-                                size * 0.5 * (1.0 + flame_t), size * 0.5 * (1.0 + flame_t), [0.0, 0.0, 1.0, 1.0],
-                                [1.0, 0.5, 0.0, (1.0 - flame_t) * 0.8]
-                            ), texture, gl,
+                        draw_rect(
+                            batcher, texture, gl,
+                            flame_x, flame_y,
+                            size * 0.58 * (1.0 + flame_t), size * 0.58 * (1.0 + flame_t),
+                            self.facing + flame_t,
+                            [1.0, 0.36, 0.04, (1.0 - flame_t).max(0.0) * 0.85],
+                        );
+                        draw_rect(
+                            batcher, texture, gl,
+                            flame_x - dir_x * 18.0, flame_y - dir_y * 18.0,
+                            size * 0.72, size * 0.12,
+                            self.facing,
+                            [1.0, 0.82, 0.18, (1.0 - flame_t).max(0.0) * 0.55],
                         );
                     }
                 }
@@ -887,6 +1145,17 @@ impl Entity for Boss {
                 BossAttack::HolyGround => {
                     if t > 0.45 {
                         let ring_t = (t - 0.45) * 1.8;
+                        for i in 0..10 {
+                            let a = i as f32 * std::f32::consts::TAU / 10.0;
+                            draw_rect(
+                                batcher, texture, gl,
+                                self.transform.x + a.cos() * size * (0.7 + ring_t),
+                                self.transform.y + a.sin() * size * (0.7 + ring_t) * 0.42,
+                                size * 0.14, size * 0.58,
+                                a + std::f32::consts::FRAC_PI_2,
+                                [1.0, 0.92, 0.42, (1.0 - ring_t).max(0.0) * 0.52],
+                            );
+                        }
                         batcher.draw(
                             Transform::new(self.transform.x, self.transform.y).to_instance_data(
                                 size * (0.4 + ring_t * 2.5), size * (0.4 + ring_t * 2.5) * 0.4, [0.0, 0.0, 1.0, 1.0],
@@ -901,11 +1170,13 @@ impl Entity for Boss {
                     for s in 0..slash_count {
                         let st = if s == 0 { (t * 2.0).min(1.0) } else { ((t - 0.5) * 2.0).min(1.0) };
                         let offset = (s as f32 - 0.5) * 15.0;
-                        batcher.draw(
-                            Transform::new(fx + offset, fy + offset).to_instance_data(
-                                size * 1.2 * st, size * 0.2, [0.0, 0.0, 1.0, 1.0],
-                                [0.5, 0.7, 1.0, (1.0 - st) * 0.7]
-                            ), texture, gl,
+                        draw_rect(
+                            batcher, texture, gl,
+                            fx + side_x * offset + dir_x * size * st * 0.4,
+                            fy + side_y * offset + dir_y * size * st * 0.4,
+                            size * 1.28 * st, size * 0.18,
+                            self.facing + if s == 0 { -0.58 } else { 0.58 },
+                            if s == 0 { [0.5, 0.7, 1.0, (1.0 - st) * 0.78] } else { [0.88, 0.35, 1.0, (1.0 - st) * 0.72] },
                         );
                     }
                 }
@@ -928,13 +1199,21 @@ impl Entity for Boss {
                 BossAttack::ShadowClone => {
                     if t > 0.4 {
                         let ghost_offset = size * 0.8;
-                        let ghost_x = self.transform.x + self.facing.cos() * ghost_offset;
-                        let ghost_y = self.transform.y + self.facing.sin() * ghost_offset;
+                        let ghost_x = self.transform.x - side_x * ghost_offset * 0.85 + dir_x * ghost_offset;
+                        let ghost_y = self.transform.y - side_y * ghost_offset * 0.85 + dir_y * ghost_offset;
                         batcher.draw(
                             Transform::new(ghost_x, ghost_y).to_instance_data(
                                 size, size, [0.0, 0.0, 1.0, 1.0],
                                 [idle_color[0], idle_color[1], idle_color[2], 0.35]
                             ), texture, gl,
+                        );
+                        draw_rect(
+                            batcher, texture, gl,
+                            ghost_x + dir_x * 30.0,
+                            ghost_y + dir_y * 30.0,
+                            size * 1.08, size * 0.08,
+                            self.facing + 0.32,
+                            [0.55, 0.65, 1.0, 0.42],
                         );
                     }
                 }
@@ -958,4 +1237,24 @@ impl Entity for Boss {
     fn is_dead(&self) -> bool {
         self.hp <= 0
     }
+}
+
+fn in_front(forward: f32, side: f32, min_forward: f32, max_forward: f32, half_width: f32) -> bool {
+    forward >= min_forward && forward <= max_forward && side.abs() <= half_width
+}
+
+fn draw_rect(
+    batcher: &mut SpriteBatcher,
+    texture: &Texture,
+    gl: &GL,
+    x: f32,
+    y: f32,
+    w: f32,
+    h: f32,
+    rotation: f32,
+    color: [f32; 4],
+) {
+    let mut transform = Transform::new(x, y);
+    transform.rotation = rotation;
+    batcher.draw(transform.to_instance_data(w, h, [0.0, 0.0, 1.0, 1.0], color), texture, gl);
 }
