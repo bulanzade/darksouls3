@@ -50,8 +50,8 @@ impl Player {
         Self {
             id,
             transform: Transform::new(x, y),
-            hp: 500,
-            max_hp: 500,
+            hp: 600,
+            max_hp: 600,
             speed: 240.0,
             state: EntityState::Idle,
             facing: 0.0,
@@ -137,7 +137,7 @@ impl Player {
 
     pub fn apply_stats(&mut self) {
         let hp_bonus = self.equipment.hp_bonus();
-        self.max_hp = (500.0 + ((self.vigor - 5) as f32) * 50.0) as i32;
+        self.max_hp = (600.0 + ((self.vigor - 5) as f32) * 50.0) as i32;
         self.max_hp = (self.max_hp as f32 * (1.0 + hp_bonus)) as i32;
         self.stamina.maximum = 100.0 + ((self.endurance - 5) as f32) * 15.0;
         self.stamina.current = self.stamina.current.min(self.stamina.maximum);

@@ -33,6 +33,7 @@ pub struct Boss {
     pub charge_speed: f32,
     pub boss_type: BossType,
     pub name: String,
+    pub boss_activated: bool,
 }
 
 impl Boss {
@@ -83,7 +84,8 @@ impl Boss {
             is_charging: false,
             charge_speed: 300.0,
             boss_type: BossType::DemonKnight,
-            name: "DEMON KNIGHT".into(),
+            name: "咒蚀大树".into(),
+            boss_activated: false,
         }
     }
 
@@ -126,7 +128,8 @@ impl Boss {
             is_charging: false,
             charge_speed: 400.0,
             boss_type: BossType::Dragonrider,
-            name: "DRAGONRIDER".into(),
+            name: "幽邃主教群".into(),
+            boss_activated: false,
         }
     }
 
@@ -169,12 +172,13 @@ impl Boss {
             is_charging: false,
             charge_speed: 350.0,
             boss_type: BossType::RuinSentinel,
-            name: "RUIN SENTINEL".into(),
+            name: "教宗沙立万".into(),
+            boss_activated: false,
         }
     }
 
     pub fn update_ai(&mut self, target_x: f32, target_y: f32, dt: f32) {
-        if self.is_dead() {
+        if self.is_dead() || !self.boss_activated {
             return;
         }
 

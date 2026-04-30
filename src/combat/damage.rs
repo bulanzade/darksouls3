@@ -1,4 +1,4 @@
-/// Simplified DS2 damage calculation
+/// Simplified damage calculation
 pub fn calculate_damage(
     attack_rating: f32,
     defense: f32,

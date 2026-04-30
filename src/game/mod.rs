@@ -57,13 +57,13 @@ impl MenuState {
         let has_save = crate::save::save_manager::has_save();
         let mut items = vec![
             MenuItem {
-                label: "New Game".into(),
+                label: "新游戏".into(),
                 action: MenuAction::NewGame,
             },
         ];
         if has_save {
             items.push(MenuItem {
-                label: "Continue".into(),
+                label: "继续游戏".into(),
                 action: MenuAction::Continue,
             });
         }
@@ -80,19 +80,19 @@ impl MenuState {
             selected_index: 0,
             items: vec![
                 MenuItem {
-                    label: "Vigor (+HP)".into(),
+                    label: "生命力 (+HP)".into(),
                     action: MenuAction::LevelUp,
                 },
                 MenuItem {
-                    label: "Endurance (+STA)".into(),
+                    label: "持久力 (+精力)".into(),
                     action: MenuAction::LevelUp,
                 },
                 MenuItem {
-                    label: "Strength (+DMG)".into(),
+                    label: "力量 (+攻击)".into(),
                     action: MenuAction::LevelUp,
                 },
                 MenuItem {
-                    label: "Back".into(),
+                    label: "返回".into(),
                     action: MenuAction::Resume,
                 },
             ],
@@ -105,19 +105,19 @@ impl MenuState {
             selected_index: 0,
             items: vec![
                 MenuItem {
-                    label: "Rest".into(),
+                    label: "休息".into(),
                     action: MenuAction::Rest,
                 },
                 MenuItem {
-                    label: "Level Up".into(),
+                    label: "升级".into(),
                     action: MenuAction::LevelUp,
                 },
                 MenuItem {
-                    label: "Travel".into(),
+                    label: "传送".into(),
                     action: MenuAction::Travel,
                 },
                 MenuItem {
-                    label: "Resume".into(),
+                    label: "返回".into(),
                     action: MenuAction::Resume,
                 },
             ],
@@ -130,11 +130,11 @@ impl MenuState {
             selected_index: 0,
             items: vec![
                 MenuItem {
-                    label: "Respawn at Bonfire".into(),
+                    label: "在篝火处复活".into(),
                     action: MenuAction::Continue,
                 },
                 MenuItem {
-                    label: "Quit to Title".into(),
+                    label: "返回标题".into(),
                     action: MenuAction::QuitToTitle,
                 },
             ],
@@ -158,11 +158,11 @@ impl MenuState {
             current: GameState::TravelMenu,
             selected_index: 0,
             items: vec![
-                MenuItem { label: "Majula".into(), action: MenuAction::Travel },
-                MenuItem { label: "Forest of Fallen Giants".into(), action: MenuAction::Travel },
-                MenuItem { label: "Cardinal Tower".into(), action: MenuAction::Travel },
-                MenuItem { label: "The Lost Bastille".into(), action: MenuAction::Travel },
-                MenuItem { label: "Back".into(), action: MenuAction::Resume },
+                MenuItem { label: "传火祭祀场".into(), action: MenuAction::Travel },
+                MenuItem { label: "不死聚落".into(), action: MenuAction::Travel },
+                MenuItem { label: "幽邃教堂".into(), action: MenuAction::Travel },
+                MenuItem { label: "冷冽谷的伊鲁席尔".into(), action: MenuAction::Travel },
+                MenuItem { label: "返回".into(), action: MenuAction::Resume },
             ],
         }
     }

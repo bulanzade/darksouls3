@@ -96,7 +96,7 @@ impl Default for Equipment {
     fn default() -> Self {
         Self {
             right_hand: WeaponSlot::new(Weapon::longsword()),
-            left_hand: WeaponSlot::new(Weapon::longsword()),
+            left_hand: WeaponSlot::new(Weapon::shield()),
             head: ArmorPiece::none(),
             chest: ArmorPiece::none(),
             legs: ArmorPiece::none(),

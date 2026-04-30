@@ -27,26 +27,26 @@ use wasm_bindgen::JsCast;
 
 #[derive(Clone, Copy, PartialEq, Debug)]
 enum AreaId {
-    Majula,            // Hub
-    ForestOfGiants,    // Area 1
-    CardinalTower,     // Area 2 (was Dungeon)
-    LostBastille,      // Area 3
+    FirelinkShrine,     // Hub
+    UndeadSettlement,   // Area 1
+    CathedralDeep,      // Area 2
+    Irithyll,           // Area 3
 }
 
 fn area_name(area: AreaId) -> &'static str {
     match area {
-        AreaId::Majula => "Majula",
-        AreaId::ForestOfGiants => "Forest of Fallen Giants",
-        AreaId::CardinalTower => "Cardinal Tower",
-        AreaId::LostBastille => "The Lost Bastille",
+        AreaId::FirelinkShrine => "传火祭祀场",
+        AreaId::UndeadSettlement => "不死聚落",
+        AreaId::CathedralDeep => "幽邃教堂",
+        AreaId::Irithyll => "冷冽谷的伊鲁席尔",
     }
 }
 
 fn area_boss(area: AreaId) -> Option<BossType> {
     match area {
-        AreaId::ForestOfGiants => Some(BossType::DemonKnight),
-        AreaId::CardinalTower => Some(BossType::Dragonrider),
-        AreaId::LostBastille => Some(BossType::RuinSentinel),
+        AreaId::UndeadSettlement => Some(BossType::DemonKnight),
+        AreaId::CathedralDeep => Some(BossType::Dragonrider),
+        AreaId::Irithyll => Some(BossType::RuinSentinel),
         _ => None,
     }
 }
@@ -137,6 +137,7 @@ struct Game {
     death_particles: Vec<DeathParticle>,
     // Level-up flash timer
     level_up_flash: f32,
+    pickup_notification: Option<(String, f32)>, // (text, timer)
     // Hitstop (freeze frames on heavy hit)
     hitstop_timer: f32,
     // Slow motion on boss death
@@ -274,6 +275,8 @@ struct TreasureChest {
     y: f32,
     opened: bool,
     loot: ItemKind,
+    is_mimic: bool,
+    mimic_revealed: bool,
 }
 
 struct Npc {
@@ -397,7 +400,7 @@ pub fn wasm_main() {
         tileset,
         collision,
         nav_grid,
-        area: AreaId::CardinalTower,
+        area: AreaId::CathedralDeep,
         fog_gates: vec![],
         bosses_defeated: vec![],
         ng_plus: 0,
@@ -458,6 +461,7 @@ pub fn wasm_main() {
         damage_numbers: Vec::new(),
         death_particles: Vec::new(),
         level_up_flash: 0.0,
+        pickup_notification: None,
         hitstop_timer: 0.0,
         slow_motion_timer: 0.0,
         input_buffer: BufferedAction::None,
@@ -469,24 +473,24 @@ pub fn wasm_main() {
         play_time: 0.0,
         chests: vec![
             // Room 3 (Treasure room)
-            TreasureChest { x: 480.0, y: 680.0, opened: false, loot: ItemKind::SoulOrb(500) },
-            TreasureChest { x: 560.0, y: 780.0, opened: false, loot: ItemKind::EstusShard },
+            TreasureChest { x: 480.0, y: 680.0, opened: false, loot: ItemKind::SoulOrb(500), is_mimic: false, mimic_revealed: false },
+            TreasureChest { x: 560.0, y: 780.0, opened: false, loot: ItemKind::EstusShard, is_mimic: true, mimic_revealed: false },
             // Boss arena
-            TreasureChest { x: 1780.0, y: 350.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Uchigatana) },
+            TreasureChest { x: 1780.0, y: 350.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Uchigatana), is_mimic: false, mimic_revealed: false },
             // Corridor near poison
-            TreasureChest { x: 1000.0, y: 900.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::GreatAxe) },
+            TreasureChest { x: 1000.0, y: 900.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::GreatAxe), is_mimic: true, mimic_revealed: false },
         ],
         npcs: vec![
             // Emerald Herald at bonfire — level up NPC
             Npc {
                 x: 240.0, y: 180.0,
-                name: "Emerald Herald".into(),
+                name: "绿衣使者".into(),
                 color: [0.2, 0.9, 0.7, 1.0],
                 dialogue: vec![
-                    "Welcome to the land of Drangleic.".into(),
-                    "You will lose your souls, again and again.".into(),
-                    "But fear not. Seek strength. The rest is up to you.".into(),
-                    "[Enter] Level Up".into(),
+                    "欢迎来到传火祭祀场。".into(),
+                    "你会一次又一次地失去灵魂。".into(),
+                    "但不要害怕。寻找力量。其余的取决于你。".into(),
+                    "[Enter] 升级".into(),
                 ],
                 dialogue_index: 0,
                 talking: false,
@@ -495,13 +499,13 @@ pub fn wasm_main() {
             // Merchant in Room 3 — sells items
             Npc {
                 x: 580.0, y: 720.0,
-                name: "Merchant".into(),
+                name: "商人".into(),
                 color: [0.8, 0.7, 0.3, 1.0],
                 dialogue: vec![
-                    "Heh heh... Something catch your eye?".into(),
-                    "I've got estus shards, purple moss...".into(),
-                    "All for the low price of your souls.".into(),
-                    "[Enter] Buy Estus Shard (500 souls)".into(),
+                    "嘿嘿...看上什么了？".into(),
+                    "我有原素碎片、紫苔藓...".into(),
+                    "只需一点灵魂就好。".into(),
+                    "[Enter] 购买原素碎片 (500灵魂)".into(),
                 ],
                 dialogue_index: 0,
                 talking: false,
@@ -514,7 +518,7 @@ pub fn wasm_main() {
         GAME = Some(game);
     }
 
-    log::info!("DS2D v2 initialized — WASD/arrows to move, Space to roll, J to attack, E for estus");
+    log::info!("DS3D initialized — WASD/arrows to move, Space to roll, E for estus");
     request_next_frame();
 }
 
@@ -1045,7 +1049,7 @@ fn update_title_screen(game: &mut Game) {
                     game.inventory = vec![];
                     game.has_bloodstain = false;
                     game.bloodstain_souls = 0;
-                    load_area(game, AreaId::Majula);
+                    load_area(game, AreaId::FirelinkShrine);
                 }
                 MenuAction::Continue => {
                     if let Some(save) = save_manager::load_from_localstorage() {
@@ -1073,10 +1077,10 @@ fn update_title_screen(game: &mut Game) {
                         game.bosses_defeated = save.bosses_defeated.clone();
                         // Determine saved area and load it
                         let saved_area = match save.current_room.as_str() {
-                            "Majula" => AreaId::Majula,
-                            "ForestOfGiants" => AreaId::ForestOfGiants,
-                            "LostBastille" => AreaId::LostBastille,
-                            _ => AreaId::CardinalTower,
+                            "FirelinkShrine" | "Majula" => AreaId::FirelinkShrine,
+                            "UndeadSettlement" | "ForestOfGiants" => AreaId::UndeadSettlement,
+                            "Irithyll" | "LostBastille" => AreaId::Irithyll,
+                            _ => AreaId::CathedralDeep,
                         };
                         load_area(game, saved_area);
                         game.player.transform.x = save.player_x;
@@ -1116,9 +1120,18 @@ fn update_playing(game: &mut Game, dt: f32) {
     };
 
     let mv = game.input.movement();
-    let attack = game.input.pressed(KeyCode::J) || game.input.pressed(KeyCode::MouseLeft);
-    let heavy_attack = game.input.pressed(KeyCode::K) || game.input.pressed(KeyCode::MouseRight);
-    let block_held = game.input.held(KeyCode::L);
+    let shift_held = game.input.held(KeyCode::Shift);
+    let mouse_left = game.input.pressed(KeyCode::MouseLeft);
+    let mouse_right = game.input.pressed(KeyCode::MouseRight);
+    let attack = mouse_left && !shift_held;
+    let heavy_attack = mouse_right && !shift_held;
+    // Left hand: Shift+LMB = light attack (shield=block), Shift+RMB = heavy attack (shield=parry)
+    let left_weapon = &game.player.equipment.left_hand.active();
+    let has_shield = left_weapon.weapon_type == crate::combat::weapon::WeaponType::Shield;
+    let left_light = mouse_left && shift_held; // Shield: block, Weapon: light attack
+    let left_heavy = mouse_right && shift_held; // Shield: parry, Weapon: heavy attack
+    let block_held = game.input.held(KeyCode::L) || (left_light && has_shield);
+    let parry = left_heavy;
     let roll = game.input.pressed(KeyCode::Space);
     let estus = game.input.consume_pressed(KeyCode::E);
     let interact = game.input.consume_pressed(KeyCode::Enter);
@@ -1169,15 +1182,11 @@ fn update_playing(game: &mut Game, dt: f32) {
                 break;
             }
         }
-        if let Some((bx, by)) = boss_spawn {
-            if game.boss.is_none() && !game.boss_defeated {
-                if let Some(boss_type) = area_boss(game.area) {
-                    let boss = match boss_type {
-                        BossType::DemonKnight => crate::entity::boss::Boss::new_test_boss(100, bx, by),
-                        BossType::Dragonrider => crate::entity::boss::Boss::new_dragonrider(100, bx, by),
-                        BossType::RuinSentinel => crate::entity::boss::Boss::new_ruin_sentinel(100, bx, by),
-                    };
-                    game.boss = Some(boss);
+        if let Some((_bx, _by)) = boss_spawn {
+            // Activate existing boss (pre-spawned at arena center)
+            if let Some(ref mut boss) = game.boss {
+                if !boss.boss_activated && !boss.is_dead() {
+                    boss.boss_activated = true;
                     game.boss_active = true;
                     game.boss_intro_timer = 3.0;
                     game.state_timer = 0.0;
@@ -1229,25 +1238,37 @@ fn update_playing(game: &mut Game, dt: f32) {
             }
             match &item.kind {
                 ItemKind::SoulOrb(n) => {
+                    game.pickup_notification = Some((format!("获得 {} 灵魂", n), 2.0));
                     game.souls += *n;
                     game.audio.play_sfx("souls", 0.08, 0.0);
                 }
                 ItemKind::EstusShard => {
+                    game.pickup_notification = Some(("获得 原素碎片".into(), 2.0));
                     game.bonfire.estus_max += 1;
                     game.bonfire.estus_charges = game.bonfire.estus_max;
                     game.audio.play_sfx("estus", 0.1, 0.0);
                 }
                 ItemKind::PurpleMoss => {
+                    game.pickup_notification = Some(("获得 紫苔藓".into(), 2.0));
                     game.player.poison_timer = 0.0;
-                    game.inventory.push(InventoryItem { name: "Purple Moss".into(), kind: InventoryItemKind::Consumable("PurpleMoss".into()) });
+                    game.inventory.push(InventoryItem { name: "紫苔藓".into(), kind: InventoryItemKind::Consumable("PurpleMoss".into()) });
                     game.audio.play_sfx("estus", 0.08, 0.0);
                 }
                 ItemKind::HomewardBone => {
-                    game.inventory.push(InventoryItem { name: "Homeward Bone".into(), kind: InventoryItemKind::Consumable("HomewardBone".into()) });
+                    game.pickup_notification = Some(("获得 归还骨片".into(), 2.0));
+                    game.inventory.push(InventoryItem { name: "归还骨片".into(), kind: InventoryItemKind::Consumable("HomewardBone".into()) });
                     game.audio.play_sfx("souls", 0.08, 0.0);
                 }
                 ItemKind::WeaponDrop(wt) => {
-                    game.inventory.push(InventoryItem { name: format!("{:?}", wt), kind: InventoryItemKind::Weapon(*wt) });
+                    let wname = match wt {
+                        crate::combat::weapon::WeaponType::GreatAxe => "大斧",
+                        crate::combat::weapon::WeaponType::Dagger => "匕首",
+                        crate::combat::weapon::WeaponType::Spear => "长枪",
+                        crate::combat::weapon::WeaponType::Uchigatana => "打刀",
+                        _ => "长剑",
+                    };
+                    game.pickup_notification = Some((format!("获得 {}", wname), 2.0));
+                    game.inventory.push(InventoryItem { name: wname.into(), kind: InventoryItemKind::Weapon(*wt) });
                     // Also auto-equip to alt slot
                     use crate::combat::weapon::WeaponType;
                     let weapon = match wt {
@@ -1265,6 +1286,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                     game.audio.play_sfx("souls", 0.08, 0.0);
                 }
                 ItemKind::ArmorDrop(slot, name) => {
+                    game.pickup_notification = Some((format!("获得 {}", name), 2.0));
                     game.inventory.push(InventoryItem { name: name.clone(), kind: InventoryItemKind::Armor(*slot, name.clone()) });
                     // Auto-equip
                     let armor = match name.as_str() {
@@ -1284,6 +1306,7 @@ fn update_playing(game: &mut Game, dt: f32) {
                     game.audio.play_sfx("souls", 0.08, 0.0);
                 }
                 ItemKind::RingDrop(name) => {
+                    game.pickup_notification = Some((format!("获得 {}", name), 2.0));
                     let ring = match name.as_str() {
                         "Life Ring" => crate::rpg::equipment::Ring::life_ring(),
                         "Chloranthy Ring" => crate::rpg::equipment::Ring::chloranthy(),
@@ -1306,11 +1329,26 @@ fn update_playing(game: &mut Game, dt: f32) {
     // Chest interaction
     if interact {
         for chest in &mut game.chests {
-            if chest.opened { continue; }
+            if chest.opened || chest.mimic_revealed { continue; }
             let dx = px - chest.x;
             let dy = py - chest.y;
             let dist = (dx * dx + dy * dy).sqrt();
             if dist < 30.0 {
+                if chest.is_mimic {
+                    chest.mimic_revealed = true;
+                    game.camera.add_shake(6.0);
+                    game.audio.play_sfx("boss_die", 0.2, 0.0);
+                    game.pickup_notification = Some(("宝箱怪!".into(), 2.0));
+                    // Spawn mimic enemy at chest position
+                    let mimic_id = game.enemies.len() as u64 + 100;
+                    game.enemies.push(crate::entity::enemy::Enemy::new_mimic(mimic_id, chest.x, chest.y));
+                    // Force the mimic to activate immediately and aggro player
+                    if let Some(mimic) = game.enemies.last_mut() {
+                        mimic.mimic_activated = true;
+                        mimic.aggro.check_detection(mimic.transform.x, mimic.transform.y, 1, px, py);
+                    }
+                    break;
+                }
                 chest.opened = true;
                 match &chest.loot {
                     ItemKind::SoulOrb(n) => {
@@ -1331,7 +1369,15 @@ fn update_playing(game: &mut Game, dt: f32) {
                         game.audio.play_sfx("souls", 0.08, 0.0);
                     }
                     ItemKind::WeaponDrop(wt) => {
-                        game.inventory.push(InventoryItem { name: format!("{:?}", wt), kind: InventoryItemKind::Weapon(*wt) });
+                        let wt_name = match wt {
+                            crate::combat::weapon::WeaponType::Longsword => "直剑",
+                            crate::combat::weapon::WeaponType::GreatAxe => "大斧",
+                            crate::combat::weapon::WeaponType::Dagger => "匕首",
+                            crate::combat::weapon::WeaponType::Spear => "长枪",
+                            crate::combat::weapon::WeaponType::Uchigatana => "打刀",
+                            crate::combat::weapon::WeaponType::Shield => "盾牌",
+                        };
+                        game.inventory.push(InventoryItem { name: wt_name.into(), kind: InventoryItemKind::Weapon(*wt) });
                         use crate::combat::weapon::WeaponType;
                         let weapon = match wt {
                             WeaponType::GreatAxe => crate::combat::weapon::Weapon::great_axe(),
@@ -1457,6 +1503,12 @@ fn update_playing(game: &mut Game, dt: f32) {
     // Tick level-up flash
     if game.level_up_flash > 0.0 {
         game.level_up_flash -= dt;
+    }
+    if let Some((_, ref mut t)) = game.pickup_notification {
+        *t -= dt;
+        if *t <= 0.0 {
+            game.pickup_notification = None;
+        }
     }
 
     // Tick input buffer
@@ -1690,10 +1742,17 @@ fn update_playing(game: &mut Game, dt: f32) {
                     player.parry_timer = player.parry_window;
                     player.block_timer = 0.0;
                 }
+                if parry {
+                    player.state = EntityState::Blocking;
+                    player.parry_timer = player.parry_window;
+                    player.block_timer = 0.0;
+                }
             }
             EntityState::Blocking => {
                 if block_held {
                     player.block_timer = 0.0;
+                } else if player.parry_timer > 0.0 {
+                    // Stay in blocking during parry window even without block held
                 } else {
                     player.state = EntityState::Idle;
                 }
@@ -1801,9 +1860,8 @@ fn update_playing(game: &mut Game, dt: f32) {
                 poise_damage: if is_heavy { 40.0 } else { 20.0 },
                 attacker_id: game.player.id(),
             };
-            // Check for riposte (enemy is staggered and this is a follow-up attack)
-            let is_riposte = game.riposte_timer > 0.0 && game.riposte_target_id == enemy.id()
-                && *enemy.state() == EntityState::Staggered;
+            // Check for riposte (parried enemy — allow during riposte window)
+            let is_riposte = game.riposte_timer > 0.0 && game.riposte_target_id == enemy.id();
             let riposte_multiplier = if is_riposte { 3.0 } else { 1.0 };
 
             let actual_damage = (final_damage as f32 * riposte_multiplier) as i32;
@@ -1884,7 +1942,7 @@ fn update_playing(game: &mut Game, dt: f32) {
             }
         }
 
-        if *enemy.state() == EntityState::Attacking && dist < enemy.attack_range && !enemy.has_hit_this_attack {
+        if *enemy.state() == EntityState::Attacking && enemy.windup_timer <= 0.0 && dist < enemy.attack_range && !enemy.has_hit_this_attack {
             if *game.player.state() != EntityState::Rolling {
                 let dmg = DamageInfo {
                     damage: enemy.damage,
@@ -1895,12 +1953,14 @@ fn update_playing(game: &mut Game, dt: f32) {
                 };
                 game.player.take_damage(&dmg);
 
-                // Parry — stagger enemy
+                // Parry — stagger enemy for riposte
                 if game.player.is_parrying() {
                     enemy.fsm.current_state = STAGGERED;
                     enemy.fsm.state_timer = 0.0;
                     enemy.state = EntityState::Staggered;
-                    game.riposte_timer = 1.5; // Window to riposte
+                    enemy.parried_timer = 2.0; // Long stagger for riposte
+                    enemy.has_hit_this_attack = true; // Prevent damage
+                    game.riposte_timer = 2.0; // Window to riposte
                     game.riposte_target_id = enemy.id();
                     game.screen_flash = Some(ScreenFlash { timer: 0.12, max_timer: 0.12, color: [0.2, 1.0, 1.0, 0.4] });
                     game.stagger_bursts.push(BlockSpark { x: (px + ex) * 0.5, y: (py + ey) * 0.5, timer: 0.3 });
@@ -1932,7 +1992,7 @@ fn update_playing(game: &mut Game, dt: f32) {
         let (bx, by) = boss.position();
         let dist = ((px - bx) * (px - bx) + (py - by) * (py - by)).sqrt();
 
-        if player_attacking && dist < attack_range + 16.0 {
+        if player_attacking && dist < attack_range + 16.0 && game.boss_intro_timer <= 0.0 {
             let dmg = DamageInfo {
                 damage: if is_heavy { attack_damage * 2 } else { game.player.damage() * 2 },
                 knockback_x: 0.0,
@@ -1947,9 +2007,9 @@ fn update_playing(game: &mut Game, dt: f32) {
                 game.boss_defeated = true;
                 // Track which boss was defeated
                 let boss_name = match boss.boss_type {
-                    BossType::DemonKnight => "DemonKnight",
-                    BossType::Dragonrider => "Dragonrider",
-                    BossType::RuinSentinel => "RuinSentinel",
+                    BossType::DemonKnight => "CurseRottedGreatwood",
+                    BossType::Dragonrider => "DeaconsOfTheDeep",
+                    BossType::RuinSentinel => "PontiffSulyvahn",
                 };
                 if !game.bosses_defeated.iter().any(|b| b == boss_name) {
                     game.bosses_defeated.push(boss_name.into());
@@ -1971,7 +2031,8 @@ fn update_playing(game: &mut Game, dt: f32) {
             }
         }
 
-        if *boss.state() == EntityState::Attacking && dist < 48.0 && !boss.has_hit_this_attack {
+        // Boss attacks player — skip during intro
+        if *boss.state() == EntityState::Attacking && dist < 48.0 && !boss.has_hit_this_attack && game.boss_intro_timer <= 0.0 {
             if *game.player.state() != EntityState::Rolling {
                 let dmg = DamageInfo {
                     damage: boss.damage,
@@ -1980,17 +2041,23 @@ fn update_playing(game: &mut Game, dt: f32) {
                     poise_damage: 15.0,
                     attacker_id: boss.id(),
                 };
-                game.player.take_damage(&dmg);
 
                 if game.player.is_parrying() {
                     boss.state = EntityState::Staggered;
-                    boss.stagger_timer = 0.5;
+                    boss.stagger_timer = 2.0;
+                    game.riposte_timer = 2.0;
+                    game.riposte_target_id = boss.id();
+                    game.screen_flash = Some(ScreenFlash { timer: 0.12, max_timer: 0.12, color: [0.2, 1.0, 1.0, 0.4] });
+                    game.stagger_bursts.push(BlockSpark { x: (px + bx) * 0.5, y: (py + by) * 0.5, timer: 0.3 });
                     game.audio.play_sfx("hit", 0.18, 0.0);
                 } else if *game.player.state() == EntityState::Blocking {
+                    game.damage_taken += (boss.damage as f32 * 0.3) as u32;
                     game.audio.play_sfx("hit", 0.1, 0.0);
                 } else {
+                    game.player.take_damage(&dmg);
                     game.camera.add_shake(12.0);
                     game.audio.play_sfx("player_hit", 0.18, 0.0);
+                    game.damage_taken += boss.damage as u32;
                 }
                 boss.has_hit_this_attack = true;
             }
@@ -2178,7 +2245,7 @@ fn update_bonfire_menu(game: &mut Game) {
                         bosses_defeated: game.bosses_defeated.clone(),
                         enemies_killed: game.enemies_killed,
                         items_collected: game.items.iter().filter(|i| i.collected).map(|_| "item".into()).collect(),
-                        chests_opened: game.chests.iter().filter(|c| c.opened).map(|_| "chest".into()).collect(),
+                        chests_opened: game.chests.iter().filter(|c| c.opened || c.mimic_revealed).map(|_| "chest".into()).collect(),
                         play_time: game.play_time,
                         death_count: game.death_count,
                         damage_dealt: game.damage_dealt,
@@ -2233,8 +2300,8 @@ fn load_area(game: &mut Game, area: AreaId) {
     game.input_buffer_timer = 0.0;
 
     match area {
-        AreaId::Majula => {
-            // Majula: coastal hub with cliffs, buildings, and sunken paths
+        AreaId::FirelinkShrine => {
+            // Firelink Shrine: hub with bonfire, NPCs, paths to other areas
             // Layout: central plaza with bonfire, buildings to west, cliff path east, sunken path south
             let mut chunk = Chunk::new((0, 0));
             for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
@@ -2242,13 +2309,13 @@ fn load_area(game: &mut Game, area: AreaId) {
             for y in 8..40 { for x in 10..50 { chunk.tiles[y][x] = TileId::Ground; } }
             // Western building interior (Blacksmith's shop)
             for y in 15..25 { for x in 2..12 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Eastern cliff path (winding toward Forest of Giants)
+            // Eastern cliff path (winding toward Undead Settlement)
             for y in 20..35 { for x in 50..65 { chunk.tiles[y][x] = TileId::Ground; } }
             // Elevated platform (monument area)
             for y in 5..15 { for x in 20..35 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Southern sunken path (toward Heide's Tower)
+            // Southern sunken path (toward Cathedral)
             for y in 38..55 { for x in 20..35 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Southeast path (toward Cardinal Tower)
+            // Southeast path (toward Cathedral of the Deep)
             for y in 35..50 { for x in 40..55 { chunk.tiles[y][x] = TileId::Ground; } }
             // Water/shore (coastal edge)
             for y in 30..40 { for x in 42..50 { chunk.tiles[y][x] = TileId::Poison; } }
@@ -2265,17 +2332,17 @@ fn load_area(game: &mut Game, area: AreaId) {
             ];
             game.chests = vec![];
             game.npcs = vec![
-                Npc { x: 360.0, y: 300.0, name: "Emerald Herald".into(), color: [0.2, 0.9, 0.7, 1.0],
-                    dialogue: vec!["You seek a way to break the curse?".into(), "The path lies ahead, through the forest.".into(),
-                        "Return here when you need rest.".into(), "[Enter] Level Up".into()],
+                Npc { x: 360.0, y: 300.0, name: "防火女".into(), color: [0.2, 0.9, 0.7, 1.0],
+                    dialogue: vec!["欢迎来到传火祭祀场，无火的余灰。".into(), "薪王们已离开了他们的王座。".into(),
+                        "请将他们带回原本的位置。".into(), "[Enter] 升级".into()],
                     dialogue_index: 0, talking: false, kind: NpcKind::LevelUp },
-                Npc { x: 300.0, y: 380.0, name: "Blacksmith".into(), color: [0.7, 0.5, 0.2, 1.0],
-                    dialogue: vec!["I can strengthen your weapon.".into(), "Bring me the materials, and I'll do the rest.".into(),
-                        "[Enter] Upgrade Weapon (1000 souls)".into()],
+                Npc { x: 300.0, y: 380.0, name: "安德烈".into(), color: [0.7, 0.5, 0.2, 1.0],
+                    dialogue: vec!["我是安德烈，祭祀场的铁匠。".into(), "交给我吧，你的武器会焕然一新。".into(),
+                        "[Enter] 强化武器 (1000灵魂)".into()],
                     dialogue_index: 0, talking: false, kind: NpcKind::Blacksmith },
-                Npc { x: 380.0, y: 400.0, name: "Merchant".into(), color: [0.8, 0.7, 0.3, 1.0],
-                    dialogue: vec!["Welcome, welcome!".into(), "I have everything an undead could need.".into(),
-                        "[Enter] Buy Estus Shard (500 souls)".into()],
+                Npc { x: 380.0, y: 400.0, name: "侍女".into(), color: [0.8, 0.7, 0.3, 1.0],
+                    dialogue: vec!["你好啊，无火的余灰。".into(), "我这里有各种各样好东西。".into(),
+                        "[Enter] 购买原素碎片 (500灵魂)".into()],
                     dialogue_index: 0, talking: false, kind: NpcKind::Merchant },
             ];
             game.lights = vec![
@@ -2286,12 +2353,12 @@ fn load_area(game: &mut Game, area: AreaId) {
             game.bonfire_x = 320.0;
             game.bonfire_y = 320.0;
             game.fog_gates = vec![
-                FogGate { x: 855.0, y: 380.0, w: 64.0, h: 120.0, destination: AreaId::ForestOfGiants, dest_x: 200.0, dest_y: 200.0, active: true },
-                FogGate { x: 380.0, y: 700.0, w: 80.0, h: 32.0, destination: AreaId::CardinalTower, dest_x: 200.0, dest_y: 200.0, active: true },
+                FogGate { x: 855.0, y: 380.0, w: 64.0, h: 120.0, destination: AreaId::UndeadSettlement, dest_x: 200.0, dest_y: 200.0, active: true },
+                FogGate { x: 380.0, y: 700.0, w: 80.0, h: 32.0, destination: AreaId::CathedralDeep, dest_x: 200.0, dest_y: 200.0, active: true },
             ];
         }
-        AreaId::ForestOfGiants => {
-            // Forest of Fallen Giants: dense forest with ruins, hollow camps, river
+        AreaId::UndeadSettlement => {
+            // Undead Settlement: dense forest with ruins, hollow camps, river
             // Layout: entrance clearing → hollow camp → stone ruins → underground river → boss arena
             let mut chunk = Chunk::new((0, 0));
             for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
@@ -2307,8 +2374,18 @@ fn load_area(game: &mut Game, area: AreaId) {
             for y in 50..80 { for x in 30..75 { chunk.tiles[y][x] = TileId::Ground; } }
             // Underground passage (narrow tunnel)
             for y in 75..90 { for x in 40..55 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Boss arena (The Last Giant — wide cavern)
-            for y in 85..115 { for x in 25..95 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Boss arena (enclosed room — walls on all sides, door on north side)
+            // Room interior: y:90..110, x:35..65
+            for y in 90..110 { for x in 35..65 { chunk.tiles[y][x] = TileId::Ground; } }
+            // North wall with door gap (x:45..55 = opening)
+            for x in 35..45 { chunk.tiles[89][x] = TileId::Wall; }
+            for x in 55..65 { chunk.tiles[89][x] = TileId::Wall; }
+            // South wall (solid)
+            for x in 35..65 { chunk.tiles[110][x] = TileId::Wall; }
+            // West wall (solid)
+            for y in 89..111 { chunk.tiles[y][34] = TileId::Wall; }
+            // East wall (solid)
+            for y in 89..111 { chunk.tiles[y][65] = TileId::Wall; }
             // Side paths (hidden areas with items)
             for y in 8..20 { for x in 50..75 { chunk.tiles[y][x] = TileId::Ground; } }
             // Poison swamp (south of ruins)
@@ -2324,10 +2401,10 @@ fn load_area(game: &mut Game, area: AreaId) {
                 // Main clearing — easy enemies near start
                 Enemy::new_hollow_soldier(2, 350.0, 150.0),
                 Enemy::new_hollow_soldier(3, 400.0, 300.0),
-                Enemy::new_archer(4, 500.0, 200.0),
+                Enemy::new_archer(4, 420.0, 200.0),
                 // Side path — assassin ambush
                 Enemy::new_assassin(5, 1000.0, 250.0),
-                Enemy::new_hollow_soldier(6, 900.0, 350.0),
+                Enemy::new_hollow_soldier(6, 850.0, 350.0),
                 // Forest path south — dense patrol
                 Enemy::new_hollow_soldier(7, 400.0, 550.0),
                 Enemy::new_knight(8, 500.0, 650.0),
@@ -2337,12 +2414,10 @@ fn load_area(game: &mut Game, area: AreaId) {
                 Enemy::new_dark_mage(11, 800.0, 1000.0),
                 Enemy::new_knight(12, 650.0, 1100.0),
                 Enemy::new_hollow_soldier(13, 750.0, 1200.0),
-                Enemy::new_archer(14, 900.0, 1300.0),
+                Enemy::new_archer(14, 900.0, 1250.0),
                 // Near boss arena — tough guards
                 Enemy::new_knight(15, 700.0, 1450.0),
                 Enemy::new_dark_mage(16, 850.0, 1500.0),
-                // Hidden mimic in side area
-                Enemy::new_mimic(17, 1100.0, 300.0),
             ];
             game.items = vec![
                 // Main clearing
@@ -2350,10 +2425,10 @@ fn load_area(game: &mut Game, area: AreaId) {
                 WorldItem { x: 450.0, y: 400.0, kind: ItemKind::EstusShard, collected: false },
                 // Side path rewards
                 WorldItem { x: 950.0, y: 200.0, kind: ItemKind::SoulOrb(300), collected: false },
-                WorldItem { x: 1050.0, y: 350.0, kind: ItemKind::PurpleMoss, collected: false },
+                WorldItem { x: 950.0, y: 250.0, kind: ItemKind::PurpleMoss, collected: false },
                 // Forest path
                 WorldItem { x: 500.0, y: 600.0, kind: ItemKind::SoulOrb(200), collected: false },
-                WorldItem { x: 450.0, y: 900.0, kind: ItemKind::HomewardBone, collected: false },
+                WorldItem { x: 550.0, y: 900.0, kind: ItemKind::HomewardBone, collected: false },
                 // Deep forest
                 WorldItem { x: 700.0, y: 1100.0, kind: ItemKind::SoulOrb(400), collected: false },
                 WorldItem { x: 800.0, y: 1350.0, kind: ItemKind::PurpleMoss, collected: false },
@@ -2363,19 +2438,19 @@ fn load_area(game: &mut Game, area: AreaId) {
             ];
             game.chests = vec![
                 // Side path
-                TreasureChest { x: 1050.0, y: 200.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Dagger) },
+                TreasureChest { x: 1050.0, y: 200.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Dagger), is_mimic: false, mimic_revealed: false },
                 // Forest path
-                TreasureChest { x: 500.0, y: 700.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Head, "Hollow Soldier Helm".into()) },
+                TreasureChest { x: 500.0, y: 700.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Head, "Hollow Soldier Helm".into()), is_mimic: false, mimic_revealed: false },
                 // Deep forest
-                TreasureChest { x: 750.0, y: 1200.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Chest, "Hollow Soldier Armor".into()) },
+                TreasureChest { x: 750.0, y: 1200.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Chest, "Hollow Soldier Armor".into()), is_mimic: true, mimic_revealed: false },
                 // Near boss arena
-                TreasureChest { x: 900.0, y: 1600.0, opened: false, loot: ItemKind::RingDrop("Life Ring".into()) },
-                TreasureChest { x: 650.0, y: 1550.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Spear) },
+                TreasureChest { x: 900.0, y: 1600.0, opened: false, loot: ItemKind::RingDrop("Life Ring".into()), is_mimic: false, mimic_revealed: false },
+                TreasureChest { x: 650.0, y: 1550.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Spear), is_mimic: false, mimic_revealed: false },
             ];
             game.npcs = vec![
-                Npc { x: 250.0, y: 150.0, name: "Merchant".into(), color: [0.8, 0.7, 0.3, 1.0],
-                    dialogue: vec!["Psst! Over here!".into(), "I've got rare goods from the forest.".into(),
-                        "[Enter] Buy Purple Moss (200 souls)".into()],
+                Npc { x: 250.0, y: 150.0, name: "商人".into(), color: [0.8, 0.7, 0.3, 1.0],
+                    dialogue: vec!["嘘！过来！".into(), "我有聚落里的好东西。".into(),
+                        "[Enter] 购买紫苔藓 (200灵魂)".into()],
                     dialogue_index: 0, talking: false, kind: NpcKind::Merchant },
             ];
             game.lights = vec![
@@ -2389,17 +2464,17 @@ fn load_area(game: &mut Game, area: AreaId) {
             ];
             game.bonfire_x = 200.0;
             game.bonfire_y = 200.0;
-            let boss_defeated = game.bosses_defeated.iter().any(|b| b == "DemonKnight");
+            let boss_defeated = game.bosses_defeated.iter().any(|b| b == "CurseRottedGreatwood");
             game.fog_gates = vec![
-                FogGate { x: 200.0, y: 100.0, w: 80.0, h: 32.0, destination: AreaId::Majula, dest_x: 500.0, dest_y: 350.0, active: true },
-                FogGate { x: 600.0, y: 1350.0, w: 64.0, h: 80.0, destination: AreaId::CardinalTower, dest_x: 200.0, dest_y: 200.0, active: true },
-                // Boss fog gate — only active if not defeated
-                FogGate { x: 880.0, y: 1400.0, w: 64.0, h: 80.0, destination: AreaId::ForestOfGiants, dest_x: 900.0, dest_y: 1500.0, active: !boss_defeated },
+                FogGate { x: 200.0, y: 100.0, w: 80.0, h: 32.0, destination: AreaId::FirelinkShrine, dest_x: 500.0, dest_y: 350.0, active: true },
+                FogGate { x: 600.0, y: 1350.0, w: 64.0, h: 80.0, destination: AreaId::CathedralDeep, dest_x: 200.0, dest_y: 200.0, active: true },
+                // Boss fog gate at arena north entrance
+                FogGate { x: 800.0, y: 1416.0, w: 128.0, h: 32.0, destination: AreaId::UndeadSettlement, dest_x: 800.0, dest_y: 1520.0, active: !boss_defeated },
             ];
         }
-        AreaId::CardinalTower => {
-            // Heide's Tower of Flame: wide stone causeways over water, towering structures
-            // Layout: entrance causeway → knight patrol → great cathedral → Dragonrider arena
+        AreaId::CathedralDeep => {
+            // Cathedral of the Deep: wide stone causeways, towering structures
+            // Layout: entrance causeway → knight patrol → great cathedral → boss arena
             let mut chunk = Chunk::new((0, 0));
             for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
             // Entrance causeway (narrow path over water)
@@ -2414,8 +2489,18 @@ fn load_area(game: &mut Game, area: AreaId) {
             for y in 25..50 { for x in 70..100 { chunk.tiles[y][x] = TileId::Ground; } }
             // Side path (hidden items)
             for y in 35..50 { for x in 40..65 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Dragonrider arena (raised platform)
-            for y in 50..80 { for x in 60..100 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Boss arena (enclosed room with north door)
+            // Room interior: y:55..75, x:65..95
+            for y in 55..75 { for x in 65..95 { chunk.tiles[y][x] = TileId::Ground; } }
+            // North wall with door gap (x:75..85 = opening)
+            for x in 65..75 { chunk.tiles[54][x] = TileId::Wall; }
+            for x in 85..95 { chunk.tiles[54][x] = TileId::Wall; }
+            // South wall (solid)
+            for x in 65..95 { chunk.tiles[75][x] = TileId::Wall; }
+            // West wall (solid)
+            for y in 54..76 { chunk.tiles[y][64] = TileId::Wall; }
+            // East wall (solid)
+            for y in 54..76 { chunk.tiles[y][95] = TileId::Wall; }
             // Shallow water channels
             for y in 12..18 { for x in 10..20 { chunk.tiles[y][x] = TileId::Poison; } }
             for y in 28..35 { for x in 50..70 { chunk.tiles[y][x] = TileId::Poison; } }
@@ -2423,8 +2508,8 @@ fn load_area(game: &mut Game, area: AreaId) {
             game.chunk = chunk;
             game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
             game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
-            game.player.transform.x = 200.0;
-            game.player.transform.y = 320.0;
+            game.player.transform.x = 400.0;
+            game.player.transform.y = 400.0;
             game.player.hp = (game.player.max_hp as f32 * player_hp_ratio) as i32;
             game.enemies = vec![
                 // Entrance causeway
@@ -2439,7 +2524,7 @@ fn load_area(game: &mut Game, area: AreaId) {
                 Enemy::new_knight(7, 1500.0, 400.0),
                 Enemy::new_dark_mage(8, 1300.0, 300.0),
                 // Cathedral approach
-                Enemy::new_knight(9, 1100.0, 600.0),
+                Enemy::new_knight(9, 1150.0, 600.0),
                 Enemy::new_archer(10, 1300.0, 700.0),
                 // Side path guard
                 Enemy::new_assassin(11, 800.0, 650.0),
@@ -2461,20 +2546,15 @@ fn load_area(game: &mut Game, area: AreaId) {
                 WorldItem { x: 1100.0, y: 850.0, kind: ItemKind::SoulOrb(1000), collected: false },
             ];
             game.chests = vec![
-                TreasureChest { x: 500.0, y: 320.0, opened: false, loot: ItemKind::SoulOrb(500) },
-                TreasureChest { x: 800.0, y: 700.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Uchigatana) },
-                TreasureChest { x: 1500.0, y: 350.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Chest, "Knight Armor".into()) },
-                TreasureChest { x: 1100.0, y: 950.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::GreatAxe) },
+                TreasureChest { x: 500.0, y: 320.0, opened: false, loot: ItemKind::SoulOrb(500), is_mimic: false, mimic_revealed: false },
+                TreasureChest { x: 800.0, y: 700.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Uchigatana), is_mimic: false, mimic_revealed: false },
+                TreasureChest { x: 1500.0, y: 350.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Chest, "Knight Armor".into()), is_mimic: true, mimic_revealed: false },
+                TreasureChest { x: 1100.0, y: 950.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::GreatAxe), is_mimic: false, mimic_revealed: false },
             ];
-            game.npcs = vec![
-                Npc { x: 240.0, y: 180.0, name: "Emerald Herald".into(), color: [0.2, 0.9, 0.7, 1.0],
-                    dialogue: vec!["The tower holds many secrets.".into(), "Beware the Dragonrider above.".into(),
-                        "[Enter] Level Up".into()],
-                    dialogue_index: 0, talking: false, kind: NpcKind::LevelUp },
-            ];
+            game.npcs = vec![];
             game.lights = vec![
                 // Entrance (bonfire glow)
-                Light { x: 200.0, y: 320.0, radius: 250.0, color: [0.9, 0.8, 0.6], intensity: 0.4 },
+                Light { x: 400.0, y: 400.0, radius: 250.0, color: [0.9, 0.8, 0.6], intensity: 0.4 },
                 // First platform
                 Light { x: 600.0, y: 300.0, radius: 200.0, color: [0.5, 0.5, 0.8], intensity: 0.2 },
                 // Causeway
@@ -2486,17 +2566,17 @@ fn load_area(game: &mut Game, area: AreaId) {
                 // Boss arena
                 Light { x: 1300.0, y: 1000.0, radius: 250.0, color: [0.8, 0.2, 0.4], intensity: 0.25 },
             ];
-            game.bonfire_x = 200.0;
-            game.bonfire_y = 320.0;
-            let dragonrider_defeated = game.bosses_defeated.iter().any(|b| b == "Dragonrider");
+            game.bonfire_x = 400.0;
+            game.bonfire_y = 400.0;
+            let dragonrider_defeated = game.bosses_defeated.iter().any(|b| b == "DeaconsOfTheDeep");
             game.fog_gates = vec![
-                FogGate { x: 80.0, y: 320.0, w: 64.0, h: 80.0, destination: AreaId::Majula, dest_x: 380.0, dest_y: 600.0, active: true },
-                FogGate { x: 1550.0, y: 300.0, w: 64.0, h: 80.0, destination: AreaId::LostBastille, dest_x: 200.0, dest_y: 200.0, active: true },
-                // Boss fog gate — Dragonrider in arena
-                FogGate { x: 1100.0, y: 800.0, w: 64.0, h: 80.0, destination: AreaId::CardinalTower, dest_x: 1300.0, dest_y: 1000.0, active: !dragonrider_defeated },
+                FogGate { x: 80.0, y: 320.0, w: 64.0, h: 80.0, destination: AreaId::FirelinkShrine, dest_x: 380.0, dest_y: 600.0, active: true },
+                FogGate { x: 1550.0, y: 300.0, w: 64.0, h: 80.0, destination: AreaId::Irithyll, dest_x: 200.0, dest_y: 200.0, active: true },
+                // Boss fog gate at arena north entrance
+                FogGate { x: 1280.0, y: 856.0, w: 128.0, h: 32.0, destination: AreaId::CathedralDeep, dest_x: 1280.0, dest_y: 1040.0, active: !dragonrider_defeated },
             ];
         }
-        AreaId::LostBastille => {
+        AreaId::Irithyll => {
             // Fortress prison — tight corridors, many enemies, traps
             let mut chunk = Chunk::new((0, 0));
             for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
@@ -2512,8 +2592,18 @@ fn load_area(game: &mut Game, area: AreaId) {
             for y in 45..75 { for x in 50..90 { chunk.tiles[y][x] = TileId::Ground; } }
             // Lower corridor
             for y in 75..85 { for x in 40..80 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Boss arena
-            for y in 85..115 { for x in 30..90 { chunk.tiles[y][x] = TileId::Ground; } }
+            // Boss arena (enclosed room with north door)
+            // Room interior: y:90..110, x:40..80
+            for y in 90..110 { for x in 40..80 { chunk.tiles[y][x] = TileId::Ground; } }
+            // North wall with door gap (x:52..62 = opening)
+            for x in 40..52 { chunk.tiles[89][x] = TileId::Wall; }
+            for x in 62..80 { chunk.tiles[89][x] = TileId::Wall; }
+            // South wall (solid)
+            for x in 40..80 { chunk.tiles[110][x] = TileId::Wall; }
+            // West wall (solid)
+            for y in 89..111 { chunk.tiles[y][39] = TileId::Wall; }
+            // East wall (solid)
+            for y in 89..111 { chunk.tiles[y][80] = TileId::Wall; }
             // Poison trap rooms
             for y in 55..65 { for x in 10..20 { chunk.tiles[y][x] = TileId::Poison; } }
             for y in 60..68 { for x in 75..85 { chunk.tiles[y][x] = TileId::Poison; } }
@@ -2534,9 +2624,8 @@ fn load_area(game: &mut Game, area: AreaId) {
                 Enemy::new_assassin(8, 700.0, 550.0),
                 Enemy::new_hollow_soldier(9, 650.0, 700.0),
                 Enemy::new_archer(10, 800.0, 650.0),
-                Enemy::new_knight(11, 750.0, 800.0),
-                Enemy::new_dark_mage(12, 600.0, 900.0),
-                Enemy::new_mimic(13, 850.0, 750.0),
+                Enemy::new_knight(11, 850.0, 800.0),
+                Enemy::new_dark_mage(12, 850.0, 900.0),
                 Enemy::new_hollow_soldier(14, 900.0, 1000.0),
                 Enemy::new_knight(15, 950.0, 1100.0),
             ];
@@ -2553,22 +2642,17 @@ fn load_area(game: &mut Game, area: AreaId) {
                 WorldItem { x: 900.0, y: 750.0, kind: ItemKind::PurpleMoss, collected: false },
                 WorldItem { x: 1050.0, y: 900.0, kind: ItemKind::SoulOrb(800), collected: false },
                 // Lower corridor / near boss
-                WorldItem { x: 750.0, y: 1050.0, kind: ItemKind::SoulOrb(1500), collected: false },
-                WorldItem { x: 650.0, y: 1200.0, kind: ItemKind::EstusShard, collected: false },
+                WorldItem { x: 850.0, y: 1050.0, kind: ItemKind::SoulOrb(1500), collected: false },
+                WorldItem { x: 700.0, y: 1250.0, kind: ItemKind::EstusShard, collected: false },
             ];
             game.chests = vec![
-                TreasureChest { x: 300.0, y: 450.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Chest, "Knight Armor".into()) },
-                TreasureChest { x: 650.0, y: 600.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Spear) },
-                TreasureChest { x: 850.0, y: 850.0, opened: false, loot: ItemKind::RingDrop("Chloranthy Ring".into()) },
-                TreasureChest { x: 900.0, y: 1100.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Head, "Knight Helm".into()) },
-                TreasureChest { x: 1000.0, y: 1250.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Uchigatana) },
+                TreasureChest { x: 300.0, y: 450.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Chest, "Knight Armor".into()), is_mimic: false, mimic_revealed: false },
+                TreasureChest { x: 650.0, y: 600.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Spear), is_mimic: false, mimic_revealed: false },
+                TreasureChest { x: 850.0, y: 850.0, opened: false, loot: ItemKind::RingDrop("Chloranthy Ring".into()), is_mimic: false, mimic_revealed: false },
+                TreasureChest { x: 900.0, y: 1100.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Head, "Knight Helm".into()), is_mimic: true, mimic_revealed: false },
+                TreasureChest { x: 1000.0, y: 1250.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Uchigatana), is_mimic: false, mimic_revealed: false },
             ];
-            game.npcs = vec![
-                Npc { x: 350.0, y: 200.0, name: "Straid".into(), color: [0.4, 0.3, 0.7, 1.0],
-                    dialogue: vec!["A prisoner, like yourself once.".into(), "I sense great power in you.".into(),
-                        "Defeat the Ruin Sentinel to prove your worth.".into()],
-                    dialogue_index: 0, talking: false, kind: NpcKind::Dialogue },
-            ];
+            game.npcs = vec![];
             game.lights = vec![
                 Light { x: 200.0, y: 200.0, radius: 200.0, color: [0.6, 0.6, 0.7], intensity: 0.3 },
                 Light { x: 350.0, y: 200.0, radius: 120.0, color: [0.4, 0.3, 0.7], intensity: 0.15 },
@@ -2581,12 +2665,50 @@ fn load_area(game: &mut Game, area: AreaId) {
             ];
             game.bonfire_x = 200.0;
             game.bonfire_y = 200.0;
-            let boss_defeated = game.bosses_defeated.iter().any(|b| b == "RuinSentinel");
+            let boss_defeated = game.bosses_defeated.iter().any(|b| b == "PontiffSulyvahn");
             game.fog_gates = vec![
-                FogGate { x: 80.0, y: 100.0, w: 64.0, h: 80.0, destination: AreaId::CardinalTower, dest_x: 1700.0, dest_y: 400.0, active: true },
-                // Boss fog gate — in lower corridor near boss arena entrance
-                FogGate { x: 600.0, y: 1350.0, w: 64.0, h: 80.0, destination: AreaId::LostBastille, dest_x: 900.0, dest_y: 1500.0, active: !boss_defeated },
+                FogGate { x: 80.0, y: 100.0, w: 64.0, h: 80.0, destination: AreaId::CathedralDeep, dest_x: 1700.0, dest_y: 400.0, active: true },
+                // Boss fog gate at arena north entrance
+                FogGate { x: 912.0, y: 1416.0, w: 128.0, h: 32.0, destination: AreaId::Irithyll, dest_x: 912.0, dest_y: 1520.0, active: !boss_defeated },
             ];
+        }
+    }
+
+    // Pre-spawn boss at arena center if area has a boss and not yet defeated
+    game.boss = None;
+    game.boss_active = false;
+    game.boss_defeated = false;
+    if let Some(boss_type) = area_boss(area) {
+        let boss_name = match boss_type {
+            BossType::DemonKnight => "CurseRottedGreatwood",
+            BossType::Dragonrider => "DeaconsOfTheDeep",
+            BossType::RuinSentinel => "PontiffSulyvahn",
+        };
+        let already_defeated = game.bosses_defeated.iter().any(|b| b == boss_name);
+        if !already_defeated {
+            let (cx, cy) = match area {
+                AreaId::UndeadSettlement => (960.0, 1600.0),
+                AreaId::CathedralDeep => (1280.0, 1040.0),
+                AreaId::Irithyll => (960.0, 1600.0),
+                _ => (400.0, 400.0),
+            };
+            let boss = match boss_type {
+                BossType::DemonKnight => crate::entity::boss::Boss::new_test_boss(100, cx, cy),
+                BossType::Dragonrider => crate::entity::boss::Boss::new_dragonrider(100, cx, cy),
+                BossType::RuinSentinel => crate::entity::boss::Boss::new_ruin_sentinel(100, cx, cy),
+            };
+            game.boss = Some(boss);
+        }
+    }
+    // Mark boss as defeated for current area (for fog gate deactivation)
+    if let Some(boss_type) = area_boss(area) {
+        let boss_name = match boss_type {
+            BossType::DemonKnight => "CurseRottedGreatwood",
+            BossType::Dragonrider => "DeaconsOfTheDeep",
+            BossType::RuinSentinel => "PontiffSulyvahn",
+        };
+        if game.bosses_defeated.iter().any(|b| b == boss_name) {
+            game.boss_defeated = true;
         }
     }
     // New Game+ difficulty scaling: enemies gain +40% HP and +30% damage per cycle
@@ -2649,7 +2771,7 @@ fn update_travel_menu(game: &mut Game) {
     }
     if game.input.consume_pressed(KeyCode::Enter) {
         let idx = game.menu.selected_index;
-        let areas = [AreaId::Majula, AreaId::ForestOfGiants, AreaId::CardinalTower, AreaId::LostBastille];
+        let areas = [AreaId::FirelinkShrine, AreaId::UndeadSettlement, AreaId::CathedralDeep, AreaId::Irithyll];
         if idx < 4 {
             load_area(game, areas[idx]);
         } else {
@@ -2680,7 +2802,7 @@ fn update_victory(game: &mut Game) {
         game.bloodstain_souls = 0;
         game.time.accumulator = 0.0;
         game.state_timer = 0.0;
-        load_area(game, AreaId::Majula);
+        load_area(game, AreaId::FirelinkShrine);
         game.state = GameState::Playing;
     }
 }
@@ -2755,19 +2877,71 @@ fn render(game: &mut Game) {
         game.batcher.draw(bonfire_data, &game.bonfire_tex, gl);
     }
 
-    // --- Draw fog gates ---
+    // --- Draw fog gates as doorways ---
     {
         let pulse = ((game.time.accumulator as f32 * 1.2).sin() * 0.1 + 0.9);
         for gate in &game.fog_gates {
             if !gate.active { continue; }
             let is_boss = gate.destination == game.area;
-            let color = if is_boss {
-                [0.6, 0.3, 0.8, 0.6 * pulse]
+            let is_vertical = gate.h > gate.w;
+            let (frame_color, fog_color) = if is_boss {
+                ([0.5f32, 0.3, 0.1, 1.0], [0.5, 0.2, 0.7, 0.5 * pulse])
             } else {
-                [0.4, 0.7, 0.9, 0.4 * pulse]
+                ([0.4f32, 0.35, 0.25, 1.0], [0.3, 0.5, 0.7, 0.35 * pulse])
             };
-            let instance = InstanceData::new(gate.x, gate.y, gate.w * 1.2, gate.h * 1.2, [0.0, 0.0, 1.0, 1.0], color);
-            game.batcher.draw(instance, &game.white_tex, gl);
+            if is_vertical {
+                // Vertical doorway — two pillars + fog between
+                let pillar_w = 8.0;
+                let pillar_h = gate.h;
+                // Left pillar
+                game.batcher.draw(
+                    InstanceData::new(gate.x - gate.w * 0.5 - pillar_w * 0.5, gate.y, pillar_w, pillar_h, [0.0, 0.0, 1.0, 1.0], frame_color),
+                    &game.white_tex, gl,
+                );
+                // Right pillar
+                game.batcher.draw(
+                    InstanceData::new(gate.x + gate.w * 0.5 + pillar_w * 0.5, gate.y, pillar_w, pillar_h, [0.0, 0.0, 1.0, 1.0], frame_color),
+                    &game.white_tex, gl,
+                );
+                // Fog fill between pillars
+                game.batcher.draw(
+                    InstanceData::new(gate.x, gate.y, gate.w, gate.h, [0.0, 0.0, 1.0, 1.0], fog_color),
+                    &game.white_tex, gl,
+                );
+                // Arch at top
+                game.batcher.draw(
+                    InstanceData::new(gate.x, gate.y - gate.h * 0.5 - 3.0, gate.w + pillar_w * 2.0, 6.0, [0.0, 0.0, 1.0, 1.0], frame_color),
+                    &game.white_tex, gl,
+                );
+            } else {
+                // Horizontal doorway — two pillars + fog
+                let pillar_w = gate.w;
+                let pillar_h = 8.0;
+                // Top pillar
+                game.batcher.draw(
+                    InstanceData::new(gate.x, gate.y - gate.h * 0.5 - pillar_h * 0.5, pillar_w, pillar_h, [0.0, 0.0, 1.0, 1.0], frame_color),
+                    &game.white_tex, gl,
+                );
+                // Bottom pillar
+                game.batcher.draw(
+                    InstanceData::new(gate.x, gate.y + gate.h * 0.5 + pillar_h * 0.5, pillar_w, pillar_h, [0.0, 0.0, 1.0, 1.0], frame_color),
+                    &game.white_tex, gl,
+                );
+                // Fog fill
+                game.batcher.draw(
+                    InstanceData::new(gate.x, gate.y, gate.w, gate.h, [0.0, 0.0, 1.0, 1.0], fog_color),
+                    &game.white_tex, gl,
+                );
+                // Side pillars
+                game.batcher.draw(
+                    InstanceData::new(gate.x - gate.w * 0.5 - 3.0, gate.y, 6.0, gate.h + pillar_h * 2.0, [0.0, 0.0, 1.0, 1.0], frame_color),
+                    &game.white_tex, gl,
+                );
+                game.batcher.draw(
+                    InstanceData::new(gate.x + gate.w * 0.5 + 3.0, gate.y, 6.0, gate.h + pillar_h * 2.0, [0.0, 0.0, 1.0, 1.0], frame_color),
+                    &game.white_tex, gl,
+                );
+            }
         }
     }
 
@@ -2812,6 +2986,7 @@ fn render(game: &mut Game) {
 
     // --- Draw treasure chests ---
     for chest in &game.chests {
+        if chest.mimic_revealed { continue; } // Mimic is now rendered as an enemy
         let (color, size) = if chest.opened {
             ([0.4, 0.35, 0.25, 0.6], 16.0) // Dim when opened
         } else {
@@ -2856,19 +3031,38 @@ fn render(game: &mut Game) {
     // --- Draw NPCs ---
     for npc in &game.npcs {
         let bob = (game.play_time * 2.0).sin() * 2.0;
+        let (body_w, body_h, head_size) = match npc.kind {
+            NpcKind::Blacksmith => (24.0, 28.0, 12.0), // Stocky
+            NpcKind::Merchant => (20.0, 24.0, 10.0),   // Thin
+            NpcKind::LevelUp => (22.0, 30.0, 11.0),    // Tall
+            _ => (22.0, 26.0, 10.0),
+        };
+        // Body
         game.batcher.draw(
-            InstanceData::new(npc.x, npc.y + bob, 28.0, 28.0, [0.0, 0.0, 1.0, 1.0], npc.color),
+            InstanceData::new(npc.x, npc.y + bob, body_w, body_h, [0.0, 0.0, 1.0, 1.0], npc.color),
             &game.white_tex, gl,
         );
-        // Name above NPC
+        // Head (lighter shade)
+        let head_color = [
+            (npc.color[0] + 0.3).min(1.0),
+            (npc.color[1] + 0.3).min(1.0),
+            (npc.color[2] + 0.3).min(1.0),
+            1.0,
+        ];
+        game.batcher.draw(
+            InstanceData::new(npc.x, npc.y - body_h * 0.5 - head_size * 0.5 + bob, head_size, head_size, [0.0, 0.0, 1.0, 1.0], head_color),
+            &game.white_tex, gl,
+        );
+        // Interact indicator when nearby
         let proximity = {
             let dx = game.player.transform.x - npc.x;
             let dy = game.player.transform.y - npc.y;
             (dx * dx + dy * dy).sqrt() < 50.0
         };
         if proximity {
+            let flash = (game.play_time * 4.0).sin() * 0.3 + 0.7;
             game.batcher.draw(
-                InstanceData::new(npc.x, npc.y - 24.0, 6.0, 6.0, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 0.0, 0.8]),
+                InstanceData::new(npc.x, npc.y - body_h * 0.5 - head_size - 6.0, 4.0, 4.0, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 0.0, flash]),
                 &game.white_tex, gl,
             );
         }
@@ -3271,6 +3465,85 @@ fn render(game: &mut Game) {
         }
     }
 
+    // --- Equipment Slot UI (bottom-left, DS3 cross layout) ---
+    {
+        let slot_size = 40.0;
+        let gap = 4.0;
+        let base_x = 30.0 + slot_size + gap;
+        let base_y = game.screen_h - 30.0 - slot_size - gap;
+
+        // Background helper: draws a slot box with dark fill and border
+        let bg_color = [0.08f32, 0.08, 0.08, 0.85];
+        let border_color = [0.35f32, 0.3, 0.25, 0.9];
+
+        // Cross layout centered at (base_x, base_y)
+        let spell_x = base_x;
+        let spell_y = base_y - slot_size - gap; // visual top
+        let item_x = base_x;
+        let item_y = base_y + slot_size + gap;  // visual bottom
+        let left_x = base_x - slot_size - gap;
+        let left_y = base_y;
+        let right_x = base_x + slot_size + gap;
+        let right_y = base_y;
+
+        // Helper closure to draw a slot
+        let draw_slot = |gl: &GL, x: f32, y: f32| {
+            game.ui_renderer.draw_bar(gl, x, y, slot_size, slot_size, 1.0, bg_color, bg_color, &ui_proj);
+            game.ui_renderer.draw_bar(gl, x, y - slot_size * 0.5, slot_size, 1.5, 1.0, border_color, border_color, &ui_proj);
+            game.ui_renderer.draw_bar(gl, x, y + slot_size * 0.5, slot_size, 1.5, 1.0, border_color, border_color, &ui_proj);
+            game.ui_renderer.draw_bar(gl, x - slot_size * 0.5, y, 1.5, slot_size, 1.0, border_color, border_color, &ui_proj);
+            game.ui_renderer.draw_bar(gl, x + slot_size * 0.5, y, 1.5, slot_size, 1.0, border_color, border_color, &ui_proj);
+        };
+
+        draw_slot(gl, spell_x, spell_y);
+        draw_slot(gl, item_x, item_y);
+        draw_slot(gl, left_x, left_y);
+        draw_slot(gl, right_x, right_y);
+
+        // --- Icons inside slots ---
+        let icon_dim = [0.0f32, 0.0, 1.0, 1.0];
+
+        // Spell slot icon (top in screen = spell_y, smallest Y): dim diamond
+        let spell_dim = [0.25f32, 0.2, 0.35, 0.5];
+        game.ui_renderer.draw_bar(gl, spell_x, spell_y, 14.0, 14.0, 1.0, icon_dim, spell_dim, &ui_proj);
+        game.ui_renderer.draw_bar(gl, spell_x, spell_y - 3.0, 8.0, 8.0, 1.0, spell_dim, spell_dim, &ui_proj);
+        game.ui_renderer.draw_bar(gl, spell_x, spell_y + 3.0, 8.0, 8.0, 1.0, spell_dim, spell_dim, &ui_proj);
+
+        // Item slot icon (bottom in screen = item_y, largest Y): gold flask (estus)
+        let flask_color = [0.9f32, 0.7, 0.1, 0.8];
+        game.ui_renderer.draw_bar(gl, item_x, item_y + 2.0, 12.0, 16.0, 1.0, icon_dim, flask_color, &ui_proj);
+        game.ui_renderer.draw_bar(gl, item_x, item_y - 8.0, 6.0, 6.0, 1.0, icon_dim, flask_color, &ui_proj);
+        let cap_color = [0.7f32, 0.5, 0.2, 0.8];
+        game.ui_renderer.draw_bar(gl, item_x, item_y - 12.0, 8.0, 3.0, 1.0, icon_dim, cap_color, &ui_proj);
+
+        // Left slot icon: shield shape
+        let is_shield = game.player.equipment.left_hand.active().weapon_type == crate::combat::weapon::WeaponType::Shield;
+        if is_shield {
+            let shield_color = [0.3f32, 0.5, 0.8, 0.8];
+            game.ui_renderer.draw_bar(gl, left_x, left_y, 18.0, 22.0, 1.0, icon_dim, shield_color, &ui_proj);
+            let cross_color = [0.9f32, 0.8, 0.3, 0.9];
+            game.ui_renderer.draw_bar(gl, left_x, left_y, 2.0, 14.0, 1.0, icon_dim, cross_color, &ui_proj);
+            game.ui_renderer.draw_bar(gl, left_x, left_y - 2.0, 12.0, 2.0, 1.0, icon_dim, cross_color, &ui_proj);
+        } else {
+            // Weapon icon (small blade)
+            let wep_color = [0.6f32, 0.6, 0.65, 0.8];
+            game.ui_renderer.draw_bar(gl, left_x, left_y - 4.0, 3.0, 20.0, 1.0, icon_dim, wep_color, &ui_proj);
+            let guard_color = [0.5f32, 0.35, 0.2, 0.9];
+            game.ui_renderer.draw_bar(gl, left_x, left_y + 6.0, 12.0, 3.0, 1.0, icon_dim, guard_color, &ui_proj);
+        }
+
+        // Right slot icon: sword shape
+        let sword_color = [0.75f32, 0.75, 0.8, 0.85];
+        // Blade
+        game.ui_renderer.draw_bar(gl, right_x, right_y - 4.0, 3.0, 20.0, 1.0, icon_dim, sword_color, &ui_proj);
+        // Cross-guard
+        let guard_color2 = [0.5f32, 0.35, 0.2, 0.9];
+        game.ui_renderer.draw_bar(gl, right_x, right_y + 6.0, 14.0, 3.0, 1.0, icon_dim, guard_color2, &ui_proj);
+        // Pommel
+        let pommel_color = [0.4f32, 0.3, 0.2, 0.8];
+        game.ui_renderer.draw_bar(gl, right_x, right_y + 14.0, 5.0, 5.0, 1.0, icon_dim, pommel_color, &ui_proj);
+    }
+
     // --- Mini-map (top-right corner) ---
     {
         let map_size = 150.0;
@@ -3419,7 +3692,7 @@ fn update_dom_ui(game: &Game) {
     if let Some(menu_el) = document.get_element_by_id("menu") {
         if matches!(game.state, GameState::TitleScreen | GameState::DeathScreen | GameState::BonfireMenu | GameState::LevelUpMenu | GameState::TravelMenu) {
             let header = if game.state == GameState::LevelUpMenu {
-                format!("<div class=\"menu-item\" style=\"color:#aaa;font-size:16px\">Level {} · Souls: {} · Cost: {}</div>", game.player.level, game.souls, game.player.level_up_cost())
+                format!("<div class=\"menu-item\" style=\"color:#aaa;font-size:16px\">等级 {} · 灵魂: {} · 费用: {}</div>", game.player.level, game.souls, game.player.level_up_cost())
             } else {
                 String::new()
             };
@@ -3454,7 +3727,7 @@ fn update_dom_ui(game: &Game) {
             if t > 0.5 {
                 let text_alpha = ((t - 0.5) / 1.0).min(1.0);
                 let scale = 0.5 + text_alpha * 0.5;
-                el.set_text_content(Some("YOU DIED"));
+                el.set_text_content(Some("你死了"));
                 let _ = el.set_attribute("style", &format!(
                     "opacity: {}; transform: translate(-50%, -50%) scale({:.2});",
                     text_alpha, scale
@@ -3469,7 +3742,7 @@ fn update_dom_ui(game: &Game) {
             let bosses_list = game.bosses_defeated.join(", ");
             let ng_label = if game.ng_plus == 0 { String::new() } else { format!("NG+{} ", game.ng_plus) };
             el.set_text_content(Some(&format!(
-                "VICTORY\n\n{}The Curse is Broken.\n\nBosses Defeated: {}\nTime: {}:{:02}\nEnemies Slain: {}\nDamage Dealt: {}\nDamage Taken: {}\nDeaths: {}\nLevel: {}\n\nPress Enter for New Game+",
+                "胜利\n\n{}火焰已传承。\n\n已击败Boss: {}\n用时: {}:{:02}\n击杀敌人: {}\n造成伤害: {}\n承受伤害: {}\n死亡次数: {}\n等级: {}\n\n按Enter开始新周目",
                 ng_label, bosses_list, mins, secs, game.enemies_killed, game.damage_dealt, game.damage_taken, game.death_count, game.player.level
             )));
             let _ = el.set_attribute("style",
@@ -3485,7 +3758,7 @@ fn update_dom_ui(game: &Game) {
         if game.level_up_flash > 0.0 {
             let alpha = (game.level_up_flash / 1.5).min(1.0);
             let _ = el.set_attribute("style", &format!("opacity: {}; color: #e8c840; font-size: 32px; text-shadow: 0 0 20px rgba(232,200,64,0.8); letter-spacing: 8px;", alpha));
-            el.set_text_content(Some(&format!("LEVEL {}", game.player.level)));
+            el.set_text_content(Some(&format!("等级 {}", game.player.level)));
         } else {
             let _ = el.set_attribute("style", "display:none");
             el.set_text_content(Some(""));
@@ -3499,16 +3772,16 @@ fn update_dom_ui(game: &Game) {
         let stamina = game.player.stamina.current as i32;
         let max_sta = game.player.stamina.maximum as i32;
         let state_name = match game.player.state {
-            EntityState::Idle => "Idle",
-            EntityState::Moving => "Moving",
-            EntityState::Attacking => "ATTACK",
-            EntityState::Rolling => "ROLL",
-            EntityState::Staggered => "STAGGER",
-            EntityState::Dead => "DEAD",
-            EntityState::Blocking => "BLOCK",
+            EntityState::Idle => "待机",
+            EntityState::Moving => "移动",
+            EntityState::Attacking => "攻击",
+            EntityState::Rolling => "翻滚",
+            EntityState::Staggered => "硬直",
+            EntityState::Dead => "死亡",
+            EntityState::Blocking => "格挡",
         };
         let mut text = format!(
-            "HP {}/{} | STA {}/{} | DMG {} | Lv{} | {} | {}",
+            "HP {}/{} | 精力 {}/{} | 攻击 {} | Lv{} | {} | {}",
             hp, max_hp, stamina, max_sta, game.player.damage(), game.player.level, state_name,
             game.player.weapon.name
         );
@@ -3519,16 +3792,16 @@ fn update_dom_ui(game: &Game) {
             let dy = py - game.bonfire_y;
             let dist = (dx * dx + dy * dy).sqrt();
             if dist < 40.0 {
-                text.push_str(" | [Enter] Bonfire");
+                text.push_str(" | [Enter] 篝火");
             }
             // Chest proximity hint
             for chest in &game.chests {
-                if chest.opened { continue; }
+                if chest.opened || chest.mimic_revealed { continue; }
                 let cdx = px - chest.x;
                 let cdy = py - chest.y;
                 let cdist = (cdx * cdx + cdy * cdy).sqrt();
                 if cdist < 30.0 {
-                    text.push_str(" | [Enter] Open Chest");
+                    text.push_str(" | [Enter] 开启宝箱");
                     break;
                 }
             }
@@ -3538,7 +3811,7 @@ fn update_dom_ui(game: &Game) {
                 let ndy = py - npc.y;
                 let ndist = (ndx * ndx + ndy * ndy).sqrt();
                 if ndist < 40.0 {
-                    text.push_str(&format!(" | [Enter] Talk to {}", npc.name));
+                    text.push_str(&format!(" | [Enter] 与{}对话", npc.name));
                     break;
                 }
             }
@@ -3548,20 +3821,32 @@ fn update_dom_ui(game: &Game) {
 
     // Souls + area name
     if let Some(el) = document.get_element_by_id("souls-text") {
-        let mut text = format!("{}{} | Souls: {} | Estus: {}/{}",
+        let mut text = format!("{}{} | 灵魂: {} | 原素瓶: {}/{}",
             if game.ng_plus > 0 { format!("NG+{} ", game.ng_plus) } else { String::new() },
             area_name(game.area), game.souls, game.bonfire.estus_charges, game.bonfire.estus_max);
         // Show consumable hint
         let has_moss = game.inventory.iter().any(|i| matches!(&i.kind, InventoryItemKind::Consumable(n) if n == "PurpleMoss"));
         let has_bone = game.inventory.iter().any(|i| matches!(&i.kind, InventoryItemKind::Consumable(n) if n == "HomewardBone"));
-        if has_moss { text.push_str(" | [Q] Moss"); }
-        if has_bone { text.push_str(" | [Q] Bone"); }
+        if has_moss { text.push_str(" | [Q] 苔藓"); }
+        if has_bone { text.push_str(" | [Q] 归骨"); }
         if game.player.poison_timer > 0.0 {
-            text.push_str(&format!(" | POISONED ({:.0}s)", game.player.poison_timer));
+            text.push_str(&format!(" | 中毒 ({:.0}s)", game.player.poison_timer));
         }
-        el.set_text_content(Some(&text));
+        if let Some((ref msg, t)) = game.pickup_notification {
+            let alpha = (t / 2.0).min(1.0);
+            text.push_str(&format!("<br/><span style='color:#e8c840;opacity:{:.2}'>▲ {}</span>", alpha, msg));
+            el.set_inner_html(&text);
+        } else {
+            el.set_text_content(Some(&text));
+        }
         // Tint text when poisoned
-        let _ = el.set_attribute("style", if game.player.poison_timer > 0.0 { "color: #6c6;" } else { "" });
+        let style = if game.player.poison_timer > 0.0 { "color: #6c6;white-space:pre-line;" } else { "white-space:pre-line;" };
+        let _ = el.set_attribute("style", style);
+    }
+
+    // Equipment slot labels removed — icons only
+    if let Some(el) = document.get_element_by_id("equip-slots") {
+        el.set_inner_html("");
     }
 
     // Inventory panel (I key to toggle)
@@ -3570,32 +3855,32 @@ fn update_dom_ui(game: &Game) {
             let defense = game.player.equipment.total_defense();
             let weight = game.player.equipment.total_weight();
             let equip_load = game.player.equipment.equip_load_percent(40.0 + 10.0 * 1.5);
-            let roll_type = if equip_load < 0.3 { "Fast" } else if equip_load < 0.7 { "Medium" } else { "Fat" };
+            let roll_type = if equip_load < 0.3 { "快速" } else if equip_load < 0.7 { "普通" } else { "缓慢" };
 
-            let mut html = String::from("<div style='color:#e8c840;font-size:20px;text-align:center;margin-bottom:8px'>INVENTORY</div>");
-            html.push_str(&format!("<div style='color:#aaa;font-size:14px'>DEF: {:.0} | Weight: {:.1} | Roll: {}</div>", defense, weight, roll_type));
-            html.push_str("<div style='color:#888;font-size:12px;margin:4px 0'>— Weapons —</div>");
-            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>Right: {}</div>", game.player.weapon.name));
+            let mut html = String::from("<div style='color:#e8c840;font-size:20px;text-align:center;margin-bottom:8px'>背包</div>");
+            html.push_str(&format!("<div style='color:#aaa;font-size:14px'>防御: {:.0} | 负重: {:.1} | 翻滚: {}</div>", defense, weight, roll_type));
+            html.push_str("<div style='color:#888;font-size:12px;margin:4px 0'>— 武器 —</div>");
+            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>右手: {}</div>", game.player.weapon.name));
             if let Some(ref alt) = game.player.alt_weapon {
-                html.push_str(&format!("<div style='color:#999;font-size:13px'>Alt: {} [1 to swap]</div>", alt.name));
+                html.push_str(&format!("<div style='color:#999;font-size:13px'>备用: {} [1键切换]</div>", alt.name));
             }
-            html.push_str("<div style='color:#888;font-size:12px;margin:4px 0'>— Equipment —</div>");
-            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>Head: {}</div>", game.player.equipment.head.name));
-            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>Chest: {}</div>", game.player.equipment.chest.name));
-            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>Ring 1: {}</div>", game.player.equipment.ring_1.as_ref().map_or("—", |r| &r.name)));
-            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>Ring 2: {}</div>", game.player.equipment.ring_2.as_ref().map_or("—", |r| &r.name)));
+            html.push_str("<div style='color:#888;font-size:12px;margin:4px 0'>— 装备 —</div>");
+            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>头部: {}</div>", game.player.equipment.head.name));
+            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>身体: {}</div>", game.player.equipment.chest.name));
+            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>戒指1: {}</div>", game.player.equipment.ring_1.as_ref().map_or("无", |r| &r.name)));
+            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>戒指2: {}</div>", game.player.equipment.ring_2.as_ref().map_or("无", |r| &r.name)));
             if !game.inventory.is_empty() {
-                html.push_str("<div style='color:#888;font-size:12px;margin:4px 0'>— Bag —</div>");
+                html.push_str("<div style='color:#888;font-size:12px;margin:4px 0'>— 物品 —</div>");
                 for item in &game.inventory {
                     let desc = match &item.kind {
-                        InventoryItemKind::Consumable(n) if n == "PurpleMoss" => " (Q to use: cures poison)",
-                        InventoryItemKind::Consumable(n) if n == "HomewardBone" => " (Q to use: teleport to bonfire)",
+                        InventoryItemKind::Consumable(n) if n == "PurpleMoss" => " (Q使用: 治愈中毒)",
+                        InventoryItemKind::Consumable(n) if n == "HomewardBone" => " (Q使用: 传送至篝火)",
                         _ => "",
                     };
                     html.push_str(&format!("<div style='color:#aaa;font-size:13px'>· {}{}</div>", item.name, desc));
                 }
             }
-            html.push_str("<div style='color:#666;font-size:12px;margin-top:8px'>Press I to close</div>");
+            html.push_str("<div style='color:#666;font-size:12px;margin-top:8px'>按I关闭</div>");
             let _ = el.set_attribute("style", "display:block; background:rgba(0,0,0,0.9); padding:16px; border:1px solid #555; border-radius:4px; max-width:400px; margin:40px auto; white-space:pre-line;");
             el.set_text_content(None);
             el.set_inner_html(&html);

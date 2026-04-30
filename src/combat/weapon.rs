@@ -8,6 +8,7 @@ pub enum WeaponType {
     Dagger,
     Spear,
     Uchigatana,
+    Shield,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -27,7 +28,7 @@ pub struct Weapon {
 impl Weapon {
     pub fn longsword() -> Self {
         Self {
-            name: "Longsword".into(),
+            name: "直剑".into(),
             weapon_type: WeaponType::Longsword,
             base_damage: 80,
             strength_requirement: 10,
@@ -42,7 +43,7 @@ impl Weapon {
 
     pub fn great_axe() -> Self {
         Self {
-            name: "Great Axe".into(),
+            name: "大斧".into(),
             weapon_type: WeaponType::GreatAxe,
             base_damage: 130,
             strength_requirement: 18,
@@ -57,7 +58,7 @@ impl Weapon {
 
     pub fn dagger() -> Self {
         Self {
-            name: "Dagger".into(),
+            name: "匕首".into(),
             weapon_type: WeaponType::Dagger,
             base_damage: 45,
             strength_requirement: 3,
@@ -72,7 +73,7 @@ impl Weapon {
 
     pub fn spear() -> Self {
         Self {
-            name: "Spear".into(),
+            name: "长枪".into(),
             weapon_type: WeaponType::Spear,
             base_damage: 70,
             strength_requirement: 8,
@@ -87,7 +88,7 @@ impl Weapon {
 
     pub fn uchigatana() -> Self {
         Self {
-            name: "Uchigatana".into(),
+            name: "打刀".into(),
             weapon_type: WeaponType::Uchigatana,
             base_damage: 95,
             strength_requirement: 7,
@@ -100,6 +101,21 @@ impl Weapon {
         }
     }
 
+    pub fn shield() -> Self {
+        Self {
+            name: "骑士盾".into(),
+            weapon_type: WeaponType::Shield,
+            base_damage: 20,
+            strength_requirement: 10,
+            dexterity_requirement: 5,
+            strength_scaling: 0.3,
+            dexterity_scaling: 0.1,
+            weight: 3.5,
+            stability: 0.6,
+            crit_modifier: 0.5,
+        }
+    }
+
     pub fn get_moveset(&self) -> Box<dyn WeaponMoveset> {
         match self.weapon_type {
             WeaponType::Longsword => Box::new(LongswordMoveset),
@@ -107,6 +123,7 @@ impl Weapon {
             WeaponType::Dagger => Box::new(DaggerMoveset),
             WeaponType::Spear => Box::new(SpearMoveset),
             WeaponType::Uchigatana => Box::new(UchigatanaMoveset),
+            WeaponType::Shield => Box::new(LongswordMoveset), // Shield uses basic moveset
         }
     }
 }

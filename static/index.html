@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DS2D - Dark Souls 2D</title>
+    <title>DS3D - Dark Souls III 2D</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { width: 100%; height: 100%; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
@@ -30,10 +30,10 @@
             font-size: 36px; color: #c44; letter-spacing: 8px; text-shadow: 0 0 20px rgba(200,0,0,0.5);
         }
         #ui-overlay .hud-text {
-            position: absolute; top: 6px; left: 230px; font-size: 14px; color: #aaa;
+            position: absolute; top: 28px; left: 230px; font-size: 13px; color: #aaa;
         }
         #ui-overlay .souls {
-            position: absolute; top: 6px; left: 20px; font-size: 14px; color: #cc9;
+            position: absolute; top: 28px; left: 20px; font-size: 13px; color: #cc9;
             text-shadow: 0 0 4px rgba(200,180,100,0.3);
         }
         #ui-overlay .boss-name {
@@ -62,7 +62,8 @@
         <div class="boss-name" id="boss-name" style="display:none"></div>
         <div class="level-up" id="level-up-text" style="display:none"></div>
         <canvas id="minimap-canvas" width="120" height="120" style="position:absolute;bottom:30px;right:10px;border:1px solid #333;background:rgba(0,0,0,0.7);image-rendering:pixelated;"></canvas>
-        <div class="controls" id="controls">WASD move · LMB attack · RMB heavy · Space roll · L block · E estus · Scroll swap weapon</div>
+        <div class="controls" id="controls">WASD移动 · 左键攻击 · 右键重击 · Shift+左键左手轻击(盾牌格挡) · Shift+右键左手重击(盾牌弹反) · 空格翻滚 · E原素瓶 · 滚轮切换武器 · I背包</div>
+        <div id="equip-slots" style="position:absolute;bottom:30px;left:30px;width:160px;height:130px;pointer-events:none;font-family:'Segoe UI',Arial,sans-serif;font-size:10px;color:#999;"></div>
     </div>
     <script type="module">
         const v = Date.now();

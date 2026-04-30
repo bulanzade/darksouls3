@@ -31,6 +31,8 @@ pub struct Enemy {
     pub fsm: StateMachine,
     pub aggro: AggroTable,
     pub has_hit_this_attack: bool,
+    pub windup_timer: f32,    // Attack telegraph timer
+    pub parried_timer: f32,   // Parry stagger duration (overrides FSM stagger)
     pub flash_timer: f32,
     pub death_timer: f32,
     pub kind: EnemyKind,
@@ -156,13 +158,15 @@ impl Enemy {
             speed: 70.0,
             state: EntityState::Idle,
             facing: 0.0,
-            damage: 30,
+            damage: 20,
             attack_range: 36.0,
             spawn_x: x,
             spawn_y: y,
             fsm,
             aggro,
             has_hit_this_attack: false,
+            windup_timer: 0.0,
+            parried_timer: 0.0,
             flash_timer: 0.0,
             death_timer: 0.0,
             kind: EnemyKind::HollowSoldier,
@@ -221,9 +225,9 @@ impl Enemy {
             id, transform: Transform::new(x, y),
             hp: 180, max_hp: 180, speed: 50.0,
             state: EntityState::Idle, facing: 0.0,
-            damage: 25, attack_range: 32.0,
+            damage: 15, attack_range: 32.0,
             spawn_x: x, spawn_y: y, fsm, aggro,
-            has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
+            has_hit_this_attack: false, windup_timer: 0.0, parried_timer: 0.0, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::Archer,
             shoot_timer: 0.0, shoot_cooldown: 2.0,
             block_chance: 0.0,
@@ -278,7 +282,7 @@ impl Enemy {
             state: EntityState::Idle, facing: 0.0,
             damage: 45, attack_range: 44.0,
             spawn_x: x, spawn_y: y, fsm, aggro,
-            has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
+            has_hit_this_attack: false, windup_timer: 0.0, parried_timer: 0.0, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::Knight,
             shoot_timer: 0.0, shoot_cooldown: 2.0,
             block_chance: 0.4,
@@ -345,7 +349,7 @@ impl Enemy {
             state: EntityState::Idle, facing: 0.0,
             damage: 55, attack_range: 50.0,
             spawn_x: x, spawn_y: y, fsm, aggro,
-            has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
+            has_hit_this_attack: false, windup_timer: 0.0, parried_timer: 0.0, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::Knight,
             shoot_timer: 0.0, shoot_cooldown: 1.5,
             block_chance: 0.3,
@@ -405,7 +409,7 @@ impl Enemy {
             state: EntityState::Idle, facing: 0.0,
             damage: 40, attack_range: 32.0,
             spawn_x: x, spawn_y: y, fsm, aggro,
-            has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
+            has_hit_this_attack: false, windup_timer: 0.0, parried_timer: 0.0, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::Assassin,
             shoot_timer: 0.0, shoot_cooldown: 1.2,
             block_chance: 0.0,
@@ -465,7 +469,7 @@ impl Enemy {
             state: EntityState::Idle, facing: 0.0,
             damage: 50, attack_range: 60.0,
             spawn_x: x, spawn_y: y, fsm, aggro,
-            has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
+            has_hit_this_attack: false, windup_timer: 0.0, parried_timer: 0.0, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::DarkMage,
             shoot_timer: 0.0, shoot_cooldown: 2.5,
             block_chance: 0.0,
@@ -514,7 +518,7 @@ impl Enemy {
             state: EntityState::Idle, facing: 0.0,
             damage: 70, attack_range: 40.0,
             spawn_x: x, spawn_y: y, fsm, aggro,
-            has_hit_this_attack: false, flash_timer: 0.0, death_timer: 0.0,
+            has_hit_this_attack: false, windup_timer: 0.0, parried_timer: 0.0, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::Mimic,
             shoot_timer: 0.0, shoot_cooldown: 0.0,
             block_chance: 0.0,
@@ -569,6 +573,20 @@ impl Enemy {
         };
 
         let new_state = self.fsm.update(dt, &ctx);
+
+        // Tick windup timer
+        if self.windup_timer > 0.0 {
+            self.windup_timer -= dt;
+        }
+
+        // Tick parried timer — keep staggered during riposte window
+        if self.parried_timer > 0.0 {
+            self.parried_timer -= dt;
+            if self.parried_timer > 0.0 {
+                self.state = EntityState::Staggered;
+                self.fsm.current_state = STAGGERED;
+            }
+        }
 
         // Map FSM state to behavior
         match new_state {
@@ -673,6 +691,7 @@ impl Enemy {
             ATTACK => {
                 if self.state != EntityState::Attacking {
                     self.has_hit_this_attack = false;
+                    self.windup_timer = 0.5; // Telegraph before hit
                 }
                 self.state = EntityState::Attacking;
             }
@@ -763,11 +782,24 @@ impl Entity for Enemy {
             }
             EntityState::Idle => base_color,
             EntityState::Moving => [base_color[0] + 0.1, base_color[1], base_color[2] - 0.1, 1.0],
-            EntityState::Attacking => [1.0, 0.3, 0.3, 1.0],
+            EntityState::Attacking => {
+                if self.windup_timer > 0.0 {
+                    // Telegraph: pulsing yellow-orange during windup
+                    let pulse = (self.windup_timer * 12.0).sin() * 0.3 + 0.7;
+                    [1.0, pulse, 0.0, 1.0]
+                } else {
+                    [1.0, 0.3, 0.3, 1.0]
+                }
+            }
             EntityState::Staggered => [1.0, 0.5, 0.0, 1.0],
             _ => base_color,
         };
-        let instance = self.transform.to_instance_data(size, size, [0.0, 0.0, 1.0, 1.0], color);
+        let draw_size = if self.windup_timer > 0.0 && self.state == EntityState::Attacking {
+            size * (1.0 + self.windup_timer * 0.4) // Grow during windup
+        } else {
+            size
+        };
+        let instance = self.transform.to_instance_data(draw_size, draw_size, [0.0, 0.0, 1.0, 1.0], color);
         batcher.draw(instance, texture, gl);
     }
 

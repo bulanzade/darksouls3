@@ -47,7 +47,7 @@ impl CharacterStats {
         80.0 + self.adaptability as f32 * 3.0 + self.attunement as f32 * 0.5
     }
 
-    /// Iframes from agility (DS2 breakpoints)
+    /// Iframes from agility
     pub fn iframe_count(&self) -> u32 {
         let agi = self.agility();
         if agi >= 110.0 { 15 }
