@@ -2477,12 +2477,11 @@ fn load_area(game: &mut Game, area: AreaId) {
             fill_tiles(&mut chunk, TileId::Ground, 76, 33, 88, 42);
             carve_ellipse(&mut chunk, 96, 30, 22, 18);
             carve_ellipse(&mut chunk, 96, 30, 16, 12);
-            for x in 70..119 { chunk.tiles[43][x] = TileId::Wall; }
-            // Keep the arena entrance as a real door opening in the south wall so the fog gate
-            // visually reads as embedded in the wall rather than floating in front of it.
-            fill_tiles(&mut chunk, TileId::Ground, 76, 41, 88, 45);
-            for x in 72..119 { chunk.tiles[10][x] = TileId::Wall; }
-            for y in 10..51 { chunk.tiles[y][71] = TileId::Wall; chunk.tiles[y][118] = TileId::Wall; }
+            for x in 70..CHUNK_SIZE { chunk.tiles[43][x] = TileId::Wall; }
+            fill_tiles(&mut chunk, TileId::Ground, 78, 41, 90, 45);
+            for x in 72..CHUNK_SIZE { chunk.tiles[10][x] = TileId::Wall; }
+            for y in 10..51 { chunk.tiles[y][71] = TileId::Wall; chunk.tiles[y][CHUNK_SIZE - 1] = TileId::Wall; }
+            for y in 43..51 { chunk.tiles[y][118] = TileId::Wall; }
 
             // Post-Gundyr route turns west/up to the locked Firelink door.
             fill_tiles(&mut chunk, TileId::Ground, 84, 28, 96, 44);
@@ -2509,8 +2508,8 @@ fn load_area(game: &mut Game, area: AreaId) {
                 Enemy::new_hollow_soldier(2, 470.0, 1450.0),
                 Enemy::new_hollow_soldier(3, 760.0, 1120.0),
                 Enemy::new_archer(4, 1120.0, 880.0),
-                Enemy::new_knight(5, 1220.0, 560.0),
-                Enemy::new_hollow_soldier(6, 1350.0, 620.0),
+                Enemy::new_knight(5, 1180.0, 730.0),
+                Enemy::new_hollow_soldier(6, 1040.0, 850.0),
                 Enemy::new_crystal_lizard(7, 1450.0, 1660.0),
             ];
             game.items = vec![
