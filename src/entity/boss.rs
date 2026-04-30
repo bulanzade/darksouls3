@@ -1,7 +1,7 @@
 use crate::ai::aggro::AggroTable;
 use crate::ai::boss_ai::{BossController, BossDirective, BossPhase};
 use crate::core::transform::Transform;
-use crate::entity::entity_trait::{DamageInfo, Entity, EntityId, EntityState};
+use crate::entity::entity_trait::{DamageInfo, DamageOutcome, Entity, EntityId, EntityState};
 use crate::render::sprite_batcher::SpriteBatcher;
 use crate::render::texture::Texture;
 use web_sys::WebGl2RenderingContext as GL;
@@ -54,6 +54,7 @@ pub struct Boss {
     pub attack_duration: f32,
     pub stagger_timer: f32,
     pub has_hit_this_attack: bool,
+    pub last_hit_window: u8,
     pub flash_timer: f32,
     pub is_charging: bool,
     pub charge_speed: f32,
@@ -87,12 +88,13 @@ impl Boss {
     }
 
     pub fn current_attack_can_hit(&self, target_x: f32, target_y: f32) -> bool {
-        if self.state != EntityState::Attacking || self.has_hit_this_attack {
+        if self.state != EntityState::Attacking {
             return false;
         }
 
         let t = self.attack_progress();
-        if !self.attack_active_at(t) {
+        let window = self.current_hit_window(t);
+        if window == 0 || self.last_hit_window == window {
             return false;
         }
 
@@ -124,23 +126,32 @@ impl Boss {
         }
     }
 
-    fn attack_active_at(&self, t: f32) -> bool {
+    pub fn mark_current_hit_window(&mut self) {
+        self.last_hit_window = self.current_hit_window(self.attack_progress());
+        self.has_hit_this_attack = true;
+    }
+
+    fn current_hit_window(&self, t: f32) -> u8 {
+        // Multi-hit attacks reserve distinct window ids; all single-hit attacks use window 1.
+        // Add extra guarded arms before the single-hit arms when introducing another multi-hit move.
         match self.current_attack {
-            BossAttack::HalberdOverhead => (0.44..=0.68).contains(&t),
-            BossAttack::ShoulderCharge => (0.16..=0.88).contains(&t),
-            BossAttack::HalberdSweep => (0.34..=0.78).contains(&t),
-            BossAttack::IceMaceCharge => (0.20..=0.90).contains(&t),
-            BossAttack::IceBreadth => (0.38..=0.96).contains(&t),
-            BossAttack::LeapingSlam => (0.54..=0.78).contains(&t),
-            BossAttack::GroundSlam => (0.44..=0.70).contains(&t),
-            BossAttack::SweepAttack => (0.30..=0.74).contains(&t),
-            BossAttack::BodySlam => (0.52..=0.82).contains(&t),
-            BossAttack::FlameBurst => (0.42..=0.76).contains(&t),
-            BossAttack::ChargeAttack => (0.16..=0.88).contains(&t),
-            BossAttack::HolyGround => (0.54..=0.78).contains(&t),
-            BossAttack::ComboSlash => (0.18..=0.38).contains(&t) || (0.56..=0.80).contains(&t),
-            BossAttack::ThrustAttack => (0.34..=0.72).contains(&t),
-            BossAttack::ShadowClone => (0.54..=0.86).contains(&t),
+            BossAttack::ComboSlash if (0.18..=0.38).contains(&t) => 1,
+            BossAttack::ComboSlash if (0.56..=0.80).contains(&t) => 2,
+            BossAttack::HalberdOverhead if (0.44..=0.68).contains(&t) => 1,
+            BossAttack::ShoulderCharge if (0.16..=0.88).contains(&t) => 1,
+            BossAttack::HalberdSweep if (0.34..=0.78).contains(&t) => 1,
+            BossAttack::IceMaceCharge if (0.20..=0.90).contains(&t) => 1,
+            BossAttack::IceBreadth if (0.38..=0.96).contains(&t) => 1,
+            BossAttack::LeapingSlam if (0.54..=0.78).contains(&t) => 1,
+            BossAttack::GroundSlam if (0.44..=0.70).contains(&t) => 1,
+            BossAttack::SweepAttack if (0.30..=0.74).contains(&t) => 1,
+            BossAttack::BodySlam if (0.52..=0.82).contains(&t) => 1,
+            BossAttack::FlameBurst if (0.42..=0.76).contains(&t) => 1,
+            BossAttack::ChargeAttack if (0.16..=0.88).contains(&t) => 1,
+            BossAttack::HolyGround if (0.54..=0.78).contains(&t) => 1,
+            BossAttack::ThrustAttack if (0.34..=0.72).contains(&t) => 1,
+            BossAttack::ShadowClone if (0.54..=0.86).contains(&t) => 1,
+            _ => 0,
         }
     }
 
@@ -245,6 +256,7 @@ impl Boss {
             attack_duration: 0.8,
             stagger_timer: 0.0,
             has_hit_this_attack: false,
+            last_hit_window: 0,
             flash_timer: 0.0,
             is_charging: false,
             charge_speed: 300.0,
@@ -292,6 +304,7 @@ impl Boss {
             attack_duration: 0.6,
             stagger_timer: 0.0,
             has_hit_this_attack: false,
+            last_hit_window: 0,
             flash_timer: 0.0,
             is_charging: false,
             charge_speed: 400.0,
@@ -339,6 +352,7 @@ impl Boss {
             attack_duration: 0.7,
             stagger_timer: 0.0,
             has_hit_this_attack: false,
+            last_hit_window: 0,
             flash_timer: 0.0,
             is_charging: false,
             charge_speed: 350.0,
@@ -386,6 +400,7 @@ impl Boss {
             attack_duration: 0.8,
             stagger_timer: 0.0,
             has_hit_this_attack: false,
+            last_hit_window: 0,
             flash_timer: 0.0,
             is_charging: false,
             charge_speed: 250.0,
@@ -433,6 +448,7 @@ impl Boss {
             attack_duration: 0.7,
             stagger_timer: 0.0,
             has_hit_this_attack: false,
+            last_hit_window: 0,
             flash_timer: 0.0,
             is_charging: false,
             charge_speed: 300.0,
@@ -494,6 +510,8 @@ impl Boss {
             self.attack_timer -= dt;
             if self.attack_timer <= 0.0 {
                 self.is_charging = false;
+                self.has_hit_this_attack = false;
+                self.last_hit_window = 0;
                 self.state = EntityState::Idle;
             }
             // While attacking, don't do other movement
@@ -566,6 +584,7 @@ impl Boss {
                 if self.attack_timer <= 0.0 {
                     self.state = EntityState::Attacking;
                     self.has_hit_this_attack = false;
+                    self.last_hit_window = 0;
 
                     let attack = self.choose_attack(dist);
 
@@ -1221,17 +1240,19 @@ impl Entity for Boss {
         }
     }
 
-    fn take_damage(&mut self, info: &DamageInfo) {
+    fn take_damage(&mut self, info: &DamageInfo) -> DamageOutcome {
         if self.boss_ctrl.is_transitioning {
-            return;
-        } // Invulnerable during phase transition
+            return DamageOutcome::ignored(info.damage);
+        }
         self.hp -= info.damage;
         self.flash_timer = 0.12;
         self.stagger_timer = 0.2;
-        if self.hp <= 0 {
+        let killed = self.hp <= 0;
+        if killed {
             self.hp = 0;
             self.state = EntityState::Dead;
         }
+        DamageOutcome::applied(info.damage, info.damage, killed)
     }
 
     fn is_dead(&self) -> bool {

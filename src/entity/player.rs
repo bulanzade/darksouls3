@@ -1,7 +1,7 @@
 use crate::combat::stamina::StaminaPool;
 use crate::combat::weapon::Weapon;
 use crate::core::transform::Transform;
-use crate::entity::entity_trait::{DamageInfo, Entity, EntityId, EntityState};
+use crate::entity::entity_trait::{AttackTracker, DamageInfo, DamageOutcome, Entity, EntityId, EntityState};
 use crate::render::sprite_batcher::SpriteBatcher;
 use crate::render::texture::Texture;
 use crate::rpg::equipment::Equipment;
@@ -19,6 +19,7 @@ pub struct Player {
     pub attack_timer: f32,
     pub attack_duration: f32,
     pub is_heavy_attack: bool,
+    pub attack_tracker: AttackTracker,
     pub heavy_attack_duration: f32,
     pub roll_timer: f32,
     pub roll_duration: f32,
@@ -57,6 +58,7 @@ impl Player {
             attack_timer: 0.0,
             attack_duration: 0.3,
             is_heavy_attack: false,
+            attack_tracker: AttackTracker::new(),
             heavy_attack_duration: 0.6,
             roll_timer: 0.0,
             roll_duration: 0.35,
@@ -220,6 +222,7 @@ impl Entity for Player {
                 self.attack_timer -= dt;
                 if self.attack_timer <= 0.0 {
                     self.is_heavy_attack = false;
+                    self.attack_tracker.reset();
                     self.state = EntityState::Idle;
                 }
             }
@@ -286,42 +289,42 @@ impl Entity for Player {
         batcher.draw(instance, texture, gl);
     }
 
-    fn take_damage(&mut self, info: &DamageInfo) {
+    fn take_damage(&mut self, info: &DamageInfo) -> DamageOutcome {
         if self.invuln_timer > 0.0 {
-            return;
+            return DamageOutcome::ignored(info.damage);
         }
 
-        // Parry window — deflect and stagger attacker (handled by caller)
-        if self.state == EntityState::Blocking && self.parry_timer > 0.0 {
+        if self.state == EntityState::Blocking && self.parry_timer > 0.0 && info.parryable {
             self.flash_timer = 0.15;
-            return;
+            return DamageOutcome::parried(info.damage);
         }
 
-        // Block — reduce damage by 70%, consume stamina
         if self.state == EntityState::Blocking {
-            let blocked = (info.damage as f32 * 0.3) as i32;
-            self.hp -= blocked;
+            let actual = (info.damage as f32 * 0.3).max(1.0) as i32;
+            self.hp -= actual;
             self.stamina.consume(15.0);
             self.flash_timer = 0.1;
-            if self.hp <= 0 {
+            let killed = self.hp <= 0;
+            if killed {
                 self.hp = 0;
                 self.state = EntityState::Dead;
             }
-            return;
+            return DamageOutcome::blocked(info.damage, actual, killed);
         }
 
-        // Apply defense from equipment
         let defense = self.equipment.total_defense();
-        let reduced = (info.damage as f32 - defense).max(1.0) as i32;
-        self.hp -= reduced;
+        let actual = (info.damage as f32 - defense).max(1.0) as i32;
+        self.hp -= actual;
         self.state = EntityState::Staggered;
         self.stagger_timer = 0.2;
         self.invuln_timer = 0.8;
         self.flash_timer = 0.12;
-        if self.hp <= 0 {
+        let killed = self.hp <= 0;
+        if killed {
             self.hp = 0;
             self.state = EntityState::Dead;
         }
+        DamageOutcome::applied(info.damage, actual, killed)
     }
 
     fn is_dead(&self) -> bool {

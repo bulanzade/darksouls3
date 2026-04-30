@@ -1,7 +1,7 @@
 use crate::ai::aggro::AggroTable;
 use crate::ai::state_machine::*;
 use crate::core::transform::Transform;
-use crate::entity::entity_trait::{DamageInfo, Entity, EntityId, EntityState};
+use crate::entity::entity_trait::{DamageInfo, DamageOutcome, Entity, EntityId, EntityState};
 use crate::render::sprite_batcher::SpriteBatcher;
 use crate::render::texture::Texture;
 use web_sys::WebGl2RenderingContext as GL;
@@ -14,6 +14,7 @@ pub enum EnemyKind {
     Assassin,
     DarkMage,
     Mimic,
+    CrystalLizard,
 }
 
 pub struct Enemy {
@@ -54,6 +55,23 @@ pub struct Enemy {
 }
 
 impl Enemy {
+    fn draw_part(
+        batcher: &mut SpriteBatcher,
+        texture: &Texture,
+        gl: &GL,
+        x: f32,
+        y: f32,
+        w: f32,
+        h: f32,
+        rotation: f32,
+        color: [f32; 4],
+    ) {
+        let mut transform = Transform::new(x, y);
+        transform.rotation = rotation;
+        let instance = transform.to_instance_data(w, h, [0.0, 0.0, 1.0, 1.0], color);
+        batcher.draw(instance, texture, gl);
+    }
+
     pub fn new_hollow_soldier(id: EntityId, x: f32, y: f32) -> Self {
         let mut fsm = StateMachine::new(IDLE);
 
@@ -529,6 +547,74 @@ impl Enemy {
         }
     }
 
+    pub fn new_crystal_lizard(id: EntityId, x: f32, y: f32) -> Self {
+        let mut fsm = StateMachine::new(IDLE);
+
+        fsm.add_state(StateDef {
+            id: IDLE, name: "Burrowed".into(), duration: None,
+            transitions: vec![Transition { target: ALERT, condition: target_close, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: ALERT, name: "Awaken".into(), duration: Some(0.35),
+            transitions: vec![Transition { target: CHASE, condition: always, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: CHASE, name: "Skitter".into(), duration: None,
+            transitions: vec![
+                Transition { target: ATTACK, condition: |ctx| ctx.distance_to_target < 58.0, priority: 3 },
+                Transition { target: RANGED_ATTACK, condition: |ctx| ctx.distance_to_target >= 58.0 && ctx.distance_to_target < 230.0 && ctx.can_see_target, priority: 2 },
+                Transition { target: RETURN, condition: target_far, priority: 1 },
+            ],
+        });
+        fsm.add_state(StateDef {
+            id: RANGED_ATTACK, name: "RollingCharge".into(), duration: Some(1.05),
+            transitions: vec![Transition { target: RETREAT, condition: always, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: ATTACK, name: "TailSweep".into(), duration: Some(1.0),
+            transitions: vec![Transition { target: RETREAT, condition: attack_done, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: RETREAT, name: "Recoil".into(), duration: Some(0.55),
+            transitions: vec![Transition { target: CHASE, condition: retreat_done, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: RETURN, name: "Return".into(), duration: None,
+            transitions: vec![Transition { target: IDLE, condition: |ctx| ctx.distance_to_target < 10.0, priority: 1 }],
+        });
+        fsm.add_state(StateDef {
+            id: STAGGERED, name: "Cracked".into(), duration: Some(0.18),
+            transitions: vec![Transition { target: CHASE, condition: always, priority: 1 }],
+        });
+
+        let aggro = AggroTable::new(260.0, 560.0);
+        Self {
+            id, transform: Transform::new(x, y),
+            hp: 900, max_hp: 900, speed: 92.0,
+            state: EntityState::Idle, facing: 0.0,
+            damage: 42, attack_range: 54.0,
+            spawn_x: x, spawn_y: y, fsm, aggro,
+            has_hit_this_attack: false, windup_timer: 0.0, parried_timer: 0.0, flash_timer: 0.0, death_timer: 0.0,
+            kind: EnemyKind::CrystalLizard,
+            shoot_timer: 0.0, shoot_cooldown: 0.0,
+            block_chance: 0.0,
+            patrol_timer: 0.0, patrol_dir: 1.0, patrol_range: 26.0,
+            dodge_timer: 0.0, dodge_dir: 1.0,
+            teleport_timer: 0.0,
+            mimic_activated: false, grab_timer: 0.0,
+        }
+    }
+
+    pub fn current_attack_can_be_parried(&self) -> bool {
+        match self.kind {
+            EnemyKind::Archer | EnemyKind::DarkMage => self.fsm.current_state == ATTACK,
+            EnemyKind::Mimic => false,
+            EnemyKind::CrystalLizard => self.fsm.current_state == ATTACK,
+            EnemyKind::Assassin => matches!(self.fsm.current_state, ATTACK | RANGED_ATTACK),
+            EnemyKind::HollowSoldier | EnemyKind::Knight => self.fsm.current_state == ATTACK,
+        }
+    }
+
     pub fn should_shoot(&mut self, dt: f32) -> bool {
         if self.kind != EnemyKind::Archer && self.kind != EnemyKind::DarkMage { return false; }
         self.shoot_timer -= dt;
@@ -689,19 +775,51 @@ impl Enemy {
                 self.state = EntityState::Moving;
             }
             ATTACK => {
-                if self.state != EntityState::Attacking {
+                if self.kind == EnemyKind::CrystalLizard {
+                    if self.state != EntityState::Attacking {
+                        self.has_hit_this_attack = false;
+                        self.windup_timer = 0.34;
+                    }
+                    self.attack_range = 66.0;
+                    self.damage = 42;
+                    if self.aggro.has_target() {
+                        let dx = self.aggro.last_known_x - self.transform.x;
+                        let dy = self.aggro.last_known_y - self.transform.y;
+                        self.facing = dy.atan2(dx);
+                        self.transform.scale_x = if self.facing.cos() < 0.0 { -1.0 } else { 1.0 };
+                    }
+                } else if self.state != EntityState::Attacking {
                     self.has_hit_this_attack = false;
                     self.windup_timer = 0.5; // Telegraph before hit
                 }
                 self.state = EntityState::Attacking;
             }
             RANGED_ATTACK => {
-                self.state = EntityState::Attacking;
-                if self.aggro.has_target() {
-                    let dx = self.aggro.last_known_x - self.transform.x;
-                    let dy = self.aggro.last_known_y - self.transform.y;
-                    self.facing = dy.atan2(dx);
+                if self.kind == EnemyKind::CrystalLizard {
+                    if self.state != EntityState::Attacking {
+                        self.has_hit_this_attack = false;
+                        self.windup_timer = 0.18;
+                    }
+                    self.attack_range = 48.0;
+                    self.damage = 48;
+                    if self.aggro.has_target() {
+                        let dx = self.aggro.last_known_x - self.transform.x;
+                        let dy = self.aggro.last_known_y - self.transform.y;
+                        self.facing = dy.atan2(dx);
+                        let roll_speed = if self.windup_timer > 0.0 { self.speed * 0.55 } else { self.speed * 2.65 };
+                        self.transform.x += self.facing.cos() * roll_speed * dt;
+                        self.transform.y += self.facing.sin() * roll_speed * dt;
+                        self.transform.scale_x = if self.facing.cos() < 0.0 { -1.0 } else { 1.0 };
+                    }
+                    self.transform.rotation += dt * 12.0 * self.transform.scale_x.signum();
+                } else {
+                    if self.aggro.has_target() {
+                        let dx = self.aggro.last_known_x - self.transform.x;
+                        let dy = self.aggro.last_known_y - self.transform.y;
+                        self.facing = dy.atan2(dx);
+                    }
                 }
+                self.state = EntityState::Attacking;
             }
             RETREAT => {
                 if self.aggro.has_target() {
@@ -754,6 +872,50 @@ impl Entity for Enemy {
         if self.death_timer <= 0.0 && self.is_dead() {
             return;
         }
+        if self.kind == EnemyKind::CrystalLizard {
+            let alpha = if self.state == EntityState::Dead { (self.death_timer / 1.0).max(0.0) } else { 1.0 };
+            let rolling = self.fsm.current_state == RANGED_ATTACK;
+            let tail_sweep = self.fsm.current_state == ATTACK && self.state == EntityState::Attacking;
+            let flash = self.flash_timer > 0.0;
+            let base = if flash { [1.0, 1.0, 1.0, alpha] } else if self.state == EntityState::Staggered { [0.95, 0.95, 1.0, alpha] } else { [0.36, 0.86, 1.0, alpha] };
+            let highlight = if flash { [1.0, 1.0, 1.0, alpha] } else { [0.82, 0.98, 1.0, alpha] };
+            let shadow = if flash { [1.0, 1.0, 1.0, alpha] } else { [0.12, 0.38, 0.56, alpha] };
+            let cx = self.transform.x;
+            let cy = self.transform.y;
+            let facing = self.facing;
+            let fx = facing.cos();
+            let fy = facing.sin();
+            let sx = -fy;
+            let sy = fx;
+
+            if rolling {
+                let rot = self.transform.rotation;
+                Self::draw_part(batcher, texture, gl, cx - fx * 22.0, cy - fy * 22.0, 22.0, 12.0, facing, [0.25, 0.75, 1.0, alpha * 0.35]);
+                Self::draw_part(batcher, texture, gl, cx, cy, 34.0, 34.0, rot, base);
+                Self::draw_part(batcher, texture, gl, cx, cy, 38.0, 9.0, rot + 0.75, highlight);
+                Self::draw_part(batcher, texture, gl, cx, cy, 38.0, 7.0, rot - 0.75, shadow);
+                Self::draw_part(batcher, texture, gl, cx + fx * 4.0, cy + fy * 4.0, 12.0, 12.0, rot, [0.92, 1.0, 1.0, alpha]);
+            } else {
+                Self::draw_part(batcher, texture, gl, cx - fx * 19.0, cy - fy * 19.0, 34.0, 8.0, facing, shadow);
+                Self::draw_part(batcher, texture, gl, cx, cy, 42.0, 24.0, facing, base);
+                Self::draw_part(batcher, texture, gl, cx + fx * 24.0, cy + fy * 24.0, 18.0, 16.0, facing, highlight);
+                Self::draw_part(batcher, texture, gl, cx - fx * 14.0 + sx * 8.0, cy - fy * 14.0 + sy * 8.0, 10.0, 18.0, facing - 0.9, highlight);
+                Self::draw_part(batcher, texture, gl, cx - fx * 2.0 - sx * 10.0, cy - fy * 2.0 - sy * 10.0, 9.0, 20.0, facing + 0.9, highlight);
+                Self::draw_part(batcher, texture, gl, cx + fx * 10.0 + sx * 8.0, cy + fy * 10.0 + sy * 8.0, 8.0, 16.0, facing - 0.7, [0.7, 0.95, 1.0, alpha]);
+                Self::draw_part(batcher, texture, gl, cx - fx * 4.0, cy - fy * 4.0, 28.0, 6.0, facing, [0.96, 1.0, 1.0, alpha]);
+            }
+
+            if tail_sweep {
+                let sweep_alpha = if self.windup_timer > 0.0 { 0.28 } else { 0.56 };
+                let side = if self.transform.scale_x < 0.0 { -1.0 } else { 1.0 };
+                let sweep_angle = facing + std::f32::consts::FRAC_PI_2 * side;
+                Self::draw_part(batcher, texture, gl, cx - fx * 22.0 + sx * side * 24.0, cy - fy * 22.0 + sy * side * 24.0, 72.0, 8.0, sweep_angle, [0.82, 0.98, 1.0, alpha * sweep_alpha]);
+                Self::draw_part(batcher, texture, gl, cx - fx * 28.0 + sx * side * 42.0, cy - fy * 28.0 + sy * side * 42.0, 36.0, 6.0, sweep_angle + 0.35 * side, [0.5, 0.9, 1.0, alpha * sweep_alpha]);
+            }
+
+            return;
+        }
+
         let (size, base_color) = match self.kind {
             EnemyKind::HollowSoldier => (28.0, [0.6, 0.6, 0.6, 1.0]),
             EnemyKind::Archer => (24.0, [0.4, 0.7, 0.3, 1.0]),
@@ -769,6 +931,7 @@ impl Entity for Enemy {
                 }
                 (38.0, [0.6, 0.4, 0.1, 1.0])
             },
+            EnemyKind::CrystalLizard => (30.0, [0.36, 0.86, 1.0, 1.0]),
         };
         if self.flash_timer > 0.0 {
             let instance = self.transform.to_instance_data(size, size, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0]);
@@ -803,19 +966,21 @@ impl Entity for Enemy {
         batcher.draw(instance, texture, gl);
     }
 
-    fn take_damage(&mut self, info: &DamageInfo) {
+    fn take_damage(&mut self, info: &DamageInfo) -> DamageOutcome {
         self.hp -= info.damage;
         self.flash_timer = 0.12;
         self.aggro.add_threat(info.damage as f32 * 2.0);
         self.fsm.current_state = STAGGERED;
         self.fsm.state_timer = 0.0;
         self.state = EntityState::Staggered;
-        if self.hp <= 0 {
+        let killed = self.hp <= 0;
+        if killed {
             self.hp = 0;
             self.fsm.current_state = DEAD;
             self.state = EntityState::Dead;
             self.death_timer = 1.0;
         }
+        DamageOutcome::applied(info.damage, info.damage, killed)
     }
 
     fn is_dead(&self) -> bool {
