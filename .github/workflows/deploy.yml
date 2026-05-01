@@ -32,12 +32,25 @@ jobs:
 
       - name: Prepare deploy directory
         run: |
-          mkdir -p deploy
-          cp static/index.html deploy/
-          cp static/styles.css deploy/
+          mkdir -p deploy/static
+          cp static/index.html deploy/static/
+          cp static/styles.css deploy/static/
           cp -r maps deploy/maps
-          cp -r static/shaders deploy/
-          cp -r pkg deploy/pkg
+          cp -r static/shaders deploy/static/shaders
+          cp -r pkg deploy/static/pkg
+          cat > deploy/index.html <<'EOF'
+          <!DOCTYPE html>
+          <html lang="zh-CN">
+          <head>
+            <meta charset="utf-8">
+            <meta http-equiv="refresh" content="0; url=./static/">
+            <title>DS3D</title>
+          </head>
+          <body>
+            <script>window.location.replace('./static/');</script>
+          </body>
+          </html>
+          EOF
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

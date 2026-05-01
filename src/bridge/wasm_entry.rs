@@ -1170,12 +1170,12 @@ fn rebuild_collision(game: &mut Game) {
 
 fn area_level_path(area: AreaId) -> &'static str {
     match area {
-        AreaId::CemeteryOfAsh => "/maps/ds2d/CemeteryOfAsh.ldtkl",
-        AreaId::FirelinkShrine => "/maps/ds2d/FirelinkShrine.ldtkl",
-        AreaId::LothricWall => "/maps/ds2d/LothricWall.ldtkl",
-        AreaId::UndeadSettlement => "/maps/ds2d/UndeadSettlement.ldtkl",
-        AreaId::CathedralDeep => "/maps/ds2d/CathedralDeep.ldtkl",
-        AreaId::Irithyll => "/maps/ds2d/Irithyll.ldtkl",
+        AreaId::CemeteryOfAsh => "../maps/ds2d/CemeteryOfAsh.ldtkl",
+        AreaId::FirelinkShrine => "../maps/ds2d/FirelinkShrine.ldtkl",
+        AreaId::LothricWall => "../maps/ds2d/LothricWall.ldtkl",
+        AreaId::UndeadSettlement => "../maps/ds2d/UndeadSettlement.ldtkl",
+        AreaId::CathedralDeep => "../maps/ds2d/CathedralDeep.ldtkl",
+        AreaId::Irithyll => "../maps/ds2d/Irithyll.ldtkl",
     }
 }
 
