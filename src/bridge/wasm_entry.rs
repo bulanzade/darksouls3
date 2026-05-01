@@ -1168,15 +1168,34 @@ fn rebuild_collision(game: &mut Game) {
     game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
 }
 
-fn area_level_json(area: AreaId) -> &'static str {
+fn area_level_path(area: AreaId) -> &'static str {
     match area {
-        AreaId::CemeteryOfAsh => include_str!("../../maps/levels/CemeteryOfAsh.ldtkl"),
-        AreaId::FirelinkShrine => include_str!("../../maps/levels/FirelinkShrine.ldtkl"),
-        AreaId::LothricWall => include_str!("../../maps/levels/LothricWall.ldtkl"),
-        AreaId::UndeadSettlement => include_str!("../../maps/levels/UndeadSettlement.ldtkl"),
-        AreaId::CathedralDeep => include_str!("../../maps/levels/CathedralDeep.ldtkl"),
-        AreaId::Irithyll => include_str!("../../maps/levels/Irithyll.ldtkl"),
+        AreaId::CemeteryOfAsh => "/maps/ds2d/CemeteryOfAsh.ldtkl",
+        AreaId::FirelinkShrine => "/maps/ds2d/FirelinkShrine.ldtkl",
+        AreaId::LothricWall => "/maps/ds2d/LothricWall.ldtkl",
+        AreaId::UndeadSettlement => "/maps/ds2d/UndeadSettlement.ldtkl",
+        AreaId::CathedralDeep => "/maps/ds2d/CathedralDeep.ldtkl",
+        AreaId::Irithyll => "/maps/ds2d/Irithyll.ldtkl",
     }
+}
+
+thread_local! {
+    static MAP_CACHE: std::cell::RefCell<std::collections::HashMap<String, String>> =
+        std::cell::RefCell::new(std::collections::HashMap::new());
+}
+
+fn cached_level_json(area: AreaId) -> String {
+    let path = area_level_path(area);
+    MAP_CACHE.with(|cache| {
+        cache.borrow().get(path).cloned()
+    }).unwrap_or_else(|| panic!("Map not preloaded: {}", path))
+}
+
+#[wasm_bindgen]
+pub fn js_register_map(path: &str, json: &str) {
+    MAP_CACHE.with(|cache| {
+        cache.borrow_mut().insert(path.to_string(), json.to_string());
+    });
 }
 
 fn area_from_str(s: &str) -> AreaId {
@@ -1198,6 +1217,28 @@ fn fill_tiles(chunk: &mut Chunk, tile: TileId, x1: usize, y1: usize, x2: usize, 
         for x in x1.min(max)..=x2.min(max) {
             chunk.tiles[y][x] = tile;
         }
+    }
+}
+
+fn apply_level_patches(
+    game: &mut Game,
+    tile_patches: &[crate::world::map_loader::TilePatch],
+) {
+    let mut changed_tiles = false;
+    for patch in tile_patches {
+        let enabled = match patch.condition.as_str() {
+            "always" | "" => true,
+            "gundyr_door_open" => game.gundyr_door_open
+                || game.bosses_defeated.iter().any(|b| b == "IudexGundyr"),
+            _ => false,
+        };
+        if enabled {
+            fill_tiles(&mut game.chunk, patch.tile, patch.x1, patch.y1, patch.x2, patch.y2);
+            changed_tiles = true;
+        }
+    }
+    if changed_tiles {
+        rebuild_collision(game);
     }
 }
 
@@ -2487,23 +2528,38 @@ fn load_area(game: &mut Game, area: AreaId) {
             }
         }
 
-        let json = area_level_json(area);
-        let parsed = map_loader::ParsedLevel::from_ldtkl(json).expect("Failed to load map");
+        let json = cached_level_json(area);
+        let parsed = map_loader::ParsedLevel::from_ldtkl(&json).expect("Failed to load map");
+        let map_loader::ParsedLevel {
+            chunk,
+            player_spawn,
+            heal_player,
+            boss_spawn,
+            bonfire,
+            enemies,
+            items,
+            chests,
+            npcs,
+            lights,
+            fog_gates,
+            tile_patches,
+        } = parsed;
 
-        game.chunk = parsed.chunk;
+        game.chunk = chunk;
+        apply_level_patches(game, &tile_patches);
         game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
         game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
 
-        game.player.transform.x = parsed.player_spawn.0;
-        game.player.transform.y = parsed.player_spawn.1;
-        if parsed.heal_player {
+        game.player.transform.x = player_spawn.0;
+        game.player.transform.y = player_spawn.1;
+        if heal_player {
             game.player.hp = game.player.max_hp;
         }
 
-        game.bonfire_x = parsed.bonfire.map(|(x, _)| x).unwrap_or(-10000.0);
-        game.bonfire_y = parsed.bonfire.map(|(_, y)| y).unwrap_or(-10000.0);
+        game.bonfire_x = bonfire.map(|(x, _)| x).unwrap_or(-10000.0);
+        game.bonfire_y = bonfire.map(|(_, y)| y).unwrap_or(-10000.0);
 
-        game.enemies = parsed.enemies.into_iter().enumerate().map(|(i, s)| {
+        game.enemies = enemies.into_iter().enumerate().map(|(i, s)| {
             let id = (i as u64) + 2;
             match s.kind {
                 EnemySpawnKind::HollowSoldier => Enemy::new_hollow_soldier(id, s.x, s.y),
@@ -2516,15 +2572,15 @@ fn load_area(game: &mut Game, area: AreaId) {
             }
         }).collect();
 
-        game.items = parsed.items.into_iter().map(|s| {
+        game.items = items.into_iter().map(|s| {
             WorldItem { x: s.x, y: s.y, collected: false, kind: convert_spawn_kind(s.kind) }
         }).collect();
 
-        game.chests = parsed.chests.into_iter().map(|s| {
+        game.chests = chests.into_iter().map(|s| {
             TreasureChest { x: s.x, y: s.y, opened: false, loot: convert_spawn_kind(s.loot), is_mimic: s.is_mimic, mimic_revealed: false }
         }).collect();
 
-        game.npcs = parsed.npcs.into_iter().map(|s| {
+        game.npcs = npcs.into_iter().map(|s| {
             let kind = match s.kind {
                 NpcSpawnKind::LevelUp => NpcKind::LevelUp,
                 NpcSpawnKind::Merchant => NpcKind::Merchant,
@@ -2534,11 +2590,11 @@ fn load_area(game: &mut Game, area: AreaId) {
             Npc { x: s.x, y: s.y, name: s.name, color: s.color, dialogue: s.dialogue, dialogue_index: 0, talking: false, kind }
         }).collect();
 
-        game.lights = parsed.lights.into_iter().map(|l| {
+        game.lights = lights.into_iter().map(|l| {
             Light { x: l.x, y: l.y, radius: l.radius, color: l.color, intensity: l.intensity }
         }).collect();
 
-        game.fog_gates = parsed.fog_gates.into_iter().map(|fg| {
+        game.fog_gates = fog_gates.into_iter().map(|fg| {
             let dest = area_from_str(&fg.dest_area);
             let active = if dest == area {
                 // Boss fog gate (self-referencing): deactivate after boss killed
@@ -2559,12 +2615,6 @@ fn load_area(game: &mut Game, area: AreaId) {
             FogGate { x: fg.x, y: fg.y, w: fg.w, h: fg.h, destination: dest, dest_x: fg.dest_x, dest_y: fg.dest_y, active }
         }).collect();
 
-        // Post-load mutations
-        if area == AreaId::CemeteryOfAsh && game.gundyr_door_open {
-            fill_tiles(&mut game.chunk, TileId::Ground, 16, 8, 40, 18);
-            rebuild_collision(game);
-        }
-
         // Pre-spawn boss at map-designated position if area has a boss and not yet defeated
         game.boss = None;
         game.boss_active = false;
@@ -2572,7 +2622,7 @@ fn load_area(game: &mut Game, area: AreaId) {
         if let Some(boss_type) = area_boss(area) {
             let already_defeated = game.bosses_defeated.iter().any(|b| b == boss_defeat_key(boss_type));
             if !already_defeated {
-                if let Some((bx, by)) = parsed.boss_spawn {
+                if let Some((bx, by)) = boss_spawn {
                     let boss = match boss_type {
                         BossType::IudexGundyr => crate::entity::boss::Boss::new_iudex_gundyr(100, bx, by),
                         BossType::Vordt => crate::entity::boss::Boss::new_vordt(100, bx, by),

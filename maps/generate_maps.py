@@ -10,6 +10,67 @@ TILE_GROUND = 1
 TILE_WALL = 2
 TILE_WALLTOP = 3
 TILE_POISON = 4
+LEVEL_UIDS = {
+    "CemeteryOfAsh": 1,
+    "FirelinkShrine": 2,
+    "LothricWall": 3,
+    "UndeadSettlement": 4,
+    "CathedralDeep": 5,
+    "Irithyll": 6,
+}
+
+ENTITY_UIDS = {
+    "PlayerSpawn": 101,
+    "BossSpawn": 102,
+    "Bonfire": 103,
+    "Enemy": 104,
+    "Item": 105,
+    "Chest": 106,
+    "Npc": 107,
+    "Light": 108,
+    "FogGate": 109,
+    "TilePatch": 110,
+}
+
+ENUM_UIDS = {
+    "EnemyKind": 201,
+    "ItemKind": 202,
+    "NpcKind": 203,
+    "TileKind": 204,
+}
+
+FIELD_UIDS = {
+    "PlayerSpawn.heal": 301,
+    "Enemy.kind": 302,
+    "Item.kind": 303,
+    "Item.value": 304,
+    "Item.name": 305,
+    "Chest.loot_kind": 306,
+    "Chest.loot_value": 307,
+    "Chest.loot_name": 308,
+    "Chest.is_mimic": 309,
+    "Chest.slot": 310,
+    "Npc.name": 311,
+    "Npc.kind": 312,
+    "Npc.color": 313,
+    "Npc.dialogue": 314,
+    "Light.radius": 315,
+    "Light.r": 316,
+    "Light.g": 317,
+    "Light.b": 318,
+    "Light.intensity": 319,
+    "FogGate.dest_area": 320,
+    "FogGate.dest_x": 321,
+    "FogGate.dest_y": 322,
+    "FogGate.width": 323,
+    "FogGate.height": 324,
+    "TilePatch.tile": 325,
+    "TilePatch.x1": 326,
+    "TilePatch.y1": 327,
+    "TilePatch.x2": 328,
+    "TilePatch.y2": 329,
+    "TilePatch.condition": 330,
+}
 
 def new_chunk():
     return [[TILE_WALL for _ in range(CHUNK_SIZE)] for _ in range(CHUNK_SIZE)]
@@ -56,7 +117,7 @@ def make_entity(identifier, px, py, fields=None):
         "__tile": None,
         "__worldX": None,
         "__worldY": None,
-        "defUid": 0,
+        "defUid": ENTITY_UIDS[identifier],
         "fieldInstances": fields or [],
         "height": 16,
         "iid": str(uuid.uuid4()),
@@ -64,6 +125,138 @@ def make_entity(identifier, px, py, fields=None):
         "width": 16,
     }
     return ent
+
+def populate_entity_def_uids(entities):
+    for ent in entities:
+        ent["defUid"] = ENTITY_UIDS[ent["__identifier"]]
+        for fld in ent.get("fieldInstances", []):
+            key = f"{ent['__identifier']}.{fld['__identifier']}"
+            fld["defUid"] = FIELD_UIDS.get(key, 0)
+
+def make_tile_patch(px, py, tile, x1, y1, x2, y2, condition):
+    return make_entity("TilePatch", px, py, [
+        make_field("tile", "LocalEnum.TileKind", tile),
+        make_field("x1", "Int", x1),
+        make_field("y1", "Int", y1),
+        make_field("x2", "Int", x2),
+        make_field("y2", "Int", y2),
+        make_field("condition", "String", condition),
+    ])
+
+def make_enum(identifier, uid, values):
+    return {
+        "externalFileChecksum": None,
+        "externalRelPath": None,
+        "iconTilesetUid": None,
+        "identifier": identifier,
+        "tags": [],
+        "uid": uid,
+        "values": [
+            {
+                "__tileSrcRect": None,
+                "color": value.get("color", 0xFFFFFF),
+                "id": value["id"],
+                "tileId": None,
+                "tileRect": None,
+            }
+            for value in values
+        ],
+    }
+
+def wrap_default(field_type, default):
+    if default is None:
+        return None
+    if field_type == "Bool":
+        return {"id": "V_Bool", "params": [bool(default)]}
+    if field_type == "Int":
+        return {"id": "V_Int", "params": [int(default)]}
+    if field_type == "Float":
+        return {"id": "V_Float", "params": [float(default)]}
+    if field_type == "Color":
+        s = str(default)
+        if s.startswith("#"):
+            s = s[1:]
+        return {"id": "V_Int", "params": [int(s, 16)]}
+    if field_type == "String" or field_type.startswith("LocalEnum."):
+        return {"id": "V_String", "params": [str(default)]}
+    return None
+
+def make_field_def(identifier, field_type, uid, default, purple_type, doc=None):
+    return {
+        "__type": field_type,
+        "acceptFileTypes": None,
+        "allowedRefs": "Any",
+        "allowedRefsEntityUid": None,
+        "allowedRefTags": [],
+        "allowOutOfLevelRef": False,
+        "arrayMaxLength": None,
+        "arrayMinLength": None,
+        "autoChainRef": True,
+        "canBeNull": False,
+        "defaultOverride": wrap_default(field_type, default),
+        "doc": doc,
+        "editorAlwaysShow": False,
+        "editorCutLongValues": True,
+        "editorDisplayColor": None,
+        "editorDisplayMode": "Hidden",
+        "editorDisplayPos": "Above",
+        "editorDisplayScale": 1.0,
+        "editorLinkStyle": "StraightArrow",
+        "editorShowInWorld": True,
+        "editorTextPrefix": None,
+        "editorTextSuffix": None,
+        "exportToToc": False,
+        "identifier": identifier,
+        "isArray": False,
+        "max": None,
+        "min": None,
+        "regex": None,
+        "searchable": True,
+        "symmetricalRef": False,
+        "textLanguageMode": None,
+        "tilesetUid": None,
+        "type": purple_type,
+        "uid": uid,
+        "useForSmartColor": False,
+    }
+
+def make_entity_def(identifier, uid, width=16, height=16, resizable_x=False, resizable_y=False, render_mode="Rectangle", color="#FFFFFF", field_defs=None):
+    return {
+        "allowOutOfBounds": False,
+        "color": color,
+        "doc": None,
+        "exportToToc": False,
+        "fieldDefs": field_defs or [],
+        "fillOpacity": 0.8,
+        "height": height,
+        "hollow": False,
+        "identifier": identifier,
+        "keepAspectRatio": False,
+        "limitBehavior": "MoveLastOne",
+        "limitScope": "PerLevel",
+        "lineOpacity": 1.0,
+        "maxCount": 0,
+        "maxHeight": None,
+        "maxWidth": None,
+        "minHeight": None,
+        "minWidth": None,
+        "nineSliceBorders": [],
+        "pivotX": 0.5,
+        "pivotY": 1.0,
+        "renderMode": render_mode,
+        "resizableX": resizable_x,
+        "resizableY": resizable_y,
+        "showName": True,
+        "tags": [],
+        "tileId": None,
+        "tileOpacity": 1.0,
+        "tileRect": None,
+        "tileRenderMode": "Stretch",
+        "tilesetId": None,
+        "uid": uid,
+        "uiTileRect": None,
+        "width": width,
+    }
 
 # ---- Area generators ----
 
@@ -146,16 +339,17 @@ def make_cemetery():
             make_field("intensity", "Float", intensity),
         ]))
     # Fog gates
-    entities.append(make_entity("FogGate", 1344, 688, [
+    entities.append(make_entity("FogGate", 1352, 688, [
         make_field("dest_area", "String", "CemeteryOfAsh"),
         make_field("dest_x", "Float", 1470), make_field("dest_y", "Float", 520),
-        make_field("width", "Float", 192), make_field("height", "Float", 28),
+        make_field("width", "Float", 208), make_field("height", "Float", 28),
     ], ))
     entities.append(make_entity("FogGate", 360, 160, [
         make_field("dest_area", "String", "FirelinkShrine"),
         make_field("dest_x", "Float", 960), make_field("dest_y", "Float", 160),
         make_field("width", "Float", 120), make_field("height", "Float", 32),
     ]))
+    entities.append(make_tile_patch(224, 128, "Ground", 16, 8, 40, 18, "gundyr_door_open"))
 
     return chunk, entities
 
@@ -534,14 +728,24 @@ def make_irithyll():
 
 def make_level(identifier, chunk, entities, uid):
     return {
+        "__header__": {
+            "fileType": "LDtk Project JSON",
+            "app": "LDtk",
+            "doc": "https://ldtk.io/json",
+            "schema": "https://ldtk.io/files/JSON_SCHEMA.json",
+            "appAuthor": "Sebastien 'deepnight' Benard",
+            "appVersion": "1.5.3",
+            "url": "https://ldtk.io",
+        },
         "__bgColor": "#1a1a2e",
         "__neighbours": [],
         "__smartColor": "#4a3728",
-        "bgColor": None,
+        "__bgPos": None,
+        "bgColor": "#1a1a2e",
         "bgPivotX": 0.5, "bgPivotY": 0.5,
         "bgPos": None,
         "bgRelPath": None,
-        "externalRelPath": f"levels/{identifier}.ldtkl",
+        "externalRelPath": None,
         "fieldInstances": [],
         "identifier": identifier,
         "iid": str(uuid.uuid4()),
@@ -550,7 +754,7 @@ def make_level(identifier, chunk, entities, uid):
                 "__cHei": CHUNK_SIZE, "__cWid": CHUNK_SIZE,
                 "__gridSize": 16,
                 "__identifier": "Terrain",
-                "__opacity": 1.0,
+                "__opacity": 1,
                 "__pxTotalOffsetX": 0, "__pxTotalOffsetY": 0,
                 "__tilesetDefUid": None, "__tilesetRelPath": None,
                 "__type": "IntGrid",
@@ -558,7 +762,6 @@ def make_level(identifier, chunk, entities, uid):
                 "entityInstances": [],
                 "gridTiles": [],
                 "iid": str(uuid.uuid4()),
-                "intGrid": None,
                 "intGridCsv": chunk_to_csv(chunk),
                 "layerDefUid": 1,
                 "levelId": uid,
@@ -572,7 +775,7 @@ def make_level(identifier, chunk, entities, uid):
                 "__cHei": CHUNK_SIZE, "__cWid": CHUNK_SIZE,
                 "__gridSize": 16,
                 "__identifier": "Entities",
-                "__opacity": 1.0,
+                "__opacity": 1,
                 "__pxTotalOffsetX": 0, "__pxTotalOffsetY": 0,
                 "__tilesetDefUid": None, "__tilesetRelPath": None,
                 "__type": "Entities",
@@ -580,7 +783,6 @@ def make_level(identifier, chunk, entities, uid):
                 "entityInstances": entities,
                 "gridTiles": [],
                 "iid": str(uuid.uuid4()),
-                "intGrid": None,
                 "intGridCsv": [],
                 "layerDefUid": 2,
                 "levelId": uid,
@@ -609,28 +811,117 @@ AREAS = [
     ("Irithyll", make_irithyll),
 ]
 
+def build_enum_defs():
+    return [
+        make_enum("EnemyKind", ENUM_UIDS["EnemyKind"], [
+            {"id": "HollowSoldier", "color": 0xB08D57},
+            {"id": "Archer", "color": 0x8C6239},
+            {"id": "Knight", "color": 0x7F8C8D},
+            {"id": "MiniBoss", "color": 0xC0392B},
+            {"id": "Assassin", "color": 0x34495E},
+            {"id": "DarkMage", "color": 0x6C3483},
+            {"id": "CrystalLizard", "color": 0x48C9B0},
+        ]),
+        make_enum("ItemKind", ENUM_UIDS["ItemKind"], [
+            {"id": "SoulOrb", "color": 0xF4D03F},
+            {"id": "EstusShard", "color": 0xE67E22},
+            {"id": "HomewardBone", "color": 0xD7DBDD},
+            {"id": "PurpleMoss", "color": 0x27AE60},
+            {"id": "WeaponDrop", "color": 0x95A5A6},
+            {"id": "ArmorDrop", "color": 0x5D6D7E},
+            {"id": "RingDrop", "color": 0xF1C40F},
+        ]),
+        make_enum("NpcKind", ENUM_UIDS["NpcKind"], [
+            {"id": "LevelUp", "color": 0x2ECC71},
+            {"id": "Merchant", "color": 0xF1C40F},
+            {"id": "Blacksmith", "color": 0xD35400},
+            {"id": "Dialogue", "color": 0x5DADE2},
+        ]),
+        make_enum("TileKind", ENUM_UIDS["TileKind"], [
+            {"id": "Empty", "color": 0x000000},
+            {"id": "Ground", "color": 0x4A3728},
+            {"id": "Wall", "color": 0x1A1A2E},
+            {"id": "WallTop", "color": 0x16213E},
+            {"id": "Poison", "color": 0x2D6A4F},
+        ]),
+    ]
+
+def build_entity_defs():
+    return [
+        make_entity_def("PlayerSpawn", ENTITY_UIDS["PlayerSpawn"], color="#7FDBFF", field_defs=[
+            make_field_def("heal", "Bool", FIELD_UIDS["PlayerSpawn.heal"], False, "F_Bool", "Heal player to full on spawn."),
+        ]),
+        make_entity_def("BossSpawn", ENTITY_UIDS["BossSpawn"], color="#FF4136"),
+        make_entity_def("Bonfire", ENTITY_UIDS["Bonfire"], color="#FF851B"),
+        make_entity_def("Enemy", ENTITY_UIDS["Enemy"], color="#B08D57", field_defs=[
+            make_field_def("kind", "LocalEnum.EnemyKind", FIELD_UIDS["Enemy.kind"], "HollowSoldier", f"F_Enum({ENUM_UIDS['EnemyKind']})"),
+        ]),
+        make_entity_def("Item", ENTITY_UIDS["Item"], color="#F4D03F", field_defs=[
+            make_field_def("kind", "LocalEnum.ItemKind", FIELD_UIDS["Item.kind"], "SoulOrb", f"F_Enum({ENUM_UIDS['ItemKind']})"),
+            make_field_def("value", "Int", FIELD_UIDS["Item.value"], 100, "F_Int"),
+            make_field_def("name", "String", FIELD_UIDS["Item.name"], "", "F_String"),
+        ]),
+        make_entity_def("Chest", ENTITY_UIDS["Chest"], color="#8E6E53", field_defs=[
+            make_field_def("loot_kind", "LocalEnum.ItemKind", FIELD_UIDS["Chest.loot_kind"], "SoulOrb", f"F_Enum({ENUM_UIDS['ItemKind']})"),
+            make_field_def("loot_value", "Int", FIELD_UIDS["Chest.loot_value"], 100, "F_Int"),
+            make_field_def("loot_name", "String", FIELD_UIDS["Chest.loot_name"], "", "F_String"),
+            make_field_def("is_mimic", "Bool", FIELD_UIDS["Chest.is_mimic"], False, "F_Bool"),
+            make_field_def("slot", "String", FIELD_UIDS["Chest.slot"], "", "F_String"),
+        ]),
+        make_entity_def("Npc", ENTITY_UIDS["Npc"], color="#33E6B3", field_defs=[
+            make_field_def("name", "String", FIELD_UIDS["Npc.name"], "", "F_String"),
+            make_field_def("kind", "LocalEnum.NpcKind", FIELD_UIDS["Npc.kind"], "Dialogue", f"F_Enum({ENUM_UIDS['NpcKind']})"),
+            make_field_def("color", "Color", FIELD_UIDS["Npc.color"], "#FFFFFF", "F_Color"),
+            make_field_def("dialogue", "String", FIELD_UIDS["Npc.dialogue"], "", "F_String"),
+        ]),
+        make_entity_def("Light", ENTITY_UIDS["Light"], color="#FFF3B0", field_defs=[
+            make_field_def("radius", "Float", FIELD_UIDS["Light.radius"], 160.0, "F_Float"),
+            make_field_def("r", "Float", FIELD_UIDS["Light.r"], 1.0, "F_Float"),
+            make_field_def("g", "Float", FIELD_UIDS["Light.g"], 1.0, "F_Float"),
+            make_field_def("b", "Float", FIELD_UIDS["Light.b"], 1.0, "F_Float"),
+            make_field_def("intensity", "Float", FIELD_UIDS["Light.intensity"], 0.2, "F_Float"),
+        ]),
+        make_entity_def("FogGate", ENTITY_UIDS["FogGate"], width=64, height=32, resizable_x=True, resizable_y=True, color="#D4AF37", field_defs=[
+            make_field_def("dest_area", "String", FIELD_UIDS["FogGate.dest_area"], "", "F_String"),
+            make_field_def("dest_x", "Float", FIELD_UIDS["FogGate.dest_x"], 0.0, "F_Float"),
+            make_field_def("dest_y", "Float", FIELD_UIDS["FogGate.dest_y"], 0.0, "F_Float"),
+            make_field_def("width", "Float", FIELD_UIDS["FogGate.width"], 64.0, "F_Float"),
+            make_field_def("height", "Float", FIELD_UIDS["FogGate.height"], 32.0, "F_Float"),
+        ]),
+        make_entity_def("TilePatch", ENTITY_UIDS["TilePatch"], color="#2ECC71", field_defs=[
+            make_field_def("tile", "LocalEnum.TileKind", FIELD_UIDS["TilePatch.tile"], "Ground", f"F_Enum({ENUM_UIDS['TileKind']})"),
+            make_field_def("x1", "Int", FIELD_UIDS["TilePatch.x1"], 0, "F_Int"),
+            make_field_def("y1", "Int", FIELD_UIDS["TilePatch.y1"], 0, "F_Int"),
+            make_field_def("x2", "Int", FIELD_UIDS["TilePatch.x2"], 0, "F_Int"),
+            make_field_def("y2", "Int", FIELD_UIDS["TilePatch.y2"], 0, "F_Int"),
+            make_field_def("condition", "String", FIELD_UIDS["TilePatch.condition"], "always", "F_String"),
+        ]),
+    ]
+
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    levels_dir = os.path.join(script_dir, "levels")
+    levels_dir = os.path.join(script_dir, "ds2d")
     os.makedirs(levels_dir, exist_ok=True)
 
     level_summaries = []
     for uid, (identifier, gen_fn) in enumerate(AREAS, start=1):
         chunk, entities = gen_fn()
+        populate_entity_def_uids(entities)
         level = make_level(identifier, chunk, entities, uid)
-        path = os.path.join(levels_dir, f"{identifier}.ldtkl")
-        with open(path, "w") as f:
+        level_path = os.path.join(levels_dir, f"{identifier}.ldtkl")
+        with open(level_path, "w") as f:
             json.dump(level, f, indent=2)
-        print(f"  wrote {path}")
+        print(f"  wrote {level_path}")
         level_summaries.append({
             "__bgColor": level["__bgColor"],
             "__neighbours": [],
             "__smartColor": level["__smartColor"],
+            "__bgPos": None,
             "bgColor": None,
             "bgPivotX": 0.5, "bgPivotY": 0.5,
             "bgPos": None,
             "bgRelPath": None,
-            "externalRelPath": f"levels/{identifier}.ldtkl",
+            "externalRelPath": f"ds2d/{identifier}.ldtkl",
             "fieldInstances": [],
             "identifier": identifier,
             "iid": level["iid"],
@@ -646,8 +937,17 @@ def main():
 
     # Generate project file
     project = {
+        "__header__": {
+            "fileType": "LDtk Project JSON",
+            "app": "LDtk",
+            "doc": "https://ldtk.io/json",
+            "schema": "https://ldtk.io/files/JSON_SCHEMA.json",
+            "appAuthor": "Sebastien 'deepnight' Benard",
+            "appVersion": "1.5.3",
+            "url": "https://ldtk.io",
+        },
         "__FORCED_REFS": None,
-        "appBuildId": 20260430,
+        "appBuildId": 473703,
         "backupLimit": 10,
         "backupOnSave": False,
         "backupRelPath": None,
@@ -659,11 +959,11 @@ def main():
         "defaultLevelBgColor": "#1a1a2e",
         "defaultLevelHeight": CHUNK_SIZE * 16,
         "defaultLevelWidth": CHUNK_SIZE * 16,
-        "defaultPivotX": 0.5,
-        "defaultPivotY": 1.0,
+        "defaultPivotX": 0,
+        "defaultPivotY": 0,
         "defs": {
-            "entities": [],
-            "enums": [],
+            "entities": build_entity_defs(),
+            "enums": build_enum_defs(),
             "externalEnums": [],
             "layers": [
                 {
@@ -727,16 +1027,16 @@ def main():
         "iid": str(uuid.uuid4()),
         "imageExportMode": "None",
         "jsonVersion": "1.5.3",
-        "levelNamePattern": "Level_%X",
+        "levelNamePattern": "%world_Level_%idx",
         "levels": level_summaries,
         "minifyJson": False,
         "nextUid": 1000,
         "pngFilePattern": None,
         "simplifiedExport": False,
         "toc": [],
-        "tutorialDesc": None,
-        "worldGridHeight": None,
-        "worldGridWidth": None,
+        "tutorialDesc": "Generated DS2D project with separate level files.",
+        "worldGridHeight": CHUNK_SIZE * 16,
+        "worldGridWidth": CHUNK_SIZE * 16,
         "worldLayout": "Free",
         "worlds": [],
     }

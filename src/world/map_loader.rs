@@ -85,6 +85,16 @@ pub struct FogGateSpawn {
 }
 
 #[derive(Debug)]
+pub struct TilePatch {
+    pub tile: TileId,
+    pub x1: usize,
+    pub y1: usize,
+    pub x2: usize,
+    pub y2: usize,
+    pub condition: String,
+}
+
+#[derive(Debug)]
 pub struct ParsedLevel {
     pub chunk: Chunk,
     pub player_spawn: (f32, f32),
@@ -97,6 +107,7 @@ pub struct ParsedLevel {
     pub npcs: Vec<NpcSpawn>,
     pub lights: Vec<Light>,
     pub fog_gates: Vec<FogGateSpawn>,
+    pub tile_patches: Vec<TilePatch>,
 }
 
 impl ParsedLevel {
@@ -138,6 +149,7 @@ impl ParsedLevel {
         let mut npcs = Vec::new();
         let mut lights = Vec::new();
         let mut fog_gates = Vec::new();
+        let mut tile_patches = Vec::new();
 
         for entity in &entities_layer.entity_instances {
             let px = entity.px.get(0).copied().unwrap_or(0) as f32;
@@ -207,6 +219,15 @@ impl ParsedLevel {
                     let h = fld.f32_val_or("height", entity.height as f32);
                     fog_gates.push(FogGateSpawn { x: px, y: py, w, h, dest_area, dest_x, dest_y });
                 }
+                "TilePatch" => {
+                    let tile = parse_tile_kind(&fld.str_val("tile"))?;
+                    let x1 = fld.usize_val("x1");
+                    let y1 = fld.usize_val("y1");
+                    let x2 = fld.usize_val("x2");
+                    let y2 = fld.usize_val("y2");
+                    let condition = fld.str_val("condition");
+                    tile_patches.push(TilePatch { tile, x1, y1, x2, y2, condition });
+                }
                 other => return Err(format!("Unknown entity type: {}", other)),
             }
         }
@@ -223,6 +244,7 @@ impl ParsedLevel {
             npcs,
             lights,
             fog_gates,
+            tile_patches,
         })
     }
 }
@@ -234,6 +256,17 @@ fn int_to_tile(val: i64) -> TileId {
         3 => TileId::WallTop,
         4 => TileId::Poison,
         _ => TileId::Empty,
+    }
+}
+
+fn parse_tile_kind(s: &str) -> Result<TileId, String> {
+    match s {
+        "Empty" => Ok(TileId::Empty),
+        "Ground" => Ok(TileId::Ground),
+        "Wall" => Ok(TileId::Wall),
+        "WallTop" => Ok(TileId::WallTop),
+        "Poison" => Ok(TileId::Poison),
+        other => Err(format!("Unknown tile kind: {}", other)),
     }
 }
 
@@ -273,6 +306,13 @@ impl<'a> FieldReader<'a> {
             Some(v) => v as f32,
             None => default,
         }
+    }
+
+    fn usize_val(&self, name: &str) -> usize {
+        self.find(name)
+            .and_then(|f| f.value.as_ref())
+            .and_then(|v| v.as_u64())
+            .unwrap_or(0) as usize
     }
 
     fn bool_val(&self, name: &str) -> bool {

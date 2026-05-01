@@ -36,10 +36,10 @@ wasm-pack build --target web --dev
 rm -rf static/pkg && cp -r pkg static/pkg
 
 # 启动本地服务器
-python3 -m http.server 8080 --directory static
+python3 -m http.server 8080
 ```
 
-在浏览器中打开 `http://localhost:8080`。
+在浏览器中打开 `http://localhost:8080/static/`。
 
 ## 操作方式
 

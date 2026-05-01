@@ -1,4 +1,5 @@
 /target
 /static/pkg
 /pkg
+.tools/
 *.wasm

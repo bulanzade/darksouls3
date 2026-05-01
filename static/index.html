@@ -67,7 +67,16 @@
     </div>
     <script type="module">
         const v = Date.now();
-        import init, { js_keydown, js_keyup, js_debug_state } from './pkg/ds2d.js';
+        import init, { js_keydown, js_keyup, js_debug_state, js_register_map } from './pkg/ds2d.js';
+
+        const MAP_PATHS = [
+            '/maps/ds2d/CemeteryOfAsh.ldtkl',
+            '/maps/ds2d/FirelinkShrine.ldtkl',
+            '/maps/ds2d/LothricWall.ldtkl',
+            '/maps/ds2d/UndeadSettlement.ldtkl',
+            '/maps/ds2d/CathedralDeep.ldtkl',
+            '/maps/ds2d/Irithyll.ldtkl',
+        ];
 
         // --- Web Audio procedural SFX ---
         let audioCtx = null;
@@ -194,8 +203,21 @@
             else stopCombatMusic();
         };
 
+        async function preloadMaps() {
+            const loads = MAP_PATHS.map(async (path) => {
+                const response = await fetch(path + '?v=' + v, { cache: 'no-store' });
+                if (!response.ok) {
+                    throw new Error(`Failed to load map ${path}: ${response.status}`);
+                }
+                const json = await response.text();
+                js_register_map(path, json);
+            });
+            await Promise.all(loads);
+        }
+
         async function run() {
             await init('./pkg/ds2d_bg.wasm?v=' + v);
+            await preloadMaps();
             window.js_keydown = js_keydown;
             window.js_keyup = js_keyup;
             window.js_debug_state = js_debug_state;
