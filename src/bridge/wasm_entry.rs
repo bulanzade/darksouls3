@@ -57,6 +57,16 @@ fn area_boss(area: AreaId) -> Option<BossType> {
     }
 }
 
+fn boss_defeat_key(boss: BossType) -> &'static str {
+    match boss {
+        BossType::IudexGundyr => "IudexGundyr",
+        BossType::Vordt => "Vordt",
+        BossType::DemonKnight => "CurseRottedGreatwood",
+        BossType::Dragonrider => "DeaconsOfTheDeep",
+        BossType::RuinSentinel => "PontiffSulyvahn",
+    }
+}
+
 fn area_has_bonfire(area: AreaId) -> bool {
     area != AreaId::CemeteryOfAsh
 }
@@ -1158,6 +1168,29 @@ fn rebuild_collision(game: &mut Game) {
     game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
 }
 
+fn area_level_json(area: AreaId) -> &'static str {
+    match area {
+        AreaId::CemeteryOfAsh => include_str!("../../maps/levels/CemeteryOfAsh.ldtkl"),
+        AreaId::FirelinkShrine => include_str!("../../maps/levels/FirelinkShrine.ldtkl"),
+        AreaId::LothricWall => include_str!("../../maps/levels/LothricWall.ldtkl"),
+        AreaId::UndeadSettlement => include_str!("../../maps/levels/UndeadSettlement.ldtkl"),
+        AreaId::CathedralDeep => include_str!("../../maps/levels/CathedralDeep.ldtkl"),
+        AreaId::Irithyll => include_str!("../../maps/levels/Irithyll.ldtkl"),
+    }
+}
+
+fn area_from_str(s: &str) -> AreaId {
+    match s {
+        "CemeteryOfAsh" => AreaId::CemeteryOfAsh,
+        "FirelinkShrine" | "Majula" => AreaId::FirelinkShrine,
+        "LothricWall" => AreaId::LothricWall,
+        "UndeadSettlement" | "ForestOfGiants" => AreaId::UndeadSettlement,
+        "CathedralDeep" => AreaId::CathedralDeep,
+        "Irithyll" | "LostBastille" => AreaId::Irithyll,
+        _ => AreaId::FirelinkShrine,
+    }
+}
+
 fn fill_tiles(chunk: &mut Chunk, tile: TileId, x1: usize, y1: usize, x2: usize, y2: usize) {
     debug_assert!(x1 <= x2 && y1 <= y2, "fill_tiles: inverted bounds ({x1},{y1})-({x2},{y2})");
     let max = CHUNK_SIZE - 1;
@@ -1168,21 +1201,6 @@ fn fill_tiles(chunk: &mut Chunk, tile: TileId, x1: usize, y1: usize, x2: usize, 
     }
 }
 
-fn carve_ellipse(chunk: &mut Chunk, cx: i32, cy: i32, rx: i32, ry: i32) {
-    let min_y = (cy - ry).max(0) as usize;
-    let max_y = (cy + ry).min(CHUNK_SIZE as i32 - 1) as usize;
-    let min_x = (cx - rx).max(0) as usize;
-    let max_x = (cx + rx).min(CHUNK_SIZE as i32 - 1) as usize;
-    for y in min_y..=max_y {
-        for x in min_x..=max_x {
-            let nx = (x as i32 - cx) as f32 / rx as f32;
-            let ny = (y as i32 - cy) as f32 / ry as f32;
-            if nx * nx + ny * ny <= 1.0 {
-                chunk.tiles[y][x] = TileId::Ground;
-            }
-        }
-    }
-}
 
 fn update_playing(game: &mut Game, dt: f32) {
     // Hitstop: freeze game logic for a few frames
@@ -2425,7 +2443,6 @@ fn update_bonfire_menu(game: &mut Game) {
 }
 
 fn load_area(game: &mut Game, area: AreaId) {
-    let player_hp_ratio = game.player.hp as f32 / game.player.max_hp as f32;
     game.area = area;
     game.state = GameState::Playing;
     game.time.accumulator = 0.0;
@@ -2447,621 +2464,131 @@ fn load_area(game: &mut Game, area: AreaId) {
     game.input_buffer = BufferedAction::None;
     game.input_buffer_timer = 0.0;
 
-    match area {
-        AreaId::CemeteryOfAsh => {
-            let mut chunk = Chunk::new((0, 0));
-            for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
+    {
+        use crate::world::map_loader::{self, ArmorSlot as MArmorSlot, EnemySpawnKind, ItemSpawnKind, NpcSpawnKind};
 
-            // Player wakes in the lower-left grave pocket.
-            carve_ellipse(&mut chunk, 12, 103, 8, 6);
-            fill_tiles(&mut chunk, TileId::Ground, 12, 96, 23, 108);
-            carve_ellipse(&mut chunk, 28, 91, 12, 8);
-            fill_tiles(&mut chunk, TileId::Ground, 22, 86, 39, 98);
-
-            // Main cemetery route bends upward and right toward Gundyr.
-            fill_tiles(&mut chunk, TileId::Ground, 34, 76, 47, 91);
-            carve_ellipse(&mut chunk, 48, 70, 15, 10);
-            fill_tiles(&mut chunk, TileId::Ground, 45, 62, 64, 76);
-            carve_ellipse(&mut chunk, 65, 56, 17, 10);
-            fill_tiles(&mut chunk, TileId::Ground, 61, 48, 77, 64);
-            carve_ellipse(&mut chunk, 79, 41, 13, 9);
-
-            // Right-lower optional branch: crystal lizard mini-boss dead end.
-            fill_tiles(&mut chunk, TileId::Ground, 38, 84, 58, 94);
-            fill_tiles(&mut chunk, TileId::Ground, 56, 90, 78, 102);
-            carve_ellipse(&mut chunk, 91, 104, 19, 12);
-            fill_tiles(&mut chunk, TileId::Poison, 86, 99, 97, 109);
-            fill_tiles(&mut chunk, TileId::Ground, 88, 101, 94, 106);
-
-            // Gundyr arena in the upper-right, entered through a wall-mounted fog door.
-            fill_tiles(&mut chunk, TileId::Ground, 76, 33, 88, 42);
-            carve_ellipse(&mut chunk, 96, 30, 22, 18);
-            carve_ellipse(&mut chunk, 96, 30, 16, 12);
-            for x in 70..CHUNK_SIZE { chunk.tiles[43][x] = TileId::Wall; }
-            fill_tiles(&mut chunk, TileId::Ground, 78, 41, 90, 45);
-            for x in 72..CHUNK_SIZE { chunk.tiles[10][x] = TileId::Wall; }
-            for y in 10..51 { chunk.tiles[y][71] = TileId::Wall; chunk.tiles[y][CHUNK_SIZE - 1] = TileId::Wall; }
-            for y in 43..51 { chunk.tiles[y][118] = TileId::Wall; }
-
-            // Post-Gundyr route turns west/up to the locked Firelink door.
-            fill_tiles(&mut chunk, TileId::Ground, 84, 28, 96, 44);
-            fill_tiles(&mut chunk, TileId::Ground, 62, 18, 88, 34);
-            fill_tiles(&mut chunk, TileId::Ground, 36, 10, 66, 24);
-            fill_tiles(&mut chunk, TileId::Ground, 16, 8, 40, 18);
-            for y in 6..21 { chunk.tiles[y][15] = TileId::Wall; }
-            for x in 16..41 { chunk.tiles[7][x] = TileId::Wall; }
-
-            // Gravestones and coffins define cover without blocking the main routes.
-            fill_tiles(&mut chunk, TileId::Wall, 42, 84, 45, 87);
-            fill_tiles(&mut chunk, TileId::Wall, 30, 88, 33, 91);
-            fill_tiles(&mut chunk, TileId::Wall, 58, 64, 61, 67);
-            fill_tiles(&mut chunk, TileId::Wall, 88, 20, 91, 23);
-            fill_tiles(&mut chunk, TileId::Wall, 106, 35, 109, 38);
-
-            game.chunk = chunk;
-            game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
-            game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
-            game.player.transform.x = 200.0;
-            game.player.transform.y = 1660.0;
-            game.player.hp = game.player.max_hp;
-            game.enemies = vec![
-                Enemy::new_hollow_soldier(2, 470.0, 1450.0),
-                Enemy::new_hollow_soldier(3, 760.0, 1120.0),
-                Enemy::new_archer(4, 1120.0, 880.0),
-                Enemy::new_knight(5, 1180.0, 730.0),
-                Enemy::new_hollow_soldier(6, 1040.0, 850.0),
-                Enemy::new_crystal_lizard(7, 1450.0, 1660.0),
-            ];
-            game.items = vec![
-                WorldItem { x: 210.0, y: 1620.0, kind: ItemKind::SoulOrb(100), collected: false },
-                WorldItem { x: 760.0, y: 1140.0, kind: ItemKind::SoulOrb(150), collected: false },
-                WorldItem { x: 1360.0, y: 650.0, kind: ItemKind::HomewardBone, collected: false },
-                WorldItem { x: 1500.0, y: 1700.0, kind: ItemKind::EstusShard, collected: false },
-                WorldItem { x: 1800.0, y: 640.0, kind: ItemKind::SoulOrb(300), collected: false },
-            ];
-            game.chests = vec![
-                TreasureChest { x: 1570.0, y: 1710.0, opened: false, loot: ItemKind::SoulOrb(500), is_mimic: false, mimic_revealed: false },
-            ];
-            game.npcs = vec![];
-            game.lights = vec![
-                Light { x: 200.0, y: 1660.0, radius: 190.0, color: [0.82, 0.78, 0.62], intensity: 0.22 },
-                Light { x: 760.0, y: 1120.0, radius: 170.0, color: [0.78, 0.58, 0.34], intensity: 0.14 },
-                Light { x: 1450.0, y: 1660.0, radius: 210.0, color: [0.55, 0.75, 0.9], intensity: 0.18 },
-                Light { x: 1460.0, y: 620.0, radius: 360.0, color: [0.55, 0.52, 0.62], intensity: 0.22 },
-                Light { x: 1800.0, y: 720.0, radius: 220.0, color: [0.72, 0.62, 0.48], intensity: 0.18 },
-            ];
-            game.bonfire_x = -10000.0;
-            game.bonfire_y = -10000.0;
-            // Gundyr fog activates the boss; the upper-left Firelink door opens after he dies.
-            let gundyr_defeated = game.bosses_defeated.iter().any(|b| b == "IudexGundyr");
-            game.fog_gates = vec![
-                FogGate { x: 1312.0, y: 688.0, w: 192.0, h: 28.0, destination: AreaId::CemeteryOfAsh, dest_x: 1470.0, dest_y: 520.0, active: !gundyr_defeated },
-                FogGate { x: 360.0, y: 160.0, w: 120.0, h: 32.0, destination: AreaId::FirelinkShrine, dest_x: 960.0, dest_y: 160.0, active: gundyr_defeated },
-            ];
-            // If Gundyr door was previously opened, keep it open
-            if game.gundyr_door_open {
-                fill_tiles(&mut game.chunk, TileId::Ground, 16, 8, 40, 18);
-                rebuild_collision(game);
+        fn convert_spawn_kind(kind: ItemSpawnKind) -> ItemKind {
+            match kind {
+                ItemSpawnKind::SoulOrb(v) => ItemKind::SoulOrb(v),
+                ItemSpawnKind::EstusShard => ItemKind::EstusShard,
+                ItemSpawnKind::HomewardBone => ItemKind::HomewardBone,
+                ItemSpawnKind::PurpleMoss => ItemKind::PurpleMoss,
+                ItemSpawnKind::WeaponDrop(wt) => ItemKind::WeaponDrop(wt),
+                ItemSpawnKind::ArmorDrop(slot, name) => {
+                    let slot = match slot {
+                        MArmorSlot::Head => ArmorSlot::Head,
+                        MArmorSlot::Chest => ArmorSlot::Chest,
+                        MArmorSlot::Legs => ArmorSlot::Legs,
+                        MArmorSlot::Hands => ArmorSlot::Hands,
+                    };
+                    ItemKind::ArmorDrop(slot, name)
+                }
+                ItemSpawnKind::RingDrop(name) => ItemKind::RingDrop(name),
             }
         }
-        AreaId::FirelinkShrine => {
-            // Firelink Shrine: hub with bonfire, NPCs, paths to other areas
-            // Layout: central plaza with bonfire, buildings to west, cliff path east, sunken path south
-            let mut chunk = Chunk::new((0, 0));
-            for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
-            // Central plaza (wide open area around bonfire)
-            for y in 8..40 { for x in 10..50 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Western building interior (Blacksmith's shop)
-            for y in 15..25 { for x in 2..12 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Eastern cliff path (winding toward Undead Settlement)
-            for y in 20..35 { for x in 50..65 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Elevated platform (monument area)
-            for y in 5..15 { for x in 20..35 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Northern entrance from Cemetery of Ash, reached after Gundyr.
-            for y in 0..10 { for x in 50..70 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Connect north entrance to central plaza.
-            for y in 8..15 { for x in 28..70 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Southern sunken path (toward Cathedral)
-            for y in 38..55 { for x in 20..35 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Southeast path (toward Cathedral of the Deep)
-            for y in 35..50 { for x in 40..55 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Water/shore (coastal edge)
-            for y in 30..40 { for x in 42..50 { chunk.tiles[y][x] = TileId::Poison; } }
 
-            game.chunk = chunk;
-            game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
-            game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
-            game.player.transform.x = 320.0;
-            game.player.transform.y = 320.0;
+        let json = area_level_json(area);
+        let parsed = map_loader::ParsedLevel::from_ldtkl(json).expect("Failed to load map");
+
+        game.chunk = parsed.chunk;
+        game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
+        game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
+
+        game.player.transform.x = parsed.player_spawn.0;
+        game.player.transform.y = parsed.player_spawn.1;
+        if parsed.heal_player {
             game.player.hp = game.player.max_hp;
-            game.enemies = vec![];
-            game.items = vec![
-                WorldItem { x: 450.0, y: 200.0, kind: ItemKind::SoulOrb(100), collected: false },
-            ];
-            game.chests = vec![];
-            game.npcs = vec![
-                Npc { x: 360.0, y: 300.0, name: "防火女".into(), color: [0.2, 0.9, 0.7, 1.0],
-                    dialogue: vec!["欢迎来到传火祭祀场，无火的余灰。".into(), "薪王们已离开了他们的王座。".into(),
-                        "请将他们带回原本的位置。".into(), "[Enter] 升级".into()],
-                    dialogue_index: 0, talking: false, kind: NpcKind::LevelUp },
-                Npc { x: 300.0, y: 380.0, name: "安德烈".into(), color: [0.7, 0.5, 0.2, 1.0],
-                    dialogue: vec!["我是安德烈，祭祀场的铁匠。".into(), "交给我吧，你的武器会焕然一新。".into(),
-                        "[Enter] 强化武器 (1000灵魂)".into()],
-                    dialogue_index: 0, talking: false, kind: NpcKind::Blacksmith },
-                Npc { x: 380.0, y: 400.0, name: "侍女".into(), color: [0.8, 0.7, 0.3, 1.0],
-                    dialogue: vec!["你好啊，无火的余灰。".into(), "我这里有各种各样好东西。".into(),
-                        "[Enter] 购买原素碎片 (500灵魂)".into()],
-                    dialogue_index: 0, talking: false, kind: NpcKind::Merchant },
-            ];
-            game.lights = vec![
-                Light { x: 320.0, y: 320.0, radius: 300.0, color: [0.95, 0.9, 0.7], intensity: 0.5 },
-                Light { x: 300.0, y: 380.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.2 },
-                Light { x: 380.0, y: 400.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.2 },
-            ];
-            game.bonfire_x = 320.0;
-            game.bonfire_y = 320.0;
-            game.fog_gates = vec![
-                FogGate { x: 855.0, y: 380.0, w: 64.0, h: 120.0, destination: AreaId::UndeadSettlement, dest_x: 200.0, dest_y: 200.0, active: true },
-                FogGate { x: 380.0, y: 700.0, w: 80.0, h: 32.0, destination: AreaId::CathedralDeep, dest_x: 200.0, dest_y: 200.0, active: true },
-                FogGate { x: 960.0, y: 64.0, w: 120.0, h: 32.0, destination: AreaId::CemeteryOfAsh, dest_x: 360.0, dest_y: 220.0, active: true },
-            ];
         }
-        AreaId::LothricWall => {
-            // Lothric Wall: high stone walls, dragon courtyard, Vordt boss
-            // Layout: entry ramparts → dragon courtyard → lower streets → boss arena
-            let mut chunk = Chunk::new((0, 0));
-            for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
-            // Entry ramparts (upper walls, narrow path)
-            for y in 5..25 { for x in 5..35 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Dragon courtyard (wide open area with dragon perch)
-            for y in 10..40 { for x in 30..70 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Dragon perch (elevated platform — wall-topped)
-            for y in 15..20 { for x in 55..65 { chunk.tiles[y][x] = TileId::Wall; } }
-            // Lower streets (winding path through ruins)
-            for y in 35..55 { for x in 20..55 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Side alleys
-            for y in 20..35 { for x in 65..90 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Market square
-            for y in 45..70 { for x in 40..80 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Underground passage
-            for y in 65..80 { for x in 50..65 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Boss arena (enclosed — Vordt)
-            for y in 80..105 { for x in 35..65 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Arena walls with north door (x:45..55)
-            for x in 35..45 { chunk.tiles[79][x] = TileId::Wall; }
-            for x in 55..65 { chunk.tiles[79][x] = TileId::Wall; }
-            for x in 35..65 { chunk.tiles[105][x] = TileId::Wall; }
-            for y in 79..106 { chunk.tiles[y][34] = TileId::Wall; }
-            for y in 79..106 { chunk.tiles[y][65] = TileId::Wall; }
-            // Debris in streets
-            for x in 25..30 { for y in 40..45 { chunk.tiles[y][x] = TileId::Wall; } }
-            for x in 70..75 { for y in 55..60 { chunk.tiles[y][x] = TileId::Wall; } }
-            // Bonfire near entry
-            game.bonfire_x = 200.0;
-            game.bonfire_y = 200.0;
 
-            game.chunk = chunk;
-            game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
-            game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
-            game.player.transform.x = 200.0;
-            game.player.transform.y = 200.0;
-            game.player.hp = (game.player.max_hp as f32 * player_hp_ratio) as i32;
-            game.enemies = vec![
-                // Entry ramparts
-                Enemy::new_hollow_soldier(2, 300.0, 150.0),
-                Enemy::new_archer(3, 400.0, 250.0),
-                // Dragon courtyard
-                Enemy::new_knight(4, 600.0, 300.0),
-                Enemy::new_hollow_soldier(5, 700.0, 400.0),
-                Enemy::new_archer(6, 800.0, 350.0),
-                // Side alleys
-                Enemy::new_assassin(7, 1200.0, 400.0),
-                Enemy::new_hollow_soldier(8, 1100.0, 500.0),
-                // Lower streets
-                Enemy::new_knight(9, 500.0, 650.0),
-                Enemy::new_dark_mage(10, 600.0, 750.0),
-                // Market square
-                Enemy::new_hollow_soldier(11, 700.0, 950.0),
-                Enemy::new_knight(12, 900.0, 1000.0),
-                Enemy::new_archer(13, 1000.0, 1100.0),
-                Enemy::new_dark_mage(14, 800.0, 1150.0),
-                // Near boss
-                Enemy::new_knight(15, 750.0, 1300.0),
-                Enemy::new_mini_boss(16, 800.0, 1400.0),
-            ];
-            game.items = vec![
-                WorldItem { x: 250.0, y: 200.0, kind: ItemKind::SoulOrb(200), collected: false },
-                WorldItem { x: 700.0, y: 350.0, kind: ItemKind::SoulOrb(300), collected: false },
-                WorldItem { x: 1200.0, y: 450.0, kind: ItemKind::EstusShard, collected: false },
-                WorldItem { x: 500.0, y: 700.0, kind: ItemKind::SoulOrb(200), collected: false },
-                WorldItem { x: 800.0, y: 1000.0, kind: ItemKind::PurpleMoss, collected: false },
-                WorldItem { x: 950.0, y: 1100.0, kind: ItemKind::SoulOrb(500), collected: false },
-                WorldItem { x: 700.0, y: 1350.0, kind: ItemKind::SoulOrb(1000), collected: false },
-                WorldItem { x: 600.0, y: 1500.0, kind: ItemKind::EstusShard, collected: false },
-            ];
-            game.chests = vec![
-                TreasureChest { x: 350.0, y: 300.0, opened: false, loot: ItemKind::SoulOrb(300), is_mimic: false, mimic_revealed: false },
-                TreasureChest { x: 1100.0, y: 500.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Spear), is_mimic: false, mimic_revealed: false },
-                TreasureChest { x: 900.0, y: 1050.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Chest, "Knight Armor".into()), is_mimic: true, mimic_revealed: false },
-                TreasureChest { x: 650.0, y: 1450.0, opened: false, loot: ItemKind::RingDrop("Steel Protection".into()), is_mimic: false, mimic_revealed: false },
-            ];
-            game.npcs = vec![];
-            game.lights = vec![
-                Light { x: 200.0, y: 200.0, radius: 250.0, color: [0.9, 0.8, 0.6], intensity: 0.4 },
-                Light { x: 700.0, y: 350.0, radius: 200.0, color: [0.5, 0.5, 0.7], intensity: 0.2 },
-                Light { x: 1000.0, y: 500.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
-                Light { x: 600.0, y: 700.0, radius: 200.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
-                Light { x: 800.0, y: 1050.0, radius: 200.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
-                Light { x: 900.0, y: 1400.0, radius: 220.0, color: [0.4, 0.5, 0.8], intensity: 0.25 },
-            ];
-            let vordt_defeated = game.bosses_defeated.iter().any(|b| b == "Vordt");
-            game.fog_gates = vec![
-                // Boss fog gate at arena north entrance
-                FogGate { x: 800.0, y: 1264.0, w: 128.0, h: 32.0, destination: AreaId::LothricWall, dest_x: 960.0, dest_y: 1500.0, active: !vordt_defeated },
-            ];
-        }
-        AreaId::UndeadSettlement => {
-            // Undead Settlement: dense forest with ruins, hollow camps, river
-            // Layout: entrance clearing → hollow camp → stone ruins → underground river → boss arena
-            let mut chunk = Chunk::new((0, 0));
-            for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
-            // Entrance clearing (near bonfire)
-            for y in 5..25 { for x in 5..30 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Hollow camp (open area with scattered enemies)
-            for y in 15..40 { for x in 20..55 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Stone ruins (crumbled walls forming corridors)
-            for y in 35..55 { for x in 15..40 { chunk.tiles[y][x] = TileId::Ground; } }
-            // River crossing (narrow bridge area)
-            for y in 40..50 { for x in 40..65 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Far forest (dense trees opening to wider area)
-            for y in 50..80 { for x in 30..75 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Underground passage (narrow tunnel)
-            for y in 75..90 { for x in 40..55 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Boss arena (enclosed room — walls on all sides, door on north side)
-            // Room interior: y:90..110, x:35..65
-            for y in 90..110 { for x in 35..65 { chunk.tiles[y][x] = TileId::Ground; } }
-            // North wall with door gap (x:45..55 = opening)
-            for x in 35..45 { chunk.tiles[89][x] = TileId::Wall; }
-            for x in 55..65 { chunk.tiles[89][x] = TileId::Wall; }
-            // South wall (solid)
-            for x in 35..65 { chunk.tiles[110][x] = TileId::Wall; }
-            // West wall (solid)
-            for y in 89..111 { chunk.tiles[y][34] = TileId::Wall; }
-            // East wall (solid)
-            for y in 89..111 { chunk.tiles[y][65] = TileId::Wall; }
-            // Side paths (hidden areas with items)
-            for y in 8..20 { for x in 50..75 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Poison swamp (south of ruins)
-            for y in 42..52 { for x in 55..70 { chunk.tiles[y][x] = TileId::Poison; } }
+        game.bonfire_x = parsed.bonfire.map(|(x, _)| x).unwrap_or(-10000.0);
+        game.bonfire_y = parsed.bonfire.map(|(_, y)| y).unwrap_or(-10000.0);
 
-            game.chunk = chunk;
-            game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
-            game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
-            game.player.transform.x = 200.0;
-            game.player.transform.y = 200.0;
-            game.player.hp = (game.player.max_hp as f32 * player_hp_ratio) as i32;
-            game.enemies = vec![
-                // Main clearing — easy enemies near start
-                Enemy::new_hollow_soldier(2, 350.0, 150.0),
-                Enemy::new_hollow_soldier(3, 400.0, 300.0),
-                Enemy::new_archer(4, 420.0, 200.0),
-                // Side path — assassin ambush
-                Enemy::new_assassin(5, 1000.0, 250.0),
-                Enemy::new_hollow_soldier(6, 850.0, 350.0),
-                // Forest path south — dense patrol
-                Enemy::new_hollow_soldier(7, 400.0, 550.0),
-                Enemy::new_knight(8, 500.0, 650.0),
-                Enemy::new_archer(9, 450.0, 750.0),
-                Enemy::new_assassin(10, 550.0, 850.0),
-                // Wide forest area — mixed group
-                Enemy::new_dark_mage(11, 800.0, 1000.0),
-                Enemy::new_knight(12, 650.0, 1100.0),
-                Enemy::new_hollow_soldier(13, 750.0, 1200.0),
-                Enemy::new_archer(14, 900.0, 1250.0),
-                // Near boss arena — tough guards
-                Enemy::new_knight(15, 700.0, 1450.0),
-                Enemy::new_dark_mage(16, 850.0, 1500.0),
-            ];
-            game.items = vec![
-                // Main clearing
-                WorldItem { x: 300.0, y: 250.0, kind: ItemKind::SoulOrb(200), collected: false },
-                WorldItem { x: 450.0, y: 400.0, kind: ItemKind::EstusShard, collected: false },
-                // Side path rewards
-                WorldItem { x: 950.0, y: 200.0, kind: ItemKind::SoulOrb(300), collected: false },
-                WorldItem { x: 950.0, y: 250.0, kind: ItemKind::PurpleMoss, collected: false },
-                // Forest path
-                WorldItem { x: 500.0, y: 600.0, kind: ItemKind::SoulOrb(200), collected: false },
-                WorldItem { x: 550.0, y: 900.0, kind: ItemKind::HomewardBone, collected: false },
-                // Deep forest
-                WorldItem { x: 700.0, y: 1100.0, kind: ItemKind::SoulOrb(400), collected: false },
-                WorldItem { x: 800.0, y: 1350.0, kind: ItemKind::PurpleMoss, collected: false },
-                // Near boss arena
-                WorldItem { x: 850.0, y: 1550.0, kind: ItemKind::SoulOrb(800), collected: false },
-                WorldItem { x: 600.0, y: 1500.0, kind: ItemKind::EstusShard, collected: false },
-            ];
-            game.chests = vec![
-                // Side path
-                TreasureChest { x: 1050.0, y: 200.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Dagger), is_mimic: false, mimic_revealed: false },
-                // Forest path
-                TreasureChest { x: 500.0, y: 700.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Head, "Hollow Soldier Helm".into()), is_mimic: false, mimic_revealed: false },
-                // Deep forest
-                TreasureChest { x: 750.0, y: 1200.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Chest, "Hollow Soldier Armor".into()), is_mimic: true, mimic_revealed: false },
-                // Near boss arena
-                TreasureChest { x: 900.0, y: 1600.0, opened: false, loot: ItemKind::RingDrop("Life Ring".into()), is_mimic: false, mimic_revealed: false },
-                TreasureChest { x: 650.0, y: 1550.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Spear), is_mimic: false, mimic_revealed: false },
-            ];
-            game.npcs = vec![
-                Npc { x: 250.0, y: 150.0, name: "商人".into(), color: [0.8, 0.7, 0.3, 1.0],
-                    dialogue: vec!["嘘！过来！".into(), "我有聚落里的好东西。".into(),
-                        "[Enter] 购买紫苔藓 (200灵魂)".into()],
-                    dialogue_index: 0, talking: false, kind: NpcKind::Merchant },
-            ];
-            game.lights = vec![
-                Light { x: 200.0, y: 200.0, radius: 250.0, color: [0.7, 0.85, 0.5], intensity: 0.35 },
-                Light { x: 1000.0, y: 300.0, radius: 180.0, color: [0.8, 0.7, 0.4], intensity: 0.15 },
-                Light { x: 500.0, y: 400.0, radius: 200.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
-                Light { x: 500.0, y: 700.0, radius: 200.0, color: [0.8, 0.5, 0.2], intensity: 0.2 },
-                Light { x: 750.0, y: 1000.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
-                Light { x: 900.0, y: 1300.0, radius: 200.0, color: [0.9, 0.5, 0.2], intensity: 0.15 },
-                Light { x: 800.0, y: 1550.0, radius: 220.0, color: [0.8, 0.2, 0.4], intensity: 0.25 },
-            ];
-            game.bonfire_x = 200.0;
-            game.bonfire_y = 200.0;
-            let boss_defeated = game.bosses_defeated.iter().any(|b| b == "CurseRottedGreatwood");
-            game.fog_gates = vec![
-                FogGate { x: 200.0, y: 100.0, w: 80.0, h: 32.0, destination: AreaId::FirelinkShrine, dest_x: 500.0, dest_y: 350.0, active: true },
-                FogGate { x: 600.0, y: 1350.0, w: 64.0, h: 80.0, destination: AreaId::CathedralDeep, dest_x: 200.0, dest_y: 200.0, active: true },
-                // Boss fog gate at arena north entrance
-                FogGate { x: 800.0, y: 1416.0, w: 128.0, h: 32.0, destination: AreaId::UndeadSettlement, dest_x: 800.0, dest_y: 1520.0, active: !boss_defeated },
-            ];
-        }
-        AreaId::CathedralDeep => {
-            // Cathedral of the Deep: wide stone causeways, towering structures
-            // Layout: entrance causeway → knight patrol → great cathedral → boss arena
-            let mut chunk = Chunk::new((0, 0));
-            for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
-            // Entrance causeway (narrow path over water)
-            for y in 15..25 { for x in 3..25 { chunk.tiles[y][x] = TileId::Ground; } }
-            // First platform (knight patrol area)
-            for y in 10..35 { for x in 22..50 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Long causeway east
-            for y in 18..28 { for x in 45..80 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Second platform (Old Knight area)
-            for y in 5..40 { for x in 75..105 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Cathedral approach
-            for y in 25..50 { for x in 70..100 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Side path (hidden items)
-            for y in 35..50 { for x in 40..65 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Boss arena (enclosed room with north door)
-            // Room interior: y:55..75, x:65..95
-            for y in 55..75 { for x in 65..95 { chunk.tiles[y][x] = TileId::Ground; } }
-            // North wall with door gap (x:75..85 = opening)
-            for x in 65..75 { chunk.tiles[54][x] = TileId::Wall; }
-            for x in 85..95 { chunk.tiles[54][x] = TileId::Wall; }
-            // South wall (solid)
-            for x in 65..95 { chunk.tiles[75][x] = TileId::Wall; }
-            // West wall (solid)
-            for y in 54..76 { chunk.tiles[y][64] = TileId::Wall; }
-            // East wall (solid)
-            for y in 54..76 { chunk.tiles[y][95] = TileId::Wall; }
-            // Shallow water channels
-            for y in 12..18 { for x in 10..20 { chunk.tiles[y][x] = TileId::Poison; } }
-            for y in 28..35 { for x in 50..70 { chunk.tiles[y][x] = TileId::Poison; } }
+        game.enemies = parsed.enemies.into_iter().enumerate().map(|(i, s)| {
+            let id = (i as u64) + 2;
+            match s.kind {
+                EnemySpawnKind::HollowSoldier => Enemy::new_hollow_soldier(id, s.x, s.y),
+                EnemySpawnKind::Archer => Enemy::new_archer(id, s.x, s.y),
+                EnemySpawnKind::Knight => Enemy::new_knight(id, s.x, s.y),
+                EnemySpawnKind::MiniBoss => Enemy::new_mini_boss(id, s.x, s.y),
+                EnemySpawnKind::Assassin => Enemy::new_assassin(id, s.x, s.y),
+                EnemySpawnKind::DarkMage => Enemy::new_dark_mage(id, s.x, s.y),
+                EnemySpawnKind::CrystalLizard => Enemy::new_crystal_lizard(id, s.x, s.y),
+            }
+        }).collect();
 
-            game.chunk = chunk;
-            game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
-            game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
-            game.player.transform.x = 400.0;
-            game.player.transform.y = 400.0;
-            game.player.hp = (game.player.max_hp as f32 * player_hp_ratio) as i32;
-            game.enemies = vec![
-                // Entrance causeway
-                Enemy::new_knight(2, 500.0, 300.0),
-                // First platform — Old Knight patrol
-                Enemy::new_knight(3, 700.0, 250.0),
-                Enemy::new_archer(4, 600.0, 400.0),
-                // Long causeway — archer ambush
-                Enemy::new_archer(5, 1000.0, 350.0),
-                // Second platform — heavy knight guard
-                Enemy::new_knight(6, 1400.0, 200.0),
-                Enemy::new_knight(7, 1500.0, 400.0),
-                Enemy::new_dark_mage(8, 1300.0, 300.0),
-                // Cathedral approach
-                Enemy::new_knight(9, 1150.0, 600.0),
-                Enemy::new_archer(10, 1300.0, 700.0),
-                // Side path guard
-                Enemy::new_assassin(11, 800.0, 650.0),
-                // Mini-boss (Old Royal Knight)
-                Enemy::new_mini_boss(12, 1100.0, 900.0),
-            ];
-            game.items = vec![
-                // Entrance
-                WorldItem { x: 300.0, y: 250.0, kind: ItemKind::SoulOrb(200), collected: false },
-                // First platform
-                WorldItem { x: 600.0, y: 350.0, kind: ItemKind::SoulOrb(300), collected: false },
-                // Side path (hidden)
-                WorldItem { x: 700.0, y: 700.0, kind: ItemKind::EstusShard, collected: false },
-                WorldItem { x: 850.0, y: 650.0, kind: ItemKind::PurpleMoss, collected: false },
-                // Cathedral area
-                WorldItem { x: 1200.0, y: 550.0, kind: ItemKind::SoulOrb(500), collected: false },
-                WorldItem { x: 1350.0, y: 600.0, kind: ItemKind::HomewardBone, collected: false },
-                // Near boss arena
-                WorldItem { x: 1100.0, y: 850.0, kind: ItemKind::SoulOrb(1000), collected: false },
-            ];
-            game.chests = vec![
-                TreasureChest { x: 500.0, y: 320.0, opened: false, loot: ItemKind::SoulOrb(500), is_mimic: false, mimic_revealed: false },
-                TreasureChest { x: 800.0, y: 700.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Uchigatana), is_mimic: false, mimic_revealed: false },
-                TreasureChest { x: 1500.0, y: 350.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Chest, "Knight Armor".into()), is_mimic: true, mimic_revealed: false },
-                TreasureChest { x: 1100.0, y: 950.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::GreatAxe), is_mimic: false, mimic_revealed: false },
-            ];
-            game.npcs = vec![];
-            game.lights = vec![
-                // Entrance (bonfire glow)
-                Light { x: 400.0, y: 400.0, radius: 250.0, color: [0.9, 0.8, 0.6], intensity: 0.4 },
-                // First platform
-                Light { x: 600.0, y: 300.0, radius: 200.0, color: [0.5, 0.5, 0.8], intensity: 0.2 },
-                // Causeway
-                Light { x: 1000.0, y: 350.0, radius: 150.0, color: [0.5, 0.5, 0.8], intensity: 0.15 },
-                // Second platform
-                Light { x: 1400.0, y: 300.0, radius: 200.0, color: [0.5, 0.5, 0.8], intensity: 0.2 },
-                // Cathedral approach
-                Light { x: 1100.0, y: 650.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
-                // Boss arena
-                Light { x: 1300.0, y: 1000.0, radius: 250.0, color: [0.8, 0.2, 0.4], intensity: 0.25 },
-            ];
-            game.bonfire_x = 400.0;
-            game.bonfire_y = 400.0;
-            let dragonrider_defeated = game.bosses_defeated.iter().any(|b| b == "DeaconsOfTheDeep");
-            game.fog_gates = vec![
-                FogGate { x: 80.0, y: 320.0, w: 64.0, h: 80.0, destination: AreaId::FirelinkShrine, dest_x: 380.0, dest_y: 600.0, active: true },
-                FogGate { x: 1550.0, y: 300.0, w: 64.0, h: 80.0, destination: AreaId::Irithyll, dest_x: 200.0, dest_y: 200.0, active: true },
-                // Boss fog gate at arena north entrance
-                FogGate { x: 1280.0, y: 856.0, w: 128.0, h: 32.0, destination: AreaId::CathedralDeep, dest_x: 1280.0, dest_y: 1040.0, active: !dragonrider_defeated },
-            ];
-        }
-        AreaId::Irithyll => {
-            // Fortress prison — tight corridors, many enemies, traps
-            let mut chunk = Chunk::new((0, 0));
-            for y in 0..CHUNK_SIZE { for x in 0..CHUNK_SIZE { chunk.tiles[y][x] = TileId::Wall; } }
-            // Entry hall
-            for y in 5..20 { for x in 5..40 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Main corridor
-            for y in 20..30 { for x in 15..50 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Cell block 1
-            for y in 30..55 { for x in 5..45 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Connecting hall
-            for y in 35..45 { for x in 45..70 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Cell block 2
-            for y in 45..75 { for x in 50..90 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Lower corridor
-            for y in 75..85 { for x in 40..80 { chunk.tiles[y][x] = TileId::Ground; } }
-            // Boss arena (enclosed room with north door)
-            // Room interior: y:90..110, x:40..80
-            for y in 90..110 { for x in 40..80 { chunk.tiles[y][x] = TileId::Ground; } }
-            // North wall with door gap (x:52..62 = opening)
-            for x in 40..52 { chunk.tiles[89][x] = TileId::Wall; }
-            for x in 62..80 { chunk.tiles[89][x] = TileId::Wall; }
-            // South wall (solid)
-            for x in 40..80 { chunk.tiles[110][x] = TileId::Wall; }
-            // West wall (solid)
-            for y in 89..111 { chunk.tiles[y][39] = TileId::Wall; }
-            // East wall (solid)
-            for y in 89..111 { chunk.tiles[y][80] = TileId::Wall; }
-            // Poison trap rooms
-            for y in 55..65 { for x in 10..20 { chunk.tiles[y][x] = TileId::Poison; } }
-            for y in 60..68 { for x in 75..85 { chunk.tiles[y][x] = TileId::Poison; } }
+        game.items = parsed.items.into_iter().map(|s| {
+            WorldItem { x: s.x, y: s.y, collected: false, kind: convert_spawn_kind(s.kind) }
+        }).collect();
 
-            game.chunk = chunk;
-            game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
-            game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
-            game.player.transform.x = 200.0;
-            game.player.transform.y = 200.0;
-            game.player.hp = (game.player.max_hp as f32 * player_hp_ratio) as i32;
-            game.enemies = vec![
-                Enemy::new_hollow_soldier(2, 300.0, 150.0),
-                Enemy::new_archer(3, 450.0, 200.0),
-                Enemy::new_hollow_soldier(4, 350.0, 350.0),
-                Enemy::new_assassin(5, 200.0, 500.0),
-                Enemy::new_dark_mage(6, 600.0, 450.0),
-                Enemy::new_knight(7, 500.0, 600.0),
-                Enemy::new_assassin(8, 700.0, 550.0),
-                Enemy::new_hollow_soldier(9, 650.0, 700.0),
-                Enemy::new_archer(10, 800.0, 650.0),
-                Enemy::new_knight(11, 850.0, 800.0),
-                Enemy::new_dark_mage(12, 850.0, 900.0),
-                Enemy::new_hollow_soldier(14, 900.0, 1000.0),
-                Enemy::new_knight(15, 950.0, 1100.0),
-            ];
-            game.items = vec![
-                // Entry hall
-                WorldItem { x: 250.0, y: 300.0, kind: ItemKind::SoulOrb(300), collected: false },
-                WorldItem { x: 350.0, y: 400.0, kind: ItemKind::HomewardBone, collected: false },
-                // Cell block 1
-                WorldItem { x: 500.0, y: 500.0, kind: ItemKind::EstusShard, collected: false },
-                WorldItem { x: 300.0, y: 600.0, kind: ItemKind::SoulOrb(200), collected: false },
-                WorldItem { x: 200.0, y: 750.0, kind: ItemKind::PurpleMoss, collected: false },
-                // Connecting hall / cell block 2
-                WorldItem { x: 700.0, y: 650.0, kind: ItemKind::SoulOrb(500), collected: false },
-                WorldItem { x: 900.0, y: 750.0, kind: ItemKind::PurpleMoss, collected: false },
-                WorldItem { x: 1050.0, y: 900.0, kind: ItemKind::SoulOrb(800), collected: false },
-                // Lower corridor / near boss
-                WorldItem { x: 850.0, y: 1050.0, kind: ItemKind::SoulOrb(1500), collected: false },
-                WorldItem { x: 700.0, y: 1250.0, kind: ItemKind::EstusShard, collected: false },
-            ];
-            game.chests = vec![
-                TreasureChest { x: 300.0, y: 450.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Chest, "Knight Armor".into()), is_mimic: false, mimic_revealed: false },
-                TreasureChest { x: 650.0, y: 600.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Spear), is_mimic: false, mimic_revealed: false },
-                TreasureChest { x: 850.0, y: 850.0, opened: false, loot: ItemKind::RingDrop("Chloranthy Ring".into()), is_mimic: false, mimic_revealed: false },
-                TreasureChest { x: 900.0, y: 1100.0, opened: false, loot: ItemKind::ArmorDrop(ArmorSlot::Head, "Knight Helm".into()), is_mimic: true, mimic_revealed: false },
-                TreasureChest { x: 1000.0, y: 1250.0, opened: false, loot: ItemKind::WeaponDrop(crate::combat::weapon::WeaponType::Uchigatana), is_mimic: false, mimic_revealed: false },
-            ];
-            game.npcs = vec![];
-            game.lights = vec![
-                Light { x: 200.0, y: 200.0, radius: 200.0, color: [0.6, 0.6, 0.7], intensity: 0.3 },
-                Light { x: 350.0, y: 200.0, radius: 120.0, color: [0.4, 0.3, 0.7], intensity: 0.15 },
-                Light { x: 400.0, y: 350.0, radius: 150.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
-                Light { x: 600.0, y: 500.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
-                Light { x: 750.0, y: 700.0, radius: 180.0, color: [0.9, 0.6, 0.3], intensity: 0.15 },
-                Light { x: 900.0, y: 900.0, radius: 200.0, color: [0.7, 0.4, 0.8], intensity: 0.2 },
-                Light { x: 1000.0, y: 1100.0, radius: 180.0, color: [0.5, 0.5, 0.6], intensity: 0.15 },
-                Light { x: 800.0, y: 1350.0, radius: 220.0, color: [0.3, 0.3, 0.8], intensity: 0.25 },
-            ];
-            game.bonfire_x = 200.0;
-            game.bonfire_y = 200.0;
-            let boss_defeated = game.bosses_defeated.iter().any(|b| b == "PontiffSulyvahn");
-            game.fog_gates = vec![
-                FogGate { x: 80.0, y: 100.0, w: 64.0, h: 80.0, destination: AreaId::CathedralDeep, dest_x: 1700.0, dest_y: 400.0, active: true },
-                // Boss fog gate at arena north entrance
-                FogGate { x: 912.0, y: 1416.0, w: 128.0, h: 32.0, destination: AreaId::Irithyll, dest_x: 912.0, dest_y: 1520.0, active: !boss_defeated },
-            ];
-        }
-    }
+        game.chests = parsed.chests.into_iter().map(|s| {
+            TreasureChest { x: s.x, y: s.y, opened: false, loot: convert_spawn_kind(s.loot), is_mimic: s.is_mimic, mimic_revealed: false }
+        }).collect();
 
-    // Pre-spawn boss at arena center if area has a boss and not yet defeated
-    game.boss = None;
-    game.boss_active = false;
-    game.boss_defeated = false;
-    if let Some(boss_type) = area_boss(area) {
-        let boss_name = match boss_type {
-            BossType::IudexGundyr => "IudexGundyr",
-            BossType::Vordt => "Vordt",
-            BossType::DemonKnight => "CurseRottedGreatwood",
-            BossType::Dragonrider => "DeaconsOfTheDeep",
-            BossType::RuinSentinel => "PontiffSulyvahn",
-        };
-        let already_defeated = game.bosses_defeated.iter().any(|b| b == boss_name);
-        if !already_defeated {
-            let (cx, cy) = match area {
-                AreaId::CemeteryOfAsh => (1540.0, 470.0),
-                AreaId::LothricWall => (960.0, 1500.0),
-                AreaId::UndeadSettlement => (960.0, 1600.0),
-                AreaId::CathedralDeep => (1280.0, 1040.0),
-                AreaId::Irithyll => (960.0, 1600.0),
-                _ => (400.0, 400.0),
+        game.npcs = parsed.npcs.into_iter().map(|s| {
+            let kind = match s.kind {
+                NpcSpawnKind::LevelUp => NpcKind::LevelUp,
+                NpcSpawnKind::Merchant => NpcKind::Merchant,
+                NpcSpawnKind::Blacksmith => NpcKind::Blacksmith,
+                NpcSpawnKind::Dialogue => NpcKind::Dialogue,
             };
-            let boss = match boss_type {
-                BossType::IudexGundyr => crate::entity::boss::Boss::new_iudex_gundyr(100, cx, cy),
-                BossType::Vordt => crate::entity::boss::Boss::new_vordt(100, cx, cy),
-                BossType::DemonKnight => crate::entity::boss::Boss::new_test_boss(100, cx, cy),
-                BossType::Dragonrider => crate::entity::boss::Boss::new_dragonrider(100, cx, cy),
-                BossType::RuinSentinel => crate::entity::boss::Boss::new_ruin_sentinel(100, cx, cy),
+            Npc { x: s.x, y: s.y, name: s.name, color: s.color, dialogue: s.dialogue, dialogue_index: 0, talking: false, kind }
+        }).collect();
+
+        game.lights = parsed.lights.into_iter().map(|l| {
+            Light { x: l.x, y: l.y, radius: l.radius, color: l.color, intensity: l.intensity }
+        }).collect();
+
+        game.fog_gates = parsed.fog_gates.into_iter().map(|fg| {
+            let dest = area_from_str(&fg.dest_area);
+            let active = if dest == area {
+                // Boss fog gate (self-referencing): deactivate after boss killed
+                if let Some(boss_type) = area_boss(area) {
+                    !game.bosses_defeated.iter().any(|b| b == boss_defeat_key(boss_type))
+                } else {
+                    true
+                }
+            } else if area == AreaId::CemeteryOfAsh && dest == AreaId::FirelinkShrine {
+                game.gundyr_door_open || game.bosses_defeated.iter().any(|b| b == "IudexGundyr")
+            } else if area == AreaId::CathedralDeep && dest == AreaId::Irithyll {
+                // Pontiff fog gate
+                !game.bosses_defeated.iter().any(|b| b == "PontiffSulyvahn")
+            } else {
+                // Normal travel gate
+                true
             };
-            game.boss = Some(boss);
+            FogGate { x: fg.x, y: fg.y, w: fg.w, h: fg.h, destination: dest, dest_x: fg.dest_x, dest_y: fg.dest_y, active }
+        }).collect();
+
+        // Post-load mutations
+        if area == AreaId::CemeteryOfAsh && game.gundyr_door_open {
+            fill_tiles(&mut game.chunk, TileId::Ground, 16, 8, 40, 18);
+            rebuild_collision(game);
+        }
+
+        // Pre-spawn boss at map-designated position if area has a boss and not yet defeated
+        game.boss = None;
+        game.boss_active = false;
+        game.boss_defeated = false;
+        if let Some(boss_type) = area_boss(area) {
+            let already_defeated = game.bosses_defeated.iter().any(|b| b == boss_defeat_key(boss_type));
+            if !already_defeated {
+                if let Some((bx, by)) = parsed.boss_spawn {
+                    let boss = match boss_type {
+                        BossType::IudexGundyr => crate::entity::boss::Boss::new_iudex_gundyr(100, bx, by),
+                        BossType::Vordt => crate::entity::boss::Boss::new_vordt(100, bx, by),
+                        BossType::DemonKnight => crate::entity::boss::Boss::new_test_boss(100, bx, by),
+                        BossType::Dragonrider => crate::entity::boss::Boss::new_dragonrider(100, bx, by),
+                        BossType::RuinSentinel => crate::entity::boss::Boss::new_ruin_sentinel(100, bx, by),
+                    };
+                    game.boss = Some(boss);
+                }
+            }
+            if already_defeated {
+                game.boss_defeated = true;
+            }
         }
     }
-    // Mark boss as defeated for current area (for fog gate deactivation)
-    if let Some(boss_type) = area_boss(area) {
-        let boss_name = match boss_type {
-            BossType::IudexGundyr => "IudexGundyr",
-            BossType::Vordt => "Vordt",
-            BossType::DemonKnight => "CurseRottedGreatwood",
-            BossType::Dragonrider => "DeaconsOfTheDeep",
-            BossType::RuinSentinel => "PontiffSulyvahn",
-        };
-        if game.bosses_defeated.iter().any(|b| b == boss_name) {
-            game.boss_defeated = true;
-        }
-    }
+
     // New Game+ difficulty scaling: enemies gain +40% HP and +30% damage per cycle
     if game.ng_plus > 0 {
         let hp_mult = 1.0 + 0.4 * game.ng_plus as f32;

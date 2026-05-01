@@ -5,6 +5,7 @@ use crate::world::tileset::TileId;
 pub const CHUNK_SIZE: usize = 120;
 
 /// A square region of the world made of `CHUNK_SIZE x CHUNK_SIZE` tiles.
+#[derive(Debug)]
 pub struct Chunk {
     pub coord: (i32, i32),
     pub tiles: [[TileId; CHUNK_SIZE]; CHUNK_SIZE],

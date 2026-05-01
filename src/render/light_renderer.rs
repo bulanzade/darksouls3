@@ -1,6 +1,7 @@
 use crate::render::shader::ShaderProgram;
 use web_sys::WebGl2RenderingContext as GL;
 
+#[derive(Debug)]
 pub struct Light {
     pub x: f32,
     pub y: f32,
