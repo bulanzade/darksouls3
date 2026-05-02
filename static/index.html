@@ -60,14 +60,15 @@
         <div class="hud-text" id="hud-text"></div>
         <div class="souls" id="souls-text"></div>
         <div class="boss-name" id="boss-name" style="display:none"></div>
+        <div id="npc-dialogue" style="display:none;position:absolute;top:70%;left:50%;transform:translateX(-50%);font-size:16px;color:#eee;background:rgba(0,0,0,0.85);padding:12px 24px;border:1px solid #888;border-radius:4px;white-space:nowrap;pointer-events:none;font-family:'Segoe UI',Arial,sans-serif;"></div>
         <div class="level-up" id="level-up-text" style="display:none"></div>
         <canvas id="minimap-canvas" width="120" height="120" style="position:absolute;bottom:30px;right:10px;border:1px solid #333;background:rgba(0,0,0,0.7);image-rendering:pixelated;"></canvas>
-        <div class="controls" id="controls">WASD移动 · 左键攻击 · 右键重击 · Shift+左键左手轻击(盾牌格挡) · Shift+右键左手重击(盾牌弹反) · 空格翻滚 · E原素瓶 · 滚轮切换武器 · I背包</div>
+        <div class="controls" id="controls">WASD移动 · 左键右手轻击 · 右键左手轻击 · Shift+左键右手重击 · Shift+右键左手重击/盾击 · 空格翻滚 · E交互 · R使用道具 · Q锁定 · F双持 · G表情 · ESC菜单 · ↑↓切换装备</div>
         <div id="equip-slots" style="position:absolute;bottom:30px;left:30px;width:160px;height:130px;pointer-events:none;font-family:'Segoe UI',Arial,sans-serif;font-size:10px;color:#999;"></div>
     </div>
     <script type="module">
         const v = Date.now();
-        import init, { js_keydown, js_keyup, js_debug_state, js_register_map } from './pkg/ds2d.js';
+        import init, { js_keydown, js_keyup, js_mouse_move, js_debug_state, js_register_map } from './pkg/ds2d.js';
 
         const MAP_PATHS = [
             '../maps/ds2d/CemeteryOfAsh.ldtkl',
@@ -220,6 +221,7 @@
             await preloadMaps();
             window.js_keydown = js_keydown;
             window.js_keyup = js_keyup;
+            window.js_mouse_move = js_mouse_move;
             window.js_debug_state = js_debug_state;
             // Init audio on first user interaction
             window.addEventListener('keydown', (e) => {
@@ -228,6 +230,7 @@
                 js_keydown(e.key);
             }, { once: false });
             window.addEventListener('keyup', (e) => {
+                e.preventDefault();
                 js_keyup(e.key);
             });
             // Mouse: left click = light attack, right click = heavy attack
@@ -243,11 +246,21 @@
                 if (e.button === 2) js_keyup('mouse_right');
             });
             canvas.addEventListener('contextmenu', (e) => e.preventDefault());
-            // Mouse wheel: swap weapons
+            // Mouse move: track position for camera and lock-on
+            canvas.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = 960 / rect.width;
+                const scaleY = 540 / rect.height;
+                js_mouse_move(
+                    (e.clientX - rect.left) * scaleX,
+                    (e.clientY - rect.top) * scaleY
+                );
+            });
+            // Mouse wheel: cycle lock-on target
             canvas.addEventListener('wheel', (e) => {
                 e.preventDefault();
-                if (e.deltaY < 0) js_keydown('wheel_up');
-                if (e.deltaY > 0) js_keydown('wheel_down');
+                if (e.deltaY < 0) { js_keydown('wheel_up'); js_keyup('wheel_up'); }
+                if (e.deltaY > 0) { js_keydown('wheel_down'); js_keyup('wheel_down'); }
             });
         }
         run();
