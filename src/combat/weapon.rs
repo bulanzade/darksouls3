@@ -1,8 +1,9 @@
-use crate::combat::moveset::{LongswordMoveset, GreatAxeMoveset, DaggerMoveset, SpearMoveset, UchigatanaMoveset, WeaponMoveset};
+use crate::combat::moveset::{FistMoveset, LongswordMoveset, GreatAxeMoveset, DaggerMoveset, SpearMoveset, UchigatanaMoveset, WeaponMoveset};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub enum WeaponType {
+    Fist,
     Longsword,
     GreatAxe,
     Dagger,
@@ -26,6 +27,25 @@ pub struct Weapon {
 }
 
 impl Weapon {
+    pub fn display_name(&self) -> &str {
+        if self.weapon_type == WeaponType::Fist { "空手" } else { &self.name }
+    }
+
+    pub fn fist() -> Self {
+        Self {
+            name: "拳头".into(),
+            weapon_type: WeaponType::Fist,
+            base_damage: 15,
+            strength_requirement: 0,
+            dexterity_requirement: 0,
+            strength_scaling: 0.1,
+            dexterity_scaling: 0.1,
+            weight: 0.0,
+            stability: 0.0,
+            crit_modifier: 1.0,
+        }
+    }
+
     pub fn longsword() -> Self {
         Self {
             name: "直剑".into(),
@@ -118,6 +138,7 @@ impl Weapon {
 
     pub fn get_moveset(&self) -> Box<dyn WeaponMoveset> {
         match self.weapon_type {
+            WeaponType::Fist => Box::new(FistMoveset),
             WeaponType::Longsword => Box::new(LongswordMoveset),
             WeaponType::GreatAxe => Box::new(GreatAxeMoveset),
             WeaponType::Dagger => Box::new(DaggerMoveset),

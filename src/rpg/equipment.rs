@@ -1,4 +1,4 @@
-use crate::combat::weapon::Weapon;
+use crate::combat::weapon::{Weapon, WeaponType};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -81,6 +81,10 @@ impl WeaponSlot {
         Self { primary: weapon, secondary: None, using_primary: true }
     }
 
+    pub fn fist() -> Self {
+        Self { primary: Weapon::fist(), secondary: None, using_primary: true }
+    }
+
     pub fn active(&self) -> &Weapon {
         if self.using_primary { &self.primary } else { self.secondary.as_ref().unwrap_or(&self.primary) }
     }
@@ -88,6 +92,10 @@ impl WeaponSlot {
     pub fn swap(&mut self) {
         if self.secondary.is_some() {
             self.using_primary = !self.using_primary;
+        } else if self.primary.weapon_type != WeaponType::Fist {
+            let old = std::mem::replace(&mut self.primary, Weapon::fist());
+            self.secondary = Some(old);
+            self.using_primary = true;
         }
     }
 }

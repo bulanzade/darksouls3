@@ -111,7 +111,7 @@ pub(crate) fn update(game: &Game) {
         let mut text = format!(
             "HP {}/{} | 精力 {}/{} | 攻击 {} | Lv{} | {} | {}",
             hp, max_hp, stamina, max_sta, game.player.damage(), game.player.level, state_name,
-            game.player.weapon.name
+            game.player.weapon.display_name()
         );
         if game.state == GameState::Playing && area_has_bonfire(game.area) {
             let (px, py) = game.player.position();
@@ -182,7 +182,7 @@ pub(crate) fn update(game: &Game) {
             let mut html = String::from("<div style='color:#e8c840;font-size:20px;text-align:center;margin-bottom:8px'>背包</div>");
             html.push_str(&format!("<div style='color:#aaa;font-size:14px'>防御: {:.0} | 负重: {:.1} | 翻滚: {}</div>", defense, weight, roll_type));
             html.push_str("<div style='color:#888;font-size:12px;margin:4px 0'>— 武器 —</div>");
-            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>右手: {}</div>", game.player.weapon.name));
+            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>右手: {}</div>", game.player.weapon.display_name()));
             if let Some(ref alt) = game.player.alt_weapon {
                 html.push_str(&format!("<div style='color:#999;font-size:13px'>备用: {} [↑↓切换]</div>", alt.name));
             }

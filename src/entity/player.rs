@@ -1,5 +1,5 @@
 use crate::combat::stamina::StaminaPool;
-use crate::combat::weapon::Weapon;
+use crate::combat::weapon::{Weapon, WeaponType};
 use crate::core::transform::Transform;
 use crate::entity::entity_trait::{AttackTracker, DamageInfo, DamageOutcome, Entity, EntityId, EntityState};
 use crate::render::sprite_batcher::SpriteBatcher;
@@ -114,10 +114,13 @@ impl Player {
         frames as f32 / 60.0
     }
 
-    /// Swap primary and alt weapons.
+    /// Swap primary and alt weapons. If no alt weapon, swap to fist.
     pub fn swap_weapon(&mut self) {
         if let Some(alt) = self.alt_weapon.take() {
             let old = std::mem::replace(&mut self.weapon, alt);
+            self.alt_weapon = Some(old);
+        } else if self.weapon.weapon_type != WeaponType::Fist {
+            let old = std::mem::replace(&mut self.weapon, Weapon::fist());
             self.alt_weapon = Some(old);
         }
     }

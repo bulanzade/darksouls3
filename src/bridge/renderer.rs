@@ -621,25 +621,29 @@ pub(crate) fn render(game: &mut Game) {
         game.ui_renderer.draw_bar(gl, item_x, item_y - 12.0, 8.0, 3.0, 1.0, icon_dim, cap_color, &ui_proj);
 
         let is_shield = game.player.equipment.left_hand.active().weapon_type == crate::combat::weapon::WeaponType::Shield;
+        let left_is_fist = game.player.equipment.left_hand.active().weapon_type == crate::combat::weapon::WeaponType::Fist;
         if is_shield {
             let shield_color = [0.3f32, 0.5, 0.8, 0.8];
             game.ui_renderer.draw_bar(gl, left_x, left_y, 18.0, 22.0, 1.0, icon_dim, shield_color, &ui_proj);
             let cross_color = [0.9f32, 0.8, 0.3, 0.9];
             game.ui_renderer.draw_bar(gl, left_x, left_y, 2.0, 14.0, 1.0, icon_dim, cross_color, &ui_proj);
             game.ui_renderer.draw_bar(gl, left_x, left_y - 2.0, 12.0, 2.0, 1.0, icon_dim, cross_color, &ui_proj);
-        } else {
+        } else if !left_is_fist {
             let wep_color = [0.6f32, 0.6, 0.65, 0.8];
             game.ui_renderer.draw_bar(gl, left_x, left_y - 4.0, 3.0, 20.0, 1.0, icon_dim, wep_color, &ui_proj);
             let guard_color = [0.5f32, 0.35, 0.2, 0.9];
             game.ui_renderer.draw_bar(gl, left_x, left_y + 6.0, 12.0, 3.0, 1.0, icon_dim, guard_color, &ui_proj);
         }
 
-        let sword_color = [0.75f32, 0.75, 0.8, 0.85];
-        game.ui_renderer.draw_bar(gl, right_x, right_y - 4.0, 3.0, 20.0, 1.0, icon_dim, sword_color, &ui_proj);
-        let guard_color2 = [0.5f32, 0.35, 0.2, 0.9];
-        game.ui_renderer.draw_bar(gl, right_x, right_y + 6.0, 14.0, 3.0, 1.0, icon_dim, guard_color2, &ui_proj);
-        let pommel_color = [0.4f32, 0.3, 0.2, 0.8];
-        game.ui_renderer.draw_bar(gl, right_x, right_y + 14.0, 5.0, 5.0, 1.0, icon_dim, pommel_color, &ui_proj);
+        let right_is_fist = game.player.weapon.weapon_type == crate::combat::weapon::WeaponType::Fist;
+        if !right_is_fist {
+            let sword_color = [0.75f32, 0.75, 0.8, 0.85];
+            game.ui_renderer.draw_bar(gl, right_x, right_y - 4.0, 3.0, 20.0, 1.0, icon_dim, sword_color, &ui_proj);
+            let guard_color2 = [0.5f32, 0.35, 0.2, 0.9];
+            game.ui_renderer.draw_bar(gl, right_x, right_y + 6.0, 14.0, 3.0, 1.0, icon_dim, guard_color2, &ui_proj);
+            let pommel_color = [0.4f32, 0.3, 0.2, 0.8];
+            game.ui_renderer.draw_bar(gl, right_x, right_y + 14.0, 5.0, 5.0, 1.0, icon_dim, pommel_color, &ui_proj);
+        }
     }
 
     // --- Mini-map ---

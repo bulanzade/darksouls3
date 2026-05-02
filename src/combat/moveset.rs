@@ -31,6 +31,162 @@ pub trait WeaponMoveset {
     fn parry(&self) -> Option<AttackFrameData>;
 }
 
+pub struct FistMoveset;
+
+impl WeaponMoveset for FistMoveset {
+    fn light_attack_chain(&self) -> Vec<AttackFrameData> {
+        vec![
+            AttackFrameData {
+                animation_name: "punch_1".into(),
+                stamina_cost: 8.0,
+                hitboxes: vec![(
+                    2,
+                    HitboxDef {
+                        shape: HitShape::Rect { half_w: 10.0, half_h: 10.0, offset_x: 12.0, offset_y: 0.0 },
+                        damage: 15,
+                        knockback: 1.0,
+                        poise_damage: 3.0,
+                    },
+                )],
+                cancel_window_start: 3,
+                cancel_window_end: 6,
+                recovery_frames: 8,
+                poise_frames_start: Some(1),
+                poise_frames_end: Some(4),
+                lunge_speed: 80.0,
+                lunge_duration_frames: 2,
+            },
+            AttackFrameData {
+                animation_name: "punch_2".into(),
+                stamina_cost: 10.0,
+                hitboxes: vec![(
+                    2,
+                    HitboxDef {
+                        shape: HitShape::Rect { half_w: 10.0, half_h: 10.0, offset_x: 12.0, offset_y: 0.0 },
+                        damage: 20,
+                        knockback: 1.5,
+                        poise_damage: 4.0,
+                    },
+                )],
+                cancel_window_start: 3,
+                cancel_window_end: 5,
+                recovery_frames: 7,
+                poise_frames_start: Some(1),
+                poise_frames_end: Some(3),
+                lunge_speed: 90.0,
+                lunge_duration_frames: 2,
+            },
+        ]
+    }
+
+    fn heavy_attack(&self) -> AttackFrameData {
+        AttackFrameData {
+            animation_name: "heavy_punch".into(),
+            stamina_cost: 12.0,
+            hitboxes: vec![(
+                4,
+                HitboxDef {
+                    shape: HitShape::Rect { half_w: 12.0, half_h: 12.0, offset_x: 14.0, offset_y: 0.0 },
+                    damage: 25,
+                    knockback: 2.0,
+                    poise_damage: 6.0,
+                },
+            )],
+            cancel_window_start: 6,
+            cancel_window_end: 9,
+            recovery_frames: 12,
+            poise_frames_start: Some(2),
+            poise_frames_end: Some(6),
+            lunge_speed: 50.0,
+            lunge_duration_frames: 3,
+        }
+    }
+
+    fn running_attack(&self) -> AttackFrameData {
+        AttackFrameData {
+            animation_name: "jumping_fist".into(),
+            stamina_cost: 10.0,
+            hitboxes: vec![(
+                3,
+                HitboxDef {
+                    shape: HitShape::Circle { radius: 12.0, offset_x: 10.0, offset_y: 0.0 },
+                    damage: 20,
+                    knockback: 2.0,
+                    poise_damage: 5.0,
+                },
+            )],
+            cancel_window_start: 4,
+            cancel_window_end: 7,
+            recovery_frames: 10,
+            poise_frames_start: Some(1),
+            poise_frames_end: Some(4),
+            lunge_speed: 100.0,
+            lunge_duration_frames: 3,
+        }
+    }
+
+    fn rolling_attack(&self) -> AttackFrameData {
+        AttackFrameData {
+            animation_name: "rolling_punch".into(),
+            stamina_cost: 8.0,
+            hitboxes: vec![(
+                3,
+                HitboxDef {
+                    shape: HitShape::Circle { radius: 10.0, offset_x: 10.0, offset_y: 0.0 },
+                    damage: 18,
+                    knockback: 1.5,
+                    poise_damage: 4.0,
+                },
+            )],
+            cancel_window_start: 4,
+            cancel_window_end: 7,
+            recovery_frames: 10,
+            poise_frames_start: Some(1),
+            poise_frames_end: Some(4),
+            lunge_speed: 70.0,
+            lunge_duration_frames: 2,
+        }
+    }
+
+    fn backstab(&self) -> AttackFrameData {
+        AttackFrameData {
+            animation_name: "backstab".into(),
+            stamina_cost: 15.0,
+            hitboxes: vec![],
+            cancel_window_start: 10,
+            cancel_window_end: 14,
+            recovery_frames: 16,
+            poise_frames_start: None,
+            poise_frames_end: None,
+            lunge_speed: 0.0,
+            lunge_duration_frames: 0,
+        }
+    }
+
+    fn parry(&self) -> Option<AttackFrameData> {
+        Some(AttackFrameData {
+            animation_name: "fist_parry".into(),
+            stamina_cost: 8.0,
+            hitboxes: vec![(
+                2,
+                HitboxDef {
+                    shape: HitShape::Rect { half_w: 12.0, half_h: 16.0, offset_x: 10.0, offset_y: 0.0 },
+                    damage: 0,
+                    knockback: 0.0,
+                    poise_damage: 0.0,
+                },
+            )],
+            cancel_window_start: 3,
+            cancel_window_end: 5,
+            recovery_frames: 16,
+            poise_frames_start: None,
+            poise_frames_end: None,
+            lunge_speed: 0.0,
+            lunge_duration_frames: 0,
+        })
+    }
+}
+
 pub struct LongswordMoveset;
 
 impl WeaponMoveset for LongswordMoveset {

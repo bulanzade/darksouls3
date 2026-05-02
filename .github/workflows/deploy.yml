@@ -35,7 +35,7 @@ jobs:
           mkdir -p deploy/static
           cp static/index.html deploy/static/
           cp static/styles.css deploy/static/
-          cp -r maps deploy/maps
+          cp -r maps deploy/static/maps
           cp -r static/shaders deploy/static/shaders
           cp -r pkg deploy/static/pkg
           cat > deploy/index.html <<'EOF'

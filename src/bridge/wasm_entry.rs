@@ -946,16 +946,16 @@ fn update_playing(game: &mut Game, dt: f32) {
     }
 
     // Resolve raw input into game actions
-    let left_weapon = &game.player.equipment.left_hand.active();
-    let has_shield = left_weapon.weapon_type == crate::combat::weapon::WeaponType::Shield;
-    let act = game.input.resolve(has_shield, game.screen_w, game.screen_h);
+    let left_is_shield = game.player.equipment.left_hand.active().weapon_type == crate::combat::weapon::WeaponType::Shield;
+    let left_can_parry = matches!(game.player.equipment.left_hand.active().weapon_type, crate::combat::weapon::WeaponType::Fist | crate::combat::weapon::WeaponType::Shield);
+    let act = game.input.resolve(left_is_shield, game.screen_w, game.screen_h);
     let mv = (act.move_x, act.move_y);
     let attack = act.right_light;
     let heavy_attack = act.right_heavy;
-    let left_light = act.left_light;
+    let left_light = act.left_light && !left_is_shield;
     let left_heavy = act.left_heavy;
     let block_held = act.block_held;
-    let parry = left_heavy;
+    let parry = left_heavy && left_can_parry;
     let roll = act.roll;
     let interact = act.interact;
     let use_item = act.use_item;
@@ -978,9 +978,16 @@ fn update_playing(game: &mut Game, dt: f32) {
         game.audio.play_sfx("emote", 0.05, 0.0);
     }
 
-    // Cycle equipment with arrow keys / d-pad
-    if act.cycle_prev || act.cycle_next {
+    // Weapon cycling: d-pad left = left hand, d-pad right = right hand
+    if act.cycle_left {
+        game.player.equipment.left_hand.swap();
+        let name = game.player.equipment.left_hand.active().display_name();
+        game.pickup_notification = Some((format!("左手: {}", name), 1.0));
+    }
+    if act.cycle_right {
         game.player.swap_weapon();
+        let name = game.player.weapon.display_name();
+        game.pickup_notification = Some((format!("右手: {}", name), 1.0));
     }
 
     // Close NPC dialogue on ESC (before inventory toggle)
