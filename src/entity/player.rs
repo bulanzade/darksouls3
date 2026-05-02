@@ -15,6 +15,7 @@ pub struct Player {
     pub speed: f32,
     pub state: EntityState,
     pub facing: f32,
+    pub move_dir: f32,
     // Combat state
     pub attack_timer: f32,
     pub attack_duration: f32,
@@ -55,6 +56,7 @@ impl Player {
             speed: 240.0,
             state: EntityState::Idle,
             facing: 0.0,
+            move_dir: 0.0,
             attack_timer: 0.0,
             attack_duration: 0.3,
             is_heavy_attack: false,
@@ -200,9 +202,8 @@ impl Entity for Player {
         match self.state {
             EntityState::Moving => {
                 let speed = self.speed * dt;
-                self.transform.x += self.facing.cos() * speed;
-                self.transform.y += self.facing.sin() * speed;
-                // Flip sprite based on horizontal facing
+                self.transform.x += self.move_dir.cos() * speed;
+                self.transform.y += self.move_dir.sin() * speed;
                 if self.facing.cos() < 0.0 {
                     self.transform.scale_x = -1.0;
                 } else {

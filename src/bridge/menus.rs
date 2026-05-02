@@ -1,15 +1,22 @@
 use crate::bridge::wasm_entry::{
     area_from_str, load_area, AreaId, Game,
 };
-use crate::core::input::KeyCode;
 use crate::entity::entity_trait::{Entity, EntityState};
 use crate::entity::player::Player;
 use crate::game::{GameState, MenuAction, MenuState};
 use crate::save::bonfire::BonfireState;
 use crate::save::save_manager::{self, SaveData};
 
+/// Apply menu navigation from keyboard and gamepad.
+macro_rules! navigate_menu {
+    ($game:expr) => {
+        if $game.input.menu_up() { $game.menu.move_up(); }
+        if $game.input.menu_down() { $game.menu.move_down(); }
+    };
+}
+
 pub(crate) fn update_title_screen(game: &mut Game) {
-    if game.input.consume_pressed(KeyCode::Enter) {
+    if game.input.confirm_pressed() {
         if let Some(action) = game.menu.current_action() {
             match action {
                 MenuAction::NewGame => {
@@ -66,12 +73,7 @@ pub(crate) fn update_title_screen(game: &mut Game) {
             }
         }
     }
-    if game.input.pressed(KeyCode::Up) {
-        game.menu.move_up();
-    }
-    if game.input.pressed(KeyCode::Down) {
-        game.menu.move_down();
-    }
+    navigate_menu!(game);
 }
 
 pub(crate) fn update_death(game: &mut Game) {
@@ -79,7 +81,7 @@ pub(crate) fn update_death(game: &mut Game) {
     if game.death_anim_timer < 2.5 {
         return;
     }
-    if game.input.consume_pressed(KeyCode::Enter) {
+    if game.input.confirm_pressed() {
         if let Some(action) = game.menu.current_action() {
             match action {
                 MenuAction::Continue => {
@@ -103,20 +105,15 @@ pub(crate) fn update_death(game: &mut Game) {
             }
         }
     }
-    if game.input.pressed(KeyCode::Up) {
-        game.menu.move_up();
-    }
-    if game.input.pressed(KeyCode::Down) {
-        game.menu.move_down();
-    }
+    navigate_menu!(game);
 }
 
 pub(crate) fn update_bonfire_menu(game: &mut Game) {
-    if game.input.consume_pressed(KeyCode::Escape) {
+    if game.input.cancel_pressed() {
         game.state = GameState::Playing;
         return;
     }
-    if game.input.consume_pressed(KeyCode::Enter) {
+    if game.input.confirm_pressed() {
         if let Some(action) = game.menu.current_action().cloned() {
             match action {
                 MenuAction::Rest => {
@@ -170,21 +167,16 @@ pub(crate) fn update_bonfire_menu(game: &mut Game) {
             }
         }
     }
-    if game.input.pressed(KeyCode::Up) {
-        game.menu.move_up();
-    }
-    if game.input.pressed(KeyCode::Down) {
-        game.menu.move_down();
-    }
+    navigate_menu!(game);
 }
 
 pub(crate) fn update_level_up_menu(game: &mut Game) {
-    if game.input.consume_pressed(KeyCode::Escape) {
+    if game.input.cancel_pressed() {
         game.state = GameState::BonfireMenu;
         game.menu = MenuState::bonfire_menu();
         return;
     }
-    if game.input.consume_pressed(KeyCode::Enter) {
+    if game.input.confirm_pressed() {
         let cost = game.player.level_up_cost();
         if game.souls >= cost {
             let idx = game.menu.selected_index;
@@ -197,27 +189,17 @@ pub(crate) fn update_level_up_menu(game: &mut Game) {
             }
         }
     }
-    if game.input.pressed(KeyCode::Up) {
-        game.menu.move_up();
-    }
-    if game.input.pressed(KeyCode::Down) {
-        game.menu.move_down();
-    }
+    navigate_menu!(game);
 }
 
 pub(crate) fn update_travel_menu(game: &mut Game) {
-    if game.input.consume_pressed(KeyCode::Escape) {
+    if game.input.cancel_pressed() {
         game.state = GameState::BonfireMenu;
         game.menu = MenuState::bonfire_menu();
         return;
     }
-    if game.input.pressed(KeyCode::Up) {
-        game.menu.move_up();
-    }
-    if game.input.pressed(KeyCode::Down) {
-        game.menu.move_down();
-    }
-    if game.input.consume_pressed(KeyCode::Enter) {
+    navigate_menu!(game);
+    if game.input.confirm_pressed() {
         let idx = game.menu.selected_index;
         let areas = [AreaId::FirelinkShrine, AreaId::LothricWall, AreaId::UndeadSettlement, AreaId::CathedralDeep, AreaId::Irithyll];
         if idx < 5 {
@@ -230,7 +212,7 @@ pub(crate) fn update_travel_menu(game: &mut Game) {
 }
 
 pub(crate) fn update_victory(game: &mut Game) {
-    if game.input.consume_pressed(KeyCode::Enter) {
+    if game.input.confirm_pressed() {
         game.ng_plus += 1;
         game.player.hp = game.player.max_hp;
         game.boss_defeated = false;

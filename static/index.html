@@ -63,20 +63,20 @@
         <div id="npc-dialogue" style="display:none;position:absolute;top:70%;left:50%;transform:translateX(-50%);font-size:16px;color:#eee;background:rgba(0,0,0,0.85);padding:12px 24px;border:1px solid #888;border-radius:4px;white-space:nowrap;pointer-events:none;font-family:'Segoe UI',Arial,sans-serif;"></div>
         <div class="level-up" id="level-up-text" style="display:none"></div>
         <canvas id="minimap-canvas" width="120" height="120" style="position:absolute;bottom:30px;right:10px;border:1px solid #333;background:rgba(0,0,0,0.7);image-rendering:pixelated;"></canvas>
-        <div class="controls" id="controls">WASD移动 · 左键右手轻击 · 右键左手轻击 · Shift+左键右手重击 · Shift+右键左手重击/盾击 · 空格翻滚 · E交互 · R使用道具 · Q锁定 · F双持 · G表情 · ESC菜单 · ↑↓切换装备</div>
+        <div class="controls" id="controls">WASD移动 · 左键右手轻击 · 右键左手轻击 · Shift+左键右手重击 · Shift+右键左手重击/盾击 · 空格翻滚 · E交互 · R使用道具 · Q锁定 · F双持 · G表情 · ESC菜单 · ↑↓切换装备 · 手柄已支持</div>
         <div id="equip-slots" style="position:absolute;bottom:30px;left:30px;width:160px;height:130px;pointer-events:none;font-family:'Segoe UI',Arial,sans-serif;font-size:10px;color:#999;"></div>
     </div>
     <script type="module">
         const v = Date.now();
-        import init, { js_keydown, js_keyup, js_mouse_move, js_debug_state, js_register_map } from './pkg/ds2d.js';
+        const { default: init, js_keydown, js_keyup, js_mouse_move, js_gamepad, js_debug_state, js_register_map } = await import('./pkg/ds2d.js?v=' + v);
 
         const MAP_PATHS = [
-            '../maps/ds2d/CemeteryOfAsh.ldtkl',
-            '../maps/ds2d/FirelinkShrine.ldtkl',
-            '../maps/ds2d/LothricWall.ldtkl',
-            '../maps/ds2d/UndeadSettlement.ldtkl',
-            '../maps/ds2d/CathedralDeep.ldtkl',
-            '../maps/ds2d/Irithyll.ldtkl',
+            'maps/ds2d/CemeteryOfAsh.ldtkl',
+            'maps/ds2d/FirelinkShrine.ldtkl',
+            'maps/ds2d/LothricWall.ldtkl',
+            'maps/ds2d/UndeadSettlement.ldtkl',
+            'maps/ds2d/CathedralDeep.ldtkl',
+            'maps/ds2d/Irithyll.ldtkl',
         ];
 
         // --- Web Audio procedural SFX ---
@@ -222,7 +222,57 @@
             window.js_keydown = js_keydown;
             window.js_keyup = js_keyup;
             window.js_mouse_move = js_mouse_move;
+            window.js_gamepad = js_gamepad;
             window.js_debug_state = js_debug_state;
+            // Gamepad polling loop (runs alongside Rust rAF)
+            // Edge detection happens in JS — only rising edges are sent to Rust.
+            let _gpPrev = new Array(16).fill(false);
+            let _gpPrevLT = false, _gpPrevRT = false;
+            (function pollGamepad() {
+                requestAnimationFrame(pollGamepad);
+                const gp = navigator.getGamepads ? navigator.getGamepads()[0] : null;
+                if (!gp) {
+                    if (window._gpActive) {
+                        window._gpActive = false;
+                        _gpPrev.fill(false); _gpPrevLT = false; _gpPrevRT = false;
+                        js_gamepad(0,0,0,0, false,false,false,false, false,false,false,false, false,false,false,false, false,false,false,false, 0, false, false, false);
+                    }
+                    return;
+                }
+                window._gpActive = true;
+                const dz = 0.15;
+                const applyDz = v => Math.abs(v) < dz ? 0 : v;
+                const btn = (i) => gp.buttons[i] ? gp.buttons[i].pressed : false;
+                const trigVal = (i) => gp.buttons[i] ? gp.buttons[i].value : 0;
+
+                // Edge-detect: bitmask of buttons that just transitioned to pressed
+                let pressedMask = 0;
+                for (let i = 0; i < 16; i++) {
+                    const cur = btn(i);
+                    if (cur && !_gpPrev[i]) pressedMask |= (1 << i);
+                    _gpPrev[i] = cur;
+                }
+
+                // Trigger threshold crossings (0.5 threshold)
+                const ltOver = trigVal(6) >= 0.5;
+                const rtOver = trigVal(7) >= 0.5;
+                const ltFired = ltOver && !_gpPrevLT;
+                const rtFired = rtOver && !_gpPrevRT;
+                _gpPrevLT = ltOver;
+                _gpPrevRT = rtOver;
+
+                js_gamepad(
+                    applyDz(gp.axes[0] || 0), applyDz(gp.axes[1] || 0),
+                    applyDz(gp.axes[2] || 0), applyDz(gp.axes[3] || 0),
+                    btn(0), btn(1), btn(2), btn(3),
+                    btn(4), btn(5), btn(6), btn(7),
+                    btn(8), btn(9), btn(10), btn(11),
+                    btn(12), btn(13), btn(14), btn(15),
+                    pressedMask,
+                    ltFired, rtFired,
+                    true
+                );
+            })();
             // Init audio on first user interaction
             window.addEventListener('keydown', (e) => {
                 e.preventDefault();

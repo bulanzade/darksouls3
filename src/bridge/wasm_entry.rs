@@ -614,6 +614,36 @@ pub fn js_keyup(key: &str) {
     }
 }
 
+/// Called from JavaScript each frame with gamepad state.
+/// `pressed_mask` is a bitmask of just-pressed buttons (edge-detected in JS).
+/// `lt_fired`/`rt_fired` indicate trigger threshold crossings (edge-detected in JS).
+#[wasm_bindgen]
+pub fn js_gamepad(
+    lx: f32, ly: f32, rx: f32, ry: f32,
+    b0: bool, b1: bool, b2: bool, b3: bool,
+    b4: bool, b5: bool, b6: bool, b7: bool,
+    b8: bool, b9: bool, b10: bool, b11: bool,
+    b12: bool, b13: bool, b14: bool, b15: bool,
+    pressed_mask: u32,
+    lt_fired: bool, rt_fired: bool,
+    active: bool,
+) {
+    unsafe {
+        let game_ptr = &raw mut GAME;
+        if let Some(g) = &mut *game_ptr {
+            let gp = &mut g.input.gamepad;
+            gp.active = active;
+            gp.lx = lx;
+            gp.ly = ly;
+            gp.rx = rx;
+            gp.ry = ry;
+            gp.buttons = [b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15];
+            gp.enqueue_presses(pressed_mask);
+            gp.enqueue_triggers(lt_fired, rt_fired);
+        }
+    }
+}
+
 /// Returns game state info for debugging.
 #[wasm_bindgen]
 pub fn js_debug_state() -> String {
@@ -732,12 +762,12 @@ pub(crate) fn rebuild_collision(game: &mut Game) {
 
 fn area_level_path(area: AreaId) -> &'static str {
     match area {
-        AreaId::CemeteryOfAsh => "../maps/ds2d/CemeteryOfAsh.ldtkl",
-        AreaId::FirelinkShrine => "../maps/ds2d/FirelinkShrine.ldtkl",
-        AreaId::LothricWall => "../maps/ds2d/LothricWall.ldtkl",
-        AreaId::UndeadSettlement => "../maps/ds2d/UndeadSettlement.ldtkl",
-        AreaId::CathedralDeep => "../maps/ds2d/CathedralDeep.ldtkl",
-        AreaId::Irithyll => "../maps/ds2d/Irithyll.ldtkl",
+        AreaId::CemeteryOfAsh => "maps/ds2d/CemeteryOfAsh.ldtkl",
+        AreaId::FirelinkShrine => "maps/ds2d/FirelinkShrine.ldtkl",
+        AreaId::LothricWall => "maps/ds2d/LothricWall.ldtkl",
+        AreaId::UndeadSettlement => "maps/ds2d/UndeadSettlement.ldtkl",
+        AreaId::CathedralDeep => "maps/ds2d/CathedralDeep.ldtkl",
+        AreaId::Irithyll => "maps/ds2d/Irithyll.ldtkl",
     }
 }
 
@@ -918,7 +948,7 @@ fn update_playing(game: &mut Game, dt: f32) {
     // Resolve raw input into game actions
     let left_weapon = &game.player.equipment.left_hand.active();
     let has_shield = left_weapon.weapon_type == crate::combat::weapon::WeaponType::Shield;
-    let act = game.input.resolve(has_shield);
+    let act = game.input.resolve(has_shield, game.screen_w, game.screen_h);
     let mv = (act.move_x, act.move_y);
     let attack = act.right_light;
     let heavy_attack = act.right_heavy;
@@ -931,6 +961,12 @@ fn update_playing(game: &mut Game, dt: f32) {
     let use_item = act.use_item;
     let lock_on_toggle = act.lock_on;
 
+    // Sprint: temporarily boost speed, drain stamina
+    let base_speed = game.player.speed;
+    if act.sprint && game.player.stamina.drain(30.0 * dt) {
+        game.player.speed = base_speed * 1.5;
+    }
+
     // Two-hand weapon toggle
     if act.two_hand {
         game.pickup_notification = Some(("双持切换".into(), 1.0));
@@ -942,7 +978,7 @@ fn update_playing(game: &mut Game, dt: f32) {
         game.audio.play_sfx("emote", 0.05, 0.0);
     }
 
-    // Cycle items with arrow keys
+    // Cycle equipment with arrow keys / d-pad
     if act.cycle_prev || act.cycle_next {
         game.player.swap_weapon();
     }
@@ -1070,10 +1106,10 @@ fn update_playing(game: &mut Game, dt: f32) {
         }
     }
 
-    // Camera: offset toward mouse position
+    // Camera: offset from gamepad right stick or mouse position
     {
-        let cam_offset_x = (game.input.mouse_x - game.screen_w * 0.5) * 0.15;
-        let cam_offset_y = (game.input.mouse_y - game.screen_h * 0.5) * 0.15;
+        let cam_offset_x = act.cam_offset_x * 0.15;
+        let cam_offset_y = act.cam_offset_y * 0.15;
         let target_x = game.player.transform.x + cam_offset_x;
         let target_y = game.player.transform.y + cam_offset_y;
         game.camera.x += (target_x - game.camera.x) * 0.1;
@@ -1101,9 +1137,9 @@ fn update_playing(game: &mut Game, dt: f32) {
         match player.state {
             EntityState::Idle | EntityState::Moving => {
                 if mv.0 != 0.0 || mv.1 != 0.0 {
-                    // When locked on, keep facing toward target instead of movement direction
+                    player.move_dir = mv.1.atan2(mv.0);
                     if game.lock_on_target.is_none() {
-                        player.facing = mv.1.atan2(mv.0);
+                        player.facing = player.move_dir;
                     }
                     player.state = EntityState::Moving;
                 } else {
@@ -1181,6 +1217,9 @@ fn update_playing(game: &mut Game, dt: f32) {
     }
 
     game.player.update(dt);
+
+    // Restore base speed after sprint
+    game.player.speed = base_speed;
 
     // Collision resolution
     let chunk_offset = game.chunk.world_offset();

@@ -28,6 +28,17 @@ impl StaminaPool {
         }
     }
 
+    /// Continuous drain (e.g., sprint). Returns true while stamina remains.
+    pub fn drain(&mut self, amount: f32) -> bool {
+        self.regen_timer = self.regen_delay;
+        if self.current > 0.0 {
+            self.current = (self.current - amount).max(0.0);
+            true
+        } else {
+            false
+        }
+    }
+
     pub fn update(&mut self, dt: f32, is_acting: bool) {
         self.update_with_bonus(dt, is_acting, 0.0)
     }
