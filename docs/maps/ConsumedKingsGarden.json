@@ -1,0 +1,549 @@
+{
+  "id": "ConsumedKingsGarden",
+  "name": "妖王庭园",
+  "name_en": "Consumed King's Garden",
+  "description": "洛斯里克城堡下方的废弃花园，曾是欧斯罗艾斯王的御苑。如今被幽暗的魔法笼罩，到处是水晶结晶和蛇人守卫。花园深处是欧斯罗艾斯王——一位因追求龙化而异变的悲剧王者。击败他后可通往无主墓地，一个平行世界的传火祭祀场。",
+  "theme": "废弃花园/水晶/暗龙/衰败",
+  "map_size": {
+    "width": 2800,
+    "height": 2400
+  },
+  "connections": {
+    "from": [
+      "LothricCastle"
+    ],
+    "to": [
+      "UntendedGraves",
+      "ArchdragonPeak"
+    ]
+  },
+  "bonfires": [
+    {
+      "name": "妖王庭园",
+      "x": 300,
+      "y": 400,
+      "description": "花园入口处的篝火，从洛斯里克城堡乘电梯到达",
+      "name_en": "Consumed King's Garden"
+    },
+    {
+      "name": "妖王欧斯罗艾斯",
+      "x": 2200,
+      "y": 1800,
+      "description": "击败欧斯罗艾斯后的篝火",
+      "name_en": "Oceiros, the Consumed King"
+    }
+  ],
+  "map_layout": {
+    "sections": [
+      {
+        "name": "花园入口",
+        "description": "一条被藤蔓和杂草覆盖的下行阶梯。两侧是破败的石柱和枯萎的花坛。空气中弥漫着龙化的水晶粉末。远处可以看到巨大的水晶结构。",
+        "x": 0,
+        "y": 0,
+        "w": 600,
+        "h": 800,
+        "terrain_features": [
+          "下行阶梯",
+          "枯萎藤蔓",
+          "破败石柱",
+          "水晶粉末"
+        ]
+      },
+      {
+        "name": "水晶庭院",
+        "description": "花园的第一个开阔区域。庭院中央有一座干涸的喷泉，周围生长着巨大的水晶簇。蛇人战士在庭院中巡逻。远处可以看到一条通往地下的大型阶梯。",
+        "x": 500,
+        "y": 500,
+        "w": 800,
+        "h": 600,
+        "terrain_features": [
+          "水晶簇",
+          "干涸喷泉",
+          "开阔庭院",
+          "蛇人雕像"
+        ]
+      },
+      {
+        "name": "蛇人长廊",
+        "description": "通往花园深处的长廊，两侧有蛇人守卫把守。长廊地面有水晶碎片，踩上去会发出声响。墙壁上有关于龙化仪式的浮雕。",
+        "x": 1200,
+        "y": 600,
+        "w": 600,
+        "h": 500,
+        "terrain_features": [
+          "水晶碎片地面",
+          "龙化浮雕",
+          "蛇人雕像",
+          "低矮拱门"
+        ]
+      },
+      {
+        "name": "毒沼庭院",
+        "description": "花园下层的毒沼区域。地面覆盖着有毒的淤泥，大量腐烂蛞蝓在毒沼中蠕动。毒沼中央有一座露台，下方隐藏着暗影套装。四周有石柱和残破的围墙。这是花园中最危险的区域之一。",
+        "x": 800,
+        "y": 1100,
+        "w": 700,
+        "h": 600,
+        "terrain_features": [
+          "毒沼地面",
+          "腐烂蛞蝓群",
+          "残破石柱",
+          "中央露台",
+          "有毒淤泥"
+        ]
+      },
+      {
+        "name": "王座庭院",
+        "description": "欧斯罗艾斯Boss战场地。花园最深处的王座庭院，被巨大的水晶结构包围。欧斯罗艾斯在庭院中央来回踱步，自言自语地对一个不存在的婴儿说话。庭院后方有一面幻影墙壁，通往无主墓地。",
+        "x": 1700,
+        "y": 1400,
+        "w": 800,
+        "h": 700,
+        "terrain_features": [
+          "王座残骸",
+          "巨型水晶壁",
+          "幻影墙壁",
+          "花园残骸",
+          "暗色氛围"
+        ]
+      }
+    ]
+  },
+  "enemies": [
+    {
+      "kind": "ConsumedKingsKnight",
+      "x": 500,
+      "y": 550,
+      "patrol": 30,
+      "count": 1,
+      "notes": "花园入口电梯旁的重装骑士"
+    },
+    {
+      "kind": "ConsumedKingsKnight",
+      "x": 1000,
+      "y": 700,
+      "patrol": 25,
+      "count": 1,
+      "notes": "下行阶梯旁的第二个重装骑士"
+    },
+    {
+      "kind": "ConsumedKingsKnight",
+      "x": 1600,
+      "y": 900,
+      "patrol": 15,
+      "count": 1,
+      "notes": "Boss雾门前庭院的第三个重装骑士，可被洛斯里克祭司增益"
+    },
+    {
+      "kind": "LothricPriest",
+      "x": 1700,
+      "y": 850,
+      "patrol": 0,
+      "count": 1,
+      "notes": "庭院对面的洛斯里克祭司，会为附近的骑士施加增益并施放奇迹"
+    },
+    {
+      "kind": "SerpentMan",
+      "x": 800,
+      "y": 700,
+      "patrol": 25,
+      "count": 1,
+      "notes": "水晶庭院区域的蛇人，拥有抓取攻击"
+    },
+    {
+      "kind": "SerpentMan",
+      "x": 1300,
+      "y": 750,
+      "patrol": 20,
+      "count": 1,
+      "notes": "长廊中埋伏的蛇人"
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 600,
+      "y": 650,
+      "patrol": 10,
+      "count": 2,
+      "notes": "下行阶梯旁埋伏的空洞奴隶"
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 1100,
+      "y": 800,
+      "patrol": 10,
+      "count": 2,
+      "notes": "中途平台上的空洞奴隶"
+    },
+    {
+      "kind": "PrayingHollowSoldier",
+      "x": 900,
+      "y": 900,
+      "patrol": 0,
+      "count": 2,
+      "notes": "在庭院中祈祷的空洞士兵"
+    },
+    {
+      "kind": "PrayingHollowSoldier",
+      "x": 1400,
+      "y": 850,
+      "patrol": 0,
+      "count": 1,
+      "notes": "祈祷的空洞士兵"
+    },
+    {
+      "kind": "PusOfMan",
+      "x": 700,
+      "y": 800,
+      "patrol": 0,
+      "count": 1,
+      "notes": "从某个空洞敌人身上爆发的人类之脓，弱火"
+    },
+    {
+      "kind": "PusOfMan",
+      "x": 1200,
+      "y": 900,
+      "patrol": 0,
+      "count": 1,
+      "notes": "庭院深处的人类之脓"
+    },
+    {
+      "kind": "RottenSlug",
+      "x": 800,
+      "y": 1100,
+      "patrol": 5,
+      "count": 4,
+      "notes": "毒沼区域中的腐烂蛞蝓群"
+    },
+    {
+      "kind": "RottenSlug",
+      "x": 1100,
+      "y": 1200,
+      "patrol": 5,
+      "count": 3,
+      "notes": "毒沼深处的蛞蝓，守护着暗影套装和黑火焰壶"
+    }
+  ],
+  "boss": {
+    "type": "OceirosTheConsumedKing",
+    "name": "妖王欧斯罗艾斯",
+    "name_en": "Oceiros, the Consumed King",
+    "x": 2100,
+    "y": 1750,
+    "hp": 8087,
+    "arena": {
+      "x": 1700,
+      "y": 1400,
+      "w": 800,
+      "h": 700
+    },
+    "trigger": "进入王座庭院自动触发",
+    "phases": [
+      {
+        "name": "Staff Phase",
+        "hp_threshold": 1.0,
+        "speed_multiplier": 0.9,
+        "damage_multiplier": 1.0,
+        "attack_cooldown": 2.2,
+        "description": "欧斯罗艾斯使用法杖进行攻击。他会挥动法杖两次、跳跃砸地、以及施放白雾（Pestilent Mist）在区域中制造伤害云。他对怀中看不见的婴儿轻声说话。靠近他的腹部比较安全。",
+        "mechanics": [
+          "法杖连击",
+          "跳跃砸地",
+          "白雾魔法（Pestilent Mist）",
+          "对婴儿说话（语音）"
+        ]
+      },
+      {
+        "name": "Beast Phase",
+        "hp_threshold": 0.7,
+        "speed_multiplier": 1.4,
+        "damage_multiplier": 1.3,
+        "attack_cooldown": 1.4,
+        "description": "当HP降至约70%时，欧斯罗艾斯凝视怀中的'欧塞洛特'，然后将其猛然摔向地面。他放弃法杖，变成野兽般的形态，四处冲撞。他可以衔接各种动作甚至转身和咆哮到冲锋攻击中。对头部造成8.78%最大HP的伤害可以触发致命一击。",
+        "mechanics": [
+          "野兽冲锋（可衔接任何动作）",
+          "飞行水晶吐息+冲锋",
+          "频繁冲锋连击",
+          "头部致命一击弱点"
+        ]
+      }
+    ],
+    "attacks": [
+      {
+        "name": "法杖连击",
+        "type": "StaffAttacks",
+        "damage": 45,
+        "range": "近",
+        "parryable": false,
+        "description": "挥动法杖进行两次攻击",
+        "phase": 1
+      },
+      {
+        "name": "跳跃砸地",
+        "type": "JumpingSlam",
+        "damage": 60,
+        "range": "中",
+        "parryable": false,
+        "description": "跳起后猛力砸下",
+        "phase": 1
+      },
+      {
+        "name": "白雾",
+        "type": "PestilentMist",
+        "damage": 0,
+        "range": "远",
+        "parryable": false,
+        "description": "施放白雾魔法，制造一个持续伤害的云区域。需要远离该区域",
+        "phase": 1
+      },
+      {
+        "name": "飞行水晶吐息",
+        "type": "FlyingCrystals",
+        "damage": 50,
+        "range": "远",
+        "parryable": false,
+        "description": "第二阶段专属：飞到空中，向下方喷吐水晶，最后以冲锋收尾",
+        "phase": 2
+      },
+      {
+        "name": "野兽冲锋",
+        "type": "BeastCharge",
+        "damage": 70,
+        "range": "远",
+        "parryable": false,
+        "description": "第二阶段专属：横穿整个竞技场的冲锋攻击。可以衔接各种动作甚至转身/咆哮到冲锋中",
+        "phase": 2
+      }
+    ],
+    "dialogue": [
+      "啊……你来了……没关系……",
+      "我的孩子……安静……安静……",
+      "欧塞洛特……我的小欧塞洛特……",
+      "（第二阶段开始）不……不！我的孩子！",
+      "你在哪里……欧塞洛特！！",
+      "（死亡）啊……没有……什么都没有……从一开始就……"
+    ],
+    "story": "欧斯罗艾斯是洛斯里克的先代国王，被称为'妖王'。他沉迷于龙化之道，在大书库中发现了对白龙希斯的扭曲崇拜。这种追求最终扭曲了他的身体和心智。他是洛斯里克王子和洛里安王子的父亲。他怀中抱着的婴儿欧塞洛特（Ocelotte）可能从未存在过——游戏数据中包含婴儿哭泣和被暴力杀害的音效文件，暗示在第二阶段转换时，欧斯罗艾斯在疯狂中亲手杀死了欧塞洛特。他的悲剧是整个《黑暗之魂》系列中关于'追求超越人性之物'这一主题的缩影。"
+  },
+  "npcs": [
+    {
+      "kind": "Hawkwood",
+      "name": "脱逃者霍克伍德",
+      "name_en": "Hawkwood",
+      "x": 1650,
+      "y": 900,
+      "type": "summon_sign",
+      "notes": "霍克伍德的召唤印记，位于Boss雾门前。需要完成他在传火祭祀场的对话任务线"
+    }
+  ],
+  "chests": [
+    {
+      "x": 600,
+      "y": 750,
+      "loot": {
+        "kind": "EstusShard",
+        "name": "原瓶碎片"
+      },
+      "is_mimic": false,
+      "notes": "下行途中中间平台上的宝箱"
+    },
+    {
+      "x": 1300,
+      "y": 800,
+      "loot": {
+        "kind": "RingDrop",
+        "name": "Dragonscale Ring",
+        "name_cn": "龙鳞戒指"
+      },
+      "is_mimic": false,
+      "notes": "中途平台上的宝箱"
+    }
+  ],
+  "items": [
+    {
+      "kind": "TitaniteChunk",
+      "x": 400,
+      "y": 600,
+      "count": 1,
+      "notes": "花园入口下行途中的破碎石拱门上"
+    },
+    {
+      "kind": "EstusShard",
+      "x": 600,
+      "y": 750,
+      "count": 1,
+      "notes": "下行途中跳到中间平台上获得"
+    },
+    {
+      "kind": "TitaniteChunk",
+      "x": 800,
+      "y": 850,
+      "count": 1,
+      "notes": "下行途中的另一个石台上"
+    },
+    {
+      "kind": "RingOfSacrifice",
+      "x": 900,
+      "y": 900,
+      "count": 1,
+      "notes": "下行途中平台上的牺牲戒指"
+    },
+    {
+      "kind": "DarkGem",
+      "x": 1000,
+      "y": 950,
+      "count": 1,
+      "notes": "在下行途中的遗体上"
+    },
+    {
+      "kind": "TitaniteChunk",
+      "x": 1100,
+      "y": 1050,
+      "count": 1,
+      "notes": "毒沼区域中的楔形石块"
+    },
+    {
+      "kind": "ShadowSet",
+      "x": 850,
+      "y": 1200,
+      "count": 1,
+      "notes": "毒沼中央露台下的遗体上的暗影套装"
+    },
+    {
+      "kind": "BlackFirebomb",
+      "x": 900,
+      "y": 1250,
+      "count": 2,
+      "notes": "毒沼中蛞蝓群守护的黑火焰壶"
+    },
+    {
+      "kind": "Claw",
+      "x": 950,
+      "y": 1280,
+      "count": 1,
+      "notes": "毒沼中遗体上的爪武器"
+    },
+    {
+      "kind": "HumanPineResin",
+      "x": 750,
+      "y": 1150,
+      "count": 4,
+      "notes": "毒沼区域中多个遗体上的人松脂"
+    },
+    {
+      "kind": "DragonscaleRing",
+      "x": 1300,
+      "y": 800,
+      "count": 1,
+      "notes": "中途平台的遗体上的龙鳞戒指"
+    },
+    {
+      "kind": "TitaniteScale",
+      "x": 1400,
+      "y": 850,
+      "count": 3,
+      "notes": "毒沼区域中的楔形石鳞片"
+    },
+    {
+      "kind": "GestureDrop",
+      "name": "Path of the Dragon",
+      "name_cn": "龙之道",
+      "x": 2300,
+      "y": 1900,
+      "count": 1,
+      "notes": "击败欧斯罗艾斯后，Boss竞技场后方祭坛处获得的动作。用于前往古龙顶"
+    },
+    {
+      "kind": "DrakebloodSet",
+      "x": 2350,
+      "y": 1950,
+      "count": 1,
+      "notes": "击杀古龙顶的龙血骑士后，Boss竞技场后方祭坛处的遗体上出现龙血套装"
+    }
+  ],
+  "fog_gates": [
+    {
+      "x": 0,
+      "y": 300,
+      "w": 40,
+      "h": 200,
+      "dest_area": "LothricCastle",
+      "dest_x": 1200,
+      "dest_y": 1050,
+      "notes": "从洛斯里克城堡乘电梯返回"
+    },
+    {
+      "x": 2500,
+      "y": 1800,
+      "w": 200,
+      "h": 40,
+      "dest_area": "UntendedGraves",
+      "dest_x": 200,
+      "dest_y": 400,
+      "notes": "幻影墙壁后通往无主墓地"
+    }
+  ],
+  "lights": [
+    {
+      "x": 300,
+      "y": 400,
+      "radius": 180,
+      "r": 0.6,
+      "g": 0.7,
+      "b": 0.9,
+      "intensity": 0.5,
+      "notes": "花园入口篝火——冷蓝色"
+    },
+    {
+      "x": 700,
+      "y": 650,
+      "radius": 120,
+      "r": 0.4,
+      "g": 0.6,
+      "b": 0.9,
+      "intensity": 0.6,
+      "notes": "水晶折射蓝光"
+    },
+    {
+      "x": 1100,
+      "y": 1400,
+      "radius": 150,
+      "r": 0.5,
+      "g": 0.5,
+      "b": 0.8,
+      "intensity": 0.5,
+      "notes": "毒沼区域水晶折射光"
+    },
+    {
+      "x": 2100,
+      "y": 1750,
+      "radius": 200,
+      "r": 0.3,
+      "g": 0.5,
+      "b": 0.9,
+      "intensity": 0.4,
+      "notes": "王座庭院暗蓝光"
+    },
+    {
+      "x": 2200,
+      "y": 1800,
+      "radius": 180,
+      "r": 0.6,
+      "g": 0.7,
+      "b": 0.9,
+      "intensity": 0.5,
+      "notes": "欧斯罗艾斯篝火"
+    }
+  ],
+  "story_notes": [
+    "妖王庭园是一个可选区域，从洛斯里克城堡乘电梯进入",
+    "欧斯罗艾斯是洛斯里克的先代国王，洛斯里克王子和洛里安王子的父亲",
+    "他在大书库中发现了对白龙希斯的扭曲崇拜，沉迷于龙化之道",
+    "他怀中抱着的婴儿'欧塞洛特'可能从未存在——游戏数据中有婴儿被杀害的音效",
+    "第二阶段转换时他似乎在疯狂中杀死了欧塞洛特，然后彻底失去理智",
+    "击败欧斯罗艾斯后获得的'龙之道'姿态是前往古龙顶的关键",
+    "Boss竞技场后方有幻影墙壁，通往无主墓地——一个平行世界的传火祭祀场",
+    "蛇人守卫暗示这里与古龙顶有直接联系——他们是龙信仰的追随者",
+    "花园中遍布的水晶暗示欧斯罗艾斯与白龙希斯有某种联系",
+    "洛斯里克祭司会为附近的被吞噬国王骑士施加增益，应优先击杀"
+  ]
+}

@@ -36,6 +36,10 @@ features = [
   "CanvasRenderingContext2d",
 ]
 
+[features]
+default = ["debug_exports"]
+debug_exports = []
+
 [profile.release]
 opt-level = "z"
 lto = true

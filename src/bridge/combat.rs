@@ -1,6 +1,6 @@
 use crate::ai::state_machine::STAGGERED;
 use crate::bridge::wasm_entry::{
-    area_boss, fill_tiles, rebuild_collision, AreaId, BlockSpark, DamageNumber,
+    area_boss, boss_defeat_key, fill_tiles, rebuild_collision, BlockSpark, DamageNumber,
     DeathParticle, Game, ScreenFlash, SoulOrb,
 };
 use crate::entity::boss::BossType;
@@ -14,7 +14,6 @@ pub(crate) fn tick_combat(game: &mut Game) {
     let attack_range = if is_heavy { 56.0 } else { 40.0 };
     let attack_damage = if is_heavy { game.player.damage() * 2 } else { game.player.damage() };
 
-    // --- Player vs enemies ---
     for enemy in &mut game.enemies {
         if enemy.is_dead() {
             continue;
@@ -67,15 +66,7 @@ pub(crate) fn tick_combat(game: &mut Game) {
                 }
                 if outcome.killed {
                     game.enemies_killed += 1;
-                    let soul_reward = match enemy.kind {
-                        crate::entity::enemy::EnemyKind::HollowSoldier => 100,
-                        crate::entity::enemy::EnemyKind::Archer => 150,
-                        crate::entity::enemy::EnemyKind::Knight => 200,
-                        crate::entity::enemy::EnemyKind::Assassin => 250,
-                        crate::entity::enemy::EnemyKind::DarkMage => 300,
-                        crate::entity::enemy::EnemyKind::Mimic => 500,
-                        crate::entity::enemy::EnemyKind::CrystalLizard => 1200,
-                    };
+                    let soul_reward = enemy.kind.soul_reward();
                     let soul_bonus = game.player.equipment.soul_bonus();
                     game.souls += (soul_reward as f32 * (1.0 + soul_bonus)) as u32;
                     game.camera.add_shake(6.0);
@@ -151,7 +142,6 @@ pub(crate) fn tick_combat(game: &mut Game) {
         }
     }
 
-    // --- Player vs boss ---
     let mut gundyr_door = false;
     if let Some(ref mut boss) = game.boss {
         let (bx, by) = boss.position();
@@ -185,13 +175,7 @@ pub(crate) fn tick_combat(game: &mut Game) {
                 }
                 if outcome.killed && !game.boss_defeated {
                     game.boss_defeated = true;
-                    let boss_name = match boss.boss_type {
-                        BossType::IudexGundyr => "IudexGundyr",
-                        BossType::Vordt => "Vordt",
-                        BossType::DemonKnight => "CurseRottedGreatwood",
-                        BossType::Dragonrider => "DeaconsOfTheDeep",
-                        BossType::RuinSentinel => "PontiffSulyvahn",
-                    };
+                    let boss_name = boss_defeat_key(boss.boss_type);
                     if !game.bosses_defeated.iter().any(|b| b == boss_name) {
                         game.bosses_defeated.push(boss_name.into());
                     }
@@ -201,7 +185,7 @@ pub(crate) fn tick_combat(game: &mut Game) {
                             gate.active = false;
                         }
                     }
-                    if game.bosses_defeated.len() >= 5 {
+                    if game.bosses_defeated.iter().any(|b| b == "SoulOfCinder") {
                         game.state = crate::game::GameState::Victory;
                     }
                     game.souls += 5000;
@@ -253,19 +237,12 @@ pub(crate) fn tick_combat(game: &mut Game) {
         }
     }
 
-    // Open Gundyr's door after defeat
     if gundyr_door {
         game.gundyr_door_open = true;
-        fill_tiles(&mut game.chunk, TileId::Ground, 16, 8, 40, 18);
-        for gate in &mut game.fog_gates {
-            if gate.destination == AreaId::FirelinkShrine {
-                gate.active = true;
-            }
-        }
+        fill_tiles(&mut game.chunk, TileId::Ground, 78, 29, 82, 30);
         rebuild_collision(game);
     }
 
-    // Spawn boss when last enemy killed in areas without dedicated boss
     let has_area_boss = area_boss(game.area).is_some();
     if !has_area_boss && !game.boss_active && !game.boss_defeated && game.enemies.last().map_or(false, |e| e.is_dead()) {
         let boss_type = (game.enemies_killed * 1103515245 + 12345) as usize % 3;
@@ -273,9 +250,9 @@ pub(crate) fn tick_combat(game: &mut Game) {
         let spawn_x = px + 200.0;
         let spawn_y = py;
         game.boss = Some(match boss_type {
-            0 => crate::entity::boss::Boss::new_test_boss(10, spawn_x, spawn_y),
-            1 => crate::entity::boss::Boss::new_dragonrider(10, spawn_x, spawn_y),
-            _ => crate::entity::boss::Boss::new_ruin_sentinel(10, spawn_x, spawn_y),
+            0 => crate::entity::boss::Boss::new_curse_rotted_greatwood(10, spawn_x, spawn_y),
+            1 => crate::entity::boss::Boss::new_deacons_of_the_deep(10, spawn_x, spawn_y),
+            _ => crate::entity::boss::Boss::new_pontiff_sulyvahn(10, spawn_x, spawn_y),
         });
         game.boss_active = true;
         game.boss_intro_timer = 3.0;

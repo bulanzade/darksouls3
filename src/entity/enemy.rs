@@ -15,6 +15,150 @@ pub enum EnemyKind {
     DarkMage,
     Mimic,
     CrystalLizard,
+    MiniBoss,
+    // DS3-specific
+    SilverKnight,
+    BlackKnight,
+    DeepAccursed,
+    Evangelist,
+    Thrall,
+    LothricKnight,
+    WingedKnight,
+    Ghru,
+    Darkwraith,
+    Skeleton,
+    Jailer,
+    SerpentMan,
+    Deacon,
+    FireDemon,
+    StarvedHound,
+    PusOfMan,
+    CathedralKnight,
+    ManGrub,
+    Gargoyle,
+    Dog,
+    Basilisk,
+    DemonStatue,
+    InfestedCorpse,
+    Wretch,
+    PeasantHollow,
+    GiantSlave,
+    HollowAssassin,
+    CathedralGraveWarden,
+    Rat,
+}
+
+pub struct EnemyBehavior {
+    pub can_block: bool,
+    pub can_shoot: bool,
+    pub parryable_in_attack: bool,
+}
+
+impl EnemyKind {
+    pub fn behavior_flags(&self) -> EnemyBehavior {
+        match self {
+            // Ranged + blocking: SilverKnight, SerpentMan can do both
+            Self::SilverKnight | Self::SerpentMan
+            => EnemyBehavior { can_block: true, can_shoot: true, parryable_in_attack: true },
+            // Ranged enemies: can shoot, parryable when attacking
+            Self::Archer | Self::DarkMage
+            | Self::Deacon | Self::Jailer
+            | Self::Basilisk | Self::DemonStatue
+            => EnemyBehavior { can_block: false, can_shoot: true, parryable_in_attack: true },
+            // Blocking melee: can block, parryable
+            Self::Knight | Self::Assassin
+            | Self::BlackKnight
+            | Self::LothricKnight | Self::WingedKnight
+            | Self::CathedralKnight | Self::Darkwraith
+            | Self::Gargoyle
+            => EnemyBehavior { can_block: true, can_shoot: false, parryable_in_attack: true },
+            // Special: Mimic not parryable
+            Self::Mimic => EnemyBehavior { can_block: false, can_shoot: false, parryable_in_attack: false },
+            // Crystal Lizard: parryable but no block/shoot
+            Self::CrystalLizard => EnemyBehavior { can_block: false, can_shoot: false, parryable_in_attack: true },
+            // All other melee enemies: parryable when attacking
+            _ => EnemyBehavior { can_block: false, can_shoot: false, parryable_in_attack: true },
+        }
+    }
+
+    /// Stats for DS3-specific enemy kinds: (hp, damage, speed, block_chance, attack_range)
+    pub fn ds3_stats(&self) -> (i32, i32, f32, f32, f32) {
+        match self {
+            Self::SilverKnight => (500, 50, 55.0, 0.5, 54.0),
+            Self::BlackKnight => (600, 55, 50.0, 0.6, 54.0),
+            Self::DeepAccursed => (900, 60, 35.0, 0.0, 60.0),
+            Self::Evangelist => (400, 40, 50.0, 0.2, 54.0),
+            Self::Thrall => (150, 30, 130.0, 0.0, 40.0),
+            Self::LothricKnight => (450, 48, 55.0, 0.45, 54.0),
+            Self::WingedKnight => (550, 55, 45.0, 0.5, 54.0),
+            Self::Ghru => (250, 25, 80.0, 0.0, 44.0),
+            Self::Darkwraith => (500, 55, 55.0, 0.4, 54.0),
+            Self::Skeleton => (200, 25, 80.0, 0.0, 44.0),
+            Self::Jailer => (400, 50, 40.0, 0.3, 54.0),
+            Self::SerpentMan => (450, 50, 60.0, 0.4, 54.0),
+            Self::Deacon => (200, 35, 50.0, 0.0, 48.0),
+            Self::FireDemon => (700, 60, 35.0, 0.0, 60.0),
+            Self::StarvedHound => (150, 25, 120.0, 0.0, 40.0),
+            Self::PusOfMan => (500, 50, 45.0, 0.0, 55.0),
+            Self::CathedralKnight => (500, 50, 50.0, 0.5, 54.0),
+            Self::ManGrub => (250, 25, 60.0, 0.0, 44.0),
+            Self::Gargoyle => (500, 50, 50.0, 0.3, 54.0),
+            Self::Dog => (100, 20, 140.0, 0.0, 36.0),
+            Self::Basilisk => (200, 30, 55.0, 0.0, 48.0),
+            Self::DemonStatue => (350, 45, 50.0, 0.0, 48.0),
+            Self::InfestedCorpse => (100, 10, 30.0, 0.0, 44.0),
+            Self::Wretch => (280, 40, 100.0, 0.0, 40.0),
+            Self::PeasantHollow => (180, 15, 55.0, 0.0, 44.0),
+            Self::Mimic => (500, 55, 50.0, 0.4, 54.0),
+            Self::GiantSlave => (800, 70, 30.0, 0.0, 60.0),
+            Self::HollowAssassin => (200, 30, 110.0, 0.0, 40.0),
+            Self::CathedralGraveWarden => (350, 45, 55.0, 0.3, 54.0),
+            Self::Rat => (80, 10, 150.0, 0.0, 30.0),
+            _ => (300, 35, 55.0, 0.0, 48.0), // fallback for base kinds
+        }
+    }
+
+    pub fn soul_reward(&self) -> u32 {
+        match self {
+            Self::HollowSoldier => 100,
+            Self::Archer => 150,
+            Self::Knight => 200,
+            Self::Assassin => 250,
+            Self::DarkMage => 300,
+            Self::Mimic => 500,
+            Self::CrystalLizard => 1200,
+            Self::MiniBoss => 400,
+            Self::SilverKnight => 400,
+            Self::BlackKnight => 500,
+            Self::DeepAccursed => 600,
+            Self::Evangelist => 300,
+            Self::Thrall => 150,
+            Self::LothricKnight => 350,
+            Self::WingedKnight => 450,
+            Self::Ghru => 200,
+            Self::Darkwraith => 400,
+            Self::Skeleton => 150,
+            Self::Jailer => 350,
+            Self::SerpentMan => 400,
+            Self::Deacon => 180,
+            Self::FireDemon => 500,
+            Self::StarvedHound => 120,
+            Self::PusOfMan => 350,
+            Self::CathedralKnight => 400,
+            Self::ManGrub => 200,
+            Self::Gargoyle => 350,
+            Self::Dog => 80,
+            Self::Basilisk => 200,
+            Self::DemonStatue => 300,
+            Self::InfestedCorpse => 50,
+            Self::Wretch => 250,
+            Self::PeasantHollow => 80,
+            Self::GiantSlave => 500,
+            Self::HollowAssassin => 200,
+            Self::CathedralGraveWarden => 350,
+            Self::Rat => 30,
+        }
+    }
 }
 
 pub struct Enemy {
@@ -37,6 +181,9 @@ pub struct Enemy {
     pub flash_timer: f32,
     pub death_timer: f32,
     pub kind: EnemyKind,
+    pub can_block: bool,
+    pub can_shoot: bool,
+    pub parryable_in_attack: bool,
     pub shoot_timer: f32,
     pub shoot_cooldown: f32,
     pub block_chance: f32,
@@ -188,6 +335,7 @@ impl Enemy {
             flash_timer: 0.0,
             death_timer: 0.0,
             kind: EnemyKind::HollowSoldier,
+            can_block: false, can_shoot: false, parryable_in_attack: true,
             shoot_timer: 0.0,
             shoot_cooldown: 2.0,
             block_chance: 0.0,
@@ -247,6 +395,7 @@ impl Enemy {
             spawn_x: x, spawn_y: y, fsm, aggro,
             has_hit_this_attack: false, windup_timer: 0.0, parried_timer: 0.0, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::Archer,
+            can_block: false, can_shoot: true, parryable_in_attack: true,
             shoot_timer: 0.0, shoot_cooldown: 2.0,
             block_chance: 0.0,
             patrol_timer: 0.0,
@@ -302,6 +451,7 @@ impl Enemy {
             spawn_x: x, spawn_y: y, fsm, aggro,
             has_hit_this_attack: false, windup_timer: 0.0, parried_timer: 0.0, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::Knight,
+            can_block: true, can_shoot: false, parryable_in_attack: true,
             shoot_timer: 0.0, shoot_cooldown: 2.0,
             block_chance: 0.4,
             patrol_timer: 0.0,
@@ -368,7 +518,8 @@ impl Enemy {
             damage: 55, attack_range: 50.0,
             spawn_x: x, spawn_y: y, fsm, aggro,
             has_hit_this_attack: false, windup_timer: 0.0, parried_timer: 0.0, flash_timer: 0.0, death_timer: 0.0,
-            kind: EnemyKind::Knight,
+            kind: EnemyKind::MiniBoss,
+            can_block: true, can_shoot: false, parryable_in_attack: true,
             shoot_timer: 0.0, shoot_cooldown: 1.5,
             block_chance: 0.3,
             patrol_timer: 0.0,
@@ -429,6 +580,7 @@ impl Enemy {
             spawn_x: x, spawn_y: y, fsm, aggro,
             has_hit_this_attack: false, windup_timer: 0.0, parried_timer: 0.0, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::Assassin,
+            can_block: true, can_shoot: false, parryable_in_attack: true,
             shoot_timer: 0.0, shoot_cooldown: 1.2,
             block_chance: 0.0,
             patrol_timer: 0.0, patrol_dir: 1.0, patrol_range: 40.0,
@@ -489,6 +641,7 @@ impl Enemy {
             spawn_x: x, spawn_y: y, fsm, aggro,
             has_hit_this_attack: false, windup_timer: 0.0, parried_timer: 0.0, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::DarkMage,
+            can_block: false, can_shoot: true, parryable_in_attack: true,
             shoot_timer: 0.0, shoot_cooldown: 2.5,
             block_chance: 0.0,
             patrol_timer: 0.0, patrol_dir: 1.0, patrol_range: 20.0,
@@ -538,6 +691,7 @@ impl Enemy {
             spawn_x: x, spawn_y: y, fsm, aggro,
             has_hit_this_attack: false, windup_timer: 0.0, parried_timer: 0.0, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::Mimic,
+            can_block: false, can_shoot: false, parryable_in_attack: false,
             shoot_timer: 0.0, shoot_cooldown: 0.0,
             block_chance: 0.0,
             patrol_timer: 0.0, patrol_dir: 1.0, patrol_range: 0.0,
@@ -596,6 +750,7 @@ impl Enemy {
             spawn_x: x, spawn_y: y, fsm, aggro,
             has_hit_this_attack: false, windup_timer: 0.0, parried_timer: 0.0, flash_timer: 0.0, death_timer: 0.0,
             kind: EnemyKind::CrystalLizard,
+            can_block: false, can_shoot: false, parryable_in_attack: true,
             shoot_timer: 0.0, shoot_cooldown: 0.0,
             block_chance: 0.0,
             patrol_timer: 0.0, patrol_dir: 1.0, patrol_range: 26.0,
@@ -605,18 +760,55 @@ impl Enemy {
         }
     }
 
+    /// Create any DS3-specific enemy kind with configured stats from ds3_stats().
+    pub fn new_ds3(id: EntityId, x: f32, y: f32, kind: EnemyKind) -> Self {
+        let (hp, damage, speed, block_chance, attack_range) = kind.ds3_stats();
+
+        let mut fsm = StateMachine::new(IDLE);
+        fsm.add_state(StateDef { id: IDLE, name: "Idle".into(), duration: None, transitions: vec![Transition { target: ALERT, condition: target_close, priority: 1 }] });
+        fsm.add_state(StateDef { id: ALERT, name: "Alert".into(), duration: Some(0.5), transitions: vec![Transition { target: CHASE, condition: always, priority: 1 }] });
+        fsm.add_state(StateDef { id: CHASE, name: "Chase".into(), duration: None, transitions: vec![
+            Transition { target: ATTACK, condition: target_nearby, priority: 2 },
+            Transition { target: RETURN, condition: target_far, priority: 1 },
+        ] });
+        fsm.add_state(StateDef { id: ATTACK, name: "Attack".into(), duration: Some(1.5), transitions: vec![Transition { target: CHASE, condition: attack_done, priority: 1 }] });
+        fsm.add_state(StateDef { id: RETREAT, name: "Retreat".into(), duration: Some(1.0), transitions: vec![Transition { target: CHASE, condition: retreat_done, priority: 1 }] });
+        fsm.add_state(StateDef { id: RETURN, name: "Return".into(), duration: None, transitions: vec![Transition { target: IDLE, condition: target_close, priority: 1 }] });
+        fsm.add_state(StateDef { id: STAGGERED, name: "Staggered".into(), duration: Some(0.3), transitions: vec![Transition { target: CHASE, condition: always, priority: 1 }] });
+
+        let aggro = AggroTable::new(260.0, 560.0);
+        let behavior = kind.behavior_flags();
+        Self {
+            id, transform: Transform::new(x, y),
+            hp, max_hp: hp, speed,
+            state: EntityState::Idle, facing: 0.0,
+            damage, attack_range,
+            spawn_x: x, spawn_y: y, fsm, aggro,
+            has_hit_this_attack: false, windup_timer: 0.0, parried_timer: 0.0, flash_timer: 0.0, death_timer: 0.0,
+            kind,
+            can_block: behavior.can_block, can_shoot: behavior.can_shoot, parryable_in_attack: behavior.parryable_in_attack,
+            shoot_timer: if behavior.can_shoot { 1.5 } else { 0.0 },
+            shoot_cooldown: 1.5,
+            block_chance,
+            patrol_timer: 0.0, patrol_dir: 1.0, patrol_range: 26.0,
+            dodge_timer: 0.0, dodge_dir: 1.0,
+            teleport_timer: 0.0,
+            mimic_activated: false, grab_timer: 0.0,
+        }
+    }
+
     pub fn current_attack_can_be_parried(&self) -> bool {
+        if !self.parryable_in_attack { return false; }
         match self.kind {
             EnemyKind::Archer | EnemyKind::DarkMage => self.fsm.current_state == ATTACK,
-            EnemyKind::Mimic => false,
             EnemyKind::CrystalLizard => self.fsm.current_state == ATTACK,
             EnemyKind::Assassin => matches!(self.fsm.current_state, ATTACK | RANGED_ATTACK),
-            EnemyKind::HollowSoldier | EnemyKind::Knight => self.fsm.current_state == ATTACK,
+            _ => self.fsm.current_state == ATTACK,
         }
     }
 
     pub fn should_shoot(&mut self, dt: f32) -> bool {
-        if self.kind != EnemyKind::Archer && self.kind != EnemyKind::DarkMage { return false; }
+        if !self.can_shoot { return false; }
         self.shoot_timer -= dt;
         if self.shoot_timer <= 0.0 {
             self.shoot_timer = self.shoot_cooldown;
@@ -626,9 +818,9 @@ impl Enemy {
     }
 
     pub fn try_block(&self) -> bool {
-        if self.kind != EnemyKind::Knight && self.kind != EnemyKind::Assassin { return false; }
-        let r = (self.id * 1103515245 + 12345) as f32;
-        (r % 100.0) < self.block_chance * 100.0
+        if !self.can_block { return false; }
+        let r = (self.id.wrapping_mul(1103515245).wrapping_add(12345)) as f32;
+        r % 100.0 < self.block_chance * 100.0
     }
 
     pub fn tick_death(&mut self, dt: f32) {
@@ -723,11 +915,16 @@ impl Enemy {
                     if self.kind == EnemyKind::Assassin {
                         self.dodge_timer -= dt;
                         if self.dodge_timer <= 0.0 {
-                            self.dodge_timer = 2.0 + (self.id as f32 % 1.5);
+                            self.dodge_timer = 2.0 + ((self.id as f32 * 0.7).sin().abs() * 1.5);
                             self.dodge_dir = if (self.id as f32) % 2.0 < 1.0 { -1.0 } else { 1.0 };
                             let perp = self.facing + std::f32::consts::FRAC_PI_2 * self.dodge_dir;
-                            self.transform.x += perp.cos() * 60.0;
-                            self.transform.y += perp.sin() * 60.0;
+                            let new_x = self.transform.x + perp.cos() * 48.0;
+                            let new_y = self.transform.y + perp.sin() * 48.0;
+                            let cell = nav_grid.world_to_cell(new_x - chunk_offset.0, new_y - chunk_offset.1);
+                            if nav_grid.is_walkable(cell.x, cell.y) {
+                                self.transform.x = new_x;
+                                self.transform.y = new_y;
+                            }
                         }
                     }
 
@@ -736,11 +933,35 @@ impl Enemy {
                         self.teleport_timer -= dt;
                         if self.teleport_timer <= 0.0 && self.hp < self.max_hp * 2 / 3 {
                             self.teleport_timer = 6.0;
-                            // Teleport to a random offset
-                            let angle = (self.id as f32 * 1.7) % std::f32::consts::TAU;
-                            self.transform.x = self.spawn_x + angle.cos() * 120.0;
-                            self.transform.y = self.spawn_y + angle.sin() * 120.0;
-                            self.flash_timer = 0.3;
+                            let base_angle = (self.id as f32 * 1.7) % std::f32::consts::TAU;
+                            let mut teleported = false;
+                            // Try several angles to find a walkable target
+                            for attempt in 0..8 {
+                                let angle = base_angle + attempt as f32 * std::f32::consts::FRAC_PI_4;
+                                let dist = 80.0;
+                                let tx = self.spawn_x + angle.cos() * dist;
+                                let ty = self.spawn_y + angle.sin() * dist;
+                                let cell = nav_grid.world_to_cell(tx - chunk_offset.0, ty - chunk_offset.1);
+                                if nav_grid.is_walkable(cell.x, cell.y) {
+                                    self.transform.x = tx;
+                                    self.transform.y = ty;
+                                    self.flash_timer = 0.3;
+                                    teleported = true;
+                                    break;
+                                }
+                            }
+                            if !teleported {
+                                // Fallback: small step backward
+                                let back = self.facing + std::f32::consts::PI;
+                                let tx = self.transform.x + back.cos() * 24.0;
+                                let ty = self.transform.y + back.sin() * 24.0;
+                                let cell = nav_grid.world_to_cell(tx - chunk_offset.0, ty - chunk_offset.1);
+                                if nav_grid.is_walkable(cell.x, cell.y) {
+                                    self.transform.x = tx;
+                                    self.transform.y = ty;
+                                    self.flash_timer = 0.3;
+                                }
+                            }
                         }
                     }
 
@@ -924,7 +1145,6 @@ impl Entity for Enemy {
             EnemyKind::DarkMage => (30.0, [0.5, 0.2, 0.8, 1.0]),
             EnemyKind::Mimic => {
                 if !self.mimic_activated {
-                    // Disguised as a treasure chest (golden box)
                     let instance = self.transform.to_instance_data(28.0, 24.0, [0.0, 0.0, 1.0, 1.0], [0.8, 0.7, 0.2, 1.0]);
                     batcher.draw(instance, texture, gl);
                     return;
@@ -932,6 +1152,37 @@ impl Entity for Enemy {
                 (38.0, [0.6, 0.4, 0.1, 1.0])
             },
             EnemyKind::CrystalLizard => (30.0, [0.36, 0.86, 1.0, 1.0]),
+            // DS3-specific
+            EnemyKind::SilverKnight => (34.0, [0.75, 0.75, 0.8, 1.0]),
+            EnemyKind::BlackKnight => (36.0, [0.15, 0.15, 0.2, 1.0]),
+            EnemyKind::DeepAccursed => (42.0, [0.3, 0.1, 0.4, 1.0]),
+            EnemyKind::Evangelist => (32.0, [0.4, 0.35, 0.3, 1.0]),
+            EnemyKind::Thrall => (18.0, [0.3, 0.25, 0.2, 1.0]),
+            EnemyKind::LothricKnight => (34.0, [0.5, 0.5, 0.6, 1.0]),
+            EnemyKind::WingedKnight => (38.0, [0.4, 0.4, 0.45, 1.0]),
+            EnemyKind::Ghru => (28.0, [0.5, 0.35, 0.2, 1.0]),
+            EnemyKind::Darkwraith => (34.0, [0.1, 0.1, 0.15, 1.0]),
+            EnemyKind::Skeleton => (26.0, [0.85, 0.85, 0.75, 1.0]),
+            EnemyKind::Jailer => (32.0, [0.2, 0.15, 0.2, 1.0]),
+            EnemyKind::SerpentMan => (32.0, [0.6, 0.5, 0.3, 1.0]),
+            EnemyKind::Deacon => (26.0, [0.5, 0.3, 0.2, 1.0]),
+            EnemyKind::FireDemon => (40.0, [0.7, 0.25, 0.1, 1.0]),
+            EnemyKind::StarvedHound => (20.0, [0.5, 0.4, 0.3, 1.0]),
+            EnemyKind::PusOfMan => (36.0, [0.1, 0.05, 0.15, 1.0]),
+            EnemyKind::CathedralKnight => (36.0, [0.4, 0.4, 0.35, 1.0]),
+            EnemyKind::ManGrub => (24.0, [0.6, 0.5, 0.3, 1.0]),
+            EnemyKind::Gargoyle => (36.0, [0.45, 0.45, 0.4, 1.0]),
+            EnemyKind::Dog => (18.0, [0.5, 0.35, 0.25, 1.0]),
+            EnemyKind::Basilisk => (22.0, [0.4, 0.6, 0.3, 1.0]),
+            EnemyKind::DemonStatue => (30.0, [0.6, 0.3, 0.2, 1.0]),
+            EnemyKind::InfestedCorpse => (26.0, [0.4, 0.35, 0.3, 1.0]),
+            EnemyKind::Wretch => (26.0, [0.3, 0.25, 0.2, 1.0]),
+            EnemyKind::PeasantHollow => (24.0, [0.55, 0.5, 0.45, 1.0]),
+            EnemyKind::GiantSlave => (48.0, [0.5, 0.4, 0.3, 1.0]),
+            EnemyKind::HollowAssassin => (22.0, [0.3, 0.3, 0.35, 1.0]),
+            EnemyKind::CathedralGraveWarden => (30.0, [0.3, 0.35, 0.3, 1.0]),
+            EnemyKind::Rat => (14.0, [0.45, 0.35, 0.25, 1.0]),
+            EnemyKind::MiniBoss => (40.0, [0.7, 0.3, 0.2, 1.0]),
         };
         if self.flash_timer > 0.0 {
             let instance = self.transform.to_instance_data(size, size, [0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 1.0, 1.0]);

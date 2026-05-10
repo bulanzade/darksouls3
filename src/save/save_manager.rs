@@ -36,6 +36,12 @@ pub struct SaveData {
     pub death_count: u32,
     pub damage_dealt: u32,
     pub damage_taken: u32,
+    #[serde(default)]
+    pub ng_plus: u32,
+    #[serde(default)]
+    pub area_collected_items: std::collections::HashMap<String, Vec<(f32, f32)>>,
+    #[serde(default)]
+    pub area_opened_chests: std::collections::HashMap<String, Vec<(f32, f32)>>,
 }
 
 // ---------------------------------------------------------------------------
@@ -112,6 +118,24 @@ mod tests {
             souls: 3400,
             bonfire: BonfireState::new(),
             current_room: "firelink".into(),
+            player_hp: 600,
+            player_x: 100.0,
+            player_y: 200.0,
+            weapon_name: "直剑".into(),
+            weapon_damage: 80,
+            alt_weapon_name: None,
+            alt_weapon_damage: None,
+            bosses_defeated: vec![],
+            enemies_killed: 0,
+            items_collected: vec![],
+            chests_opened: vec![],
+            play_time: 0.0,
+            death_count: 0,
+            damage_dealt: 0,
+            damage_taken: 0,
+            ng_plus: 0,
+            area_collected_items: std::collections::HashMap::new(),
+            area_opened_chests: std::collections::HashMap::new(),
         };
         let json = serde_json::to_string(&data).unwrap();
         let loaded: SaveData = serde_json::from_str(&json).unwrap();

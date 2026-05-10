@@ -75,9 +75,13 @@ impl Player {
             vigor: 5,
             endurance: 5,
             strength: 5,
-            weapon: Weapon::longsword(),
+            weapon: Weapon::fist(),
             alt_weapon: None,
-            equipment: Equipment::default(),
+            equipment: Equipment {
+                right_hand: crate::rpg::equipment::WeaponSlot::fist(),
+                left_hand: crate::rpg::equipment::WeaponSlot::fist(),
+                ..Equipment::default()
+            },
             poison_timer: 0.0,
             poison_tick: 0.0,
         }
@@ -125,15 +129,25 @@ impl Player {
         }
     }
 
+    pub fn total_weight(&self) -> f32 {
+        let armor_w = self.equipment.head.weight + self.equipment.chest.weight + self.equipment.legs.weight + self.equipment.hands.weight;
+        let weapon_w = self.weapon.weight + self.alt_weapon.as_ref().map_or(0.0, |w| w.weight);
+        weapon_w + armor_w
+    }
+
+    pub fn max_equip_load(&self) -> f32 {
+        40.0 + self.vitality() as f32 * 1.5
+    }
+
     /// Roll speed affected by equip load
     pub fn roll_speed_multiplier(&self) -> f32 {
-        let load = self.equipment.equip_load_percent(40.0 + self.vitality() as f32 * 1.5);
+        let load = self.total_weight() / self.max_equip_load();
         if load < 0.3 { 1.3 }
         else if load < 0.7 { 1.0 }
         else { 0.6 }
     }
 
-    fn vitality(&self) -> u32 {
+    pub fn vitality(&self) -> u32 {
         10 // Base vitality — could be a stat
     }
 

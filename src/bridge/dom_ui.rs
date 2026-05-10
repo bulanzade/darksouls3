@@ -1,5 +1,5 @@
 use crate::bridge::wasm_entry::{
-    area_has_bonfire, area_name, Game, InventoryItemKind,
+    area_has_bonfire, area_name, Game, InventoryItemKind, MenuTab,
 };
 use crate::entity::entity_trait::{Entity, EntityState};
 use crate::game::GameState;
@@ -7,7 +7,7 @@ use crate::world::chunk::CHUNK_SIZE;
 use crate::world::tileset::TILE_SIZE;
 use wasm_bindgen::JsCast;
 
-pub(crate) fn update(game: &Game) {
+pub(crate) fn update(game: &mut Game) {
     let window = match web_sys::window() {
         Some(w) => w,
         None => return,
@@ -167,45 +167,139 @@ pub(crate) fn update(game: &Game) {
         let _ = el.set_attribute("style", style);
     }
 
-    if let Some(el) = document.get_element_by_id("equip-slots") {
-        el.set_inner_html("");
-    }
-
-    // Inventory panel
+    // Inventory panel — DS3-style tabbed menu
+    const INVENTORY_STYLE: &str =
+        "display:block; background:rgba(0,0,0,0.92); padding:16px 20px; \
+         border:1px solid #444; border-radius:2px; width:380px; \
+         position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); \
+         font-family:'Segoe UI',Arial,sans-serif;";
     if let Some(el) = document.get_element_by_id("menu") {
-        if game.show_inventory {
-            let defense = game.player.equipment.total_defense();
-            let weight = game.player.equipment.total_weight();
-            let equip_load = game.player.equipment.equip_load_percent(40.0 + 10.0 * 1.5);
-            let roll_type = if equip_load < 0.3 { "快速" } else if equip_load < 0.7 { "普通" } else { "缓慢" };
+        if game.show_inventory && game.menu_dirty {
+            let cur = game.menu_cursor;
+            let tab = game.menu_tab;
 
-            let mut html = String::from("<div style='color:#e8c840;font-size:20px;text-align:center;margin-bottom:8px'>背包</div>");
-            html.push_str(&format!("<div style='color:#aaa;font-size:14px'>防御: {:.0} | 负重: {:.1} | 翻滚: {}</div>", defense, weight, roll_type));
-            html.push_str("<div style='color:#888;font-size:12px;margin:4px 0'>— 武器 —</div>");
-            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>右手: {}</div>", game.player.weapon.display_name()));
-            if let Some(ref alt) = game.player.alt_weapon {
-                html.push_str(&format!("<div style='color:#999;font-size:13px'>备用: {} [↑↓切换]</div>", alt.name));
-            }
-            html.push_str("<div style='color:#888;font-size:12px;margin:4px 0'>— 装备 —</div>");
-            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>头部: {}</div>", game.player.equipment.head.name));
-            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>身体: {}</div>", game.player.equipment.chest.name));
-            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>戒指1: {}</div>", game.player.equipment.ring_1.as_ref().map_or("无", |r| &r.name)));
-            html.push_str(&format!("<div style='color:#ccc;font-size:13px'>戒指2: {}</div>", game.player.equipment.ring_2.as_ref().map_or("无", |r| &r.name)));
-            if !game.inventory.is_empty() {
-                html.push_str("<div style='color:#888;font-size:12px;margin:4px 0'>— 物品 —</div>");
-                for item in &game.inventory {
-                    let desc = match &item.kind {
-                        InventoryItemKind::Consumable(n) if n == "PurpleMoss" => " (R使用: 治愈中毒)",
-                        InventoryItemKind::Consumable(n) if n == "HomewardBone" => " (R使用: 传送至篝火)",
-                        _ => "",
-                    };
-                    html.push_str(&format!("<div style='color:#aaa;font-size:13px'>· {}{}</div>", item.name, desc));
+            // Tab bar
+            let tabs = [
+                ("装备", MenuTab::Equipment),
+                ("物品", MenuTab::Items),
+                ("参数", MenuTab::Stats),
+            ];
+            let tab_bar: String = tabs.iter().map(|(name, t)| {
+                if *t == tab {
+                    format!("<span style='color:#e8c840;font-size:15px;padding:4px 16px;border-bottom:2px solid #e8c840'>{}</span>", name)
+                } else {
+                    format!("<span style='color:#666;font-size:15px;padding:4px 16px'>{}</span>", name)
+                }
+            }).collect::<Vec<_>>().join("");
+
+            let mut html = format!(
+                "<div style='display:flex;justify-content:center;align-items:center;margin-bottom:12px;border-bottom:1px solid #333;padding-bottom:6px'>{}<span style='color:#555;font-size:11px;margin-left:16px'>←→切换 · ESC关闭</span></div>",
+                tab_bar,
+            );
+
+            match tab {
+                MenuTab::Equipment => {
+                    let defense = game.player.equipment.total_defense();
+                    let total_weight = game.player.total_weight();
+                    let max_load = game.player.max_equip_load();
+                    let load_pct = total_weight / max_load * 100.0;
+                    let roll_type = if load_pct < 30.0 { "快速" } else if load_pct < 70.0 { "普通" } else { "缓慢" };
+
+                    html.push_str(&format!(
+                        "<div style='color:#888;font-size:11px;margin-bottom:8px'>防御 {:.0} · 负重 {:.1}/{} ({:.0}%) · 翻滚 {}</div>",
+                        defense, total_weight, max_load, load_pct, roll_type
+                    ));
+
+                    let slots: [(&str, String); 8] = [
+                        ("右手", format!("{} (攻:{})", game.player.weapon.display_name(), game.player.damage())),
+                        ("左手", format!("{}", game.player.equipment.left_hand.active().display_name())),
+                        ("头部", format!("{}", if game.player.equipment.head.name == "None" { "—".into() } else { game.player.equipment.head.name.clone() })),
+                        ("身体", format!("{}", if game.player.equipment.chest.name == "None" { "—".into() } else { game.player.equipment.chest.name.clone() })),
+                        ("手部", format!("{}", if game.player.equipment.hands.name == "None" { "—".into() } else { game.player.equipment.hands.name.clone() })),
+                        ("腿部", format!("{}", if game.player.equipment.legs.name == "None" { "—".into() } else { game.player.equipment.legs.name.clone() })),
+                        ("戒指1", format!("{}", game.player.equipment.ring_1.as_ref().map_or("—".into(), |r| r.name.clone()))),
+                        ("戒指2", format!("{}", game.player.equipment.ring_2.as_ref().map_or("—".into(), |r| r.name.clone()))),
+                    ];
+                    for (i, (label, value)) in slots.iter().enumerate() {
+                        let selected = i == cur;
+                        let (col, prefix) = if selected { ("#e8c840", "▸ ") } else { ("#999", "  ") };
+                        html.push_str(&format!(
+                            "<div style='color:{};font-size:14px;line-height:1.8'>{}{:<4} {}</div>",
+                            col, prefix, label, value
+                        ));
+                    }
+                }
+                MenuTab::Items => {
+                    if game.inventory.is_empty() {
+                        html.push_str("<div style='color:#666;font-size:14px;text-align:center;padding:20px'>没有物品</div>");
+                    } else {
+                        for (i, item) in game.inventory.iter().enumerate() {
+                            let selected = i == cur;
+                            let (col, prefix) = if selected { ("#e8c840", "▸ ") } else { ("#999", "  ") };
+                            let desc = match &item.kind {
+                                InventoryItemKind::Consumable(n) if n == "PurpleMoss" => " <span style='color:#6c6;font-size:11px'>[R] 治愈中毒</span>",
+                                InventoryItemKind::Consumable(n) if n == "HomewardBone" => " <span style='color:#6c6;font-size:11px'>[R] 传送至篝火</span>",
+                                InventoryItemKind::Weapon(_) => " <span style='color:#88f;font-size:11px'>武器</span>",
+                                InventoryItemKind::Armor(_, _) => " <span style='color:#f88;font-size:11px'>防具</span>",
+                                InventoryItemKind::Ring(_) => " <span style='color:#f8f;font-size:11px'>戒指</span>",
+                                _ => "",
+                            };
+                            html.push_str(&format!(
+                                "<div style='color:{};font-size:14px;line-height:1.8'>{}{}{}</div>",
+                                col, prefix, item.name, desc
+                            ));
+                        }
+                    }
+                }
+                MenuTab::Stats => {
+                    let damage = game.player.damage();
+                    let total_weight = game.player.total_weight();
+                    let max_load = game.player.max_equip_load();
+                    let defense = game.player.equipment.total_defense();
+                    let hp_bonus = game.player.equipment.hp_bonus();
+                    let stamina_regen = game.player.equipment.stamina_regen_bonus();
+                    let damage_bonus = game.player.equipment.damage_bonus();
+
+                    html.push_str(&format!("<div style='text-align:center;color:#cc9;font-size:15px;margin-bottom:10px'>灵魂: {}</div>", game.souls));
+
+                    let stats = [
+                        ("等级", format!("{}", game.player.level)),
+                        ("生命力", format!("{} (HP {})", game.player.vigor, game.player.max_hp)),
+                        ("持久力", format!("{} (精力 {:.0})", game.player.endurance, game.player.stamina.maximum)),
+                        ("力量", format!("{} (攻击 {})", game.player.strength, damage)),
+                        ("", String::new()),
+                        ("HP", format!("{}/{}", game.player.hp, game.player.max_hp)),
+                        ("精力", format!("{:.0}/{:.0}", game.player.stamina.current, game.player.stamina.maximum)),
+                        ("", String::new()),
+                        ("防御力", format!("{:.0}", defense)),
+                        ("负重", format!("{:.1}/{:.0}", total_weight, max_load)),
+                        ("攻击力", format!("{}", damage)),
+                        ("武器", format!("{}", game.player.weapon.display_name())),
+                    ];
+
+                    for (label, value) in &stats {
+                        if label.is_empty() {
+                            html.push_str("<div style='height:6px'></div>");
+                        } else {
+                            html.push_str(&format!(
+                                "<div style='color:#aaa;font-size:14px;line-height:1.8'>  {:<6} {}</div>",
+                                label, value
+                            ));
+                        }
+                    }
+
+                    if hp_bonus > 0.0 { html.push_str(&format!("<div style='color:#6c6;font-size:11px'>  HP加成 +{:.0}%</div>", hp_bonus * 100.0)); }
+                    if stamina_regen > 0.0 { html.push_str(&format!("<div style='color:#6c6;font-size:11px'>  精力回复 +{:.0}%</div>", stamina_regen * 100.0)); }
+                    if damage_bonus > 0.0 { html.push_str(&format!("<div style='color:#6c6;font-size:11px'>  伤害加成 +{:.0}%</div>", damage_bonus * 100.0)); }
                 }
             }
-            html.push_str("<div style='color:#666;font-size:12px;margin-top:8px'>按ESC关闭</div>");
-            let _ = el.set_attribute("style", "display:block; background:rgba(0,0,0,0.9); padding:16px; border:1px solid #555; border-radius:4px; max-width:400px; margin:40px auto; white-space:pre-line;");
+
+            let _ = el.set_attribute("style", INVENTORY_STYLE);
             el.set_text_content(None);
             el.set_inner_html(&html);
+            game.menu_dirty = false;
+        } else if game.show_inventory {
+            let _ = el.set_attribute("style", INVENTORY_STYLE);
         }
     }
 

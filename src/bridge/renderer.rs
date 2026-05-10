@@ -11,6 +11,7 @@ use web_sys::WebGl2RenderingContext as GL;
 
 pub(crate) fn render(game: &mut Game) {
     let gl = &game.gl_ctx.gl;
+    let player_hp_ratio = game.player.hp as f32 / game.player.max_hp as f32;
 
     // --- Pass 1: Render scene to FBO ---
     gl.bind_framebuffer(GL::FRAMEBUFFER, Some(&game.scene_fbo));
@@ -160,6 +161,11 @@ pub(crate) fn render(game: &mut Game) {
             ItemKind::WeaponDrop(_) => (0.9, 0.6, 0.1),
             ItemKind::ArmorDrop(_, _) => (0.5, 0.5, 0.8),
             ItemKind::RingDrop(_) => (0.9, 0.8, 0.2),
+            ItemKind::TitaniteShard => (0.3, 0.7, 0.3),
+            ItemKind::Firebomb => (0.9, 0.3, 0.1),
+            ItemKind::Ember => (0.9, 0.6, 0.1),
+            ItemKind::UndeadBoneShard => (0.8, 0.8, 0.7),
+            ItemKind::Consumable(_) => (0.6, 0.4, 0.8),
         };
         let bob = (item.y * 0.05).sin() * 3.0;
         game.batcher.draw(
@@ -470,8 +476,7 @@ pub(crate) fn render(game: &mut Game) {
 
     gl.active_texture(GL::TEXTURE0);
     gl.bind_texture(GL::TEXTURE_2D, Some(&game.scene_texture));
-    let hp_ratio = game.player.hp as f32 / game.player.max_hp as f32;
-    let (brightness, saturation, fog_color) = if hp_ratio < 0.25 {
+    let (brightness, saturation, fog_color) = if player_hp_ratio < 0.25 {
         (0.9, 0.6, [0.08, 0.02, 0.02, 0.7])
     } else {
         (1.0, 0.85, [0.02, 0.02, 0.04, 0.6])
@@ -516,7 +521,7 @@ pub(crate) fn render(game: &mut Game) {
     }
 
     // --- HUD bars ---
-    let hp_ratio = game.player.hp as f32 / game.player.max_hp as f32;
+    let hp_ratio = player_hp_ratio;
     let hp_bar_w = 200.0;
     let hp_bar_h = 16.0;
     let hp_bar_x = 20.0 + hp_bar_w * 0.5;

@@ -1,0 +1,1127 @@
+{
+  "id": "FarronKeep",
+  "name": "法兰要塞",
+  "name_en": "Farron Keep",
+  "description": "一片蔓延的剧毒沼泽，曾经是深渊监视者——亚尔特留斯遗产的继承者——的驻地。玩家必须点燃散布在沼泽中的三座火炬才能开启通往深渊监视者 Boss 战的正门。老狼法兰蹲踞在废墟之上，默默守护着法兰守护者誓约。整个区域被浓雾和毒水笼罩，充满了危险的敌人。",
+  "theme": "剧毒沼泽/废墟/浓雾/深渊",
+  "map_size": {
+    "width": 4000,
+    "height": 3600
+  },
+  "connections": {
+    "from": [
+      "RoadOfSacrifices"
+    ],
+    "to": [
+      "CatacombsOfCarthus"
+    ]
+  },
+  "bonfires": [
+    {
+      "name": "法兰要塞",
+      "name_en": "Farron Keep",
+      "x": 100,
+      "y": 300,
+      "description": "从献祭之路下行进入法兰要塞后的第一个篝火。位于沼泽入口处的高地上。"
+    },
+    {
+      "name": "要塞外围",
+      "name_en": "Keep Perimeter",
+      "x": 300,
+      "y": 400,
+      "description": "从献祭之路进入法兰要塞后的第一个篝火。位于沼泽边缘的高地上，可俯瞰远处的废墟和火炬。"
+    },
+    {
+      "name": "要塞遗迹",
+      "name_en": "Keep Ruins",
+      "x": 2000,
+      "y": 1800,
+      "description": "位于沼泽中央的废墟建筑内，是此区域的核心中转点。附近有通往三座火炬的岔路。"
+    },
+    {
+      "name": "法兰的老狼",
+      "name_en": "Old Wolf of Farron",
+      "x": 1200,
+      "y": 2400,
+      "description": "位于沼泽南部一座高塔废墟的顶端。老狼趴卧在石台上，是法兰守护者誓约的领袖。需要通过梯子攀爬到达。"
+    },
+    {
+      "name": "深渊监视者",
+      "name_en": "Abyss Watchers",
+      "x": 3200,
+      "y": 2800,
+      "description": "击败深渊监视者后出现的篝火。位于 Boss 战场地之后的大厅内。"
+    }
+  ],
+  "map_layout": {
+    "sections": [
+      {
+        "name": "要塞入口",
+        "description": "从献祭之路的石阶下行进入法兰要塞。入口处有一段残破的石墙，两侧是枯死的树木。前方是一片开阔的毒沼泽，浓雾弥漫。右侧有小路通往要塞周边篝火。",
+        "x": 0,
+        "y": 0,
+        "w": 600,
+        "h": 600,
+        "terrain_features": [
+          "石阶",
+          "残破石墙",
+          "枯树",
+          "浓雾"
+        ]
+      },
+      {
+        "name": "外围沼泽",
+        "description": "篝火周围的高地逐渐消失，前方是蔓延的毒沼。浅水区中散布着石块和倒塌的柱子，可以作为安全落脚点。沼泽中潜伏着腐败蛞蝓。远处可以看到第一座火炬的位置。",
+        "x": 200,
+        "y": 600,
+        "w": 800,
+        "h": 800,
+        "terrain_features": [
+          "浅毒沼",
+          "散布石块",
+          "倒塌柱子",
+          "浓雾"
+        ]
+      },
+      {
+        "name": "左侧火炬区",
+        "description": "位于沼泽西北方的一片废墟高台上。火炬矗立在石台中央，周围有几只羊头怪守护。附近的建筑物残骸中有可收集物品。通往火炬的路上有深水毒沼，移动速度会大幅降低。",
+        "x": 600,
+        "y": 400,
+        "w": 500,
+        "h": 500,
+        "terrain_features": [
+          "废墟高台",
+          "火炬台座",
+          "深水毒沼",
+          "建筑残骸"
+        ]
+      },
+      {
+        "name": "中央火炬区",
+        "description": "位于沼泽中央偏北的位置。火炬周围是一圈断壁残垣，地面相对干燥。羊头怪在此处数量较多，有近战和远程两种类型。从要塞遗迹篝火向西北方向可达。",
+        "x": 1600,
+        "y": 800,
+        "w": 500,
+        "h": 500,
+        "terrain_features": [
+          "火炬台座",
+          "断壁残垣",
+          "干燥地面",
+          "羊头怪聚集"
+        ]
+      },
+      {
+        "name": "右侧火炬区",
+        "description": "位于沼泽东北方的一片低洼地带。火炬在一片石质平台上，周围有数只羊头怪施法者从远处发射火球。地面有大量的毒水坑。",
+        "x": 2400,
+        "y": 600,
+        "w": 500,
+        "h": 500,
+        "terrain_features": [
+          "石质平台",
+          "火炬台座",
+          "毒水坑",
+          "远程敌人"
+        ]
+      },
+      {
+        "name": "要塞遗迹",
+        "description": "沼泽中央的一座较大的废墟建筑。内部有篝火和一定的安全区域。建筑内有楼梯通往上层，上层有物品可收集。这里是通往各火炬和后续区域的核心中转点。附近有一具遗体上有原素碎片。",
+        "x": 1800,
+        "y": 1600,
+        "w": 500,
+        "h": 400,
+        "terrain_features": [
+          "废墟建筑",
+          "室内篝火",
+          "楼梯",
+          "上层平台"
+        ]
+      },
+      {
+        "name": "老狼之塔",
+        "description": "沼泽南部的一座高塔废墟。需要攀爬梯子到达顶部。老狼法兰趴卧在石台上，无法说话但可以互动。塔顶有一个誓约祭坛，可以献上狼血剑草。从塔上可以俯瞰整个法兰要塞。",
+        "x": 1000,
+        "y": 2200,
+        "w": 400,
+        "h": 500,
+        "terrain_features": [
+          "高塔废墟",
+          "攀爬梯子",
+          "誓约祭坛",
+          "俯瞰平台"
+        ]
+      },
+      {
+        "name": "诅咒洞穴",
+        "description": "位于沼泽西部边缘的一个阴暗洞穴。洞内栖息着蜥蜴，会释放诅咒吐息（石化）。洞穴深处有宝箱，内有重要道具。地面湿滑，光线昏暗。",
+        "x": 400,
+        "y": 1600,
+        "w": 400,
+        "h": 400,
+        "terrain_features": [
+          "阴暗洞穴",
+          "湿滑地面",
+          "蜥蜴巢穴",
+          "隐藏宝箱"
+        ]
+      },
+      {
+        "name": "深渊骑士巡游区",
+        "description": "点燃所有三座火炬后，正门开启前方的区域会开始出现深渊骑士。这些强大的敌人身着暗色铠甲，使用暗属性攻击。他们在沼泽中巡逻，是法兰要塞中最具威胁的普通敌人。",
+        "x": 2200,
+        "y": 2000,
+        "w": 600,
+        "h": 600,
+        "terrain_features": [
+          "沼泽通道",
+          "深渊骑士巡逻",
+          "残破石桥",
+          "浓雾加重"
+        ]
+      },
+      {
+        "name": "正门通道",
+        "description": "三座火炬点燃后开启的巨大石门。门后是一条通往深渊监视者 Boss 战场地的长廊。两侧排列着深渊监视者的铠甲和武器。地面刻有狼的纹章。",
+        "x": 2800,
+        "y": 2400,
+        "w": 300,
+        "h": 400,
+        "terrain_features": [
+          "巨大石门",
+          "长廊",
+          "狼纹章",
+          "铠甲陈列"
+        ]
+      },
+      {
+        "name": "深渊监视者大厅",
+        "description": "Boss 战场地。一座宏伟的石质大厅，中央有巨大的石质王座。大厅空间宽阔，适合多人战斗。地面散布着武器和铠甲碎片，暗示着监视者之间无休止的战斗。",
+        "x": 3000,
+        "y": 2600,
+        "w": 800,
+        "h": 800,
+        "terrain_features": [
+          "宏伟大厅",
+          "石质王座",
+          "武器碎片",
+          "铠甲残骸"
+        ]
+      },
+      {
+        "name": "战后通道",
+        "description": "击败深渊监视者后的通道。通往卡萨斯地下墓地的入口。地面上有深渊侵蚀的痕迹，空气中弥漫着不祥的气息。",
+        "x": 3700,
+        "y": 2800,
+        "w": 300,
+        "h": 400,
+        "terrain_features": [
+          "深渊侵蚀痕迹",
+          "下行阶梯",
+          "不祥气息"
+        ]
+      }
+    ]
+  },
+  "enemies": [
+    {
+      "kind": "Ghru",
+      "name": "羊头怪（近战）",
+      "name_en": "Ghru (Melee)",
+      "x": 800,
+      "y": 700,
+      "patrol": 40,
+      "count": 3,
+      "notes": "沼泽外围的近战型羊头怪，使用木棒攻击，动作缓慢但攻击范围大"
+    },
+    {
+      "kind": "Ghru",
+      "name": "羊头怪（火焰）",
+      "name_en": "Ghru (Flame)",
+      "x": 900,
+      "y": 500,
+      "patrol": 30,
+      "count": 2,
+      "notes": "左侧火炬区附近的火焰型羊头怪，会喷射火焰，呈锥形范围"
+    },
+    {
+      "kind": "GhruConjurer",
+      "name": "羊头怪施法者",
+      "name_en": "Ghru Conjurer",
+      "x": 2500,
+      "y": 700,
+      "patrol": 0,
+      "count": 3,
+      "notes": "右侧火炬区的远程施法者，发射火球和毒雾法术，站在高台上"
+    },
+    {
+      "kind": "GhruConjurer",
+      "name": "羊头怪施法者",
+      "name_en": "Ghru Conjurer",
+      "x": 1800,
+      "y": 900,
+      "patrol": 0,
+      "count": 2,
+      "notes": "中央火炬附近的施法者，配合近战羊头怪一起战斗"
+    },
+    {
+      "kind": "Ghru",
+      "name": "羊头怪（近战）",
+      "name_en": "Ghru (Melee)",
+      "x": 1700,
+      "y": 1000,
+      "patrol": 35,
+      "count": 4,
+      "notes": "中央火炬区的大量近战羊头怪，成群出现"
+    },
+    {
+      "kind": "RottenSlug",
+      "name": "腐败蛞蝓",
+      "name_en": "Rotted Slug",
+      "x": 500,
+      "y": 900,
+      "patrol": 0,
+      "count": 5,
+      "notes": "潜伏在沼泽浅水区的巨型蛞蝓，攻击时会吐出腐蚀性液体"
+    },
+    {
+      "kind": "RottenSlug",
+      "name": "腐败蛞蝓",
+      "name_en": "Rotted Slug",
+      "x": 1400,
+      "y": 1200,
+      "patrol": 0,
+      "count": 4,
+      "notes": "散布在通往要塞遗迹路上的蛞蝓群"
+    },
+    {
+      "kind": "Basilisk",
+      "name": "蜥蜴",
+      "name_en": "Basilisk",
+      "x": 550,
+      "y": 1700,
+      "patrol": 25,
+      "count": 3,
+      "notes": "诅咒洞穴内的蜥蜴，释放石化诅咒吐息，大范围扇形"
+    },
+    {
+      "kind": "Darkwraith",
+      "name": "深渊骑士",
+      "name_en": "Darkwraith",
+      "x": 2300,
+      "y": 2100,
+      "patrol": 50,
+      "count": 2,
+      "notes": "点燃火炬后出现在沼泽中的深渊骑士。高攻击力，使用暗属性抓取和斩击"
+    },
+    {
+      "kind": "Darkwraith",
+      "name": "深渊骑士",
+      "name_en": "Darkwraith",
+      "x": 2500,
+      "y": 2300,
+      "patrol": 45,
+      "count": 2,
+      "notes": "正门通道附近的深渊骑士，与羊头怪会互相战斗"
+    },
+    {
+      "kind": "Ghru",
+      "name": "羊头怪（近战）",
+      "name_en": "Ghru (Melee)",
+      "x": 2000,
+      "y": 2000,
+      "patrol": 30,
+      "count": 3,
+      "notes": "要塞遗迹周围的残余羊头怪"
+    },
+    {
+      "kind": "Ghru",
+      "name": "羊头怪（火焰）",
+      "name_en": "Ghru (Flame)",
+      "x": 2100,
+      "y": 2200,
+      "patrol": 25,
+      "count": 2,
+      "notes": "要塞遗迹南部巡逻的火焰型羊头怪"
+    },
+    {
+      "kind": "StrayDemon",
+      "name": "离群恶魔",
+      "name_en": "Stray Demon",
+      "x": 1150,
+      "y": 1800,
+      "patrol": 0,
+      "count": 1,
+      "notes": "从老狼之塔内部通过压力板启动升降梯到达的桥上的可选小Boss。体型巨大，使用大锤般的攻击和抓取。击败后掉落离群恶魔的灵魂。附近还有大斧和余火x2可拾取。"
+    },
+    {
+      "kind": "ElderGhru",
+      "name": "古老格鲁",
+      "name_en": "Elder Ghru",
+      "x": 700,
+      "y": 1100,
+      "patrol": 30,
+      "count": 3,
+      "notes": "沼泽中的大型有角野兽，比普通羊头怪更强壮。使用头角冲撞和践踏攻击。最左边的古老格鲁掉落法里斯黑弓。"
+    },
+    {
+      "kind": "CrystalLizard",
+      "name": "结晶蜥蜴",
+      "name_en": "Crystal Lizard",
+      "x": 2200,
+      "y": 1400,
+      "patrol": 20,
+      "count": 2,
+      "notes": "龙尸附近的结晶蜥蜴，击杀后掉落大楔形石碎片"
+    },
+    {
+      "kind": "GreatCrab",
+      "name": "大螃蟹",
+      "name_en": "Great Crab",
+      "x": 1500,
+      "y": 1500,
+      "patrol": 15,
+      "count": 1,
+      "notes": "沼泽深处的巨大螃蟹，比普通螃蟹更强力。击败后掉落残存龙辉戒指。附近有黄昏皇冠。"
+    },
+    {
+      "kind": "RavenousCrystalLizard",
+      "name": "贪食结晶蜥蜴",
+      "name_en": "Ravenous Crystal Lizard",
+      "x": 2600,
+      "y": 1900,
+      "patrol": 25,
+      "count": 1,
+      "notes": "在铁栅门捷径附近出没的贪食结晶蜥蜴，比普通结晶蜥蜴更强，攻击欲望极强。"
+    },
+    {
+      "kind": "Corvian",
+      "name": "鸦人",
+      "name_en": "Corvian",
+      "x": 2700,
+      "y": 2200,
+      "patrol": 20,
+      "count": 3,
+      "notes": "要塞外围（后段）树林中的鸦人敌人，与献祭之路中遇到的类型相同"
+    },
+    {
+      "kind": "CorvianStoryteller",
+      "name": "鸦人讲述者",
+      "name_en": "Corvian Storyteller",
+      "x": 2750,
+      "y": 2150,
+      "patrol": 0,
+      "count": 1,
+      "notes": "要塞外围（后段）树林中的鸦人讲述者，携带提灯会唤醒附近的不死士兵"
+    },
+    {
+      "kind": "CrystalLizard",
+      "name": "结晶蜥蜴（老狼之塔）",
+      "name_en": "Crystal Lizard (Old Wolf Tower)",
+      "x": 1050,
+      "y": 2150,
+      "patrol": 15,
+      "count": 1,
+      "notes": "老狼之塔外侧幻影墙附近的结晶蜥蜴，击杀后掉落龙辉楔形石"
+    }
+  ],
+  "boss": {
+    "type": "AbyssWatchers",
+    "name": "深渊监视者",
+    "name_en": "Abyss Watchers",
+    "x": 3400,
+    "y": 3000,
+    "hp": 1800,
+    "arena": {
+      "x": 3050,
+      "y": 2650,
+      "w": 700,
+      "h": 700
+    },
+    "phases": [
+      {
+        "name": "无尽的战斗",
+        "hp_threshold": 1.0,
+        "speed_multiplier": 1.0,
+        "damage_multiplier": 1.0,
+        "attack_cooldown": 1.8,
+        "description": "多个深渊监视者同时出现。其中一部分被深渊侵蚀，双眼发红（红眼监视者），会攻击所有人包括其他监视者。玩家需要同时应对2-3个监视者。被深渊侵蚀的监视者死亡后会有新的补充出现。只有最初的那个（主要目标）有血条。",
+        "mechanics": [
+          "同时2-3个监视者在场上",
+          "红眼监视者攻击所有人",
+          "红眼监视者死亡后补充新的",
+          "只有主目标有血条",
+          "红眼和普通监视者会互相战斗"
+        ]
+      },
+      {
+        "name": "深渊觉醒",
+        "hp_threshold": 0.0,
+        "speed_multiplier": 1.3,
+        "damage_multiplier": 1.5,
+        "attack_cooldown": 1.2,
+        "description": "当所有监视者被击败后，剩余的监视者将同伴的灵魂吸收到其中一个体内。这个监视者获得深渊之力，剑身燃烧暗炎，攻击速度和伤害大幅提升。战斗风格变为快速连击型，配合翻滚闪避。",
+        "mechanics": [
+          "单个Boss但更强力",
+          "剑身燃烧暗炎",
+          "攻击速度大幅提升",
+          "频繁使用翻滚闪避",
+          "连击结束后有短暂破绽"
+        ]
+      }
+    ],
+    "attacks": [
+      {
+        "name": "连续斩击",
+        "type": "ComboSlash",
+        "damage": 35,
+        "range": "近",
+        "parryable": true,
+        "description": "快速的三连斩，从右向左横扫后接上挑。第二阶段速度更快。"
+      },
+      {
+        "name": "突刺攻击",
+        "type": "LungingThrust",
+        "damage": 45,
+        "range": "中",
+        "parryable": true,
+        "description": "向前突进并用剑直刺。距离较远，突然性强。"
+      },
+      {
+        "name": "上挑斩",
+        "type": "UpwardSlash",
+        "damage": 40,
+        "range": "近",
+        "parryable": true,
+        "description": "从下方向上挑起的斩击，有击飞效果。"
+      },
+      {
+        "name": "翻滚斩击",
+        "type": "RollAttack",
+        "damage": 30,
+        "range": "近",
+        "parryable": false,
+        "description": "向后翻滚拉开距离后立即向前翻滚并横斩。第二阶段频繁使用。"
+      },
+      {
+        "name": "暗炎突刺",
+        "type": "AbyssLunge",
+        "damage": 55,
+        "range": "中远",
+        "parryable": true,
+        "description": "第二阶段专属。蓄力后向前大幅突刺，剑尖带有暗炎。伤害极高。"
+      },
+      {
+        "name": "暗炎连斩",
+        "type": "AbyssCombo",
+        "damage": 40,
+        "range": "近",
+        "parryable": false,
+        "description": "第二阶段专属。五连高速斩击，最后一击带有暗炎爆炸。全程几乎无法打断。"
+      },
+      {
+        "name": "跳跃劈斩",
+        "type": "JumpSlam",
+        "damage": 50,
+        "range": "中",
+        "parryable": false,
+        "description": "跳起后从空中向下劈砍，有冲击波。第二阶段在连击末尾可能接此招。"
+      }
+    ],
+    "story": "深渊监视者是不死军团，立誓追随亚尔特留斯的遗志对抗深渊。他们的灵魂互相链接，但最终被他们所对抗的深渊所侵蚀。在失去理智后，监视者们在无尽的战斗中互相厮杀，直到再也无法分辨敌我。玩家点燃三座火炬后，进入他们的大厅，目睹这场悲壮的内战。"
+  },
+  "npcs": [
+    {
+      "name": "法兰的老狼",
+      "name_en": "Old Wolf of Farron",
+      "kind": "Covenant",
+      "x": 1200,
+      "y": 2500,
+      "color": "#8899aa",
+      "dialogue": [
+        "（老狼沉默地注视着你，眼中映着远方的火光。）",
+        "（它的存在本身就是一种回答。不需要语言。）",
+        "（你可以感受到来自深渊监视者的遗志……守护者，永远守护。）"
+      ],
+      "quest": "法兰守护者（Watchdogs of Farron）誓约领袖。献上狼血剑草可以提升誓约等级。老狼无法说话，但通过它旁边的雕像可以献上物品。誓约效果：在法兰要塞自动召唤入侵其他世界的玩家。"
+    },
+    {
+      "name": "黄指的海泽尔",
+      "name_en": "Yellowfinger Heysel",
+      "kind": "Invader",
+      "x": 1000,
+      "y": 1400,
+      "color": "#ccaa33",
+      "dialogue": [
+        "（入侵者的笑声从浓雾中传来）",
+        "呵呵呵……又是一个愚蠢的余灰吗？",
+        "这片沼泽是我罗萨利亚的手指们的猎场！",
+        "你的灵魂……将成为母大人的养分！"
+      ],
+      "quest": "在沼泽中入侵玩家的NPC。击败后掉落黄指的海泽尔的手指。若玩家之前已在幽邃教堂与罗萨利亚誓约，则此入侵不会触发。"
+    },
+    {
+      "name": "黑手的哥达",
+      "name_en": "Black Hand Gotthard",
+      "kind": "Summon",
+      "x": 2900,
+      "y": 2550,
+      "color": "#778899",
+      "dialogue": [],
+      "quest": "深渊监视者Boss战前可召唤的白灵。他的召唤印记出现在正门通道附近。若玩家之前未在冷冽谷与他对话，则此召唤不可用。"
+    },
+    {
+      "name": "隆德尔的苍白影子",
+      "name_en": "Londor Pale Shade",
+      "kind": "Summon",
+      "x": 350,
+      "y": 450,
+      "color": "#445566",
+      "dialogue": [],
+      "quest": "在要塞外围篝火附近可召唤的白灵。需要玩家与隆德尔势力（尤莉亚）保持良好关系才会出现。"
+    },
+    {
+      "name": "霍克伍德",
+      "name_en": "Hawkwood",
+      "kind": "Event",
+      "x": 3400,
+      "y": 3050,
+      "color": "#8B7355",
+      "dialogue": [],
+      "quest": "霍克伍德会在深渊监视者被击败后出现于此区域。他会前往法兰要塞尝试成为深渊监视者的一员，与玩家分享关于深渊监视者遗志的见解。此事件在击败Boss后触发。"
+    },
+    {
+      "name": "太阳王女的希丽丝",
+      "name_en": "Sirris of the Sunless Realms",
+      "kind": "Summon",
+      "x": 2950,
+      "y": 2580,
+      "color": "#99aabb",
+      "dialogue": [],
+      "quest": "深渊监视者Boss战前台阶上可召唤的白灵。需要推进希丽丝的誓约任务线到一定程度才会出现。"
+    }
+  ],
+  "chests": [
+    {
+      "x": 580,
+      "y": 1750,
+      "loot": {
+        "kind": "ArmorDrop",
+        "name": "古旧套装",
+        "name_en": "Antiquated Set"
+      },
+      "is_mimic": false,
+      "notes": "诅咒洞穴（蜥蜴洞穴）深处的宝箱，内有完整的古旧套装"
+    },
+    {
+      "x": 2100,
+      "y": 1850,
+      "loot": {
+        "kind": "UpgradeMaterial",
+        "name": "大楔形石碎片",
+        "name_en": "Large Titanite Shard"
+      },
+      "is_mimic": false,
+      "notes": "龙尸附近结晶蜥蜴掉落物的对应拾取标记（大楔形石碎片）"
+    },
+    {
+      "x": 1600,
+      "y": 1100,
+      "loot": {
+        "kind": "ShieldDrop",
+        "name": "石圆盾",
+        "name_en": "Stone Parma"
+      },
+      "is_mimic": false,
+      "notes": "中央火炬区旁边的遗体上的小型盾牌"
+    },
+    {
+      "x": 950,
+      "y": 650,
+      "loot": {
+        "kind": "WeaponDrop",
+        "name": "大剑",
+        "name_en": "Greatsword"
+      },
+      "is_mimic": false,
+      "notes": "沼泽中简易石桥上的遗体，大剑类武器"
+    },
+    {
+      "x": 1150,
+      "y": 550,
+      "loot": {
+        "kind": "WeaponDrop",
+        "name": "大斧",
+        "name_en": "Greataxe"
+      },
+      "is_mimic": false,
+      "notes": "离群恶魔所在区域附近的遗体，大斧类武器"
+    },
+    {
+      "x": 1350,
+      "y": 1350,
+      "loot": {
+        "kind": "WeaponDrop",
+        "name": "阳光护符",
+        "name_en": "Sunlight Talisman"
+      },
+      "is_mimic": false,
+      "notes": "原素汤附近隆起土丘上的遗体，奇迹触媒"
+    },
+    {
+      "x": 2300,
+      "y": 1500,
+      "loot": {
+        "kind": "ShieldDrop",
+        "name": "龙纹盾",
+        "name_en": "Dragon Crest Shield"
+      },
+      "is_mimic": false,
+      "notes": "大门后龙尸附近的遗体，中等性能的龙纹盾"
+    }
+  ],
+  "items": [
+    {
+      "kind": "EstusShard",
+      "x": 2050,
+      "y": 1750,
+      "notes": "倒塌的石桥附近、腐败蛞蝓旁的遗体上的原素碎片"
+    },
+    {
+      "kind": "DreamchaserAshes",
+      "name": "逐梦者遗灰",
+      "name_en": "Dreamchaser's Ashes",
+      "x": 700,
+      "y": 1000,
+      "notes": "沼泽中西侧一具遗体上的骨灰，交给传火祭祀场的侍女可解锁新商品"
+    },
+    {
+      "kind": "WolfBloodSwordgrass",
+      "name": "狼血剑草",
+      "name_en": "Wolf Blood Swordgrass",
+      "x": 500,
+      "y": 1300,
+      "count": 1,
+      "notes": "沼泽中一具遗体上的誓约道具，可献给老狼"
+    },
+    {
+      "kind": "SoulOrb",
+      "value": 500,
+      "x": 450,
+      "y": 500,
+      "notes": "入口附近高台上的遗体"
+    },
+    {
+      "kind": "SoulOrb",
+      "value": 800,
+      "x": 1900,
+      "y": 1900,
+      "notes": "要塞遗迹内的遗体"
+    },
+    {
+      "kind": "PurpleMoss",
+      "name": "紫苔藓球",
+      "name_en": "Purple Moss Clump",
+      "x": 1200,
+      "y": 1000,
+      "count": 3,
+      "notes": "通往老狼之塔路上的遗体，解毒用"
+    },
+    {
+      "kind": "PurpleMoss",
+      "name": "紫苔藓球",
+      "name_en": "Purple Moss Clump",
+      "x": 800,
+      "y": 1200,
+      "count": 2,
+      "notes": "沼泽中的遗体"
+    },
+    {
+      "kind": "HomewardBone",
+      "x": 350,
+      "y": 500,
+      "count": 2,
+      "notes": "要塞周边篝火旁的遗体"
+    },
+    {
+      "kind": "TitaniteShard",
+      "name": "楔形石碎片",
+      "name_en": "Titanite Shard",
+      "x": 2600,
+      "y": 800,
+      "count": 2,
+      "notes": "右侧火炬区附近的遗体"
+    },
+    {
+      "kind": "WolfKnightGreatsword",
+      "name": "狼骑士大剑",
+      "name_en": "Wolf Knight's Greatsword",
+      "x": 3300,
+      "y": 2850,
+      "notes": "击败深渊监视者后，在Boss战后篝火旁的遗体上获得。亚尔特留斯的传说武器，可使用狼骑士剑技。"
+    },
+    {
+      "kind": "AbyssWatchersSoul",
+      "name": "深渊监视者的灵魂",
+      "name_en": "Soul of the Abyss Watchers",
+      "x": 3400,
+      "y": 3000,
+      "notes": "击败深渊监视者后获得Boss灵魂。可转化为狼骑士大剑或法兰大剑。"
+    },
+    {
+      "kind": "WeaponDrop",
+      "name": "法里斯黑弓",
+      "name_en": "Black Bow of Pharis",
+      "x": 600,
+      "y": 1200,
+      "notes": "由最左侧的古老格鲁掉落。射程最长的弓，需要高敏捷。"
+    },
+    {
+      "kind": "ArmorDrop",
+      "name": "黑暗套装",
+      "name_en": "Dark Set",
+      "x": 1300,
+      "y": 1450,
+      "notes": "沼泽深处的遗体上可拾取的完整套装，暗属性抗性较高"
+    },
+    {
+      "kind": "ArmorDrop",
+      "name": "破旧面具",
+      "name_en": "Ragged Mask",
+      "x": 550,
+      "y": 1050,
+      "notes": "左侧小路蛞蝓群附近的遗体上的头部防具"
+    },
+    {
+      "kind": "ArmorDrop",
+      "name": "无名骑士套装",
+      "name_en": "Nameless Knight Set",
+      "x": 1900,
+      "y": 1650,
+      "notes": "卡在废墟建筑与岩石之间的遗体上的完整套装"
+    },
+    {
+      "kind": "ArmorDrop",
+      "name": "黄昏皇冠",
+      "name_en": "Crown of Dusk",
+      "x": 1550,
+      "y": 1550,
+      "notes": "大螃蟹附近的遗体上的头部防具，提升魔法威力的同时降低魔抗"
+    },
+    {
+      "kind": "RingDrop",
+      "name": "残存龙辉戒指",
+      "name_en": "Lingering Dragoncrest Ring",
+      "x": 1500,
+      "y": 1500,
+      "notes": "由大螃蟹掉落。延长法术持续时间的戒指。"
+    },
+    {
+      "kind": "RingDrop",
+      "name": "狼戒指+1",
+      "name_en": "Wolf Ring +1",
+      "x": 1100,
+      "y": 800,
+      "notes": "二周目（NG+）才能拾取的戒指，提升强韧度。位于沼泽中某个遗体上。"
+    },
+    {
+      "kind": "SpellDrop",
+      "name": "铁之身躯",
+      "name_en": "Iron Flesh",
+      "x": 2400,
+      "y": 1200,
+      "notes": "沼泽右侧小路遗体上的奇术。大幅提升强韧度和物理防御，但无法移动。"
+    },
+    {
+      "kind": "SpellDrop",
+      "name": "雷枪",
+      "name_en": "Lightning Spear",
+      "x": 2250,
+      "y": 1450,
+      "notes": "龙尸附近遗体上的奇迹。投掷一柄雷枪，造成雷属性伤害。"
+    },
+    {
+      "kind": "SpellDrop",
+      "name": "强力魔法武器",
+      "name_en": "Great Magic Weapon",
+      "x": 2650,
+      "y": 1950,
+      "notes": "铁栅门捷径附近遗体上的魔术。比魔法武器更强力的武器附魔术。"
+    },
+    {
+      "kind": "SpellDrop",
+      "name": "赎罪",
+      "name_en": "Atonement",
+      "x": 300,
+      "y": 500,
+      "notes": "要塞外围篝火下方沼泽中遗体上的奇迹。吸引周围敌人注意力的法术。"
+    },
+    {
+      "kind": "KeyItem",
+      "name": "贤者余烬",
+      "name_en": "Sage's Coal",
+      "x": 600,
+      "y": 750,
+      "notes": "沼泽左侧小路，第一个深渊骑士附近的石塔内的余烬。交给铁匠安德烈可解锁结晶变质和厚重变质。"
+    },
+    {
+      "kind": "KeyItem",
+      "name": "黄金卷轴",
+      "name_en": "Golden Scroll",
+      "x": 2400,
+      "y": 1700,
+      "notes": "沼泽右侧沿墙壁的洞穴中的卷轴。交给欧贝克可解锁黑暗术技。"
+    },
+    {
+      "kind": "KeyItem",
+      "name": "贤者卷轴",
+      "name_en": "Sage's Scroll",
+      "x": 1200,
+      "y": 1300,
+      "notes": "大树下死去蘑菇旁的卷轴。交给欧贝克可解锁新的魔术。"
+    },
+    {
+      "kind": "BossSoul",
+      "name": "离群恶魔的灵魂",
+      "name_en": "Soul of the Stray Demon",
+      "x": 1150,
+      "y": 1800,
+      "notes": "击败桥上的离群恶魔后获得的Boss灵魂。可转化为咒术「混沌之火」或其他道具。"
+    },
+    {
+      "kind": "UpgradeMaterial",
+      "name": "不死骨片",
+      "name_en": "Undead Bone Shard",
+      "x": 600,
+      "y": 950,
+      "notes": "蛞蝓群包围的小岛上的遗体。交给铁匠可提升原素瓶恢复量。"
+    },
+    {
+      "kind": "UpgradeMaterial",
+      "name": "重金属变质石",
+      "name_en": "Heavy Gem",
+      "x": 2300,
+      "y": 1350,
+      "notes": "龙尸附近斜坡上第三只结晶蜥蜴的掉落物。用于武器厚重变质，提升力量补正。"
+    },
+    {
+      "kind": "UpgradeMaterial",
+      "name": "毒变质石",
+      "name_en": "Poison Gem",
+      "x": 750,
+      "y": 1150,
+      "notes": "被三只古老格鲁包围的遗体上的变质石。用于武器毒变质。"
+    },
+    {
+      "kind": "UpgradeMaterial",
+      "name": "空洞变质石",
+      "name_en": "Hollow Gem",
+      "x": 280,
+      "y": 430,
+      "notes": "要塞外围篝火附近遗体上的变质石。用于武器空洞变质，运越高伤害越高。"
+    },
+    {
+      "kind": "ArmorDrop",
+      "name": "法里斯帽子",
+      "name_en": "Pharis's Hat",
+      "x": 750,
+      "y": 1080,
+      "notes": "由三只古老格鲁中间（最远处）那只掉落。法里斯系列的头部防具。"
+    },
+    {
+      "kind": "UpgradeMaterial",
+      "name": "龙辉楔形石",
+      "name_en": "Twinkling Titanite",
+      "x": 1050,
+      "y": 2150,
+      "count": 1,
+      "notes": "老狼之塔外侧结晶蜥蜴的掉落物。用于特殊武器的强化。"
+    },
+    {
+      "kind": "UpgradeMaterial",
+      "name": "大楔形石碎片",
+      "name_en": "Large Titanite Shard",
+      "x": 2250,
+      "y": 1400,
+      "count": 2,
+      "notes": "龙尸附近两只结晶蜥蜴的掉落物。用于武器+4以上的强化。"
+    },
+    {
+      "kind": "RingDrop",
+      "name": "魔法石板戒指+1",
+      "name_en": "Magic Stoneplate Ring +1",
+      "x": 2100,
+      "y": 1600,
+      "notes": "二周目（NG+）才能拾取的戒指，提升魔法属性减伤率。位于要塞遗迹附近的遗体上。"
+    },
+    {
+      "kind": "KeyItem",
+      "name": "削碎石",
+      "name_en": "Shriving Stone",
+      "x": 2700,
+      "y": 2100,
+      "notes": "要塞外围（后段）树林中遗体上的道具，用于移除武器变质。"
+    },
+    {
+      "kind": "Consumable",
+      "name": "余火",
+      "name_en": "Ember",
+      "x": 2700,
+      "y": 2300,
+      "count": 1,
+      "notes": "要塞外围（后段）树林中遗体上的余火"
+    }
+  ],
+  "fog_gates": [
+    {
+      "x": 0,
+      "y": 200,
+      "w": 40,
+      "h": 300,
+      "dest_area": "RoadOfSacrifices",
+      "dest_x": 3000,
+      "dest_y": 600,
+      "notes": "返回献祭之路"
+    },
+    {
+      "x": 2850,
+      "y": 2600,
+      "w": 300,
+      "h": 40,
+      "dest_area": null,
+      "dest_x": 0,
+      "dest_y": 0,
+      "requires": "three_torches_lit",
+      "notes": "深渊监视者Boss战雾门"
+    },
+    {
+      "x": 3800,
+      "y": 3000,
+      "w": 40,
+      "h": 200,
+      "dest_area": "CatacombsOfCarthus",
+      "dest_x": 200,
+      "dest_y": 400,
+      "requires": "boss_defeated",
+      "notes": "通往卡萨斯地下墓地。需要击败深渊监视者。"
+    },
+    {
+      "x": 300,
+      "y": 500,
+      "w": 40,
+      "h": 200,
+      "dest_area": "RoadOfSacrifices",
+      "dest_x": 3100,
+      "dest_y": 500,
+      "requires": "shortcut_door",
+      "notes": "要塞外围篝火附近的铁栅门捷径，通往献祭之路。需要从要塞外围一侧打开。"
+    }
+  ],
+  "lights": [
+    {
+      "x": 300,
+      "y": 400,
+      "radius": 200,
+      "r": 0.8,
+      "g": 0.7,
+      "b": 0.4,
+      "intensity": 0.6,
+      "notes": "要塞周边篝火暖光"
+    },
+    {
+      "x": 850,
+      "y": 600,
+      "radius": 150,
+      "r": 1.0,
+      "g": 0.6,
+      "b": 0.2,
+      "intensity": 0.7,
+      "notes": "左侧火炬火焰"
+    },
+    {
+      "x": 1850,
+      "y": 1000,
+      "radius": 150,
+      "r": 1.0,
+      "g": 0.6,
+      "b": 0.2,
+      "intensity": 0.7,
+      "notes": "中央火炬火焰"
+    },
+    {
+      "x": 2650,
+      "y": 800,
+      "radius": 150,
+      "r": 1.0,
+      "g": 0.6,
+      "b": 0.2,
+      "intensity": 0.7,
+      "notes": "右侧火炬火焰"
+    },
+    {
+      "x": 2000,
+      "y": 1800,
+      "radius": 200,
+      "r": 0.8,
+      "g": 0.7,
+      "b": 0.4,
+      "intensity": 0.6,
+      "notes": "要塞遗迹篝火暖光"
+    },
+    {
+      "x": 1200,
+      "y": 2500,
+      "radius": 180,
+      "r": 0.6,
+      "g": 0.7,
+      "b": 0.8,
+      "intensity": 0.5,
+      "notes": "老狼之塔顶冷色柔光"
+    },
+    {
+      "x": 3000,
+      "y": 2800,
+      "radius": 250,
+      "r": 0.5,
+      "g": 0.5,
+      "b": 0.6,
+      "intensity": 0.4,
+      "notes": "深渊监视者大厅冷色环境光"
+    },
+    {
+      "x": 3400,
+      "y": 3000,
+      "radius": 120,
+      "r": 0.3,
+      "g": 0.4,
+      "b": 0.7,
+      "intensity": 0.3,
+      "notes": "Boss战后篝火（暗蓝调）"
+    },
+    {
+      "x": 500,
+      "y": 1650,
+      "radius": 100,
+      "r": 0.4,
+      "g": 0.4,
+      "b": 0.3,
+      "intensity": 0.3,
+      "notes": "诅咒洞穴昏暗光源"
+    }
+  ],
+  "story_notes": [
+    "法兰要塞是亚尔特留斯遗产的所在地。深渊监视者们继承了他的遗志，立誓对抗深渊。他们的灵魂互相链接，共同分担这份使命。",
+    "三座火炬代表着深渊监视者的三个核心信条：警惕、牺牲、兄弟情谊。点燃三座火炬是进入监视者大厅的唯一方式。",
+    "在原版游戏中，法兰要塞的沼泽是一个令玩家印象深刻的区域。毒水持续造成伤害，移动速度大幅降低，配合浓雾和敌人造成了极高的压迫感。",
+    "深渊监视者的Boss战是系列中最受好评的Boss战之一。第一阶段的多个监视者互相战斗的混乱场面，象征了他们被深渊侵蚀后的悲剧。",
+    "深渊骑士（Darkwraith）出现在点燃火炬后，这与深渊监视者的职责有关——他们负责消灭深渊的生物。在监视者失控后，深渊骑士开始在要塞中游荡。",
+    "老狼法兰与亚尔特留斯有深厚的联系。在原版设定中，它可能是席夫的后代或与亚尔特留斯的狼有关的灵体。",
+    "击败深渊监视者后，玩家可以将Boss灵魂转化为法兰大剑（具有独特的狼剑技）或狼骑士大剑（亚尔特留斯的武器）。",
+    "法兰守护者誓约在原版中是PVP誓约，守护者会在其他世界玩家的法兰要塞中自动被召唤为灵体，攻击入侵者或玩家本人。",
+    "黄指的海泽尔是罗萨利亚的手指誓约的成员，她在法兰要塞中入侵玩家。这与原版中法兰要塞作为PVP热点的设定一致。",
+    "逐梦者遗灰与不死队的故事有关。交还给祭祀场侍女后可以购买新的道具，暗示了这个角色曾经追寻过的梦想。",
+    "诅咒洞穴中的蜥蜴使用了石化吐息，这是系列中经典的危险机制。石化条满后即死，需要注意躲避。",
+    "整个区域的色调以暗绿、暗黄和深蓝为主，营造出深渊侵蚀的腐败氛围。浓雾效果是法兰要塞的标志性视觉特征。"
+  ]
+}

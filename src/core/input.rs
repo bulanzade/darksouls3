@@ -33,6 +33,7 @@ pub enum KeyCode {
     MouseRight = 129,
     WheelUp    = 130,
     WheelDown  = 131,
+    Tab       = 9,
 }
 
 /// High-level game actions, decoupled from physical keys.
@@ -55,6 +56,8 @@ pub struct GameActions {
     pub cycle_next: bool,
     pub cycle_left: bool,
     pub cycle_right: bool,
+    pub menu_left: bool,
+    pub menu_right: bool,
     pub block_held: bool,
     pub sprint: bool,
     pub cam_offset_x: f32,
@@ -236,6 +239,9 @@ impl InputState {
         let kb_enter = self.consume_pressed(KeyCode::Enter);
         let kb_up = self.consume_pressed(KeyCode::Up);
         let kb_down = self.consume_pressed(KeyCode::Down);
+        let kb_left = self.consume_pressed(KeyCode::Left);
+        let kb_right = self.consume_pressed(KeyCode::Right);
+        let _ = self.consume_pressed(KeyCode::Tab);
         let mouse_x = self.mouse_x;
         let mouse_y = self.mouse_y;
 
@@ -309,6 +315,8 @@ impl InputState {
             cycle_next: kb_down || gp_dd,
             cycle_left: gp_dl,
             cycle_right: gp_dr,
+            menu_left: kb_left || gp_dl,
+            menu_right: kb_right || gp_dr,
             block_held: (mr && !shift && has_shield) || gp_block,
             sprint: gp_sprint,
             cam_offset_x: cam_ox,

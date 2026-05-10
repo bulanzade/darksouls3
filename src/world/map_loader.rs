@@ -19,6 +19,37 @@ pub enum EnemySpawnKind {
     Assassin,
     DarkMage,
     CrystalLizard,
+    // DS3-specific
+    SilverKnight,
+    BlackKnight,
+    DeepAccursed,
+    Evangelist,
+    Thrall,
+    LothricKnight,
+    WingedKnight,
+    Ghru,
+    Darkwraith,
+    Skeleton,
+    Jailer,
+    SerpentMan,
+    Deacon,
+    FireDemon,
+    StarvedHound,
+    PusOfMan,
+    CathedralKnight,
+    ManGrub,
+    Gargoyle,
+    Dog,
+    Basilisk,
+    DemonStatue,
+    InfestedCorpse,
+    Wretch,
+    PeasantHollow,
+    Mimic,
+    GiantSlave,
+    HollowAssassin,
+    CathedralGraveWarden,
+    Rat,
 }
 
 #[derive(Debug)]
@@ -37,6 +68,11 @@ pub enum ItemSpawnKind {
     WeaponDrop(WeaponType),
     ArmorDrop(ArmorSlot, String),
     RingDrop(String),
+    TitaniteShard,
+    Firebomb,
+    Ember,
+    UndeadBoneShard,
+    Consumable(String),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -63,6 +99,7 @@ pub struct NpcSpawn {
     pub color: [f32; 4],
     pub dialogue: Vec<String>,
     pub kind: NpcSpawnKind,
+    pub appear_condition: String,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -176,6 +213,36 @@ impl ParsedLevel {
                         "Assassin" => EnemySpawnKind::Assassin,
                         "DarkMage" => EnemySpawnKind::DarkMage,
                         "CrystalLizard" => EnemySpawnKind::CrystalLizard,
+                        "SilverKnight" => EnemySpawnKind::SilverKnight,
+                        "BlackKnight" => EnemySpawnKind::BlackKnight,
+                        "DeepAccursed" => EnemySpawnKind::DeepAccursed,
+                        "Evangelist" => EnemySpawnKind::Evangelist,
+                        "Thrall" => EnemySpawnKind::Thrall,
+                        "LothricKnight" => EnemySpawnKind::LothricKnight,
+                        "WingedKnight" => EnemySpawnKind::WingedKnight,
+                        "Ghru" => EnemySpawnKind::Ghru,
+                        "Darkwraith" => EnemySpawnKind::Darkwraith,
+                        "Skeleton" => EnemySpawnKind::Skeleton,
+                        "Jailer" => EnemySpawnKind::Jailer,
+                        "SerpentMan" => EnemySpawnKind::SerpentMan,
+                        "Deacon" => EnemySpawnKind::Deacon,
+                        "FireDemon" => EnemySpawnKind::FireDemon,
+                        "StarvedHound" => EnemySpawnKind::StarvedHound,
+                        "PusOfMan" => EnemySpawnKind::PusOfMan,
+                        "CathedralKnight" => EnemySpawnKind::CathedralKnight,
+                        "ManGrub" => EnemySpawnKind::ManGrub,
+                        "Gargoyle" => EnemySpawnKind::Gargoyle,
+                        "Dog" => EnemySpawnKind::Dog,
+                        "Basilisk" => EnemySpawnKind::Basilisk,
+                        "DemonStatue" => EnemySpawnKind::DemonStatue,
+                        "InfestedCorpse" => EnemySpawnKind::InfestedCorpse,
+                        "Wretch" => EnemySpawnKind::Wretch,
+                        "PeasantHollow" => EnemySpawnKind::PeasantHollow,
+                        "Mimic" => EnemySpawnKind::Mimic,
+                        "GiantSlave" => EnemySpawnKind::GiantSlave,
+                        "HollowAssassin" => EnemySpawnKind::HollowAssassin,
+                        "CathedralGraveWarden" => EnemySpawnKind::CathedralGraveWarden,
+                        "Rat" => EnemySpawnKind::Rat,
                         other => return Err(format!("Unknown enemy kind: {}", other)),
                     };
                     enemies.push(EnemySpawn { x: px, y: py, kind });
@@ -201,7 +268,8 @@ impl ParsedLevel {
                     let color = fld.color_val("color");
                     let dialogue: Vec<String> = fld.str_val("dialogue")
                         .split('|').map(|s| s.to_string()).collect();
-                    npcs.push(NpcSpawn { x: px, y: py, name, color, dialogue, kind });
+                    let appear_condition = fld.str_val("appear_condition");
+                    npcs.push(NpcSpawn { x: px, y: py, name, color, dialogue, kind, appear_condition });
                 }
                 "Light" => {
                     let radius = fld.f32_val("radius");
@@ -387,6 +455,15 @@ fn parse_item_kind_from(fld: &FieldReader, kind_field: &str, value_field: &str, 
             let name = fld.str_val(name_field);
             Ok(ItemSpawnKind::RingDrop(name))
         }
+        "TitaniteShard" => Ok(ItemSpawnKind::TitaniteShard),
+        "Firebomb" => Ok(ItemSpawnKind::Firebomb),
+        "Ember" => Ok(ItemSpawnKind::Ember),
+        "UndeadBoneShard" => Ok(ItemSpawnKind::UndeadBoneShard),
+        "Consumable" => {
+            let name = fld.str_val(name_field);
+            Ok(ItemSpawnKind::Consumable(if name.is_empty() { "Consumable".into() } else { name }))
+        }
+        // Unknown item kinds are treated as consumables with the kind as name
         other => Err(format!("Unknown item kind: {}", other)),
     }
 }

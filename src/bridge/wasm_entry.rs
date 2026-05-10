@@ -6,7 +6,7 @@ use crate::core::input::KeyCode;
 use crate::core::time::{Time, FIXED_DT};
 use crate::entity::boss::Boss;
 use crate::entity::boss::BossType;
-use crate::entity::enemy::Enemy;
+use crate::entity::enemy::{Enemy, EnemyKind};
 use crate::entity::entity_trait::{DamageInfo, Entity, EntityId, EntityState};
 use crate::entity::player::Player;
 use crate::game::{GameState, MenuState};
@@ -27,21 +27,45 @@ use wasm_bindgen::JsCast;
 #[derive(Clone, Copy, PartialEq, Debug, Eq, Hash)]
 pub(crate) enum AreaId {
     CemeteryOfAsh,
-    FirelinkShrine,
     LothricWall,
     UndeadSettlement,
+    RoadOfSacrifices,
+    FarronKeep,
     CathedralDeep,
+    CatacombsOfCarthus,
+    SmoulderingLake,
     Irithyll,
+    IrithyllDungeon,
+    ProfanedCapital,
+    AnorLondo,
+    LothricCastle,
+    GrandArchives,
+    KilnOfTheFirstFlame,
+    ConsumedKingsGarden,
+    UntendedGraves,
+    ArchdragonPeak,
 }
 
 pub(crate) fn area_name(area: AreaId) -> &'static str {
     match area {
         AreaId::CemeteryOfAsh => "灰烬墓地",
-        AreaId::FirelinkShrine => "传火祭祀场",
         AreaId::LothricWall => "洛斯里克高墙",
         AreaId::UndeadSettlement => "不死聚落",
+        AreaId::RoadOfSacrifices => "牺牲之路",
+        AreaId::FarronKeep => "法兰要塞",
         AreaId::CathedralDeep => "幽邃教堂",
+        AreaId::CatacombsOfCarthus => "卡萨斯的地下墓地",
+        AreaId::SmoulderingLake => "熏烟湖",
         AreaId::Irithyll => "冷冽谷的伊鲁席尔",
+        AreaId::IrithyllDungeon => "伊鲁席尔地下牢",
+        AreaId::ProfanedCapital => "罪业之都",
+        AreaId::AnorLondo => "亚诺尔隆德",
+        AreaId::LothricCastle => "洛斯里克城",
+        AreaId::GrandArchives => "大书库",
+        AreaId::KilnOfTheFirstFlame => "初始之火的火炉",
+        AreaId::ConsumedKingsGarden => "妖王庭园",
+        AreaId::UntendedGraves => "无主墓地",
+        AreaId::ArchdragonPeak => "古龙顶",
     }
 }
 
@@ -49,9 +73,21 @@ pub(crate) fn area_boss(area: AreaId) -> Option<BossType> {
     match area {
         AreaId::CemeteryOfAsh => Some(BossType::IudexGundyr),
         AreaId::LothricWall => Some(BossType::Vordt),
-        AreaId::UndeadSettlement => Some(BossType::DemonKnight),
-        AreaId::CathedralDeep => Some(BossType::Dragonrider),
-        AreaId::Irithyll => Some(BossType::RuinSentinel),
+        AreaId::UndeadSettlement => Some(BossType::CurseRottedGreatwood),
+        AreaId::RoadOfSacrifices => Some(BossType::CrystalSage),
+        AreaId::FarronKeep => Some(BossType::AbyssWatchers),
+        AreaId::CathedralDeep => Some(BossType::DeaconsOfTheDeep),
+        AreaId::CatacombsOfCarthus => Some(BossType::HighLordWolnir),
+        AreaId::SmoulderingLake => Some(BossType::OldDemonKing),
+        AreaId::Irithyll => Some(BossType::PontiffSulyvahn),
+        AreaId::ProfanedCapital => Some(BossType::Yhorm),
+        AreaId::AnorLondo => Some(BossType::Aldrich),
+        AreaId::LothricCastle => Some(BossType::DragonslayerArmour),
+        AreaId::GrandArchives => Some(BossType::TwinPrinces),
+        AreaId::KilnOfTheFirstFlame => Some(BossType::SoulOfCinder),
+        AreaId::ConsumedKingsGarden => Some(BossType::Oceiros),
+        AreaId::UntendedGraves => Some(BossType::ChampionGundyr),
+        AreaId::ArchdragonPeak => Some(BossType::NamelessKing),
         _ => None,
     }
 }
@@ -60,14 +96,27 @@ pub(crate) fn boss_defeat_key(boss: BossType) -> &'static str {
     match boss {
         BossType::IudexGundyr => "IudexGundyr",
         BossType::Vordt => "Vordt",
-        BossType::DemonKnight => "CurseRottedGreatwood",
-        BossType::Dragonrider => "DeaconsOfTheDeep",
-        BossType::RuinSentinel => "PontiffSulyvahn",
+        BossType::Dancer => "Dancer",
+        BossType::CurseRottedGreatwood => "CurseRottedGreatwood",
+        BossType::CrystalSage => "CrystalSage",
+        BossType::AbyssWatchers => "AbyssWatchers",
+        BossType::HighLordWolnir => "HighLordWolnir",
+        BossType::OldDemonKing => "OldDemonKing",
+        BossType::DeaconsOfTheDeep => "DeaconsOfTheDeep",
+        BossType::PontiffSulyvahn => "PontiffSulyvahn",
+        BossType::Yhorm => "Yhorm",
+        BossType::Aldrich => "Aldrich",
+        BossType::DragonslayerArmour => "DragonslayerArmour",
+        BossType::TwinPrinces => "TwinPrinces",
+        BossType::SoulOfCinder => "SoulOfCinder",
+        BossType::Oceiros => "Oceiros",
+        BossType::ChampionGundyr => "ChampionGundyr",
+        BossType::NamelessKing => "NamelessKing",
     }
 }
 
-pub(crate) fn area_has_bonfire(area: AreaId) -> bool {
-    area != AreaId::CemeteryOfAsh
+pub(crate) fn area_has_bonfire(_area: AreaId) -> bool {
+    true
 }
 
 /// Stored area data — used to persist areas when switching between them
@@ -87,6 +136,14 @@ pub(crate) struct StoredArea {
     pub(crate) bonfire_y: f32,
     pub(crate) boss_active: bool,
     pub(crate) boss_defeated: bool,
+}
+
+/// Tabs for the in-game menu (opened by pressing ESC / Start).
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub(crate) enum MenuTab {
+    Equipment,  // Equip / 装备
+    Items,      // Items / 物品
+    Stats,      // Parameters / 参数
 }
 
 #[allow(dead_code)]
@@ -205,10 +262,16 @@ pub(crate) struct Game {
     // Inventory
     pub(crate) inventory: Vec<InventoryItem>,
     pub(crate) show_inventory: bool,
+    pub(crate) menu_dirty: bool,
+    pub(crate) menu_tab: MenuTab,
+    pub(crate) menu_cursor: usize, // cursor position within current tab
     // Stored areas (for seamless transitions — Cemetery ↔ Firelink)
     pub(crate) stored_areas: std::collections::HashMap<AreaId, StoredArea>,
     // Gundyr door state (opened after defeating boss)
     pub(crate) gundyr_door_open: bool,
+    // Per-area collected item/chest positions (persisted across area transitions)
+    pub(crate) area_collected_items: std::collections::HashMap<String, Vec<(f32, f32)>>,
+    pub(crate) area_opened_chests: std::collections::HashMap<String, Vec<(f32, f32)>>,
     // Vordt defeated — demon transport pending
     pub(crate) vordt_transport_done: bool,
 }
@@ -229,6 +292,11 @@ pub(crate) enum ItemKind {
     WeaponDrop(crate::combat::weapon::WeaponType),
     ArmorDrop(ArmorSlot, String),  // (slot, armor name)
     RingDrop(String),               // ring name
+    TitaniteShard,
+    Firebomb,
+    Ember,
+    UndeadBoneShard,
+    Consumable(String),
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -455,6 +523,9 @@ pub fn wasm_main() {
         ng_plus: 0,
         inventory: vec![],
         show_inventory: false,
+        menu_dirty: true,
+        menu_tab: MenuTab::Equipment,
+        menu_cursor: 0,
         tileset_texture,
         light_renderer,
         post_processor,
@@ -564,6 +635,8 @@ pub fn wasm_main() {
         neighbor_chunk: None,
         stored_areas: std::collections::HashMap::new(),
         gundyr_door_open: false,
+        area_collected_items: std::collections::HashMap::new(),
+        area_opened_chests: std::collections::HashMap::new(),
         vordt_transport_done: false,
     };
 
@@ -667,16 +740,58 @@ pub fn js_debug_state() -> String {
                 Some(tid) => format!(" lock={}", tid),
                 None => " lock=none".into(),
             };
+            let boss_info = if let Some(ref boss) = g.boss {
+                let (bx, by) = boss.position();
+                format!(" boss=({:.0},{:.0}) hp={} active={}", bx, by, boss.hp, boss.boss_activated)
+            } else {
+                " boss=none".into()
+            };
+            let area_str = format!("{:?}", g.area);
+            let gate_info: Vec<String> = g.fog_gates.iter().map(|fg| {
+                format!("({:.0},{:.0}->{:?},{:.0},{:.0} a={})", fg.x, fg.y, fg.destination, fg.dest_x, fg.dest_y, fg.active)
+            }).collect();
             format!(
-                "state={} hp={} inv={} pos=({:.0},{:.0}) enemies=[{}] acc={:.3}{}",
-                state, g.player.hp, g.player.invuln_timer,
+                "state={} area={} hp={} inv={} pos=({:.0},{:.0}) enemies=[{}]{}{} gates=[{}]",
+                state, area_str, g.player.hp, g.player.invuln_timer,
                 g.player.transform.x, g.player.transform.y,
                 enemies.join(" "),
-                g.time.accumulator,
+                boss_info,
                 lock,
+                gate_info.join(" "),
             )
         } else {
             "GAME not initialized".into()
+        }
+    }
+}
+
+/// Teleport player to a specific area for testing.
+#[cfg(feature = "debug_exports")]
+#[wasm_bindgen]
+pub fn js_teleport_to_area(area: &str) {
+    unsafe {
+        let game_ptr = &raw mut GAME;
+        if let Some(g) = &mut *game_ptr {
+            let area_id = area_from_str(area);
+            load_area(g, area_id);
+            g.state = GameState::Playing;
+            g.time.accumulator = 0.0;
+            g.state_timer = 0.0;
+        }
+    }
+}
+
+/// Set player position for testing.
+#[cfg(feature = "debug_exports")]
+#[wasm_bindgen]
+pub fn js_set_player_pos(x: f32, y: f32) {
+    unsafe {
+        let game_ptr = &raw mut GAME;
+        if let Some(g) = &mut *game_ptr {
+            g.player.transform.x = x;
+            g.player.transform.y = y;
+            g.camera.x = x;
+            g.camera.y = y;
         }
     }
 }
@@ -763,11 +878,23 @@ pub(crate) fn rebuild_collision(game: &mut Game) {
 fn area_level_path(area: AreaId) -> &'static str {
     match area {
         AreaId::CemeteryOfAsh => "maps/ds2d/CemeteryOfAsh.ldtkl",
-        AreaId::FirelinkShrine => "maps/ds2d/FirelinkShrine.ldtkl",
         AreaId::LothricWall => "maps/ds2d/LothricWall.ldtkl",
         AreaId::UndeadSettlement => "maps/ds2d/UndeadSettlement.ldtkl",
+        AreaId::RoadOfSacrifices => "maps/ds2d/RoadOfSacrifices.ldtkl",
+        AreaId::FarronKeep => "maps/ds2d/FarronKeep.ldtkl",
         AreaId::CathedralDeep => "maps/ds2d/CathedralDeep.ldtkl",
+        AreaId::CatacombsOfCarthus => "maps/ds2d/CatacombsOfCarthus.ldtkl",
+        AreaId::SmoulderingLake => "maps/ds2d/SmoulderingLake.ldtkl",
         AreaId::Irithyll => "maps/ds2d/Irithyll.ldtkl",
+        AreaId::IrithyllDungeon => "maps/ds2d/IrithyllDungeon.ldtkl",
+        AreaId::ProfanedCapital => "maps/ds2d/ProfanedCapital.ldtkl",
+        AreaId::AnorLondo => "maps/ds2d/AnorLondo.ldtkl",
+        AreaId::LothricCastle => "maps/ds2d/LothricCastle.ldtkl",
+        AreaId::GrandArchives => "maps/ds2d/GrandArchives.ldtkl",
+        AreaId::KilnOfTheFirstFlame => "maps/ds2d/KilnOfTheFirstFlame.ldtkl",
+        AreaId::ConsumedKingsGarden => "maps/ds2d/ConsumedKingsGarden.ldtkl",
+        AreaId::UntendedGraves => "maps/ds2d/UntendedGraves.ldtkl",
+        AreaId::ArchdragonPeak => "maps/ds2d/ArchdragonPeak.ldtkl",
     }
 }
 
@@ -792,13 +919,25 @@ pub fn js_register_map(path: &str, json: &str) {
 
 pub(crate) fn area_from_str(s: &str) -> AreaId {
     match s {
-        "CemeteryOfAsh" => AreaId::CemeteryOfAsh,
-        "FirelinkShrine" | "Majula" => AreaId::FirelinkShrine,
+        "CemeteryOfAsh" | "FirelinkShrine" | "Majula" => AreaId::CemeteryOfAsh,
         "LothricWall" => AreaId::LothricWall,
         "UndeadSettlement" | "ForestOfGiants" => AreaId::UndeadSettlement,
+        "RoadOfSacrifices" => AreaId::RoadOfSacrifices,
+        "FarronKeep" => AreaId::FarronKeep,
         "CathedralDeep" => AreaId::CathedralDeep,
+        "CatacombsOfCarthus" => AreaId::CatacombsOfCarthus,
+        "SmoulderingLake" => AreaId::SmoulderingLake,
         "Irithyll" | "LostBastille" => AreaId::Irithyll,
-        _ => AreaId::FirelinkShrine,
+        "IrithyllDungeon" => AreaId::IrithyllDungeon,
+        "ProfanedCapital" => AreaId::ProfanedCapital,
+        "AnorLondo" => AreaId::AnorLondo,
+        "LothricCastle" => AreaId::LothricCastle,
+        "GrandArchives" => AreaId::GrandArchives,
+        "KilnOfTheFirstFlame" => AreaId::KilnOfTheFirstFlame,
+        "ConsumedKingsGarden" => AreaId::ConsumedKingsGarden,
+        "UntendedGraves" => AreaId::UntendedGraves,
+        "ArchdragonPeak" => AreaId::ArchdragonPeak,
+        _ => AreaId::CemeteryOfAsh,
     }
 }
 
@@ -999,9 +1138,41 @@ fn update_playing(game: &mut Game, dt: f32) {
         }
     } else if act.menu {
         game.show_inventory = !game.show_inventory;
+        if game.show_inventory {
+            game.menu_tab = MenuTab::Equipment;
+            game.menu_cursor = 0;
+        }
+        game.menu_dirty = true;
     }
-    // Skip game logic while inventory is open
+    // Handle menu navigation while inventory is open
     if game.show_inventory {
+        // Tab switching: arrow left/right or d-pad
+        if act.menu_left {
+            game.menu_tab = match game.menu_tab {
+                MenuTab::Equipment => MenuTab::Stats,
+                MenuTab::Items => MenuTab::Equipment,
+                MenuTab::Stats => MenuTab::Items,
+            };
+            game.menu_cursor = 0;
+            game.menu_dirty = true;
+        }
+        if act.menu_right {
+            game.menu_tab = match game.menu_tab {
+                MenuTab::Equipment => MenuTab::Items,
+                MenuTab::Items => MenuTab::Stats,
+                MenuTab::Stats => MenuTab::Equipment,
+            };
+            game.menu_cursor = 0;
+            game.menu_dirty = true;
+        }
+        // Cursor up/down
+        let max_cursor = match game.menu_tab {
+            MenuTab::Equipment => 7, // 8 slots (0-7)
+            MenuTab::Items => game.inventory.len().max(1) - 1,
+            MenuTab::Stats => 0,
+        };
+        if act.cycle_prev { if game.menu_cursor > 0 { game.menu_cursor -= 1; game.menu_dirty = true; } }
+        if act.cycle_next { if game.menu_cursor < max_cursor { game.menu_cursor += 1; game.menu_dirty = true; } }
         return;
     }
 
@@ -1406,6 +1577,19 @@ fn update_playing(game: &mut Game, dt: f32) {
 }
 
 pub(crate) fn load_area(game: &mut Game, area: AreaId) {
+    // Save collected state for the area we're leaving
+    let old_area_key = format!("{:?}", game.area);
+    if !game.items.is_empty() || !game.chests.is_empty() {
+        let collected: Vec<(f32, f32)> = game.items.iter().filter(|i| i.collected).map(|i| (i.x, i.y)).collect();
+        let opened: Vec<(f32, f32)> = game.chests.iter().filter(|c| c.opened || c.mimic_revealed).map(|c| (c.x, c.y)).collect();
+        if !collected.is_empty() {
+            game.area_collected_items.insert(old_area_key.clone(), collected);
+        }
+        if !opened.is_empty() {
+            game.area_opened_chests.insert(old_area_key.clone(), opened);
+        }
+    }
+
     game.area = area;
     game.state = GameState::Playing;
     game.time.accumulator = 0.0;
@@ -1446,6 +1630,11 @@ pub(crate) fn load_area(game: &mut Game, area: AreaId) {
                     ItemKind::ArmorDrop(slot, name)
                 }
                 ItemSpawnKind::RingDrop(name) => ItemKind::RingDrop(name),
+                ItemSpawnKind::TitaniteShard => ItemKind::TitaniteShard,
+                ItemSpawnKind::Firebomb => ItemKind::Firebomb,
+                ItemSpawnKind::Ember => ItemKind::Ember,
+                ItemSpawnKind::UndeadBoneShard => ItemKind::UndeadBoneShard,
+                ItemSpawnKind::Consumable(name) => ItemKind::Consumable(name),
             }
         }
 
@@ -1490,18 +1679,77 @@ pub(crate) fn load_area(game: &mut Game, area: AreaId) {
                 EnemySpawnKind::Assassin => Enemy::new_assassin(id, s.x, s.y),
                 EnemySpawnKind::DarkMage => Enemy::new_dark_mage(id, s.x, s.y),
                 EnemySpawnKind::CrystalLizard => Enemy::new_crystal_lizard(id, s.x, s.y),
+                // DS3-specific: centralized constructor
+                EnemySpawnKind::SilverKnight => Enemy::new_ds3(id, s.x, s.y, EnemyKind::SilverKnight),
+                EnemySpawnKind::BlackKnight => Enemy::new_ds3(id, s.x, s.y, EnemyKind::BlackKnight),
+                EnemySpawnKind::DeepAccursed => Enemy::new_ds3(id, s.x, s.y, EnemyKind::DeepAccursed),
+                EnemySpawnKind::Evangelist => Enemy::new_ds3(id, s.x, s.y, EnemyKind::Evangelist),
+                EnemySpawnKind::Thrall => Enemy::new_ds3(id, s.x, s.y, EnemyKind::Thrall),
+                EnemySpawnKind::LothricKnight => Enemy::new_ds3(id, s.x, s.y, EnemyKind::LothricKnight),
+                EnemySpawnKind::WingedKnight => Enemy::new_ds3(id, s.x, s.y, EnemyKind::WingedKnight),
+                EnemySpawnKind::Ghru => Enemy::new_ds3(id, s.x, s.y, EnemyKind::Ghru),
+                EnemySpawnKind::Darkwraith => Enemy::new_ds3(id, s.x, s.y, EnemyKind::Darkwraith),
+                EnemySpawnKind::Skeleton => Enemy::new_ds3(id, s.x, s.y, EnemyKind::Skeleton),
+                EnemySpawnKind::Jailer => Enemy::new_ds3(id, s.x, s.y, EnemyKind::Jailer),
+                EnemySpawnKind::SerpentMan => Enemy::new_ds3(id, s.x, s.y, EnemyKind::SerpentMan),
+                EnemySpawnKind::Deacon => Enemy::new_ds3(id, s.x, s.y, EnemyKind::Deacon),
+                EnemySpawnKind::FireDemon => Enemy::new_ds3(id, s.x, s.y, EnemyKind::FireDemon),
+                EnemySpawnKind::StarvedHound => Enemy::new_ds3(id, s.x, s.y, EnemyKind::StarvedHound),
+                EnemySpawnKind::PusOfMan => Enemy::new_ds3(id, s.x, s.y, EnemyKind::PusOfMan),
+                EnemySpawnKind::CathedralKnight => Enemy::new_ds3(id, s.x, s.y, EnemyKind::CathedralKnight),
+                EnemySpawnKind::ManGrub => Enemy::new_ds3(id, s.x, s.y, EnemyKind::ManGrub),
+                EnemySpawnKind::Gargoyle => Enemy::new_ds3(id, s.x, s.y, EnemyKind::Gargoyle),
+                EnemySpawnKind::Dog => Enemy::new_ds3(id, s.x, s.y, EnemyKind::Dog),
+                EnemySpawnKind::Basilisk => Enemy::new_ds3(id, s.x, s.y, EnemyKind::Basilisk),
+                EnemySpawnKind::DemonStatue => Enemy::new_ds3(id, s.x, s.y, EnemyKind::DemonStatue),
+                EnemySpawnKind::InfestedCorpse => Enemy::new_ds3(id, s.x, s.y, EnemyKind::InfestedCorpse),
+                EnemySpawnKind::Wretch => Enemy::new_ds3(id, s.x, s.y, EnemyKind::Wretch),
+                EnemySpawnKind::PeasantHollow => Enemy::new_ds3(id, s.x, s.y, EnemyKind::PeasantHollow),
+                EnemySpawnKind::Mimic => Enemy::new_ds3(id, s.x, s.y, EnemyKind::Mimic),
+                EnemySpawnKind::GiantSlave => Enemy::new_ds3(id, s.x, s.y, EnemyKind::GiantSlave),
+                EnemySpawnKind::HollowAssassin => Enemy::new_ds3(id, s.x, s.y, EnemyKind::HollowAssassin),
+                EnemySpawnKind::CathedralGraveWarden => Enemy::new_ds3(id, s.x, s.y, EnemyKind::CathedralGraveWarden),
+                EnemySpawnKind::Rat => Enemy::new_ds3(id, s.x, s.y, EnemyKind::Rat),
             }
         }).collect();
 
+        let new_area_key = format!("{:?}", area);
+        let collected_positions: std::collections::HashSet<(i32, i32)> = game.area_collected_items
+            .get(&new_area_key).map(|v| v.iter().map(|(x,y)| (*x as i32, *y as i32)).collect()).unwrap_or_default();
+        let opened_positions: std::collections::HashSet<(i32, i32)> = game.area_opened_chests
+            .get(&new_area_key).map(|v| v.iter().map(|(x,y)| (*x as i32, *y as i32)).collect()).unwrap_or_default();
+
         game.items = items.into_iter().map(|s| {
-            WorldItem { x: s.x, y: s.y, collected: false, kind: convert_spawn_kind(s.kind) }
+            let collected = collected_positions.contains(&(s.x as i32, s.y as i32));
+            WorldItem { x: s.x, y: s.y, collected, kind: convert_spawn_kind(s.kind) }
         }).collect();
 
         game.chests = chests.into_iter().map(|s| {
-            TreasureChest { x: s.x, y: s.y, opened: false, loot: convert_spawn_kind(s.loot), is_mimic: s.is_mimic, mimic_revealed: false }
+            let opened = opened_positions.contains(&(s.x as i32, s.y as i32));
+            TreasureChest { x: s.x, y: s.y, opened, loot: convert_spawn_kind(s.loot), is_mimic: s.is_mimic, mimic_revealed: opened }
         }).collect();
 
-        game.npcs = npcs.into_iter().map(|s| {
+        game.npcs = npcs.into_iter().filter(|s| {
+            // Check NPC appear condition against game progress
+            let cond = s.appear_condition.trim();
+            if cond.is_empty() || cond == "always" {
+                return true;
+            }
+            // Format: "boss:BossName" (requires boss defeated)
+            //         "boss:BossName1,BossName2" (requires all listed)
+            //         "area:AreaName" (requires area visited — simplified: just boss check)
+            if cond.starts_with("boss:") {
+                let bosses_str = &cond[5..];
+                for boss in bosses_str.split(',') {
+                    let b = boss.trim();
+                    if !game.bosses_defeated.iter().any(|d| d == b) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            true
+        }).map(|s| {
             let kind = match s.kind {
                 NpcSpawnKind::LevelUp => NpcKind::LevelUp,
                 NpcSpawnKind::Merchant => NpcKind::Merchant,
@@ -1523,8 +1771,6 @@ pub(crate) fn load_area(game: &mut Game, area: AreaId) {
                 } else {
                     true
                 }
-            } else if area == AreaId::CemeteryOfAsh && dest == AreaId::FirelinkShrine {
-                game.gundyr_door_open || game.bosses_defeated.iter().any(|b| b == "IudexGundyr")
             } else if area == AreaId::CathedralDeep && dest == AreaId::Irithyll {
                 !game.bosses_defeated.iter().any(|b| b == "PontiffSulyvahn")
             } else {
@@ -1543,9 +1789,22 @@ pub(crate) fn load_area(game: &mut Game, area: AreaId) {
                     let boss = match boss_type {
                         BossType::IudexGundyr => crate::entity::boss::Boss::new_iudex_gundyr(100, bx, by),
                         BossType::Vordt => crate::entity::boss::Boss::new_vordt(100, bx, by),
-                        BossType::DemonKnight => crate::entity::boss::Boss::new_test_boss(100, bx, by),
-                        BossType::Dragonrider => crate::entity::boss::Boss::new_dragonrider(100, bx, by),
-                        BossType::RuinSentinel => crate::entity::boss::Boss::new_ruin_sentinel(100, bx, by),
+                        BossType::Dancer => crate::entity::boss::Boss::new_dancer(100, bx, by),
+                        BossType::CurseRottedGreatwood => crate::entity::boss::Boss::new_curse_rotted_greatwood(100, bx, by),
+                        BossType::CrystalSage => crate::entity::boss::Boss::new_crystal_sage(100, bx, by),
+                        BossType::AbyssWatchers => crate::entity::boss::Boss::new_abyss_watchers(100, bx, by),
+                        BossType::HighLordWolnir => crate::entity::boss::Boss::new_high_lord_wolnir(100, bx, by),
+                        BossType::OldDemonKing => crate::entity::boss::Boss::new_old_demon_king(100, bx, by),
+                        BossType::DeaconsOfTheDeep => crate::entity::boss::Boss::new_deacons_of_the_deep(100, bx, by),
+                        BossType::PontiffSulyvahn => crate::entity::boss::Boss::new_pontiff_sulyvahn(100, bx, by),
+                        BossType::Yhorm => crate::entity::boss::Boss::new_yhorm(100, bx, by),
+                        BossType::Aldrich => crate::entity::boss::Boss::new_aldrich(100, bx, by),
+                        BossType::DragonslayerArmour => crate::entity::boss::Boss::new_dragonslayer_armour(100, bx, by),
+                        BossType::TwinPrinces => crate::entity::boss::Boss::new_twin_princes(100, bx, by),
+                        BossType::SoulOfCinder => crate::entity::boss::Boss::new_soul_of_cinder(100, bx, by),
+                        BossType::Oceiros => crate::entity::boss::Boss::new_oceiros(100, bx, by),
+                        BossType::ChampionGundyr => crate::entity::boss::Boss::new_champion_gundyr(100, bx, by),
+                        BossType::NamelessKing => crate::entity::boss::Boss::new_nameless_king(100, bx, by),
                     };
                     game.boss = Some(boss);
                 }

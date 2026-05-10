@@ -2,7 +2,7 @@ use crate::world::tileset::TILE_SIZE;
 use crate::world::tileset::TileId;
 
 /// Tiles per side of a chunk.
-pub const CHUNK_SIZE: usize = 120;
+pub const CHUNK_SIZE: usize = 160;
 
 /// A square region of the world made of `CHUNK_SIZE x CHUNK_SIZE` tiles.
 #[derive(Debug)]

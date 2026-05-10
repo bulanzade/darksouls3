@@ -1,0 +1,791 @@
+{
+  "id": "RoadOfSacrifices",
+  "name": "活祭品之路",
+  "name_en": "Road of Sacrifices",
+  "description": "灰暗潮湿的森林地带，巨大的古树根须遍布四周。这条道路连接不死聚落与法兰要塞，沿途可见被献祭的不死者的遗体。途中有一条分岔路通往幽邃教堂。原版中分为前后两段：前半段是密林和路半边寨，后半段是磔罪森林和结晶老者区域。",
+  "theme": "暗色森林/树根/灰绿",
+  "map_size": {
+    "width": 3200,
+    "height": 2400
+  },
+  "connections": {
+    "from": [
+      "UndeadSettlement"
+    ],
+    "to": [
+      "FarronKeep",
+      "CathedralDeep"
+    ]
+  },
+  "bonfires": [
+    {
+      "name": "活祭品之路",
+      "name_en": "Road of Sacrifices",
+      "x": 300,
+      "y": 400,
+      "description": "区域入口篝火，从不死聚落的升降梯下来后到达"
+    },
+    {
+      "name": "路半边寨",
+      "name_en": "Halfway Fortress",
+      "x": 1200,
+      "y": 700,
+      "description": "废弃要塞内的篝火。原版中安里和霍拉斯在此等候"
+    },
+    {
+      "name": "磔罪森林",
+      "name_en": "Crucifixion Woods",
+      "x": 2000,
+      "y": 500,
+      "description": "水洼遗迹区域篝火。通往法兰要塞和幽邃教堂的分岔点"
+    },
+    {
+      "name": "结晶老者",
+      "name_en": "Crystal Sage",
+      "x": 2600,
+      "y": 1400,
+      "description": "Boss战前篝火"
+    }
+  ],
+  "map_layout": {
+    "sections": [
+      {
+        "name": "入口密林",
+        "description": "从聚落升降梯下来，进入阴暗的密林小径。两侧是巨大的树根和低矮的墙壁。路上有游荡的鸦人。",
+        "x": 0,
+        "y": 0,
+        "w": 800,
+        "h": 800,
+        "terrain_features": [
+          "窄路",
+          "树根障碍",
+          "低墙",
+          "遗体（灵魂球）"
+        ]
+      },
+      {
+        "name": "半道要塞",
+        "description": "一座半毁的石质要塞。安里和霍拉斯在此篝火旁等候。要塞上层有鸦人驻守。",
+        "x": 1000,
+        "y": 500,
+        "w": 500,
+        "h": 500,
+        "terrain_features": [
+          "石墙",
+          "阶梯",
+          "平台",
+          "室内空间"
+        ]
+      },
+      {
+        "name": "磔罪森林",
+        "description": "宽阔的湿地森林，大树根遍布。道路在此分岔：左侧通往法兰要塞，右侧通往幽邃教堂。欧贝克在遗迹建筑中等待。",
+        "x": 1700,
+        "y": 300,
+        "w": 600,
+        "h": 500,
+        "terrain_features": [
+          "宽阔道路",
+          "水洼",
+          "大树根",
+          "分岔口"
+        ]
+      },
+      {
+        "name": "鸦人森林",
+        "description": "通往结晶老者的道路。树上栖息着鸦人，会对玩家发动突然袭击。有一个黑骑士在此巡逻。",
+        "x": 2200,
+        "y": 800,
+        "w": 600,
+        "h": 600,
+        "terrain_features": [
+          "密林",
+          "树上平台",
+          "隐藏小径",
+          "树根隧道"
+        ]
+      },
+      {
+        "name": "结晶洞穴",
+        "description": "结晶老者的Boss战场地。开阔的岩石洞穴，散布着结晶体。老者会在各处传送并召唤分身。",
+        "x": 2300,
+        "y": 1200,
+        "w": 800,
+        "h": 600,
+        "terrain_features": [
+          "开阔场地",
+          "结晶障碍物",
+          "高低差"
+        ]
+      }
+    ]
+  },
+  "enemies": [
+    {
+      "kind": "Corvian",
+      "x": 450,
+      "y": 350,
+      "patrol": 30,
+      "count": 2,
+      "notes": "入口密林中的鸦人，树根旁伏击"
+    },
+    {
+      "kind": "Corvian",
+      "x": 650,
+      "y": 500,
+      "patrol": 25,
+      "count": 1,
+      "notes": "树根顶端的鸦人"
+    },
+    {
+      "kind": "Lycanthrope",
+      "x": 800,
+      "y": 600,
+      "patrol": 0,
+      "count": 2,
+      "notes": "半道要塞前的狼人，原版中在要塞旁出没"
+    },
+    {
+      "kind": "Corvian",
+      "x": 1150,
+      "y": 600,
+      "patrol": 0,
+      "count": 1,
+      "notes": "半道要塞上层的鸦人"
+    },
+    {
+      "kind": "Corvian",
+      "x": 1500,
+      "y": 750,
+      "patrol": 25,
+      "count": 3,
+      "notes": "要塞后方树林中的鸦人"
+    },
+    {
+      "kind": "Lycanthrope",
+      "x": 1600,
+      "y": 400,
+      "patrol": 20,
+      "count": 2,
+      "notes": "磔刑之林入口的狼人"
+    },
+    {
+      "kind": "Corvian",
+      "x": 1900,
+      "y": 450,
+      "patrol": 20,
+      "count": 2,
+      "notes": "磔刑之林水洼中的鸦人"
+    },
+    {
+      "kind": "BlackKnight",
+      "x": 2100,
+      "y": 900,
+      "patrol": 40,
+      "count": 1,
+      "notes": "鸦人森林中巡逻的黑骑士，原版固定出现一只"
+    },
+    {
+      "kind": "Corvian",
+      "x": 2400,
+      "y": 1000,
+      "patrol": 20,
+      "count": 2,
+      "notes": "森林深处树上的鸦人"
+    },
+    {
+      "kind": "PoisonhornBug",
+      "x": 2300,
+      "y": 1100,
+      "patrol": 0,
+      "count": 3,
+      "notes": "结晶洞穴前的毒角虫，地面小型敌人"
+    },
+    {
+      "kind": "LesserCrab",
+      "x": 1950,
+      "y": 550,
+      "patrol": 0,
+      "count": 2,
+      "notes": "磔刑之林水洼中的小蟹"
+    },
+    {
+      "kind": "CorvianStoryteller",
+      "x": 550,
+      "y": 300,
+      "patrol": 0,
+      "count": 1,
+      "notes": "入口密林中大树根上的鸦人叙说者，使用钩刀，周围有鸦人护卫"
+    },
+    {
+      "kind": "Wildwoman",
+      "x": 1350,
+      "y": 450,
+      "patrol": 25,
+      "count": 1,
+      "notes": "要塞后方树林中的疯女人，使用镰刀，攻击力高"
+    },
+    {
+      "kind": "GreatCrab",
+      "x": 1900,
+      "y": 600,
+      "patrol": 0,
+      "count": 1,
+      "notes": "磔罪森林水洼中的大蟹，体型巨大，攻击力和防御力极高"
+    },
+    {
+      "kind": "GreatCrab",
+      "x": 2000,
+      "y": 550,
+      "patrol": 0,
+      "count": 1,
+      "notes": "磔罪森林水洼中另一只大蟹，两只一起出没"
+    },
+    {
+      "kind": "YellowfingerHeysel",
+      "x": 1700,
+      "y": 500,
+      "patrol": 0,
+      "count": 1,
+      "notes": "黄指的海泽尔——以暗灵形态入侵玩家。使用长镰和魔法。击败后可获得她的指环"
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 1050,
+      "y": 650,
+      "patrol": 0,
+      "count": 1,
+      "notes": "半道要塞附近的结晶蜥蜴，掉落光辉楔形石"
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 2350,
+      "y": 900,
+      "patrol": 0,
+      "count": 1,
+      "notes": "鸦人森林中的结晶蜥蜴"
+    },
+    {
+      "kind": "ExileWatchman",
+      "x": 900,
+      "y": 650,
+      "patrol": 20,
+      "count": 2,
+      "notes": "废弃守望者，使用大棒/大斧，在半道要塞前方出没"
+    },
+    {
+      "kind": "Ghrus",
+      "x": 2200,
+      "y": 900,
+      "patrol": 15,
+      "count": 3,
+      "notes": "格鲁斯——堕落的不死猎人，形态扭曲，在鸦人森林深处出没。使用短刀和投掷刀"
+    }
+  ],
+  "boss": {
+    "type": "CrystalSage",
+    "name": "结晶老者",
+    "name_en": "Crystal Sage",
+    "x": 2700,
+    "y": 1500,
+    "hp": 1200,
+    "arena": {
+      "x": 2400,
+      "y": 1300,
+      "w": 600,
+      "h": 400
+    },
+    "phases": [
+      {
+        "name": "分身术",
+        "hp_threshold": 1.0,
+        "speed_multiplier": 0.8,
+        "damage_multiplier": 1.0,
+        "attack_cooldown": 2.5,
+        "description": "结晶老者在场地中传送，偶尔释放分身。分身为蓝色（假），真身为紫色。分身被击中一次消失。",
+        "mechanics": [
+          "传送",
+          "召唤2个分身",
+          "远程施法"
+        ]
+      },
+      {
+        "name": "狂暴分身",
+        "hp_threshold": 0.5,
+        "speed_multiplier": 1.2,
+        "damage_multiplier": 1.3,
+        "attack_cooldown": 1.5,
+        "description": "传送更频繁，同时召唤3个分身。施法速度加快。",
+        "mechanics": [
+          "传送更频繁",
+          "3个分身",
+          "施法加速"
+        ]
+      }
+    ],
+    "attacks": [
+      {
+        "name": "结晶灵魂枪",
+        "type": "CrystalSoulSpear",
+        "damage": 50,
+        "range": "远",
+        "parryable": false,
+        "description": "直线发射结晶枪，高速贯穿"
+      },
+      {
+        "name": "结晶雨",
+        "type": "CrystalHail",
+        "damage": 25,
+        "range": "全屏",
+        "parryable": false,
+        "description": "在玩家头顶召唤结晶碎片坠落，持续数秒"
+      },
+      {
+        "name": "传送",
+        "type": "Teleport",
+        "damage": 0,
+        "range": "-",
+        "parryable": false,
+        "description": "消失后在场地另一处出现"
+      },
+      {
+        "name": "近战杖击",
+        "type": "StaffStrike",
+        "damage": 20,
+        "range": "近",
+        "parryable": true,
+        "description": "玩家靠近时的近距离杖击"
+      }
+    ],
+    "story": "结晶老者是「大帽子」罗根的弟子之一，沉迷于结晶灵魂魔法，最终被结晶侵蚀心智。在活祭品之路深处设立了据点，守护着通往幽邃教堂的路径。"
+  },
+  "npcs": [
+    {
+      "name": "亚斯特拉的安里",
+      "name_en": "Anri of Astora",
+      "kind": "Dialogue",
+      "x": 1180,
+      "y": 720,
+      "color": "#c0c0c0",
+      "dialogue": [
+        "你好，我叫安里。这位是我的同伴霍拉斯。",
+        "我们为了寻找深渊监视者而踏上了旅途。",
+        "前方有两条路。左边通往法兰要塞，那里有深渊监视者。",
+        "如果你也要去那里的话，也许我们会在前面再见。",
+        "请多加小心。"
+      ],
+      "quest": "安里的任务线核心NPC，性别与玩家角色相反。首次出现在路半边寨篝火旁，给予蓝誓约（Way of Blue）。后续出现在卡萨斯地下墓地、冷冽谷的伊鲁席尔。"
+    },
+    {
+      "name": "沉默的霍雷斯",
+      "name_en": "Horace the Hushed",
+      "kind": "Dialogue",
+      "x": 1230,
+      "y": 730,
+      "color": "#505050",
+      "dialogue": [
+        "……",
+        "（霍拉斯沉默不语，只是点了点头）"
+      ],
+      "quest": "安里的同伴，沉默寡言。后续在熏烟湖变为敌对（被深渊侵蚀），玩家需在此处告知安里霍拉斯的下落。"
+    },
+    {
+      "name": "彼海姆的欧贝克",
+      "name_en": "Orbeck of Vinheim",
+      "kind": "Merchant",
+      "x": 1950,
+      "y": 450,
+      "color": "#6688aa",
+      "dialogue": [
+        "……你是谁。不，等等。",
+        "如果你有足够的智力，我可以教你魔法。",
+        "但我要的不是免费的。给我找到魔法卷轴，我就教你新的术。",
+        "这是交易，不是慈善。"
+      ],
+      "quest": "需智力10以上才会答应加入传火祭祀场。位于磔罪森林的废弃建筑中。给予魔法卷轴可解锁新魔法。完成所有卷轴后在双王子战后死亡，留下遗物。"
+    },
+    {
+      "name": "卡里姆的伊贡",
+      "name_en": "Eygon of Carim",
+      "kind": "Summon",
+      "x": 2300,
+      "y": 1300,
+      "color": "#887766",
+      "dialogue": [
+        "（召唤符号出现）",
+        "……你又在寻找帮助了吗？真是个废物。",
+        "不过算了，这结晶怪物确实令人不快。"
+      ],
+      "quest": "卡里姆的伊贡可在结晶老者Boss战前被召唤。如果伊蕾娜已经死亡，伊贡会出现在传火祭祀场伊蕾娜的尸体旁，变为敌对。"
+    },
+    {
+      "name": "圣骑士霍德里克",
+      "name_en": "Holy Knight Hodrick",
+      "kind": "Summon",
+      "x": 1650,
+      "y": 350,
+      "color": "#556644",
+      "dialogue": [
+        "（红色召唤符号——疯狂的暗灵）",
+        "哈哈哈哈！来吧来吧！一起享受杀戮！"
+      ],
+      "quest": "霍德里克以疯狂暗灵形态在磔罪森林入侵玩家。他是帕奇（不死聚落）的爷爷，在传火祭祀场宣誓「吐息」誓约。击败后给予「勋章」。"
+    }
+  ],
+  "chests": [
+    {
+      "x": 850,
+      "y": 550,
+      "loot": {
+        "kind": "WeaponDrop",
+        "name": "草纹盾",
+        "name_cn": "草纹盾"
+      },
+      "is_mimic": false,
+      "notes": "半道要塞前方遗体旁（原版重要装备：精力回复加速）"
+    },
+    {
+      "x": 1100,
+      "y": 750,
+      "loot": {
+        "kind": "EstusShard"
+      },
+      "is_mimic": false,
+      "notes": "半道要塞内隐藏角落"
+    },
+    {
+      "x": 1300,
+      "y": 400,
+      "loot": {
+        "kind": "WeaponDrop",
+        "name": "强盗斧",
+        "name_cn": "强盗斧"
+      },
+      "is_mimic": false,
+      "notes": "半道要塞附近遗体（原版由狼人附近拾取）"
+    },
+    {
+      "x": 1800,
+      "y": 350,
+      "loot": {
+        "kind": "RingDrop",
+        "name": "牺牲戒指",
+        "name_cn": "牺牲戒指"
+      },
+      "is_mimic": false,
+      "notes": "磔刑之林遗体旁（死亡时不掉落灵魂）"
+    },
+    {
+      "x": 2350,
+      "y": 1150,
+      "loot": {
+        "kind": "RingDrop",
+        "name": "莫恩戒指",
+        "name_cn": "莫恩戒指"
+      },
+      "is_mimic": false,
+      "notes": "磔刑之林水洼附近的遗体（增强奇迹威力）"
+    },
+    {
+      "x": 2500,
+      "y": 950,
+      "loot": {
+        "kind": "WeaponDrop",
+        "name": "异端杖",
+        "name_cn": "异端杖"
+      },
+      "is_mimic": false,
+      "notes": "鸦人森林深处的遗体"
+    },
+    {
+      "x": 2100,
+      "y": 800,
+      "loot": {
+        "kind": "ArmorDrop",
+        "name": "强盗套装",
+        "name_cn": "强盗套装",
+        "slot": "Chest"
+      },
+      "is_mimic": false,
+      "notes": "鸦人森林隐秘小径中"
+    }
+  ],
+  "items": [
+    {
+      "kind": "SoulOrb",
+      "value": 300,
+      "x": 450,
+      "y": 380,
+      "notes": "入口处的遗体"
+    },
+    {
+      "kind": "SoulOrb",
+      "value": 500,
+      "x": 1400,
+      "y": 600,
+      "notes": "要塞旁的遗体"
+    },
+    {
+      "kind": "HomewardBone",
+      "x": 1800,
+      "y": 500,
+      "count": 1,
+      "notes": "磔刑之林树下"
+    },
+    {
+      "kind": "PurpleMoss",
+      "x": 2200,
+      "y": 950,
+      "count": 2,
+      "notes": "鸦人森林入口的遗体"
+    },
+    {
+      "kind": "TomeDrop",
+      "name": "卡里姆点字圣典",
+      "name_cn": "卡里姆点字圣典",
+      "x": 2050,
+      "y": 480,
+      "notes": "磔刑之林遗迹附近（给予圣职人员解锁奇迹）"
+    },
+    {
+      "kind": "CoalDrop",
+      "name": "法兰余烬",
+      "name_cn": "法兰炭",
+      "x": 1700,
+      "y": 550,
+      "notes": "磔刑之林水洼旁遗体（给予铁匠解锁粗制、熟练、深渊变质）"
+    },
+    {
+      "kind": "TomeDrop",
+      "name": "大沼咒术书",
+      "name_cn": "大沼咒术书",
+      "x": 2450,
+      "y": 1050,
+      "notes": "鸦人森林深处（给予咒术师解锁新咒术）"
+    },
+    {
+      "kind": "RingDrop",
+      "name": "贤者戒指",
+      "name_cn": "贤者戒指",
+      "x": 2100,
+      "y": 1000,
+      "notes": "鸦人森林中段遗体（缩短施法时间）"
+    },
+    {
+      "kind": "WeaponDrop",
+      "name": "鸦人大短刀",
+      "name_en": "Crow Quills",
+      "x": 500,
+      "y": 450,
+      "count": 1,
+      "notes": "入口密林中击败鸦人后获得——鸦人专用刺剑"
+    },
+    {
+      "kind": "ArmorDrop",
+      "name": "鸦人套装",
+      "name_en": "Cornyx's Set",
+      "x": 1450,
+      "y": 700,
+      "slot": "Chest",
+      "count": 1,
+      "notes": "要塞后方树林中遗体"
+    },
+    {
+      "kind": "EstusShard",
+      "x": 1100,
+      "y": 500,
+      "count": 1,
+      "notes": "半道要塞内部隐藏区域"
+    },
+    {
+      "kind": "UndeadBoneShard",
+      "name": "不死骨碎片",
+      "name_en": "Undead Bone Shard",
+      "x": 1750,
+      "y": 400,
+      "count": 1,
+      "notes": "磔罪森林树根上方的遗体"
+    },
+    {
+      "kind": "TitaniteShard",
+      "x": 600,
+      "y": 450,
+      "count": 2,
+      "notes": "入口密林遗体"
+    },
+    {
+      "kind": "LargeTitaniteShard",
+      "x": 2150,
+      "y": 950,
+      "count": 1,
+      "notes": "鸦人森林深处遗体"
+    },
+    {
+      "kind": "TwinklingTitanite",
+      "x": 1050,
+      "y": 650,
+      "count": 1,
+      "notes": "结晶蜥蜴掉落"
+    },
+    {
+      "kind": "RingDrop",
+      "name": "奴隶骑士戒指",
+      "name_en": "Slumbering Dragoncrest Ring",
+      "x": 1600,
+      "y": 450,
+      "count": 1,
+      "notes": "磔罪森林隐藏小径尽头——移动无声"
+    },
+    {
+      "kind": "RingDrop",
+      "name": "猎杀骑士戒指",
+      "name_en": "Knight Slayer's Ring",
+      "x": 1850,
+      "y": 500,
+      "count": 1,
+      "notes": "磔罪森林遗体——增加踢盾破防效果"
+    },
+    {
+      "kind": "CoalDrop",
+      "name": "深渊炭",
+      "name_en": "Sage's Coal",
+      "x": 2500,
+      "y": 1000,
+      "count": 1,
+      "notes": "鸦人森林深处的遗体（给予铁匠解锁结晶、深渊变质）"
+    },
+    {
+      "kind": "SoulOrb",
+      "value": 800,
+      "x": 1300,
+      "y": 500,
+      "notes": "要塞旁第二个遗体"
+    },
+    {
+      "kind": "HomewardBone",
+      "x": 2400,
+      "y": 950,
+      "count": 2,
+      "notes": "鸦人森林深处遗体"
+    },
+    {
+      "kind": "PurpleMoss",
+      "x": 1800,
+      "y": 550,
+      "count": 2,
+      "notes": "磔罪森林水洼旁遗体"
+    },
+    {
+      "kind": "PalePineResin",
+      "x": 2500,
+      "y": 1100,
+      "count": 1,
+      "notes": "结晶洞穴入口遗体——武器附加魔法伤害"
+    },
+    {
+      "kind": "Firebomb",
+      "x": 650,
+      "y": 550,
+      "count": 3,
+      "notes": "密林中段遗体"
+    },
+    {
+      "kind": "Dagger",
+      "name": "暗穗",
+      "name_en": "Dark Drift",
+      "x": 2350,
+      "y": 1050,
+      "count": 1,
+      "notes": "鸦人森林深处隐藏遗体——暗属性太刀"
+    }
+  ],
+  "fog_gates": [
+    {
+      "x": 200,
+      "y": 200,
+      "w": 40,
+      "h": 300,
+      "dest_area": "UndeadSettlement",
+      "dest_x": 1600,
+      "dest_y": 1200,
+      "notes": "返回不死聚落的升降梯"
+    },
+    {
+      "x": 3000,
+      "y": 600,
+      "w": 40,
+      "h": 200,
+      "dest_area": "FarronKeep",
+      "dest_x": 200,
+      "dest_y": 400,
+      "notes": "通往法兰要塞"
+    },
+    {
+      "x": 2100,
+      "y": 1200,
+      "w": 200,
+      "h": 40,
+      "dest_area": "CathedralDeep",
+      "dest_x": 200,
+      "dest_y": 400,
+      "notes": "通往幽邃教堂的分岔路"
+    }
+  ],
+  "lights": [
+    {
+      "x": 300,
+      "y": 400,
+      "radius": 180,
+      "r": 0.8,
+      "g": 0.7,
+      "b": 0.5,
+      "intensity": 0.6,
+      "notes": "入口篝火"
+    },
+    {
+      "x": 1200,
+      "y": 700,
+      "radius": 180,
+      "r": 0.8,
+      "g": 0.7,
+      "b": 0.5,
+      "intensity": 0.6,
+      "notes": "半道要塞篝火"
+    },
+    {
+      "x": 2000,
+      "y": 500,
+      "radius": 180,
+      "r": 0.8,
+      "g": 0.7,
+      "b": 0.5,
+      "intensity": 0.6,
+      "notes": "磔刑之林篝火"
+    },
+    {
+      "x": 2700,
+      "y": 1500,
+      "radius": 120,
+      "r": 0.3,
+      "g": 0.4,
+      "b": 0.9,
+      "intensity": 0.5,
+      "notes": "结晶洞穴蓝光"
+    }
+  ],
+  "story_notes": [
+    "活祭品之路是不死聚落之后的第一个大型区域，原版中分为前半段「活祭品之路」和后半段「磔罪森林」",
+    "前半段从聚落升降梯到路半边寨，主要敌人为鸦人和狼人",
+    "后半段从磔罪森林到结晶老者，增加了黑骑士、格鲁斯等强敌",
+    "这里是玩家首次面临路线选择的区域：左去法兰要塞，右去幽邃教堂",
+    "安里和霍雷斯首次出现在路半边寨篝火旁，是安里任务线的起点。安里给予蓝誓约（Way of Blue）",
+    "欧贝克位于磔罪森林的废弃建筑中，需智力10以上才会答应加入传火祭祀场",
+    "黄指的海泽尔会在此区域以暗灵入侵玩家，击败后可加入她的誓约（罗莎莉亚的指头）",
+    "圣骑士霍德里克以疯狂暗灵形态入侵磔罪森林，击败后给予「勋章」",
+    "磔罪森林水洼中有两只大蟹，是前期极其危险的敌人",
+    "结晶老者是「大帽子」罗根的弟子之一，分身机制考验玩家分辨真假分身",
+    "法兰炭（Farron Coal）是重要推进道具，给予铁匠安德烈后解锁粗制、熟练、深渊变质",
+    "原版特色是巨大的古树根和阴暗的森林水洼，营造了压抑的氛围",
+    "鸦人叙说者（Corvian Storyteller）是大树根上的特殊鸦人，使用钩刀且周围有护卫"
+  ]
+}

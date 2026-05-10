@@ -68,15 +68,28 @@
     </div>
     <script type="module">
         const v = Date.now();
-        const { default: init, js_keydown, js_keyup, js_mouse_move, js_gamepad, js_debug_state, js_register_map } = await import('./pkg/ds2d.js?v=' + v);
+        const mod = await import('./pkg/ds2d.js?v=' + v);
+        const { default: init, js_keydown, js_keyup, js_mouse_move, js_gamepad, js_debug_state, js_register_map } = mod;
 
         const MAP_PATHS = [
             'maps/ds2d/CemeteryOfAsh.ldtkl',
-            'maps/ds2d/FirelinkShrine.ldtkl',
             'maps/ds2d/LothricWall.ldtkl',
             'maps/ds2d/UndeadSettlement.ldtkl',
             'maps/ds2d/CathedralDeep.ldtkl',
             'maps/ds2d/Irithyll.ldtkl',
+            'maps/ds2d/RoadOfSacrifices.ldtkl',
+            'maps/ds2d/FarronKeep.ldtkl',
+            'maps/ds2d/CatacombsOfCarthus.ldtkl',
+            'maps/ds2d/SmoulderingLake.ldtkl',
+            'maps/ds2d/IrithyllDungeon.ldtkl',
+            'maps/ds2d/ProfanedCapital.ldtkl',
+            'maps/ds2d/AnorLondo.ldtkl',
+            'maps/ds2d/LothricCastle.ldtkl',
+            'maps/ds2d/GrandArchives.ldtkl',
+            'maps/ds2d/KilnOfTheFirstFlame.ldtkl',
+            'maps/ds2d/ConsumedKingsGarden.ldtkl',
+            'maps/ds2d/UntendedGraves.ldtkl',
+            'maps/ds2d/ArchdragonPeak.ldtkl',
         ];
 
         // --- Web Audio procedural SFX ---
@@ -204,26 +217,31 @@
             else stopCombatMusic();
         };
 
+        const _loadedMaps = new Set();
+
+        async function loadMap(path) {
+            if (_loadedMaps.has(path)) return;
+            const response = await fetch(path + '?v=' + v);
+            if (!response.ok) throw new Error('Failed to load map ' + path + ': ' + response.status);
+            const json = await response.text();
+            js_register_map(path, json);
+            _loadedMaps.add(path);
+        }
+
         async function preloadMaps() {
-            const loads = MAP_PATHS.map(async (path) => {
-                const response = await fetch(path + '?v=' + v, { cache: 'no-store' });
-                if (!response.ok) {
-                    throw new Error(`Failed to load map ${path}: ${response.status}`);
-                }
-                const json = await response.text();
-                js_register_map(path, json);
-            });
-            await Promise.all(loads);
+            await Promise.all(MAP_PATHS.map(loadMap));
         }
 
         async function run() {
-            await init('./pkg/ds2d_bg.wasm?v=' + v);
+            await init({ module_or_path: './pkg/ds2d_bg.wasm?v=' + v });
             await preloadMaps();
             window.js_keydown = js_keydown;
             window.js_keyup = js_keyup;
             window.js_mouse_move = js_mouse_move;
             window.js_gamepad = js_gamepad;
             window.js_debug_state = js_debug_state;
+            if (mod.js_teleport_to_area) window.js_teleport_to_area = mod.js_teleport_to_area;
+            if (mod.js_set_player_pos) window.js_set_player_pos = mod.js_set_player_pos;
             // Gamepad polling loop (runs alongside Rust rAF)
             // Edge detection happens in JS — only rising edges are sent to Rust.
             let _gpPrev = new Array(16).fill(false);

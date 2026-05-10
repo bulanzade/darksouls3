@@ -43,7 +43,11 @@ pub(crate) fn collect_item(game: &mut Game, kind: &ItemKind) -> Option<String> {
                 kind: InventoryItemKind::Weapon(*wt),
             });
             let weapon = create_weapon(wt);
-            game.player.alt_weapon = Some(weapon);
+            if game.player.weapon.weapon_type == crate::combat::weapon::WeaponType::Fist {
+                game.player.weapon = weapon;
+            } else {
+                game.player.alt_weapon = Some(weapon);
+            }
             game.audio.play_sfx("souls", 0.08, 0.0);
             Some(format!("获得 {}", wname))
         }
@@ -70,6 +74,46 @@ pub(crate) fn collect_item(game: &mut Game, kind: &ItemKind) -> Option<String> {
                 game.player.equipment.ring_2 = Some(ring);
             }
             game.player.apply_stats();
+            game.audio.play_sfx("souls", 0.08, 0.0);
+            Some(format!("获得 {}", name))
+        }
+        ItemKind::TitaniteShard => {
+            game.inventory.push(InventoryItem {
+                name: "楔形石碎片".into(),
+                kind: InventoryItemKind::Consumable("TitaniteShard".into()),
+            });
+            game.audio.play_sfx("souls", 0.08, 0.0);
+            Some("获得 楔形石碎片".into())
+        }
+        ItemKind::Firebomb => {
+            game.inventory.push(InventoryItem {
+                name: "火焰壶".into(),
+                kind: InventoryItemKind::Consumable("Firebomb".into()),
+            });
+            game.audio.play_sfx("souls", 0.08, 0.0);
+            Some("获得 火焰壶".into())
+        }
+        ItemKind::Ember => {
+            game.inventory.push(InventoryItem {
+                name: "余火".into(),
+                kind: InventoryItemKind::Consumable("Ember".into()),
+            });
+            game.audio.play_sfx("souls", 0.08, 0.0);
+            Some("获得 余火".into())
+        }
+        ItemKind::UndeadBoneShard => {
+            game.inventory.push(InventoryItem {
+                name: "不死者的遗骨".into(),
+                kind: InventoryItemKind::Consumable("UndeadBoneShard".into()),
+            });
+            game.audio.play_sfx("souls", 0.08, 0.0);
+            Some("获得 不死者的遗骨".into())
+        }
+        ItemKind::Consumable(name) => {
+            game.inventory.push(InventoryItem {
+                name: name.clone(),
+                kind: InventoryItemKind::Consumable(name.clone()),
+            });
             game.audio.play_sfx("souls", 0.08, 0.0);
             Some(format!("获得 {}", name))
         }
@@ -178,11 +222,15 @@ pub(crate) fn tick_interactions(game: &mut Game, interact: bool) -> bool {
             }
         }
         if let Some((dest_area, dx, dy)) = area_transition {
+            if game.state_timer < 0.5 { return false; }
             load_area(game, dest_area);
             game.player.transform.x = dx;
             game.player.transform.y = dy;
             game.camera.x = dx;
             game.camera.y = dy;
+            game.player.invuln_timer = 2.0;
+            let heal = (game.player.max_hp as f32 * 0.3) as i32;
+            game.player.hp = (game.player.hp + heal).min(game.player.max_hp);
             return true;
         }
     }
@@ -207,7 +255,7 @@ pub(crate) fn tick_interactions(game: &mut Game, interact: bool) -> bool {
             let dx = px - item.x;
             let dy = py - item.y;
             let dist = (dx * dx + dy * dy).sqrt();
-            if dist < 20.0 { Some((i, item.x, item.y, item.kind.clone())) } else { None }
+            if dist < 30.0 { Some((i, item.x, item.y, item.kind.clone())) } else { None }
         })
         .collect();
     for (idx, ix, iy, kind) in pickups {

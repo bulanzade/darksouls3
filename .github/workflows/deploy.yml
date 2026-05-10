@@ -30,6 +30,9 @@ jobs:
       - name: Build WASM (release)
         run: wasm-pack build --target web --release
 
+      - name: Generate maps
+        run: python3 maps/generate_maps.py
+
       - name: Prepare deploy directory
         run: |
           mkdir -p deploy/static

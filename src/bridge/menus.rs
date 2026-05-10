@@ -43,12 +43,12 @@ pub(crate) fn update_title_screen(game: &mut Game) {
                         game.player.strength = save.strength;
                         game.player.apply_stats();
                         game.player.hp = save.player_hp;
-                        game.player.weapon.base_damage = save.weapon_damage;
-                        if let (Some(_), Some(dmg)) = (save.alt_weapon_name.as_ref(), save.alt_weapon_damage) {
-                            if let Some(ref mut alt) = game.player.alt_weapon {
-                                alt.base_damage = dmg;
-                            }
+                        game.player.weapon = weapon_from_name(&save.weapon_name, save.weapon_damage);
+                        if let (Some(name), Some(dmg)) = (save.alt_weapon_name.as_ref(), save.alt_weapon_damage) {
+                            game.player.alt_weapon = Some(weapon_from_name(name, dmg));
                         }
+                        game.player.equipment.right_hand = crate::rpg::equipment::WeaponSlot::new(game.player.weapon.clone());
+                        game.player.equipment.left_hand = crate::rpg::equipment::WeaponSlot::fist();
                         game.souls = save.souls;
                         game.bonfire = save.bonfire.clone();
                         game.enemies_killed = save.enemies_killed;
@@ -57,6 +57,9 @@ pub(crate) fn update_title_screen(game: &mut Game) {
                         game.damage_dealt = save.damage_dealt;
                         game.damage_taken = save.damage_taken;
                         game.bosses_defeated = save.bosses_defeated.clone();
+                        game.ng_plus = save.ng_plus;
+                        game.area_collected_items = save.area_collected_items.clone();
+                        game.area_opened_chests = save.area_opened_chests.clone();
                         let saved_area = area_from_str(&save.current_room);
                         load_area(game, saved_area);
                         game.player.transform.x = save.player_x;
@@ -149,6 +152,9 @@ pub(crate) fn update_bonfire_menu(game: &mut Game) {
                         death_count: game.death_count,
                         damage_dealt: game.damage_dealt,
                         damage_taken: game.damage_taken,
+                        ng_plus: game.ng_plus,
+                        area_collected_items: game.area_collected_items.clone(),
+                        area_opened_chests: game.area_opened_chests.clone(),
                     };
                     save_manager::save_to_localstorage(&save);
                 }
@@ -201,8 +207,15 @@ pub(crate) fn update_travel_menu(game: &mut Game) {
     navigate_menu!(game);
     if game.input.confirm_pressed() {
         let idx = game.menu.selected_index;
-        let areas = [AreaId::FirelinkShrine, AreaId::LothricWall, AreaId::UndeadSettlement, AreaId::CathedralDeep, AreaId::Irithyll];
-        if idx < 5 {
+        let areas = [
+            AreaId::CemeteryOfAsh, AreaId::LothricWall, AreaId::UndeadSettlement,
+            AreaId::RoadOfSacrifices, AreaId::FarronKeep, AreaId::CathedralDeep,
+            AreaId::CatacombsOfCarthus, AreaId::SmoulderingLake, AreaId::Irithyll,
+            AreaId::IrithyllDungeon, AreaId::ProfanedCapital, AreaId::AnorLondo,
+            AreaId::LothricCastle, AreaId::GrandArchives, AreaId::KilnOfTheFirstFlame,
+            AreaId::ConsumedKingsGarden, AreaId::UntendedGraves, AreaId::ArchdragonPeak,
+        ];
+        if idx < areas.len() {
             load_area(game, areas[idx]);
         } else {
             game.state = GameState::BonfireMenu;
@@ -228,9 +241,28 @@ pub(crate) fn update_victory(game: &mut Game) {
         game.inventory = vec![];
         game.has_bloodstain = false;
         game.bloodstain_souls = 0;
+        game.gundyr_door_open = false;
+        game.vordt_transport_done = false;
+        game.area_collected_items.clear();
+        game.area_opened_chests.clear();
         game.time.accumulator = 0.0;
         game.state_timer = 0.0;
-        load_area(game, AreaId::FirelinkShrine);
+        load_area(game, AreaId::CemeteryOfAsh);
         game.state = GameState::Playing;
     }
+}
+
+fn weapon_from_name(name: &str, damage: i32) -> crate::combat::weapon::Weapon {
+    use crate::combat::weapon::Weapon;
+    let mut w = match name {
+        "大斧" => Weapon::great_axe(),
+        "匕首" => Weapon::dagger(),
+        "长枪" => Weapon::spear(),
+        "打刀" => Weapon::uchigatana(),
+        "直剑" | "Longsword" => Weapon::longsword(),
+        "骑士盾" => Weapon::shield(),
+        _ => Weapon::fist(),
+    };
+    w.base_damage = damage;
+    w
 }
