@@ -31,11 +31,10 @@ pub struct NavGrid {
 impl NavGrid {
     pub fn from_collision_grid(
         collision: &crate::world::collision::CollisionGrid,
-        chunk_size: usize,
         cell_size: i32,
     ) -> Self {
-        let grid_w = (chunk_size as i32 + cell_size - 1) / cell_size;
-        let grid_h = grid_w;
+        let grid_w = (collision.width as i32 + cell_size - 1) / cell_size;
+        let grid_h = (collision.height as i32 + cell_size - 1) / cell_size;
         let mut walkable = vec![true; (grid_w * grid_h) as usize];
 
         for cy in 0..grid_h {
@@ -46,7 +45,7 @@ impl NavGrid {
                     for tx in 0..cell_size {
                         let tile_x = cx * cell_size + tx;
                         let tile_y = cy * cell_size + ty;
-                        if tile_x < chunk_size as i32 && tile_y < chunk_size as i32 {
+                        if tile_x < collision.width as i32 && tile_y < collision.height as i32 {
                             if collision.is_solid(tile_x, tile_y) {
                                 blocked = true;
                                 break;

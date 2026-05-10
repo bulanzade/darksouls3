@@ -2,557 +2,117 @@
   "id": "KilnOfTheFirstFlame",
   "name": "初始之火的火炉",
   "name_en": "Kiln of the First Flame",
-  "description": "世界尽头的灰烬荒原，最初之火燃起的地方。这里是所有传火使命的终点。天空是暗红与灰色交织，地面散布着扭曲的钢铁残骸和化为灰烬的遗迹。只有集齐所有薪王柴薪的余灰才能踏入此地，面对守护火焰的最终存在——薪王们的化身。",
-  "theme": "灰烬荒原/余烬废墟/最终战场",
+  "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
+  "theme": "endgame ash",
   "map_size": {
-    "width": 2400,
-    "height": 2000
+    "width": 3072,
+    "height": 3072
   },
   "connections": {
     "from": [
-      "GrandArchives",
-      "FirelinkShrine"
+      "GrandArchives"
     ],
-    "to": [
-      "TheDregHeap"
-    ]
+    "to": []
+  },
+  "restoration": {
+    "status": "clean_rebuild_topology_projection",
+    "authoritative_fields": [
+      "area id/name",
+      "connections",
+      "bonfire names",
+      "boss identity"
+    ],
+    "projection_fields": [
+      "map_size",
+      "sections coordinates",
+      "fog gate coordinates"
+    ],
+    "excluded_until_sourced": [
+      "enemy placements",
+      "item placements",
+      "NPC dialogue",
+      "chest placements"
+    ],
+    "note": "This file intentionally avoids inherited fabricated precise data."
   },
   "bonfires": [
     {
-      "name": "无焰祠庙",
+      "name": "无火的祭祀场",
       "name_en": "Flameless Shrine",
-      "x": 200,
-      "y": 1000,
-      "description": "初始篝火。黑暗版传火祭祀场，外观与祭祀场完全相同但没有火焰。将所有薪王柴薪放在王座上后，激活传火祭祀场的篝火传送至此。"
+      "x": 620,
+      "y": 2200,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "初始之火的火炉",
       "name_en": "Kiln of the First Flame",
-      "x": 200,
-      "y": 600,
-      "description": "走出无焰祠庙后的篝火，位于灰烬之路的起点。激活后可用于传送。旁边的篝火可传送至DLC区域'堆土塔'。"
+      "x": 1560,
+      "y": 1180,
+      "source_status": "official_name_projected_position"
     }
   ],
   "map_layout": {
+    "basis": "Clean gameplay 2D projection of Dark Souls III route topology. Not official coordinate geometry.",
     "sections": [
       {
-        "name": "灰烬之路",
-        "description": "从篝火出发的一条漫长灰烬之路。道路由扭曲的铁柱和石化的人形组成，地面覆盖着厚厚的灰烬。没有敌人，只有压抑的氛围和远处的火焰光芒。道路尽头是通往Boss竞技场的入口。",
-        "x": 0,
-        "y": 600,
-        "w": 1200,
-        "h": 800,
-        "terrain_features": [
-          "灰烬地面",
-          "扭曲铁柱",
-          "石化人形",
-          "余烬飘散"
-        ]
+        "name": "无火祭祀场",
+        "name_en": "Flameless Shrine",
+        "kind": "main",
+        "x": 420,
+        "y": 1960,
+        "w": 900,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "崩塌殿堂",
-        "description": "半毁的巨大殿堂，巨大的砖石从天花板垂落。地面散布着古老的武器残骸——无数曾经的传火者留下的痕迹。殿堂中央有一个向上的阶梯，通往最终竞技场。",
-        "x": 1000,
-        "y": 500,
-        "w": 600,
-        "h": 600,
-        "terrain_features": [
-          "崩塌砖石",
-          "悬挂岩块",
-          "武器残骸",
-          "上升阶梯"
-        ]
+        "name": "灰烬荒原",
+        "name_en": "Ashen Wasteland",
+        "kind": "main",
+        "x": 1080,
+        "y": 1440,
+        "w": 920,
+        "h": 560,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
         "name": "初始之火竞技场",
-        "description": "一个开阔的圆形竞技场，中央是一堆即将熄灭的篝火。地面刻满了古老的符文。当玩家接近时，火焰中升起一个身影——薪王们的化身。战斗过程中，场地会根据Boss的武器形态变化出不同的光影效果。",
-        "x": 600,
-        "y": 100,
-        "w": 1200,
-        "h": 900,
-        "terrain_features": [
-          "圆形竞技场",
-          "中央篝火",
-          "古老符文",
-          "开阔无遮挡",
-          "动态光影"
-        ]
+        "name_en": "First Flame Arena",
+        "kind": "main",
+        "x": 1180,
+        "y": 760,
+        "w": 980,
+        "h": 720,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
-  "enemies": [],
   "boss": {
     "type": "SoulOfCinder",
     "name": "薪王们的化身",
     "name_en": "Soul of Cinder",
-    "x": 1200,
-    "y": 550,
-    "hp": 10766,
-    "arena": {
-      "x": 600,
-      "y": 100,
-      "w": 1200,
-      "h": 900
-    },
-    "trigger": "进入竞技场中央靠近篝火自动触发",
-    "phases": [
-      {
-        "name": "万象之武",
-        "name_en": "Master of All Arts",
-        "hp": 6557,
-        "speed_multiplier": 1.0,
-        "damage_multiplier": 1.0,
-        "attack_cooldown": 1.8,
-        "description": "薪王们的化身在四种武器形态间循环切换，代表所有曾经传火的不死者的不同游玩风格。每种形态有独特的招式和攻击模式。",
-        "mechanics": [
-          "直剑模式（力量）：均衡的近战攻击，包含横扫、斩击和突刺，造成火属性和标准伤害",
-          "弯刀+咒术模式（技巧）：使用弯刀快速斩击，可弹反玩家，同时施放咒术（火球、毒雾、内在之力、燃烧）",
-          "法杖模式（智力）：远程灵魂魔法，施放追踪结晶块、结晶灵魂枪、灵魂激流、灵魂大剑",
-          "大枪+奇迹模式（信仰）：使用大枪进行突刺和冲锋攻击，施放回覆、众神之怒等奇迹"
-        ],
-        "weapon_cycle": [
-          {
-            "weapon": "直剑",
-            "name_en": "Straight Sword",
-            "style": "力量近战",
-            "style_en": "Strength"
-          },
-          {
-            "weapon": "弯刀+咒术之火",
-            "name_en": "Curved Sword + Pyromancy",
-            "style": "技巧+咒术",
-            "style_en": "Dexterity"
-          },
-          {
-            "weapon": "法杖",
-            "name_en": "Staff + Sorcery",
-            "style": "智力魔法",
-            "style_en": "Intelligence"
-          },
-          {
-            "weapon": "大枪+护符",
-            "name_en": "Greatlance + Talisman",
-            "style": "信仰奇迹",
-            "style_en": "Faith"
-          }
-        ]
-      },
-      {
-        "name": "葛温的遗产",
-        "name_en": "Gwyn's Legacy",
-        "hp": 4209,
-        "speed_multiplier": 1.3,
-        "damage_multiplier": 1.4,
-        "attack_cooldown": 1.2,
-        "description": "第一阶段HP耗尽后，Boss进行转场动画：将螺旋剑刺穿自己的身体，产生爆炸并恢复全部HP进入第二阶段。此后使用葛温（DS1最终Boss）的大剑招式。背景音乐变为'无名之歌'——葛温的主题曲。攻击变得极其猛烈，包含闪电、抓取和致命的五连击。",
-        "mechanics": [
-          "使用大剑，攻击频率极高",
-          "阳光之枪：投掷强力闪电枪",
-          "碎裂雷电枪：投掷雷电枪向上分裂为大量雷电雨",
-          "阳光突刺：向下投掷阳光枪",
-          "致命五连击：将玩家击飞后连续四击，最后一击将剑插入地面产生AOE",
-          "抓取投技：抓住玩家举到空中引爆",
-          "踢击：破防踢击"
-        ],
-        "cinematic": "Boss将螺旋剑刺入自身胸口，产生巨大的火焰爆炸（造成AOE伤害），之后从光芒中出现，手持大剑。音乐骤变为无名之歌（Plin Plin Plon）。"
-      }
-    ],
-    "attacks": [
-      {
-        "name": "直剑连斩",
-        "name_en": "Straight Sword Combo",
-        "type": "StraightSwordCombo",
-        "damage": 50,
-        "range": "近",
-        "parryable": true,
-        "phase": 1,
-        "description": "直剑模式：标准的横扫、斩击和突刺连击，包含延迟变体"
-      },
-      {
-        "name": "直剑蓄力斩",
-        "name_en": "Straight Sword Charged Attack",
-        "type": "StraightSwordCharged",
-        "damage": 65,
-        "range": "近",
-        "parryable": true,
-        "phase": 1,
-        "description": "直剑模式：蓄力后的上挑斩，有多种变体"
-      },
-      {
-        "name": "弯刀连斩",
-        "name_en": "Curved Sword Flurry",
-        "type": "CurvedSwordFlurry",
-        "damage": 40,
-        "range": "近",
-        "parryable": true,
-        "phase": 1,
-        "description": "弯刀模式：极快的连续斩击，通常以旋转起手"
-      },
-      {
-        "name": "弯刀弹反",
-        "name_en": "Curved Sword Parry",
-        "type": "CurvedSwordParry",
-        "damage": 0,
-        "range": "近",
-        "parryable": false,
-        "phase": 1,
-        "description": "弯刀模式：可以弹反玩家的攻击并进行处决"
-      },
-      {
-        "name": "火球术",
-        "name_en": "Fire Orb",
-        "type": "FireOrb",
-        "damage": 50,
-        "range": "远",
-        "parryable": false,
-        "phase": 1,
-        "description": "弯刀+咒术模式：投掷大火球"
-      },
-      {
-        "name": "毒雾",
-        "name_en": "Poison Mist",
-        "type": "PoisonMist",
-        "damage": 0,
-        "range": "中",
-        "parryable": false,
-        "phase": 1,
-        "description": "弯刀+咒术模式：释放毒雾"
-      },
-      {
-        "name": "内在之力",
-        "name_en": "Power Within",
-        "type": "PowerWithin",
-        "damage": 0,
-        "range": "自身",
-        "parryable": false,
-        "phase": 1,
-        "description": "弯刀+咒术模式：自我增益法术，提升攻击力但自身不受伤害"
-      },
-      {
-        "name": "燃烧",
-        "name_en": "Combustion",
-        "type": "Combustion",
-        "damage": 45,
-        "range": "近",
-        "parryable": false,
-        "phase": 1,
-        "description": "弯刀+咒术模式：近距离火焰爆发"
-      },
-      {
-        "name": "法兰魔砾",
-        "name_en": "Farron Hail",
-        "type": "FarronHail",
-        "damage": 35,
-        "range": "远",
-        "parryable": false,
-        "phase": 1,
-        "description": "法杖模式：释放散射型灵魂魔法"
-      },
-      {
-        "name": "追踪结晶块",
-        "name_en": "Homing Crystal Soulmass",
-        "type": "HomingCrystalSoulmass",
-        "damage": 45,
-        "range": "远",
-        "parryable": false,
-        "phase": 1,
-        "description": "法杖模式：召唤追踪结晶块围绕自身，需要蓝色光环才能施放"
-      },
-      {
-        "name": "结晶灵魂枪",
-        "name_en": "Crystal Soul Spear",
-        "type": "CrystalSoulSpear",
-        "damage": 70,
-        "range": "远",
-        "parryable": false,
-        "phase": 1,
-        "description": "法杖模式：高速直线灵魂弹"
-      },
-      {
-        "name": "灵魂激流",
-        "name_en": "Soul Stream",
-        "type": "SoulStream",
-        "damage": 80,
-        "range": "远",
-        "parryable": false,
-        "phase": 1,
-        "description": "法杖模式：蓄力后释放强力的灵魂激流光束，施法时间长是最好的攻击窗口"
-      },
-      {
-        "name": "灵魂大剑",
-        "name_en": "Soul Greatsword",
-        "type": "SoulGreatsword",
-        "damage": 55,
-        "range": "中",
-        "parryable": false,
-        "phase": 1,
-        "description": "法杖模式：挥舞魔法大剑，约3米长的弧形斩击"
-      },
-      {
-        "name": "大枪突刺",
-        "name_en": "Greatlance Thrust",
-        "type": "GreatlanceThrust",
-        "damage": 55,
-        "range": "远",
-        "parryable": true,
-        "phase": 1,
-        "description": "大枪模式：快速连续突刺，可达3连刺"
-      },
-      {
-        "name": "大枪冲锋",
-        "name_en": "Greatlance Charge",
-        "type": "GreatlanceCharge",
-        "damage": 60,
-        "range": "远",
-        "parryable": true,
-        "phase": 1,
-        "description": "大枪模式：向前冲锋突刺"
-      },
-      {
-        "name": "大枪回旋",
-        "name_en": "Greatlance Spin",
-        "type": "GreatlanceSpin",
-        "damage": 50,
-        "range": "中",
-        "parryable": true,
-        "phase": 1,
-        "description": "大枪模式：持枪旋转攻击"
-      },
-      {
-        "name": "众神之怒",
-        "name_en": "Wrath of the Gods",
-        "type": "WrathOfGods",
-        "damage": 55,
-        "range": "全屏",
-        "parryable": false,
-        "phase": 1,
-        "description": "大枪+奇迹模式：释放以自身为中心的冲击波"
-      },
-      {
-        "name": "回覆",
-        "name_en": "Med Heal",
-        "type": "MedHeal",
-        "damage": 0,
-        "range": "自身",
-        "parryable": false,
-        "phase": 1,
-        "description": "大枪+奇迹模式：施放奇迹回复自身HP，玩家可以趁机输出打断"
-      },
-      {
-        "name": "五连击",
-        "name_en": "Five-Hit Combo",
-        "type": "FiveHitCombo",
-        "damage": 55,
-        "range": "近",
-        "parryable": false,
-        "phase": 2,
-        "description": "第二阶段专属：将玩家击飞的五连击，前四击命中后将剑插入地面产生AOE。以高尔夫挥杆姿势起手，不可格挡。"
-      },
-      {
-        "name": "阳光之枪",
-        "name_en": "Sunlight Spear",
-        "type": "SunlightSpear",
-        "damage": 70,
-        "range": "远",
-        "parryable": false,
-        "phase": 2,
-        "description": "第二阶段专属：投掷强力闪电枪，命中后产生雷电AOE"
-      },
-      {
-        "name": "碎裂雷电枪",
-        "name_en": "Splintering Lightning Spear",
-        "type": "SplinteringLightningSpear",
-        "damage": 60,
-        "range": "全屏",
-        "parryable": false,
-        "phase": 2,
-        "description": "第二阶段专属：向天空投掷雷电枪，分裂为大量雷电从天而降"
-      },
-      {
-        "name": "阳光突刺",
-        "name_en": "Sunlight Stake",
-        "type": "SunlightStake",
-        "damage": 65,
-        "range": "近",
-        "parryable": false,
-        "phase": 2,
-        "description": "第二阶段专属：向下投掷阳光枪，产生小范围AOE"
-      },
-      {
-        "name": "跳跃斩",
-        "name_en": "Leaping Slash",
-        "type": "LeapingSlash",
-        "damage": 60,
-        "range": "远",
-        "parryable": false,
-        "phase": 2,
-        "description": "第二阶段专属：跳向玩家进行强力斩击"
-      },
-      {
-        "name": "命令抓取",
-        "name_en": "Command Grab",
-        "type": "CommandGrab",
-        "damage": 90,
-        "range": "近",
-        "parryable": false,
-        "phase": 2,
-        "description": "第二阶段专属：抓住玩家举到空中后引爆，造成极高伤害"
-      },
-      {
-        "name": "踢击",
-        "name_en": "Kick",
-        "type": "Kick",
-        "damage": 30,
-        "range": "近",
-        "parryable": false,
-        "phase": 2,
-        "description": "第二阶段专属：前踏踢击，用于破防"
-      }
-    ],
-    "ending_choices": [
-      {
-        "name": "传火",
-        "name_en": "To Link the First Flame",
-        "description": "与初始之火互动，将火焰延续。玩家走入篝火中，火焰重新燃起。获得'传火'成就。但这只是又一次的轮回。",
-        "conditions": "默认结局。如果在Yoel/Yuria任务线中，需先治愈暗穴才能触发此结局。"
-      },
-      {
-        "name": "灭火",
-        "name_en": "The End of Fire",
-        "description": "使用初始之火旁的召唤签召唤防火女，让她吸灭火焰。火熄灭后，黑暗降临。获得'灭火'成就。",
-        "conditions": "需要从无主墓地获得'火防女的眼球'并交给防火女。"
-      },
-      {
-        "name": "背叛结局",
-        "name_en": "Betrayal / Unkindled Ending",
-        "description": "在灭火结局的过场动画中，趁防火女伸手时攻击她，将火焰据为己有。没有成就。",
-        "conditions": "同灭火结局条件，在过场动画中获得控制权时选择攻击防火女。"
-      },
-      {
-        "name": "游火的篡夺",
-        "name_en": "The Usurpation of Fire",
-        "description": "作为游火之王，从火焰中夺取力量。与初始之火互动时选择夺火而非传火。获得'游火的篡夺'成就。",
-        "conditions": "需要完成Yoel/Yuria的完整任务线：从Yoel处获得5个暗穴，与Anri完成婚礼获得3个暗穴（共8个暗穴）。"
-      }
-    ],
-    "story": "薪王们的化身是所有曾经传火者的灵魂聚合体——包括葛温在内的每一位将自身投入初始之火的不死者。它没有独立的意志，而是作为火焰的守护者存在。第二阶段使用葛温的招式，配合无名之歌的旋律，是对整个《黑暗之魂》系列的最终致敬。这个Boss不是恶人，它只是在完成自己被赋予的使命——测试你是否值得做出最终的选择。",
-    "drops": [
-      {
-        "item": "薪王们的灵魂",
-        "item_en": "Soul of the Lords",
-        "type": "BossSoul",
-        "description": "所有曾经传火的薪王的灵魂结晶。可用于灵魂炼成：阳光之枪（奇迹）、防火女的镰刀（武器）。"
-      },
-      {
-        "item": "灵魂",
-        "item_en": "Souls",
-        "type": "Souls",
-        "value_ng": 100000,
-        "value_ng_plus": 150000,
-        "description": "击败后获得的灵魂量"
-      }
-    ],
-    "weaknesses": [
-      "Lightning",
-      "Dark"
-    ],
-    "resistances": [
-      "Fire",
-      "Poison",
-      "Toxic"
-    ],
-    "notes": "Cannot be parried or spell-parried. Can be poise-broken but no opening for critical attack. Highly resistant to Bleed but not immune. Resistant to Frost but can be Frostbitten. During sorcery phase, extremely vulnerable to Vow of Silence."
+    "x": 1560,
+    "y": 1180,
+    "source_status": "official_identity_projected_position"
   },
-  "npcs": [
-    {
-      "name": "隆德尔的尤莉娅",
-      "name_en": "Yuria of Londor",
-      "type": "summon",
-      "role": "可召唤NPC",
-      "location": "Boss雾门前",
-      "conditions": "需要完成安里的婚礼事件（8个暗穴），且尤莉娅未敌对",
-      "notes": "击败Boss后，若尤莉娅存活，可在传火祭祀场她的位置拾取暗 drift + 黑色套装"
-    },
-    {
-      "name": "隆德尔的苍白影子",
-      "name_en": "Londor Pale Shade",
-      "type": "summon",
-      "role": "可召唤NPC",
-      "location": "通往Boss竞技场的长阶梯中途右侧",
-      "conditions": "需要与尤莉娅结盟",
-      "notes": "召唤签位于通往Boss竞技场的长阶梯中途，向右寻找白色召唤签"
-    }
-  ],
-  "chests": [],
+  "enemies": [],
   "items": [],
+  "chests": [],
+  "npcs": [],
+  "lights": [],
   "fog_gates": [
     {
-      "x": 600,
-      "y": 500,
-      "w": 40,
-      "h": 200,
-      "dest_area": null,
-      "notes": "薪王们的化身Boss战雾门",
-      "dest_x": 0,
-      "dest_y": 0
+      "x": 620,
+      "y": 2300,
+      "w": 96,
+      "h": 96,
+      "dest_area": "GrandArchives",
+      "dest_x": 2900,
+      "dest_y": 520,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     }
-  ],
-  "lights": [
-    {
-      "x": 200,
-      "y": 1000,
-      "radius": 200,
-      "r": 0.9,
-      "g": 0.6,
-      "b": 0.3,
-      "intensity": 0.7,
-      "notes": "初始之火炉篝火——温暖的橙光"
-    },
-    {
-      "x": 1200,
-      "y": 500,
-      "radius": 300,
-      "r": 1.0,
-      "g": 0.5,
-      "b": 0.2,
-      "intensity": 0.5,
-      "notes": "竞技场中央篝火——暗红火焰"
-    },
-    {
-      "x": 600,
-      "y": 300,
-      "radius": 150,
-      "r": 0.5,
-      "g": 0.3,
-      "b": 0.2,
-      "intensity": 0.3,
-      "notes": "竞技场边缘余烬"
-    },
-    {
-      "x": 400,
-      "y": 700,
-      "radius": 80,
-      "r": 0.8,
-      "g": 0.4,
-      "b": 0.1,
-      "intensity": 0.3,
-      "notes": "灰烬之路飘散的余烬"
-    }
-  ],
-  "story_notes": [
-    "初始之火炉是整个《黑暗之魂3》的最终区域，也是系列精神的终点",
-    "这里没有任何常规敌人和可拾取物品，只有一条通往最终Boss的路——这本身就是一种叙事",
-    "薪王们的化身代表所有曾经传火的不死者，包括DS1的葛温",
-    "第二阶段音乐变为'Plin Plin Plon'（无名之歌），是对葛温主题的重新编曲",
-    "这个Boss使用四种武器形态（直剑、弯刀+咒术、法杖、大枪+奇迹），象征不同游玩风格",
-    "击败后获得'薪王们的灵魂'，可用于炼成阳光之枪或防火女的镰刀",
-    "可以召唤尤莉娅和隆德尔苍白影子协助战斗（需完成特定任务线）",
-    "击败后玩家面临传火/灭火/背叛/夺火四种结局选择",
-    "无焰祠庙是传火祭祀场的黑暗复制品，但没有任何NPC",
-    "初始之火炉的篝火可传送至DLC区域'堆土塔'",
-    "Boss第一阶段和第二阶段有各自独立的HP条——击败第一阶段后Boss完全回血进入第二阶段",
-    "灰烬之路上的石化人形和嵌入地面的武器是曾经传火者的遗迹",
-    "竞技场周围的花朵与血源的猎人梦中和环印城中的花朵极为相似",
-    "薪王们的化身在Funko Pop和限定版中被称为'红色骑士'以避免剧透"
   ]
 }

@@ -2,11 +2,11 @@
   "id": "UndeadSettlement",
   "name": "不死聚落",
   "name_en": "Undead Settlement",
-  "description": "一座聚集不死者的荒凉村落。木制建筑沿着悬崖边层层叠建，尸体悬挂在树木和灯柱上。聚落中央有巨型巨人投掷长矛帮助玩家。深处的地洞中盘踞着咒蚀大树。空气中弥漫着腐烂和火焰的气味。",
-  "theme": "村落/腐朽/褐黄",
+  "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
+  "theme": "undead village",
   "map_size": {
-    "width": 4000,
-    "height": 3200
+    "width": 5120,
+    "height": 4096
   },
   "connections": {
     "from": [
@@ -16,1182 +16,214 @@
       "RoadOfSacrifices"
     ]
   },
+  "restoration": {
+    "status": "clean_rebuild_topology_projection",
+    "authoritative_fields": [
+      "area id/name",
+      "connections",
+      "bonfire names",
+      "boss identity"
+    ],
+    "projection_fields": [
+      "map_size",
+      "sections coordinates",
+      "fog gate coordinates"
+    ],
+    "excluded_until_sourced": [
+      "enemy placements",
+      "item placements",
+      "NPC dialogue",
+      "chest placements"
+    ],
+    "note": "This file intentionally avoids inherited fabricated precise data."
+  },
   "bonfires": [
     {
       "name": "高墙下方",
-      "x": 200,
-      "y": 200,
-      "description": "从洛斯里克的高墙底部到达的第一个篝火",
-      "name_en": "Foot of the High Wall"
+      "name_en": "Foot of the High Wall",
+      "x": 420,
+      "y": 360,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "不死聚落",
-      "x": 600,
-      "y": 500,
-      "description": "聚落主要区域的篝火",
-      "name_en": "Undead Settlement"
-    },
-    {
-      "name": "悬崖下地下室",
-      "x": 2000,
-      "y": 1800,
-      "description": "聚落深处悬崖底部的隐蔽篝火",
-      "name_en": "Cliff Underside"
+      "name_en": "Undead Settlement",
+      "x": 1020,
+      "y": 980,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "颓旧桥端",
-      "x": 1200,
-      "y": 800,
-      "description": "聚落中部的废弃桥梁旁，巨人塔下方",
-      "name_en": "Dilapidated Bridge"
+      "name_en": "Dilapidated Bridge",
+      "x": 2500,
+      "y": 1710,
+      "source_status": "official_name_projected_position"
+    },
+    {
+      "name": "悬崖下地下室",
+      "name_en": "Cliff Underside",
+      "x": 3280,
+      "y": 2190,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "游魂之渊",
-      "x": 1900,
-      "y": 1750,
-      "description": "咒蚀大树Boss战下层的篝火，可在此奉献脊椎枷锁",
-      "name_en": "Pit of Hollows"
+      "name_en": "Pit of Hollows",
+      "x": 3000,
+      "y": 3300,
+      "source_status": "official_name_projected_position"
     }
   ],
   "map_layout": {
+    "basis": "Clean gameplay 2D projection of Dark Souls III route topology. Not official coordinate geometry.",
     "sections": [
       {
-        "name": "聚落入口",
-        "description": "从高墙底部延伸而来的道路，进入不死聚落。道路两侧悬挂着装尸体的铁笼，远处可见聚落的木质建筑群。几名空心农民在路上游荡。",
-        "x": 0,
-        "y": 0,
-        "w": 600,
-        "h": 500,
-        "terrain_features": [
-          "石路",
-          "悬挂铁笼",
-          "木质围栏",
-          "远处建筑群"
-        ]
+        "name": "高墙下方",
+        "name_en": "Foot of the High Wall",
+        "kind": "main",
+        "x": 200,
+        "y": 180,
+        "w": 760,
+        "h": 420,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "民房街道",
-        "description": "聚落的主要街道，两侧是歪斜的木制民房。街道上有传教士（肥胖敌人）巡逻，使用钉锤和咒术。屋顶上有刺客伺机而动。",
-        "x": 500,
-        "y": 400,
-        "w": 600,
-        "h": 500,
-        "terrain_features": [
-          "木制民房",
-          "窄街",
-          "屋顶通道",
-          "悬挂尸体"
-        ]
+        "name": "聚落入口街",
+        "name_en": "Settlement Entry Street",
+        "kind": "main",
+        "x": 760,
+        "y": 700,
+        "w": 760,
+        "h": 580,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "屋内捷径",
+        "name_en": "House Shortcut",
+        "kind": "main",
+        "x": 1380,
+        "y": 960,
+        "w": 820,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "大篝火广场",
+        "name_en": "Burning Tree Square",
+        "kind": "main",
+        "x": 1980,
+        "y": 1180,
+        "w": 760,
+        "h": 560,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
         "name": "巨人塔",
-        "description": "聚落中央矗立着一座高塔，塔顶栖息着一位友善的巨人。巨人会向下方投掷长矛帮助玩家消灭敌人。需要攀爬塔身才能到达塔顶与巨人交谈。",
-        "x": 1000,
-        "y": 300,
-        "w": 500,
-        "h": 600,
-        "terrain_features": [
-          "高塔",
-          "巨人",
-          "长矛雨",
-          "攀爬路径"
-        ]
+        "name_en": "Giant Tower",
+        "kind": "optional",
+        "x": 2920,
+        "y": 820,
+        "w": 620,
+        "h": 900,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "篝火广场",
-        "description": "一处开阔的广场，中央有巨大的篝火。传教士在此举行仪式，周围堆满了尸体。杰克塔尔的洋葱骑士在阳台上休息。广场下方有通往地洞的入口。",
-        "x": 1400,
-        "y": 700,
-        "w": 500,
-        "h": 400,
-        "terrain_features": [
-          "大篝火",
-          "广场",
-          "尸体堆",
-          "地洞入口"
-        ]
+        "name": "火焰恶魔广场",
+        "name_en": "Fire Demon Plaza",
+        "kind": "optional",
+        "x": 3420,
+        "y": 1420,
+        "w": 720,
+        "h": 520,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "铁笼道",
-        "description": "沿着悬崖边修建的栈道，途中可以看到被关在铁笼里的寇尔尼斯（咒术师NPC）。下方是万丈深渊。道旁有传教士和刺客出没。",
-        "x": 1800,
-        "y": 500,
-        "w": 500,
-        "h": 400,
-        "terrain_features": [
-          "悬崖栈道",
-          "铁笼",
-          "深渊",
-          "窄路"
-        ]
+        "name": "颓旧桥端墓地",
+        "name_en": "Dilapidated Bridge Graveyard",
+        "kind": "main",
+        "x": 2300,
+        "y": 1640,
+        "w": 1100,
+        "h": 700,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "火恶魔广场",
-        "description": "一处与火焰恶魔战斗的开阔区域。洋葱骑士会在此协助玩家。恶魔被击败后洋葱骑士会表示感谢。这是唯一有NPC协助的战斗。",
-        "x": 2000,
-        "y": 900,
-        "w": 400,
-        "h": 400,
-        "terrain_features": [
-          "开阔广场",
-          "恶魔残迹",
-          "碎石",
-          "火焰痕迹"
-        ]
+        "name": "悬崖下地下室",
+        "name_en": "Cliff Underside",
+        "kind": "main",
+        "x": 3120,
+        "y": 2080,
+        "w": 920,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "朝圣者营地",
-        "description": "约埃尔和其他朝圣者聚集的区域。灰色的石砌建筑旁，朝圣者趴在地上。约埃尔在此提供免费的升级（力量），代价是玩家的黑暗印记。",
-        "x": 2200,
-        "y": 600,
-        "w": 400,
-        "h": 300,
-        "terrain_features": [
-          "朝圣者群",
-          "石砌建筑",
-          "灰暗角落",
-          "约埃尔的据点"
-        ]
+        "name": "咒蚀大树广场",
+        "name_en": "Greatwood Courtyard",
+        "kind": "main",
+        "x": 2460,
+        "y": 2860,
+        "w": 1120,
+        "h": 680,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "地洞深渊",
-        "description": "咒蚀大树的Boss战场。从篝火广场的地洞跳下进入。一个巨大的地下空洞，到处是树根和腐殖质。中央盘踞着巨大的咒蚀大树，树身上长满了蛋囊。",
-        "x": 1600,
-        "y": 1500,
-        "w": 800,
-        "h": 600,
-        "terrain_features": [
-          "地下空洞",
-          "巨树根",
-          "蛋囊",
-          "腐殖质地面",
-          "崩塌地板"
-        ]
-      },
-      {
-        "name": "伊莉娜囚室",
-        "description": "聚落深处的一间囚室，奇迹师伊莉娜被关押在此。她的守护者艾葛恩守在门外。需要购买钥匙才能释放伊莉娜。",
-        "x": 2600,
-        "y": 800,
-        "w": 300,
-        "h": 300,
-        "terrain_features": [
-          "囚室",
-          "铁门",
-          "石墙",
-          "暗角"
-        ]
+        "name": "牺牲之路升降机",
+        "name_en": "Road of Sacrifices Lift",
+        "kind": "main",
+        "x": 4040,
+        "y": 2260,
+        "w": 580,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
-  "enemies": [
-    {
-      "kind": "HollowSoldier",
-      "x": 400,
-      "y": 350,
-      "patrol": 25,
-      "count": 2,
-      "notes": "聚落入口巡逻的空心士兵"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 550,
-      "y": 500,
-      "patrol": 20,
-      "count": 1,
-      "notes": "民房街道入口"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 650,
-      "y": 600,
-      "patrol": 30,
-      "count": 2,
-      "notes": "街道上的士兵"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 800,
-      "y": 550,
-      "patrol": 20,
-      "count": 2,
-      "notes": "民房屋顶附近"
-    },
-    {
-      "kind": "Assassin",
-      "x": 700,
-      "y": 650,
-      "patrol": 40,
-      "count": 1,
-      "notes": "街道屋顶的刺客"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1100,
-      "y": 500,
-      "patrol": 25,
-      "count": 2,
-      "notes": "巨人塔底部"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1250,
-      "y": 650,
-      "patrol": 20,
-      "count": 3,
-      "notes": "巨人塔周围的士兵"
-    },
-    {
-      "kind": "Evangelist",
-      "x": 1500,
-      "y": 800,
-      "patrol": 15,
-      "count": 1,
-      "notes": "篝火广场大篝火旁祈祷的传教士"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1500,
-      "y": 800,
-      "patrol": 20,
-      "count": 3,
-      "notes": "篝火广场周围"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1650,
-      "y": 750,
-      "patrol": 25,
-      "count": 2,
-      "notes": "广场侧面"
-    },
-    {
-      "kind": "Assassin",
-      "x": 1900,
-      "y": 600,
-      "patrol": 35,
-      "count": 2,
-      "notes": "铁笼道的刺客"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 2050,
-      "y": 700,
-      "patrol": 20,
-      "count": 2,
-      "notes": "铁笼道末端"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 2100,
-      "y": 1000,
-      "patrol": 25,
-      "count": 2,
-      "notes": "火恶魔广场附近"
-    },
-    {
-      "kind": "Evangelist",
-      "x": 2100,
-      "y": 1050,
-      "patrol": 15,
-      "count": 2,
-      "notes": "火恶魔区域上层建筑中的两名传教士"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 2700,
-      "y": 900,
-      "patrol": 20,
-      "count": 2,
-      "notes": "伊莉娜囚室附近"
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 500,
-      "y": 600,
-      "patrol": 35,
-      "count": 2,
-      "notes": "街道中的饿犬"
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 1700,
-      "y": 650,
-      "patrol": 30,
-      "count": 2,
-      "notes": "广场附近的饿犬"
-    },
-    {
-      "kind": "FireDemon",
-      "x": 2050,
-      "y": 950,
-      "patrol": 0,
-      "count": 1,
-      "notes": "火恶魔广场的火焰恶魔，洋葱骑士协助战斗"
-    },
-    {
-      "kind": "Thrall",
-      "x": 1000,
-      "y": 600,
-      "patrol": 20,
-      "count": 3,
-      "notes": "屋顶和建筑内伏击的奴隶刺客"
-    },
-    {
-      "kind": "PeasantHollow",
-      "x": 300,
-      "y": 300,
-      "patrol": 15,
-      "count": 3,
-      "notes": "聚落入口非敌对的农民空心"
-    },
-    {
-      "kind": "Rat",
-      "x": 1900,
-      "y": 1100,
-      "patrol": 10,
-      "count": 4,
-      "notes": "下水道中的老鼠，含一只大老鼠（掉落血咬戒指）"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 2700,
-      "y": 850,
-      "patrol": 30,
-      "count": 1,
-      "notes": "伊莉娜囚室附近的结晶蜥蜴"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 1800,
-      "y": 1300,
-      "patrol": 30,
-      "count": 1,
-      "notes": "Hodrick入侵区域附近的结晶蜥蜴"
-    },
-    {
-      "kind": "BorealKnight",
-      "x": 2900,
-      "y": 750,
-      "patrol": 0,
-      "count": 1,
-      "notes": "冷冽谷骑士，击败后掉落伊鲁席尔直剑，守卫通往活祭品之路的门"
-    },
-    {
-      "kind": "Skeleton",
-      "x": 2550,
-      "y": 900,
-      "patrol": 15,
-      "count": 4,
-      "notes": "墓地区域和伊莉娜通道中的骷髅兵"
-    },
-    {
-      "kind": "Hodrick",
-      "x": 1250,
-      "y": 900,
-      "patrol": 40,
-      "count": 1,
-      "notes": "疯骑士霍德里克NPC入侵，需要余火状态触发，掉落脊椎枷锁"
-    },
-    {
-      "kind": "CagedHollow",
-      "x": 2200,
-      "y": 1050,
-      "patrol": 10,
-      "count": 3,
-      "notes": "铁笼中/铁笼旁的空心，部分敌对"
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 350,
-      "y": 350,
-      "patrol": 30,
-      "count": 3,
-      "notes": "入口铁闸门后释放的亡犬群"
-    }
-  ],
   "boss": {
     "type": "CurseRottedGreatwood",
     "name": "咒蚀大树",
-    "name_en": "Curse-Rotted Greatwood",
-    "x": 2000,
-    "y": 1800,
-    "hp": 5405,
-    "arena": {
-      "x": 1650,
-      "y": 1550,
-      "w": 700,
-      "h": 500
-    },
-    "phases": [
-      {
-        "name": "蛋囊破坏",
-        "hp_threshold": 1.0,
-        "speed_multiplier": 0.8,
-        "damage_multiplier": 1.0,
-        "attack_cooldown": 3.0,
-        "description": "咒蚀大树是一棵巨大腐败的古树，身上长满了蛋囊（弱点）。玩家必须攻击蛋囊才能造成有效伤害。大树会用横扫和砸地攻击驱赶玩家。此阶段场地是开阔的地面层。",
-        "mechanics": [
-          "蛋囊弱点",
-          "横扫攻击",
-          "砸地攻击",
-          "缓慢移动"
-        ]
-      },
-      {
-        "name": "坠落深渊",
-        "hp_threshold": 0.6,
-        "speed_multiplier": 1.0,
-        "damage_multiplier": 1.1,
-        "attack_cooldown": 2.5,
-        "description": "当破坏足够蛋囊后，地板崩塌，玩家和大树一同坠入下方的空洞。大树在深渊中获得新的攻击方式——手臂横扫。需要继续破坏剩余蛋囊。",
-        "mechanics": [
-          "地板崩塌",
-          "手臂横扫",
-          "新蛋囊",
-          "狭窄空间"
-        ]
-      },
-      {
-        "name": "诅咒核心",
-        "hp_threshold": 0.3,
-        "speed_multiplier": 1.2,
-        "damage_multiplier": 1.3,
-        "attack_cooldown": 2.0,
-        "description": "大树露出核心部位的最终蛋囊。攻击更加疯狂频繁，横扫和砸地交替使用。核心位于大树腹部下方，需要冒险钻到树下攻击。",
-        "mechanics": [
-          "核心暴露",
-          "高速连击",
-          "腹部弱点"
-        ]
-      }
-    ],
-    "attacks": [
-      {
-        "name": "砸地",
-        "type": "GroundSlam",
-        "damage": 45,
-        "range": "近-中",
-        "parryable": false,
-        "description": "大树抬起肢体猛然砸地，造成范围冲击波并可能释放腐蚀液体。判定范围半径110像素。前摇明显约0.4秒。"
-      },
-      {
-        "name": "横扫",
-        "type": "SweepAttack",
-        "damage": 40,
-        "range": "近-中",
-        "parryable": false,
-        "description": "大树用手臂/根须进行大范围横扫。判定范围半径104像素，覆盖前方大部分区域。翻滚穿过后有短暂输出窗口。"
-      },
-      {
-        "name": "倒压",
-        "type": "BodySlam",
-        "damage": 50,
-        "range": "远",
-        "parryable": false,
-        "description": "大树整体向玩家方向倾倒压下。判定范围正前方105像素长、58像素宽。前摇较长，容易躲避但伤害很高。"
-      },
-      {
-        "name": "抓投",
-        "type": "GrabAttack",
-        "damage": 60,
-        "range": "近",
-        "parryable": false,
-        "description": "双臂环抱抓取玩家后猛摔。第二阶段白色手臂的抓投攻击特别危险。站在胸前蛋囊正前方可完全避免。"
-      },
-      {
-        "name": "旋转",
-        "type": "SpinAttack",
-        "damage": 35,
-        "range": "近-中",
-        "parryable": false,
-        "description": "双手撑地后快速360度旋转。手臂和腿部命中判定。需远离或翻滚利用无敌帧。"
-      },
-      {
-        "name": "侧滚",
-        "type": "RollAttack",
-        "damage": 45,
-        "range": "近",
-        "parryable": false,
-        "description": "大树侧身翻滚试图碾压玩家。向侧面躲避为佳，滚后可趁机输出。"
-      },
-      {
-        "name": "连砸",
-        "type": "ArmPound",
-        "damage": 40,
-        "range": "近-中",
-        "parryable": false,
-        "description": "第二阶段：腹部白色手臂向玩家方向连砸2-3次。每次有小范围AoE效果。最好翻滚躲避，同时绕到背后攻击蛋囊。"
-      }
-    ],
-    "story": "咒蚀大树是不死聚落深处的古老存在。它最初被聚落居民崇拜为神圣之物，后来被诅咒侵蚀，成为吞噬一切的腐败存在。大树身上的蛋囊实际上是诅咒的结晶。击败大树后掉落灵魂炼成台（Transposing Kiln），这是将Boss灵魂转化为武器和道具的关键道具。",
-    "drops": [
-      {
-        "name": "咒蚀大树的灵魂",
-        "name_en": "Soul of the Rotted Greatwood"
-      },
-      {
-        "name": "灵魂炼成炉",
-        "name_en": "Transposing Kiln"
-      }
-    ]
+    "name_en": "Curse-rotted Greatwood",
+    "x": 3000,
+    "y": 3300,
+    "source_status": "official_identity_projected_position"
   },
-  "npcs": [
-    {
-      "name": "杰克塔尔的洋葱骑士",
-      "name_en": "Siegward of Catarina",
-      "kind": "Dialogue",
-      "x": 1050,
-      "y": 450,
-      "color": "#d4a840",
-      "dialogue": [
-        "嗯？哦，你好啊！",
-        "我是杰克塔尔的杰克迈耶。你可以叫我洋葱骑士。",
-        "你也是来旅游的吗？这里的风景确实不错……如果不考虑那些怪物的话。",
-        "前面有个火焰恶魔，看起来不太好对付。",
-        "要不要一起去？两个总比一个好！"
-      ],
-      "quest": "首次在教堂大门遇见。在电梯下降途中可听到他的声音，跳到窗台上对话。协助玩家击败火恶魔后赠送杰克啤酒并教授干杯和睡觉动作。后续在幽邃教堂的井中再次出现（需要帮助他出井），在冷冽谷与巨人战斗时协助。最终在罪业之都独自击败巨人王，若完成全任务线则获得杰克的铠甲套装。"
-    },
-    {
-      "name": "隆道尔的尤艾尔",
-      "name_en": "Yoel of Londor",
-      "kind": "Dialogue",
-      "x": 2300,
-      "y": 700,
-      "color": "#505060",
-      "dialogue": [
-        "你也是……无火的灰烬吗？",
-        "我是尤艾尔，来自隆道尔的朝圣者。",
-        "这副身体已经快不行了……但是在我完全死去之前，",
-        "我可以给你一份力量。免费的，不需要回报。",
-        "来吧，让我触碰你的黑暗……"
-      ],
-      "quest": "提供最多5次免费升级（每次在死亡后获得），但每次升级都会在玩家身上留下黑暗印记（Dark Sigil）。收集全部5个黑暗印记后，尤莉雅会出现在祭祀场。如果拒绝所有升级，尤艾尔会在到达冷冽谷后死亡。"
-    },
-    {
-      "name": "大沼的柯弭库斯",
-      "name_en": "Cornyx of the Great Swamp",
-      "kind": "Dialogue",
-      "x": 1900,
-      "y": 550,
-      "color": "#a08050",
-      "dialogue": [
-        "嘿！嘿！有人吗？！",
-        "我被关在这个铁笼里了！求求你放我出去！",
-        "我是咒术师柯弭库斯。如果你放了我，我可以教你咒术！",
-        "拜托了，这里的味道实在太糟糕了……"
-      ],
-      "quest": "被关在铁笼中，互动后释放并加入传火祭祀场成为咒术教师。给予他咒术卷轴可解锁新咒术。完成所有卷轴交付后在祭祀场死亡，留下遗物。"
-    },
-    {
-      "name": "卡里姆的伊莉娜",
-      "name_en": "Irina of Carim",
-      "kind": "Dialogue",
-      "x": 2650,
-      "y": 850,
-      "color": "#d0a0c0",
-      "dialogue": [
-        "……是谁？",
-        "我是伊莉娜，来自卡里姆的盲眼少女。",
-        "我被关在这里很久了……外面的艾葛恩一直在保护我。",
-        "如果你能带我离开这里……我可以为你解读奇迹经文。",
-        "但是……请不要给我黑暗的经文……"
-      ],
-      "quest": "被关押在聚落深处。释放后加入祭祀场成为奇迹教师。给予她圣洁的奇迹点书可解锁光明系奇迹。如果给予黑暗的奇迹点书，她会堕落并变为黑暗祭司。"
-    },
-    {
-      "name": "卡里姆的伊贡",
-      "name_en": "Eygon of Carim",
-      "kind": "Dialogue",
-      "x": 2580,
-      "y": 820,
-      "color": "#606060",
-      "dialogue": [
-        "停在那里。",
-        "后面的女人归我保护。",
-        "如果你没有恶意，那就走开。",
-        "……如果你真想帮她，那把钥匙拿来。"
-      ],
-      "quest": "守卫伊莉娜的骑士。最初对玩家保持警惕。伊莉娜被释放后会跟随艾葛恩。若伊莉娜堕落，艾葛恩会在祭祀场变为敌对并攻击玩家。若伊莉娜安全，艾葛恩会在后续剧情中安详死去。"
-    }
-  ],
-  "chests": [
-    {
-      "x": 2150,
-      "y": 1050,
-      "loot": {
-        "kind": "ItemDrop",
-        "name": "人松脂",
-        "name_en": "Human Pine Resin",
-        "count": 4
-      },
-      "is_mimic": false,
-      "notes": "火恶魔区域建筑内宝箱，开箱后触发铁笼空心出现"
-    },
-    {
-      "x": 1300,
-      "y": 600,
-      "loot": {
-        "kind": "EstusShard"
-      },
-      "is_mimic": false,
-      "notes": "篝火广场大篝火后遗体上的原素瓶碎片（非宝箱，改为遗体拾取）"
-    }
-  ],
-  "items": [
-    {
-      "kind": "LargeSoulOfDesertedCorpse",
-      "x": 200,
-      "y": 250,
-      "notes": "高墙塔楼遗体 - 被遗弃者的大灵魂"
-    },
-    {
-      "kind": "AlluringSkull",
-      "x": 450,
-      "y": 400,
-      "count": 2,
-      "notes": "入口翻倒马车后遗体 - 诱敌头盖骨"
-    },
-    {
-      "kind": "HomewardBone",
-      "x": 500,
-      "y": 350,
-      "count": 2,
-      "notes": "朝圣者营地尽头遗体 - 归还骨片"
-    },
-    {
-      "kind": "SmallLeatherShield",
-      "x": 650,
-      "y": 550,
-      "count": 1,
-      "notes": "第一栋房屋内悬挂尸体 - 小皮盾"
-    },
-    {
-      "kind": "CharcoalPineBundle",
-      "x": 700,
-      "y": 600,
-      "count": 2,
-      "notes": "下楼后墙边遗体 - 木炭松脂束"
-    },
-    {
-      "kind": "LorettaBone",
-      "x": 720,
-      "y": 620,
-      "count": 1,
-      "notes": "阳台外悬挂尸体 - 罗蕾塔的骨头"
-    },
-    {
-      "kind": "RepairPowder",
-      "x": 750,
-      "y": 650,
-      "count": 2,
-      "notes": "转角处遗体 - 修复粉"
-    },
-    {
-      "kind": "CharcoalPineBundle",
-      "x": 780,
-      "y": 680,
-      "count": 2,
-      "notes": "下一层遗体 - 木炭松脂束"
-    },
-    {
-      "kind": "EstusShard",
-      "x": 1550,
-      "y": 850,
-      "count": 1,
-      "notes": "大篝火前遗体 - 原素瓶碎片"
-    },
-    {
-      "kind": "Ember",
-      "x": 1600,
-      "y": 850,
-      "count": 1,
-      "notes": "大篝火后遗体 - 余火"
-    },
-    {
-      "kind": "LargeSoulOfDesertedCorpse",
-      "x": 900,
-      "y": 580,
-      "count": 1,
-      "notes": "过桥后房屋内 - 被遗弃者的大灵魂"
-    },
-    {
-      "kind": "FadingSoul",
-      "x": 1050,
-      "y": 580,
-      "count": 1,
-      "notes": "屋顶小路遗体 - 消逝的灵魂"
-    },
-    {
-      "kind": "HomewardBone",
-      "x": 1100,
-      "y": 520,
-      "count": 2,
-      "notes": "屋顶另一侧遗体 - 归还骨片"
-    },
-    {
-      "kind": "CaduceusRoundShield",
-      "x": 1150,
-      "y": 600,
-      "count": 1,
-      "notes": "悬崖边墙角 - 蛇纹圆盾"
-    },
-    {
-      "kind": "PlankShield",
-      "x": 1200,
-      "y": 620,
-      "count": 1,
-      "notes": "铁笼NPC旁遗体 - 木板盾"
-    },
-    {
-      "kind": "FlameStoneplateRing",
-      "x": 1300,
-      "y": 550,
-      "count": 1,
-      "notes": "树上悬挂尸体 - 火方石戒指"
-    },
-    {
-      "kind": "TitaniteShard",
-      "x": 1850,
-      "y": 580,
-      "count": 1,
-      "notes": "石桥下小道尽头遗体 - 楔形石碎片"
-    },
-    {
-      "kind": "Partizan",
-      "x": 1950,
-      "y": 500,
-      "count": 1,
-      "notes": "悬挂尸体射落后 - 游击矛枪"
-    },
-    {
-      "kind": "HandAxe",
-      "x": 2000,
-      "y": 520,
-      "count": 1,
-      "notes": "阳台上遗体 - 手斧"
-    },
-    {
-      "kind": "SoulOfUnknownTraveler",
-      "x": 2050,
-      "y": 600,
-      "count": 1,
-      "notes": "木质刑台上 - 未知旅人的灵魂"
-    },
-    {
-      "kind": "FireClutchRing",
-      "x": 2100,
-      "y": 650,
-      "count": 1,
-      "notes": "断裂木桥尽头 - 火怪异戒指"
-    },
-    {
-      "kind": "LargeSoulOfDesertedCorpse",
-      "x": 2150,
-      "y": 700,
-      "count": 1,
-      "notes": "拱门转角遗体 - 被遗弃者的大灵魂"
-    },
-    {
-      "kind": "BloodbiteRing",
-      "x": 1800,
-      "y": 1100,
-      "count": 1,
-      "notes": "下水道大老鼠掉落 - 血咬戒指"
-    },
-    {
-      "kind": "Caestus",
-      "x": 1850,
-      "y": 1080,
-      "count": 1,
-      "notes": "下水道走廊遗体 - 护手带"
-    },
-    {
-      "kind": "Ember",
-      "x": 1750,
-      "y": 1050,
-      "count": 1,
-      "notes": "狗看守的遗体 - 余火"
-    },
-    {
-      "kind": "Loincloth",
-      "x": 2500,
-      "y": 850,
-      "count": 1,
-      "notes": "墓地道具 - 缠腰布"
-    },
-    {
-      "kind": "RedHiltedHalberd",
-      "x": 2480,
-      "y": 880,
-      "count": 1,
-      "notes": "墓地道具 - 红柄戟"
-    },
-    {
-      "kind": "SoulOfUnknownTraveler",
-      "x": 2520,
-      "y": 900,
-      "count": 1,
-      "notes": "骷髅房间遗体 - 未知旅人的灵魂"
-    },
-    {
-      "kind": "TitaniteShard",
-      "x": 2560,
-      "y": 870,
-      "count": 2,
-      "notes": "结晶蜥蜴旁 - 楔形石碎片"
-    },
-    {
-      "kind": "BlessedRedWhiteShield",
-      "x": 2600,
-      "y": 850,
-      "count": 1,
-      "notes": "悬挂尸体射落后 - 祝福红白盾+1"
-    },
-    {
-      "kind": "SaintsTalisman",
-      "x": 2620,
-      "y": 830,
-      "count": 1,
-      "notes": "老鼠房间遗体 - 圣女护符"
-    },
-    {
-      "kind": "RedBugPellet",
-      "x": 2100,
-      "y": 1000,
-      "count": 2,
-      "notes": "火恶魔区域遗体 - 红虫药丸"
-    },
-    {
-      "kind": "LargeClub",
-      "x": 2120,
-      "y": 1020,
-      "count": 1,
-      "notes": "火恶魔区域 - 大棍棒"
-    },
-    {
-      "kind": "NorthernSet",
-      "x": 2150,
-      "y": 980,
-      "count": 1,
-      "notes": "悬挂尸体 - 北方套装"
-    },
-    {
-      "kind": "PaleTongue",
-      "x": 2160,
-      "y": 990,
-      "count": 1,
-      "notes": "悬挂尸体 - 苍白舌头"
-    },
-    {
-      "kind": "AlluringSkull",
-      "x": 2180,
-      "y": 1030,
-      "count": 2,
-      "notes": "铁笼旁遗体 - 诱敌头盖骨"
-    },
-    {
-      "kind": "FlynnRing",
-      "x": 2200,
-      "y": 1080,
-      "count": 1,
-      "notes": "屋顶遗体 - 弗林戒指"
-    },
-    {
-      "kind": "HomewardBone",
-      "x": 2080,
-      "y": 1100,
-      "count": 2,
-      "notes": "塔楼阳台遗体 - 归还骨片"
-    },
-    {
-      "kind": "ChloranthyRing",
-      "x": 1100,
-      "y": 400,
-      "count": 1,
-      "notes": "巨人塔底部 - 绿花戒指"
-    },
-    {
-      "kind": "MirrahSet",
-      "x": 1100,
-      "y": 420,
-      "count": 1,
-      "notes": "巨人塔底部 - 米拉套装"
-    },
-    {
-      "kind": "IrithyllStraightSword",
-      "x": 2900,
-      "y": 750,
-      "count": 1,
-      "notes": "击败冷冽谷骑士掉落 - 伊鲁席尔直剑"
-    },
-    {
-      "kind": "TitaniteShard",
-      "x": 1400,
-      "y": 900,
-      "count": 1,
-      "notes": "下层墙边遗体 - 楔形石碎片"
-    },
-    {
-      "kind": "CharcoalPineResin",
-      "x": 1450,
-      "y": 920,
-      "count": 2,
-      "notes": "铁笼肢体旁遗体 - 木炭松脂"
-    },
-    {
-      "kind": "WarriorOfSunlight",
-      "x": 1500,
-      "y": 950,
-      "count": 1,
-      "notes": "地板洞下方房间 - 太阳战士誓约",
-      "name": "太阳战士"
-    },
-    {
-      "kind": "SoulOfUnknownTraveler",
-      "x": 1550,
-      "y": 980,
-      "count": 1,
-      "notes": "死胡同悬崖遗体 - 未知旅人的灵魂"
-    },
-    {
-      "kind": "Whip",
-      "x": 1600,
-      "y": 950,
-      "count": 1,
-      "notes": "敞开民居遗体 - 鞭子"
-    },
-    {
-      "kind": "TitaniteShard",
-      "x": 1650,
-      "y": 930,
-      "count": 1,
-      "notes": "桥上遗体 - 楔形石碎片"
-    },
-    {
-      "kind": "RustedCoin",
-      "x": 1280,
-      "y": 920,
-      "count": 1,
-      "notes": "屋顶跳下 - 锈蚀硬币"
-    },
-    {
-      "kind": "VertebraShackle",
-      "x": 1250,
-      "y": 900,
-      "count": 1,
-      "notes": "击败霍德里克掉落 - 脊椎枷锁"
-    },
-    {
-      "kind": "FadingSoul",
-      "x": 2300,
-      "y": 800,
-      "count": 1,
-      "notes": "峡谷路径遗体 - 消逝的灵魂"
-    },
-    {
-      "kind": "Ember",
-      "x": 2350,
-      "y": 820,
-      "count": 1,
-      "notes": "峡谷路径遗体 - 余火"
-    },
-    {
-      "kind": "YoungWhiteBranch",
-      "x": 2400,
-      "y": 780,
-      "count": 2,
-      "notes": "峡谷路径遗体 - 幼嫩白枝"
-    },
-    {
-      "kind": "LargeSoulOfDesertedCorpse",
-      "x": 2450,
-      "y": 810,
-      "count": 1,
-      "notes": "峡谷路径遗体 - 被遗弃者的大灵魂"
-    },
-    {
-      "kind": "MorticianAshes",
-      "x": 2300,
-      "y": 700,
-      "count": 1,
-      "notes": "墓地遗体 - 殡葬师的骨灰"
-    },
-    {
-      "kind": "ClericSet",
-      "x": 2350,
-      "y": 720,
-      "count": 1,
-      "notes": "小屋遗体 - 圣职者套装"
-    },
-    {
-      "kind": "BlueWoodenShield",
-      "x": 2350,
-      "y": 730,
-      "count": 1,
-      "notes": "小屋遗体 - 蓝木盾"
-    },
-    {
-      "kind": "UndeadBoneShard",
-      "x": 2280,
-      "y": 750,
-      "count": 1,
-      "notes": "跳过小缺口遗体 - 不死人遗骨碎片"
-    },
-    {
-      "kind": "GreatScythe",
-      "x": 2250,
-      "y": 800,
-      "count": 1,
-      "notes": "建筑内跳上 ledge - 大镰刀"
-    },
-    {
-      "kind": "TransposingKiln",
-      "x": 2000,
-      "y": 1800,
-      "count": 1,
-      "notes": "击败咒蚀大树后掉落 - 灵魂炼成炉",
-      "name": "灵魂炼成炉"
-    },
-    {
-      "kind": "SoulOfRottedGreatwood",
-      "x": 2000,
-      "y": 1800,
-      "count": 1,
-      "notes": "击败咒蚀大树后掉落 - 咒蚀大树的灵魂"
-    },
-    {
-      "kind": "HomewardBone",
-      "x": 1950,
-      "y": 1780,
-      "count": 1,
-      "notes": "空洞之渊遗体 - 归还骨片"
-    },
-    {
-      "kind": "WargodWoodenShield",
-      "x": 1960,
-      "y": 1790,
-      "count": 1,
-      "notes": "空洞之渊遗体 - 军神木盾"
-    },
-    {
-      "kind": "HawkRing",
-      "x": 1200,
-      "y": 350,
-      "count": 1,
-      "notes": "击败巨人掉落 - 鹰戒指（可选）"
-    },
-    {
-      "kind": "Siegbrau",
-      "x": 2050,
-      "y": 950,
-      "count": 1,
-      "notes": "击败火恶魔后洋葱骑士给予 - 杰克啤酒"
-    },
-    {
-      "kind": "LifeRingPlus1",
-      "x": 1150,
-      "y": 450,
-      "count": 1,
-      "notes": "电梯中途窗台（NG+） - 生命戒指+1"
-    }
-  ],
+  "enemies": [],
+  "items": [],
+  "chests": [],
+  "npcs": [],
+  "lights": [],
   "fog_gates": [
     {
-      "x": 100,
-      "y": 200,
-      "w": 40,
-      "h": 200,
+      "x": 420,
+      "y": 260,
+      "w": 96,
+      "h": 96,
       "dest_area": "LothricWall",
-      "dest_x": 2800,
-      "dest_y": 2000,
-      "notes": "返回洛斯里克的高墙（玻尔多战后）"
+      "dest_x": 3160,
+      "dest_y": 3540,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     },
     {
-      "x": 3000,
-      "y": 700,
-      "w": 200,
-      "h": 40,
+      "x": 4320,
+      "y": 2500,
+      "w": 96,
+      "h": 96,
       "dest_area": "RoadOfSacrifices",
-      "dest_x": 200,
-      "dest_y": 400,
-      "notes": "通往活祭品之路"
+      "dest_x": 520,
+      "dest_y": 520,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     }
-  ],
-  "lights": [
-    {
-      "x": 300,
-      "y": 400,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "聚落篝火"
-    },
-    {
-      "x": 1200,
-      "y": 800,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "废弃桥篝火"
-    },
-    {
-      "x": 2000,
-      "y": 1800,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "悬崖底部篝火"
-    },
-    {
-      "x": 1200,
-      "y": 400,
-      "radius": 250,
-      "r": 0.9,
-      "g": 0.85,
-      "b": 0.7,
-      "intensity": 0.7,
-      "notes": "巨人塔顶的光芒"
-    },
-    {
-      "x": 1550,
-      "y": 800,
-      "radius": 200,
-      "r": 1.0,
-      "g": 0.6,
-      "b": 0.2,
-      "intensity": 0.8,
-      "notes": "篝火广场的大火"
-    },
-    {
-      "x": 2100,
-      "y": 1000,
-      "radius": 150,
-      "r": 1.0,
-      "g": 0.4,
-      "b": 0.1,
-      "intensity": 0.6,
-      "notes": "火恶魔的余烬"
-    }
-  ],
-  "story_notes": [
-    "不死聚落是不死者的集中地，原版中名为'不死の集落'",
-    "巨人投掷长矛是此区域的标志性机制，与巨人友善后他会帮助玩家清除大量敌人",
-    "悬挂的尸体是不死聚落的标志性景象，反映了聚落居民对不死者的处置方式",
-    "咒蚀大树是非传统Boss——需要攻击特定弱点（蛋囊）而非简单地削减HP",
-    "约埃尔的免费升级会留下黑暗印记，这是通往'篡火者'结局的关键条件之一",
-    "杰克塔尔的洋葱骑士是DS3最受欢迎的NPC之一，其任务线贯穿游戏大部分区域",
-    "原版中，击败咒蚀大树后掉落的灵魂炼成台（Transposing Kiln）可以将Boss灵魂转化为特殊武器",
-    "聚落中可以看到远处洛斯里克的高墙和飞龙的壮观景色",
-    "传教士（Evangelist）是此区域的特色敌人——肥胖的女性祭司，使用钉锤和'不朽的叹息'咒术",
-    "空洞之渊中有堆积者的誓约祭坛，可以在其中奉献脊椎枷锁提升誓约等级。铁笼背上的空心可传送至此区域。",
-    "塔顶的巨人可以选择友善（帮助射击敌人）或击杀（掉落鹰戒指）。友善后巨人只会在白桦树附近射击敌人。"
   ]
 }

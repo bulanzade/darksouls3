@@ -1,960 +1,176 @@
 {
   "id": "ArchdragonPeak",
-  "name": "古龙顶端",
+  "name": "古龙顶",
   "name_en": "Archdragon Peak",
-  "description": "隐匿于云海之上的远古龙族圣地。传说中只有领悟'龙之道'的人才能到达此地。山峰被永恒的风暴笼罩，雷鸣不断。古老的龙族遗迹遍布山体，蛇人和岩石蜥蜴守护着这片圣地。这里是龙信仰的中心，也是无名王者——葛温长子隐居之处。",
-  "theme": "山巅/古龙遗迹/雷暴/风暴",
+  "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
+  "theme": "mountain shrine",
   "map_size": {
-    "width": 4400,
-    "height": 3600
+    "width": 5120,
+    "height": 4608
   },
   "connections": {
     "from": [
-      "IrithyllDungeon",
-      "ConsumedKingsGarden"
+      "IrithyllDungeon"
     ],
     "to": []
   },
+  "restoration": {
+    "status": "clean_rebuild_topology_projection",
+    "authoritative_fields": [
+      "area id/name",
+      "connections",
+      "bonfire names",
+      "boss identity"
+    ],
+    "projection_fields": [
+      "map_size",
+      "sections coordinates",
+      "fog gate coordinates"
+    ],
+    "excluded_until_sourced": [
+      "enemy placements",
+      "item placements",
+      "NPC dialogue",
+      "chest placements"
+    ],
+    "note": "This file intentionally avoids inherited fabricated precise data."
+  },
   "bonfires": [
     {
-      "name": "古龙顶端",
-      "x": 300,
-      "y": 400,
-      "description": "区域入口篝火，通过龙之道的姿态传送至此",
-      "name_en": "Archdragon Peak"
+      "name": "古龙顶",
+      "name_en": "Archdragon Peak",
+      "x": 620,
+      "y": 3600,
+      "source_status": "official_name_projected_position"
     },
     {
-      "name": "龙嗣灵庙",
-      "x": 1400,
-      "y": 600,
-      "description": "灵庙入口，远处可见远古飞龙盘旋",
-      "name_en": "Dragon-Kin Mausoleum"
+      "name": "龙人灵庙",
+      "name_en": "Dragon-Kin Mausoleum",
+      "x": 2200,
+      "y": 2300,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "大钟楼",
-      "x": 2400,
-      "y": 1000,
-      "description": "山顶大钟楼，敲响大钟后无名王者的风暴降临",
-      "name_en": "Great Belfry"
+      "name_en": "Great Belfry",
+      "x": 3360,
+      "y": 1260,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "无名王者",
-      "x": 3600,
-      "y": 2800,
-      "description": "最终Boss战后篝火",
-      "name_en": "Nameless King"
+      "name_en": "Nameless King",
+      "x": 4200,
+      "y": 900,
+      "source_status": "official_name_projected_position"
     }
   ],
   "map_layout": {
+    "basis": "Clean gameplay 2D projection of Dark Souls III route topology. Not official coordinate geometry.",
     "sections": [
       {
-        "name": "山巅入口",
-        "description": "从传送点到达的开阔山脊。两侧是万丈深渊和翻涌的云海。前方可见巨大的龙族石雕和古老的神殿遗迹。入口处有岩石蜥蜴出没。",
-        "x": 0,
-        "y": 0,
-        "w": 800,
-        "h": 700,
-        "terrain_features": [
-          "山脊窄路",
-          "万丈深渊",
-          "龙族石雕",
-          "云海",
-          "风暴天空"
-        ]
+        "name": "古龙之道入口",
+        "name_en": "Archdragon Entry Cliff",
+        "kind": "main",
+        "x": 420,
+        "y": 3320,
+        "w": 900,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "蛇人兵营",
-        "description": "一个由蛇人驻守的古老兵营。兵营围绕一个中央庭院建造，有多层结构和隐藏通道。蛇人士兵和蛇人法师分布在各个角落。",
-        "x": 600,
-        "y": 400,
-        "w": 700,
-        "h": 600,
-        "terrain_features": [
-          "古老兵营",
-          "多层结构",
-          "中央庭院",
-          "蛇人旗帜"
-        ]
+        "name": "蛇人营地",
+        "name_en": "Man-Serpent Camp",
+        "kind": "main",
+        "x": 1080,
+        "y": 2780,
+        "w": 980,
+        "h": 720,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "龙嗣灵庙",
-        "description": "供奉龙族遗骸的灵庙。庙内有一具完整的龙骨架和龙祭坛。此处是远古飞龙Boss战的前厅。灵庙上方可以看到飞龙盘旋的身影。",
-        "x": 1100,
-        "y": 300,
-        "w": 800,
-        "h": 600,
-        "terrain_features": [
-          "龙骨架",
-          "祭坛",
-          "龙族壁画",
-          "高耸立柱",
-          "俯瞰云海"
-        ]
+        "name": "远古飞龙竞技场",
+        "name_en": "Ancient Wyvern Arena",
+        "kind": "main",
+        "x": 1900,
+        "y": 2520,
+        "w": 980,
+        "h": 720,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "飞龙竞技场",
-        "description": "远古飞龙Boss战场地。一个依山而建的宽阔平台，远处的飞龙会飞至平台上方。玩家需要沿山路攀登至高处，通过跳下攻击一击杀死飞龙。",
-        "x": 900,
-        "y": 800,
-        "w": 800,
-        "h": 700,
-        "terrain_features": [
-          "宽阔平台",
-          "攀爬路径",
-          "高处跳台",
-          "风暴天空"
-        ]
+        "name": "龙人灵庙",
+        "name_en": "Dragon-Kin Mausoleum",
+        "kind": "main",
+        "x": 1980,
+        "y": 2040,
+        "w": 820,
+        "h": 560,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "风暴山道",
-        "description": "从飞龙竞技场通往大钟楼的蜿蜒山道。路上有大量蛇人和岩石蜥蜴。山道旁的悬崖可以看到壮观的云海和远处的无名王者竞技场。",
-        "x": 1700,
-        "y": 700,
-        "w": 600,
-        "h": 500,
-        "terrain_features": [
-          "蜿蜒山道",
-          "悬崖边缘",
-          "风暴加剧",
-          "远古遗迹"
-        ]
+        "name": "屋顶飞龙桥",
+        "name_en": "Rooftop Wyvern Bridge",
+        "kind": "main",
+        "x": 2640,
+        "y": 1540,
+        "w": 980,
+        "h": 660,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
         "name": "大钟楼",
-        "description": "山顶的一座古老钟楼。敲响大钟后，风暴骤然加剧，无名王者从云端降临。钟楼内有大钟机关和宝箱。",
-        "x": 2200,
-        "y": 800,
-        "w": 500,
-        "h": 500,
-        "terrain_features": [
-          "巨大铜钟",
-          "钟楼内部",
-          "风暴中心",
-          "雷鸣不断"
-        ]
+        "name_en": "Great Belfry",
+        "kind": "main",
+        "x": 3160,
+        "y": 1080,
+        "w": 760,
+        "h": 560,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "风暴竞技场",
-        "description": "无名王者Boss战场地。一个位于云海之上的巨大圆形竞技场。地面由古老的石砖铺成，四周是无尽的云海。战斗全程伴随着狂风暴雨和雷电。风暴使得远处的视野模糊，增加了战斗的压迫感。",
-        "x": 3000,
-        "y": 2000,
-        "w": 1200,
-        "h": 1000,
-        "terrain_features": [
-          "圆形竞技场",
-          "云海环绕",
-          "雷暴不断",
-          "开阔无遮挡",
-          "风暴迷雾"
-        ]
+        "name": "云海竞技场",
+        "name_en": "Nameless King Storm Arena",
+        "kind": "main",
+        "x": 3880,
+        "y": 600,
+        "w": 900,
+        "h": 700,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
-  "enemies": [
-    {
-      "kind": "RockLizard",
-      "x": 400,
-      "y": 350,
-      "patrol": 20,
-      "count": 2,
-      "notes": "入口山脊的岩石蜥蜴，行动缓慢但防御极高"
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 700,
-      "y": 500,
-      "patrol": 25,
-      "count": 1,
-      "notes": "蛇人兵营入口的蛇人战士"
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 900,
-      "y": 650,
-      "patrol": 20,
-      "count": 2,
-      "notes": "兵营庭院内的蛇人，会变身龙形态"
-    },
-    {
-      "kind": "ManSerpent",
-      "x": 800,
-      "y": 800,
-      "patrol": 15,
-      "count": 1,
-      "notes": "兵营深处的蛇人法师，施放雷电魔法"
-    },
-    {
-      "kind": "RockLizard",
-      "x": 1200,
-      "y": 450,
-      "patrol": 15,
-      "count": 2,
-      "notes": "灵庙前的岩石蜥蜴"
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1400,
-      "y": 550,
-      "patrol": 20,
-      "count": 2,
-      "notes": "灵庙内部的蛇人守卫"
-    },
-    {
-      "kind": "ManSerpent",
-      "x": 1500,
-      "y": 700,
-      "patrol": 10,
-      "count": 1,
-      "notes": "灵庙高层的蛇人法师"
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1800,
-      "y": 800,
-      "patrol": 30,
-      "count": 2,
-      "notes": "风暴山道上的蛇人巡逻队"
-    },
-    {
-      "kind": "RockLizard",
-      "x": 2000,
-      "y": 900,
-      "patrol": 15,
-      "count": 1,
-      "notes": "山道中途的岩石蜥蜴"
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 2300,
-      "y": 950,
-      "patrol": 20,
-      "count": 2,
-      "notes": "大钟楼前的蛇人守卫"
-    },
-    {
-      "kind": "ManSerpent",
-      "x": 2400,
-      "y": 1100,
-      "patrol": 10,
-      "count": 1,
-      "notes": "钟楼内部的蛇人法师"
-    },
-    {
-      "kind": "SerpentManSummoner",
-      "x": 1500,
-      "y": 600,
-      "patrol": 0,
-      "count": 2,
-      "notes": "龙嗣灵庙内的蛇人召唤师，会召唤NPC灵体（龙血骑士、哈维尔、理查德等）"
-    },
-    {
-      "kind": "DrakebloodKnight",
-      "x": 1400,
-      "y": 650,
-      "patrol": 25,
-      "count": 1,
-      "notes": "被蛇人召唤师召唤的龙血骑士NPC灵体，击败掉落龙血大剑"
-    },
-    {
-      "kind": "HavelNPC",
-      "x": 2500,
-      "y": 1100,
-      "patrol": 0,
-      "count": 1,
-      "notes": "大钟楼梯子上方的哈维尔NPC敌人，击败掉落龙牙和哈维尔大盾"
-    },
-    {
-      "kind": "RicardNPC",
-      "x": 1550,
-      "y": 700,
-      "patrol": 0,
-      "count": 1,
-      "notes": "被蛇人召唤师召唤的理查德NPC，首次击杀掉落理查德的刺剑"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 1350,
-      "y": 550,
-      "patrol": 0,
-      "count": 1,
-      "notes": "龙嗣灵庙建筑内的结晶蜥蜴，掉落3×龙鳞楔形石"
-    },
-    {
-      "kind": "AncientWyvernSecond",
-      "x": 1700,
-      "y": 800,
-      "patrol": 0,
-      "count": 1,
-      "notes": "龙嗣灵庙到钟楼之间庭院的第二只古飞龙，可用远程击杀。掉落6x楔形石块、3x楔形石鳞片、3x龙鳞楔形石和50000灵魂",
-      "drops": [
-        {
-          "kind": "TitaniteDrop",
-          "name": "楔形石块",
-          "count": 6
-        },
-        {
-          "kind": "TitaniteDrop",
-          "name": "楔形石鳞片",
-          "count": 3
-        },
-        {
-          "kind": "TitaniteDrop",
-          "name": "龙鳞楔形石",
-          "count": 3
-        },
-        {
-          "kind": "SoulOrb",
-          "value": 50000
-        }
-      ]
-    },
-    {
-      "kind": "RockLizard",
-      "x": 1900,
-      "y": 900,
-      "patrol": 10,
-      "count": 4,
-      "notes": "第二飞龙后上楼梯处的4只岩石蜥蜴群"
-    },
-    {
-      "kind": "RockLizard",
-      "x": 2200,
-      "y": 900,
-      "patrol": 10,
-      "count": 1,
-      "notes": "寻龙者骨灰前方的岩石蜥蜴"
-    },
-    {
-      "kind": "RockLizard",
-      "x": 2450,
-      "y": 1250,
-      "patrol": 10,
-      "count": 1,
-      "notes": "哈维尔NPC处跳下平台后的岩石蜥蜴"
-    }
-  ],
-  "boss": [
-    {
-      "type": "AncientWyvern",
-      "name": "远古飞龙",
-      "name_en": "Ancient Wyvern",
-      "x": 1300,
-      "y": 1200,
-      "hp": 9999,
-      "arena": {
-        "x": 900,
-        "y": 800,
-        "w": 800,
-        "h": 700
-      },
-      "trigger": "进入飞龙竞技场自动触发",
-      "is_gimmick": true,
-      "phases": [
-        {
-          "name": "飞龙巡空",
-          "hp_threshold": 1.0,
-          "speed_multiplier": 0.8,
-          "damage_multiplier": 1.0,
-          "attack_cooldown": 3.0,
-          "description": "远古飞龙在竞技场上空盘旋，定期俯冲喷火。玩家需要沿着山壁的阶梯向上攀登，到达高处的跳台。飞龙的火焰覆盖面积极大。",
-          "mechanics": [
-            "空中盘旋",
-            "俯冲喷火",
-            "地面火焰残留",
-            "必须攀登高处"
-          ]
-        }
-      ],
-      "attacks": [
-        {
-          "name": "火焰吐息",
-          "type": "DragonFireBreath",
-          "damage": 80,
-          "range": "远",
-          "parryable": false,
-          "description": "从空中向下喷射火焰，覆盖大片区域"
-        },
-        {
-          "name": "俯冲攻击",
-          "type": "DiveAttack",
-          "damage": 60,
-          "range": "中",
-          "parryable": false,
-          "description": "向玩家位置俯冲，翅膀造成范围伤害"
-        },
-        {
-          "name": "地面火焰",
-          "type": "GroundFire",
-          "damage": 45,
-          "range": "中",
-          "parryable": false,
-          "description": "飞过的路径留下火焰痕迹"
-        }
-      ],
-      "kill_method": "机关杀：从高处的跳台进行跳下攻击（坠落攻击），一击必杀。飞龙的HP虽高但坠落攻击无视HP直接击杀。",
-      "story": "远古飞龙是古龙顶端的守护者之一，是真正古龙的后裔。与洛斯里克城堡的飞龙不同，它仍然保留着完整的力量。击败它的方法——从高处跳下进行致命一击——是对古龙猎杀传统的致敬。"
-    },
-    {
-      "type": "NamelessKing",
-      "name": "无名王者",
-      "name_en": "Nameless King",
-      "x": 3600,
-      "y": 2500,
-      "hp": 2500,
-      "arena": {
-        "x": 3000,
-        "y": 2000,
-        "w": 1200,
-        "h": 1000
-      },
-      "trigger": "敲响大钟楼的大钟，从风暴中降临",
-      "phases": [
-        {
-          "name": "风暴之王",
-          "hp_threshold": 1.0,
-          "speed_multiplier": 0.9,
-          "damage_multiplier": 1.0,
-          "attack_cooldown": 2.0,
-          "description": "无名王者骑在风暴龙（风暴之王）背上从云层中降临。风暴龙会在空中盘旋和俯冲，同时无名王者从龙背上挥动剑枪攻击。必须攻击龙的头和脖子造成有效伤害。击倒风暴之王后，无名王者从龙背坠落。",
-          "mechanics": [
-            "骑龙战斗",
-            "攻击龙头才有效",
-            "闪电俯冲",
-            "龙息攻击",
-            "视角被风暴遮挡"
-          ]
-        },
-        {
-          "name": "剑神降临",
-          "hp_threshold": 0.0,
-          "speed_multiplier": 1.3,
-          "damage_multiplier": 1.5,
-          "attack_cooldown": 1.2,
-          "description": "风暴之王被击倒后，无名王者亲自下场。他手持注入雷电的剑枪，速度和力量都达到极致。他会将武器插入地面释放雷电风暴，进行超远距离的冲刺攻击，以及致命的连击。被认为是《黑暗之魂3》最难的Boss之一。",
-          "mechanics": [
-            "雷电剑枪",
-            "地面雷电",
-            "超远冲刺",
-            "致命连击",
-            "风暴冲击波"
-          ]
-        }
-      ],
-      "attacks": [
-        {
-          "name": "闪电俯冲",
-          "type": "LightningDive",
-          "damage": 65,
-          "range": "远",
-          "parryable": false,
-          "description": "第一阶段：风暴龙俯冲并释放闪电"
-        },
-        {
-          "name": "龙息火暴",
-          "type": "DragonFirestorm",
-          "damage": 70,
-          "range": "远",
-          "parryable": false,
-          "description": "第一阶段：风暴龙释放大面积火焰吐息"
-        },
-        {
-          "name": "空中剑枪突刺",
-          "type": "AerialSpearThrust",
-          "damage": 60,
-          "range": "远",
-          "parryable": false,
-          "description": "第一阶段：无名王者从龙背上向下突刺"
-        },
-        {
-          "name": "风暴龙吐息",
-          "type": "StormBreath",
-          "damage": 55,
-          "range": "中",
-          "parryable": false,
-          "description": "第一阶段：风暴龙释放风雷混合吐息"
-        },
-        {
-          "name": "雷电斩击",
-          "type": "LightningSlash",
-          "damage": 75,
-          "range": "中",
-          "parryable": true,
-          "description": "第二阶段：注入雷电的剑枪横斩"
-        },
-        {
-          "name": "雷电突刺",
-          "type": "LightningThrust",
-          "damage": 70,
-          "range": "远",
-          "parryable": true,
-          "description": "第二阶段：超远距离的雷电突刺"
-        },
-        {
-          "name": "雷电风暴",
-          "type": "LightningStorm",
-          "damage": 65,
-          "range": "全屏",
-          "parryable": false,
-          "description": "第二阶段：将剑枪插入地面，释放大范围雷电风暴"
-        },
-        {
-          "name": "冲刺连击",
-          "type": "DashCombo",
-          "damage": 60,
-          "range": "远",
-          "parryable": true,
-          "description": "第二阶段：高速冲刺后接2-3连击"
-        },
-        {
-          "name": "风雷下劈",
-          "type": "StormSlam",
-          "damage": 80,
-          "range": "近",
-          "parryable": true,
-          "description": "第二阶段：高高跳起后注入雷电猛力下劈"
-        },
-        {
-          "name": "延迟雷电",
-          "type": "DelayedLightning",
-          "damage": 55,
-          "range": "中",
-          "parryable": false,
-          "description": "第二阶段：挥斩后雷电延迟释放，二次判定"
-        }
-      ],
-      "death_dialogue": "（沉默地消散于风暴中）",
-      "story": "无名王者是太阳王葛温的长子，曾被称为'太阳长子'或'猎龙战神'。他曾经是葛温最强大的战士，但因为他选择站在龙族一方对抗自己的父亲，被葛温剥夺了名字和神的地位。他的雕像在传火祭祀场被刻意毁坏。他隐居在古龙顶端，成为龙族最后的守护者。他骑乘的风暴之王是最后一条真正的古龙。他的故事是《黑暗之魂》系列中最具悲剧色彩的故事之一——一个被父亲抛弃、为信念而战、最终孤独地守护着已逝种族的战神。",
-      "reward": "无名王者的灵魂（Soul of the Nameless King）——可炼成猎龙剑枪或风暴弯刀"
-    }
-  ],
-  "npcs": [
-    {
-      "name": "霍克伍德",
-      "name_en": "Hawkwood",
-      "kind": "Summon",
-      "x": 1300,
-      "y": 1000,
-      "color": "#6B6B6B",
-      "dialogue": [
-        "（召唤符出现在古飞龙竞技场入口）帮助清理庭院的蛇人群"
-      ],
-      "quest": "霍克伍德是'寻龙者'，完成他的任务线后他会来到古龙顶端的龙祭坛前。如果击败无名王者后再次来到龙祭坛，他会化为龙形——这是他追求龙之道的终极结局。可在古飞龙战斗前召唤为NPC协助。"
-    }
-  ],
-  "chests": [
-    {
-      "x": 1900,
-      "y": 850,
-      "loot": {
-        "kind": "TitaniteDrop",
-        "name": "光辉楔形石"
-      },
-      "is_mimic": false,
-      "notes": "风暴山道中途的遗体"
-    },
-    {
-      "x": 1350,
-      "y": 450,
-      "loot": {
-        "kind": "TitaniteDrop",
-        "name": "楔形石鳞片",
-        "count": 3
-      },
-      "is_mimic": false,
-      "notes": "龙嗣灵庙建筑内宝箱"
-    },
-    {
-      "x": 2450,
-      "y": 1100,
-      "loot": {
-        "kind": "TitaniteDrop",
-        "name": "龙鳞楔形石",
-        "count": 3
-      },
-      "is_mimic": false,
-      "notes": "大钟楼区域阳台宝箱"
-    }
-  ],
-  "items": [
-    {
-      "kind": "SoulOrb",
-      "value": 2000,
-      "x": 350,
-      "y": 450,
-      "notes": "入口山脊树下——疲惫骑士的灵魂"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 800,
-      "x": 400,
-      "y": 400,
-      "notes": "入口台阶旁——无名士兵的灵魂"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 2500,
-      "x": 1000,
-      "y": 700,
-      "notes": "兵营庭院——大丧心骑士的灵魂"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 1500,
-      "x": 1400,
-      "y": 500,
-      "notes": "灵庙上层角落——丧心骑士的灵魂"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 5000,
-      "x": 1200,
-      "y": 1100,
-      "notes": "古飞龙竞技场内——大疲惫骑士的灵魂（wiki: Large Soul of a Weary Warrior）"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 2500,
-      "x": 2300,
-      "y": 1000,
-      "notes": "大钟楼庭院——大丧心骑士的灵魂"
-    },
-    {
-      "kind": "DragonStone",
-      "x": 1250,
-      "y": 600,
-      "count": 1,
-      "notes": "灵庙祭坛上的龙头石——击败古飞龙获得",
-      "name": "龙头石"
-    },
-    {
-      "kind": "DragonStone",
-      "x": 3000,
-      "y": 1800,
-      "count": 1,
-      "notes": "大钟楼后方山顶龙祭坛——使用龙之道姿态获得闪耀龙体石",
-      "name": "闪耀龙体石"
-    },
-    {
-      "kind": "RingDrop",
-      "name": "雷电挚指环",
-      "x": 1150,
-      "y": 1050,
-      "notes": "古飞龙竞技场左侧通道内的尸体"
-    },
-    {
-      "kind": "RingDrop",
-      "name": "钢铁保护戒指",
-      "x": 1250,
-      "y": 1150,
-      "notes": "古飞龙竞技场内，沿右侧台阶边缘"
-    },
-    {
-      "kind": "RingDrop",
-      "name": "雷之石板戒指",
-      "x": 1500,
-      "y": 500,
-      "notes": "龙嗣灵庙从木平台爬梯子至顶部的尸体"
-    },
-    {
-      "kind": "RingDrop",
-      "name": "灾厄戒指",
-      "x": 1300,
-      "y": 550,
-      "notes": "龙嗣灵庙祭坛使用龙之道姿态获得——自虐型戒指，受伤翻倍"
-    },
-    {
-      "kind": "SpellDrop",
-      "name": "大魔力屏障",
-      "x": 2500,
-      "y": 1150,
-      "notes": "大钟楼区域，从哈维尔处跳下后岩蜥蜴守卫的尸体上的奇迹"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "龙牙",
-      "x": 2500,
-      "y": 1100,
-      "notes": "击败哈维尔NPC掉落"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "哈维尔大盾",
-      "x": 2510,
-      "y": 1110,
-      "notes": "击败哈维尔NPC掉落"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "龙血大剑",
-      "x": 1400,
-      "y": 660,
-      "notes": "击败被召唤的龙血骑士NPC掉落"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "理查德的刺剑",
-      "x": 1560,
-      "y": 710,
-      "notes": "首次击败被召唤的理查德NPC掉落"
-    },
-    {
-      "kind": "ArmorDrop",
-      "name": "猎龙铠甲套装",
-      "slot": "Full",
-      "x": 3600,
-      "y": 2700,
-      "notes": "击败无名王者后下楼梯左侧尸体上的套装"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "寻龙者的骨灰",
-      "x": 2300,
-      "y": 950,
-      "notes": "大钟楼庭院左侧小径，岩蜥蜴后方的骨灰——交给侍女解锁购买楔形石"
-    },
-    {
-      "kind": "HomewardBone",
-      "x": 1700,
-      "y": 750,
-      "count": 2,
-      "notes": "入口左侧分叉路的归还骨片"
-    },
-    {
-      "kind": "Ember",
-      "x": 350,
-      "y": 380,
-      "count": 1,
-      "notes": "入口营火旁的余火"
-    },
-    {
-      "kind": "Ember",
-      "x": 1150,
-      "y": 1050,
-      "count": 2,
-      "notes": "古飞龙竞技场内两处余火"
-    },
-    {
-      "kind": "Ember",
-      "x": 2350,
-      "y": 1050,
-      "count": 1,
-      "notes": "大钟楼下层的余火"
-    },
-    {
-      "kind": "TitaniteDrop",
-      "name": "大块楔形石碎片",
-      "x": 380,
-      "y": 430,
-      "count": 1,
-      "notes": "入口区域短楼梯下"
-    },
-    {
-      "kind": "TitaniteDrop",
-      "name": "楔形石块",
-      "x": 1200,
-      "y": 900,
-      "count": 9,
-      "notes": "全区域多处散布"
-    },
-    {
-      "kind": "TitaniteDrop",
-      "name": "楔形石鳞片",
-      "x": 1400,
-      "y": 500,
-      "count": 6,
-      "notes": "龙嗣灵庙多处散布"
-    },
-    {
-      "kind": "TitaniteDrop",
-      "name": "龙鳞楔形石",
-      "x": 1300,
-      "y": 1000,
-      "count": 7,
-      "notes": "古飞龙竞技场梯子下、脚手架尽头、大钟楼宝箱、结晶蜥蜴等多处"
-    },
-    {
-      "kind": "TitaniteDrop",
-      "name": "楔形石圆盘",
-      "x": 2550,
-      "y": 1150,
-      "count": 1,
-      "notes": "哈维尔NPC旁龙爪尸体"
-    },
-    {
-      "kind": "TitaniteDrop",
-      "name": "楔形石圆盘",
-      "x": 3800,
-      "y": 2900,
-      "count": 1,
-      "notes": "击败无名王者后的珍贵素材"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "雷电贵石",
-      "x": 420,
-      "y": 370,
-      "notes": "入口区域最初蛇人旁的贵石"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "雷壶",
-      "x": 1150,
-      "y": 1080,
-      "count": 1,
-      "notes": "古飞龙竞技场建筑上层（wiki确认数量为1）"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "雷电弩箭",
-      "x": 1200,
-      "y": 1100,
-      "count": 12,
-      "notes": "古飞龙竞技场建筑顶层"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 1000,
-      "x": 1500,
-      "y": 650,
-      "notes": "龙嗣灵庙建筑内房间角落尸体——丧心骑士的灵魂"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "追踪粪饼",
-      "x": 1100,
-      "y": 1100,
-      "count": 6,
-      "notes": "古飞龙竞技场内的追踪粪饼（wiki: 6x Stalk Dung Pie）"
-    },
-    {
-      "kind": "RingDrop",
-      "name": "雷电贪欲戒指",
-      "x": 1100,
-      "y": 900,
-      "notes": "古飞龙大门左侧通道内尸体上的雷电贪欲戒指（wiki: Lightning Clutch Ring, confirmed on ring's own page）"
-    },
-    {
-      "kind": "ArmorDrop",
-      "name": "古龙大盾",
-      "slot": "Shield",
-      "x": 500,
-      "y": 350,
-      "notes": "入口区域大型蛇人旁平台上的拾取物（非宝箱）"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "猎龙枪",
-      "x": 1300,
-      "y": 500,
-      "notes": "龙嗣灵庙大阶梯上方大门前调查获得（wiki: Examine the gate near Dragonkin Mausoleum）"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 2000,
-      "x": 1800,
-      "y": 850,
-      "notes": "第二飞龙区域门道内——疲惫骑士的灵魂（wiki: Soul of a Weary Warrior, near second wyvern）"
-    }
-  ],
+  "boss": {
+    "type": "NamelessKing",
+    "name": "无名王者",
+    "name_en": "Nameless King",
+    "x": 4200,
+    "y": 900,
+    "source_status": "official_identity_projected_position"
+  },
+  "enemies": [],
+  "items": [],
+  "chests": [],
+  "npcs": [],
+  "lights": [],
   "fog_gates": [
     {
-      "x": 0,
-      "y": 300,
-      "w": 40,
-      "h": 200,
+      "x": 620,
+      "y": 3700,
+      "w": 96,
+      "h": 96,
       "dest_area": "IrithyllDungeon",
-      "dest_x": 2800,
-      "dest_y": 600,
-      "notes": "返回冷冽谷地下牢（通过龙之道姿态传送回）"
+      "dest_x": 3060,
+      "dest_y": 1400,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     }
-  ],
-  "lights": [
-    {
-      "x": 300,
-      "y": 400,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "入口篝火"
-    },
-    {
-      "x": 1400,
-      "y": 600,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "灵庙篝火"
-    },
-    {
-      "x": 2400,
-      "y": 1000,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "大钟楼篝火"
-    },
-    {
-      "x": 3600,
-      "y": 2800,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "无名王者篝火"
-    },
-    {
-      "x": 3600,
-      "y": 2500,
-      "radius": 400,
-      "r": 0.7,
-      "g": 0.7,
-      "b": 0.9,
-      "intensity": 0.4,
-      "notes": "风暴竞技场闪电环境光"
-    },
-    {
-      "x": 2300,
-      "y": 1000,
-      "radius": 120,
-      "r": 0.9,
-      "g": 0.9,
-      "b": 0.6,
-      "intensity": 0.6,
-      "notes": "大钟楼的铜钟反光"
-    },
-    {
-      "x": 1200,
-      "y": 450,
-      "radius": 100,
-      "r": 0.6,
-      "g": 0.7,
-      "b": 0.9,
-      "intensity": 0.3,
-      "notes": "灵庙龙骨折射光"
-    }
-  ],
-  "story_notes": [
-    "古龙顶端是完全可选的隐藏区域，需要击败妖王欧斯罗艾斯后获得龙之道姿态，在伊鲁席尔地下牢的龙像祭坛使用传送到达",
-    "无名王者是葛温的长子，被剥夺了名字和神的地位，因为他选择站在龙族一方对抗自己的父亲",
-    "传火祭祀场中被毁坏的太阳长子雕像，正是无名王者",
-    "风暴之王是最后一条真正的古龙，无名王者骑乘它守护这片圣地",
-    "无名王者被普遍认为是《黑暗之魂3》中最难的Boss，尤其是第二阶段",
-    "哈维尔作为敌对NPC出现在大钟楼梯子上方，击败掉落龙牙和哈维尔大盾",
-    "蛇人召唤师会召唤各种NPC灵体——龙血骑士、哈维尔、理查德等，增加了战斗的不可预测性",
-    "霍克伍德的结局——如果任务线完成——他会来到古龙顶端龙祭坛前化为龙形",
-    "古飞龙的跳下攻击一击必杀机制，是对《黑暗之魂1》中飞龙桥的经典致敬",
-    "敲响大钟楼的大钟是无名王者战的前置条件，钟声引来风暴，天气变为暴风雨",
-    "击败无名王者后天气恢复晴朗，铁栅门打开连通大钟楼与龙嗣灵庙之间的捷径",
-    "灾厄戒指——在龙嗣灵庙祭坛使用龙之道姿态获得——是自虐型戒指，受伤翻倍",
-    "闪耀龙体石在大钟楼后方山顶的龙祭坛使用龙之道姿态获得",
-    "寻龙者的骨灰交给侍女后可解锁购买楔形石块、楔形石鳞片和龙鳞楔形石",
-    "整个区域的雷暴氛围暗示了葛温家族的闪电力量——无名王者继承了父亲的雷电"
   ]
 }

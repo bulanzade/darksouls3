@@ -15,26 +15,28 @@ TILE_POISON = 4
 
 MARGIN = 6
 USABLE = CHUNK_SIZE - 2 * MARGIN
+BASE_MAP_PX = CHUNK_SIZE * TILE_SIZE
 
 LEVEL_UIDS = {
     "CemeteryOfAsh": 1,
-    "LothricWall": 2,
-    "UndeadSettlement": 3,
-    "RoadOfSacrifices": 4,
-    "FarronKeep": 5,
-    "CathedralDeep": 6,
-    "CatacombsOfCarthus": 7,
-    "SmoulderingLake": 8,
-    "Irithyll": 9,
-    "IrithyllDungeon": 10,
-    "ProfanedCapital": 11,
-    "AnorLondo": 12,
-    "LothricCastle": 13,
-    "GrandArchives": 14,
-    "KilnOfTheFirstFlame": 15,
-    "ConsumedKingsGarden": 16,
-    "UntendedGraves": 17,
-    "ArchdragonPeak": 18,
+    "FirelinkShrine": 2,
+    "LothricWall": 3,
+    "UndeadSettlement": 4,
+    "RoadOfSacrifices": 5,
+    "FarronKeep": 6,
+    "CathedralDeep": 7,
+    "CatacombsOfCarthus": 8,
+    "SmoulderingLake": 9,
+    "Irithyll": 10,
+    "IrithyllDungeon": 11,
+    "ProfanedCapital": 12,
+    "AnorLondo": 13,
+    "LothricCastle": 14,
+    "GrandArchives": 15,
+    "KilnOfTheFirstFlame": 16,
+    "ConsumedKingsGarden": 17,
+    "UntendedGraves": 18,
+    "ArchdragonPeak": 19,
 }
 
 ENTITY_UIDS = {
@@ -106,19 +108,23 @@ ENEMY_KIND_MAP = {
 }
 
 
-def new_chunk():
-    return [[TILE_WALL for _ in range(CHUNK_SIZE)] for _ in range(CHUNK_SIZE)]
+def new_chunk(width=CHUNK_SIZE, height=CHUNK_SIZE):
+    return [[TILE_WALL for _ in range(width)] for _ in range(height)]
 
 
 def fill_tiles(chunk, tile, x1, y1, x2, y2):
-    for y in range(max(0, y1), min(CHUNK_SIZE, y2 + 1)):
-        for x in range(max(0, x1), min(CHUNK_SIZE, x2 + 1)):
+    h = len(chunk)
+    w = len(chunk[0]) if h else 0
+    for y in range(max(0, y1), min(h, y2 + 1)):
+        for x in range(max(0, x1), min(w, x2 + 1)):
             chunk[y][x] = tile
 
 
 def carve_ellipse(chunk, cx, cy, rx, ry):
-    for y in range(max(0, cy - ry), min(CHUNK_SIZE, cy + ry + 1)):
-        for x in range(max(0, cx - rx), min(CHUNK_SIZE, cx + rx + 1)):
+    h = len(chunk)
+    w = len(chunk[0]) if h else 0
+    for y in range(max(0, cy - ry), min(h, cy + ry + 1)):
+        for x in range(max(0, cx - rx), min(w, cx + rx + 1)):
             dx = (x - cx) / rx if rx > 0 else 0
             dy = (y - cy) / ry if ry > 0 else 0
             if dx * dx + dy * dy <= 1.0:
@@ -133,10 +139,18 @@ def cw(chunk, px, py, r=2):
 
 def chunk_to_csv(chunk):
     csv = []
-    for y in range(CHUNK_SIZE):
-        for x in range(CHUNK_SIZE):
+    for y in range(len(chunk)):
+        for x in range(len(chunk[0])):
             csv.append(chunk[y][x])
     return csv
+
+
+def chunk_width(chunk):
+    return len(chunk[0]) if chunk else 0
+
+
+def chunk_height(chunk):
+    return len(chunk)
 
 
 def make_field(identifier, field_type, value):
@@ -177,25 +191,103 @@ def populate_entity_def_uids(entities):
             fld["defUid"] = FIELD_UIDS.get(key, 0)
 
 
-# --- Coordinate scaling ---
+# --- Dynamic-size helpers ---
 
-def scale_tile(px, py, src_w, src_h):
-    """Scale design doc pixel coords to tile coords in our 160x160 grid."""
-    tx = MARGIN + int((px / src_w) * USABLE)
-    ty = MARGIN + int((py / src_h) * USABLE)
-    return max(1, min(CHUNK_SIZE - 2, tx)), max(1, min(CHUNK_SIZE - 2, ty))
+def clamp_tile(value, max_value):
+    return max(0, min(max_value - 1, int(round(value))))
 
 
-def scale_px(px, py, src_w, src_h):
-    """Scale design doc pixel coords to our map pixel coords."""
-    tx = (MARGIN + (px / src_w) * USABLE) * TILE_SIZE
-    ty = (MARGIN + (py / src_h) * USABLE) * TILE_SIZE
-    return tx, ty
+def doc_tile(px, py, width, height):
+    return clamp_tile(px / TILE_SIZE, width), clamp_tile(py / TILE_SIZE, height)
 
 
-def scale_px_dim(dim, src_w, _src_h):
-    """Scale a single dimension proportionally."""
-    return max(TILE_SIZE, (dim / src_w) * USABLE * TILE_SIZE)
+def carve_corridor_dynamic(chunk, x1, y1, x2, y2, width=5):
+    half = max(1, width // 2)
+    for x in range(min(x1, x2), max(x1, x2) + 1):
+        fill_tiles(chunk, TILE_GROUND, x, y1 - half, x, y1 + half)
+    for y in range(min(y1, y2), max(y1, y2) + 1):
+        fill_tiles(chunk, TILE_GROUND, x2 - half, y, x2 + half, y)
+
+
+def section_center_tile(section):
+    return ((section["x"] + section["w"] * 0.5) / TILE_SIZE,
+            (section["y"] + section["h"] * 0.5) / TILE_SIZE)
+
+
+def is_walkable_tile(tile):
+    return tile in (TILE_GROUND, TILE_POISON)
+
+
+def find_walkable_tile(chunk, tx, ty, max_radius=64):
+    width = chunk_width(chunk)
+    height = chunk_height(chunk)
+    if width == 0 or height == 0:
+        return None
+    tx = clamp_tile(tx, width)
+    ty = clamp_tile(ty, height)
+    for radius in range(max_radius + 1):
+        for y in range(max(0, ty - radius), min(height, ty + radius + 1)):
+            for x in range(max(0, tx - radius), min(width, tx + radius + 1)):
+                if abs(x - tx) != radius and abs(y - ty) != radius:
+                    continue
+                if is_walkable_tile(chunk[y][x]):
+                    return x, y
+    return None
+
+
+def snap_entity_to_walkable(chunk, entity):
+    px = entity.get("px", [0, 0])
+    if not isinstance(px, list) or len(px) < 2:
+        return
+    tx, ty = int(px[0]) // TILE_SIZE, int(px[1]) // TILE_SIZE
+    found = find_walkable_tile(chunk, tx, ty)
+    if not found:
+        return
+    x, y = found
+    entity["px"] = [x * TILE_SIZE + TILE_SIZE // 2, y * TILE_SIZE + TILE_SIZE // 2]
+    entity["__grid"] = [x, y]
+
+
+def generate_official_terrain(doc):
+    width = max(1, int(round(doc["map_size"]["width"] / TILE_SIZE)))
+    height = max(1, int(round(doc["map_size"]["height"] / TILE_SIZE)))
+    chunk = new_chunk(width, height)
+    sections = doc.get("map_layout", {}).get("sections", [])
+
+    centers = []
+    for section in sections:
+        x1, y1 = doc_tile(section["x"], section["y"], width, height)
+        x2, y2 = doc_tile(section["x"] + section["w"], section["y"] + section["h"], width, height)
+        features = " ".join(section.get("terrain_features", []))
+        tile = TILE_POISON if any(word in features for word in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+        fill_tiles(chunk, tile, x1, y1, x2, y2)
+        cx, cy = section_center_tile(section)
+        centers.append((clamp_tile(cx, width), clamp_tile(cy, height)))
+
+    # The section order in docs/maps is authored as the canonical route, with
+    # optional branches inserted at their real branching points.
+    for (x1, y1), (x2, y2) in zip(centers, centers[1:]):
+        carve_corridor_dynamic(chunk, x1, y1, x2, y2, width=7)
+
+    # Keep bonfires, bosses, and fog gates anchored in walkable pockets even if
+    # their exact coordinate lies on a section edge.
+    for point in doc.get("bonfires", []):
+        x, y = doc_tile(point["x"], point["y"], width, height)
+        fill_tiles(chunk, TILE_GROUND, x - 3, y - 3, x + 3, y + 3)
+    boss = doc.get("boss")
+    if boss:
+        if isinstance(boss, list):
+            bosses = boss
+        else:
+            bosses = [boss]
+        for item in bosses:
+            x, y = doc_tile(item.get("x", 0), item.get("y", 0), width, height)
+            fill_tiles(chunk, TILE_GROUND, x - 5, y - 5, x + 5, y + 5)
+    for gate in doc.get("fog_gates", []):
+        x, y = doc_tile(gate.get("x", 0), gate.get("y", 0), width, height)
+        fill_tiles(chunk, TILE_GROUND, x - 3, y - 3, x + 3, y + 3)
+
+    return chunk
 
 
 # --- Connectivity ---
@@ -451,22 +543,9 @@ def make_cemetery_of_ash():
     # 16. ARENA EXIT CORRIDOR (x=76-84, y=22-34)
     # Blocked by Gundyr door (wall tiles 77-83, 29-30)
     # Opens when boss is defeated (combat.rs)
+    # Leads to FirelinkShrine (separate area)
     # ================================================================
     fill_tiles(chunk, TILE_GROUND, 78, 22, 82, 34)
-
-    # ================================================================
-    # 17. FIRELINK SHRINE (y=6-22, x=50-110)
-    # Central hub — warm firelight, NPCs, services
-    # ================================================================
-    carve_ellipse(chunk, 80, 16, 22, 10)
-    # West wing — Andre's forge
-    carve_ellipse(chunk, 50, 18, 10, 7)
-    fill_tiles(chunk, TILE_GROUND, 56, 14, 62, 20)
-    # East wing — Shrine Handmaiden
-    carve_ellipse(chunk, 110, 18, 10, 7)
-    fill_tiles(chunk, TILE_GROUND, 98, 14, 104, 20)
-    # North exit to High Wall of Lothric
-    fill_tiles(chunk, TILE_GROUND, 76, 6, 84, 10)
 
     # ================================================================
     # ENTITIES
@@ -511,36 +590,6 @@ def make_cemetery_of_ash():
     entities.append(make_entity("Enemy", 136 * 16, 108 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", "CrystalLizard")]))
 
-    # --- Firelink Shrine NPCs ---
-    entities.append(make_entity("Npc", 78 * 16, 14 * 16, [
-        make_field("name", "String", "Fire Keeper"),
-        make_field("kind", "LocalEnum.NpcKind", "LevelUp"),
-        make_field("color", "Color", "#FFFFFF"),
-        make_field("dialogue", "String",
-            "Welcome to Firelink Shrine|May the flames guide your way"),
-    ]))
-    entities.append(make_entity("Npc", 50 * 16, 18 * 16, [
-        make_field("name", "String", "Andre"),
-        make_field("kind", "LocalEnum.NpcKind", "Blacksmith"),
-        make_field("color", "Color", "#C0C0C0"),
-        make_field("dialogue", "String",
-            "What do you need?|I can reinforce your weapons"),
-    ]))
-    entities.append(make_entity("Npc", 110 * 16, 18 * 16, [
-        make_field("name", "String", "Shrine Handmaiden"),
-        make_field("kind", "LocalEnum.NpcKind", "Merchant"),
-        make_field("color", "Color", "#8B7355"),
-        make_field("dialogue", "String",
-            "What is it? Buy something|Or be on your way"),
-    ]))
-    entities.append(make_entity("Npc", 86 * 16, 12 * 16, [
-        make_field("name", "String", "Hawkwood"),
-        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
-        make_field("color", "Color", "#7F8C8D"),
-        make_field("dialogue", "String",
-            "Oh, another Unkindled|The Farron Keep... that is where you should go"),
-    ]))
-
     # --- Cemetery Items ---
     # Estus Flask + Ashen Estus — next to coffin at start
     entities.append(make_entity("Item", 27 * 16, 150 * 16, [
@@ -576,19 +625,11 @@ def make_cemetery_of_ash():
         make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Coiled Sword")]))
 
-    # --- Firelink Items ---
-    entities.append(make_entity("Item", 74 * 16, 14 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
-        make_field("name", "String", "Estus Shard")]))
-    entities.append(make_entity("Item", 86 * 16, 14 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Shard")]))
-
-    # --- Fog Gate to High Wall of Lothric ---
-    entities.append(make_entity("FogGate", 80 * 16, 6 * 16, [
-        make_field("dest_area", "String", "LothricWall"),
-        make_field("dest_x", "Float", 400.0),
-        make_field("dest_y", "Float", 400.0),
+    # --- Fog Gate to Firelink Shrine (arena exit) ---
+    entities.append(make_entity("FogGate", 80 * 16, 22 * 16, [
+        make_field("dest_area", "String", "FirelinkShrine"),
+        make_field("dest_x", "Float", 1280.0),
+        make_field("dest_y", "Float", 1856.0),
         make_field("width", "Float", 64.0),
         make_field("height", "Float", 64.0),
     ]))
@@ -625,16 +666,6 @@ def make_cemetery_of_ash():
         make_field("radius", "Float", 200.0),
         make_field("r", "Float", 0.9), make_field("g", "Float", 0.75),
         make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.5)]))
-    # Firelink Shrine — warm central firelight
-    entities.append(make_entity("Light", 80 * 16, 16 * 16, [
-        make_field("radius", "Float", 240.0),
-        make_field("r", "Float", 0.9), make_field("g", "Float", 0.7),
-        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.6)]))
-    # Andre's forge — orange glow
-    entities.append(make_entity("Light", 50 * 16, 18 * 16, [
-        make_field("radius", "Float", 120.0),
-        make_field("r", "Float", 0.7), make_field("g", "Float", 0.6),
-        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.3)]))
 
     populate_entity_def_uids(entities)
 
@@ -4241,6 +4272,7 @@ def make_archdragon_peak():
 # Map ID -> terrain override function (returns (map_id, chunk, entities))
 TERRAIN_OVERRIDES = {
     "CemeteryOfAsh": make_cemetery_of_ash,
+    "FirelinkShrine": make_firelink_shrine,
     "LothricWall": make_lothric_wall,
     "UndeadSettlement": make_undead_settlement,
     "RoadOfSacrifices": make_road_of_sacrifices,
@@ -4321,187 +4353,116 @@ def generate_map_from_doc(doc_path):
     with open(doc_path, encoding="utf-8") as f:
         doc = json.load(f)
 
-    map_id = doc["id"]
+    map_id = map_id_from_doc(doc)
     if map_id not in LEVEL_UIDS:
-        # Try alternate IDs
-        alt = {"IrithyllOfTheBorealValley": "Irithyll"}.get(map_id)
-        if alt and alt in LEVEL_UIDS:
-            map_id = alt
-        else:
-            print(f"  SKIP {map_id} (not in LEVEL_UIDS)")
-            return None
+        print(f"  SKIP {map_id} (not in LEVEL_UIDS)")
+        return None
 
-    src_w = doc["map_size"]["width"]
-    src_h = doc["map_size"]["height"]
-    chunk = new_chunk()
-
-    # --- Terrain from sections ---
-    sections = doc.get("map_layout", {}).get("sections", [])
-    for s in sections:
-        x1, y1 = scale_tile(s["x"], s["y"], src_w, src_h)
-        x2, y2 = scale_tile(s["x"] + s["w"], s["y"] + s["h"], src_w, src_h)
-        fill_tiles(chunk, TILE_GROUND, x1, y1, x2, y2)
-
-    # Connect consecutive sections with corridors
-    for i in range(len(sections) - 1):
-        s1, s2 = sections[i], sections[i + 1]
-        cx1, cy1 = scale_tile(s1["x"] + s1["w"] // 2, s1["y"] + s1["h"] // 2, src_w, src_h)
-        cx2, cy2 = scale_tile(s2["x"] + s2["w"] // 2, s2["y"] + s2["h"] // 2, src_w, src_h)
-        carve_corridor(chunk, cx1, cy1, cx2, cy2, width=3)
-
-    # Add some wall decorations (pillars, protrusions) for visual interest
-    for s in sections:
-        sx1, sy1 = scale_tile(s["x"], s["y"], src_w, src_h)
-        sx2, sy2 = scale_tile(s["x"] + s["w"], s["y"] + s["h"], src_w, src_h)
-        w = sx2 - sx1
-        h = sy2 - sy1
-        # Add 1-2 pillar decorations in larger rooms
-        if w > 10 and h > 10:
-            mid_x = (sx1 + sx2) // 2
-            mid_y = (sy1 + sy2) // 2
-            fill_tiles(chunk, TILE_WALL, mid_x - 1, mid_y - 1, mid_x + 1, mid_y + 1)
-
-    # --- Entities ---
+    chunk = generate_official_terrain(doc)
     entities = []
-    entity_px_positions = []  # for connectivity check
 
-    # Bonfires / PlayerSpawn
+    def add_entity(identifier, x, y, fields=None):
+        entity = make_entity(identifier, x, y, fields)
+        snap_entity_to_walkable(chunk, entity)
+        entities.append(entity)
+        return entity
+
     bonfires = doc.get("bonfires", [])
     if bonfires:
-        b = bonfires[0]
-        px, py = scale_px(b["x"], b["y"], src_w, src_h)
-        entities.append(make_entity("PlayerSpawn", px, py, [make_field("heal", "Bool", True)]))
-        entities.append(make_entity("Bonfire", px, py))
-        entity_px_positions.append((px, py))
-        for b in bonfires[1:]:
-            bx, by = scale_px(b["x"], b["y"], src_w, src_h)
-            entities.append(make_entity("Bonfire", bx, by))
-            entity_px_positions.append((bx, by))
+        first = bonfires[0]
+        add_entity("PlayerSpawn", first["x"], first["y"], [make_field("heal", "Bool", True)])
+        for bonfire in bonfires:
+            add_entity("Bonfire", bonfire["x"], bonfire["y"])
     else:
-        px, py = MARGIN * TILE_SIZE + TILE_SIZE, MARGIN * TILE_SIZE + TILE_SIZE
-        entities.append(make_entity("PlayerSpawn", px, py, [make_field("heal", "Bool", True)]))
-        entity_px_positions.append((px, py))
+        sections = doc.get("map_layout", {}).get("sections", [])
+        if sections:
+            first = sections[0]
+            px = first["x"] + first["w"] * 0.5
+            py = first["y"] + first["h"] * 0.5
+        else:
+            px = doc["map_size"]["width"] * 0.5
+            py = doc["map_size"]["height"] * 0.5
+        add_entity("PlayerSpawn", px, py, [make_field("heal", "Bool", True)])
 
-    spawn_px, spawn_py = entity_px_positions[0] if entity_px_positions else (256, 256)
-
-    # Boss
     boss = doc.get("boss")
-    if boss:
-        if isinstance(boss, list):
-            boss = boss[0]
-        bx, by = scale_px(boss["x"], boss["y"], src_w, src_h)
-        entities.append(make_entity("BossSpawn", bx, by))
-        entity_px_positions.append((bx, by))
+    bosses = boss if isinstance(boss, list) else ([boss] if boss else [])
+    for boss_def in bosses:
+        if not isinstance(boss_def, dict):
+            continue
+        add_entity("BossSpawn", boss_def.get("x", 0), boss_def.get("y", 0))
 
-    # Enemies
-    for e in doc.get("enemies", []):
-        ex, ey = scale_px(e["x"], e["y"], src_w, src_h)
-        kind = ENEMY_KIND_MAP.get(e["kind"], e["kind"])
-        entities.append(make_entity("Enemy", ex, ey, [
-            make_field("kind", "LocalEnum.EnemyKind", kind)
-        ]))
-        entity_px_positions.append((ex, ey))
-        # Place multiple enemies if count > 1
-        for j in range(1, e.get("count", 1)):
-            offset = j * 32
-            ex2, ey2 = ex + offset, ey
-            entities.append(make_entity("Enemy", ex2, ey2, [
+    # Only include explicit entities if a map doc intentionally provides them.
+    # Clean DS3 topology docs leave these empty until sourced encounter data is added.
+    for enemy in doc.get("enemies", []):
+        kind = ENEMY_KIND_MAP.get(enemy.get("kind", ""), enemy.get("kind", "HollowSoldier"))
+        count = max(1, int(enemy.get("count", 1)))
+        for i in range(count):
+            add_entity("Enemy", enemy["x"] + i * 32, enemy["y"], [
                 make_field("kind", "LocalEnum.EnemyKind", kind)
-            ]))
-            entity_px_positions.append((ex2, ey2))
+            ])
 
-    # Items
-    for it in doc.get("items", []):
-        ix, iy = scale_px(it["x"], it["y"], src_w, src_h)
-        kind = map_item_kind(it)
+    for item in doc.get("items", []):
+        kind = map_item_kind(item)
         fields = [make_field("kind", "LocalEnum.ItemKind", kind)]
-        if kind == "SoulOrb" and "value" in it:
-            fields.append(make_field("value", "Int", it["value"]))
-        if it.get("name_en"):
-            fields.append(make_field("name", "String", it["name_en"]))
-        elif it.get("name"):
-            fields.append(make_field("name", "String", it["name"]))
-        entities.append(make_entity("Item", ix, iy, fields))
-        entity_px_positions.append((ix, iy))
-        for j in range(1, it.get("count", 1)):
-            ix2 = ix + j * 20
-            entities.append(make_entity("Item", ix2, iy, list(fields)))
-            entity_px_positions.append((ix2, iy))
+        if kind == "SoulOrb" and "value" in item:
+            fields.append(make_field("value", "Int", item["value"]))
+        if item.get("name_en") or item.get("name"):
+            fields.append(make_field("name", "String", item.get("name_en", item.get("name", ""))))
+        add_entity("Item", item["x"], item["y"], fields)
 
-    # Chests
-    for c in doc.get("chests", []):
-        cx, cy = scale_px(c["x"], c["y"], src_w, src_h)
-        loot = c.get("loot", {})
-        entities.append(make_entity("Chest", cx, cy, [
+    for chest in doc.get("chests", []):
+        loot = chest.get("loot", {})
+        add_entity("Chest", chest["x"], chest["y"], [
             make_field("loot_kind", "LocalEnum.ItemKind", map_chest_kind(loot)),
             make_field("loot_value", "Int", loot.get("value", 0)),
             make_field("loot_name", "String", loot.get("name_en", loot.get("name", ""))),
-            make_field("is_mimic", "Bool", c.get("is_mimic", False)),
-        ]))
-        entity_px_positions.append((cx, cy))
+            make_field("is_mimic", "Bool", chest.get("is_mimic", False)),
+        ])
 
-    # NPCs
-    for n in doc.get("npcs", []):
-        if "x" not in n or "y" not in n:
-            continue  # skip NPCs without positions (summons, etc.)
-        nx, ny = scale_px(n["x"], n["y"], src_w, src_h)
-        dialogue = "|".join(n.get("dialogue", []))
-        entities.append(make_entity("Npc", nx, ny, [
-            make_field("name", "String", n.get("name_en", n.get("name", ""))),
-            make_field("kind", "LocalEnum.NpcKind", map_npc_kind(n)),
-            make_field("color", "Color", n.get("color", "#FFFFFF")),
-            make_field("dialogue", "String", dialogue),
-        ]))
-        entity_px_positions.append((nx, ny))
+    for npc in doc.get("npcs", []):
+        if "x" not in npc or "y" not in npc:
+            continue
+        add_entity("Npc", npc["x"], npc["y"], [
+            make_field("name", "String", npc.get("name_en", npc.get("name", ""))),
+            make_field("kind", "LocalEnum.NpcKind", map_npc_kind(npc)),
+            make_field("color", "Color", npc.get("color", "#FFFFFF")),
+            make_field("dialogue", "String", "|".join(npc.get("dialogue", []))),
+        ])
 
-    # Lights
-    for l in doc.get("lights", []):
-        lx, ly = scale_px(l["x"], l["y"], src_w, src_h)
-        entities.append(make_entity("Light", lx, ly, [
-            make_field("radius", "Float", l.get("radius", 160)),
-            make_field("r", "Float", l.get("r", 1.0)),
-            make_field("g", "Float", l.get("g", 1.0)),
-            make_field("b", "Float", l.get("b", 1.0)),
-            make_field("intensity", "Float", l.get("intensity", 0.2)),
-        ]))
+    for light in doc.get("lights", []):
+        add_entity("Light", light["x"], light["y"], [
+            make_field("radius", "Float", light.get("radius", 160)),
+            make_field("r", "Float", light.get("r", 1.0)),
+            make_field("g", "Float", light.get("g", 1.0)),
+            make_field("b", "Float", light.get("b", 1.0)),
+            make_field("intensity", "Float", light.get("intensity", 0.2)),
+        ])
 
-    # Fog Gates
-    AREA_ALIASES = {
-        "FirelinkShrine": "CemeteryOfAsh",
-        "IrithyllOfTheBorealValley": "Irithyll",
-    }
-    VALID_AREAS = set(LEVEL_UIDS.keys())
-    for fg in doc.get("fog_gates", []):
-        fx, fy = scale_px(fg["x"], fg["y"], src_w, src_h)
-        fw = max(TILE_SIZE, scale_px_dim(fg.get("w", 40), src_w, src_h))
-        fh = max(TILE_SIZE, scale_px_dim(fg.get("h", 40), src_h, src_w))
-        dest_area = fg.get("dest_area", "")
-        dest_area = AREA_ALIASES.get(dest_area, dest_area)
-        if dest_area in ("", "None", None) or dest_area not in VALID_AREAS:
-            continue  # skip invalid fog gates
-        entities.append(make_entity("FogGate", fx, fy, [
+    area_aliases = {"FirelinkShrine": "CemeteryOfAsh", "IrithyllOfTheBorealValley": "Irithyll"}
+    for gate in doc.get("fog_gates", []):
+        dest_area = area_aliases.get(gate.get("dest_area", ""), gate.get("dest_area", ""))
+        if dest_area not in LEVEL_UIDS:
+            continue
+        add_entity("FogGate", gate.get("x", 0), gate.get("y", 0), [
             make_field("dest_area", "String", dest_area),
-            make_field("dest_x", "Float", fg.get("dest_x", 0)),
-            make_field("dest_y", "Float", fg.get("dest_y", 0)),
-            make_field("width", "Float", fw),
-            make_field("height", "Float", fh),
-        ]))
+            make_field("dest_x", "Float", gate.get("dest_x", 0)),
+            make_field("dest_y", "Float", gate.get("dest_y", 0)),
+            make_field("width", "Float", max(TILE_SIZE, gate.get("w", 64))),
+            make_field("height", "Float", max(TILE_SIZE, gate.get("h", 64))),
+        ])
 
-    # --- Connectivity ---
     populate_entity_def_uids(entities)
-    coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_px_positions)
-
-    # Count ground tiles
-    ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    total = CHUNK_SIZE * CHUNK_SIZE
+    ground_count = sum(1 for row in chunk for tile in row if tile in (TILE_GROUND, TILE_POISON))
+    total = max(1, chunk_width(chunk) * chunk_height(chunk))
     pct = ground_count / total * 100
-
-    print(f"  {map_id:30s} sections={len(sections):2d} entities={len(entities):4d} ground={pct:5.1f}% connectivity={coverage}%")
-
+    print(f"  {map_id:30s} sections={len(doc.get('map_layout', {}).get('sections', [])):2d} "
+          f"entities={len(entities):4d} ground={pct:5.1f}%")
     return map_id, chunk, entities
 
 
 def make_level(identifier, chunk, entities, uid):
+    width = chunk_width(chunk)
+    height = chunk_height(chunk)
     return {
         "__header__": {
             "fileType": "LDtk Project JSON", "app": "LDtk",
@@ -4523,7 +4484,7 @@ def make_level(identifier, chunk, entities, uid):
         "iid": str(uuid.uuid4()),
         "layerInstances": [
             {
-                "__cHei": CHUNK_SIZE, "__cWid": CHUNK_SIZE, "__gridSize": 16,
+                "__cHei": height, "__cWid": width, "__gridSize": 16,
                 "__identifier": "Terrain", "__opacity": 1,
                 "__pxTotalOffsetX": 0, "__pxTotalOffsetY": 0,
                 "__seed": 123456,
@@ -4538,7 +4499,7 @@ def make_level(identifier, chunk, entities, uid):
                 "seed": 0, "visible": True,
             },
             {
-                "__cHei": CHUNK_SIZE, "__cWid": CHUNK_SIZE, "__gridSize": 16,
+                "__cHei": height, "__cWid": width, "__gridSize": 16,
                 "__identifier": "Entities", "__opacity": 1,
                 "__pxTotalOffsetX": 0, "__pxTotalOffsetY": 0,
                 "__seed": 123456,
@@ -4553,8 +4514,8 @@ def make_level(identifier, chunk, entities, uid):
                 "seed": 0, "visible": True,
             },
         ],
-        "pxHei": CHUNK_SIZE * 16,
-        "pxWid": CHUNK_SIZE * 16,
+        "pxHei": height * 16,
+        "pxWid": width * 16,
         "uid": uid,
         "useAutoIdentifier": True,
         "worldDepth": 0, "worldX": 0, "worldY": 0,
@@ -4613,8 +4574,9 @@ def main():
     os.makedirs(levels_dir, exist_ok=True)
 
     level_summaries = []
-    # First, generate maps from terrain overrides
-    for map_id, override_fn in TERRAIN_OVERRIDES.items():
+
+    # First pass: generate maps with hand-authored terrain overrides (detailed enemies/items)
+    for map_id, override_fn in sorted(TERRAIN_OVERRIDES.items()):
         result = override_fn()
         if result is None:
             continue
@@ -4631,28 +4593,26 @@ def main():
             "__bgPos": None, "bgColor": None,
             "bgPivotX": 0.5, "bgPivotY": 0.5,
             "bgPos": None, "bgRelPath": None,
-            "externalRelPath": f"ds2d/{map_id}.ldtkl",
-            "fieldInstances": [], "identifier": map_id,
+            "externalRelPath": f"ds2d/{mid}.ldtkl",
+            "fieldInstances": [], "identifier": mid,
             "iid": level["iid"], "layerInstances": None,
             "pxHei": level["pxHei"], "pxWid": level["pxWid"],
             "uid": uid, "useAutoIdentifier": True,
             "worldDepth": 0, "worldX": -1, "worldY": -1,
         })
 
-    # Then, generate remaining maps from design docs (skip those already generated by overrides)
+    # Second pass: generate remaining maps from design docs (no terrain override)
     override_ids = set(TERRAIN_OVERRIDES.keys())
     for doc_file in sorted(os.listdir(docs_dir)):
         if not doc_file.endswith(".json"):
             continue
         doc_path = os.path.join(docs_dir, doc_file)
-        # Peek at the doc to get the map ID
         with open(doc_path, encoding="utf-8") as f:
             doc = json.load(f)
         map_id = doc.get("id", "")
-        # Handle aliases
         map_id = {"IrithyllOfTheBorealValley": "Irithyll"}.get(map_id, map_id)
         if map_id in override_ids:
-            continue  # already generated by override
+            continue
         if map_id not in LEVEL_UIDS:
             print(f"  SKIP {map_id} (not in LEVEL_UIDS)")
             continue
@@ -4694,7 +4654,7 @@ def main():
         "bgColor": "#1a1a2e", "customCommands": [],
         "defaultEntityHeight": 16, "defaultEntityWidth": 16, "defaultGridSize": 16,
         "defaultLevelBgColor": "#1a1a2e",
-        "defaultLevelHeight": CHUNK_SIZE * 16, "defaultLevelWidth": CHUNK_SIZE * 16,
+        "defaultLevelHeight": BASE_MAP_PX, "defaultLevelWidth": BASE_MAP_PX,
         "defaultPivotX": 0, "defaultPivotY": 0,
         "defs": {
             "entities": [
@@ -4859,7 +4819,7 @@ def main():
         "minifyJson": False, "nextUid": 1000, "pngFilePattern": None,
         "simplifiedExport": False, "toc": [],
         "tutorialDesc": "Generated DS2D project from design docs.",
-        "worldGridHeight": CHUNK_SIZE * 16, "worldGridWidth": CHUNK_SIZE * 16,
+        "worldGridHeight": BASE_MAP_PX, "worldGridWidth": BASE_MAP_PX,
         "worldLayout": "Free", "worlds": [],
     }
 

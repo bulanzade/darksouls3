@@ -2,11 +2,11 @@
   "id": "GrandArchives",
   "name": "大书库",
   "name_en": "Grand Archives",
-  "description": "洛斯里克最高处的庞大图书馆，收藏着王国数百年来的知识与魔法典籍。书库被无数蜡烛照亮，学者法师在书架间游荡。最顶层是洛斯里克王子的居所——孪生王子洛里安与洛斯里克的所在地。击败他们后可获得薪王柴薪。",
-  "theme": "图书馆/典籍/蜡烛/白蜡",
+  "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
+  "theme": "library ascent",
   "map_size": {
-    "width": 3600,
-    "height": 4000
+    "width": 4096,
+    "height": 6144
   },
   "connections": {
     "from": [
@@ -16,944 +16,160 @@
       "KilnOfTheFirstFlame"
     ]
   },
+  "restoration": {
+    "status": "clean_rebuild_topology_projection",
+    "authoritative_fields": [
+      "area id/name",
+      "connections",
+      "bonfire names",
+      "boss identity"
+    ],
+    "projection_fields": [
+      "map_size",
+      "sections coordinates",
+      "fog gate coordinates"
+    ],
+    "excluded_until_sourced": [
+      "enemy placements",
+      "item placements",
+      "NPC dialogue",
+      "chest placements"
+    ],
+    "note": "This file intentionally avoids inherited fabricated precise data."
+  },
   "bonfires": [
     {
       "name": "大书库",
-      "x": 300,
-      "y": 400,
-      "description": "书库入口处，从洛斯里克城堡穿过大门到达",
-      "name_en": "Grand Archives"
+      "name_en": "Grand Archives",
+      "x": 720,
+      "y": 5480,
+      "source_status": "official_name_projected_position"
     },
     {
-      "name": "孪生王子",
-      "x": 1800,
-      "y": 3600,
-      "description": "Boss战后篝火，位于书库最高层",
-      "name_en": "Twin Princes"
+      "name": "双王子",
+      "name_en": "Twin Princes",
+      "x": 2900,
+      "y": 620,
+      "source_status": "official_name_projected_position"
     }
   ],
   "map_layout": {
+    "basis": "Clean gameplay 2D projection of Dark Souls III route topology. Not official coordinate geometry.",
     "sections": [
       {
-        "name": "书库入口大厅",
-        "description": "宏伟的入口大厅，两侧是直达天花板的书架。中央有巨大的水晶吊灯和长桌，桌上散落着书籍与白蜡。学者法师在入口处巡逻。",
-        "x": 0,
-        "y": 0,
-        "w": 800,
-        "h": 800,
-        "terrain_features": [
-          "巨型书架",
-          "水晶吊灯",
-          "蜡烛堆",
-          "石柱"
-        ]
+        "name": "书库入口",
+        "name_en": "Grand Archives Entry",
+        "kind": "main",
+        "x": 520,
+        "y": 5200,
+        "w": 840,
+        "h": 600,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "第一层书廊",
-        "description": "蜿蜒的书架走廊，有多个房间和隐藏通道。学者法师从书架后施放魔法攻击。走廊中有可推动的书架机关，通向秘密区域。",
-        "x": 800,
-        "y": 200,
+        "name": "蜡池一层",
+        "name_en": "Wax Pool First Floor",
+        "kind": "main",
+        "x": 980,
+        "y": 4440,
+        "w": 1020,
+        "h": 800,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "二层回廊",
+        "name_en": "Second Floor Gallery",
+        "kind": "main",
+        "x": 1400,
+        "y": 3460,
         "w": 1000,
-        "h": 700,
-        "terrain_features": [
-          "密集书架",
-          "魔法陷阱",
-          "隐藏门",
-          "楼梯间"
-        ]
+        "h": 760,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "蜡池大厅",
-        "description": "一个充满熔蜡的大厅，从天花板悬挂着无数蜡烛。地面的蜡池是玩家涂抹白蜡以免疫诅咒的关键地点。大厅通向上层的螺旋阶梯。",
-        "x": 600,
-        "y": 900,
-        "w": 800,
-        "h": 600,
-        "terrain_features": [
-          "蜡池（减速地形）",
-          "悬挂蜡烛",
-          "滑动地面",
-          "高台"
-        ]
+        "name": "屋顶石像鬼",
+        "name_en": "Rooftop Gargoyles",
+        "kind": "main",
+        "x": 1840,
+        "y": 2440,
+        "w": 1120,
+        "h": 760,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "学者塔楼",
-        "description": "书库中段的塔楼区域，有多层环形走廊。每层都有学者法师驻守，从高处向下施法。塔楼中心是开放式天井。",
-        "x": 1400,
-        "y": 700,
-        "w": 600,
-        "h": 800,
-        "terrain_features": [
-          "环形走廊",
-          "天井",
-          "高处平台",
-          "窄桥连接"
-        ]
+        "name": "金翼骑士屋顶",
+        "name_en": "Golden Winged Knight Rooftop",
+        "kind": "main",
+        "x": 2100,
+        "y": 1560,
+        "w": 1020,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "翼骑士走廊",
-        "description": "通往书库上层的宽阔走廊，由翼骑士把守。走廊两侧的窗户可以看到洛斯里克城的壮丽全景。",
-        "x": 1000,
-        "y": 1500,
-        "w": 800,
-        "h": 500,
-        "terrain_features": [
-          "宽阔走廊",
-          "大型窗户",
-          "铠甲展示",
-          "旗帜装饰"
-        ]
+        "name": "王子门前阶梯",
+        "name_en": "Princes Stair",
+        "kind": "main",
+        "x": 2440,
+        "y": 920,
+        "w": 920,
+        "h": 520,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "石像鬼屋顶",
-        "description": "书库的屋顶区域，石像鬼在此伏击玩家。屋顶有多个高低不平的平台，可以眺望整个洛斯里克。通往孪生王子的最终阶梯在此。",
-        "x": 1200,
-        "y": 2000,
-        "w": 800,
-        "h": 600,
-        "terrain_features": [
-          "屋顶平台",
-          "石像鬼雕像",
-          "高低差地形",
-          "天窗"
-        ]
-      },
-      {
-        "name": "王子宫殿",
-        "description": "孪生王子的Boss战场地。洛斯里克最顶层的开阔宫殿，四周是巨大的彩色玻璃窗。中央有一张王座，洛里安坐在上面。战斗开始时洛里安缓缓站起。",
-        "x": 1400,
-        "y": 2800,
-        "w": 800,
-        "h": 800,
-        "terrain_features": [
-          "开阔宫殿",
-          "彩色玻璃窗",
-          "王座",
-          "高台平台",
-          "阳光照射"
-        ]
+        "name": "双王子寝宫",
+        "name_en": "Twin Princes Chamber",
+        "kind": "main",
+        "x": 2600,
+        "y": 360,
+        "w": 860,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
-  "enemies": [
-    {
-      "kind": "ScholarMage",
-      "x": 400,
-      "y": 350,
-      "patrol": 20,
-      "count": 2,
-      "notes": "入口大厅的学者法师，头涂白蜡，释放灵魂箭",
-      "wiki_name": "Grand Archives Scholar"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 600,
-      "y": 300,
-      "patrol": 25,
-      "count": 2,
-      "notes": "书库下层散布的空心士兵"
-    },
-    {
-      "kind": "HollowThrall",
-      "x": 900,
-      "y": 350,
-      "patrol": 0,
-      "count": 3,
-      "notes": "从书架后伏击的空心奴隶（Thrall），持匕首，会从墙壁上跳下"
-    },
-    {
-      "kind": "ScholarMage",
-      "x": 1000,
-      "y": 450,
-      "patrol": 15,
-      "count": 2,
-      "notes": "书廊深处的法师，会召唤魔法陷阱"
-    },
-    {
-      "kind": "ClawedCurse",
-      "x": 1100,
-      "y": 500,
-      "patrol": 0,
-      "count": 3,
-      "notes": "从墙壁和书架中伸出的诅咒之手，接触造成诅咒积累。涂白蜡可免疫"
-    },
-    {
-      "kind": "CrystalSage",
-      "x": 1300,
-      "y": 600,
-      "patrol": 0,
-      "count": 1,
-      "notes": "迷你Boss：结晶贤者，会在房间内传送，掉落结晶卷轴"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 1500,
-      "y": 550,
-      "patrol": 0,
-      "count": 2,
-      "notes": "书库中段的两只结晶蜥蜴"
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 1200,
-      "y": 700,
-      "patrol": 30,
-      "count": 2,
-      "notes": "书库中层走廊的洛斯里克骑士，包括红眼变体守护物品"
-    },
-    {
-      "kind": "BorealOutriderKnight",
-      "x": 800,
-      "y": 1100,
-      "patrol": 0,
-      "count": 1,
-      "notes": "幻影墙壁后的寒冷外出骑士（迷你Boss），掉落外出骑士防具套装"
-    },
-    {
-      "kind": "ScholarMage",
-      "x": 800,
-      "y": 1000,
-      "patrol": 15,
-      "count": 1,
-      "notes": "蜡池大厅上层的法师"
-    },
-    {
-      "kind": "ScholarMage",
-      "x": 1500,
-      "y": 800,
-      "patrol": 20,
-      "count": 2,
-      "notes": "学者塔楼各层的法师，从高处施法"
-    },
-    {
-      "kind": "ManGrub",
-      "x": 1600,
-      "y": 1000,
-      "patrol": 0,
-      "count": 2,
-      "notes": "笼子区域下方横梁上的人蛆，会施放灵魂枪"
-    },
-    {
-      "kind": "Gargoyle",
-      "x": 1300,
-      "y": 2100,
-      "patrol": 30,
-      "count": 3,
-      "notes": "屋顶区域的三只石像鬼，会同时发动攻击"
-    },
-    {
-      "kind": "AscendedWingedKnight",
-      "x": 1400,
-      "y": 2200,
-      "patrol": 0,
-      "count": 3,
-      "notes": "屋顶塔楼上的升天翼骑士（胖天使），首次击杀掉落楔形石圆盘"
-    },
-    {
-      "kind": "Corvian",
-      "x": 1350,
-      "y": 2000,
-      "patrol": 20,
-      "count": 3,
-      "notes": "屋顶区域的鸦人"
-    },
-    {
-      "kind": "CorvianStoryteller",
-      "x": 1300,
-      "y": 2050,
-      "patrol": 0,
-      "count": 1,
-      "notes": "屋顶带领鸦人群的鸦人讲述者"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 950,
-      "y": 450,
-      "patrol": 0,
-      "count": 1,
-      "notes": "第一层楼梯附近的结晶蜥蜴"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 1550,
-      "y": 2150,
-      "count": 1,
-      "patrol": 0,
-      "notes": "靠近肉斩戒指的楼梯上的结晶蜥蜴"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 1350,
-      "y": 2050,
-      "count": 2,
-      "patrol": 0,
-      "notes": "屋顶石像鬼附近的结晶蜥蜴（两只）"
-    }
-  ],
   "boss": {
     "type": "TwinPrinces",
-    "name": "孪生王子",
-    "name_en": "Lothric, Younger Prince",
-    "x": 1800,
-    "y": 3200,
-    "hp": 2400,
-    "hp_detail": {
-      "lorian": 1600,
-      "lothric": 800
-    },
-    "arena": {
-      "x": 1400,
-      "y": 2800,
-      "w": 800,
-      "h": 800
-    },
-    "trigger": "登上书库最高层，洛里安从王座上站起",
-    "phases": [
-      {
-        "name": "兄长洛里安",
-        "hp_threshold": 1.0,
-        "speed_multiplier": 1.0,
-        "damage_multiplier": 1.0,
-        "attack_cooldown": 2.0,
-        "description": "只与洛里安（兄）战斗。洛里安是身披重甲的高大骑士，手持燃烧的大剑。他能瞬间传送消失并从玩家背后出现。虽然他的双腿已残，但战斗力极为恐怖。",
-        "mechanics": [
-          "燃烧大剑",
-          "瞬间传送",
-          "传送后背后偷袭",
-          "强力斩击"
-        ]
-      },
-      {
-        "name": "兄弟合体",
-        "hp_threshold": 0.0,
-        "speed_multiplier": 1.1,
-        "damage_multiplier": 1.2,
-        "attack_cooldown": 1.6,
-        "description": "洛里安倒下后，洛斯里克（弟）从背后出现骑在洛里安身上。洛斯里克开始施放魔法：灵魂枪、治疗洛里安（复活）、光芒爆发。必须杀死洛斯里克才能结束战斗。若洛里安被击倒但洛斯里克存活，洛斯里克会施法复活洛里安。",
-        "mechanics": [
-          "洛斯里克骑乘",
-          "魔法攻击",
-          "复活兄长",
-          "光芒AOE",
-          "灵魂枪"
-        ]
-      }
-    ],
-    "attacks": [
-      {
-        "name": "烈焰大剑斩",
-        "type": "FlameGreatswordSlash",
-        "damage": 60,
-        "range": "中",
-        "parryable": true,
-        "description": "燃烧大剑的水平横斩，附带火焰伤害"
-      },
-      {
-        "name": "烈焰大剑下劈",
-        "type": "FlameGreatswordSmash",
-        "damage": 75,
-        "range": "近",
-        "parryable": true,
-        "description": "高举大剑后猛力劈下，地面留下火焰"
-      },
-      {
-        "name": "瞬间传送斩",
-        "type": "TeleportSlash",
-        "damage": 65,
-        "range": "近",
-        "parryable": true,
-        "description": "传送消失后从玩家背后出现斩击"
-      },
-      {
-        "name": "连续传送斩",
-        "type": "MultiTeleportSlash",
-        "damage": 55,
-        "range": "近",
-        "parryable": true,
-        "description": "连续传送2-3次，每次出现都进行斩击"
-      },
-      {
-        "name": "光之浪潮",
-        "type": "LightSurge",
-        "damage": 50,
-        "range": "远",
-        "parryable": false,
-        "description": "第二阶段专属：洛斯里克释放光芒波"
-      },
-      {
-        "name": "灵魂枪",
-        "type": "SoulSpear",
-        "damage": 55,
-        "range": "远",
-        "parryable": false,
-        "description": "第二阶段专属：洛斯里克施放灵魂枪"
-      },
-      {
-        "name": "复活咒文",
-        "type": "Resurrection",
-        "damage": 0,
-        "range": "-",
-        "parryable": false,
-        "description": "第二阶段专属：洛斯里克复活已倒下的洛里安"
-      },
-      {
-        "name": "传送烈焰突进",
-        "type": "TeleportChargeSlash",
-        "damage": 70,
-        "range": "中",
-        "parryable": true,
-        "description": "传送出现后立即向前突进斩击"
-      }
-    ],
-    "death_dialogue": "哥哥……这段旅程到此为止了……（洛斯里克最后的遗言）",
-    "story": "洛里安与洛斯里克是洛斯里克的孪生王子。洛里安是兄长，曾是最强大的骑士，但为了分担弟弟的诅咒而丧失了声音和行走能力。洛斯里克是弟弟，被诅咒为薪王的继任者，但他拒绝延续火焰。两兄弟选择了共同隐居在大书库之巅，彼此守护。洛斯里克的'这段旅程到此为止了'是游戏中最令人心碎的对白之一。",
-    "bonfire_name": "Twin Princes",
-    "drops": [
-      {
-        "kind": "KeyItem",
-        "name": "Cinders of a Lord",
-        "name_zh": "薪王柴薪"
-      },
-      {
-        "kind": "BossSoul",
-        "name": "Soul of the Twin Princes",
-        "name_zh": "孪生王子的灵魂"
-      }
-    ]
+    "name": "双王子",
+    "name_en": "Lorian, Elder Prince and Lothric, Younger Prince",
+    "x": 2900,
+    "y": 620,
+    "source_status": "official_identity_projected_position"
   },
-  "npcs": [
-    {
-      "name": "黑手哥特哈德",
-      "name_en": "Black Hand Gotthard",
-      "kind": "Event",
-      "x": 250,
-      "y": 350,
-      "color": "#808080",
-      "dialogue": [
-        "（已死亡）在书库入口处发现遗体，身旁有大书库钥匙和哥特哈德双剑（Gotthard's Twinswords）"
-      ],
-      "quest": "哥特哈德在书库入口处被发现已经死亡。他的遗体上有大书库钥匙和哥特哈德双剑（Gotthard's Twinswords）。他是'黑手'之一，曾侍奉多位薪王。如果之前未在冷冽谷遇到他，他会在此处直接以遗体形式出现。"
-    },
-    {
-      "name": "无光之地的希里斯",
-      "name_en": "Sirris of the Sunless Realms",
-      "kind": "Summon",
-      "x": 1700,
-      "y": 2900,
-      "color": "#d0d0ff",
-      "dialogue": [
-        "（召唤符出现在Boss雾门前左侧）"
-      ],
-      "quest": "希里斯完成全部任务线后，可在双王子Boss战前被召唤为白灵。召唤符出现在雾门左侧。"
-    },
-    {
-      "name": "彼海姆的欧贝克",
-      "name_en": "Orbeck of Vinheim",
-      "kind": "Summon",
-      "x": 1750,
-      "y": 2950,
-      "color": "#7050a0",
-      "dialogue": [
-        "（召唤符出现在通往Boss的阶梯顶端，前提是给予全部4本卷轴并购买所有法术）"
-      ],
-      "quest": "如果玩家给予欧贝克全部4本卷轴并购买所有法术，他会在双王子Boss战前留下召唤符。召唤符在通往Boss房间的双扇大门前的阶梯顶端。"
-    },
-    {
-      "name": "三人组（无火之灰）",
-      "name_en": "Three Unkindled",
-      "kind": "HostileNPC",
-      "x": 1100,
-      "y": 1300,
-      "color": "#c03030",
-      "dialogue": [
-        "（庭院阶梯遭遇战，三人同时攻击）"
-      ],
-      "quest": "在书库中段的庭院阶梯处遭遇三名敌对NPC。击败他们分别掉落：黄金翼纹盾（Faraam铠甲骑士）、贤者的结晶法杖（法师克里姆希尔德）、鬼切与姥断（双刀使用者）。"
-    },
-    {
-      "name": "卡塔利纳的杰克巴尔多",
-      "name_en": "Siegward of Catarina",
-      "kind": "Summon",
-      "x": 400,
-      "y": 500,
-      "color": "#c0a040",
-      "dialogue": [
-        "（召唤符出现在大书库篝火旁，前提是完成杰克的全部任务线）"
-      ],
-      "quest": "如果完成了卡塔利纳的杰克巴尔多的全部任务线（包括在伊鲁席尔地牢解救他），他可以在大书库篝火旁被召唤为白灵，帮助清扫通往孪生王子Boss的路径。"
-    }
-  ],
-  "chests": [
-    {
-      "x": 1000,
-      "y": 350,
-      "loot": {
-        "kind": "SpellDrop",
-        "name": "灵魂洪流"
-      },
-      "is_mimic": false,
-      "notes": "书廊隐藏房间内的法术——隐藏房间中还有内在潜力"
-    },
-    {
-      "x": 1050,
-      "y": 400,
-      "loot": {
-        "kind": "SpellDrop",
-        "name": "内在潜力"
-      },
-      "is_mimic": false,
-      "notes": "同一隐藏房间内的咒术——从第三个书架后的拉杆开启"
-    },
-    {
-      "x": 1100,
-      "y": 600,
-      "loot": {
-        "kind": "RingDrop",
-        "name": "学者戒指"
-      },
-      "is_mimic": false,
-      "notes": "拉杆机关书架后的隐藏房间中的戒指"
-    },
-    {
-      "x": 700,
-      "y": 1050,
-      "loot": {
-        "kind": "RingDrop",
-        "name": "猎人戒指"
-      },
-      "is_mimic": false,
-      "notes": "屋顶塔楼通过梯子到达顶部的戒指"
-    },
-    {
-      "x": 1500,
-      "y": 850,
-      "loot": {
-        "kind": "TomeDrop",
-        "name": "洛根卷轴"
-      },
-      "is_mimic": false,
-      "notes": "学者塔楼顶层的宝箱"
-    },
-    {
-      "x": 950,
-      "y": 1100,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "结晶圣铃"
-      },
-      "is_mimic": false,
-      "notes": "第一个蜡池附近的房间，在持枪骑士后面"
-    },
-    {
-      "x": 850,
-      "y": 1200,
-      "loot": {
-        "kind": "SpellDrop",
-        "name": "神圣光柱"
-      },
-      "is_mimic": false,
-      "notes": "悬挂在笼子中，需要通过地板洞口跳下到达"
-    },
-    {
-      "x": 750,
-      "y": 1300,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "魔女的发鞭"
-      },
-      "is_mimic": false,
-      "notes": "隐藏房间宝箱（与内在潜力同一房间）"
-    },
-    {
-      "x": 1350,
-      "y": 700,
-      "loot": {
-        "kind": "TomeDrop",
-        "name": "结晶卷轴"
-      },
-      "is_mimic": false,
-      "notes": "击败迷你Boss结晶贤者掉落（非宝箱，为敌人掉落物）"
-    },
-    {
-      "x": 1200,
-      "y": 1650,
-      "loot": {
-        "kind": "EstusShard"
-      },
-      "is_mimic": false,
-      "notes": "屋顶栏杆旁的遗体"
-    },
-    {
-      "x": 1300,
-      "y": 2150,
-      "loot": {
-        "kind": "TitaniteDrop",
-        "name": "楔形石圆盘"
-      },
-      "is_mimic": false,
-      "notes": "巨型蜡池旁的宝箱"
-    },
-    {
-      "x": 1600,
-      "y": 2300,
-      "loot": {
-        "kind": "TitaniteDrop",
-        "name": "龙鳞楔形石",
-        "count": 3
-      },
-      "is_mimic": false,
-      "notes": "笼子区域梯子底部宝箱"
-    },
-    {
-      "x": 1100,
-      "y": 600,
-      "loot": {
-        "kind": "ArmorDrop",
-        "name": "学者长袍",
-        "slot": "Chest"
-      },
-      "is_mimic": true,
-      "notes": "书廊中的拟态宝箱"
-    },
-    {
-      "x": 1650,
-      "y": 2400,
-      "loot": {
-        "kind": "TitaniteDrop",
-        "name": "楔形石圆盘"
-      },
-      "is_mimic": false,
-      "notes": "秘密升降台平台上的楔形石圆盘"
-    },
-    {
-      "x": 1550,
-      "y": 2200,
-      "loot": {
-        "kind": "TitaniteDrop",
-        "name": "光辉楔形石"
-      },
-      "is_mimic": false,
-      "notes": "石像鬼屋顶的平台"
-    }
-  ],
-  "items": [
-    {
-      "kind": "SoulOrb",
-      "value": 1500,
-      "x": 350,
-      "y": 500,
-      "notes": "入口大厅长桌上的沮丧骑士的灵魂"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 2000,
-      "x": 1100,
-      "y": 550,
-      "notes": "书廊深处的沮丧骑士的灵魂"
-    },
-    {
-      "kind": "HomewardBone",
-      "x": 850,
-      "y": 950,
-      "count": 3,
-      "notes": "阳台栏杆上的归乡骨片"
-    },
-    {
-      "kind": "WhiteWax",
-      "x": 500,
-      "y": 300,
-      "count": 1,
-      "notes": "入口处的白蜡，可涂在头上获得诅咒免疫",
-      "name": "白蜡"
-    },
-    {
-      "kind": "KeyDrop",
-      "name": "大书库钥匙",
-      "x": 250,
-      "y": 350,
-      "count": 1,
-      "notes": "黑手哥特哈德遗体上的关键道具，用于开启大书库正门"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "哥特哈德双剑",
-      "x": 260,
-      "y": 360,
-      "notes": "黑手哥特哈德遗体上的武器——哥特哈德双剑（Gotthard's Twinswords）"
-    },
-    {
-      "kind": "SpellDrop",
-      "name": "灵魂洪流",
-      "x": 1050,
-      "y": 450,
-      "notes": "寒冷外出骑士房间旁的走道上遗体处的灵魂洪流（Soul Stream）"
-    },
-    {
-      "kind": "RingDrop",
-      "name": "肉斩戒指",
-      "x": 1400,
-      "y": 750,
-      "notes": "楼梯上结晶蜥蜴附近遗体上的肉斩戒指（Fleshbite Ring）"
-    },
-    {
-      "kind": "Ember",
-      "x": 1350,
-      "y": 1800,
-      "count": 1,
-      "notes": "NPC三人组建筑顶层的余火"
-    },
-    {
-      "kind": "BoneShard",
-      "name": "不死骨片",
-      "x": 1150,
-      "y": 1400,
-      "notes": "NPC三人组建筑上层的不死骨片"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "黄金翼纹盾",
-      "x": 1100,
-      "y": 1250,
-      "notes": "击败三人组中的Faraam铠甲骑士掉落"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "贤者的结晶法杖",
-      "x": 1100,
-      "y": 1300,
-      "notes": "击败三人组中的法师克里姆希尔德掉落"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "鬼切与姥断",
-      "x": 1100,
-      "y": 1350,
-      "notes": "击败三人组中的双刀使用者掉落"
-    },
-    {
-      "kind": "ArmorDrop",
-      "name": "外出骑士防具套装",
-      "slot": "Full",
-      "x": 800,
-      "y": 1100,
-      "notes": "击败寒冷外出骑士掉落"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "阿维琳",
-      "x": 1200,
-      "y": 650,
-      "notes": "书架顶部，需要从高处 ledge 跳下到达"
-    },
-    {
-      "kind": "TitaniteDrop",
-      "name": "楔形石块",
-      "x": 900,
-      "y": 700,
-      "count": 8,
-      "notes": "书库中多处分布，共约8处拾取点（第一层楼梯、书架后、红眼骑士旁、屋顶等）"
-    },
-    {
-      "kind": "TitaniteDrop",
-      "name": "楔形石鳞片",
-      "x": 1000,
-      "y": 800,
-      "count": 8,
-      "notes": "书库中多处分布，共约8处拾取点（宝箱中3x，隐藏房间、楼梯、阳台等多处）"
-    },
-    {
-      "kind": "TitaniteDrop",
-      "name": "楔形石圆盘",
-      "x": 1450,
-      "y": 2200,
-      "notes": "击败三只升天翼骑士首次掉落"
-    },
-    {
-      "kind": "LargeSoulOrb",
-      "value": 2500,
-      "x": 1600,
-      "y": 2500,
-      "notes": "通往王子宫殿阶梯上的疲倦战士的灵魂"
-    },
-    {
-      "kind": "TitaniteDrop",
-      "name": "楔形石圆盘",
-      "x": 1900,
-      "y": 3500,
-      "notes": "击败双王子后获得的珍贵素材"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "格雷瑞特的骨灰",
-      "x": 1400,
-      "y": 2000,
-      "notes": "难以到达的屋顶（从栏杆跳至低处屋顶），需要精准跳跃"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "削解石",
-      "x": 1550,
-      "y": 1950,
-      "notes": "通往室外区域出口前的削解石"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "空心贵石",
-      "x": 1350,
-      "y": 2000,
-      "notes": "屋顶拱门外侧的空心贵石"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "祝福贵石",
-      "x": 1600,
-      "y": 1050,
-      "notes": "笼子区域横梁旁的祝福贵石"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "神圣祝福",
-      "x": 1620,
-      "y": 2350,
-      "notes": "笼子梯子底部宝箱中的神圣祝福"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 1500,
-      "name": "沮丧骑士的灵魂",
-      "x": 1550,
-      "y": 1850,
-      "count": 1,
-      "notes": "升降机捷径上方楼梯处的沮丧骑士的灵魂"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 800,
-      "name": "无名战士的灵魂",
-      "x": 1050,
-      "y": 480,
-      "count": 1,
-      "notes": "诅咒之手房间中遗体上的无名战士的灵魂"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 2000,
-      "name": "沮丧骑士的大灵魂",
-      "x": 1100,
-      "y": 1350,
-      "count": 1,
-      "notes": "NPC三人组战斗的阶梯上遗体处的沮丧骑士的大灵魂"
-    }
-  ],
+  "enemies": [],
+  "items": [],
+  "chests": [],
+  "npcs": [],
+  "lights": [],
   "fog_gates": [
     {
-      "x": 0,
-      "y": 300,
-      "w": 40,
-      "h": 300,
+      "x": 720,
+      "y": 5580,
+      "w": 96,
+      "h": 96,
       "dest_area": "LothricCastle",
-      "dest_x": 3600,
-      "dest_y": 1400,
-      "notes": "返回洛斯里克城堡"
+      "dest_x": 4680,
+      "dest_y": 2200,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     },
     {
-      "x": 1800,
-      "y": 3900,
-      "w": 200,
-      "h": 40,
+      "x": 2900,
+      "y": 520,
+      "w": 96,
+      "h": 96,
       "dest_area": "KilnOfTheFirstFlame",
-      "dest_x": 200,
-      "dest_y": 400,
-      "notes": "集齐所有薪王柴薪后通往初始之火炉"
+      "dest_x": 620,
+      "dest_y": 2200,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     }
-  ],
-  "lights": [
-    {
-      "x": 300,
-      "y": 400,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "书库入口篝火"
-    },
-    {
-      "x": 700,
-      "y": 1050,
-      "radius": 150,
-      "r": 0.9,
-      "g": 0.8,
-      "b": 0.3,
-      "intensity": 0.7,
-      "notes": "蜡池大厅烛光"
-    },
-    {
-      "x": 1000,
-      "y": 500,
-      "radius": 100,
-      "r": 0.3,
-      "g": 0.4,
-      "b": 0.9,
-      "intensity": 0.4,
-      "notes": "书廊魔法蓝光"
-    },
-    {
-      "x": 1500,
-      "y": 900,
-      "radius": 120,
-      "r": 0.4,
-      "g": 0.5,
-      "b": 0.9,
-      "intensity": 0.5,
-      "notes": "学者塔楼魔法光"
-    },
-    {
-      "x": 1800,
-      "y": 3200,
-      "radius": 300,
-      "r": 1.0,
-      "g": 0.95,
-      "b": 0.8,
-      "intensity": 0.8,
-      "notes": "王子宫殿阳光"
-    },
-    {
-      "x": 1800,
-      "y": 3600,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "孪生王子篝火"
-    },
-    {
-      "x": 500,
-      "y": 300,
-      "radius": 80,
-      "r": 0.9,
-      "g": 0.85,
-      "b": 0.6,
-      "intensity": 0.4,
-      "notes": "蜡烛群光源"
-    }
-  ],
-  "story_notes": [
-    "大书库是洛斯里克城堡之后的必经区域，也是游戏的最终主线区域",
-    "需要击败三位薪王（深渊监视者、巨人尤姆、艾尔德里奇）才能获得大书库钥匙开启正门",
-    "黑手哥特哈德在书库入口处死亡，身旁有大书库钥匙——他是'黑手'之一，曾侍奉多位薪王",
-    "双王子洛里安与洛斯里克是游戏中最具叙事深度的Boss之一",
-    "洛里安曾是最强的洛斯里克骑士，但为弟弟承担诅咒而失去声音和行走能力",
-    "洛斯里克拒绝成为薪王，因为他看清了传火的本质——无尽的牺牲循环",
-    "书库中的学者法师是被知识侵蚀的学者，他们用白蜡涂满身体以抵御诅咒之手的侵害",
-    "白蜡机制：将头部浸入蜡池可获得暂时免疫诅咒之手的保护",
-    "结晶贤者是书库中的迷你Boss，与献祭之路的Boss属于同一类型",
-    "三人组（Three Unkindled）是书库中最危险的敌人遭遇之一，三名NPC级敌人同时攻击",
-    "升天翼骑士（胖天使）首次击杀掉落楔形石圆盘，是游戏中最珍贵的强化素材之一",
-    "大书库中有三块楔形石圆盘——是单区域中最多的",
-    "欧贝克只有在获得全部4本卷轴并购买所有法术后才会在双王子战前留下召唤符",
-    "原版中击败双王子后获得的柴薪是通关的必要物品之一",
-    "书库最高层的阳光照射效果与战斗的悲剧氛围形成强烈反差"
   ]
 }

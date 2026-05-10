@@ -1,6 +1,6 @@
 use crate::combat::weapon::WeaponType;
 use crate::render::light_renderer::Light;
-use crate::world::chunk::{Chunk, CHUNK_SIZE};
+use crate::world::chunk::Chunk;
 use crate::world::tileset::TileId;
 
 #[derive(Debug)]
@@ -157,16 +157,15 @@ impl ParsedLevel {
         // Extract terrain
         let terrain = layers.iter().find(|l| l.identifier == "Terrain")
             .ok_or("No 'Terrain' layer found")?;
-        if terrain.c_wid as usize != CHUNK_SIZE || terrain.c_hei as usize != CHUNK_SIZE {
-            return Err(format!(
-                "Terrain layer size {}x{} doesn't match CHUNK_SIZE {}",
-                terrain.c_wid, terrain.c_hei, CHUNK_SIZE
-            ));
+        let width = terrain.c_wid as usize;
+        let height = terrain.c_hei as usize;
+        if width == 0 || height == 0 {
+            return Err(format!("Terrain layer has invalid size {}x{}", width, height));
         }
-        let mut chunk = Chunk::new((0, 0));
-        for y in 0..CHUNK_SIZE {
-            for x in 0..CHUNK_SIZE {
-                let idx = y * CHUNK_SIZE + x;
+        let mut chunk = Chunk::with_size((0, 0), width, height);
+        for y in 0..height {
+            for x in 0..width {
+                let idx = y * width + x;
                 let val = terrain.int_grid_csv.get(idx).copied().unwrap_or(0);
                 chunk.tiles[y][x] = int_to_tile(val);
             }

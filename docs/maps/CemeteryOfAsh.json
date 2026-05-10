@@ -2,11 +2,11 @@
   "id": "CemeteryOfAsh",
   "name": "灰烬墓地",
   "name_en": "Cemetery of Ash",
-  "description": "游戏起始区域。玩家从棺木中苏醒，周围是灰烬覆盖的古老墓地。这里是教程区域，引导玩家学习移动、攻击、闪避和弹反等基本操作。空气中弥漫着灰烬，远处的天空阴暗沉重。",
-  "theme": "灰烬/墓地/灰黑",
+  "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
+  "theme": "ash cemetery tutorial",
   "map_size": {
-    "width": 2400,
-    "height": 1800
+    "width": 3072,
+    "height": 4096
   },
   "connections": {
     "from": [],
@@ -14,337 +14,197 @@
       "FirelinkShrine"
     ]
   },
+  "restoration": {
+    "status": "clean_rebuild_topology_projection",
+    "authoritative_fields": [
+      "area id/name",
+      "connections",
+      "bonfire names",
+      "boss identity"
+    ],
+    "projection_fields": [
+      "map_size",
+      "sections coordinates",
+      "fog gate coordinates"
+    ],
+    "excluded_until_sourced": [
+      "enemy placements",
+      "item placements",
+      "NPC dialogue",
+      "chest placements"
+    ],
+    "note": "This file intentionally avoids inherited fabricated precise data."
+  },
   "bonfires": [
     {
       "name": "灰烬墓地",
       "name_en": "Cemetery of Ash",
-      "x": 800,
-      "y": 600,
-      "description": "墓地中途的篝火，位于灰烬庭院枯树旁"
+      "x": 1300,
+      "y": 2460,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "灰烬审判者古达",
       "name_en": "Iudex Gundyr",
-      "x": 1300,
-      "y": 1100,
-      "description": "击败古达后点亮的Boss篝火，螺旋剑碎片插入地面形成篝火"
+      "x": 1536,
+      "y": 1280,
+      "source_status": "official_name_projected_position"
     }
   ],
   "map_layout": {
+    "basis": "Clean gameplay 2D projection of Dark Souls III route topology. Not official coordinate geometry.",
     "sections": [
       {
-        "name": "苏醒棺木",
-        "description": "玩家从一具石棺中苏醒。四周灰烬飘落，地上散落着枯骨。一条狭窄的石径向前延伸，引导玩家开始旅途。",
-        "x": 0,
-        "y": 0,
-        "w": 400,
-        "h": 400,
+        "name": "苏醒石棺",
+        "name_en": "Ashen Coffin",
+        "kind": "main",
+        "x": 360,
+        "y": 3540,
+        "w": 520,
+        "h": 360,
         "terrain_features": [
-          "石棺",
-          "灰烬地面",
-          "窄石径",
-          "枯骨"
-        ]
+          "coffin",
+          "tutorial path"
+        ],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "墓地小径",
-        "description": "蜿蜒穿过墓地的狭窄小路。两侧竖立着歪斜的墓碑和十字架。几只空心士兵在此游荡，是玩家最初的战斗教程。",
-        "x": 300,
-        "y": 300,
-        "w": 600,
-        "h": 500,
+        "name": "灰烬墓径",
+        "name_en": "Cemetery Path",
+        "kind": "main",
+        "x": 780,
+        "y": 3300,
+        "w": 760,
+        "h": 420,
         "terrain_features": [
-          "墓碑",
-          "石墙",
-          "窄路",
-          "台阶"
-        ]
+          "graves",
+          "hollows"
+        ],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "灰烬庭院",
-        "description": "一处较为开阔的灰烬覆盖的庭院。中心有一棵枯死的巨树，树根盘绕。这里是教学区域，引导玩家学习弹反和重攻击。右侧有隐藏小径通往遗物。",
-        "x": 800,
-        "y": 500,
-        "w": 500,
-        "h": 400,
+        "name": "灰色原素喷泉",
+        "name_en": "Ashen Estus Fountain",
+        "kind": "main",
+        "x": 1280,
+        "y": 2920,
+        "w": 620,
+        "h": 460,
         "terrain_features": [
-          "枯树",
-          "开阔庭院",
-          "灰烬堆",
-          "隐藏小径"
-        ]
+          "fountain",
+          "stairs"
+        ],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "饿犬墓地",
-        "description": "更深的墓地区域，饿犬在墓碑间穿梭。地形变得起伏不平，有石阶通往高处。几名空心士兵在高处平台上驻守。",
-        "x": 600,
-        "y": 800,
-        "w": 500,
-        "h": 400,
+        "name": "水晶蜥蜴水道",
+        "name_en": "Crystal Lizard Ravine",
+        "kind": "optional",
+        "x": 1740,
+        "y": 2600,
+        "w": 940,
+        "h": 360,
         "terrain_features": [
-          "起伏地形",
-          "石阶",
-          "高地平台",
-          "墓碑群"
-        ]
+          "water",
+          "side path"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "灰烬墓地篝火林地",
+        "name_en": "Cemetery of Ash Bonfire Clearing",
+        "kind": "main",
+        "x": 1120,
+        "y": 2300,
+        "w": 760,
+        "h": 520,
+        "terrain_features": [
+          "bonfire",
+          "dead tree"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "火焰壶悬崖",
+        "name_en": "Firebomb Cliff",
+        "kind": "optional",
+        "x": 640,
+        "y": 2140,
+        "w": 780,
+        "h": 360,
+        "terrain_features": [
+          "cliff",
+          "crossbow hollow"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "古达门前拱道",
+        "name_en": "Gundyr Approach",
+        "kind": "main",
+        "x": 1280,
+        "y": 1840,
+        "w": 520,
+        "h": 420,
+        "terrain_features": [
+          "arch",
+          "torches"
+        ],
+        "source_status": "route_landmark_projection"
       },
       {
         "name": "古达竞技场",
-        "description": "Boss战场地。一个被残破石墙环绕的圆形竞技场。中央插着螺旋剑碎片。击败古达后，螺旋剑化为传火祭祀场的篝火。",
-        "x": 1000,
-        "y": 900,
-        "w": 600,
-        "h": 500,
+        "name_en": "Iudex Gundyr Arena",
+        "kind": "main",
+        "x": 860,
+        "y": 980,
+        "w": 1350,
+        "h": 780,
         "terrain_features": [
-          "圆形竞技场",
-          "残破石墙",
-          "螺旋剑碎片",
-          "开阔场地"
-        ]
+          "boss arena",
+          "coiled sword"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "祭祀场山路",
+        "name_en": "Path to Firelink Shrine",
+        "kind": "main",
+        "x": 1380,
+        "y": 520,
+        "w": 520,
+        "h": 560,
+        "terrain_features": [
+          "post boss exit"
+        ],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
-  "enemies": [
-    {
-      "kind": "HollowAssassin",
-      "x": 500,
-      "y": 400,
-      "patrol": 0,
-      "count": 2,
-      "notes": "墓地入口处趴在地上伏击的空洞刺客，靠近后突然起身攻击"
-    },
-    {
-      "kind": "HollowAssassin",
-      "x": 700,
-      "y": 500,
-      "patrol": 10,
-      "count": 2,
-      "notes": "墓地小径旁的空洞刺客"
-    },
-    {
-      "kind": "HollowAssassin",
-      "x": 900,
-      "y": 600,
-      "patrol": 0,
-      "count": 1,
-      "notes": "墓地深处伏击的空洞刺客"
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 800,
-      "y": 550,
-      "patrol": 20,
-      "count": 2,
-      "notes": "墓地小径旁的饿犬，成对出现"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 450,
-      "y": 350,
-      "patrol": 0,
-      "count": 1,
-      "notes": "篝火附近悬崖边的贪食水晶蜥蜴——击杀掉落楔形石碎片"
-    }
-  ],
   "boss": {
     "type": "IudexGundyr",
     "name": "灰烬审判者古达",
     "name_en": "Iudex Gundyr",
-    "x": 1300,
-    "y": 1150,
-    "hp": 800,
-    "arena": {
-      "x": 1050,
-      "y": 950,
-      "w": 500,
-      "h": 400
-    },
-    "phases": [
-      {
-        "name": "戟武骑士",
-        "hp_threshold": 1.0,
-        "speed_multiplier": 1.0,
-        "damage_multiplier": 1.0,
-        "attack_cooldown": 2.5,
-        "description": "古达是一名身披黑色铠甲的骑士，手持戟。攻击模式稳定，以戟技和体术为主。作为首个Boss，给玩家学习战斗系统的空间。",
-        "mechanics": [
-          "戟攻击",
-          "肩撞冲锋",
-          "横扫"
-        ]
-      },
-      {
-        "name": "人之脓变体",
-        "hp_threshold": 0.5,
-        "speed_multiplier": 1.3,
-        "damage_multiplier": 1.2,
-        "attack_cooldown": 2.0,
-        "description": "古达背后的黑色蛇形怪物——人之脓——破体而出。古达的身体被扭曲，攻击变得更加狂暴和不规则。暗色触手从背部延伸，增加攻击范围。此阶段古达获得暗属性攻击。",
-        "mechanics": [
-          "人之脓延伸攻击",
-          "暗属性伤害",
-          "更高速移动",
-          "更长的攻击连段"
-        ]
-      }
-    ],
-    "attacks": [
-      {
-        "name": "戟下劈",
-        "type": "HalberdOverhead",
-        "damage": 30,
-        "range": "近-中",
-        "parryable": true,
-        "description": "高举戟向前猛力下劈。有明显的前摇动作——戟高举过头顶约0.4秒。判定范围集中在正前方，伤害较高。是弹反练习的好时机。"
-      },
-      {
-        "name": "铁山靠",
-        "type": "ShoulderCharge",
-        "damage": 25,
-        "range": "中",
-        "parryable": true,
-        "description": "快速向玩家方向冲刺肩撞。发动速度很快（0.16秒后开始判定），持续判定时间长（至0.88秒）。古达在距离较远（>118像素）时倾向于使用此招。"
-      },
-      {
-        "name": "戟横扫",
-        "type": "HalberdSweep",
-        "damage": 25,
-        "range": "近-中",
-        "parryable": true,
-        "description": "以自身为中心的戟大范围横扫。判定范围为半径108像素的圆弧。二阶段使用频率增加（每三次攻击中有两次）。适合翻滚穿过而非后退。"
-      }
-    ],
-    "story": "古达是一位在传火祭祀场等待无火之灰的审判者。他本应在远古时代迎接英雄，但火焰早已熄灭，他化为灰烬守护此地。他被人之脓侵蚀，是玩家遇到的第一个拥有人之脓的Boss。击败他后获得螺旋剑（Coiled Sword），将其插入传火祭祀场的篝火中即可激活祭祀场并开启区域传送功能。"
+    "x": 1536,
+    "y": 1280,
+    "source_status": "official_identity_projected_position"
   },
-  "npcs": [],
+  "enemies": [],
+  "items": [],
   "chests": [],
-  "items": [
-    {
-      "kind": "AshenEstusFlask",
-      "x": 380,
-      "y": 380,
-      "count": 1,
-      "name": "灰色原素瓶",
-      "name_en": "Ashen Estus Flask",
-      "notes": "苏醒棺木旁拾取，用于恢复专注值"
-    },
-    {
-      "kind": "EstusFlask",
-      "x": 420,
-      "y": 400,
-      "count": 1,
-      "name": "原素瓶",
-      "name_en": "Estus Flask",
-      "notes": "苏醒棺木旁拾取，用于恢复HP"
-    },
-    {
-      "kind": "SoulItem",
-      "value": 200,
-      "x": 500,
-      "y": 450,
-      "name": "流浪者的灵魂",
-      "name_en": "Soul of a Deserted Corpse",
-      "notes": "墓地小径上的遗体"
-    },
-    {
-      "kind": "Firebomb",
-      "x": 520,
-      "y": 470,
-      "count": 5,
-      "name": "火焰壶",
-      "name_en": "Firebomb",
-      "notes": "墓地小径遗体上拾取"
-    },
-    {
-      "kind": "TitaniteShard",
-      "x": 750,
-      "y": 950,
-      "count": 1,
-      "name": "楔形石碎片",
-      "name_en": "Titanite Shard",
-      "notes": "饿犬墓地隐藏角落的遗体"
-    },
-    {
-      "kind": "SoulItem",
-      "value": 400,
-      "x": 850,
-      "y": 600,
-      "name": "无名骑士的灵魂",
-      "name_en": "Soul of an Unknown Traveler",
-      "notes": "灰烬庭院枯树旁的遗体"
-    },
-    {
-      "kind": "TitaniteScale",
-      "x": 900,
-      "y": 650,
-      "count": 1,
-      "name": "楔形石鳞片",
-      "name_en": "Titanite Scale",
-      "notes": "灰烬庭院隐藏处"
-    },
-    {
-      "kind": "CoiledSword",
-      "x": 1280,
-      "y": 1130,
-      "count": 1,
-      "name": "螺旋剑",
-      "name_en": "Coiled Sword",
-      "notes": "击败古达后拾取，用于激活传火祭祀场篝火"
-    }
-  ],
+  "npcs": [],
+  "lights": [],
   "fog_gates": [
     {
-      "x": 1450,
-      "y": 1050,
-      "w": 40,
-      "h": 250,
-      "dest_area": "FirelinkShrine",
-      "dest_x": 400,
-      "dest_y": 400,
-      "notes": "击败古达后，穿过雾门前往传火祭祀场"
-    }
-  ],
-  "lights": [
-    {
-      "x": 200,
-      "y": 200,
-      "radius": 100,
-      "r": 0.6,
-      "g": 0.5,
-      "b": 0.4,
-      "intensity": 0.3,
-      "notes": "苏醒棺木处的微弱光亮"
-    },
-    {
-      "x": 1000,
+      "x": 1536,
       "y": 700,
-      "radius": 80,
-      "r": 0.5,
-      "g": 0.45,
-      "b": 0.35,
-      "intensity": 0.25,
-      "notes": "庭院枯树处的灰烬光"
-    },
-    {
-      "x": 1300,
-      "y": 1150,
-      "radius": 120,
-      "r": 0.9,
-      "g": 0.75,
-      "b": 0.4,
-      "intensity": 0.5,
-      "notes": "古达处的螺旋剑碎片光芒"
+      "w": 96,
+      "h": 160,
+      "dest_area": "FirelinkShrine",
+      "dest_x": 1280,
+      "dest_y": 1700,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     }
-  ],
-  "story_notes": [
-    "灰烬墓地是游戏的起始教程区域，原版中名为'灰の墓所'",
-    "玩家作为'无火的余灰'（Unkindled One）从棺木中苏醒，被召唤来寻找薪王",
-    "古达是首位Boss，设计目的是教会玩家基本的战斗系统：攻击、闪避、弹反",
-    "古达被人之脓侵蚀，是玩家首次遇到此机制的Boss。人之脓在后续区域会再次出现",
-    "区域中的敌人主要是墓碑守卫（Grave Warden）和贪食水晶蜥蜴（Ravenous Crystal Lizard）",
-    "玩家在此区域获得原素瓶（Estus Flask）和灰色原素瓶（Ashen Estus Flask）",
-    "击败古达后获得螺旋剑（Coiled Sword），将其插入传火祭祀场的篝火中以激活区域传送功能",
-    "原版中此区域有大量教学提示，教导玩家各种操作",
-    "灰烬墓地的气氛沉闷压抑，灰烬从天空持续飘落，象征火焰即将消亡的世界"
   ]
 }

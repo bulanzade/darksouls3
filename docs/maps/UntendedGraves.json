@@ -2,11 +2,11 @@
   "id": "UntendedGraves",
   "name": "无主墓地",
   "name_en": "Untended Graves",
-  "description": "妖王庭园深处幻影墙壁之后的隐藏区域。这里是另一个时空中的灰烬墓地与传火祭祀场——一个火焰从未被点燃、或者已经彻底熄灭的世界。整个区域笼罩在绝对的黑暗之中，没有一丝阳光穿透厚重的黑云。布局与灰烬墓地完全相同，但一切都笼罩在无尽的黑暗里。英雄古达在此独自等待，他已经来到此处准备传火，却发现火焰早已熄灭。",
-  "theme": "无尽黑暗/墓地/平行世界/深渊黑",
+  "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
+  "theme": "dark cemetery",
   "map_size": {
-    "width": 2000,
-    "height": 1600
+    "width": 4096,
+    "height": 4096
   },
   "connections": {
     "from": [
@@ -16,447 +16,149 @@
       "FirelinkShrine"
     ]
   },
+  "restoration": {
+    "status": "clean_rebuild_topology_projection",
+    "authoritative_fields": [
+      "area id/name",
+      "connections",
+      "bonfire names",
+      "boss identity"
+    ],
+    "projection_fields": [
+      "map_size",
+      "sections coordinates",
+      "fog gate coordinates"
+    ],
+    "excluded_until_sourced": [
+      "enemy placements",
+      "item placements",
+      "NPC dialogue",
+      "chest placements"
+    ],
+    "note": "This file intentionally avoids inherited fabricated precise data."
+  },
   "bonfires": [
     {
       "name": "无主墓地",
       "name_en": "Untended Graves",
-      "x": 300,
-      "y": 400,
-      "description": "从妖王庭园的幻影墙壁进入后的第一个篝火，位于黑暗墓地入口"
+      "x": 700,
+      "y": 720,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "英雄古达",
       "name_en": "Champion Gundyr",
-      "x": 1500,
-      "y": 1100,
-      "description": "Boss战后篝火"
+      "x": 2480,
+      "y": 2140,
+      "source_status": "official_name_projected_position"
     }
   ],
   "map_layout": {
+    "basis": "Clean gameplay 2D projection of Dark Souls III route topology. Not official coordinate geometry.",
     "sections": [
       {
-        "name": "黑暗墓地入口",
-        "description": "从幻影墙壁进入后的区域。与灰烬墓地的苏醒棺木区域布局完全相同，但没有灰烬飘落——只有无尽的黑暗。石棺依然存在，但已残破不堪。空气中弥漫着死亡的寂静。",
-        "x": 0,
-        "y": 0,
-        "w": 400,
-        "h": 400,
-        "terrain_features": [
-          "残破石棺",
-          "纯黑环境",
-          "窄石径",
-          "枯骨",
-          "无光源"
-        ]
+        "name": "暗墓入口",
+        "name_en": "Dark Cemetery Entry",
+        "kind": "main",
+        "x": 480,
+        "y": 480,
+        "w": 760,
+        "h": 560,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "黑暗墓地小径",
-        "description": "与灰烬墓地完全相同的蜿蜒小路，但被绝对黑暗笼罩。墓碑歪斜，十字架倒伏。黑骑士在墓碑间巡逻，比灰烬墓地中的空心士兵强大得多。必须依靠随身火把或武器光芒才能看清周围。",
-        "x": 300,
-        "y": 300,
-        "w": 500,
-        "h": 400,
-        "terrain_features": [
-          "墓碑",
-          "石墙",
-          "窄路",
-          "台阶",
-          "极度黑暗"
-        ]
+        "name": "黑暗墓径",
+        "name_en": "Dark Cemetery Path",
+        "kind": "main",
+        "x": 1040,
+        "y": 900,
+        "w": 900,
+        "h": 640,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "黑暗庭院",
-        "description": "灰烬庭院的黑暗版本。中央的枯树依然矗立，但已彻底死亡，没有任何生机。这里没有教学提示，只有危险。黑骑士在此设下埋伏。地面上散落着不同于灰烬墓地的遗体。",
-        "x": 700,
-        "y": 500,
-        "w": 400,
-        "h": 350,
-        "terrain_features": [
-          "枯树",
-          "开阔庭院",
-          "黑暗地面",
-          "隐藏小径"
-        ]
+        "name": "无主墓地篝火",
+        "name_en": "Untended Graves Bonfire",
+        "kind": "main",
+        "x": 1480,
+        "y": 1420,
+        "w": 860,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "黑骑士墓地",
-        "description": "灰烬墓地中饿犬墓地对应的区域，但取代饿犬的是更加强大的黑骑士。地形起伏与原版一致，但黑暗使得高低差更加危险。",
-        "x": 500,
-        "y": 700,
-        "w": 500,
-        "h": 350,
-        "terrain_features": [
-          "起伏地形",
-          "石阶",
-          "高地平台",
-          "墓碑群",
-          "极度黑暗"
-        ]
+        "name": "英雄古达入口",
+        "name_en": "Champion Gundyr Approach",
+        "kind": "main",
+        "x": 2020,
+        "y": 1840,
+        "w": 760,
+        "h": 480,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "英雄竞技场",
-        "description": "英雄古达Boss战场地。与灰烬墓地中古达的竞技场布局相同——被残破石墙环绕的圆形竞技场。但这里没有螺旋剑碎片，没有灰烬飘落，只有黑暗中等待的英雄。古达在竞技场中央以战斗姿态静立，等待挑战者。",
-        "x": 1100,
-        "y": 850,
-        "w": 500,
-        "h": 400,
-        "terrain_features": [
-          "圆形竞技场",
-          "残破石墙",
-          "无螺旋剑",
-          "开阔场地",
-          "绝对黑暗"
-        ]
+        "name": "英雄古达竞技场",
+        "name_en": "Champion Gundyr Arena",
+        "kind": "main",
+        "x": 2220,
+        "y": 1980,
+        "w": 900,
+        "h": 700,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "暗之祭祀场入口",
-        "description": "击败古达后，竞技场后方通往暗之传火祭祀场的通道。这条路径与灰烬墓地通往传火祭祀场的路径相同，但一切都在黑暗中。通道尽头就是黑暗版本的传火祭祀场。",
-        "x": 1500,
-        "y": 1150,
-        "w": 400,
-        "h": 350,
-        "terrain_features": [
-          "下行通道",
-          "石壁",
-          "黑暗祭祀场远景"
-        ]
+        "name": "暗传火祭祀场",
+        "name_en": "Dark Firelink Shrine",
+        "kind": "main",
+        "x": 2500,
+        "y": 2840,
+        "w": 1080,
+        "h": 760,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
-  "enemies": [
-    {
-      "kind": "BlackKnight",
-      "x": 450,
-      "y": 400,
-      "patrol": 30,
-      "count": 1,
-      "notes": "黑暗墓地小径中的黑骑士，使用巨剑，在墓碑间巡逻。对应灰烬墓地中相同位置的空洞士兵"
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 600,
-      "y": 500,
-      "patrol": 25,
-      "count": 1,
-      "notes": "墓地小径深处的黑骑士，持盾型"
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 800,
-      "y": 600,
-      "patrol": 35,
-      "count": 1,
-      "notes": "黑暗庭院中的黑骑士，在枯树旁巡逻"
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 650,
-      "y": 800,
-      "patrol": 20,
-      "count": 1,
-      "notes": "高地平台的黑骑士，持大斧型"
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 900,
-      "y": 850,
-      "patrol": 30,
-      "count": 1,
-      "notes": "通往竞技场路上的黑骑士，最后一道防线"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 500,
-      "y": 450,
-      "patrol": 0,
-      "count": 1,
-      "notes": "墓地区域的贪食水晶蜥蜴"
-    }
-  ],
   "boss": {
     "type": "ChampionGundyr",
     "name": "英雄古达",
     "name_en": "Champion Gundyr",
-    "x": 1350,
-    "y": 1050,
-    "hp": 1600,
-    "arena": {
-      "x": 1100,
-      "y": 880,
-      "w": 500,
-      "h": 380
-    },
-    "phases": [
-      {
-        "name": "戟武英雄",
-        "hp_threshold": 1.0,
-        "speed_multiplier": 1.2,
-        "damage_multiplier": 1.1,
-        "attack_cooldown": 1.8,
-        "description": "英雄古达是无甲版本的古达，身披轻甲，手持戟。他比灰烬审判者古达更加迅速和凶猛。攻击以戟技为主，配合快速的踢击和肩撞。攻击模式稳定但速度极快，连续技之间的衔接非常流畅。没有Pus of Man（人之脓）阶段，纯粹的近身格斗。",
-        "mechanics": [
-          "戟高速连招",
-          "踢击",
-          "肩撞",
-          "快速横扫",
-          "所有攻击可弹反"
-        ]
-      },
-      {
-        "name": "无尽战斗",
-        "hp_threshold": 0.5,
-        "speed_multiplier": 1.5,
-        "damage_multiplier": 1.3,
-        "attack_cooldown": 1.2,
-        "description": "生命值降至50%以下时，古达变得更加疯狂。他将体术与戟技完美融合——踢击、拳击与戟击交替使用，形成连绵不绝的攻击链。攻击速度极快，几乎没有喘息空间。他会连续使用3-5次快速攻击的组合，中间穿插踢击和拳打。此阶段是对玩家弹反技术的终极考验——所有攻击均可弹反，但时机极为苛刻。",
-        "mechanics": [
-          "体术与武器融合连招",
-          "踢击-拳击-戟击三连",
-          "攻击速度大幅提升",
-          "3-5次快速连段",
-          "所有攻击仍可弹反"
-        ]
-      }
-    ],
-    "attacks": [
-      {
-        "name": "戟下劈",
-        "type": "HalberdOverhead",
-        "damage": 40,
-        "range": "近-中",
-        "parryable": true,
-        "description": "高举戟向前猛力下劈。比灰烬审判者版本更快，前摇更短"
-      },
-      {
-        "name": "戟横扫",
-        "type": "HalberdSweep",
-        "damage": 35,
-        "range": "近-中",
-        "parryable": true,
-        "description": "以自身为中心的大范围戟横扫。速度极快，适合翻滚穿过"
-      },
-      {
-        "name": "戟突刺",
-        "type": "HalberdThrust",
-        "damage": 45,
-        "range": "中-远",
-        "parryable": true,
-        "description": "戟向前突刺，距离远、判定窄。前摇较短，难以预判"
-      },
-      {
-        "name": "前踢",
-        "type": "FrontKick",
-        "damage": 25,
-        "range": "近",
-        "parryable": true,
-        "description": "快速的前踢，可以打断玩家的动作。常接在戟攻击之后"
-      },
-      {
-        "name": "肩撞",
-        "type": "ShoulderCharge",
-        "damage": 30,
-        "range": "中",
-        "parryable": true,
-        "description": "快速向玩家方向冲刺肩撞。发动速度极快，在远距离时使用"
-      },
-      {
-        "name": "拳击连打",
-        "type": "PunchCombo",
-        "damage": 20,
-        "range": "近",
-        "parryable": true,
-        "description": "第二阶段新增。快速的拳击连打（2-3次），常接在戟攻击之后形成混合连段"
-      },
-      {
-        "name": "旋风踢",
-        "type": "SpinningKick",
-        "damage": 30,
-        "range": "近-中",
-        "parryable": true,
-        "description": "第二阶段新增。以戟为轴心旋转踢击，范围较大。混合在戟技连段中使用"
-      },
-      {
-        "name": "疯狂连段",
-        "type": "FrenziedCombo",
-        "damage": 50,
-        "range": "近-中",
-        "parryable": true,
-        "description": "第二阶段新增。3-5次快速攻击的组合：戟劈-踢击-拳击-戟扫-肩撞，每次判定独立。弹反窗口极短但确实存在"
-      }
-    ],
-    "dialogue": [
-      "（古达沉默不语，只是缓缓拔出戟，以战斗姿态面对玩家）",
-      "（第二阶段开始时发出低沉的战吼）",
-      "（被击败时发出最后的吼声后倒下）"
-    ],
-    "story": "英雄古达是一位在远古时代赶赴传火祭祀场准备传火的英雄。根据其灵魂描述，他被一位未知战士击败，随后成为螺旋剑的剑鞘。他来得太迟了——火焰已经熄灭，世界已陷入黑暗时代。与灰烬审判者古达不同，英雄古达没有被Pus of Man（人之脓）侵蚀，他以纯粹的武技作为游戏中终极弹反考验而存在。他在竞技场中央以战斗姿态蹲伏，被蜡烛环绕，等待挑战者。击败后获得「英雄古达的灵魂」，可通过灵魂炼成获得囚犯锁链、卡萨斯血戒指或古达铠甲套装。"
+    "x": 2480,
+    "y": 2140,
+    "source_status": "official_identity_projected_position"
   },
-  "npcs": [
-    {
-      "name": "祭祀场侍女（暗之版本）",
-      "name_en": "Shrine Handmaid (Dark)",
-      "kind": "Merchant",
-      "x": 1700,
-      "y": 1350,
-      "color": "#606060",
-      "dialogue": [
-        "……欢迎回来，灰烬大人。",
-        "不……你似乎不是这里的灰烬。",
-        "这里是很久以前的地方……火焰早已熄灭。",
-        "没有什么值得守护的了。但我仍然在此贩卖货物。",
-        "……请随意看看吧。反正这里也没有别的事可做了。",
-        "如果你要问这里发生了什么……",
-        "火焰……从很久以前就不在了。",
-        "一切都结束了。这片黑暗就是答案。"
-      ],
-      "quest": "暗之传火祭祀场中的侍女。她贩卖独特物品：狼骑士套装、女祭司戒指等。如果玩家在此处购买物品，正常传火祭祀场的侍女也会同步更新库存。与正常侍女对白不同，她直接揭示了火焰早已熄灭的真相。"
-    }
-  ],
+  "enemies": [],
+  "items": [],
   "chests": [],
-  "items": [
-    {
-      "kind": "FireKeeperEyes",
-      "name_en": "Fire Keeper's Eyes",
-      "x": 1750,
-      "y": 1400,
-      "count": 1,
-      "notes": "暗之传火祭祀场中暗之防火女的尸体上拾取——防火女的眼睛，触发「火焰终结」结局的关键道具",
-      "name": "防火女的眼球"
-    },
-    {
-      "kind": "CoiledSwordFragment",
-      "x": 1350,
-      "y": 1080,
-      "count": 1,
-      "notes": "击败英雄古达后在其遗体旁拾取——螺旋剑碎片，可作为返回骨片使用",
-      "name": "螺旋剑碎片"
-    },
-    {
-      "kind": "KeyDrop",
-      "name": "圣职者的骨灰",
-      "name_en": "Paladin's Ashes",
-      "x": 1650,
-      "y": 1300,
-      "count": 1,
-      "notes": "暗之传火祭祀场后方尸体上拾取——交给祭祀场侍女可追加购买物品"
-    },
-    {
-      "kind": "SoulOrb",
-      "name": "沮丧骑士的灵魂",
-      "name_en": "Soul of a Crestfallen Knight",
-      "value": 1000,
-      "x": 700,
-      "y": 550,
-      "count": 1,
-      "notes": "黑暗庭院中的遗体"
-    },
-    {
-      "kind": "TitaniteDrop",
-      "name": "楔形石碎片",
-      "x": 500,
-      "y": 450,
-      "count": 2,
-      "notes": "贪食水晶蜥蜴掉落"
-    }
-  ],
+  "npcs": [],
+  "lights": [],
   "fog_gates": [
     {
-      "x": 0,
-      "y": 200,
-      "w": 40,
-      "h": 200,
+      "x": 700,
+      "y": 620,
+      "w": 96,
+      "h": 96,
       "dest_area": "ConsumedKingsGarden",
-      "dest_x": 2400,
-      "dest_y": 1800,
-      "notes": "返回妖王庭园（幻影墙壁）"
+      "dest_x": 3400,
+      "dest_y": 2260,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     },
     {
-      "x": 1800,
-      "y": 1250,
-      "w": 40,
-      "h": 200,
+      "x": 3060,
+      "y": 3060,
+      "w": 96,
+      "h": 96,
       "dest_area": "FirelinkShrine",
-      "dest_x": 400,
-      "dest_y": 400,
-      "notes": "通往暗之传火祭祀场（黑暗版本的FirelinkShrine）"
-    },
-    {
-      "x": 1100,
-      "y": 900,
-      "w": 40,
-      "h": 200,
-      "dest_area": null,
-      "dest_x": 0,
-      "dest_y": 0,
-      "notes": "英雄古达Boss战雾门"
+      "dest_x": 1280,
+      "dest_y": 1024,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     }
-  ],
-  "lights": [
-    {
-      "x": 300,
-      "y": 400,
-      "radius": 120,
-      "r": 0.4,
-      "g": 0.35,
-      "b": 0.3,
-      "intensity": 0.3,
-      "notes": "无主墓地篝火——极其微弱的暗淡火光"
-    },
-    {
-      "x": 800,
-      "y": 600,
-      "radius": 60,
-      "r": 0.3,
-      "g": 0.25,
-      "b": 0.2,
-      "intensity": 0.15,
-      "notes": "黑暗庭院枯树处几乎没有光线"
-    },
-    {
-      "x": 1350,
-      "y": 1050,
-      "radius": 80,
-      "r": 0.5,
-      "g": 0.4,
-      "b": 0.3,
-      "intensity": 0.25,
-      "notes": "古达处微弱的反射光"
-    },
-    {
-      "x": 1500,
-      "y": 1100,
-      "radius": 120,
-      "r": 0.5,
-      "g": 0.45,
-      "b": 0.35,
-      "intensity": 0.35,
-      "notes": "英雄古达篝火"
-    },
-    {
-      "x": 1700,
-      "y": 1350,
-      "radius": 80,
-      "r": 0.3,
-      "g": 0.25,
-      "b": 0.2,
-      "intensity": 0.2,
-      "notes": "暗之祭祀场侍女处的微弱烛光"
-    }
-  ],
-  "story_notes": [
-    "无主墓地是《黑暗之魂3》中最具神秘感的隐藏区域，通过妖王庭园的幻影墙壁进入",
-    "这里的布局与灰烬墓地完全相同，但笼罩在绝对的黑暗之中——暗示这是一个平行时空",
-    "英雄古达是这个时空中的古达——他来传火时已经太迟，火焰早已熄灭",
-    "此区域暗示了一个火焰从未被点燃（或已经彻底熄灭）的世界，是'火焰终结'结局的预演",
-    "暗之传火祭祀场中的侍女贩卖独特物品，对白直接揭示了'火焰早已不在'的真相",
-    "防火女的眼睛是此区域最关键的道具——触发隐藏结局「火焰终结」的必要物品",
-    "防火女的眼睛在暗之防火女的尸体上被发现——暗示这个世界中的防火女已经死去",
-    "英雄古达是游戏中最纯粹的近战Boss——没有魔法、没有Pus of Man，所有攻击均可弹反",
-    "英雄古达与灰烬审判者古达是同一人物：英雄古达是原始形态，灰烬审判者是被人之脓侵蚀后的形态",
-    "此区域没有背景音乐，只有风声和远处的雷鸣",
-    "黑骑士取代了灰烬墓地中的空洞士兵——暗示这个世界中的威胁远比正常世界强大",
-    "击败英雄古达后获得螺旋剑碎片（非螺旋剑）——这把剑已被拔出，插入灰烬墓地的灰烬审判者面前",
-    "圣职者的骨灰（Paladin's Ashes）在暗之祭祀场后方，交给侍女可追加购买物品",
-    "此区域没有宝箱——所有物品均从尸体或Boss掉落获得"
   ]
 }

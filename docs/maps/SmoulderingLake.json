@@ -2,830 +2,164 @@
   "id": "SmoulderingLake",
   "name": "熏烟湖",
   "name_en": "Smouldering Lake",
-  "description": "卡萨斯地下墓地深处的火山湖区域，滚烫的熔岩覆盖了大部分地面。恶魔遗迹的残骸散布各处，这里曾是最初的恶魔诞生之地。湖面中央有一条巨大的沙虫，远处还有一门古老的巨型弩炮会自动射击入侵者。老恶魔王在此守护着恶魔一族最后的余烬。",
-  "theme": "火山/熔岩/恶魔遗迹/暗红",
+  "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
+  "theme": "demon ruins lake",
   "map_size": {
-    "width": 3600,
-    "height": 3000
+    "width": 4608,
+    "height": 4096
   },
   "connections": {
     "from": [
       "CatacombsOfCarthus"
     ],
-    "to": [
-      "IrithyllOfTheBorealValley"
-    ]
+    "to": []
+  },
+  "restoration": {
+    "status": "clean_rebuild_topology_projection",
+    "authoritative_fields": [
+      "area id/name",
+      "connections",
+      "bonfire names",
+      "boss identity"
+    ],
+    "projection_fields": [
+      "map_size",
+      "sections coordinates",
+      "fog gate coordinates"
+    ],
+    "excluded_until_sourced": [
+      "enemy placements",
+      "item placements",
+      "NPC dialogue",
+      "chest placements"
+    ],
+    "note": "This file intentionally avoids inherited fabricated precise data."
   },
   "bonfires": [
     {
       "name": "废弃地下墓地",
       "name_en": "Abandoned Tomb",
-      "x": 300,
-      "y": 300,
-      "description": "从卡萨斯地下墓地破碎地板跳下后到达的第一个篝火，位于洞穴入口旁"
-    },
-    {
-      "name": "老王门厅",
-      "name_en": "Old King's Antechamber",
-      "x": 1400,
-      "y": 1600,
-      "description": "恶魔遗迹内的篝火，周围有恶魔教徒巡逻"
+      "x": 620,
+      "y": 640,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "恶魔遗迹",
       "name_en": "Demon Ruins",
-      "x": 1800,
-      "y": 1900,
-      "description": "恶魔遗迹深处的篝火，需要穿过熔岩区域和多只恶魔教徒才能到达"
+      "x": 2320,
+      "y": 2480,
+      "source_status": "official_name_projected_position"
     },
     {
-      "name": "恶魔老王",
+      "name": "老王前室",
+      "name_en": "Old King's Antechamber",
+      "x": 2760,
+      "y": 2020,
+      "source_status": "official_name_projected_position"
+    },
+    {
+      "name": "老恶魔王",
       "name_en": "Old Demon King",
-      "x": 2600,
-      "y": 2200,
-      "description": "Boss战前方的篝火，位于恶魔遗迹最深处的厅堂入口"
+      "x": 3660,
+      "y": 2780,
+      "source_status": "official_name_projected_position"
     }
   ],
   "map_layout": {
+    "basis": "Clean gameplay 2D projection of Dark Souls III route topology. Not official coordinate geometry.",
     "sections": [
       {
-        "name": "地下洞穴入口",
-        "description": "从卡萨斯地下墓地破碎地板洞口坠落后到达的地下洞穴。黑暗潮湿的通道逐渐变热，空气中有硫磺气味。洞穴尽头可以看到远处的熔岩光辉。",
-        "x": 0,
-        "y": 0,
-        "w": 600,
-        "h": 600,
-        "terrain_features": [
-          "岩石隧道",
-          "碎石地面",
-          "硫磺裂缝",
-          "远处熔岩光"
-        ]
+        "name": "废弃墓地入口",
+        "name_en": "Abandoned Tomb",
+        "kind": "main",
+        "x": 420,
+        "y": 420,
+        "w": 820,
+        "h": 560,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
         "name": "熏烟湖岸",
-        "description": "广阔的地下湖区域，大部分地面被浅层熔岩覆盖。远处的巨型弩炮会周期性发射巨箭扫射整个湖面。湖中有一条巨大的卡萨斯沙虫潜伏在地下。玩家需要利用废墟掩体躲避弩炮射击。",
-        "x": 400,
-        "y": 600,
-        "w": 1400,
-        "h": 1000,
-        "terrain_features": [
-          "熔岩浅滩",
-          "废墟掩体",
-          "巨型弩炮（远处）",
-          "沙虫潜地痕迹",
-          "落石区域"
-        ]
+        "name_en": "Smouldering Lake Shore",
+        "kind": "main",
+        "x": 1040,
+        "y": 900,
+        "w": 1780,
+        "h": 1060,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "恶魔遗迹外殿",
-        "description": "恶魔遗迹的入口大厅。石柱倒塌，墙上有恶魔一族的浮雕。数个恶魔（火焰恶魔）在此巡逻守护。地面有熔岩裂缝，会间歇性喷射火焰。",
-        "x": 1200,
-        "y": 1400,
-        "w": 800,
-        "h": 600,
-        "terrain_features": [
-          "石柱废墟",
-          "恶魔浮雕墙壁",
-          "熔岩裂缝",
-          "倒塌拱门"
-        ]
+        "name": "弩炮塔楼",
+        "name_en": "Ballista Tower",
+        "kind": "optional",
+        "x": 2520,
+        "y": 300,
+        "w": 920,
+        "h": 780,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "恶魔教徒回廊",
-        "description": "遗迹内部的走廊区域，恶魔教徒在此进行仪式。走廊曲折蜿蜒，两侧有牢房般的房间，内有宝箱和物品。走廊尽头通往老王前厅。",
-        "x": 1800,
-        "y": 1600,
-        "w": 600,
-        "h": 500,
-        "terrain_features": [
-          "狭窄走廊",
-          "牢房",
-          "仪式祭坛",
-          "恶魔雕像"
-        ]
+        "name": "恶魔遗迹入口",
+        "name_en": "Demon Ruins Entry",
+        "kind": "main",
+        "x": 1840,
+        "y": 2100,
+        "w": 880,
+        "h": 640,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "老王前室",
+        "name_en": "Old King's Antechamber",
+        "kind": "main",
+        "x": 2520,
+        "y": 1840,
+        "w": 980,
+        "h": 760,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
         "name": "老恶魔王竞技场",
-        "description": "恶魔遗迹最深处的巨大厅堂。这里是Boss——老恶魔王的所在。场地开阔，中央有残破的祭坛。地面有熔岩池，边缘有石柱可作为掩体。",
-        "x": 2200,
-        "y": 2000,
-        "w": 1000,
-        "h": 700,
-        "terrain_features": [
-          "开阔场地",
-          "中央祭坛",
-          "熔岩池",
-          "石柱掩体",
-          "恶魔王座遗迹"
-        ]
+        "name_en": "Old Demon King Arena",
+        "kind": "main",
+        "x": 3300,
+        "y": 2500,
+        "w": 900,
+        "h": 660,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
-  "enemies": [
-    {
-      "kind": "Demon",
-      "x": 800,
-      "y": 900,
-      "patrol": 50,
-      "count": 1,
-      "notes": "从卡萨斯地下墓地过渡区域追踪至熏烟湖的火焰恶魔（属于地下墓地过渡区域）"
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 1500,
-      "y": 1700,
-      "patrol": 35,
-      "count": 1,
-      "notes": "恶魔遗迹内的大斧黑骑士，守护幻影墙壁房间，击败后掉落黑骑士套装"
-    },
-    {
-      "kind": "CarthusSandworm",
-      "x": 1000,
-      "y": 1100,
-      "patrol": 0,
-      "count": 1,
-      "notes": "熏烟湖中央的巨大沙虫（小Boss级），潜伏地下，玩家靠近时钻出发动闪电攻击。生命值极高，但可以被弩炮射杀。击败后掉落雷枪奇迹和不死骨片"
-    },
-    {
-      "kind": "DemonCleric",
-      "x": 1900,
-      "y": 1800,
-      "patrol": 25,
-      "count": 2,
-      "notes": "恶魔教徒回廊中的恶魔教徒，使用火焰法术和近战攻击"
-    },
-    {
-      "kind": "DemonCleric",
-      "x": 2100,
-      "y": 1900,
-      "patrol": 20,
-      "count": 1,
-      "notes": "回廊尽头的恶魔教徒，守护通往Boss的路径"
-    },
-    {
-      "kind": "Basilisk",
-      "x": 1700,
-      "y": 2000,
-      "patrol": 20,
-      "count": 4,
-      "notes": "恶魔遗迹下层通道中的蜥蜴群，释放诅咒石化吐息"
-    },
-    {
-      "kind": "DemonStatue",
-      "x": 1600,
-      "y": 1850,
-      "patrol": 0,
-      "count": 3,
-      "notes": "恶魔遗迹中的恶魔石像，静止不动但会间歇性喷射火焰"
-    },
-    {
-      "kind": "GreatCrab",
-      "x": 700,
-      "y": 800,
-      "patrol": 0,
-      "count": 3,
-      "notes": "熏烟湖面上的巨大余火螃蟹，湖面上有数只"
-    },
-    {
-      "kind": "HoundRat",
-      "x": 1200,
-      "y": 1400,
-      "patrol": 15,
-      "count": 5,
-      "notes": "恶魔遗迹下层隧道中的鼠犬群（含小房间内的3只鼠）"
-    },
-    {
-      "kind": "SkeletonSwordsman",
-      "x": 500,
-      "y": 600,
-      "patrol": 20,
-      "count": 2,
-      "notes": "弩炮附近的骷髅剑客"
-    },
-    {
-      "kind": "SkeletonWheel",
-      "x": 450,
-      "y": 550,
-      "patrol": 0,
-      "count": 3,
-      "notes": "弩炮路径附近的骷髅车轮，致敬DS1经典敌人"
-    },
-    {
-      "kind": "SmoulderingGhru",
-      "x": 1500,
-      "y": 1500,
-      "patrol": 25,
-      "count": 8,
-      "notes": "恶魔遗迹中被火焰侵蚀的羊头怪，持矛、剑和毒术变体。走廊中有4只，房间中有2只，其他区域有2只"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 1350,
-      "y": 1550,
-      "patrol": 0,
-      "count": 3,
-      "notes": "恶魔遗迹中的结晶蜥蜴：老王门厅附近1只，霍拉斯洞穴通道中2只，共3只"
-    },
-    {
-      "kind": "LargeHoundRat",
-      "x": 1250,
-      "y": 1450,
-      "patrol": 10,
-      "count": 2,
-      "notes": "恶魔遗迹下层的大型鼠犬，比普通鼠犬更强壮"
-    },
-    {
-      "kind": "SmolderingRottenFlesh",
-      "x": 1550,
-      "y": 1650,
-      "patrol": 0,
-      "count": 6,
-      "notes": "恶魔遗迹走廊天花板上潜伏的腐烂肉块，会从天花板掉落偷袭。走廊中有6只，房间中另有3只"
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 1850,
-      "y": 2050,
-      "patrol": 25,
-      "count": 1,
-      "notes": "崔索格附近楼梯上的黑骑士，守护通往弩炮的梯子。击败后掉落黑骑士盾和黑骑士套装"
-    },
-    {
-      "kind": "DemonCleric",
-      "x": 1600,
-      "y": 1750,
-      "patrol": 15,
-      "count": 2,
-      "notes": "石柱大厅中的恶魔教徒（共2只），会生成火焰球远程攻击"
-    }
-  ],
   "boss": {
     "type": "OldDemonKing",
     "name": "老恶魔王",
     "name_en": "Old Demon King",
-    "x": 2700,
-    "y": 2350,
-    "hp": 2200,
-    "arena": {
-      "x": 2300,
-      "y": 2100,
-      "w": 800,
-      "h": 600
-    },
-    "phases": [
-      {
-        "name": "恶魔余火",
-        "hp_threshold": 1.0,
-        "speed_multiplier": 0.7,
-        "damage_multiplier": 1.0,
-        "attack_cooldown": 3.0,
-        "description": "老恶魔王行动缓慢但力量巨大。使用火焰吐息、身体横扫、巨锤砸击等攻击。他的身躯已经衰朽，体内残留着混沌之火。攻击范围广但动作前摇明显。",
-        "mechanics": [
-          "火焰吐息",
-          "身体横扫",
-          "巨锤砸击产生火焰冲击波",
-          "身体冲撞"
-        ]
-      },
-      {
-        "name": "濒死爆燃",
-        "hp_threshold": 0.3,
-        "speed_multiplier": 0.5,
-        "damage_multiplier": 1.5,
-        "attack_cooldown": 4.0,
-        "description": "生命值降至30%以下时，老恶魔王释放一次巨大的火焰爆炸，覆盖整个竞技场的大部分区域（玩家需要远离躲避）。爆炸后他的身体更加残破，但获得了更强大的火焰魔法。会释放延迟爆炸的火焰球、环形火焰冲击波等新招式。动作更慢但伤害极高。",
-        "mechanics": [
-          "濒死大爆炸（全场AOE）",
-          "延迟爆炸火焰球",
-          "环形火焰冲击波",
-          "连续火焰吐息"
-        ]
-      }
-    ],
-    "attacks": [
-      {
-        "name": "火焰吐息",
-        "type": "FireBreath",
-        "damage": 60,
-        "range": "中远",
-        "parryable": false,
-        "description": "向前方锥形区域喷射火焰，持续约2秒，覆盖范围较广"
-      },
-      {
-        "name": "巨锤砸击",
-        "type": "HammerSlam",
-        "damage": 80,
-        "range": "近",
-        "parryable": false,
-        "description": "举起巨锤重砸地面，产生火焰冲击波向两侧扩散"
-      },
-      {
-        "name": "身体冲撞",
-        "type": "BodyCharge",
-        "damage": 55,
-        "range": "远",
-        "parryable": false,
-        "description": "向玩家方向猛烈冲撞，速度较快，距离长"
-      },
-      {
-        "name": "火焰横扫",
-        "type": "FireSweep",
-        "damage": 45,
-        "range": "近中",
-        "parryable": false,
-        "description": "用武器横扫前方弧形区域，附带火焰伤害"
-      },
-      {
-        "name": "濒死大爆炸",
-        "type": "DeathExplosion",
-        "damage": 120,
-        "range": "全场",
-        "parryable": false,
-        "description": "进入第二阶段时释放，产生巨大火焰爆炸覆盖大部分场地，需远离Boss或在掩体后躲避。仅触发一次"
-      },
-      {
-        "name": "延迟火焰球",
-        "type": "DelayedFireOrb",
-        "damage": 70,
-        "range": "远",
-        "parryable": false,
-        "description": "向场地发射数个火焰球，落地后延迟1.5秒爆炸。第二阶段新增"
-      },
-      {
-        "name": "环形火焰波",
-        "type": "FireRingBurst",
-        "damage": 65,
-        "range": "中远",
-        "parryable": false,
-        "description": "以自身为中心释放环形火焰冲击波向外扩散，需要跳跃或翻滚躲避。第二阶段新增"
-      },
-      {
-        "name": "连续火焰吐息",
-        "type": "SustainedFireBreath",
-        "damage": 50,
-        "range": "中远",
-        "parryable": false,
-        "description": "持续喷射火焰并缓慢转动方向追踪玩家，持续约4秒。第二阶段新增"
-      }
-    ],
-    "story": "老恶魔王是恶魔一族最后的王者。在混沌之火逐渐熄灭的时代，恶魔一族已走向灭绝。老恶魔王守护在恶魔遗迹的最深处，身躯已衰朽不堪，但体内仍残留着最初混沌之火的余烬。他是《黑暗之魂1》中混沌的温床——伊札里斯的遗迹中最后的守护者。击败他后，他会缓缓倒下，身上的火焰渐渐熄灭，象征着恶魔一族彻底终结。"
+    "x": 3660,
+    "y": 2780,
+    "source_status": "official_identity_projected_position"
   },
-  "npcs": [
-    {
-      "name": "骑士杀手崔索格",
-      "name_en": "Knight Slayer Tsorig",
-      "kind": "Invader",
-      "x": 1700,
-      "y": 1950,
-      "color": "#8B0000",
-      "dialogue": [
-        "（入侵者从熔岩区域出现）",
-        "……又一个送死的灰烬。"
-      ],
-      "quest": "恶魔遗迹中的NPC入侵者，手持漫烟特大剑（Fume Ultra Greatsword）。击败后掉落骑士杀手戒指和'多谢'动作。他也可以在老恶魔王Boss战前被召唤为白灵协助战斗。"
-    },
-    {
-      "name": "霍拉斯",
-      "name_en": "Horace the Hushed",
-      "kind": "Event",
-      "x": 650,
-      "y": 750,
-      "color": "#505050",
-      "dialogue": [
-        "……",
-        "（霍拉斯沉默地面对你，眼中已失去理智）"
-      ],
-      "quest": "安里的同伴霍拉斯出现在熏烟湖的洞穴中。他被深渊侵蚀变为敌对状态，攻击靠近的玩家。击败他掉落路易斯维林盾（Llewellyn Shield）。必须在此处击败他（或告知安里他的位置）才能推进安里的任务线。"
-    },
-    {
-      "name": "大沼的库库鲁斯",
-      "name_en": "Great Swamp Cuculus",
-      "kind": "Summon",
-      "x": 2500,
-      "y": 2100,
-      "color": "#cc6600",
-      "dialogue": [
-        "（白灵召唤印记出现在老恶魔王Boss门前阶梯底部）"
-      ],
-      "quest": "老恶魔王Boss战前的白灵NPC。如果她在Boss战中存活到最后，玩家可以在传火祭祀场获得柯弭库斯防具套装和斑鞭作为奖励。"
-    }
-  ],
-  "chests": [
-    {
-      "x": 600,
-      "y": 500,
-      "loot": {
-        "kind": "EstusShard"
-      },
-      "is_mimic": false,
-      "notes": "废弃地下墓地篝火附近隐藏角落的原素碎片"
-    },
-    {
-      "x": 1450,
-      "y": 1650,
-      "loot": {
-        "kind": "TomeDrop",
-        "name": "伊札里斯咒术书"
-      },
-      "is_mimic": false,
-      "notes": "恶魔遗迹老王门厅篝火旁的遗体上的咒术书"
-    },
-    {
-      "x": 1550,
-      "y": 1700,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "伊札里斯杖"
-      },
-      "is_mimic": false,
-      "notes": "幻影墙壁后的悬崖平台上"
-    },
-    {
-      "x": 1480,
-      "y": 1680,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "黑骑士剑"
-      },
-      "is_mimic": false,
-      "notes": "黑骑士守护的幻影墙壁房间内的遗体"
-    }
-  ],
-  "items": [
-    {
-      "kind": "SoulOrb",
-      "value": 500,
-      "x": 350,
-      "y": 350,
-      "notes": "废弃地下墓地篝火旁的遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 800,
-      "x": 900,
-      "y": 1000,
-      "notes": "湖岸废墟中的遗体，需冒险穿越弩炮射程"
-    },
-    {
-      "kind": "HomewardBone",
-      "x": 1450,
-      "y": 1650,
-      "count": 2,
-      "notes": "恶魔遗迹篝火附近的遗体"
-    },
-    {
-      "kind": "LargeTitaniteShard",
-      "x": 2000,
-      "y": 1900,
-      "count": 4,
-      "notes": "熏烟湖面上散布的大型楔形石碎片（4x）"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 1000,
-      "x": 2500,
-      "y": 2150,
-      "notes": "Boss战前厅的遗体"
-    },
-    {
-      "kind": "TomeDrop",
-      "name": "库拉娜咒术书",
-      "x": 1600,
-      "y": 1750,
-      "count": 1,
-      "notes": "恶魔遗迹幻影墙壁后石化蜘蛛旁的房间内。给予咒术师解锁新咒术"
-    },
-    {
-      "kind": "RingDrop",
-      "name": "斑纹石板戒指",
-      "x": 600,
-      "y": 600,
-      "count": 1,
-      "notes": "弩炮射击可破坏的破壁后面的戒指"
-    },
-    {
-      "kind": "SpellDrop",
-      "name": "剧毒之雾",
-      "x": 850,
-      "y": 950,
-      "count": 1,
-      "notes": "第一处熔岩坑中的咒术，需要火焰抗性策略拾取"
-    },
-    {
-      "kind": "SpellDrop",
-      "name": "神圣火焰",
-      "x": 1750,
-      "y": 2000,
-      "count": 1,
-      "notes": "第二处熔岩坑中的咒术（崔索格附近），需要火焰抗性策略拾取"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "漫烟特大剑",
-      "x": 1700,
-      "y": 1950,
-      "count": 1,
-      "notes": "击败骑士杀手崔索格后掉落的超大型剑"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "龙骑士弓",
-      "x": 550,
-      "y": 550,
-      "count": 1,
-      "notes": "弩炮附近阶梯旁悬崖跳下拾取的弓"
-    },
-    {
-      "kind": "ShieldDrop",
-      "name": "渴望盾",
-      "x": 1050,
-      "y": 1150,
-      "count": 1,
-      "notes": "沙虫被击败后在其原位置的遗体上拾取"
-    },
-    {
-      "kind": "TalismanDrop",
-      "name": "白发护符",
-      "x": 850,
-      "y": 950,
-      "count": 1,
-      "notes": "第一处熔岩坑中，与剧毒之雾同一位置"
-    },
-    {
-      "kind": "BoneShard",
-      "name": "不死骨片",
-      "x": 1000,
-      "y": 1100,
-      "count": 1,
-      "notes": "击败卡萨斯沙虫后掉落"
-    },
-    {
-      "kind": "BoneShard",
-      "name": "不死骨片",
-      "x": 1900,
-      "y": 1850,
-      "count": 1,
-      "notes": "恶魔遗迹深处房间的遗体"
-    },
-    {
-      "kind": "Ember",
-      "x": 600,
-      "y": 700,
-      "count": 1,
-      "notes": "霍拉斯洞穴区域的遗体"
-    },
-    {
-      "kind": "Ember",
-      "x": 1600,
-      "y": 1850,
-      "count": 1,
-      "notes": "恶魔遗迹内第二处遗体"
-    },
-    {
-      "kind": "Ember",
-      "x": 2300,
-      "y": 2050,
-      "count": 1,
-      "notes": "Boss战前厅附近的遗体"
-    },
-    {
-      "kind": "YellowBugPellet",
-      "x": 650,
-      "y": 750,
-      "count": 2,
-      "notes": "霍拉斯洞穴中的遗体"
-    },
-    {
-      "kind": "SpellDrop",
-      "name": "雷枪",
-      "x": 1000,
-      "y": 1100,
-      "count": 1,
-      "notes": "击败卡萨斯沙虫后获得的奇迹"
-    },
-    {
-      "kind": "ChaosGem",
-      "x": 1350,
-      "y": 1550,
-      "count": 1,
-      "notes": "结晶蜥蜴掉落的混沌变质石"
-    },
-    {
-      "kind": "RingDrop",
-      "name": "骑士杀手戒指",
-      "x": 1700,
-      "y": 1950,
-      "count": 1,
-      "notes": "击败骑士杀手崔索格后掉落"
-    },
-    {
-      "kind": "LargeTitaniteShard",
-      "x": 1600,
-      "y": 1800,
-      "count": 3,
-      "notes": "恶魔遗迹中隐藏宝箱内的大型楔形石碎片（3x）"
-    },
-    {
-      "kind": "GestureDrop",
-      "name": "多谢",
-      "x": 1700,
-      "y": 1950,
-      "count": 1,
-      "notes": "击败骑士杀手崔索格后获得的动作"
-    },
-    {
-      "kind": "LargeTitaniteShard",
-      "x": 1050,
-      "y": 1050,
-      "count": 1,
-      "notes": "沙虫右侧山坡上的遗体（大型楔形石碎片1x）"
-    },
-    {
-      "kind": "LargeTitaniteShard",
-      "x": 650,
-      "y": 780,
-      "count": 2,
-      "notes": "霍拉斯洞穴中遗体上的大型楔形石碎片（2x）"
-    },
-    {
-      "kind": "LargeTitaniteShard",
-      "x": 1020,
-      "y": 1120,
-      "count": 1,
-      "notes": "沙虫原位置附近的遗体上的大型楔形石碎片（1x）"
-    },
-    {
-      "kind": "ShieldDrop",
-      "name": "黑铁大盾",
-      "name_en": "Black Iron Greatshield",
-      "x": 1700,
-      "y": 1950,
-      "count": 1,
-      "notes": "击败骑士杀手崔索格后掉落的大盾"
-    },
-    {
-      "kind": "ShieldDrop",
-      "name": "路易斯维林盾",
-      "name_en": "Llewellyn Shield",
-      "x": 650,
-      "y": 750,
-      "count": 1,
-      "notes": "击败霍拉斯后掉落的中型盾"
-    },
-    {
-      "kind": "SoulItem",
-      "name": "丧失者的灵魂",
-      "name_en": "Soul of a Crestfallen Knight",
-      "x": 1880,
-      "y": 2080,
-      "count": 1,
-      "notes": "黑骑士和崔索格附近区域的遗体上的灵魂物品"
-    },
-    {
-      "kind": "ShieldDrop",
-      "name": "黑骑士盾",
-      "name_en": "Black Knight Shield",
-      "x": 1500,
-      "y": 1700,
-      "count": 1,
-      "notes": "恶魔遗迹中黑骑士掉落的盾（概率掉落）"
-    },
-    {
-      "kind": "RingDrop",
-      "name": "咬血戒指+1",
-      "name_en": "Bloodbite Ring +1",
-      "x": 400,
-      "y": 450,
-      "count": 1,
-      "ng_plus": 1,
-      "notes": "弩炮附近，仅NG+出现"
-    },
-    {
-      "kind": "RingDrop",
-      "name": "火焰石板戒指+2",
-      "name_en": "Flame Stoneplate Ring +2",
-      "x": 750,
-      "y": 850,
-      "count": 1,
-      "ng_plus": 2,
-      "notes": "熏烟湖区域内，仅NG++出现"
-    },
-    {
-      "kind": "Ember",
-      "x": 1550,
-      "y": 1820,
-      "count": 1,
-      "notes": "恶魔遗迹下方隧道中遗体上的余火"
-    }
-  ],
+  "enemies": [],
+  "items": [],
+  "chests": [],
+  "npcs": [],
+  "lights": [],
   "fog_gates": [
     {
-      "x": 100,
-      "y": 150,
-      "w": 300,
-      "h": 40,
+      "x": 620,
+      "y": 540,
+      "w": 96,
+      "h": 96,
       "dest_area": "CatacombsOfCarthus",
-      "dest_x": 1800,
-      "dest_y": 2400,
-      "notes": "返回卡萨斯地下墓地的通道"
-    },
-    {
-      "x": 2300,
-      "y": 2100,
-      "w": 40,
-      "h": 200,
-      "dest_area": null,
-      "dest_x": 0,
-      "dest_y": 0,
-      "notes": "老恶魔王Boss战雾门"
+      "dest_x": 1640,
+      "dest_y": 3200,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     }
-  ],
-  "lights": [
-    {
-      "x": 300,
-      "y": 300,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "废弃地下墓地篝火"
-    },
-    {
-      "x": 800,
-      "y": 900,
-      "radius": 250,
-      "r": 1.0,
-      "g": 0.4,
-      "b": 0.1,
-      "intensity": 0.8,
-      "notes": "湖面熔岩反射光"
-    },
-    {
-      "x": 1000,
-      "y": 1100,
-      "radius": 200,
-      "r": 0.9,
-      "g": 0.5,
-      "b": 0.2,
-      "intensity": 0.7,
-      "notes": "沙虫活动区域的闪电光芒"
-    },
-    {
-      "x": 1400,
-      "y": 1600,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "老王门厅篝火"
-    },
-    {
-      "x": 1800,
-      "y": 1900,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "恶魔遗迹篝火"
-    },
-    {
-      "x": 1600,
-      "y": 1750,
-      "radius": 150,
-      "r": 1.0,
-      "g": 0.3,
-      "b": 0.1,
-      "intensity": 0.5,
-      "notes": "仪式祭坛的火焰"
-    },
-    {
-      "x": 2700,
-      "y": 2350,
-      "radius": 200,
-      "r": 1.0,
-      "g": 0.4,
-      "b": 0.1,
-      "intensity": 0.9,
-      "notes": "老恶魔王身上的混沌之火"
-    }
-  ],
-  "story_notes": [
-    "熏烟湖是恶魔遗迹的残骸，对应《黑暗之魂1》中的恶魔遗迹和伊札里斯区域",
-    "巨型弩炮致敬了《黑暗之魂1》中阿诺尔隆德的巨箭机关。可以通过遗迹顶部的转轮机关关闭（或重新开启）",
-    "弩炮可以被巧妙利用：站在掩体后让弩炮射杀沙虫、破坏可碎墙壁露出斑纹石板戒指、破坏对岸墙壁打通前往老王门厅的捷径",
-    "卡萨斯沙虫是受深渊侵蚀的生物，击败后掉落雷枪奇迹和不死骨片",
-    "恶魔一族源自混沌之火，由最初的温床伊札里斯创造。随着混沌之火逐渐熄灭，恶魔们也走向灭亡",
-    "老恶魔王是恶魔一族的末代王者，他的死亡象征着整个种族的终结",
-    "恶魔遗迹中有多个幻影墙壁，隐藏着库拉娜咒术书、伊札里斯杖、黑骑士剑等重要道具",
-    "骑士杀手崔索格是系列回归角色（来自DS2的NPC），手持漫烟特大剑入侵玩家，也可在老恶魔王战前被召唤为白灵",
-    "霍拉斯出现在熏烟湖洞穴中变为敌对，是安里任务线的关键节点。玩家必须在此击败他或告知安里他的位置",
-    "两处熔岩坑中的道具（剧毒之雾、白发护符、神圣火焰）需要火焰抗性策略拾取",
-    "遗迹中可以看到石化的牛头恶魔和塔罗斯恶魔雕像，以及一只石化蜘蛛（可能是库拉娜），都是DS1恶魔遗迹的致敬",
-    "大沼的库库鲁斯是老恶魔王战前的白灵NPC，如果她存活可获得柯弭库斯套装和斑鞭奖励",
-    "此区域没有背景音乐，只有风声、远处的雷鸣和弩炮的轰鸣声，营造出极度压抑的氛围"
   ]
 }

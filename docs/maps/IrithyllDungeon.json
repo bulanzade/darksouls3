@@ -1,836 +1,180 @@
 {
   "id": "IrithyllDungeon",
-  "name": "伊鲁席尔地下监牢",
+  "name": "伊鲁席尔地下牢",
   "name_en": "Irithyll Dungeon",
-  "description": "冷冽谷地下的恐怖监狱，由教宗沙力万修建用于囚禁政敌和异端。阴冷潮湿的石质牢房沿螺旋状结构向下延伸，狱卒们手持提灯巡视，一旦发现囚犯便释放侵蚀灵魂的光芒，削减入侵者的最大生命值。最深处关押着暗术魔法师卡露菈和被囚禁的杰克巴尔多。地下牢的出口通向罪业之都。",
-  "theme": "黑暗牢狱/刑具/阴冷蓝灰",
+  "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
+  "theme": "dungeon",
   "map_size": {
-    "width": 3200,
-    "height": 2800
+    "width": 4096,
+    "height": 4608
   },
   "connections": {
     "from": [
-      "IrithyllOfTheBorealValley"
+      "Irithyll"
     ],
     "to": [
-      "ProfanedCapital"
+      "ProfanedCapital",
+      "ArchdragonPeak"
     ]
+  },
+  "restoration": {
+    "status": "clean_rebuild_topology_projection",
+    "authoritative_fields": [
+      "area id/name",
+      "connections",
+      "bonfire names",
+      "boss identity"
+    ],
+    "projection_fields": [
+      "map_size",
+      "sections coordinates",
+      "fog gate coordinates"
+    ],
+    "excluded_until_sourced": [
+      "enemy placements",
+      "item placements",
+      "NPC dialogue",
+      "chest placements"
+    ],
+    "note": "This file intentionally avoids inherited fabricated precise data."
   },
   "bonfires": [
     {
-      "name": "伊鲁席尔地下监牢",
-      "x": 300,
-      "y": 300,
-      "description": "从冷冽谷通过地下通道进入后的第一个篝火，位于牢狱上层",
-      "name_en": "Irithyll Dungeon"
+      "name": "伊鲁席尔地下牢",
+      "name_en": "Irithyll Dungeon",
+      "x": 520,
+      "y": 520,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "罪业之都",
-      "x": 2800,
-      "y": 2400,
-      "description": "地下牢最深处通往罪业之都的篝火，同时服务于两个区域",
-      "name_en": "Profaned Capital"
+      "name_en": "Profaned Capital",
+      "x": 3220,
+      "y": 3860,
+      "source_status": "official_name_projected_position"
     }
   ],
   "map_layout": {
+    "basis": "Clean gameplay 2D projection of Dark Souls III route topology. Not official coordinate geometry.",
     "sections": [
       {
-        "name": "地下通道入口",
-        "description": "从冷冽谷的地下水道进入的阴暗通道。潮湿的石壁上爬满霉菌，地面有积水。通道尽头是一扇铁门，通往地下牢上层。有两个狱卒在附近巡逻。",
-        "x": 0,
-        "y": 0,
-        "w": 600,
-        "h": 600,
-        "terrain_features": [
-          "石质通道",
-          "积水地面",
-          "铁栅门",
-          "霉菌墙壁"
-        ]
+        "name": "入口牢房",
+        "name_en": "Dungeon Entrance Cells",
+        "kind": "main",
+        "x": 360,
+        "y": 320,
+        "w": 820,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "上层牢房区",
-        "description": "地下牢的上层区域，两侧排列着铁栅牢房。大部分牢房是空的，但部分牢房中有遗体和物品。狱卒提着提灯在走廊中巡逻，提灯光芒会削减玩家的最大生命值。走廊尽头有阶梯通往中层。",
-        "x": 500,
-        "y": 500,
-        "w": 800,
-        "h": 600,
-        "terrain_features": [
-          "铁栅牢房",
-          "石质走廊",
-          "阶梯",
-          "狱卒提灯光源",
-          "刑具残骸"
-        ]
+        "name": "上层牢房",
+        "name_en": "Upper Cell Blocks",
+        "kind": "main",
+        "x": 980,
+        "y": 720,
+        "w": 900,
+        "h": 760,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "刑讯室",
-        "description": "中层区域的一个大型刑讯室。房间内有铁处女（铁处女刑具）、刑架和各种刑具。数个狱卒在此驻守。刑讯室旁边有一间需要牢房钥匙才能打开的特殊牢房，内有关卡露菈。",
-        "x": 1200,
-        "y": 900,
-        "w": 600,
-        "h": 500,
-        "terrain_features": [
-          "铁处女刑具",
-          "刑架",
-          "铁链",
-          "特殊牢房（上锁）",
-          "祭坛"
-        ]
+        "name": "巨人囚室",
+        "name_en": "Giant Cell",
+        "kind": "main",
+        "x": 1620,
+        "y": 1520,
+        "w": 760,
+        "h": 820,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "地下水路",
-        "description": "地下牢的中层通道，被地下水浸没。水中有巨大的老鼠潜伏。通道狭窄曲折，多处需要跳跃才能通过。这条水路连接牢房区和下层出口。",
-        "x": 700,
-        "y": 1000,
-        "w": 600,
-        "h": 800,
-        "terrain_features": [
-          "积水通道",
-          "低矮天花板",
-          "跳台",
-          "老鼠巢穴",
-          "瀑布"
-        ]
+        "name": "下层污水",
+        "name_en": "Lower Sewer",
+        "kind": "main",
+        "x": 1180,
+        "y": 2460,
+        "w": 920,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "杰克巴尔多牢房",
-        "description": "中层的一间特殊牢房，需要特定的钥匙才能打开。杰克巴尔多被困在这里。牢房外有一只石像鬼守卫。",
-        "x": 1600,
-        "y": 1100,
-        "w": 400,
-        "h": 400,
-        "terrain_features": [
-          "铁栅门（上锁）",
-          "石壁牢房",
-          "小窗",
-          "遗体"
-        ]
+        "name": "狱卒大房间",
+        "name_en": "Jailer Hall",
+        "kind": "main",
+        "x": 2140,
+        "y": 2280,
+        "w": 900,
+        "h": 700,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "下层走廊",
-        "description": "地下牢最下层的长走廊，更加阴暗潮湿。两侧有更多牢房，其中部分可以通过侧面通道绕到后方开启。走廊尽头有石像鬼守卫的出口，通往罪业之都。",
-        "x": 1800,
-        "y": 1400,
-        "w": 800,
-        "h": 500,
-        "terrain_features": [
-          "长走廊",
-          "侧面通道",
-          "上锁牢房",
-          "陷阱地面",
-          "石像鬼巢穴"
-        ]
+        "name": "古龙之道支线",
+        "name_en": "Path of the Dragon Side Room",
+        "kind": "optional",
+        "x": 2680,
+        "y": 1200,
+        "w": 760,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "出口通道",
-        "description": "通往罪业之都的上行通道。穿过最后的牢房区域后，通道逐渐向上攀升，空气变得灼热。通道尽头可以看到罪业之都的火焰光辉。",
-        "x": 2200,
-        "y": 1800,
-        "w": 800,
-        "h": 800,
-        "terrain_features": [
-          "上行阶梯",
-          "灼热空气",
-          "火焰光辉",
-          "罪业之都远景"
-        ]
+        "name": "罪都石桥",
+        "name_en": "Bridge to Profaned Capital",
+        "kind": "main",
+        "x": 2860,
+        "y": 3400,
+        "w": 760,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
-  "enemies": [
-    {
-      "kind": "Jailer",
-      "x": 400,
-      "y": 400,
-      "patrol": 30,
-      "count": 1,
-      "notes": "地下通道入口的狱卒，提着提灯，发现玩家后会释放削减最大HP的光芒"
-    },
-    {
-      "kind": "Jailer",
-      "x": 700,
-      "y": 650,
-      "patrol": 40,
-      "count": 2,
-      "notes": "上层牢房区走廊巡逻的狱卒，会沿固定路线来回走动"
-    },
-    {
-      "kind": "Jailer",
-      "x": 1000,
-      "y": 750,
-      "patrol": 25,
-      "count": 1,
-      "notes": "上层牢房区深处站立的狱卒，手持_branding iron_（烙铁），近战伤害极高"
-    },
-    {
-      "kind": "Jailer",
-      "x": 1400,
-      "y": 1000,
-      "patrol": 35,
-      "count": 2,
-      "notes": "刑讯室中的狱卒，守护卡露菈的牢房钥匙"
-    },
-    {
-      "kind": "GiantRat",
-      "x": 800,
-      "y": 1200,
-      "patrol": 30,
-      "count": 2,
-      "notes": "地下水路中的巨大老鼠，潜伏在水中突袭玩家"
-    },
-    {
-      "kind": "GiantRat",
-      "x": 1000,
-      "y": 1400,
-      "patrol": 25,
-      "count": 1,
-      "notes": "水路深处的巨鼠，体型更大"
-    },
-    {
-      "kind": "Gargoyle",
-      "x": 1700,
-      "y": 1200,
-      "patrol": 0,
-      "count": 1,
-      "notes": "杰克巴尔多牢房外守卫的石像鬼，使用火焰吐息和近战攻击"
-    },
-    {
-      "kind": "Jailer",
-      "x": 2000,
-      "y": 1500,
-      "patrol": 30,
-      "count": 2,
-      "notes": "下层走廊中的狱卒，巡逻路线交错，容易形成夹击"
-    },
-    {
-      "kind": "Gargoyle",
-      "x": 2500,
-      "y": 2000,
-      "patrol": 0,
-      "count": 1,
-      "notes": "出口通道前的石像鬼，阻挡通往罪业之都的路径"
-    },
-    {
-      "kind": "Alva",
-      "x": 200,
-      "y": 200,
-      "patrol": 0,
-      "count": 1,
-      "notes": "入侵NPC灵体——被遗弃者阿尔瓦，在地下牢入口前的冷冽谷一侧悬崖走廊入侵，击杀掉落大曲剑（卷镰）"
-    },
-    {
-      "kind": "ReanimatedCorpse",
-      "x": 600,
-      "y": 600,
-      "patrol": 10,
-      "count": 3,
-      "notes": "牢房内的复活尸体，行动迟缓的僵尸类敌人"
-    },
-    {
-      "kind": "PeasantHollow",
-      "x": 900,
-      "y": 800,
-      "patrol": 15,
-      "count": 4,
-      "notes": "走廊中群聚的农民游魂，戴兜帽，部分持弓"
-    },
-    {
-      "kind": "Lycanthrope",
-      "x": 1100,
-      "y": 1300,
-      "patrol": 0,
-      "count": 1,
-      "notes": "底层大厅牢房中关着的狼人，对狱卒敌对，可放出让其与狱卒互殴"
-    },
-    {
-      "kind": "MonstrosityOfSin",
-      "x": 1300,
-      "y": 1100,
-      "patrol": 0,
-      "count": 1,
-      "notes": "底层大厅房间的四足爬行畸体"
-    },
-    {
-      "kind": "CorpseGrub",
-      "x": 1200,
-      "y": 1000,
-      "patrol": 0,
-      "count": 2,
-      "notes": "牢房中的蛆虫类敌人，弱火，特定一只掉落大魔力盾法术"
-    },
-    {
-      "kind": "SewerCentipede",
-      "x": 950,
-      "y": 1400,
-      "patrol": 20,
-      "count": 2,
-      "notes": "排水通道区域的蜈蚣型敌人"
-    },
-    {
-      "kind": "HoundRat",
-      "x": 850,
-      "y": 1250,
-      "patrol": 15,
-      "count": 3,
-      "notes": "排水通道中的猎犬鼠群"
-    },
-    {
-      "kind": "Mimic",
-      "x": 900,
-      "y": 750,
-      "patrol": 0,
-      "count": 1,
-      "notes": "上层走廊房间的拟态宝箱，掉落原瓶碎片"
-    },
-    {
-      "kind": "Mimic",
-      "x": 1600,
-      "y": 1200,
-      "patrol": 0,
-      "count": 1,
-      "notes": "排水通道宝箱怪，掉落暗怪手戒指"
-    },
-    {
-      "kind": "Mimic",
-      "x": 2100,
-      "y": 1500,
-      "patrol": 0,
-      "count": 1,
-      "notes": "底层走廊拟态宝箱，掉落斩龙雷电箭×10"
-    },
-    {
-      "kind": "Mimic",
-      "x": 2300,
-      "y": 1600,
-      "patrol": 0,
-      "count": 1,
-      "notes": "巨人牢房旁拟态宝箱，掉落楔形石鳞片×2"
-    },
-    {
-      "kind": "Basilisk",
-      "x": 1000,
-      "y": 1500,
-      "patrol": 0,
-      "count": 3,
-      "notes": "排水通道开宝箱后刷新的石化蜥蜴群，吐诅咒雾"
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 2000,
-      "y": 1700,
-      "patrol": 0,
-      "count": 1,
-      "notes": "底层沉睡的奴隶巨人，唤醒后攻击，底层有电梯捷径"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 700,
-      "y": 700,
-      "patrol": 0,
-      "count": 1,
-      "notes": "走廊区域的结晶蜥蜴"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 2100,
-      "y": 1800,
-      "patrol": 0,
-      "count": 1,
-      "notes": "巨人牢房区域的结晶蜥蜴"
-    },
-    {
-      "kind": "InfestedCorpse",
-      "x": 600,
-      "y": 500,
-      "patrol": 0,
-      "count": 3,
-      "notes": "牢房中的感染尸体——接近或拾取附近物品时会突然尖叫（Jumpscare），不直接攻击但会惊动附近敌人"
-    },
-    {
-      "kind": "Wretch",
-      "x": 1900,
-      "y": 1550,
-      "patrol": 10,
-      "count": 3,
-      "notes": "底层走廊的恶棍，戴兜帽持匕首和法杖，行动迅速，部分持弓远程攻击，以小队形式出现"
-    },
-    {
-      "kind": "CageSpider",
-      "x": 1050,
-      "y": 800,
-      "patrol": 0,
-      "count": 1,
-      "notes": "牢房中非敌对的蜘蛛型生物——击杀后掉落熟练宝石（Simple Gem），类似蜥蜴的外观"
-    }
-  ],
   "boss": null,
-  "npcs": [
-    {
-      "name": "卡露菈",
-      "name_en": "Karla",
-      "kind": "Dialogue",
-      "x": 1300,
-      "y": 1050,
-      "color": "#4a0080",
-      "dialogue": [
-        "……你、你是谁？",
-        "啊……你是来杀我的吗？无所谓了。",
-        "这座牢狱是教宗沙力万为像我这样的人准备的。",
-        "我被称为异端……因为我研究暗术。",
-        "如果你能放我出去，我可以教你那些被禁止的魔法。",
-        "但是要小心……暗术会让你看到人性的深渊。",
-        "如果你不害怕的话……就打开这扇门吧。"
-      ],
-      "quest": "卡露菈被关在刑讯室旁的特殊牢房中，需要「牢房钥匙」（Jailbreaker's Key）才能打开。钥匙在下层走廊的隐藏通道中。释放她后她会前往传火祭祀场，教授暗术魔法。她是游戏中唯一能教授深渊法术和暗术的NPC。完成她的任务线（给予所有法术书）后，在双王子战后她会死亡，留下自己的防具和遗书。"
-    },
-    {
-      "name": "卡塔利纳的杰克巴尔多",
-      "name_en": "Siegward of Catarina",
-      "kind": "Dialogue",
-      "x": 1750,
-      "y": 1250,
-      "color": "#d4a520",
-      "dialogue": [
-        "唉……这下可糟了。",
-        "我一路追寻来到这里，结果被困在这间牢房里了。",
-        "如果有一把钥匙就好了……",
-        "你知道的，洋葱骑士是不怕死的。但是饿死就太丢人了。",
-        "能帮帮我吗？钥匙应该在这附近某个地方。"
-      ],
-      "quest": "杰克巴尔多被关在地下牢中层的牢房内。需要找到「杰克巴尔多的牢房钥匙」（位于地下水路的隐藏区域）。释放他后，他会承诺报答玩家的恩情，之后会出现在罪业之都的尤姆Boss战中，持有一把暴风弯刀协助玩家。"
-    }
-  ],
-  "chests": [
-    {
-      "x": 800,
-      "y": 700,
-      "loot": {
-        "kind": "EstusShard"
-      },
-      "is_mimic": false,
-      "notes": "上层牢房区某间牢房内的宝箱"
-    },
-    {
-      "x": 1200,
-      "y": 950,
-      "loot": {
-        "kind": "KeyDrop",
-        "name": "牢房钥匙"
-      },
-      "is_mimic": false,
-      "notes": "上层区域的越狱钥匙，用于开启上层牢房区到下层的捷径门（注意：非卡露菈的钥匙，释放卡露菈需要从罪业之都获得的狱卒的钥匙圈）"
-    },
-    {
-      "x": 2200,
-      "y": 1600,
-      "loot": {
-        "kind": "RingDrop",
-        "name": "暗月戒指"
-      },
-      "is_mimic": false,
-      "notes": "下层走廊侧面通道中的隐藏宝箱"
-    },
-    {
-      "x": 2400,
-      "y": 1800,
-      "loot": {
-        "kind": "SpellDrop",
-        "name": "深层沉默"
-      },
-      "is_mimic": false,
-      "notes": "出口通道旁牢房内的法术卷轴"
-    },
-    {
-      "x": 1150,
-      "y": 1550,
-      "loot": {
-        "kind": "KeyDrop",
-        "name": "越狱钥匙"
-      },
-      "is_mimic": false,
-      "notes": "走廊尽头牢房内尸体上，用于开启底层捷径门"
-    },
-    {
-      "x": 1050,
-      "y": 1500,
-      "loot": {
-        "kind": "KeyDrop",
-        "name": "旧牢房钥匙"
-      },
-      "is_mimic": false,
-      "notes": "排水通道尽头的宝箱中，用于释放杰克巴尔多"
-    },
-    {
-      "x": 1700,
-      "y": 1250,
-      "loot": {
-        "kind": "RingDrop",
-        "name": "暗怪手戒指"
-      },
-      "is_mimic": true,
-      "notes": "排水通道左侧拟态宝箱掉落"
-    },
-    {
-      "x": 1950,
-      "y": 1650,
-      "loot": {
-        "kind": "RingDrop",
-        "name": "黄昏王冠戒指"
-      },
-      "is_mimic": false,
-      "notes": "底层大厅牢房内（卡露菈旁边）"
-    },
-    {
-      "x": 1500,
-      "y": 1150,
-      "loot": {
-        "kind": "SpellDrop",
-        "name": "雷电剑"
-      },
-      "is_mimic": false,
-      "notes": "电梯捷径上升途中从侧面窗台跳下获取的奇迹"
-    },
-    {
-      "x": 1350,
-      "y": 1100,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "鹤嘴锄"
-      },
-      "is_mimic": false,
-      "notes": "巨人牢房区域，从梯子爬上经过窄桥获得"
-    },
-    {
-      "x": 1250,
-      "y": 1050,
-      "loot": {
-        "kind": "CoalDrop",
-        "name": "罪业煤炭"
-      },
-      "is_mimic": false,
-      "notes": "底层大厅牢房内（罪恶畸体身旁），给安德烈解锁暗/血/空心变质"
-    }
-  ],
-  "items": [
-    {
-      "kind": "SoulOrb",
-      "value": 400,
-      "x": 350,
-      "y": 350,
-      "notes": "入口通道处的遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 600,
-      "x": 900,
-      "y": 800,
-      "notes": "上层牢房区牢房内的遗体"
-    },
-    {
-      "kind": "HomewardBone",
-      "x": 1500,
-      "y": 1100,
-      "count": 2,
-      "notes": "刑讯室旁的遗体"
-    },
-    {
-      "kind": "PurpleMoss",
-      "x": 850,
-      "y": 1300,
-      "count": 3,
-      "notes": "地下水路中的遗体"
-    },
-    {
-      "kind": "TitaniteShard",
-      "x": 2000,
-      "y": 1600,
-      "count": 2,
-      "notes": "下层走廊牢房中的遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 800,
-      "x": 2600,
-      "y": 2200,
-      "notes": "出口通道中的遗体"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "大曲剑",
-      "x": 200,
-      "y": 200,
-      "notes": "击败入侵NPC阿尔瓦掉落——卷镰型大曲剑武器"
-    },
-    {
-      "kind": "ArmorDrop",
-      "name": "旧魔术师套装",
-      "slot": "Full",
-      "x": 1800,
-      "y": 1500,
-      "notes": "下层牢房走廊的遗体上的完整套装"
-    },
-    {
-      "kind": "ArmorDrop",
-      "name": "阿尔瓦套装",
-      "slot": "Full",
-      "x": 1250,
-      "y": 1100,
-      "notes": "底层大厅地面——击杀入侵NPC阿尔瓦后出现"
-    },
-    {
-      "kind": "RingDrop",
-      "name": "吼龙的戒指",
-      "x": 2400,
-      "y": 1900,
-      "notes": "使用越狱钥匙开门后跳下至底层获取"
-    },
-    {
-      "kind": "SpellDrop",
-      "name": "大魔力盾",
-      "x": 1200,
-      "y": 1050,
-      "notes": "击杀牢房中特定尸蛆掉落的魔法"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "囚犯长的骨灰",
-      "x": 1400,
-      "y": 1100,
-      "notes": "底层大厅上锁牢房内（需狱卒的钥匙圈），交给侍女解锁囚犯套装"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "黄衣骨灰",
-      "x": 1350,
-      "y": 1080,
-      "notes": "底层大厅牢房内（卡露菈旁边），交给侍女解锁黄衣王冠等"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "龙体石",
-      "x": 2700,
-      "y": 2300,
-      "notes": "出口左侧室外祭坛上的龙体石——使用龙之道姿态可传送至古龙顶端"
-    },
-    {
-      "kind": "TitaniteShard",
-      "x": 1800,
-      "y": 1550,
-      "count": 5,
-      "notes": "散布在多个牢房和走廊的遗体上的大块楔形石碎片"
-    },
-    {
-      "kind": "TitaniteDrop",
-      "name": "楔形石鳞片",
-      "x": 2200,
-      "y": 1650,
-      "count": 2,
-      "notes": "底层走廊拟态宝箱掉落"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 800,
-      "x": 1200,
-      "y": 900,
-      "notes": "走廊中段的无名士兵的大灵魂"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 1000,
-      "x": 2500,
-      "y": 2100,
-      "notes": "电梯顶部门外遗体的无名士兵的大灵魂"
-    },
-    {
-      "kind": "LargeSoulOrb",
-      "value": 2000,
-      "x": 2600,
-      "y": 2200,
-      "notes": "石桥前楼梯旁的疲惫战士的大灵魂"
-    },
-    {
-      "kind": "HomewardBone",
-      "x": 2050,
-      "y": 1750,
-      "count": 2,
-      "notes": "巨人区域楼梯下方的归乡骨片"
-    },
-    {
-      "kind": "Ember",
-      "x": 1300,
-      "y": 1150,
-      "count": 2,
-      "notes": "底层大厅地面（需先击杀阿尔瓦）的余火"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "苍白松脂",
-      "x": 1000,
-      "y": 1350,
-      "count": 2,
-      "notes": "牢房墙壁洞口另一侧的苍白松脂"
-    },
-    {
-      "kind": "DungPie",
-      "x": 900,
-      "y": 1400,
-      "count": 4,
-      "notes": "排水通道大老鼠旁的粪团"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 50,
-      "x": 400,
-      "y": 350,
-      "notes": "入口处牢房中遗体的渐消灵魂（Fading Soul）"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "锈金币",
-      "x": 550,
-      "y": 450,
-      "count": 1,
-      "notes": "上层牢房区跳下平台遗体上的锈金币（Rusted Gold Coin），提升物品发现率"
-    },
-    {
-      "kind": "TitaniteDrop",
-      "name": "熟练宝石",
-      "x": 1050,
-      "y": 800,
-      "count": 1,
-      "notes": "击杀牢房中笼中蜘蛛掉落的熟练宝石（Simple Gem）——用于武器简单变质，赋予缓慢恢复FP效果"
-    },
-    {
-      "kind": "EstusUpgrade",
-      "name": "不死人的骨髓碎片",
-      "x": 2600,
-      "y": 2250,
-      "count": 1,
-      "notes": "通往罪业之都石桥旁木板上的不死人的骨髓碎片（Undead Bone Shard），同时获得伸展姿势（Stretch Out gesture）"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "斩龙雷电箭",
-      "x": 2100,
-      "y": 1500,
-      "count": 10,
-      "notes": "底层走廊拟态宝箱掉落的斩龙雷电箭（Dragonslayer Lightning Arrow）×10"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 1000,
-      "x": 1900,
-      "y": 1600,
-      "notes": "底层走廊恶棍群房间内遗体的疲惫战士的灵魂（Soul of a Weary Warrior）"
-    }
-  ],
+  "enemies": [],
+  "items": [],
+  "chests": [],
+  "npcs": [],
+  "lights": [],
   "fog_gates": [
     {
-      "x": 50,
-      "y": 150,
-      "w": 300,
-      "h": 40,
-      "dest_area": "IrithyllOfTheBorealValley",
-      "dest_x": 2800,
-      "dest_y": 600,
-      "notes": "返回冷冽谷的通道"
+      "x": 520,
+      "y": 420,
+      "w": 96,
+      "h": 96,
+      "dest_area": "Irithyll",
+      "dest_x": 3060,
+      "dest_y": 2600,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     },
     {
-      "x": 2900,
-      "y": 2500,
-      "w": 40,
-      "h": 200,
+      "x": 3220,
+      "y": 4000,
+      "w": 128,
+      "h": 96,
       "dest_area": "ProfanedCapital",
-      "dest_x": 200,
-      "dest_y": 300,
-      "notes": "通往罪业之都"
+      "dest_x": 900,
+      "dest_y": 820,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
+    },
+    {
+      "x": 3060,
+      "y": 1400,
+      "w": 96,
+      "h": 96,
+      "dest_area": "ArchdragonPeak",
+      "dest_x": 620,
+      "dest_y": 3600,
+      "kind": "gesture_warp",
+      "source_status": "projected_transition"
     }
-  ],
-  "lights": [
-    {
-      "x": 300,
-      "y": 300,
-      "radius": 180,
-      "r": 0.7,
-      "g": 0.7,
-      "b": 0.8,
-      "intensity": 0.5,
-      "notes": "地下牢篝火（冷蓝色调）"
-    },
-    {
-      "x": 700,
-      "y": 650,
-      "radius": 120,
-      "r": 1.0,
-      "g": 0.8,
-      "b": 0.3,
-      "intensity": 0.7,
-      "notes": "狱卒提灯的暖黄色光芒"
-    },
-    {
-      "x": 1000,
-      "y": 750,
-      "radius": 120,
-      "r": 1.0,
-      "g": 0.8,
-      "b": 0.3,
-      "intensity": 0.7,
-      "notes": "狱卒提灯光芒"
-    },
-    {
-      "x": 1400,
-      "y": 1000,
-      "radius": 100,
-      "r": 0.6,
-      "g": 0.1,
-      "b": 0.1,
-      "intensity": 0.3,
-      "notes": "刑讯室暗红色微光"
-    },
-    {
-      "x": 1300,
-      "y": 1050,
-      "radius": 80,
-      "r": 0.3,
-      "g": 0.1,
-      "b": 0.5,
-      "intensity": 0.4,
-      "notes": "卡露菈牢房内的暗紫色微光"
-    },
-    {
-      "x": 2800,
-      "y": 2400,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "罪业之都篝火"
-    }
-  ],
-  "story_notes": [
-    "伊鲁席尔地下监牢是教宗沙力万用于关押政敌和异端的监狱，体现了他统治的残酷",
-    "狱卒（Jailer）的独特机制——提灯视野削减最大生命值——是本区域最大的威胁",
-    "狱卒的提灯视野机制灵感来自恐怖游戏，迫使玩家以潜行方式通过走廊",
-    "卡露菈是一位暗术魔法师，被认为是魔女的后裔。她教授的暗术与深渊密切相关",
-    "杰克巴尔多被关在此处是因为他为了追寻老友尤姆而一路来到冷冽谷",
-    "地下牢和罪业之都共享一个篝火（罪业之都篝火），两个区域在地理上是连续的",
-    "石像鬼在地下牢出口处出现，它们是沙力万的手下，负责阻止囚犯逃脱",
-    "此区域没有Boss战，但狱卒的危险性和环境设计使其成为游戏中最令人紧张的区域之一",
-    "底层大厅有电梯捷径可连通回第一个营火，需先击败沉睡的奴隶巨人",
-    "狼人被关在底层牢房中，与狱卒敌对——可开门让两者互殴",
-    "入侵NPC阿尔瓦出现在地下牢入口前的冷冽谷一侧，击败掉落大曲剑和阿尔瓦套装",
-    "排水通道宝箱怪（拟态宝箱）掉落暗怪手戒指——增强暗属性攻击但降低防御",
-    "底层大厅有罪业煤炭，交给安德烈可解锁暗/血/空心三种变质",
-    "龙体石在出口左侧的室外祭坛上，使用龙之道姿态可传送至古龙顶端",
-    "四只拟态宝箱（Mimic）分布在各个区域，是游戏中拟态宝箱最多的区域之一",
-    "狱卒的钥匙圈不在本区域，而是在罪业之都中获得——用于释放卡露菈",
-    "感染尸体（Infested Corpse）是本区域特有的跳跃惊吓元素——拾取附近物品时突然尖叫，营造极度恐怖的氛围",
-    "恶棍（Wretch）是底层走廊的戴兜帽敏捷型敌人，使用匕首和法杖，部分持弓远程攻击，以小队形式出现在底层",
-    "笼中蜘蛛（Cage Spider）是牢房中唯一的非敌对生物，外观类似蜥蜴，击杀后掉落熟练宝石（Simple Gem）",
-    "熟练宝石（Simple Gem）用于武器简单变质，赋予缓慢恢复FP的效果",
-    "不死人的骨髓碎片（Undead Bone Shard）在石桥旁木板拾取，同时获得伸展姿势（Stretch Out gesture）",
-    "本区域共有三把钥匙：旧牢房钥匙（排水通道宝箱，释放杰克巴尔多）、越狱钥匙（牢房尸体，开启捷径门）、狱卒的钥匙圈（在罪业之都获得，释放卡露菈和获取囚犯长的骨灰）"
   ]
 }

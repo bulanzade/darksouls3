@@ -2,1273 +2,186 @@
   "id": "CathedralDeep",
   "name": "幽邃教堂",
   "name_en": "Cathedral of the Deep",
-  "description": "一座被幽邃力量侵蚀的宏大教堂。外部是浸泡在积水中的墓地区域，内部则是错综复杂的教堂建筑。大量欺骗性的捷径和回环路线。深处是罗莎莉亚的寝室和幽邃主教群的祭坛。空气中弥漫着浓重的幽邃气息。",
-  "theme": "教堂/幽邃/深紫",
+  "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
+  "theme": "cathedral",
   "map_size": {
-    "width": 4000,
-    "height": 3600
+    "width": 5120,
+    "height": 4608
   },
   "connections": {
     "from": [
       "RoadOfSacrifices"
     ],
-    "to": [
-      "IrithyllOfTheBorealValley"
-    ]
+    "to": []
+  },
+  "restoration": {
+    "status": "clean_rebuild_topology_projection",
+    "authoritative_fields": [
+      "area id/name",
+      "connections",
+      "bonfire names",
+      "boss identity"
+    ],
+    "projection_fields": [
+      "map_size",
+      "sections coordinates",
+      "fog gate coordinates"
+    ],
+    "excluded_until_sourced": [
+      "enemy placements",
+      "item placements",
+      "NPC dialogue",
+      "chest placements"
+    ],
+    "note": "This file intentionally avoids inherited fabricated precise data."
   },
   "bonfires": [
     {
       "name": "幽邃教堂",
-      "x": 300,
-      "y": 300,
-      "description": "区域入口处的第一个篝火",
-      "name_en": "Cathedral of the Deep"
+      "name_en": "Cathedral of the Deep",
+      "x": 560,
+      "y": 620,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "净身小教会",
-      "x": 900,
-      "y": 700,
-      "description": "净身小教会内部篝火，有NPC和补给点",
-      "name_en": "Cleansing Chapel"
+      "name_en": "Cleansing Chapel",
+      "x": 1560,
+      "y": 1510,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "幽邃主教群",
-      "x": 2150,
-      "y": 1850,
-      "description": "击败幽邃主教群后的Boss篝火",
-      "name_en": "Deacons of the Deep"
+      "name_en": "Deacons of the Deep",
+      "x": 3040,
+      "y": 3420,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "罗莎莉亚寝室",
-      "x": 3200,
-      "y": 2400,
-      "description": "深处隐藏区域的篝火，罗莎莉亚的指誓约地点",
-      "name_en": "Rosaria's Bed Chamber"
+      "name_en": "Rosaria's Bed Chamber",
+      "x": 4080,
+      "y": 1460,
+      "source_status": "official_name_projected_position"
     }
   ],
   "map_layout": {
+    "basis": "Clean gameplay 2D projection of Dark Souls III route topology. Not official coordinate geometry.",
     "sections": [
       {
-        "name": "墓地入口",
-        "description": "从献祭之路分岔进入的幽邃教堂外部墓地。浸满积水的墓地区域，视野受限。大教堂骑士在墓碑间巡逻。远处可以听到教堂的钟声。",
-        "x": 0,
-        "y": 0,
-        "w": 600,
-        "h": 600,
-        "terrain_features": [
-          "积水墓地",
-          "石碑",
-          "浓雾",
-          "泥泞地面"
-        ]
+        "name": "山路墓地",
+        "name_en": "Cathedral Approach Graveyard",
+        "kind": "main",
+        "x": 360,
+        "y": 420,
+        "w": 1040,
+        "h": 740,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
         "name": "净身小教会",
-        "description": "入口处的小型教堂，内部有净身教会NPC和篝火。教堂外有商人出售物品。是进入大教堂前的补给站。",
-        "x": 200,
-        "y": 300,
-        "w": 400,
-        "h": 300,
-        "terrain_features": [
-          "小教堂",
-          "篝火",
-          "NPC",
-          "补给点"
-        ]
+        "name_en": "Cleansing Chapel",
+        "kind": "main",
+        "x": 1260,
+        "y": 1280,
+        "w": 680,
+        "h": 560,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "外部墓园",
-        "description": "大教堂外围的广阔墓地。泥泞的道路蜿蜒在墓碑和枯树之间。有深渊侵蚀者（巨型蜘蛛）在此出没。巨人树上有遗物可以拾取。",
-        "x": 600,
-        "y": 500,
-        "w": 700,
-        "h": 600,
-        "terrain_features": [
-          "广阔墓地",
-          "枯树",
-          "巨人树",
-          "泥路",
-          "隐藏小径"
-        ]
+        "name": "巨人墓地区",
+        "name_en": "Giant Graveyard",
+        "kind": "main",
+        "x": 1840,
+        "y": 1780,
+        "w": 920,
+        "h": 760,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "教堂正门",
-        "description": "大教堂正面的宏伟大门。但大门紧闭，需要从侧面寻找入口。门前有重装教堂骑士驻守。",
-        "x": 1200,
-        "y": 800,
-        "w": 500,
-        "h": 400,
-        "terrain_features": [
-          "宏伟大门",
-          "重装骑士",
-          "教堂正面",
-          "紧闭大门"
-        ]
+        "name": "主厅",
+        "name_en": "Cathedral Main Hall",
+        "kind": "main",
+        "x": 2460,
+        "y": 1320,
+        "w": 980,
+        "h": 760,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "教堂侧廊",
-        "description": "从侧面进入教堂内部的走廊。狭窄阴暗，两侧有雕像和烛台。暗处潜伏着奴隶（thrall）——快速小型敌人。",
-        "x": 1500,
-        "y": 900,
-        "w": 400,
-        "h": 500,
-        "terrain_features": [
-          "窄廊",
-          "雕像",
-          "烛台",
-          "暗角",
-          "埋伏点"
-        ]
+        "name": "屋顶飞扶壁",
+        "name_en": "Rooftops and Buttresses",
+        "kind": "optional",
+        "x": 3100,
+        "y": 560,
+        "w": 980,
+        "h": 660,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "教堂中庭",
-        "description": "教堂内部的露天中庭。连接着多个通道和捷径。从上方可以看到主教群的祭坛。帕奇斯会在此将玩家踢下深坑。",
-        "x": 1300,
-        "y": 1000,
-        "w": 600,
-        "h": 500,
-        "terrain_features": [
-          "露天中庭",
-          "多层结构",
-          "捷径",
-          "深坑"
-        ]
+        "name": "罗莎莉亚路线",
+        "name_en": "Rosaria Route",
+        "kind": "optional",
+        "x": 3820,
+        "y": 1080,
+        "w": 780,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "上层回廊",
-        "description": "教堂上层的环形回廊。可以俯瞰中庭和祭坛。回廊上有传教士和教堂骑士。某处有通往罗莎莉亚寝室的隐藏路径。",
-        "x": 1600,
-        "y": 800,
-        "w": 600,
-        "h": 400,
-        "terrain_features": [
-          "回廊",
-          "栏杆",
-          "俯瞰点",
-          "隐藏路径"
-        ]
+        "name": "帕奇桥与井",
+        "name_en": "Patches Bridge and Well",
+        "kind": "optional",
+        "x": 1180,
+        "y": 2060,
+        "w": 880,
+        "h": 520,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "井中洋葱",
-        "description": "教堂中庭旁的一口深井。卡塔利纳的杰克巴尔多被困在井中无法脱身。需要找到机关帮他出来。",
-        "x": 1400,
-        "y": 1300,
-        "w": 200,
-        "h": 200,
-        "terrain_features": [
-          "深井",
-          "机关",
-          "NPC被困点"
-        ]
-      },
-      {
-        "name": "主教祭坛",
-        "description": "幽邃主教群的Boss战场地。大教堂最深处的祭坛大厅。宽阔的空间中聚集着大量主教。祭坛上方的巨型器皿散发着幽邃的光芒。",
-        "x": 1800,
-        "y": 1600,
-        "w": 700,
-        "h": 500,
-        "terrain_features": [
-          "祭坛大厅",
-          "主教群",
-          "幽邃器皿",
-          "宽广空间"
-        ]
-      },
-      {
-        "name": "蛞蝓走廊",
-        "description": "通往罗莎莉亚寝室的阴暗走廊。墙壁和地面上爬满了人蛞蝓（slug-men）。空气中弥漫着腐烂的甜腥味。",
+        "name": "主教群祭坛",
+        "name_en": "Deacons Altar",
+        "kind": "main",
         "x": 2600,
-        "y": 2000,
-        "w": 400,
-        "h": 400,
-        "terrain_features": [
-          "人蛞蝓",
-          "粘液",
-          "阴暗走廊",
-          "腐臭"
-        ]
-      },
-      {
-        "name": "罗莎莉亚寝室",
-        "description": "教堂最深处的一间华丽寝室。罗莎莉亚——指誓约的领导者，躺在床上。房间内有篝火。通过此处的誓约可以重新分配属性点和更换外貌。",
-        "x": 3000,
-        "y": 2200,
-        "w": 400,
-        "h": 400,
-        "terrain_features": [
-          "华丽寝室",
-          "罗莎莉亚",
-          "誓约祭坛",
-          "篝火"
-        ]
+        "y": 3120,
+        "w": 1020,
+        "h": 720,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
-  "enemies": [
-    {
-      "kind": "DevoutHollow",
-      "x": 400,
-      "y": 400,
-      "patrol": 20,
-      "count": 2,
-      "notes": "墓地入口虔诚的空心人，使用匕首和投掷刀"
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 500,
-      "y": 450,
-      "patrol": 25,
-      "count": 2,
-      "notes": "墓地入口的饿犬"
-    },
-    {
-      "kind": "DevoutHollow",
-      "x": 650,
-      "y": 550,
-      "patrol": 15,
-      "count": 1,
-      "notes": "墓地中手持直剑的虔诚空心人"
-    },
-    {
-      "kind": "CathedralKnight",
-      "x": 800,
-      "y": 650,
-      "patrol": 30,
-      "count": 1,
-      "notes": "外部墓园的大教堂骑士，使用大剑和大盾"
-    },
-    {
-      "kind": "HollowSlave",
-      "x": 900,
-      "y": 700,
-      "patrol": 0,
-      "count": 2,
-      "notes": "墓园中的空心奴隶，潜伏在暗处突袭"
-    },
-    {
-      "kind": "ReanimatedCorpse",
-      "x": 950,
-      "y": 750,
-      "patrol": 0,
-      "count": 4,
-      "notes": "外部墓园复活的尸体群，成群出现"
-    },
-    {
-      "kind": "InfestedCorpse",
-      "x": 850,
-      "y": 800,
-      "patrol": 0,
-      "count": 2,
-      "notes": "被蛆虫侵蚀的尸体，靠近会自燃冲锋"
-    },
-    {
-      "kind": "CathedralEvangelist",
-      "x": 1000,
-      "y": 700,
-      "patrol": 20,
-      "count": 1,
-      "notes": "外部墓园的传教士，使用钉头锤和幽邃术"
-    },
-    {
-      "kind": "CathedralGraveWarden",
-      "x": 1100,
-      "y": 750,
-      "patrol": 25,
-      "count": 1,
-      "notes": "墓园墓地看守，使用双刀，攻击速度极快"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 750,
-      "y": 700,
-      "patrol": 0,
-      "count": 1,
-      "notes": "外部墓园角落的结晶蜥蜴"
-    },
-    {
-      "kind": "RavenousCrystalLizard",
-      "x": 1050,
-      "y": 850,
-      "patrol": 0,
-      "count": 1,
-      "notes": "外部墓园底部的饥饿结晶蜥蜴（大型）"
-    },
-    {
-      "kind": "WrithingRottenFlesh",
-      "x": 1200,
-      "y": 900,
-      "patrol": 0,
-      "count": 1,
-      "notes": "教堂入口附近的腐烂肉块"
-    },
-    {
-      "kind": "CathedralKnight",
-      "x": 1300,
-      "y": 950,
-      "patrol": 30,
-      "count": 1,
-      "notes": "教堂正门前的重装大教堂骑士"
-    },
-    {
-      "kind": "HollowSlave",
-      "x": 1500,
-      "y": 1000,
-      "patrol": 0,
-      "count": 3,
-      "notes": "教堂侧廊中的奴隶，会从天花板跳下突袭"
-    },
-    {
-      "kind": "DevoutHollow",
-      "x": 1550,
-      "y": 1050,
-      "patrol": 15,
-      "count": 3,
-      "notes": "侧廊中的虔诚空心人，使用斧头和弩"
-    },
-    {
-      "kind": "CathedralEvangelist",
-      "x": 1600,
-      "y": 1100,
-      "patrol": 15,
-      "count": 1,
-      "notes": "教堂内部的传教士，使用幽邃术"
-    },
-    {
-      "kind": "CorpseGrub",
-      "x": 1650,
-      "y": 1150,
-      "patrol": 0,
-      "count": 3,
-      "notes": "教堂内部的尸蛆，从尸体中爬出"
-    },
-    {
-      "kind": "CathedralKnight",
-      "x": 1400,
-      "y": 1100,
-      "patrol": 30,
-      "count": 1,
-      "notes": "中庭的大教堂骑士，使用大锤和大盾"
-    },
-    {
-      "kind": "CathedralGraveWarden",
-      "x": 1450,
-      "y": 1050,
-      "patrol": 25,
-      "count": 2,
-      "notes": "中庭墓地看守双刀组"
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 1500,
-      "y": 1200,
-      "patrol": 0,
-      "count": 1,
-      "notes": "巨人房间中第一个巨人奴隶——玩家进入时攻击"
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 1600,
-      "y": 1300,
-      "patrol": 0,
-      "count": 1,
-      "notes": "巨人房间中第二个巨人奴隶——初始静止不攻击"
-    },
-    {
-      "kind": "LongfingerKirk",
-      "x": 1550,
-      "y": 1250,
-      "patrol": 0,
-      "count": 1,
-      "notes": "长指的柯克——暗灵入侵NPC，在余火状态下于巨人房间入侵"
-    },
-    {
-      "kind": "DeepAccursed",
-      "x": 1700,
-      "y": 1400,
-      "patrol": 0,
-      "count": 1,
-      "notes": "深渊侵蚀者——巨型蜘蛛般敌人，从天花板伏击"
-    },
-    {
-      "kind": "CathedralKnight",
-      "x": 1800,
-      "y": 850,
-      "patrol": 25,
-      "count": 1,
-      "notes": "上层回廊的大教堂骑士，会使用发射力奇迹"
-    },
-    {
-      "kind": "HollowSlave",
-      "x": 1850,
-      "y": 900,
-      "patrol": 0,
-      "count": 3,
-      "notes": "回廊和桁架上的奴隶"
-    },
-    {
-      "kind": "CathedralEvangelist",
-      "x": 1900,
-      "y": 950,
-      "patrol": 15,
-      "count": 1,
-      "notes": "上层回廊的传教士"
-    },
-    {
-      "kind": "Mimic",
-      "x": 2000,
-      "y": 1500,
-      "patrol": 0,
-      "count": 1,
-      "notes": "祭坛前的宝箱怪，击败掉落深邃点字圣典"
-    },
-    {
-      "kind": "DevoutHollow",
-      "x": 2000,
-      "y": 1700,
-      "patrol": 15,
-      "count": 6,
-      "notes": "主教祭坛周围的虔诚空心人"
-    },
-    {
-      "kind": "Deacon",
-      "x": 2100,
-      "y": 1800,
-      "patrol": 0,
-      "count": 8,
-      "notes": "主教群中的幽邃司祭"
-    },
-    {
-      "kind": "ManGrub",
-      "x": 2600,
-      "y": 2100,
-      "patrol": 0,
-      "count": 3,
-      "notes": "通往罗莎莉亚寝室走廊的人蛞蝓"
-    },
-    {
-      "kind": "ManGrub",
-      "x": 2750,
-      "y": 2200,
-      "patrol": 0,
-      "count": 3,
-      "notes": "走廊深处的人蛞蝓群"
-    },
-    {
-      "kind": "WrithingRottenFlesh",
-      "x": 1350,
-      "y": 1350,
-      "patrol": 0,
-      "count": 2,
-      "notes": "巨人房间水洼中的腐烂肉块"
-    },
-    {
-      "kind": "CathedralKnight",
-      "x": 2500,
-      "y": 1700,
-      "patrol": 20,
-      "count": 2,
-      "notes": "桁架上的两个大教堂骑士，其中一个使用弩"
-    }
-  ],
   "boss": {
     "type": "DeaconsOfTheDeep",
     "name": "幽邃主教群",
     "name_en": "Deacons of the Deep",
-    "x": 2150,
-    "y": 1850,
-    "hp": 1500,
-    "arena": {
-      "x": 1850,
-      "y": 1650,
-      "w": 600,
-      "h": 400
-    },
-    "phases": [
-      {
-        "name": "主教群",
-        "hp_threshold": 1.0,
-        "speed_multiplier": 1.3,
-        "damage_multiplier": 1.0,
-        "attack_cooldown": 1.5,
-        "description": "一场群战。数十名主教组成人海。其中只有红眼主教是真正的目标——必须击杀红眼主教才能削减Boss的HP。普通主教死亡后会不断被替换。",
-        "mechanics": [
-          "群战",
-          "红眼目标",
-          "持续补充",
-          "火焰弹幕"
-        ]
-      },
-      {
-        "name": "大司祭降临",
-        "hp_threshold": 0.5,
-        "speed_multiplier": 1.6,
-        "damage_multiplier": 1.3,
-        "attack_cooldown": 1.0,
-        "description": "大司祭（Archdeacon）出现在祭坛处，开始引导幽邃诅咒球。诅咒球会持续追踪玩家。必须尽快击杀大司祭打断诅咒。此阶段火焰弹幕更加密集。",
-        "mechanics": [
-          "大司祭目标",
-          "追踪诅咒球",
-          "火焰弹幕增强",
-          "幽邃光环"
-        ]
-      }
-    ],
-    "attacks": [
-      {
-        "name": "火焰爆发",
-        "type": "FlameBurst",
-        "damage": 40,
-        "range": "远",
-        "parryable": false,
-        "description": "主教们发射追踪火焰弹。判定范围远达178像素。多枚同时发射时形成弹幕。需要横向移动躲避，不可格挡。"
-      },
-      {
-        "name": "冲锋攻击",
-        "type": "ChargeAttack",
-        "damage": 35,
-        "range": "中",
-        "parryable": true,
-        "description": "主教举起法杖向玩家冲锋。正前方88像素长、36像素宽的判定区域。是少数可以弹反的攻击。冲锋速度快但前摇明显。"
-      },
-      {
-        "name": "圣光地面",
-        "type": "HolyGround",
-        "damage": 50,
-        "range": "近-中",
-        "parryable": false,
-        "description": "大司祭在脚下释放范围性神圣冲击波。判定范围半径126像素。二阶段专属攻击。地面会出现明显的光圈预警。伤害高但前摇长（约0.5秒）。"
-      }
-    ],
-    "story": "幽邃主教群是大教堂的守护者。他们信奉幽邃之力，在麦克唐纳大司祭的领导下进行黑暗仪式。幽邃是深渊的延伸——一种更加腐蚀、更加深邃的黑暗力量。大教堂原本是为了封印幽邃而建造，但最终主教们自己也被幽邃侵蚀。击败他们后获得小人偶（Small Doll），这是进入冷冽谷的必需道具。"
+    "x": 3040,
+    "y": 3420,
+    "source_status": "official_identity_projected_position"
   },
-  "npcs": [
-    {
-      "name": "卡塔利纳的杰克巴尔多",
-      "name_en": "Siegward of Catarina",
-      "kind": "Dialogue",
-      "x": 1420,
-      "y": 1320,
-      "color": "#d4a840",
-      "dialogue": [
-        "……是你吗？",
-        "我被困在这个井里了。真是丢脸啊……",
-        "能帮帮我吗？附近应该有机关可以打开井盖。",
-        "我会报答你的！卡塔利纳的骑士绝不会忘记恩情！"
-      ],
-      "quest": "被困在教堂净身小教会外的井中。需要找到机关释放。释放后他会在后续的冷冽谷中协助玩家对抗巨人尤姆。他也会出现在净身小教会篝火旁告诉你关于宝藏的事，然后帕奇斯会将你踢下巨人房间。"
-    },
-    {
-      "name": "不屈不挠的帕奇斯",
-      "name_en": "Unbreakable Patches",
-      "kind": "Dialogue",
-      "x": 1450,
-      "y": 1100,
-      "color": "#808080",
-      "dialogue": [
-        "嘿，你好啊！",
-        "你也是来寻宝的吗？这里可是有不少好东西。",
-        "看那边——那下面的宝物，闪闪发光！",
-        "你不下去看看吗？……来，我帮你一把！"
-      ],
-      "quest": "帕奇斯以欺骗著称。他会引导玩家到中庭边缘然后踢下深坑。如果存活并再次找到他，他会道歉并出售物品。在原版中他是系列常驻的欺骗NPC。若杀死巨人后，帕奇斯会出现在巨人原来所在的位置。"
-    },
-    {
-      "name": "罗莎莉亚",
-      "name_en": "Rosaria, Mother of Rebirth",
-      "kind": "Dialogue",
-      "x": 3100,
-      "y": 2300,
-      "color": "#d0a0b0",
-      "dialogue": [
-        "……你来……为指……服务吗？",
-        "（罗莎莉亚的声音低沉而嘶哑）",
-        "给我苍白的舌头……作为誓约的证明……",
-        "我可以……让你重生……改变你的样貌和力量……"
-      ],
-      "quest": "罗莎莉亚的指誓约（Rosaria's Fingers）的领导者。加入誓约需要献上苍白舌头。她可以重新分配玩家的属性点（每次重生需要苍淡的舌头）和改变外貌。在原版中，给予她苍淡的舌头5次后可能触发与里奥尼尔的特殊事件。"
-    },
-    {
-      "name": "亚斯特拉的安里",
-      "name_en": "Anri of Astora",
-      "kind": "Summon",
-      "x": 2050,
-      "y": 1750,
-      "color": "#c0c0c0",
-      "dialogue": [
-        "（召唤符号出现）",
-        "……我也来帮忙吧。为了找到深渊监视者。"
-      ],
-      "quest": "安里可在幽邃主教群Boss战前被召唤。召唤符号在祭坛旁。如果霍雷斯在熏烟湖被击杀，安里的召唤符号不会出现。"
-    },
-    {
-      "name": "沉默的霍雷斯",
-      "name_en": "Horace the Hushed",
-      "kind": "Summon",
-      "x": 2080,
-      "y": 1760,
-      "color": "#505050",
-      "dialogue": [
-        "（召唤符号出现）",
-        "……"
-      ],
-      "quest": "霍雷斯可在幽邃主教群Boss战前被召唤。召唤符号在安里旁边。"
-    },
-    {
-      "name": "无光之地的希里斯",
-      "name_en": "Sirris of the Sunless Realms",
-      "kind": "Summon",
-      "x": 2050,
-      "y": 1720,
-      "color": "#9988aa",
-      "dialogue": [
-        "（召唤符号出现）",
-        "请让我帮助你。这是我对你的承诺。"
-      ],
-      "quest": "希里斯可在幽邃主教群Boss战前被召唤。需要先在活祭品之路遇见她才会出现。注意：如果向罗莎莉亚献上苍白舌头，希里斯的任务线将失败。"
-    }
-  ],
-  "chests": [
-    {
-      "x": 400,
-      "y": 350,
-      "loot": {
-        "kind": "ItemDrop",
-        "name": "骑士的骨灰",
-        "name_en": "Paladin's Ashes"
-      },
-      "is_mimic": false,
-      "notes": "墓地入口下方——给予侍女后可购买新物品"
-    },
-    {
-      "x": 550,
-      "y": 500,
-      "loot": {
-        "kind": "ShieldDrop",
-        "name": "纹章盾",
-        "name_en": "Crest Shield"
-      },
-      "is_mimic": false,
-      "notes": "墓地入口下方的遗体——雷电抗性高"
-    },
-    {
-      "x": 900,
-      "y": 800,
-      "loot": {
-        "kind": "EstusShard"
-      },
-      "is_mimic": false,
-      "notes": "外部墓园祈祷的空心人旁遗体"
-    },
-    {
-      "x": 1100,
-      "y": 850,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "亚斯特拉大剑",
-        "name_en": "Astora Greatsword"
-      },
-      "is_mimic": false,
-      "notes": "外部墓园墓地中遗体"
-    },
-    {
-      "x": 1000,
-      "y": 900,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "处刑者大剑",
-        "name_en": "Executioner's Greatsword"
-      },
-      "is_mimic": false,
-      "notes": "外部墓园遗体"
-    },
-    {
-      "x": 1300,
-      "y": 1000,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "锯齿鞭",
-        "name_en": "Notched Whip"
-      },
-      "is_mimic": false,
-      "notes": "净身小教会内角落遗体"
-    },
-    {
-      "x": 1600,
-      "y": 1100,
-      "loot": {
-        "kind": "ShieldDrop",
-        "name": "诅咒庇护大盾",
-        "name_en": "Curse Ward Greatshield"
-      },
-      "is_mimic": false,
-      "notes": "教堂内部房间遗体"
-    },
-    {
-      "x": 1700,
-      "y": 1200,
-      "loot": {
-        "kind": "RingDrop",
-        "name": "毒咬戒指",
-        "name_en": "Poisonbite Ring"
-      },
-      "is_mimic": false,
-      "notes": "暗室中遗体——提升毒抗性"
-    },
-    {
-      "x": 1900,
-      "y": 1300,
-      "loot": {
-        "kind": "RingDrop",
-        "name": "罗伊德剑戒指",
-        "name_en": "Lloyd's Sword Ring"
-      },
-      "is_mimic": false,
-      "notes": "巨人房间周边遗体——满HP时攻击力上升"
-    },
-    {
-      "x": 2000,
-      "y": 1500,
-      "loot": {
-        "kind": "TomeDrop",
-        "name": "深邃点字圣典",
-        "name_en": "Deep Braille Divine Tome"
-      },
-      "is_mimic": true,
-      "notes": "宝箱怪——击败后掉落深邃点字圣典"
-    },
-    {
-      "x": 2100,
-      "y": 1400,
-      "loot": {
-        "kind": "RingDrop",
-        "name": "奥德里奇的蓝宝石",
-        "name_en": "Aldrich's Sapphire"
-      },
-      "is_mimic": false,
-      "notes": "击败深渊侵蚀者后掉落"
-    },
-    {
-      "x": 2200,
-      "y": 1350,
-      "loot": {
-        "kind": "ItemDrop",
-        "name": "红印蜡石",
-        "name_en": "Red Sign Soapstone"
-      },
-      "is_mimic": false,
-      "notes": "蛆虫房间末端敌人掉落"
-    },
-    {
-      "x": 2300,
-      "y": 900,
-      "loot": {
-        "kind": "RingDrop",
-        "name": "深邃戒指",
-        "name_en": "Deep Ring"
-      },
-      "is_mimic": false,
-      "notes": "上层楼顶击败司祭后获得"
-    },
-    {
-      "x": 2400,
-      "y": 1000,
-      "loot": {
-        "kind": "ItemDrop",
-        "name": "光辉楔形石",
-        "name_en": "Blessed Gem"
-      },
-      "is_mimic": false,
-      "notes": "桁架上遗体——光辉变质石"
-    },
-    {
-      "x": 2500,
-      "y": 1400,
-      "loot": {
-        "kind": "ArmorDrop",
-        "name": "荆棘铠甲套装",
-        "name_en": "Armor of Thorns Set"
-      },
-      "is_mimic": false,
-      "notes": "罗莎莉亚寝室中柯克入侵后出现的遗体上"
-    },
-    {
-      "x": 2600,
-      "y": 1500,
-      "loot": {
-        "kind": "ArmorDrop",
-        "name": "少女套装",
-        "name_en": "Maiden Set"
-      },
-      "is_mimic": false,
-      "notes": "巨人房间旁遗体"
-    },
-    {
-      "x": 2700,
-      "y": 1400,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "多兰锤",
-        "name_en": "Drang Hammers"
-      },
-      "is_mimic": false,
-      "notes": "巨人房间柱子后遗体"
-    },
-    {
-      "x": 2750,
-      "y": 1350,
-      "loot": {
-        "kind": "ArmorDrop",
-        "name": "多兰套装",
-        "name_en": "Drang Set"
-      },
-      "is_mimic": false,
-      "notes": "巨人房间旁遗体"
-    },
-    {
-      "x": 2800,
-      "y": 1500,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "圣树铃草",
-        "name_en": "Saint-tree Bellvine"
-      },
-      "is_mimic": false,
-      "notes": "教堂外部水洼旁树桩遗体"
-    },
-    {
-      "x": 2900,
-      "y": 1600,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "圣双叉枪",
-        "name_en": "Saint Bident"
-      },
-      "is_mimic": false,
-      "notes": "教堂外部阶梯旁栏杆遗体"
-    },
-    {
-      "x": 3000,
-      "y": 1500,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "重弩",
-        "name_en": "Arbalest"
-      },
-      "is_mimic": false,
-      "notes": "桁架末端塔楼遗体"
-    },
-    {
-      "x": 3100,
-      "y": 1600,
-      "loot": {
-        "kind": "ItemDrop",
-        "name": "苍白舌头",
-        "name_en": "Pale Tongue"
-      },
-      "is_mimic": false,
-      "notes": "桁架末端遗体"
-    },
-    {
-      "x": 3200,
-      "y": 1700,
-      "loot": {
-        "kind": "ArmorDrop",
-        "name": "大司祭套装",
-        "name_en": "Archdeacon Set"
-      },
-      "is_mimic": false,
-      "notes": "击败主教群后回到Boss房间祭坛旁"
-    },
-    {
-      "x": 3300,
-      "y": 1800,
-      "loot": {
-        "kind": "ItemDrop",
-        "name": "小人偶",
-        "name_en": "Small Doll"
-      },
-      "is_mimic": false,
-      "notes": "击败主教群后获得——进入冷冽谷必需道具"
-    },
-    {
-      "x": 3400,
-      "y": 1900,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "刺直剑",
-        "name_en": "Barbed Straight Sword"
-      },
-      "is_mimic": false,
-      "notes": "击败长指的柯克后掉落"
-    },
-    {
-      "x": 3500,
-      "y": 2000,
-      "loot": {
-        "kind": "ShieldDrop",
-        "name": "刺盾",
-        "name_en": "Spiked Shield"
-      },
-      "is_mimic": false,
-      "notes": "击败长指的柯克后掉落"
-    }
-  ],
-  "items": [
-    {
-      "kind": "SoulOrb",
-      "value": 200,
-      "x": 450,
-      "y": 380,
-      "notes": "墓地入口淡薄灵魂"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 500,
-      "x": 600,
-      "y": 500,
-      "notes": "外部墓园遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 500,
-      "x": 950,
-      "y": 800,
-      "notes": "外部墓园高处遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 1000,
-      "x": 1500,
-      "y": 1050,
-      "notes": "教堂内部遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 1000,
-      "x": 1800,
-      "y": 1400,
-      "notes": "巨人房间遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 1000,
-      "x": 1900,
-      "y": 1350,
-      "notes": "巨人房间第二处遗体"
-    },
-    {
-      "kind": "HomewardBone",
-      "x": 2850,
-      "y": 1550,
-      "count": 2,
-      "notes": "教堂外部破碎阶梯末端"
-    },
-    {
-      "kind": "TitaniteShard",
-      "x": 650,
-      "y": 550,
-      "count": 1,
-      "notes": "墓地树林中遗体"
-    },
-    {
-      "kind": "TitaniteShard",
-      "x": 1350,
-      "y": 1150,
-      "count": 1,
-      "notes": "教堂外部窗口遗体"
-    },
-    {
-      "kind": "TitaniteShard",
-      "x": 1200,
-      "y": 1050,
-      "count": 1,
-      "notes": "结晶蜥蜴附近遗体"
-    },
-    {
-      "kind": "LargeTitaniteShard",
-      "x": 1550,
-      "y": 1200,
-      "count": 1,
-      "notes": "击杀第一个巨人后掉落"
-    },
-    {
-      "kind": "LargeTitaniteShard",
-      "x": 1650,
-      "y": 1300,
-      "count": 1,
-      "notes": "击杀第二个巨人后掉落"
-    },
-    {
-      "kind": "TwinklingTitanite",
-      "x": 780,
-      "y": 720,
-      "count": 1,
-      "notes": "结晶蜥蜴掉落"
-    },
-    {
-      "kind": "TwinklingTitanite",
-      "x": 1080,
-      "y": 860,
-      "count": 1,
-      "notes": "饥饿结晶蜥蜴掉落"
-    },
-    {
-      "kind": "EstusShard",
-      "x": 900,
-      "y": 800,
-      "count": 1,
-      "notes": "外部墓园祈祷遗体旁"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "骨碎片",
-      "name_en": "Undead Bone Shard",
-      "x": 1750,
-      "y": 850,
-      "count": 1,
-      "notes": "教堂外部台阶旁遗体"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "青年白枝",
-      "name_en": "Young White Branch",
-      "x": 1500,
-      "y": 1050,
-      "count": 2,
-      "notes": "墓地看守旁遗体"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "修理粉",
-      "name_en": "Repair Powder",
-      "x": 1100,
-      "y": 900,
-      "count": 2,
-      "notes": "墓地看守旁遗体"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "红色驱虫丸",
-      "name_en": "Red Bug Pellet",
-      "x": 1400,
-      "y": 1000,
-      "count": 2,
-      "notes": "教堂屋顶遗体"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "余火",
-      "name_en": "Ember",
-      "x": 1600,
-      "y": 1100,
-      "count": 1,
-      "notes": "传教士旁遗体"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "余火",
-      "name_en": "Ember",
-      "x": 1700,
-      "y": 1400,
-      "count": 1,
-      "notes": "深渊侵蚀者房间遗体"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "余火",
-      "name_en": "Ember",
-      "x": 1850,
-      "y": 1250,
-      "count": 1,
-      "notes": "传教士旁第二处遗体"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "不死猎人魅惑",
-      "name_en": "Undead Hunter Charm",
-      "x": 1500,
-      "y": 1000,
-      "count": 3,
-      "notes": "传教士旁遗体"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "决斗魅惑",
-      "name_en": "Duel Charm",
-      "x": 1950,
-      "y": 1300,
-      "count": 4,
-      "notes": "暗道和杰克巴尔多房间遗体"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "生锈硬币",
-      "name_en": "Rusted Coin",
-      "x": 1400,
-      "y": 1050,
-      "count": 2,
-      "notes": "箱子后遗体"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "粪便饼",
-      "name_en": "Dung Pie",
-      "x": 1650,
-      "y": 1350,
-      "count": 4,
-      "notes": "巨人房间水洼旁遗体"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "爆裂弩箭",
-      "name_en": "Exploding Bolt",
-      "x": 1900,
-      "y": 1300,
-      "count": 6,
-      "notes": "巨人房间悬挂遗体"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "寻求指引",
-      "name_en": "Seek Guidance",
-      "x": 1750,
-      "y": 1450,
-      "count": 1,
-      "notes": "暗室中遗体"
-    },
-    {
-      "kind": "PaleTongue",
-      "x": 1650,
-      "y": 1350,
-      "count": 1,
-      "notes": "巨人房间遗体",
-      "name": "苍白舌头"
-    },
-    {
-      "kind": "ItemDrop",
-      "name": "深邃变质石",
-      "name_en": "Deep Gem",
-      "x": 1600,
-      "y": 1150,
-      "count": 1,
-      "notes": "传教士阳台遗体"
-    }
-  ],
+  "enemies": [],
+  "items": [],
+  "chests": [],
+  "npcs": [],
+  "lights": [],
   "fog_gates": [
     {
-      "x": 100,
-      "y": 250,
-      "w": 40,
-      "h": 200,
+      "x": 560,
+      "y": 520,
+      "w": 96,
+      "h": 96,
       "dest_area": "RoadOfSacrifices",
-      "dest_x": 2100,
-      "dest_y": 800,
-      "notes": "返回献祭之路"
-    },
-    {
-      "x": 3500,
-      "y": 2600,
-      "w": 40,
-      "h": 200,
-      "dest_area": "IrithyllOfTheBorealValley",
-      "dest_x": 200,
-      "dest_y": 400,
-      "notes": "击败主教群后，持小人偶通过冰雾门前往冷冽谷"
+      "dest_x": 3900,
+      "dest_y": 1500,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     }
-  ],
-  "lights": [
-    {
-      "x": 300,
-      "y": 400,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "净身小教堂篝火"
-    },
-    {
-      "x": 1500,
-      "y": 1200,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "教堂中庭篝火"
-    },
-    {
-      "x": 3200,
-      "y": 2400,
-      "radius": 180,
-      "r": 0.6,
-      "g": 0.4,
-      "b": 0.7,
-      "intensity": 0.5,
-      "notes": "罗莎莉亚寝室篝火（幽邃紫光）"
-    },
-    {
-      "x": 1300,
-      "y": 1000,
-      "radius": 100,
-      "r": 0.5,
-      "g": 0.3,
-      "b": 0.6,
-      "intensity": 0.4,
-      "notes": "教堂内部的幽邃光芒"
-    },
-    {
-      "x": 2150,
-      "y": 1850,
-      "radius": 250,
-      "r": 0.4,
-      "g": 0.2,
-      "b": 0.7,
-      "intensity": 0.6,
-      "notes": "祭坛处的幽邃器皿光芒"
-    },
-    {
-      "x": 700,
-      "y": 600,
-      "radius": 120,
-      "r": 0.5,
-      "g": 0.5,
-      "b": 0.4,
-      "intensity": 0.3,
-      "notes": "墓园中的微弱烛光"
-    },
-    {
-      "x": 3100,
-      "y": 2300,
-      "radius": 150,
-      "r": 0.7,
-      "g": 0.5,
-      "b": 0.7,
-      "intensity": 0.5,
-      "notes": "罗莎莉亚寝室的幽邃光晕"
-    }
-  ],
-  "story_notes": [
-    "幽邃教堂是游戏中最大的探索区域之一，以极其复杂的捷径系统和垂直关卡设计著称",
-    "此区域有4个篝火：幽邃教堂、净身小教会、罗莎莉亚寝室、幽邃主教群",
-    "外部有广阔的墓地和泥泞道路，内部有多层结构——从中庭到桁架到地下室",
-    "两个巨人奴隶在教堂内部——第一个会主动攻击，第二个初始静止",
-    "帕奇斯会在杰克巴尔多提到的桥上将玩家踢下巨人房间",
-    "杰克巴尔多被困在净身小教会外的井中，需要找到机关释放",
-    "长指的柯克是罗莎莉亚的指誓约成员，以暗灵入侵形式在巨人房间出现",
-    "深渊侵蚀者是罕见的巨型蜘蛛敌人，从天花板伏击，击败后掉落奥德里奇的蓝宝石",
-    "罗莎莉亚的指誓约是PVP誓约，给予苍白舌头可升级",
-    "罗莎莉亚可以重新分配属性点和更换外貌，但给予她苍白舌头会导致希里斯任务线失败",
-    "小人偶是击败主教群后获得的关键道具，用于通过前往冷冽谷的冰雾门",
-    "深邃点字圣典给予伊蕾娜后可学习深邃奇迹，但购买暗术会导致她的任务线失败",
-    "宝箱怪出现在祭坛前方的房间，使用不死猎人魅惑可安全获取深邃点字圣典",
-    "墓地看守使用双刀，攻击速度极快，掉落墓地看守双刀和墓地看守套装",
-    "传教士使用钉头锤和幽邃术，掉落传教士套装和钉头锤",
-    "桁架区域是此区域最危险的地点——狭窄的横梁上有奴隶和大教堂骑士",
-    "大教堂骑士有多种武器形态：大剑+大盾、大锤+大盾、弩等",
-    "原版中不死聚落的巨人弓箭手会在此区域帮助玩家射击敌人",
-    "深邃是黑魂宇宙中比深渊更加原始和腐蚀的力量",
-    "人蛞蝓是曾经的人类被幽邃侵蚀后的变异形态"
   ]
 }

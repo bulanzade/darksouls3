@@ -17,7 +17,7 @@ use crate::render::sprite_batcher::SpriteBatcher;
 use crate::render::texture::Texture;
 use crate::render::ui_renderer::UiRenderer;
 use crate::save::bonfire::BonfireState;
-use crate::world::chunk::{Chunk, CHUNK_SIZE};
+use crate::world::chunk::Chunk;
 use crate::world::collision::CollisionGrid;
 use crate::world::nav_grid::NavGrid;
 use crate::world::tileset::{TileId, Tileset, TILE_SIZE};
@@ -27,6 +27,7 @@ use wasm_bindgen::JsCast;
 #[derive(Clone, Copy, PartialEq, Debug, Eq, Hash)]
 pub(crate) enum AreaId {
     CemeteryOfAsh,
+    FirelinkShrine,
     LothricWall,
     UndeadSettlement,
     RoadOfSacrifices,
@@ -49,6 +50,7 @@ pub(crate) enum AreaId {
 pub(crate) fn area_name(area: AreaId) -> &'static str {
     match area {
         AreaId::CemeteryOfAsh => "灰烬墓地",
+        AreaId::FirelinkShrine => "传火祭祀场",
         AreaId::LothricWall => "洛斯里克高墙",
         AreaId::UndeadSettlement => "不死聚落",
         AreaId::RoadOfSacrifices => "牺牲之路",
@@ -72,6 +74,7 @@ pub(crate) fn area_name(area: AreaId) -> &'static str {
 pub(crate) fn area_boss(area: AreaId) -> Option<BossType> {
     match area {
         AreaId::CemeteryOfAsh => Some(BossType::IudexGundyr),
+        AreaId::FirelinkShrine => None,
         AreaId::LothricWall => Some(BossType::Vordt),
         AreaId::UndeadSettlement => Some(BossType::CurseRottedGreatwood),
         AreaId::RoadOfSacrifices => Some(BossType::CrystalSage),
@@ -444,7 +447,7 @@ pub fn wasm_main() {
     let tileset = Tileset::test_tileset(80, 16);
     let chunk = Chunk::test_chunk((0, 0));
     let collision = CollisionGrid::from_chunk(&chunk, &tileset);
-    let nav_grid = NavGrid::from_collision_grid(&collision, CHUNK_SIZE, 2);
+    let nav_grid = NavGrid::from_collision_grid(&collision, 2);
     let tileset_texture = textures::create_tileset_texture(gl);
 
     let light_renderer = LightRenderer::new(gl).expect("Failed to create light renderer");
@@ -872,12 +875,13 @@ fn fixed_update(game: &mut Game, dt: f32) {
 
 pub(crate) fn rebuild_collision(game: &mut Game) {
     game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
-    game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
+    game.nav_grid = NavGrid::from_collision_grid(&game.collision, 2);
 }
 
 fn area_level_path(area: AreaId) -> &'static str {
     match area {
         AreaId::CemeteryOfAsh => "maps/ds2d/CemeteryOfAsh.ldtkl",
+        AreaId::FirelinkShrine => "maps/ds2d/FirelinkShrine.ldtkl",
         AreaId::LothricWall => "maps/ds2d/LothricWall.ldtkl",
         AreaId::UndeadSettlement => "maps/ds2d/UndeadSettlement.ldtkl",
         AreaId::RoadOfSacrifices => "maps/ds2d/RoadOfSacrifices.ldtkl",
@@ -919,7 +923,8 @@ pub fn js_register_map(path: &str, json: &str) {
 
 pub(crate) fn area_from_str(s: &str) -> AreaId {
     match s {
-        "CemeteryOfAsh" | "FirelinkShrine" | "Majula" => AreaId::CemeteryOfAsh,
+        "CemeteryOfAsh" | "Majula" => AreaId::CemeteryOfAsh,
+        "FirelinkShrine" => AreaId::FirelinkShrine,
         "LothricWall" => AreaId::LothricWall,
         "UndeadSettlement" | "ForestOfGiants" => AreaId::UndeadSettlement,
         "RoadOfSacrifices" => AreaId::RoadOfSacrifices,
@@ -943,9 +948,13 @@ pub(crate) fn area_from_str(s: &str) -> AreaId {
 
 pub(crate) fn fill_tiles(chunk: &mut Chunk, tile: TileId, x1: usize, y1: usize, x2: usize, y2: usize) {
     debug_assert!(x1 <= x2 && y1 <= y2, "fill_tiles: inverted bounds ({x1},{y1})-({x2},{y2})");
-    let max = CHUNK_SIZE - 1;
-    for y in y1.min(max)..=y2.min(max) {
-        for x in x1.min(max)..=x2.min(max) {
+    if chunk.width == 0 || chunk.height == 0 {
+        return;
+    }
+    let max_x = chunk.width - 1;
+    let max_y = chunk.height - 1;
+    for y in y1.min(max_y)..=y2.min(max_y) {
+        for x in x1.min(max_x)..=x2.min(max_x) {
             chunk.tiles[y][x] = tile;
         }
     }
@@ -1409,7 +1418,7 @@ fn update_playing(game: &mut Game, dt: f32) {
     let tile_size = TILE_SIZE as f32;
     let tx = ((rx - chunk_offset.0) / tile_size) as usize;
     let ty = ((ry - chunk_offset.1) / tile_size) as usize;
-    if tx < CHUNK_SIZE && ty < CHUNK_SIZE {
+    if tx < game.chunk.width && ty < game.chunk.height {
         if game.chunk.tiles[ty][tx] == TileId::Poison {
             let resist = game.player.equipment.poison_resist();
             if game.player.poison_timer <= 0.0 && resist < 1.0 {
@@ -1658,7 +1667,7 @@ pub(crate) fn load_area(game: &mut Game, area: AreaId) {
         game.chunk = chunk;
         apply_level_patches(game, &tile_patches);
         game.collision = CollisionGrid::from_chunk(&game.chunk, &game.tileset);
-        game.nav_grid = NavGrid::from_collision_grid(&game.collision, CHUNK_SIZE, 2);
+        game.nav_grid = NavGrid::from_collision_grid(&game.collision, 2);
 
         game.player.transform.x = player_spawn.0;
         game.player.transform.y = player_spawn.1;
@@ -1833,4 +1842,3 @@ pub(crate) fn load_area(game: &mut Game, area: AreaId) {
     game.camera.x = game.player.transform.x;
     game.camera.y = game.player.transform.y;
 }
-

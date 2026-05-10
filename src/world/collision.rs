@@ -1,4 +1,3 @@
-use crate::world::chunk::CHUNK_SIZE;
 use crate::world::chunk::Chunk;
 use crate::world::tileset::TileId;
 use crate::world::tileset::Tileset;
@@ -6,16 +5,18 @@ use crate::world::tileset::TILE_SIZE;
 
 /// Grid of solidity flags for a single chunk, built from tile data.
 pub struct CollisionGrid {
-    pub solid: [[bool; CHUNK_SIZE]; CHUNK_SIZE],
+    pub width: usize,
+    pub height: usize,
+    pub solid: Vec<Vec<bool>>,
 }
 
 impl CollisionGrid {
     /// Build a collision grid from a chunk and its tileset definitions.
     pub fn from_chunk(chunk: &Chunk, tileset: &Tileset) -> Self {
-        let mut solid = [[false; CHUNK_SIZE]; CHUNK_SIZE];
+        let mut solid = vec![vec![false; chunk.width]; chunk.height];
 
-        for y in 0..CHUNK_SIZE {
-            for x in 0..CHUNK_SIZE {
+        for y in 0..chunk.height {
+            for x in 0..chunk.width {
                 let tile_id = chunk.tiles[y][x];
                 if tile_id == TileId::Empty {
                     continue;
@@ -26,13 +27,13 @@ impl CollisionGrid {
             }
         }
 
-        Self { solid }
+        Self { width: chunk.width, height: chunk.height, solid }
     }
 
     /// Check if a tile at local chunk coordinates is solid.
     /// Out-of-bounds coordinates are treated as solid (wall).
     pub fn is_solid(&self, x: i32, y: i32) -> bool {
-        if x < 0 || x >= CHUNK_SIZE as i32 || y < 0 || y >= CHUNK_SIZE as i32 {
+        if x < 0 || x >= self.width as i32 || y < 0 || y >= self.height as i32 {
             return true;
         }
         self.solid[y as usize][x as usize]

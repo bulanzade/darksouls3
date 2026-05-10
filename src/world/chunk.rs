@@ -1,22 +1,39 @@
-use crate::world::tileset::TILE_SIZE;
 use crate::world::tileset::TileId;
+use crate::world::tileset::TILE_SIZE;
 
-/// Tiles per side of a chunk.
-pub const CHUNK_SIZE: usize = 160;
+/// Default tile dimensions used by the built-in test map.
+pub const DEFAULT_CHUNK_SIZE: usize = 160;
 
-/// A square region of the world made of `CHUNK_SIZE x CHUNK_SIZE` tiles.
-#[derive(Debug)]
+/// A single loaded map. Older maps were fixed at 160x160 tiles; production
+/// maps now keep their LDtk dimensions so DS3 areas can use their own scale.
+#[derive(Debug, Clone)]
 pub struct Chunk {
     pub coord: (i32, i32),
-    pub tiles: [[TileId; CHUNK_SIZE]; CHUNK_SIZE],
+    pub width: usize,
+    pub height: usize,
+    pub tiles: Vec<Vec<TileId>>,
 }
 
 impl Chunk {
     pub fn new(coord: (i32, i32)) -> Self {
+        Self::with_size(coord, DEFAULT_CHUNK_SIZE, DEFAULT_CHUNK_SIZE)
+    }
+
+    pub fn with_size(coord: (i32, i32), width: usize, height: usize) -> Self {
         Self {
             coord,
-            tiles: [[TileId::Empty; CHUNK_SIZE]; CHUNK_SIZE],
+            width,
+            height,
+            tiles: vec![vec![TileId::Empty; width]; height],
         }
+    }
+
+    pub fn world_width(&self) -> f32 {
+        self.width as f32 * TILE_SIZE as f32
+    }
+
+    pub fn world_height(&self) -> f32 {
+        self.height as f32 * TILE_SIZE as f32
     }
 
     /// 7-room dungeon with extra-wide corridors:
@@ -34,13 +51,13 @@ impl Chunk {
     pub fn test_chunk(coord: (i32, i32)) -> Self {
         let mut chunk = Self::new(coord);
 
-        for y in 0..CHUNK_SIZE {
-            for x in 0..CHUNK_SIZE {
+        for y in 0..chunk.height {
+            for x in 0..chunk.width {
                 chunk.tiles[y][x] = TileId::Wall;
             }
         }
 
-        let carve = |tiles: &mut [[TileId; CHUNK_SIZE]; CHUNK_SIZE],
+        let carve = |tiles: &mut [Vec<TileId>],
                       x1: usize, y1: usize, x2: usize, y2| {
             for y in y1..=y2 {
                 for x in x1..=x2 {
@@ -94,8 +111,8 @@ impl Chunk {
 
     /// Pixel offset of this chunk in world space.
     pub fn world_offset(&self) -> (f32, f32) {
-        let px = self.coord.0 as f32 * CHUNK_SIZE as f32 * TILE_SIZE as f32;
-        let py = self.coord.1 as f32 * CHUNK_SIZE as f32 * TILE_SIZE as f32;
+        let px = self.coord.0 as f32 * self.world_width();
+        let py = self.coord.1 as f32 * self.world_height();
         (px, py)
     }
 }

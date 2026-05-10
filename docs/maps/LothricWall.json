@@ -2,11 +2,11 @@
   "id": "LothricWall",
   "name": "洛斯里克的高墙",
   "name_en": "High Wall of Lothric",
-  "description": "洛斯里克王城外围的高墙城塞。宏伟的石质建筑群层叠而上，远处可见飞龙盘踞的屋顶。这里是游戏第一个大型探索区域，敌人种类丰富，路线错综复杂。高墙之上风声呼啸，旗帜猎猎作响。",
-  "theme": "城堡/高墙/灰蓝",
+  "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
+  "theme": "castle wall",
   "map_size": {
-    "width": 3600,
-    "height": 2800
+    "width": 4096,
+    "height": 4096
   },
   "connections": {
     "from": [
@@ -18,804 +18,218 @@
       "ConsumedKingsGarden"
     ]
   },
+  "restoration": {
+    "status": "clean_rebuild_topology_projection",
+    "authoritative_fields": [
+      "area id/name",
+      "connections",
+      "bonfire names",
+      "boss identity"
+    ],
+    "projection_fields": [
+      "map_size",
+      "sections coordinates",
+      "fog gate coordinates"
+    ],
+    "excluded_until_sourced": [
+      "enemy placements",
+      "item placements",
+      "NPC dialogue",
+      "chest placements"
+    ],
+    "note": "This file intentionally avoids inherited fabricated precise data."
+  },
   "bonfires": [
     {
       "name": "洛斯里克的高墙",
       "name_en": "High Wall of Lothric",
-      "x": 300,
-      "y": 300,
-      "description": "区域入口处，从传火祭祀场传送到达"
+      "x": 560,
+      "y": 360,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "高墙边塔",
       "name_en": "Tower on the Wall",
-      "x": 1200,
-      "y": 600,
-      "description": "城墙高塔处的篝火，飞龙栖息的屋顶附近"
+      "x": 1540,
+      "y": 900,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "冷冽谷玻尔多",
       "name_en": "Vordt of the Boreal Valley",
-      "x": 2800,
-      "y": 2200,
-      "description": "Boss战后篝火，通往不死聚落"
+      "x": 3160,
+      "y": 3540,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "冷冽谷的舞娘",
       "name_en": "Dancer of the Boreal Valley",
-      "x": 2000,
-      "y": 1000,
-      "description": "击败舞娘后篝火，通往洛斯里克城。需满足特定条件触发（放置誓约盆）"
+      "x": 2760,
+      "y": 2580,
+      "source_status": "official_name_projected_position"
     }
   ],
   "map_layout": {
+    "basis": "Clean gameplay 2D projection of Dark Souls III route topology. Not official coordinate geometry.",
     "sections": [
       {
-        "name": "城墙入口",
-        "description": "从传火祭祀场传送至高墙的入口区域。宽阔的石质城墙向远处延伸，两侧可见洛斯里克城的壮观景色。几名空心士兵在城墙上巡逻。",
-        "x": 0,
-        "y": 0,
-        "w": 600,
-        "h": 600,
-        "terrain_features": [
-          "城墙",
-          "石阶",
-          "旗帜",
-          "远景城墙"
-        ]
+        "name": "高墙入口",
+        "name_en": "High Wall Entry",
+        "kind": "main",
+        "x": 260,
+        "y": 180,
+        "w": 760,
+        "h": 520,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "骑士庭院",
-        "description": "被高墙环绕的内部庭院。洛斯里克骑士在此驻守，是玩家首次遭遇重甲骑士的区域。庭院中央有枯死的树木，角落有宝箱。",
-        "x": 500,
-        "y": 500,
-        "w": 600,
-        "h": 500,
-        "terrain_features": [
-          "庭院",
-          "枯树",
-          "石柱",
-          "宝箱角落"
-        ]
+        "name": "高墙边塔",
+        "name_en": "Tower on the Wall",
+        "kind": "main",
+        "x": 1180,
+        "y": 650,
+        "w": 620,
+        "h": 560,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "飞龙屋顶",
-        "description": "一条通往屋顶的狭长通道，尽头是一条被飞龙焚烧的桥梁。飞龙（带有人之脓）趴在屋顶上持续喷火。地上散落着被烧焦的遗体和珍贵物品。需要利用时机穿过火焰拾取战利品。",
-        "x": 900,
-        "y": 300,
+        "name": "飞龙火桥",
+        "name_en": "Wyvern Fire Bridge",
+        "kind": "main",
+        "x": 1680,
+        "y": 520,
+        "w": 960,
+        "h": 520,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "骑士下层广场",
+        "name_en": "Lower Knight Plaza",
+        "kind": "main",
+        "x": 920,
+        "y": 1320,
+        "w": 980,
+        "h": 680,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "葛雷瑞特牢房支线",
+        "name_en": "Greirat Cell Route",
+        "kind": "optional",
+        "x": 1740,
+        "y": 1320,
+        "w": 780,
+        "h": 760,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "翼骑士庭院",
+        "name_en": "Winged Knight Courtyard",
+        "kind": "main",
+        "x": 2260,
+        "y": 2080,
+        "w": 760,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "艾玛礼拜堂",
+        "name_en": "Emma Chapel",
+        "kind": "main",
+        "x": 2440,
+        "y": 2500,
         "w": 700,
-        "h": 500,
-        "terrain_features": [
-          "屋顶",
-          "龙焰",
-          "烧焦地面",
-          "飞龙"
-        ]
+        "h": 520,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "民房区域",
-        "description": "城墙内侧的密集民房。狭窄的巷道和多层建筑构成迷宫般的布局。空心农民和刺客在暗处潜伏。某间牢房中关押着囚徒葛雷瑞特。",
-        "x": 1400,
-        "y": 600,
-        "w": 600,
-        "h": 600,
-        "terrain_features": [
-          "民房",
-          "窄巷",
-          "牢房",
-          "多层结构",
-          "暗角"
-        ]
+        "name": "玻尔多阶梯",
+        "name_en": "Vordt Stairs",
+        "kind": "main",
+        "x": 2820,
+        "y": 3120,
+        "w": 720,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "教堂区",
-        "description": "高墙深处的小教堂。艾玛——高阶女祭司在此等待。教堂内有宝箱和物品。从这里可以通往通往波尔多的阶梯。",
-        "x": 2000,
-        "y": 1000,
-        "w": 500,
+        "name": "舞娘后上行门",
+        "name_en": "Post-Dancer Lift",
+        "kind": "locked",
+        "x": 2920,
+        "y": 2140,
+        "w": 520,
         "h": 400,
-        "terrain_features": [
-          "教堂",
-          "祭坛",
-          "彩窗",
-          "阶梯"
-        ]
-      },
-      {
-        "name": "冰霜阶梯",
-        "description": "通往波尔多Boss战场的长阶梯。阶梯两侧有雕塑和冰霜痕迹。越往下走，空气越发冰冷，冰霜覆盖了石阶。",
-        "x": 2300,
-        "y": 1400,
-        "w": 400,
-        "h": 600,
-        "terrain_features": [
-          "长阶梯",
-          "冰霜",
-          "雕塑",
-          "降雪"
-        ]
-      },
-      {
-        "name": "波尔多竞技场",
-        "description": "Boss战场地。阶梯底部的开阔冰原。地面上覆盖着薄冰和积雪。击败波尔多后，远处可见不死聚落。",
-        "x": 2400,
-        "y": 1900,
-        "w": 700,
-        "h": 500,
-        "terrain_features": [
-          "冰原",
-          "开阔场地",
-          "积雪",
-          "远处聚落"
-        ]
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
-  "enemies": [
-    {
-      "kind": "HollowSoldier",
-      "x": 400,
-      "y": 350,
-      "patrol": 30,
-      "count": 2,
-      "notes": "城墙入口巡逻"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 550,
-      "y": 450,
-      "patrol": 20,
-      "count": 1,
-      "notes": "城墙角落站哨"
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 700,
-      "y": 700,
-      "patrol": 35,
-      "count": 1,
-      "notes": "骑士庭院中的洛斯里克骑士"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 800,
-      "y": 600,
-      "patrol": 25,
-      "count": 3,
-      "notes": "庭院中巡逻的士兵群"
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 650,
-      "y": 800,
-      "patrol": 30,
-      "count": 2,
-      "notes": "庭院下方出没的饿犬"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1000,
-      "y": 400,
-      "patrol": 20,
-      "count": 2,
-      "notes": "飞龙屋顶通道上的士兵"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1100,
-      "y": 500,
-      "patrol": 15,
-      "count": 3,
-      "notes": "龙焰桥梁旁的士兵（会被龙焰杀死）"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1500,
-      "y": 700,
-      "patrol": 25,
-      "count": 2,
-      "notes": "民房区域入口"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1600,
-      "y": 850,
-      "patrol": 20,
-      "count": 2,
-      "notes": "民房巷道中"
-    },
-    {
-      "kind": "Assassin",
-      "x": 1650,
-      "y": 750,
-      "patrol": 35,
-      "count": 1,
-      "notes": "民房暗处的刺客"
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 1800,
-      "y": 900,
-      "patrol": 30,
-      "count": 1,
-      "notes": "民房深处的洛斯里克骑士"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 2100,
-      "y": 1100,
-      "patrol": 20,
-      "count": 2,
-      "notes": "教堂区前的士兵"
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 2200,
-      "y": 1200,
-      "patrol": 25,
-      "count": 2,
-      "notes": "教堂区附近的猎犬"
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 2500,
-      "y": 1600,
-      "patrol": 25,
-      "count": 1,
-      "notes": "冰霜阶梯上的骑士"
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 2450,
-      "y": 1750,
-      "patrol": 20,
-      "count": 2,
-      "notes": "阶梯下方的士兵"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 1150,
-      "y": 550,
-      "patrol": 15,
-      "count": 1,
-      "notes": "飞龙屋顶附近的水晶蜥蜴"
-    },
-    {
-      "kind": "Darkwraith",
-      "x": 1700,
-      "y": 1000,
-      "patrol": 30,
-      "count": 1,
-      "notes": "民房区域深处，向下层道路出现"
-    },
-    {
-      "kind": "WingedKnight",
-      "x": 950,
-      "y": 750,
-      "patrol": 20,
-      "count": 1,
-      "notes": "高塔顶部的翼骑士"
-    },
-    {
-      "kind": "LargeHollowSoldier",
-      "x": 1350,
-      "y": 650,
-      "patrol": 20,
-      "count": 1,
-      "notes": "民房区附近的巨大空心士兵"
-    },
-    {
-      "kind": "PusOfMan",
-      "x": 1100,
-      "y": 350,
-      "patrol": 0,
-      "count": 1,
-      "notes": "飞龙身上的人之脓（黑色脓包弱点）"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 600,
-      "y": 900,
-      "patrol": 15,
-      "count": 1,
-      "notes": "庭院下方隐藏处的水晶蜥蜴"
-    },
-    {
-      "kind": "LothricWyvern",
-      "x": 1100,
-      "y": 300,
-      "patrol": 0,
-      "count": 1,
-      "notes": "屋顶上的洛斯里克飞龙，持续喷火"
-    }
-  ],
-  "boss": [
-    {
-      "type": "Vordt",
-      "name": "冷冽谷玻尔多",
-      "name_en": "Vordt of the Boreal Valley",
-      "x": 2750,
-      "y": 2150,
-      "hp": 1100,
-      "arena": {
-        "x": 2450,
-        "y": 1950,
-        "w": 600,
-        "h": 400
-      },
-      "phases": [
-        {
-          "name": "冰霜巡逻",
-          "hp_threshold": 1.0,
-          "speed_multiplier": 1.1,
-          "damage_multiplier": 1.0,
-          "attack_cooldown": 2.0,
-          "description": "波尔多是一只形似野兽的骑士，手持冰锤。此阶段以冰锤冲锋和冰息攻击为主。移动模式相对可预测，会在场地中巡逻。",
-          "mechanics": [
-            "冰锤冲锋",
-            "冰息喷射",
-            "缓慢巡逻"
-          ]
-        },
-        {
-          "name": "冰霜狂暴",
-          "hp_threshold": 0.4,
-          "speed_multiplier": 1.5,
-          "damage_multiplier": 1.3,
-          "attack_cooldown": 1.5,
-          "description": "波尔多获得冰霜加持，身体散发出蓝色冰雾。移动速度大幅提升，攻击更加凶猛。新增跳砸攻击——跃至高空后猛然落地，造成大范围冲击波。此阶段攻击频率显著增加。",
-          "mechanics": [
-            "冰霜加持",
-            "跳砸攻击",
-            "高频率冲锋",
-            "冰雾扩散"
-          ]
-        }
-      ],
-      "attacks": [
-        {
-          "name": "冰锤冲锋",
-          "type": "IceMaceCharge",
-          "damage": 40,
-          "range": "中-远",
-          "parryable": true,
-          "description": "波尔多举起冰锤，向玩家方向快速冲锋横扫。判定范围正前方92像素长、44像素宽。冲锋判定持续较久（0.20-0.90），有充足时间翻滚躲避。"
-        },
-        {
-          "name": "冰息喷射",
-          "type": "IceBreadth",
-          "damage": 35,
-          "range": "近-中",
-          "parryable": false,
-          "description": "从口中喷射锥形冰雾。判定为扇形范围，最远达132像素，宽度随距离增加。会造成减速效果。近战时如果正面站着很容易被喷中，建议绕侧面。"
-        },
-        {
-          "name": "跳砸",
-          "type": "LeapingSlam",
-          "damage": 55,
-          "range": "远",
-          "parryable": false,
-          "description": "二阶段新增。波尔多跳至高空后猛然落地，造成大范围冲击波。判定范围半径116像素。前摇明显（跳跃动画约0.5秒），落下后有短暂硬直可输出。是主要的输出窗口。"
-        }
-      ],
-      "story": "波尔多是冷冽谷出身的骑士，被教宗沙力万派遣至洛斯里克的高墙。他原本是教宗的冷冽骑士团成员，后来被转化为野兽般的形态。与冷冽谷的教宗骑士和舞娘一样，他身上散发着永恒的冰霜。击败他后，玩家可以继续前往不死聚落。在后续剧情中，如果玩家将小环旗的誓约盆放置在高墙教堂的祭坛上，将触发与舞娘的Boss战。"
-    },
-    {
-      "type": "DancerOfTheBorealValley",
-      "name": "冷冽谷的舞娘",
-      "name_en": "Dancer of the Boreal Valley",
-      "x": 500,
-      "y": 400,
-      "hp": 3500,
-      "arena": {
-        "x": 300,
-        "y": 250,
-        "w": 400,
-        "h": 300
-      },
-      "phases": [
-        {
-          "name": "优雅之舞",
-          "hp_threshold": 1.0,
-          "speed_multiplier": 1.0,
-          "damage_multiplier": 1.0,
-          "attack_cooldown": 2.5,
-          "description": "舞娘使用双弯曲剑进行优雅但致命的攻击。初期动作缓慢但判定精准，攻击以弧形斩击和旋转为主。",
-          "mechanics": [
-            "双弯曲剑",
-            "优雅旋转",
-            "缓慢开场"
-          ]
-        },
-        {
-          "name": "深渊之怒",
-          "hp_threshold": 0.5,
-          "speed_multiplier": 1.5,
-          "damage_multiplier": 1.3,
-          "attack_cooldown": 1.2,
-          "description": "生命值降至50%以下时，舞娘进入狂暴状态。攻击速度和连击数大幅增加，会连续使用3-5次快速斩击。",
-          "mechanics": [
-            "狂暴加速",
-            "连续斩击",
-            "深渊光环"
-          ]
-        }
-      ],
-      "attacks": [
-        {
-          "name": "优雅横斩",
-          "type": "GracefulSlash",
-          "damage": 35,
-          "range": "近",
-          "parryable": true
-        },
-        {
-          "name": "旋转连斩",
-          "type": "SpinningCombo",
-          "damage": 30,
-          "range": "近中",
-          "parryable": true
-        },
-        {
-          "name": "突刺",
-          "type": "LungeThrust",
-          "damage": 40,
-          "range": "中",
-          "parryable": true
-        },
-        {
-          "name": "深渊旋风",
-          "type": "AbyssVortex",
-          "damage": 45,
-          "range": "近中",
-          "parryable": false
-        }
-      ],
-      "dialogue": [
-        "（舞娘从黑暗中缓缓走出，双刃在月光下闪烁）"
-      ],
-      "story": "冷冽谷的舞娘是教宗沙力万的女骑士。在艾玛（Emma）将誓约盆交给玩家后，她会出现在洛斯里克高墙的教堂中。她的身份一直神秘，据传她与沙力万有深渊的关联。她是玩家通往洛斯里克城堡的必经之路。"
-    }
-  ],
-  "npcs": [
-    {
-      "name": "艾玛",
-      "name_en": "Emma",
-      "kind": "Dialogue",
-      "x": 2150,
-      "y": 1150,
-      "color": "#c0a0d0",
-      "dialogue": [
-        "你好，无火的灰烬。",
-        "我是艾玛，洛斯里克的高阶女祭司。",
-        "洛斯里克王子……他已无心继任薪王之位。",
-        "请找到他，将这小环旗交给他吧。",
-        "也许……这能唤醒他心中的火焰。"
-      ],
-      "quest": "给予玩家小环旗（Small Lothric Banner）。在玩家击败教宗沙力万后，将誓约盆放置在祭坛上会触发与舞娘的Boss战。艾玛死亡后留下誓约盆。"
-    },
-    {
-      "name": "葛雷瑞特",
-      "name_en": "Greirat",
-      "kind": "Dialogue",
-      "x": 1550,
-      "y": 800,
-      "color": "#a0a0a0",
-      "dialogue": [
-        "……你是谁？是来放我出去的吗？",
-        "如果你能帮我找到牢房钥匙，我愿意为你效劳。",
-        "我是个小偷，但我知道感恩。",
-        "拜托了，我只想再见罗蕾塔一面……"
-      ],
-      "quest": "需要牢房钥匙才能释放。释放后加入传火祭祀场成为商人，出售各种道具。赠送蓝泪石戒指（Blue Tearstone Ring）。后续可以派遣他去偷窃（不死聚落、冷冽谷、洛斯里克城），但第三次偷窃可能死亡。"
-    },
-    {
-      "name": "青教誓约",
-      "name_en": "Way of Blue",
-      "kind": "Covenant",
-      "x": 2050,
-      "y": 1100,
-      "color": "#6080c0",
-      "dialogue": [],
-      "quest": "在教堂区域的遗体上拾取青教誓约（Way of Blue），加入后可在被入侵时召唤蓝色卫士。"
-    }
-  ],
-  "chests": [
-    {
-      "x": 620,
-      "y": 750,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "长剑",
-        "name_en": "Longsword"
-      },
-      "is_mimic": false,
-      "notes": "骑士庭院角落的宝箱"
-    },
-    {
-      "x": 1700,
-      "y": 900,
-      "loot": {
-        "kind": "KeyDrop",
-        "name": "牢房钥匙",
-        "name_en": "Cell Key"
-      },
-      "is_mimic": false,
-      "notes": "民房区域中，用于释放葛雷瑞特"
-    },
-    {
-      "x": 1850,
-      "y": 750,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "阔剑",
-        "name_en": "Broadsword"
-      },
-      "is_mimic": false,
-      "notes": "民房区域宝箱"
-    },
-    {
-      "x": 1450,
-      "y": 800,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "匕首",
-        "name_en": "Mail Breaker"
-      },
-      "is_mimic": false,
-      "notes": "民房区域小房间内"
-    },
-    {
-      "x": 1050,
-      "y": 550,
-      "loot": {
-        "kind": "WeaponDrop",
-        "name": "深渊战斧",
-        "name_en": "Deep Battle Axe"
-      },
-      "is_mimic": true,
-      "notes": "飞龙屋顶附近的拟态宝箱"
-    }
-  ],
-  "items": [
-    {
-      "kind": "SoulOrb",
-      "value": 200,
-      "x": 350,
-      "y": 400,
-      "notes": "城墙入口的遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 300,
-      "x": 750,
-      "y": 650,
-      "notes": "庭院中的遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 400,
-      "x": 1150,
-      "y": 450,
-      "notes": "龙焰桥梁上的遗体（需冒险拾取）"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 500,
-      "x": 1200,
-      "y": 480,
-      "notes": "龙焰桥梁尽头遗体（高风险高回报）"
-    },
-    {
-      "kind": "EstusShard",
-      "x": 1050,
-      "y": 550,
-      "count": 1,
-      "notes": "房间内桌子上的原素碎片（非宝箱）"
-    },
-    {
-      "kind": "EstusShard",
-      "x": 1550,
-      "y": 800,
-      "count": 1,
-      "notes": "民房区域的第二个原素碎片"
-    },
-    {
-      "kind": "HomewardBone",
-      "x": 1450,
-      "y": 700,
-      "count": 2,
-      "notes": "民房区域的遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 300,
-      "x": 2350,
-      "y": 1550,
-      "notes": "冰霜阶梯上的遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 500,
-      "x": 2600,
-      "y": 1800,
-      "notes": "阶梯底部的遗体"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "克莱莫大剑",
-      "name_en": "Claymore",
-      "x": 900,
-      "y": 700,
-      "count": 1,
-      "notes": "骑士庭院附近高台上的遗体"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "亚斯特拉直剑",
-      "name_en": "Astora Straight Sword",
-      "x": 1550,
-      "y": 650,
-      "count": 1,
-      "notes": "民房区域遗体"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "刺剑",
-      "name_en": "Rapier",
-      "x": 1600,
-      "y": 900,
-      "count": 1,
-      "notes": "民房区域遗体"
-    },
-    {
-      "kind": "WeaponDrop",
-      "name": "长弓",
-      "name_en": "Longbow",
-      "x": 1750,
-      "y": 800,
-      "count": 1,
-      "notes": "民房区域高处平台遗体"
-    },
-    {
-      "kind": "ShieldDrop",
-      "name": "银鸢鸢盾",
-      "name_en": "Silver Eagle Kite Shield",
-      "x": 950,
-      "y": 800,
-      "count": 1,
-      "notes": "高塔附近遗体"
-    },
-    {
-      "kind": "Firebomb",
-      "x": 500,
-      "y": 500,
-      "count": 3,
-      "name": "火焰壶",
-      "name_en": "Firebomb",
-      "notes": "城墙入口处遗体"
-    },
-    {
-      "kind": "ThrowingKnife",
-      "x": 1650,
-      "y": 750,
-      "count": 5,
-      "name": "投掷小刀",
-      "name_en": "Throwing Knife",
-      "notes": "民房暗处遗体"
-    },
-    {
-      "kind": "TitaniteShard",
-      "x": 1300,
-      "y": 600,
-      "count": 1,
-      "name": "楔形石碎片",
-      "name_en": "Titanite Shard",
-      "notes": "飞龙屋顶通道遗体"
-    },
-    {
-      "kind": "TitaniteShard",
-      "x": 2100,
-      "y": 1150,
-      "count": 1,
-      "name": "楔形石碎片",
-      "name_en": "Titanite Shard",
-      "notes": "教堂区附近遗体"
-    },
-    {
-      "kind": "RefinedGem",
-      "x": 750,
-      "y": 700,
-      "count": 1,
-      "name": "熟练宝石",
-      "name_en": "Refined Gem",
-      "notes": "击败洛斯里克骑士掉落"
-    }
-  ],
+  "boss": {
+    "type": "Vordt",
+    "name": "冷冽谷玻尔多",
+    "name_en": "Vordt of the Boreal Valley",
+    "x": 3160,
+    "y": 3540,
+    "source_status": "official_identity_projected_position"
+  },
+  "enemies": [],
+  "items": [],
+  "chests": [],
+  "npcs": [],
+  "lights": [],
   "fog_gates": [
     {
-      "x": 100,
-      "y": 150,
-      "w": 40,
-      "h": 200,
-      "dest_area": "FirelinkShrine",
-      "dest_x": 400,
-      "dest_y": 400,
-      "notes": "返回传火祭祀场"
-    },
-    {
-      "x": 2900,
-      "y": 2050,
-      "w": 200,
-      "h": 40,
-      "dest_area": "UndeadSettlement",
-      "dest_x": 200,
-      "dest_y": 300,
-      "notes": "击败波尔多后，通往不死聚落"
-    }
-  ],
-  "lights": [
-    {
-      "x": 300,
+      "x": 560,
       "y": 300,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "高墙篝火"
+      "w": 96,
+      "h": 96,
+      "dest_area": "CemeteryOfAsh",
+      "dest_x": 1280,
+      "dest_y": 120,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     },
     {
-      "x": 1200,
-      "y": 600,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "飞龙屋顶篝火"
+      "x": 3160,
+      "y": 3740,
+      "w": 128,
+      "h": 96,
+      "dest_area": "UndeadSettlement",
+      "dest_x": 420,
+      "dest_y": 360,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     },
     {
-      "x": 1100,
-      "y": 450,
-      "radius": 200,
-      "r": 1.0,
-      "g": 0.5,
-      "b": 0.1,
-      "intensity": 0.8,
-      "notes": "飞龙喷火"
+      "x": 3060,
+      "y": 2220,
+      "w": 96,
+      "h": 96,
+      "dest_area": "LothricCastle",
+      "dest_x": 620,
+      "dest_y": 900,
+      "kind": "post_dancer",
+      "source_status": "projected_transition"
     },
     {
-      "x": 2150,
-      "y": 1150,
-      "radius": 120,
-      "r": 0.6,
-      "g": 0.5,
-      "b": 0.8,
-      "intensity": 0.4,
-      "notes": "教堂祭坛微光"
-    },
-    {
-      "x": 2800,
-      "y": 2200,
-      "radius": 180,
-      "r": 0.8,
-      "g": 0.7,
-      "b": 0.5,
-      "intensity": 0.6,
-      "notes": "波尔多篝火"
+      "x": 2920,
+      "y": 2360,
+      "w": 96,
+      "h": 96,
+      "dest_area": "ConsumedKingsGarden",
+      "dest_x": 620,
+      "dest_y": 620,
+      "kind": "post_dancer",
+      "source_status": "projected_transition"
     }
-  ],
-  "story_notes": [
-    "洛斯里克的高墙是游戏的第一个大型探索区域，原版中名为'ロスリックの高壁'",
-    "飞龙身上有人之脓（Pus of Man），如果玩家攻击其弱点（背部的黑色脓包），可以造成巨大伤害",
-    "葛雷瑞特是祭祀场的重要NPC商人，释放后赠送蓝泪石戒指，其任务线涉及三次偷窃行动和罗蕾塔的骨灰",
-    "艾玛给予的小环旗是游戏主线的关键道具",
-    "在原版中，将誓约盆放在祭坛上会触发与舞娘（Dancer of the Boreal Valley）的Boss战，但通常在后期才发生",
-    "洛斯里克骑士是玩家遇到的第一个持盾敌人，有格挡能力，需要学习绕背攻击",
-    "高墙区域远处的背景展示了洛斯里克城的宏伟规模，远处可见洛斯里克城堡",
-    "翼骑士（Winged Knight）是高墙中最强的普通敌人，掉落熟练宝石（Refined Gem）",
-    "深渊骑士（Darkwraith）会在民房区域下层出现，掉落黑暗誓约相关物品",
-    "飞龙屋顶附近的拟态宝箱（Mimic）掉落深渊战斧（Deep Battle Axe）"
   ]
 }

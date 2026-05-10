@@ -5,7 +5,6 @@ use crate::entity::entity_trait::{Entity, EntityState};
 use crate::game::GameState;
 use crate::render::ui_renderer::UiRenderer;
 use crate::render::vertex::InstanceData;
-use crate::world::chunk::CHUNK_SIZE;
 use crate::world::tileset::{TileId, TILE_SIZE};
 use web_sys::WebGl2RenderingContext as GL;
 
@@ -30,9 +29,9 @@ pub(crate) fn render(game: &mut Game) {
     let half_h = game.screen_h * 0.5 + tile_size;
 
     let min_tx = (((cam_x - half_w - off_x) / tile_size).floor() as i32).max(0);
-    let max_tx = (((cam_x + half_w - off_x) / tile_size).ceil() as i32).min(CHUNK_SIZE as i32 - 1);
+    let max_tx = (((cam_x + half_w - off_x) / tile_size).ceil() as i32).min(game.chunk.width as i32 - 1);
     let min_ty = (((cam_y - half_h - off_y) / tile_size).floor() as i32).max(0);
-    let max_ty = (((cam_y + half_h - off_y) / tile_size).ceil() as i32).min(CHUNK_SIZE as i32 - 1);
+    let max_ty = (((cam_y + half_h - off_y) / tile_size).ceil() as i32).min(game.chunk.height as i32 - 1);
 
     for y in min_ty as usize..=max_ty as usize {
         for x in min_tx as usize..=max_tx as usize {
@@ -658,8 +657,9 @@ pub(crate) fn render(game: &mut Game) {
         let map_top = 10.0;
         let map_cx = map_left + map_size * 0.5;
         let map_cy = map_top + map_size * 0.5;
-        let world_size = CHUNK_SIZE as f32 * TILE_SIZE as f32;
-        let scale = map_size / world_size;
+        let world_w = game.chunk.world_width();
+        let world_h = game.chunk.world_height();
+        let scale = (map_size / world_w).min(map_size / world_h);
 
         game.ui_renderer.draw_bar(
             gl, map_cx, map_cy, map_size + 4.0, map_size + 4.0,
@@ -667,8 +667,8 @@ pub(crate) fn render(game: &mut Game) {
         );
 
         let step = 4;
-        for ty in (0..CHUNK_SIZE).step_by(step) {
-            for tx in (0..CHUNK_SIZE).step_by(step) {
+        for ty in (0..game.chunk.height).step_by(step) {
+            for tx in (0..game.chunk.width).step_by(step) {
                 let tile = game.chunk.tiles[ty][tx];
                 if tile == TileId::Empty { continue; }
                 let is_wall = tile == TileId::Wall;

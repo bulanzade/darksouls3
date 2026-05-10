@@ -3,7 +3,6 @@ use crate::bridge::wasm_entry::{
 };
 use crate::entity::entity_trait::{Entity, EntityState};
 use crate::game::GameState;
-use crate::world::chunk::CHUNK_SIZE;
 use crate::world::tileset::TILE_SIZE;
 use wasm_bindgen::JsCast;
 
@@ -363,15 +362,15 @@ pub(crate) fn update(game: &mut Game) {
                 }
                 let mm_w = 120.0_f64;
                 let mm_h = 120.0_f64;
-                let scale_x = mm_w / (CHUNK_SIZE as f64 * TILE_SIZE as f64);
-                let scale_y = mm_h / (CHUNK_SIZE as f64 * TILE_SIZE as f64);
+                let scale_x = mm_w / game.chunk.world_width() as f64;
+                let scale_y = mm_h / game.chunk.world_height() as f64;
                 let scale = scale_x.min(scale_y);
                 let (px, py) = game.player.position();
 
                 ctx.clear_rect(0.0, 0.0, mm_w, mm_h);
 
-                for ty in (0..CHUNK_SIZE).step_by(2) {
-                    for tx in (0..CHUNK_SIZE).step_by(2) {
+                for ty in (0..game.chunk.height).step_by(2) {
+                    for tx in (0..game.chunk.width).step_by(2) {
                         let tile = game.chunk.tiles[ty][tx];
                         let color = match tile {
                             crate::world::tileset::TileId::Ground => "#333",

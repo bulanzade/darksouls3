@@ -2,11 +2,11 @@
   "id": "IrithyllOfTheBorealValley",
   "name": "冷冽谷的伊鲁席尔",
   "name_en": "Irithyll of the Boreal Valley",
-  "description": "银月照耀下的冰冻之城。哥特式的尖塔与拱桥在月光中闪烁，冻结的河面映照出城市的轮廓。这座曾经由诸神统治的城市如今被教宗沙力万掌控——他从罪都崛起的术士，篡夺了权力并建立了教宗骑士团。城中潜伏着隐形的奴隶、巡逻的教宗骑士和喷火的魔女。远处的教堂钟楼传来沉闷的钟声，预示着沙力万之战的临近。",
-  "theme": "冰冻城市/银色月光/蓝白",
+  "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
+  "theme": "moonlit city",
   "map_size": {
-    "width": 3200,
-    "height": 2400
+    "width": 5120,
+    "height": 4096
   },
   "connections": {
     "from": [
@@ -17,1016 +17,207 @@
       "AnorLondo"
     ]
   },
+  "restoration": {
+    "status": "clean_rebuild_topology_projection",
+    "authoritative_fields": [
+      "area id/name",
+      "connections",
+      "bonfire names",
+      "boss identity"
+    ],
+    "projection_fields": [
+      "map_size",
+      "sections coordinates",
+      "fog gate coordinates"
+    ],
+    "excluded_until_sourced": [
+      "enemy placements",
+      "item placements",
+      "NPC dialogue",
+      "chest placements"
+    ],
+    "note": "This file intentionally avoids inherited fabricated precise data."
+  },
   "bonfires": [
     {
       "name": "冷冽谷的伊鲁席尔",
       "name_en": "Irithyll of the Boreal Valley",
-      "x": 300,
-      "y": 400,
-      "description": "区域入口篝火，从卡萨斯地下墓地击败沃尼尔后通过冰桥到达。月光照耀下的第一座篝火。"
+      "x": 520,
+      "y": 640,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "幽儿希卡教会",
       "name_en": "Church of Yorshka",
-      "x": 1200,
-      "y": 800,
-      "description": "城市中心的教堂篝火。安里在此等候继续任务线。暗月骑士团的约尔夏在教堂上方的秘密区域。"
+      "x": 1980,
+      "y": 1740,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "离街废屋",
       "name_en": "Distant Manor",
-      "x": 1800,
-      "y": 600,
-      "description": "城市边缘的一座庄园，杰克巴尔多（洋葱骑士）在厨房中煮汤。附近有通往地下牢的隐秘通道。"
+      "x": 3060,
+      "y": 2460,
+      "source_status": "official_name_projected_position"
     },
     {
       "name": "教宗沙力万",
       "name_en": "Pontiff Sulyvahn",
-      "x": 2600,
-      "y": 1800,
-      "description": "Boss战后篝火，位于沙力万大教堂内。击败沙力万后继续通往亚诺尔隆多。"
+      "x": 3940,
+      "y": 1900,
+      "source_status": "official_name_projected_position"
     }
   ],
   "map_layout": {
+    "basis": "Clean gameplay 2D projection of Dark Souls III route topology. Not official coordinate geometry.",
     "sections": [
       {
-        "name": "冰桥入口",
-        "description": "从卡萨斯地下墓地击败沃尼尔后，玩家踏上横跨深谷的冰桥。桥头有一只沙力万之兽——巨大的狼形怪物——守卫着入口。桥面上覆满寒霜，月光在冰面上反射出冷冽的光芒。过桥后便是伊鲁席尔的城市入口。",
-        "x": 0,
-        "y": 200,
-        "w": 400,
-        "h": 400,
-        "terrain_features": [
-          "冰桥",
-          "深谷",
-          "寒霜地面",
-          "月光反射"
-        ]
+        "name": "伊鲁席尔大桥",
+        "name_en": "Central Irithyll Bridge",
+        "kind": "main",
+        "x": 360,
+        "y": 460,
+        "w": 1180,
+        "h": 420,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "城市下街",
-        "description": "伊鲁席尔的下层街道。石质建筑密集排列，狭窄的巷道中潜伏着伊鲁席尔奴隶——有些是隐形的，只有在靠近时才显现。月光照亮了冰冻的路面。沿街向上通向城市中心，两侧有窗户透出微弱的蓝光。",
-        "x": 300,
-        "y": 300,
-        "w": 500,
-        "h": 400,
-        "terrain_features": [
-          "石质建筑",
-          "窄巷",
-          "冰冻路面",
-          "隐形敌人"
-        ]
-      },
-      {
-        "name": "中央伊鲁席尔",
-        "description": "城市中层的街道区域，连接下街与中央广场。建筑更加密集，巷道错综复杂。教宗骑士开始在此巡逻，伊鲁席尔奴隶和猎犬在暗角中埋伏。地面上的银色碎片更加浓密，远处的教堂钟楼清晰可见。",
-        "x": 500,
-        "y": 500,
-        "w": 400,
-        "h": 350,
-        "terrain_features": [
-          "密集建筑",
-          "巷道网络",
-          "银色碎片",
-          "教宗骑士巡逻路线"
-        ]
-      },
-      {
-        "name": "中央广场",
-        "description": "城市的中心广场，四周环绕着哥特式建筑和尖塔。广场中央有一座喷泉，水已结成冰。教宗骑士在此成对巡逻——他们手持火焰长戟和弯曲大剑，是伊鲁席尔最精英的常规敌人。广场一侧有阶梯通往幽儿希卡教会。",
-        "x": 700,
-        "y": 500,
-        "w": 500,
-        "h": 500,
-        "terrain_features": [
-          "哥特式建筑",
-          "结冰喷泉",
-          "中央阶梯",
-          "教宗骑士巡逻路线"
-        ]
+        "name": "中央大街",
+        "name_en": "Central Irithyll",
+        "kind": "main",
+        "x": 1240,
+        "y": 780,
+        "w": 1080,
+        "h": 720,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
         "name": "幽儿希卡教会",
-        "description": "城市中心的一座教堂，彩窗在月光下映射出幽蓝的光芒。亚斯特拉的安里在此等候。教堂内有宝箱和篝火。教堂上层通过隐形平台路径通往约尔夏的秘密据点。教堂后方的路径分为两条——一条通向沙力万大教堂，另一条通向离街废屋。",
-        "x": 1000,
-        "y": 600,
-        "w": 400,
-        "h": 400,
-        "terrain_features": [
-          "彩窗教堂",
-          "篝火",
-          "隐形平台路径",
-          "分支路口"
-        ]
+        "name_en": "Church of Yorshka",
+        "kind": "main",
+        "x": 1780,
+        "y": 1500,
+        "w": 700,
+        "h": 520,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "水边小径",
-        "description": "沿冻结河面延伸的小径，两侧是高耸的石质建筑。火焰魔女在高处的阳台上向下方投掷火焰。小径尽头连接着离街废屋。路上有银色碎光飘散，营造出梦幻而危险的氛围。",
-        "x": 1400,
-        "y": 400,
-        "w": 600,
-        "h": 400,
-        "terrain_features": [
-          "冻结河面",
-          "水边步道",
-          "高处阳台",
-          "银色光粒"
-        ]
+        "name": "墓园暗室",
+        "name_en": "Graveyard and Dark Room",
+        "kind": "main",
+        "x": 1500,
+        "y": 2060,
+        "w": 900,
+        "h": 640,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
         "name": "地下水道",
-        "description": "城市下方的排水系统，冰冻的水流在此汇聚。巨大的蜈蚣形怪物——下水道蜈蚣——在浅水中潜伏，攻击力极高。此处通过暗道连接着伊鲁席尔地下牢的深处。地面湿滑，视野受限，只有远处透入的微弱月光提供照明。魔法紧抓之戒就隐藏在此处的角落中。",
-        "x": 800,
-        "y": 1100,
-        "w": 500,
-        "h": 350,
-        "terrain_features": [
-          "地下水道",
-          "浅水区域",
-          "湿滑地面",
-          "蜈蚣怪物",
-          "暗角通道"
-        ]
+        "name_en": "Sewer Route",
+        "kind": "main",
+        "x": 2340,
+        "y": 2380,
+        "w": 940,
+        "h": 560,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
         "name": "离街废屋",
-        "description": "城市边缘的一座古老庄园。庄园厨房中杰克巴尔多正在煮汤——他为了追寻老友尤姆一路来到这里。庄园地下室有一条通往伊鲁席尔地下牢的秘密通道。庄园周围的花园被冰雪覆盖。",
-        "x": 1800,
-        "y": 400,
-        "w": 400,
-        "h": 400,
-        "terrain_features": [
-          "庄园建筑",
-          "厨房",
-          "地下室通道",
-          "冰雪花园"
-        ]
+        "name_en": "Distant Manor",
+        "kind": "main",
+        "x": 2960,
+        "y": 2360,
+        "w": 760,
+        "h": 520,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "教宗骑士大道",
-        "description": "通往沙力万大教堂的大道，两侧排列着雕刻精美的石柱。这是伊鲁席尔最危险的区域——教宗骑士成对巡逻，火焰魔女从高处支援。大道尽头可以看到沙力万大教堂的轮廓。道路中间有一座石桥横跨深谷。",
-        "x": 1600,
-        "y": 1000,
-        "w": 600,
-        "h": 500,
-        "terrain_features": [
-          "石柱大道",
-          "深谷石桥",
-          "高处魔女平台",
-          "大教堂远景"
-        ]
+        "name": "银骑士上层街",
+        "name_en": "Silver Knight Upper Street",
+        "kind": "main",
+        "x": 2880,
+        "y": 1460,
+        "w": 980,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "银骑士阶梯",
-        "description": "通往亚诺尔隆多方向的阶梯区域。银骑士在此驻守——他们是诸神留下的守卫，与伊鲁席尔的其他敌人不同，银骑士的战斗风格更加沉稳老练。阶梯上方可以看到亚诺尔隆多大教堂的轮廓。",
-        "x": 200,
-        "y": 900,
-        "w": 400,
-        "h": 500,
-        "terrain_features": [
-          "石质阶梯",
-          "银骑士驻守点",
-          "亚诺尔隆多远景",
-          "装饰雕像"
-        ]
+        "name": "教宗大教堂",
+        "name_en": "Pontiff Cathedral",
+        "kind": "main",
+        "x": 3600,
+        "y": 1680,
+        "w": 860,
+        "h": 620,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       },
       {
-        "name": "沙力万大教堂（Boss竞技场）",
-        "description": "教宗沙力万Boss战的场地。宏伟的大教堂内部，高耸的石柱和尖拱天花板营造出压抑的空间感。地面铺着黑白相间的大理石，中央是开阔的战斗区域。教堂彩窗透入冰冷的月光。沙力万在祭坛前等待灰烬的挑战。",
-        "x": 2300,
-        "y": 1500,
-        "w": 800,
-        "h": 600,
-        "terrain_features": [
-          "大教堂内部",
-          "高耸石柱",
-          "黑白大理石地面",
-          "彩窗月光",
-          "祭坛"
-        ]
+        "name": "教宗后院",
+        "name_en": "Post-Pontiff Courtyard",
+        "kind": "main",
+        "x": 3900,
+        "y": 820,
+        "w": 860,
+        "h": 700,
+        "terrain_features": [],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
-  "enemies": [
-    {
-      "kind": "IrithyllSlave",
-      "x": 400,
-      "y": 380,
-      "patrol": 25,
-      "count": 2,
-      "notes": "城市下街的奴隶，小体型快速敌人，部分会隐身"
-    },
-    {
-      "kind": "IrithyllSlave",
-      "x": 550,
-      "y": 450,
-      "patrol": 20,
-      "count": 1,
-      "notes": "下街暗角中的隐形奴隶，靠近时才显现"
-    },
-    {
-      "kind": "IrithyllSlave",
-      "x": 650,
-      "y": 500,
-      "patrol": 30,
-      "count": 2,
-      "notes": "通往中央广场的阶梯旁埋伏"
-    },
-    {
-      "kind": "PontiffKnight",
-      "x": 800,
-      "y": 650,
-      "patrol": 40,
-      "count": 2,
-      "notes": "中央广场成对巡逻的教宗骑士，手持火焰长戟，攻击力极高"
-    },
-    {
-      "kind": "IrithyllSlave",
-      "x": 950,
-      "y": 700,
-      "patrol": 20,
-      "count": 2,
-      "notes": "广场边缘巷道中的奴隶"
-    },
-    {
-      "kind": "FireWitch",
-      "x": 1500,
-      "y": 500,
-      "patrol": 0,
-      "count": 1,
-      "notes": "水边小径高处阳台的火焰魔女，远程投掷火焰"
-    },
-    {
-      "kind": "IrithyllSlave",
-      "x": 1400,
-      "y": 550,
-      "patrol": 25,
-      "count": 2,
-      "notes": "水边小径中的奴隶"
-    },
-    {
-      "kind": "FireWitch",
-      "x": 1700,
-      "y": 600,
-      "patrol": 0,
-      "count": 1,
-      "notes": "小径尽头高处阳台的第二名火焰魔女"
-    },
-    {
-      "kind": "PontiffKnight",
-      "x": 1750,
-      "y": 1200,
-      "patrol": 40,
-      "count": 2,
-      "notes": "教宗骑士大道上的教宗骑士对，持弯曲大剑和直剑"
-    },
-    {
-      "kind": "FireWitch",
-      "x": 1900,
-      "y": 1050,
-      "patrol": 0,
-      "count": 1,
-      "notes": "大道高处的火焰魔女，向下方投掷火球"
-    },
-    {
-      "kind": "IrithyllSlave",
-      "x": 1850,
-      "y": 1300,
-      "patrol": 20,
-      "count": 2,
-      "notes": "大道侧巷中的奴隶"
-    },
-    {
-      "kind": "SilverKnight",
-      "x": 350,
-      "y": 1050,
-      "patrol": 30,
-      "count": 1,
-      "notes": "银骑士阶梯上的银骑士，持直剑和盾，战斗风格沉稳"
-    },
-    {
-      "kind": "SilverKnight",
-      "x": 400,
-      "y": 1200,
-      "patrol": 25,
-      "count": 1,
-      "notes": "阶梯中段的银骑士（持枪型），攻击距离长"
-    },
-    {
-      "kind": "SulyvahnsBeast",
-      "x": 200,
-      "y": 350,
-      "patrol": 0,
-      "count": 1,
-      "notes": "冰桥入口的沙力万之兽——巨大的狼形怪物，小型Boss级敌人。原版中也可在罪都下水道遇到。"
-    },
-    {
-      "kind": "IrithyllianBeasthound",
-      "x": 450,
-      "y": 420,
-      "patrol": 20,
-      "count": 2,
-      "notes": "城市下街的猎犬，与伊鲁席尔奴隶一同行动，速度快、会扑咬"
-    },
-    {
-      "kind": "IrithyllianBeasthound",
-      "x": 700,
-      "y": 600,
-      "patrol": 25,
-      "count": 2,
-      "notes": "中央伊鲁席尔区域的猎犬，成对出现"
-    },
-    {
-      "kind": "PontiffKnight",
-      "x": 600,
-      "y": 620,
-      "patrol": 35,
-      "count": 1,
-      "notes": "中央伊鲁席尔的教宗骑士，持火焰长戟型，单独巡逻"
-    },
-    {
-      "kind": "IrithyllianBeasthound",
-      "x": 850,
-      "y": 750,
-      "patrol": 20,
-      "count": 2,
-      "notes": "中央广场外围的猎犬，与教宗骑士配合"
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 1650,
-      "y": 950,
-      "patrol": 0,
-      "count": 1,
-      "notes": "教宗骑士大道高处的奴隶巨人，向下方投掷火焰壶。体型巨大但不会移动。致敬黑魂1塞恩古城的巨人设计。"
-    },
-    {
-      "kind": "SewerCentipede",
-      "x": 900,
-      "y": 1200,
-      "patrol": 30,
-      "count": 1,
-      "notes": "地下水道中的蜈蚣形怪物，体型巨大，攻击范围广，有致命的抓取技"
-    },
-    {
-      "kind": "SewerCentipede",
-      "x": 1050,
-      "y": 1300,
-      "patrol": 25,
-      "count": 1,
-      "notes": "地下水道深处的第二只蜈蚣怪物"
-    },
-    {
-      "kind": "SewerCentipede",
-      "x": 1200,
-      "y": 1250,
-      "patrol": 30,
-      "count": 1,
-      "notes": "水道最深处的大型蜈蚣怪物，体型最大的一只"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 350,
-      "y": 380,
-      "patrol": 0,
-      "count": 1,
-      "notes": "冰桥入口附近的结晶蜥蜴，掉落光辉楔形石"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 1150,
-      "y": 850,
-      "patrol": 0,
-      "count": 1,
-      "notes": "幽儿希卡教会下方暗道的结晶蜥蜴"
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 2100,
-      "y": 1350,
-      "patrol": 0,
-      "count": 1,
-      "notes": "教宗骑士大道尽头暗角的结晶蜥蜴"
-    },
-    {
-      "kind": "IrithyllSlave",
-      "x": 1600,
-      "y": 1100,
-      "patrol": 20,
-      "count": 3,
-      "notes": "教宗骑士大道暗巷中的隐形奴隶群，数量多且隐蔽"
-    }
-  ],
   "boss": {
     "type": "PontiffSulyvahn",
     "name": "教宗沙力万",
     "name_en": "Pontiff Sulyvahn",
-    "x": 2700,
-    "y": 1800,
-    "hp": 2000,
-    "arena": {
-      "x": 2400,
-      "y": 1600,
-      "w": 700,
-      "h": 500
-    },
-    "phases": [
-      {
-        "name": "双剑教宗",
-        "hp_threshold": 1.0,
-        "speed_multiplier": 1.2,
-        "damage_multiplier": 1.0,
-        "attack_cooldown": 2.0,
-        "description": "沙力万是一位高大的术士，右手持罪都大火剑（火焰属性），左手持裁决大剑（暗属性）。他以极快的速度挥舞双剑进行连续攻击——火焰剑横扫接暗剑突刺的组合极为致命。开场后不久，他会召唤一个自己的幻影分身，分身比本体稍弱但攻击频率极高。分身会镜像本体的动作，形成双重夹击。",
-        "mechanics": [
-          "双剑连段攻击",
-          "召唤幻影分身",
-          "火焰/暗属性双属性",
-          "分身镜像攻击"
-        ]
-      },
-      {
-        "name": "翼化狂暴",
-        "hp_threshold": 0.6,
-        "speed_multiplier": 1.5,
-        "damage_multiplier": 1.3,
-        "attack_cooldown": 1.5,
-        "description": "生命值降至约60%时，沙力万背后长出黑色双翼，身体散发出暗色光芒。他变得更加凶猛——攻击频率、连段长度和移动速度全面提升。幻影分身继续存在且攻击更加频繁。新增跳跃冲击和长距离突刺攻击。分身被击杀后，沙力万会在短暂延迟后重新召唤。",
-        "mechanics": [
-          "翼化变身",
-          "攻击频率提升",
-          "跳跃冲击",
-          "分身重新召唤",
-          "更长连段"
-        ]
-      }
-    ],
-    "attacks": [
-      {
-        "name": "罪都大火剑连斩",
-        "type": "ProfanedGreatswordCombo",
-        "damage": 55,
-        "range": "近-中",
-        "parryable": true,
-        "description": "右手火焰剑的连续斩击。2-3段连段，横扫范围大，火焰溅射。第一击可弹反但风险极高。"
-      },
-      {
-        "name": "裁决大剑突刺",
-        "type": "GreatswordOfJudgementThrust",
-        "damage": 50,
-        "range": "中-远",
-        "parryable": true,
-        "description": "左手暗剑的长距离突刺。暗属性伤害，判定距离远。突刺前有短暂蓄力动作。"
-      },
-      {
-        "name": "双剑旋风斩",
-        "type": "SpinningDualSlash",
-        "damage": 60,
-        "range": "近-中",
-        "parryable": false,
-        "description": "双剑同时挥舞的大范围旋风斩。以自身为中心旋转一周，火焰与暗属性同时判定。范围极大，需远离或精确翻滚。"
-      },
-      {
-        "name": "幻影召唤",
-        "type": "PhantomSummon",
-        "damage": 0,
-        "range": "-",
-        "parryable": false,
-        "description": "召唤一个自身的幻影分身。分身血量约400，攻击模式与本体相同但伤害较低。分身会镜像本体动作形成双重攻击。"
-      },
-      {
-        "name": "跳跃冲击",
-        "type": "LeapingAttack",
-        "damage": 65,
-        "range": "远",
-        "parryable": false,
-        "description": "第二阶段新增。沙力万跃至高空后猛然砸向玩家位置，双剑同时下劈。落地产生火焰/暗属性冲击波。前摇约0.6秒，落地后有短暂硬直。"
-      },
-      {
-        "name": "冲锋突刺",
-        "type": "ChargingThrust",
-        "damage": 55,
-        "range": "远",
-        "parryable": true,
-        "description": "第二阶段新增。长距离快速冲锋后以火焰剑突刺。速度极快，覆盖半场距离。是主要的弹反窗口之一。"
-      }
-    ],
-    "story": "教宗沙力万原是罪都的一名术士，在罪都发现了初火的力量后获得了强大的魔力。他离开罪都来到冷冽谷，以诡诈和力量篡夺了伊鲁席尔的统治权。他建立了教宗骑士团，将城市变成了他的私人王国。他还将葛温德林献给了深渊吞噬者艾尔德里奇，以巩固自己的权力。沙力万的双剑——罪都大火剑和裁决大剑——象征着他同时掌控火焰与黑暗的力量。他的幻影分身能力源于他对暗术的深刻理解。击败他后，通往亚诺尔隆多的道路开启，玩家将直面深渊吞噬者的威胁。"
+    "x": 3940,
+    "y": 1900,
+    "source_status": "official_identity_projected_position"
   },
-  "npcs": [
-    {
-      "name": "亚斯特拉的安里",
-      "name_en": "Anri of Astora",
-      "kind": "Dialogue",
-      "x": 1180,
-      "y": 820,
-      "color": "#c0c0c0",
-      "dialogue": [
-        "你来了……我们又见面了。",
-        "我一直在寻找霍拉斯……但恐怕他已经不在了。",
-        "无论如何，我必须继续前进。沙力万就在前方的大教堂中。",
-        "如果你走尤莉亚的路线——",
-        "……不，没什么。我们各走各的路吧。",
-        "请多保重。也许在前方……我们还会再相遇。"
-      ],
-      "quest": "安里在幽儿希卡教会继续任务线。如果玩家走了尤莉亚的路线（拥有黑暗印记），安里的位置会发生变化——她会被引导至沙力万大教堂侧室，成为'篡火者'仪式的牺牲品。在正常路线中，安里会协助玩家进行沙力万Boss战（留下召唤印记），击败沙力万后继续前往卡萨斯的地下墓地寻找霍拉斯。安里的最终命运取决于玩家的选择——救赎或牺牲。"
-    },
-    {
-      "name": "卡塔利纳的杰克巴尔多",
-      "name_en": "Siegward of Catarina",
-      "kind": "Dialogue",
-      "x": 1850,
-      "y": 650,
-      "color": "#d4a520",
-      "dialogue": [
-        "哦！是你啊！真巧。",
-        "我一路追寻老友的踪迹来到了这座冰城。",
-        "这间庄园的厨房不错，我正在煮一锅好汤。",
-        "你听说过吗？这座城的教宗沙力万……是个危险的人物。",
-        "不过不用担心我。洋葱骑士有洋葱骑士的使命。",
-        "我的老朋友……他一定在等着我。"
-      ],
-      "quest": "杰克巴尔多在离街废屋的厨房中煮汤。与他对话后，他会透露关于尤姆（巨人王者）的信息。之后他会被关押在伊鲁席尔地下牢，玩家需要找到钥匙释放他。释放后，他会出现在罪业之都的尤姆Boss战中，持有暴风弯刀（对尤姆造成巨大伤害的特殊武器），协助玩家击败他的老友。"
-    },
-    {
-      "name": "无光之地的希里斯",
-      "name_en": "Sirris of the Sunless Realms",
-      "kind": "Dialogue",
-      "x": 320,
-      "y": 420,
-      "color": "#b0c0d0",
-      "dialogue": [
-        "灰烬大人……我是希莉丝，无日之国的骑士。",
-        "我发过誓要追讨背离职守的祖父——霍克伍德。",
-        "如果你需要帮助的话，我会在前方留下我的印记。",
-        "教宗沙力万……就让我与你一同面对他吧。"
-      ],
-      "quest": "希莉丝在伊鲁席尔入口处出现（如果任务线已推进）。她会在教宗沙力万Boss战前留下白灵召唤印记，协助玩家战斗。她的任务线涉及对抗她的祖父——圣者克雷顿（Creighton the Wanderer）。完成她的任务线后，她会在祭祀场留下自己的装备和感谢信。如果玩家加入了罗莎莉亚的指头誓约，希莉丝会变为敌对。"
-    },
-    {
-      "name": "骑士团长幽儿希卡",
-      "name_en": "Company Captain Yorshka",
-      "kind": "Covenant",
-      "x": 1250,
-      "y": 500,
-      "color": "#4060b0",
-      "dialogue": [
-        "……你是谁？怎么会来到这里？",
-        "我是幽儿希卡，暗月骑士团的团长。",
-        "……虽然如今骑士团只剩下我一个了。",
-        "哥哥他……葛温德林大人，已经被那个怪物吞噬了。",
-        "如果你愿意效忠暗月，我可以授予你誓约。",
-        "请……替我守护那些无力自保的灰烬。"
-      ],
-      "quest": "骑士团长幽儿希卡是暗月骑士团（Blades of the Darkmoon）誓约的提供者。她位于幽儿希卡教会篝火上方，需要通过隐形平台跳跃路径到达（从教会篝火旁的平台跳跃一系列隐形柱子到达塔顶）。她是暗月之神葛温德林的妹妹（半龙）。将誓约之证（Proof of Concord Kept）献给她可以提升誓约等级。通过蓝眼珠被召唤或击杀银骑士来获取誓约之证。她的对白暗示了葛温德林已被艾尔德里奇吞噬的悲剧。"
-    }
-  ],
-  "chests": [
-    {
-      "x": 500,
-      "y": 500,
-      "loot": {
-        "kind": "RingDrop",
-        "name": "深邃戒指",
-        "name_cn": "深邃戒指"
-      },
-      "is_mimic": false,
-      "notes": "城市下街暗室的宝箱，增加记忆槽"
-    },
-    {
-      "x": 1100,
-      "y": 750,
-      "loot": {
-        "kind": "EstusShard"
-      },
-      "is_mimic": false,
-      "notes": "幽儿希卡教会侧室的宝箱"
-    },
-    {
-      "x": 1500,
-      "y": 550,
-      "loot": {
-        "kind": "RingDrop",
-        "name": "太阳长男戒指",
-        "name_cn": "太阳长男戒指"
-      },
-      "is_mimic": false,
-      "notes": "水边小径隐藏平台上的宝箱，增强奇迹威力"
-    },
-    {
-      "x": 1750,
-      "y": 700,
-      "loot": {
-        "kind": "SpellDrop",
-        "name": "魔法武器",
-        "name_cn": "魔力武器"
-      },
-      "is_mimic": false,
-      "notes": "离街废屋地下室的法术卷轴"
-    },
-    {
-      "x": 1900,
-      "y": 1150,
-      "loot": {
-        "kind": "ArmorDrop",
-        "name": "教宗骑士套装",
-        "name_cn": "教宗骑士套装",
-        "slot": "Chest"
-      },
-      "is_mimic": false,
-      "notes": "教宗骑士大道旁隐藏房间的宝箱"
-    },
-    {
-      "x": 380,
-      "y": 1300,
-      "loot": {
-        "kind": "RingDrop",
-        "name": "银猫戒指",
-        "name_cn": "银猫戒指"
-      },
-      "is_mimic": false,
-      "notes": "银骑士阶梯底部隐藏路径的宝箱，减少坠落伤害"
-    },
-    {
-      "x": 950,
-      "y": 1350,
-      "loot": {
-        "kind": "RingDrop",
-        "name": "魔法紧抓之戒"
-      },
-      "is_mimic": false,
-      "notes": "地下水道隐藏角落的宝箱，增强魔法威力的戒指"
-    },
-    {
-      "x": 1500,
-      "y": 700,
-      "loot": {
-        "kind": "ArmorDrop",
-        "name": "黄铜套装",
-        "slot": "Chest"
-      },
-      "is_mimic": true,
-      "notes": "水边小径附近的拟态宝箱，变为长手长脚的怪物攻击。击杀后掉落黄铜套装。"
-    }
-  ],
-  "items": [
-    {
-      "kind": "SoulOrb",
-      "value": 600,
-      "x": 450,
-      "y": 400,
-      "notes": "城市下街的遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 800,
-      "x": 850,
-      "y": 700,
-      "notes": "中央广场角落的遗体"
-    },
-    {
-      "kind": "HomewardBone",
-      "x": 1200,
-      "y": 800,
-      "count": 2,
-      "notes": "幽儿希卡教会旁的遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 1000,
-      "x": 1550,
-      "y": 600,
-      "notes": "水边小径中途的遗体"
-    },
-    {
-      "kind": "TitaniteShard",
-      "x": 1850,
-      "y": 650,
-      "count": 2,
-      "notes": "离街废屋内的遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 1200,
-      "x": 2000,
-      "y": 1200,
-      "notes": "教宗骑士大道上的遗体"
-    },
-    {
-      "kind": "HomewardBone",
-      "x": 350,
-      "y": 1100,
-      "count": 2,
-      "notes": "银骑士阶梯上的遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 800,
-      "x": 250,
-      "y": 400,
-      "notes": "冰桥入口的遗体"
-    },
-    {
-      "kind": "BoneShard",
-      "name": "不死骨片",
-      "x": 1650,
-      "y": 1100,
-      "notes": "教宗骑士大道侧巷的遗体，用于强化原素瓶"
-    },
-    {
-      "kind": "RingDrop",
-      "name": "教宗右眼",
-      "name_en": "Pontiff's Right Eye",
-      "x": 200,
-      "y": 380,
-      "count": 1,
-      "notes": "击败冰桥入口的沙力万之兽后获得，连续攻击时增加攻击力"
-    },
-    {
-      "kind": "FireGem",
-      "x": 750,
-      "y": 700,
-      "count": 1,
-      "notes": "中央伊鲁席尔建筑内遗体上的火焰变质石"
-    },
-    {
-      "kind": "LargeTitaniteShard",
-      "x": 900,
-      "y": 1250,
-      "count": 2,
-      "notes": "地下水道中的遗体"
-    },
-    {
-      "kind": "TwinklingTitanite",
-      "x": 1150,
-      "y": 820,
-      "count": 1,
-      "notes": "幽儿希卡教会后方隐藏路径的光辉楔形石"
-    },
-    {
-      "kind": "BoneShard",
-      "name": "不死骨片",
-      "x": 550,
-      "y": 680,
-      "count": 1,
-      "notes": "中央伊鲁席尔高处平台的遗体，用于强化原素瓶"
-    },
-    {
-      "kind": "Consumable",
-      "name": "青苔团",
-      "name_en": "Purple Moss Clump",
-      "x": 500,
-      "y": 450,
-      "count": 3,
-      "notes": "城市下街的遗体，治愈毒素的消耗品"
-    },
-    {
-      "kind": "Consumable",
-      "name": "锈斑松脂",
-      "name_en": "Rotten Pine Resin",
-      "x": 1350,
-      "y": 850,
-      "count": 2,
-      "notes": "水边小径暗室的遗体，武器附加毒素效果"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 1500,
-      "x": 2200,
-      "y": 1350,
-      "notes": "教宗骑士大道尽头的遗体"
-    },
-    {
-      "kind": "SoulOrb",
-      "value": 2000,
-      "x": 300,
-      "y": 1050,
-      "notes": "银骑士阶梯高处的遗体"
-    },
-    {
-      "kind": "Consumable",
-      "name": "火焰壶",
-      "name_en": "Firebomb",
-      "x": 600,
-      "y": 650,
-      "count": 3,
-      "notes": "中央伊鲁席尔暗室的遗体"
-    },
-    {
-      "kind": "TwinklingTitanite",
-      "x": 950,
-      "y": 1280,
-      "count": 1,
-      "notes": "地下水道中击败蜈蚣后的遗体上的光辉楔形石"
-    },
-    {
-      "kind": "LargeTitaniteShard",
-      "x": 1950,
-      "y": 1250,
-      "count": 2,
-      "notes": "教宗骑士大道中途的遗体"
-    }
-  ],
+  "enemies": [],
+  "items": [],
+  "chests": [],
+  "npcs": [],
+  "lights": [],
   "fog_gates": [
     {
-      "x": 100,
-      "y": 250,
-      "w": 40,
-      "h": 200,
+      "x": 520,
+      "y": 540,
+      "w": 96,
+      "h": 96,
       "dest_area": "CatacombsOfCarthus",
-      "dest_x": 3400,
-      "dest_y": 2650,
-      "notes": "返回卡萨斯地下墓地（沃尼尔战后区域）"
+      "dest_x": 3800,
+      "dest_y": 3100,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     },
     {
-      "x": 100,
-      "y": 1100,
-      "w": 200,
-      "h": 40,
+      "x": 3060,
+      "y": 2600,
+      "w": 96,
+      "h": 96,
+      "dest_area": "IrithyllDungeon",
+      "dest_x": 520,
+      "dest_y": 520,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
+    },
+    {
+      "x": 4300,
+      "y": 1000,
+      "w": 96,
+      "h": 96,
       "dest_area": "AnorLondo",
-      "dest_x": 100,
-      "dest_y": 400,
-      "notes": "通过旋转阶梯通往亚诺尔隆多"
-    },
-    {
-      "x": 1900,
-      "y": 750,
-      "w": 40,
-      "h": 200,
-      "dest_area": "IrithyllDungeon",
-      "dest_x": 100,
-      "dest_y": 200,
-      "notes": "从离街废屋地下室通道通往伊鲁席尔地下牢"
-    },
-    {
-      "x": 2350,
-      "y": 1600,
-      "w": 40,
-      "h": 200,
-      "dest_area": null,
-      "dest_x": 0,
-      "dest_y": 0,
-      "notes": "教宗沙力万Boss战雾门"
-    },
-    {
-      "x": 1300,
-      "y": 1350,
-      "w": 40,
-      "h": 200,
-      "dest_area": "IrithyllDungeon",
-      "dest_x": 300,
-      "dest_y": 800,
-      "notes": "从地下水道通往伊鲁席尔地下牢深处的通道"
+      "dest_x": 980,
+      "dest_y": 900,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
     }
-  ],
-  "lights": [
-    {
-      "x": 300,
-      "y": 400,
-      "radius": 180,
-      "r": 0.6,
-      "g": 0.7,
-      "b": 1.0,
-      "intensity": 0.6,
-      "notes": "入口篝火——冷冽的蓝色火焰"
-    },
-    {
-      "x": 1600,
-      "y": 300,
-      "radius": 300,
-      "r": 0.8,
-      "g": 0.85,
-      "b": 1.0,
-      "intensity": 0.5,
-      "notes": "城市上空的银色月光，笼罩整个区域的氛围光源"
-    },
-    {
-      "x": 1200,
-      "y": 800,
-      "radius": 180,
-      "r": 0.6,
-      "g": 0.7,
-      "b": 1.0,
-      "intensity": 0.6,
-      "notes": "幽儿希卡教会篝火"
-    },
-    {
-      "x": 1800,
-      "y": 600,
-      "radius": 180,
-      "r": 0.6,
-      "g": 0.7,
-      "b": 1.0,
-      "intensity": 0.6,
-      "notes": "离街废屋篝火"
-    },
-    {
-      "x": 1500,
-      "y": 500,
-      "radius": 100,
-      "r": 1.0,
-      "g": 0.6,
-      "b": 0.2,
-      "intensity": 0.5,
-      "notes": "火焰魔女的火球光芒"
-    },
-    {
-      "x": 1700,
-      "y": 600,
-      "radius": 100,
-      "r": 1.0,
-      "g": 0.6,
-      "b": 0.2,
-      "intensity": 0.5,
-      "notes": "第二名火焰魔女的光芒"
-    },
-    {
-      "x": 2600,
-      "y": 1800,
-      "radius": 180,
-      "r": 0.6,
-      "g": 0.7,
-      "b": 1.0,
-      "intensity": 0.6,
-      "notes": "沙力万战后篝火"
-    },
-    {
-      "x": 2700,
-      "y": 1800,
-      "radius": 150,
-      "r": 0.5,
-      "g": 0.3,
-      "b": 0.2,
-      "intensity": 0.4,
-      "notes": "沙力万大教堂祭坛的暗色火光"
-    },
-    {
-      "x": 200,
-      "y": 350,
-      "radius": 80,
-      "r": 0.3,
-      "g": 0.3,
-      "b": 0.5,
-      "intensity": 0.3,
-      "notes": "冰桥入口处的微弱月光"
-    },
-    {
-      "x": 750,
-      "y": 650,
-      "radius": 150,
-      "r": 0.6,
-      "g": 0.7,
-      "b": 1.0,
-      "intensity": 0.4,
-      "notes": "中央伊鲁席尔区域的银色月光"
-    },
-    {
-      "x": 1600,
-      "y": 950,
-      "radius": 120,
-      "r": 1.0,
-      "g": 0.6,
-      "b": 0.2,
-      "intensity": 0.4,
-      "notes": "奴隶巨人投掷的火焰壶光芒"
-    },
-    {
-      "x": 950,
-      "y": 1250,
-      "radius": 60,
-      "r": 0.3,
-      "g": 0.4,
-      "b": 0.5,
-      "intensity": 0.2,
-      "notes": "地下水道中微弱的水面反光"
-    }
-  ],
-  "story_notes": [
-    "冷冽谷的伊鲁席尔是游戏后半段的标志性区域，原版中名为'冷たい谷のイルシール'",
-    "这座城市曾经由诸神统治，与亚诺尔隆多有着深厚的历史渊源",
-    "教宗沙力万原是罪都（Profaned Capital）的术士，在发现初火力量后获得强大魔力，随后篡夺了伊鲁席尔的统治权",
-    "沙力万将暗月之神葛温德林献给了深渊吞噬者艾尔德里奇，以此巩固自己的权力",
-    "伊鲁席尔奴隶中有一部分是隐形的，致敬了《黑暗之魂1》中洞穴中隐形敌人的设计",
-    "教宗骑士是游戏中最高威胁的常规敌人之一，成对出现时极其危险",
-    "火焰魔女的原型被认为是沙力万的追随者，她们使用火焰术攻击入侵者",
-    "沙力万之兽是伊鲁席尔入口的迷你Boss，原型可能与罪都的野兽有关",
-    "幽儿希卡教会中的安里任务线是游戏最复杂的NPC任务线之一，有多个分支结局",
-    "如果玩家拥有黑暗印记（走了尤莉亚的篡火者路线），安里会被引导至沙力万大教堂侧室进行'结婚'仪式——实为吸收安里的黑暗印记",
-    "杰克巴尔多在离街废屋的厨房煮汤是系列经典的幽默场景，与《黑暗之魂1》和《黑暗之魂2》中的洋葱骑士形象一脉相承",
-    "希莉丝的任务线涉及她的家族血统——她的祖父是背叛了骑士誓言的人",
-    "银骑士出现在通往亚诺尔隆多的区域，暗示了伊鲁席尔与亚诺尔隆多的地理联系——两座城市实际上是相连的",
-    "伊鲁席尔的视觉设计——银色月光下的冰冻城市——被认为是《黑暗之魂3》中最美丽的区域",
-    "离街废屋的地下室通道直接通往伊鲁席尔地下牢，是地图设计中的捷径之一",
-    "下水道蜈蚣（Sewer Centipede）是伊鲁席尔地下水道中的独特敌人，外形类似巨大的蜈蚣形水生怪物，攻击力极高且有致命的抓取技",
-    "伊鲁席尔猎犬（Irithyllian Beast-hound）是与奴隶和教宗骑士一同行动的战斗犬，速度极快，常在其他敌人吸引注意力时从侧面突袭",
-    "骑士团长幽儿希卡是暗月骑士团（Blades of the Darkmoon）誓约的提供者，她是暗月之神葛温德林的妹妹（半龙）",
-    "幽儿希卡教会篝火上方通过隐形平台跳跃路径可以到达幽儿希卡的塔楼——致敬了《黑暗之魂1》中类似的隐形平台设计",
-    "奴隶巨人在教宗骑士大道高处投掷火焰壶，致敬了《黑暗之魂1》中塞恩古城巨人投掷火焰球的设计",
-    "拟态（Mimic）宝箱会变为长手长脚的怪物攻击玩家，伊鲁席尔中的拟态位于水边小径附近，击杀后掉落黄铜套装",
-    "教宗骑士掉落其专属武器——教宗骑士曲剑和教宗骑士盾，是游戏中后期优秀的敏捷型武器",
-    "火焰魔女掉落其专属武器——火刑架（Immolation Tinder），一种同时具有法术触媒功能的奇特武器",
-    "教宗右眼（Pontiff's Right Eye）是击败沙力万之兽后获得的戒指，效果为连续攻击时增加攻击力",
-    "魔法紧抓之戒（Magic Clutch Ring）隐藏在地下水道中，增强魔法威力但降低物理防御——典型的赌徒型戒指",
-    "结晶蜥蜴在伊鲁席尔有3只，分别位于冰桥入口、幽儿希卡教会下方暗道和教宗骑士大道尽头"
   ]
 }
