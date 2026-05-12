@@ -4321,7 +4321,7 @@ def make_cathedral_deep():
         # Deep Accursed — lurks in side room (DS3: giant spider enemy near entrance shortcut)
         ("DeepAccursed", 22, 38),
         # Writhing Rotten Flesh in swampy area near giant room
-        ("Rat", 36, 84), ("Rat", 42, 88),                             # Writhing Rotten Flesh
+        ("Rat", 36, 84), ("Rat", 44, 86),                             # Writhing Rotten Flesh
         ("InfestedCorpse", 38, 86), ("InfestedCorpse", 42, 88),                   # DS3: Writhing Rotten Flesh
         ("GiantSlave", 44, 92), ("GiantSlave", 56, 98),
         ("CathedralKnight", 48, 88), ("CathedralKnight", 52, 96),
@@ -5387,7 +5387,7 @@ def make_smouldering_lake():
         # Carthus Sandworm (giant enemy at lake center)
         ("GiantSlave", 45, 68),                                 # Carthus Sandworm
         # Crystal Lizards — wiki: 3 total (1 near bonfire, 2 in cavern after ballista)
-        ("CrystalLizard", 82, 55), ("CrystalLizard", 112, 78), ("CrystalLizard", 25, 95),
+        ("CrystalLizard", 82, 55), ("CrystalLizard", 112, 78), ("CrystalLizard", 22, 98),
         # Demon Statues at arena approach
         ("DemonStatue", 112, 82),
     ]
