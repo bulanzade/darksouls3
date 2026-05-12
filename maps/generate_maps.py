@@ -2339,39 +2339,59 @@ def make_farron_keep():
     # Boss - Abyss Watchers
     entities.append(make_entity("BossSpawn", 140 * 16, 112 * 16))
 
-    # Enemies - DS3 faithful: Ghru (swamp), Elder Ghru (elite), Darkwraiths (abyss),
-    # Basilisks (curse cave), Rotten Slugs (leeches), Great Crabs, Corvians, Crystal Lizards
+    # Enemies - DS3 faithful: Ghru (swarm the swamp), Elder Ghru (elite horned beasts),
+    # Darkwraiths (abyss knights), Basilisks (curse cave), Rotten Slugs (leeches everywhere),
+    # Great Crabs, Corvians + Storyteller, Crystal Lizards (5-6 total), Ravenous Crystal Lizard
     enemy_data = [
-        # Left torch area — Ghru swarm (regular Ghru leap/gaunt variants)
+        # Left torch area — Ghru swarm (DS3: groups of Ghru Grunts/Leapers throughout swamp)
         ("Ghru", 35, 45), ("Ghru", 40, 48), ("Ghru", 48, 50),
-        # Center torch area — more Ghru
+        ("Ghru", 33, 50), ("Ghru", 42, 55), ("Ghru", 46, 58),
+        # Center torch area — more Ghru (DS3: crawling Ghru + Leaper near fire altar)
         ("Ghru", 68, 48), ("Ghru", 72, 52), ("Ghru", 75, 55),
-        # Right torch area
-        ("Ghru", 95, 42), ("Ghru", 100, 45),
-        # Keep Ruins — Ghru and Ghru Shaman
+        ("Ghru", 64, 55), ("Ghru", 70, 58),
+        # Right torch area — Ghru Grunts with spears
+        ("Ghru", 95, 42), ("Ghru", 100, 45), ("Ghru", 92, 48),
+        ("Ghru", 98, 52), ("Ghru", 105, 50),
+        # Keep Ruins — Ghru swarm + Ghru Shaman (DS3: "two Ghru Grunts + Shaman" at entrance)
         ("Ghru", 65, 72), ("Ghru", 72, 76), ("Ghru", 78, 70),
+        ("Ghru", 68, 68), ("Ghru", 74, 65),
         ("DarkMage", 70, 74),                                        # Ghru Shaman (casts poison)
-        # Darkwraith patrol — deep in swamp and near boss approach
+        # Darkwraith patrol — DS3: "first Darkwraith" on left path, one on stairs near boss,
+        # one in second half wooded area, one fighting other enemies
         ("Darkwraith", 100, 88), ("Darkwraith", 108, 95),
-        ("Darkwraith", 125, 108),                                    # Near arena gate
-        # Basilisk curse cave (SE corner)
+        ("Darkwraith", 125, 108),                                    # Near arena gate (DS3: on stairs)
+        ("Darkwraith", 88, 75),                                      # DS3: Darkwraith in second half wooded area
+        ("Darkwraith", 115, 90),                                     # DS3: wraith fighting other enemies
+        # Basilisk curse cave — DS3: "several basilisks" that cause curse
         ("Basilisk", 24, 70), ("Basilisk", 30, 75), ("Basilisk", 32, 68),
-        # Rotten Slugs (leeches) in swamp water and around Old Wolf tower
+        ("Basilisk", 28, 78), ("Basilisk", 34, 72),                 # More basilisks in deep swamp
+        # Rotten Slugs (leeches) — DS3: "group of leeches", "surrounding corpse", "at ladder base",
+        # "crawling Ghru" areas, everywhere in the swamp water
         ("Rat", 42, 82), ("Rat", 45, 85), ("Rat", 50, 88),         # Rotten Slugs near leech building
         ("Rat", 48, 105), ("Rat", 52, 110),                         # Rotten Slugs at ladder base
-        # Elder Ghru — elite horned beasts with tree weapons (Knight closest match)
-        ("Knight", 55, 62), ("Knight", 60, 68), ("Knight", 58, 75), # Elder Ghru trio around Poison Gem
+        ("Rat", 38, 60), ("Rat", 44, 65), ("Rat", 55, 70),         # Rotten Slugs in deeper swamp
+        ("Rat", 62, 75), ("Rat", 70, 80), ("Rat", 85, 75),         # Rotten Slugs scattered
+        ("Rat", 40, 90), ("Rat", 56, 95),                           # Rotten Slugs near wall edges
+        # Elder Ghru — DS3: "three Elder Ghru huddled around an item", one near fire, more scattered
+        ("Knight", 55, 62), ("Knight", 60, 68), ("Knight", 58, 75), # Elder Ghru trio around Poison Gem (wiki)
         ("Knight", 110, 100),                                        # Elder Ghru near gate
-        # Great Crab in swamp (GiantSlave closest — large enemy)
-        ("GiantSlave", 65, 62),                                      # Great Crab (drops Lingering Dragoncrest Ring)
-        # Corvian and Corvian Storyteller in second half
+        ("Knight", 82, 60),                                          # Elder Ghru near second torch (wiki: "another of these beasts")
+        ("Knight", 90, 55),                                          # Elder Ghru on ramp to third torch
+        # Great Crab in swamp — DS3: "giant crab which drops Lingering Dragoncrest Ring"
+        ("GiantSlave", 65, 62),                                      # Great Crab
+        # Corvian and Corvian Storyteller — DS3: in second half wooded area
         ("Assassin", 115, 95), ("Assassin", 120, 100),              # Corvians in second half
         ("DarkMage", 118, 98),                                       # Corvian Storyteller
-        # Crystal Lizards — rare spawns
+        # Crystal Lizards — DS3 wiki: 2 near dragon corpse, 1 near Old Wolf (illusory wall),
+        # 1 giant Ravenous Crystal Lizard near Perimeter, 1 ramp Crystal Lizard
         ("CrystalLizard", 85, 82),                                   # Near gate
-        ("CrystalLizard", 48, 112),                                  # Near Old Wolf tower
-        # Stray Demon (DS3: optional mini-boss in Keep Ruins area, drops Soul of a Stray Demon)
-        ("MiniBoss", 120, 98),                                    # Stray Demon
+        ("CrystalLizard", 48, 112),                                  # Near Old Wolf tower (illusory wall)
+        ("CrystalLizard", 122, 95), ("CrystalLizard", 128, 98),     # DS3: 2 near dragon corpse
+        ("CrystalLizard", 56, 65),                                   # DS3: on ramp/stone bridge area
+        # Ravenous Crystal Lizard — DS3: "giant Crystal Lizard" near Perimeter bonfire
+        ("MiniBoss", 108, 85),                                       # Ravenous Crystal Lizard (giant variant)
+        # Stray Demon — DS3: optional mini-boss accessed via lift, drops Soul of a Stray Demon
+        ("MiniBoss", 120, 98),                                       # Stray Demon
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -3462,27 +3482,34 @@ def make_irithyll():
     # Boss - Pontiff Sulyvahn
     entities.append(make_entity("BossSpawn", 120 * 16, 76 * 16))
 
-    # Enemies — DS3 Irithyll of the Boreal Valley:
-    # Pontiff Knights (wield fire swords), Fire Witches (ranged fire magic),
-    # Irithyllian Slaves (cloaked ambushers), Sulyvahn's Beasts,
-    # Irithyllian Beast-hounds, Sewer Centipedes, Silver Knights, Mimic,
-    # Cathedral Evangelist (near hidden staircase)
+    # Enemies — DS3 Irithyll of the Boreal Valley (wiki-verified walkthrough):
+    # Pontiff Knights (hags/dancers with fire swords), Fire Witches (ranged fire magic),
+    # Irithyllian Slaves (invisible cloaked ambushers in many rooms), Sulyvahn's Beasts,
+    # Irithyllian Beast-hounds (dogs in packs), Sewer Centipedes, Silver Knights,
+    # Giant Slaves (giants in post-Pontiff courtyard), Mimic, Evangelist, Deep Accursed
     enemy_data = [
         # Bridge entrance — Sulyvahn's Beast ambush (DS3: attacks on entry bridge)
         ("GiantSlave", 12, 38),                                 # Sulyvahn's Beast at bridge
         ("Knight", 18, 42),                                      # Pontiff Knight patrol
-        # Main boulevard — Pontiff Knights (Knight = closest to Pontiff Knight)
+        # Main boulevard — Pontiff Knights (DS3: "encounter Pontiff Knights", "fast attack movements")
         ("Knight", 38, 50), ("Knight", 55, 55),
         ("Knight", 75, 60), ("Knight", 90, 58),
-        # Irithyllian Slaves — cloaked ambushers (Assassin = closest match)
+        # Irithyllian Slaves (invisible hags) — DS3: "dispatch the other hag", "group of hags",
+        # "another group of hags", "invisible hag in corner", "slightly hidden hags",
+        # "eyes of hags in dark room", "many of these hags", "hags in each alcove"
         ("Assassin", 42, 48), ("Assassin", 60, 52),
         ("Assassin", 78, 56),
-        # Fire Witches (DarkMage) — cast fire spells from balconies
+        ("Assassin", 36, 44), ("Assassin", 46, 46),             # More hags on upper streets
+        ("Assassin", 52, 50), ("Assassin", 56, 48),             # Hags near fountain area
+        ("Assassin", 62, 56), ("Assassin", 82, 52),             # More invisible hags
+        # Fire Witches (DarkMage) — DS3: "fire casting knight", "fire caster"
         ("DarkMage", 42, 52), ("DarkMage", 95, 62),
         ("DarkMage", 68, 58),
-        # Irithyllian Beast-hounds (Dog) in alleys
+        # Irithyllian Beast-hounds (Dog) — DS3: "three dogs (one sleeping in corner)",
+        # "two dogs" later, "several dogs" in upper area
         ("Dog", 50, 48), ("Dog", 80, 55), ("Dog", 65, 54),
-        ("Dog", 48, 60),
+        ("Dog", 48, 60), ("Dog", 52, 62), ("Dog", 76, 58),     # More dogs including sleeping one
+        ("Dog", 38, 65), ("Dog", 42, 68),                       # Dogs near staircase (wiki: "two dogs")
         # Crystal Lizards (DS3: 1 near illusory wall stairs, 2 post-Pontiff courtyard, 1 lever path)
         ("CrystalLizard", 65, 42), ("CrystalLizard", 128, 75),
         ("CrystalLizard", 135, 80), ("CrystalLizard", 140, 72),
@@ -3491,24 +3518,37 @@ def make_irithyll():
         ("Knight", 32, 72), ("Knight", 40, 82),
         # Corvian near the manor gardens
         ("Assassin", 22, 68),
-        # Church of Yorshka area — Pontiff Knight guard
+        # Church of Yorshka area — Pontiff Knights guarding church
         ("Knight", 70, 45), ("Knight", 72, 42),
+        ("Assassin", 64, 44),                                   # Invisible hag near church entrance
         # Cathedral Evangelist near hidden staircase (DS3: drops Dorhys' Gnawing)
         ("Evangelist", 45, 55),
-        # Sewers — Sewer Centipedes (ManGrub = closest to centipede)
+        # Dark room / staircase area — DS3: "take stairs down, encounter many hags",
+        # "hags in each of these alcoves", "two more hags at foot of tree"
+        ("Assassin", 48, 54), ("Assassin", 54, 56),             # Hags in dark room
+        ("Assassin", 50, 58), ("Assassin", 56, 60),             # Hags in alcoves along stairs
+        # Sewers — Sewer Centipedes (DS3: "few Sewer Centipedes in the water")
         ("ManGrub", 68, 80), ("ManGrub", 78, 85), ("ManGrub", 88, 90),
         ("ManGrub", 72, 88), ("ManGrub", 82, 82),
-        # Sulyvahn's Beasts at sewer reservoir (GiantSlave) — DS3 wiki: 2 beasts
+        # Sulyvahn's Beasts at sewer reservoir — DS3 wiki: 2 beasts in flooded chamber
         ("GiantSlave", 72, 90), ("GiantSlave", 78, 94),
-        # Silver Knight hall / rooftops — Silver Knights guard the path to Anor Londo
+        # Silver Knight hall / rooftops — DS3: "several Silver Knights",
+        # "Silver Knight straight ahead and another to the left",
+        # "two archer Silver Knights"
         ("SilverKnight", 30, 100), ("SilverKnight", 42, 110),
         ("SilverKnight", 48, 118), ("SilverKnight", 36, 108),
-        # Arena approach — Pontiff Knight + Fire Witch guard
+        ("SilverKnight", 44, 105), ("SilverKnight", 32, 104),  # More Silver Knights in hall
+        ("SilverKnight", 138, 64), ("SilverKnight", 146, 64),  # Archer Silver Knights on rooftops
+        # Post-Pontiff courtyard — DS3: "Giant will rise... Another Giant to your right"
+        ("GiantSlave", 126, 78), ("GiantSlave", 134, 82),      # Two Giants in courtyard
+        # Arena approach — Pontiff Knights + Fire Witch guard
         ("Knight", 105, 65), ("DarkMage", 110, 70),
         ("Knight", 100, 62),
+        ("Knight", 108, 68),                                    # DS3: "2 Pontiff Knights" near fog gate
         # Deacons on bridge to Anor Londo (DS3: "several deacons along the way")
         ("Deacon", 140, 50), ("Deacon", 142, 48), ("Deacon", 144, 52),
-        # Pontiff arena entrance — Deep Accursed (DS3: lurks near arena)
+        ("Deacon", 146, 54), ("Deacon", 148, 56),              # More deacons on bridge
+        # Pontiff arena entrance — Deep Accursed (DS3: near revolving switch)
         ("DeepAccursed", 132, 88),
         # Mimic near boulevard (DS3: drops Golden Ritual Spear)
         ("Mimic", 58, 56),
@@ -3828,43 +3868,53 @@ def make_irithyll_dungeon():
     # Bonfires — DS3: only Irithyll Dungeon bonfire
     entities.append(make_entity("Bonfire", 15 * 16, 15 * 16))     # Irithyll Dungeon
 
-    # Enemies — DS3 Irithyll Dungeon: Jailers, Reanimated Corpses, Wretches,
-    # Rats, Basilisks, Infested Corpses, Lycanthropes, Monstrosities of Sin,
-    # Corpse-grubs, Sewer Centipedes, Mimics
+    # Enemies — DS3 Irithyll Dungeon (wiki-verified walkthrough):
+    # Jailers (branding iron wardens — many throughout), Reanimated Corpses in cells,
+    # Wretches (screaming enemies), Rats (swarms in drains), Basilisks (curse spawners),
+    # Infested Corpses (corpse-grubs), Lycanthropes (Dog), Monstrosity of Sin (GiantSlave),
+    # Sewer Centipedes (ManGrub), Gargoyles (tower guard), Crystal Lizards, Mimics
     enemy_data = [
-        # Upper prison block — jailers patrol with branding irons
+        # Upper prison block — DS3: "3 jailers down stairs", jailers patrol corridors
         ("Jailer", 22, 20), ("Jailer", 35, 30), ("Jailer", 48, 38),
         ("Jailer", 25, 25), ("Jailer", 32, 32),
+        ("Jailer", 42, 28), ("Jailer", 58, 42),                 # More jailers on upper level
         # Reanimated Corpses in cells (PeasantHollow)
         ("PeasantHollow", 20, 30), ("PeasantHollow", 28, 35),
         ("PeasantHollow", 38, 28), ("PeasantHollow", 45, 34),
-        # Central prison block — heavy jailer presence
+        # Central prison block — DS3: "room infested with jailers", "several jailers in large room"
         ("Jailer", 55, 55), ("Jailer", 60, 60), ("Jailer", 68, 52),
+        ("Jailer", 48, 58), ("Jailer", 62, 65), ("Jailer", 70, 58),  # More jailers in central block
+        ("Jailer", 58, 70), ("Jailer", 65, 68),                 # DS3: "2 in next room"
         ("PeasantHollow", 50, 50), ("PeasantHollow", 62, 55),
         ("CrystalLizard", 52, 52),
         # Siegward cell area — Wretches and Reanimated Corpses
-        ("Jailer", 88, 55),
+        ("Jailer", 88, 55), ("Jailer", 95, 62),                 # Jailer guards near Siegward
         ("Wretch", 78, 60), ("Wretch", 82, 65),
         ("PeasantHollow", 85, 62), ("PeasantHollow", 92, 58),
-        # Lower drains — rats, basilisks, Infested Corpses
+        # Lower drains — DS3: rats, basilisks, corpse-grubs in sewer area
         ("Rat", 28, 78), ("Rat", 35, 82), ("Rat", 42, 88),
-        ("Rat", 32, 85), ("Rat", 48, 90),                             # More rats
+        ("Rat", 32, 85), ("Rat", 48, 90),
+        ("Rat", 25, 90), ("Rat", 55, 92),                       # More rats in deep drains
+        # Basilisks — DS3: "10+ basilisks spawn behind you" in drain area
         ("Basilisk", 55, 80), ("Basilisk", 62, 85),
-        ("InfestedCorpse", 38, 80), ("InfestedCorpse", 45, 86),       # Corpse-grubs
+        ("Basilisk", 40, 88), ("Basilisk", 65, 78),             # More basilisks in drains
+        ("Basilisk", 48, 82), ("Basilisk", 58, 90),             # Additional curse-spawners
+        ("InfestedCorpse", 38, 80), ("InfestedCorpse", 45, 86), # Corpse-grubs
         # Sewer Centipede (ManGrub) in drain area
         ("ManGrub", 60, 75), ("ManGrub", 50, 78),
         # Cage Spider in drain area
         ("Spider", 55, 88),                                    # Cage Spider → Basilisk via ENEMY_KIND_MAP
-        # Monstrosity of Sin (GiantSlave) near lower level
-        ("GiantSlave", 42, 75),                               # Monstrosity of Sin
+        # Monstrosity of Sin (GiantSlave) — DS3: sleeping giant near lower level
+        ("GiantSlave", 42, 75),
         # Lycanthrope (Dog) in rat tunnels
         ("Dog", 22, 82), ("Dog", 38, 85),
-        # Gargoyle tower and exit corridor
+        # Gargoyle tower and exit corridor — DS3: gargoyles guard the tower
         ("Gargoyle", 95, 42), ("Gargoyle", 125, 30),
-        # Karla's cell area — jailers guard
+        # Karla's cell area — DS3: jailers guard the lower cells
         ("Jailer", 85, 85), ("Jailer", 95, 90),
+        ("Jailer", 82, 90),                                    # Additional jailer near Karla
         ("PeasantHollow", 88, 88), ("PeasantHollow", 92, 82),
-        # Alva Seeker of the Spurned — invades near Karla's cell (MiniBoss)
+        # Alva Seeker of the Spurned — invades near exit corridor (MiniBoss)
         ("MiniBoss", 78, 82),
         # Mimic near exit corridor (drops Lightning Blade)
         ("Mimic", 118, 32),
@@ -4449,8 +4499,8 @@ def make_anor_londo():
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 128 * 16, 78 * 16))
 
-    # --- Enemies — DS3 Anor Londo: Silver Knights (~8), Giant Slave (1),
-    # Deep Accursed (1), Deacons (pyromancers + 3 before fog), Rotten Flesh (ManGrub)
+    # --- Enemies — DS3 Anor Londo: Silver Knights, Giant Slave (archer),
+    # Deep Accursed, Deacons (pyromancers + 3 before fog), Rotten Flesh of Aldrich (slimes)
     enemy_data = [
         # Cathedral entrance stairs — 2 Silver Knights (wiki: "two silver knights attack")
         ("SilverKnight", 20, 35), ("SilverKnight", 34, 42),
@@ -4461,19 +4511,26 @@ def make_anor_londo():
         ("SilverKnight", 48, 50), ("SilverKnight", 70, 44),
         # Silver Knight hall — knight pair guarding council chamber entrance
         ("SilverKnight", 82, 38), ("SilverKnight", 90, 42),
+        # Silver Knight archers in upper hallway — DS3: "two archer Silver Knights"
+        ("SilverKnight", 108, 34), ("SilverKnight", 118, 36),
         # Giant Slave — giant archer on upper level (wiki: Giant Slave enemy)
         ("GiantSlave", 38, 52),
         # Main chamber — Deacon pyromancers casting fireballs from other side
         ("Deacon", 55, 45), ("Deacon", 68, 40), ("Deacon", 70, 46),
+        # Additional Deacon pyromancers in dark chamber (wiki: "deacon pyromancers and slimes")
+        ("Deacon", 72, 52), ("Deacon", 76, 48),
         # Main chamber — Rotten Flesh of Aldrich / slimes (wiki: "dispatch slimes and deacons")
         ("ManGrub", 142, 75), ("ManGrub", 148, 82), ("ManGrub", 136, 68),
         ("ManGrub", 124, 88), ("ManGrub", 132, 92),
         # Additional slimes in dark corners of main hall
         ("ManGrub", 130, 65), ("ManGrub", 115, 72),
+        ("ManGrub", 140, 95), ("ManGrub", 112, 80),  # More slimes in Aldrich arena corners
         # Corner — Deep Accursed at revolving switch (wiki: "Deep Accursed waiting for you")
         ("DeepAccursed", 100, 40),
         # Hallway to fog gate — 3 Deacons (wiki: "three enemies from Deacons of the Deep boss fight")
         ("Deacon", 125, 38), ("Deacon", 135, 44), ("Deacon", 138, 50),
+        # Crystal Lizard near Yorshka path (DS3: crystal lizard on tower ledge)
+        ("CrystalLizard", 56, 84),
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
