@@ -82,7 +82,7 @@ ENEMY_KIND_MAP = {
     "SwordMaster": "Assassin",
     "BorealKnight": "Knight",
     "LargeHollowSoldier": "Knight",
-    "LothricWyvern": "PusOfMan",
+    "LothricWyvern": "MiniBoss",
     "Hodrick": "MiniBoss",
     "CagedHollow": "PeasantHollow",
     "Ghrul": "Ghru",
@@ -92,11 +92,11 @@ ENEMY_KIND_MAP = {
     "SkeletonBall": "Skeleton",
     "CarthusWorm": "MiniBoss",
     "GiantHollow": "GiantSlave",
-    "AncientWyvern": "PusOfMan",
+    "AncientWyvern": "MiniBoss",
     "NamelessKing": "MiniBoss",
     "ConsumedKingKnight": "CathedralKnight",
     "ConsumedKingGuard": "WingedKnight",
-    "FlyingDragon": "PusOfMan",
+    "FlyingDragon": "MiniBoss",
     "Harpe": "Skeleton",
     "Leech": "Dog",
     "Blowdart": "Archer",
@@ -105,6 +105,21 @@ ENEMY_KIND_MAP = {
     "Demon": "FireDemon",
     "Spider": "Basilisk",
     "GargoyleDog": "Dog",
+    "BorealOutriderKnight": "WingedKnight",
+    "AscendedWingedKnight": "WingedKnight",
+    "Corvian": "Assassin",
+    "CorvianStoryteller": "DarkMage",
+    "HollowSlave": "Thrall",
+    "ClawedCurse": "Basilisk",
+    "GrandArchivesScholar": "DarkMage",
+    "CrystalSage": "DarkMage",
+    "PoisonhornBug": "Basilisk",
+    "RavenousCrystalLizard": "CrystalLizard",
+    "RottenSlug": "Rat",
+    "LesserCrab": "Dog",
+    "RockLizard": "CrystalLizard",
+    "ConsumedKingKnight": "CathedralKnight",
+    "Hollow": "HollowSoldier",
 }
 
 
@@ -558,71 +573,93 @@ def make_cemetery_of_ash():
         [make_field("heal", "Bool", True)]))
 
     # --- Bonfires ---
-    # Cemetery of Ash bonfire — dead tree clearing
+    # Cemetery of Ash bonfire — dead tree clearing (midpoint)
     entities.append(make_entity("Bonfire", 72 * 16, 95 * 16))
-    # Firelink Shrine bonfire — central hub
-    entities.append(make_entity("Bonfire", 80 * 16, 16 * 16))
+    # Iudex Gundyr bonfire — arena entrance
+    entities.append(make_entity("Bonfire", 80 * 16, 66 * 16))
 
     # --- Boss — Iudex Gundyr at arena center ---
     entities.append(make_entity("BossSpawn", 80 * 16, 48 * 16))
 
-    # --- Cemetery Enemies ---
-    # Hollow Assassins — first encounter (crouching ambush at path start)
-    entities.append(make_entity("Enemy", 56 * 16, 152 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowAssassin")]))
-    entities.append(make_entity("Enemy", 64 * 16, 150 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowAssassin")]))
-    # Hollow Assassin — broken fountain clearing
-    entities.append(make_entity("Enemy", 74 * 16, 136 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowAssassin")]))
-    # Hollow Assassin — broken arch (crossbow position)
-    entities.append(make_entity("Enemy", 76 * 16, 116 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowAssassin")]))
-    # Hollow Assassin — post-bonfire fork area
-    entities.append(make_entity("Enemy", 66 * 16, 86 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowAssassin")]))
-    # Starved Hounds — near bonfire clearing, patrol the graves
-    entities.append(make_entity("Enemy", 68 * 16, 96 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "StarvedHound")]))
-    entities.append(make_entity("Enemy", 78 * 16, 96 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "StarvedHound")]))
-    # Crystal Lizard — deep in the water chasm, drops titanite
-    entities.append(make_entity("Enemy", 136 * 16, 108 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "CrystalLizard")]))
+    # --- Enemies (DS3 Cemetery of Ash: Hollow Soldiers with swords/shields/bows) ---
+    # In DS3 the cemetery enemies are hollow soldiers that rise from the ground.
+    # DS3 enemies: Grave Wardens (sword, shield, crossbow variants) + 1 Ravenous Crystal Lizard.
+    # Layout follows the actual route: coffin → cemetery path → fountain → stairs → bonfire →
+    # firebomb cliff → Gundyr approach → arena.
 
-    # --- Cemetery Items ---
-    # Estus Flask + Ashen Estus — next to coffin at start
-    entities.append(make_entity("Item", 27 * 16, 150 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Estus Flask")]))
-    entities.append(make_entity("Item", 23 * 16, 150 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+    # Section 1: Coffin wake-up area — first Grave Warden (sword+shield, stands up)
+    entities.append(make_entity("Enemy", 40 * 16, 152 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+    # Section 2: Cemetery path — pair of Grave Wardens (sword+shield)
+    entities.append(make_entity("Enemy", 56 * 16, 152 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+    entities.append(make_entity("Enemy", 64 * 16, 150 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+    # Section 3: Ashen Estus fountain — Grave Warden facing away (sword)
+    entities.append(make_entity("Enemy", 80 * 16, 136 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+    # Section 4: Stairs junction — Grave Warden (sword+shield) on stairs
+    entities.append(make_entity("Enemy", 76 * 16, 126 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+    # Section 5: Broken arch — Grave Warden crossbow (ranged)
+    entities.append(make_entity("Enemy", 78 * 16, 116 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+    # Section 6: Major fork — two Grave Wardens (sword+shield) guarding path
+    entities.append(make_entity("Enemy", 86 * 16, 108 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+    entities.append(make_entity("Enemy", 92 * 16, 109 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+    # Section 7: Cemetery of Ash bonfire clearing — Grave Warden near dead tree
+    entities.append(make_entity("Enemy", 68 * 16, 92 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+    # Section 8: Firebomb cliff — Grave Warden sword+shield
+    entities.append(make_entity("Enemy", 50 * 16, 86 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+    # Drop-down Grave Warden near firebomb cliff (drops Cleric's Sacred Chime)
+    entities.append(make_entity("Enemy", 44 * 16, 90 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+    # Grave Warden at cliff end
+    entities.append(make_entity("Enemy", 38 * 16, 86 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+    entities.append(make_entity("Enemy", 40 * 16, 84 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+    # Section 9: Twin-torch approach — Grave Warden crossbow before arena
+    entities.append(make_entity("Enemy", 76 * 16, 70 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+    # Ravenous Crystal Lizard — side path near water chasm (optional area)
+    entities.append(make_entity("Enemy", 136 * 16, 108 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "RavenousCrystalLizard")]))
+
+    # --- Items (accurate DS3 placements) ---
+    # Ashen Estus Flask — corpse by broken fountain
+    entities.append(make_entity("Item", 82 * 16, 134 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
         make_field("name", "String", "Ashen Estus Flask")]))
-    # Soul of a Deserted Corpse — side pocket south of first encounter
+    # Soul of a Deserted Corpse — right branch after first enemy
     entities.append(make_entity("Item", 62 * 16, 157 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
         make_field("value", "Int", 200),
         make_field("name", "String", "Soul of a Deserted Corpse")]))
-    # Firebomb x5 — firebomb cliff end pocket
+    # Firebomb x5 — cliff end, behind sword+shield and crossbow hollows
     entities.append(make_entity("Item", 38 * 16, 88 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "Firebomb"),
         make_field("name", "String", "Firebomb")]))
-    # Titanite Shard — firebomb cliff, on a tomb
+    # Titanite Shard — small ravine jump, cliff side
     entities.append(make_entity("Item", 42 * 16, 84 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
         make_field("name", "String", "Titanite Shard")]))
-    # Soul of an Unknown Traveler — water chasm mid-path
+    # Soul of an Unknown Traveler — water chasm wider area
     entities.append(make_entity("Item", 118 * 16, 109 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
         make_field("value", "Int", 400),
         make_field("name", "String", "Soul of an Unknown Traveler")]))
-    # Titanite Scale — Crystal Lizard chasm end
+    # Titanite Scale — Crystal Lizard drop location
     entities.append(make_entity("Item", 134 * 16, 106 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
         make_field("name", "String", "Titanite Scale")]))
-    # Coiled Sword — Gundyr arena center
+    # Coiled Sword — Iudex Gundyr arena, obtained after defeating boss
     entities.append(make_entity("Item", 80 * 16, 46 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
         make_field("name", "String", "Coiled Sword")]))
 
     # --- Fog Gate to Firelink Shrine (arena exit) ---
@@ -724,6 +761,29 @@ def make_firelink_shrine():
     fill_tiles(chunk, TILE_GROUND, 94, 60, 104, 72)
     carve_ellipse(chunk, 110, 56, 6, 5)
 
+    # --- Enemies (DS3 Firelink Shrine exterior) ---
+    # Sword Master — down the left stairs from shrine, wields Uchigatana
+    fill_tiles(chunk, TILE_GROUND, 74, 130, 86, 140)
+    entities.append(make_entity("Enemy", 80 * 16, 136 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "Assassin")]))
+    # Starved Hound — graveyard near shrine entrance (DS3: undead dog)
+    fill_tiles(chunk, TILE_GROUND, 92, 126, 100, 136)
+    entities.append(make_entity("Enemy", 96 * 16, 130 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "StarvedHound")]))
+    # Second Starved Hound — further along the cliff path
+    entities.append(make_entity("Enemy", 98 * 16, 134 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "StarvedHound")]))
+    # Grave Warden — patrols shrine exterior graves
+    fill_tiles(chunk, TILE_GROUND, 60, 130, 70, 140)
+    entities.append(make_entity("Enemy", 64 * 16, 134 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "CathedralGraveWarden")]))
+    entities.append(make_entity("Enemy", 66 * 16, 138 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "CathedralGraveWarden")]))
+    # Crystal Lizard — behind the tower (upper east roof drop-down)
+    fill_tiles(chunk, TILE_GROUND, 114, 60, 120, 66)
+    entities.append(make_entity("Enemy", 116 * 16, 62 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "CrystalLizard")]))
+
     # Player spawn at entrance from south
     spawn_px, spawn_py = 80 * 16, 116 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
@@ -731,43 +791,133 @@ def make_firelink_shrine():
     # Bonfire in center
     entities.append(make_entity("Bonfire", 80 * 16, 80 * 16))
 
-    # Fire Keeper NPC (level up)
+    # --- NPCs (DS3 Firelink Shrine inhabitants) ---
+    # Fire Keeper (level up) — stands near bonfire
     entities.append(make_entity("Npc", 78 * 16, 74 * 16, [
         make_field("name", "String", "Fire Keeper"),
         make_field("kind", "LocalEnum.NpcKind", "LevelUp"),
         make_field("color", "Color", "#FFFFFF"),
-        make_field("dialogue", "String", "Welcome to Firelink Shrine|May the flames guide your way"),
+        make_field("dialogue", "String", "Welcome to Firelink Shrine|May the flames guide your way|Touch the darkness within me"),
     ]))
 
-    # Blacksmith Andre
+    # Ludleth of Courland (dialogue) — sits on throne at bonfire
+    entities.append(make_entity("Npc", 82 * 16, 84 * 16, [
+        make_field("name", "String", "Ludleth of Courland"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#DAA520"),
+        make_field("dialogue", "String", "Peace. I am Ludleth of Courland|A Lord, yes, but little more than a cinder|I will wait to see what you can do"),
+    ]))
+
+    # Blacksmith Andre — west wing, anvil area
     entities.append(make_entity("Npc", 38 * 16, 82 * 16, [
-        make_field("name", "String", "Andre"),
+        make_field("name", "String", "Andre of Astora"),
         make_field("kind", "LocalEnum.NpcKind", "Blacksmith"),
         make_field("color", "Color", "#C0C0C0"),
-        make_field("dialogue", "String", "What do you need?|I can reinforce your weapons"),
+        make_field("dialogue", "String", "What do you need?|I can reinforce your weapons|Only in the age of fire do we have purpose"),
     ]))
 
-    # Shrine Handmaiden (merchant)
+    # Shrine Handmaiden (merchant) — north alcove
     entities.append(make_entity("Npc", 82 * 16, 50 * 16, [
         make_field("name", "String", "Shrine Handmaiden"),
         make_field("kind", "LocalEnum.NpcKind", "Merchant"),
         make_field("color", "Color", "#8B7355"),
-        make_field("dialogue", "String", "What is it? Buy something|Or be on your way"),
+        make_field("dialogue", "String", "What is it? Buy something|Or be on your way|I shall tend the flame|And tend to thee"),
     ]))
 
-    # Hawkwood (dialogue)
+    # Hawkwood (dialogue) — east wing, crestfallen warrior
     entities.append(make_entity("Npc", 108 * 16, 82 * 16, [
         make_field("name", "String", "Hawkwood"),
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#7F8C8D"),
-        make_field("dialogue", "String", "Oh, another Unkindled|The Farron Keep... that is where you should go"),
+        make_field("dialogue", "String", "Oh, another Unkindled|The Farron Keep... that is where you should go|Unkindled are unfit to tend the fire"),
     ]))
 
-    # Items around shrine
-    entities.append(make_entity("Item", 74 * 16, 76 * 16, [make_field("kind", "LocalEnum.ItemKind", "EstusShard"), make_field("name", "String", "Estus Shard")]))
-    entities.append(make_entity("Item", 88 * 16, 76 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Titanite Shard")]))
+    # --- Items (DS3 Firelink Shrine) ---
+    # Estus Shard — on rafters above shrine (upper west, illusory wall area)
+    entities.append(make_entity("Item", 50 * 16, 56 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("name", "String", "Estus Shard")]))
+    # Covetous Silver Serpent Ring — chest behind illusory wall on rafters (upper east)
+    entities.append(make_entity("Chest", 110 * 16, 56 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "RingDrop"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Covetous Silver Serpent Ring"),
+        make_field("is_mimic", "Bool", False)]))
+    # Estus Ring — drop down from tower bridge ledge (upper west tower)
+    entities.append(make_entity("Item", 54 * 16, 54 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
+        make_field("name", "String", "Estus Ring")]))
+    # Fire Keeper Soul — top of tower (upper east tower top)
+    entities.append(make_entity("Item", 120 * 16, 54 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Fire Keeper Soul")]))
+    # Broken Straight Sword — by graves straight ahead from entrance (south graves)
+    entities.append(make_entity("Item", 76 * 16, 124 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Broken Straight Sword")]))
+    # Homeward Bone — along path from CemeteryOfAsh (near graves, 5 in DS3)
+    entities.append(make_entity("Item", 78 * 16, 120 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 80 * 16, 124 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 82 * 16, 120 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 76 * 16, 118 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 84 * 16, 118 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    # Ember — near dog area (right path from shrine, 2 in DS3)
+    entities.append(make_entity("Item", 94 * 16, 128 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 98 * 16, 136 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    # East-West Shield — corpse in tree near Sword Master area (junction of stairs)
+    entities.append(make_entity("Item", 86 * 16, 138 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "East-West Shield"),
+        make_field("slot", "String", "Hands")]))
+    # Uchigatana — dropped by Sword Master (near Sword Master enemy position)
+    entities.append(make_entity("Item", 80 * 16, 138 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Uchigatana")]))
+    # Master's Attire — dropped by Sword Master
+    entities.append(make_entity("Item", 78 * 16, 140 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Master's Attire"),
+        make_field("slot", "String", "Chest")]))
+    # Master's Gloves — dropped by Sword Master
+    entities.append(make_entity("Item", 82 * 16, 140 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Master's Gloves"),
+        make_field("slot", "String", "Hands")]))
+    # Soul of a Deserted Corpse — tower area corpse (upper path)
+    entities.append(make_entity("Item", 48 * 16, 58 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Deserted Corpse"),
+        make_field("value", "Int", 200)]))
+    # Twinkling Titanite — Crystal Lizard drop (near crystal lizard area)
+    entities.append(make_entity("Item", 116 * 16, 64 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Twinkling Titanite")]))
+    # Fire Keeper Set — drop from tower bridge (upper area)
+    entities.append(make_entity("Item", 108 * 16, 54 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Fire Keeper Set"),
+        make_field("slot", "String", "Chest")]))
+    # Seed of a Giant Tree — from Giant Tree near shrine exterior
+    entities.append(make_entity("Item", 62 * 16, 126 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Seed of a Giant Tree")]))
 
-    # Fog Gate back to CemeteryOfAsh
+    # --- Fog Gates ---
+    # Back to CemeteryOfAsh
     entities.append(make_entity("FogGate", 80 * 16, 128 * 16, [
         make_field("dest_area", "String", "CemeteryOfAsh"),
         make_field("dest_x", "Float", 580.0),
@@ -776,7 +926,7 @@ def make_firelink_shrine():
         make_field("height", "Float", 80.0),
     ]))
 
-    # Fog Gate to LothricWall
+    # To LothricWall (north exit)
     entities.append(make_entity("FogGate", 80 * 16, 46 * 16, [
         make_field("dest_area", "String", "LothricWall"),
         make_field("dest_x", "Float", 200.0),
@@ -785,9 +935,17 @@ def make_firelink_shrine():
         make_field("height", "Float", 64.0),
     ]))
 
-    # Lights
-    entities.append(make_entity("Light", 80 * 16, 80 * 16, [make_field("radius", "Float", 240.0), make_field("r", "Float", 0.9), make_field("g", "Float", 0.7), make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.6)]))
-    entities.append(make_entity("Light", 36 * 16, 80 * 16, [make_field("radius", "Float", 120.0), make_field("r", "Float", 0.7), make_field("g", "Float", 0.6), make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.3)]))
+    # --- Lights ---
+    # Central bonfire — warm light
+    entities.append(make_entity("Light", 80 * 16, 80 * 16, [
+        make_field("radius", "Float", 240.0), make_field("r", "Float", 0.9),
+        make_field("g", "Float", 0.7), make_field("b", "Float", 0.4),
+        make_field("intensity", "Float", 0.6)]))
+    # Andre's forge — orange glow
+    entities.append(make_entity("Light", 36 * 16, 80 * 16, [
+        make_field("radius", "Float", 120.0), make_field("r", "Float", 0.8),
+        make_field("g", "Float", 0.5), make_field("b", "Float", 0.2),
+        make_field("intensity", "Float", 0.4)]))
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -870,6 +1028,16 @@ def make_lothric_wall():
     # Sewer alcove (east of courtyard)
     fill_tiles(chunk, TILE_GROUND, 54, 82, 62, 96)
 
+    # Lift shortcut shaft — DS3: pressure plate lift connects lower area to Tower on the Wall
+    # The player goes up past crossbow hollow, through falling leaves archway, finds lift room
+    fill_tiles(chunk, TILE_GROUND, 58, 90, 64, 100)
+    # Lift shaft (narrow vertical corridor representing elevator shaft)
+    fill_tiles(chunk, TILE_GROUND, 60, 40, 62, 90)
+    # Falling leaves area — between fountain and lift (DS3: area covered in falling leaves)
+    fill_tiles(chunk, TILE_GROUND, 54, 88, 60, 96)
+    # Darkwraith locked cell — under Tower on the Wall (DS3: behind locked door, Lift Chamber Key)
+    fill_tiles(chunk, TILE_GROUND, 50, 48, 56, 52)
+
     # Connection: residential south to courtyard
     fill_tiles(chunk, TILE_GROUND, 24, 78, 30, 82)
 
@@ -917,45 +1085,68 @@ def make_lothric_wall():
     # --- Bonfires ---
     entities.append(make_entity("Bonfire", 18 * 16, 12 * 16))    # Wall Entrance
     entities.append(make_entity("Bonfire", 62 * 16, 40 * 16))    # Tower on the Wall
+    entities.append(make_entity("Bonfire", 107 * 16, 100 * 16))  # Dancer of the Boreal Valley
     entities.append(make_entity("Bonfire", 100 * 16, 146 * 16))  # Vordt of the Boreal Valley
 
-    # --- Boss ---
+    # --- Bosses ---
+    # Vordt of the Boreal Valley — main boss at south arena
     entities.append(make_entity("BossSpawn", 100 * 16, 144 * 16))
+    # Dancer of the Boreal Valley — appears in cathedral area after Emma
+    # DS3: triggered by approaching the statue after receiving Basin of Vows from Emma
+    # Represented as MiniBoss since engine supports one BossSpawn per area
+    entities.append(make_entity("Enemy", 82 * 16, 102 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "MiniBoss")]))
 
-    # --- Enemies ---
+    # --- Enemies (DS3 High Wall of Lothric: Lothric Knights, Dogs, Hollow Soldiers) ---
     enemy_positions = [
-        # Wall entrance (rampart)
+        # Wall entrance rampart — hollow soldiers on guard
         ("HollowSoldier", 14, 10), ("HollowSoldier", 22, 14),
-        ("HollowSoldier", 30, 18), ("HollowSoldier", 16, 20),
-        # Longbow balcony
-        ("HollowSoldier", 48, 10), ("HollowSoldier", 54, 14),
-        # Dragon walkway
-        ("StarvedHound", 16, 24), ("StarvedHound", 20, 28),
-        # Dragon bridge
+        ("LothricKnight", 30, 18), ("HollowSoldier", 16, 20),
+        # Longbow balcony — hollow soldier + archer
+        ("HollowSoldier", 48, 10), ("Archer", 54, 14),
+        # Pus of Man — praying hollow transforms (DS3: on balcony near Longbow)
+        ("PusOfMan", 50, 12),
+        # Lothric Wyvern — breathes fire on the bridge (DS3: key encounter)
+        ("LothricWyvern", 24, 32),
+        # Dragon walkway — dogs patrol near dead dragon
+        ("StarvedHound", 16, 24), ("StarvedHound", 20, 28),           # DS3: Starved Hounds patrol near dead dragon
+        ("StarvedHound", 18, 22),                          # Starved Hound near wyvern
+        # Dragon bridge — hollows burned by dragon fire
         ("HollowSoldier", 18, 34), ("HollowSoldier", 28, 38),
         ("HollowSoldier", 40, 32), ("HollowSoldier", 52, 36),
-        # Tower area
+        # Tower area — Winged Knight patrols the roof
         ("WingedKnight", 62, 42),
         ("CrystalLizard", 58, 48),
-        # Residential maze (alleys between houses)
-        ("Assassin", 38, 56), ("HollowSoldier", 50, 56),
-        ("HollowSoldier", 62, 56), ("LothricKnight", 74, 54),
-        ("Darkwraith", 38, 66), ("HollowSoldier", 50, 66),
+        ("CrystalLizard", 48, 50),                         # Second crystal lizard on rooftops
+        # Mimic — chest near wyvern area (DS3: Deep Battle Axe mimic)
+        ("Mimic", 42, 38),
+        # Large Hollow Soldier — in tower with halberd
+        ("LargeHollowSoldier", 56, 46),                    # Halberd-wielding large hollow
+        # Residential maze — Assassins hide in alleys, Lothric Knights patrol
+        ("Assassin", 38, 56), ("LothricKnight", 50, 54),
+        ("LothricKnight", 62, 54), ("LothricKnight", 74, 54),
+        ("Darkwraith", 54, 50),                    # Darkwraith in locked cell under Tower (Lift Chamber Key)
+        ("HollowSoldier", 50, 66),
         ("Assassin", 62, 66), ("HollowSoldier", 74, 64),
         ("HollowSoldier", 40, 74), ("HollowSoldier", 56, 74),
-        # Courtyard
+        # Courtyard — Lothric Knights guard the fountain area
         ("LothricKnight", 20, 84), ("LothricKnight", 44, 96),
-        ("StarvedHound", 16, 92), ("StarvedHound", 46, 88),
+        ("StarvedHound", 16, 92), ("StarvedHound", 46, 88),           # DS3: Starved Hounds near lower walls
         ("HollowSoldier", 34, 94), ("HollowSoldier", 52, 90),
-        # Knight path
+        # Second Pus of Man — rooftop praying hollow (DS3: rooftop area)
+        ("PusOfMan", 42, 60),                             # Rooftop pus of man
+        # Knight path — heavy Lothric Knight presence
         ("LothricKnight", 62, 94), ("LothricKnight", 82, 102),
-        ("HollowSoldier", 70, 100), ("HollowSoldier", 86, 96),
-        # Cathedral
-        ("HollowSoldier", 70, 106), ("HollowSoldier", 90, 108),
-        ("PusOfMan", 78, 110),
-        # Frost stairs
+        ("HollowSoldier", 70, 100), ("LothricKnight", 86, 96),
+        # Cathedral area
+        ("LothricKnight", 70, 106), ("LothricKnight", 90, 108),
+        # Red-eyed Lothric Knight — tough variant (DS3: before Vordt)
+        ("LothricKnight", 92, 115),                       # Red-eyed knight near Emma
+        # Frost stairs descent
         ("LothricKnight", 80, 118), ("HollowSoldier", 88, 126),
-        ("HollowSoldier", 76, 134), ("LothricKnight", 94, 138),
+        ("LothricKnight", 76, 134), ("LothricKnight", 94, 138),
+        # Hollow Assassins on rooftops (DS3: ambush near wyvern)
+        ("HollowAssassin", 44, 40), ("HollowAssassin", 60, 50),
     ]
     for kind, tx, ty in enemy_positions:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -963,15 +1154,7 @@ def make_lothric_wall():
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # --- NPCs ---
-    # Emma — inside cathedral chapel
-    entities.append(make_entity("Npc", 80 * 16, 108 * 16, [
-        make_field("name", "String", "Emma"),
-        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
-        make_field("color", "Color", "#C0A0D0"),
-        make_field("dialogue", "String",
-            "Hello, Unkindled|I am Emma, High Priestess of Lothric|Find the Prince, give him this banner"),
-    ]))
-    # Greirat — cell in tower area
+    # Greirat — locked in cell below tower (DS3: basement cell)
     entities.append(make_entity("Npc", 36 * 16, 60 * 16, [
         make_field("name", "String", "Greirat"),
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
@@ -979,37 +1162,83 @@ def make_lothric_wall():
         make_field("dialogue", "String",
             "...Who are you? Can you let me out?|Find the cell key and I will serve you"),
     ]))
+    # Emma — High Priestess in the cathedral (DS3: gives Small Lothric Banner)
+    entities.append(make_entity("Npc", 80 * 16, 108 * 16, [
+        make_field("name", "String", "Emma"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#C0A0D0"),
+        make_field("dialogue", "String",
+            "Hello, Unkindled|I am Emma, High Priestess of Lothric|Find the Prince, give him this banner"),
+    ]))
 
-    # --- Items ---
+    # --- Items (DS3 High Wall of Lothric) ---
     items = [
-        # Wall entrance
+        # Wall entrance — early pickups
         ("SoulOrb", "Soul of a Deserted Corpse", 12, 8, 200),
         ("Firebomb", "Firebomb", 26, 16, 0),
+        ("Consumable", "Throwing Knife", 20, 8, 0),
+        ("Consumable", "Firebomb", 32, 12, 0),
         # Longbow balcony
         ("WeaponDrop", "Longbow", 52, 10, 0),
-        ("ArrowBundle", "Standard Arrow", 50, 8, 0),
+        ("Consumable", "Standard Arrow", 50, 8, 0),
+        ("Consumable", "Binoculars", 46, 8, 0),
+        # Dragon walkway — wyvern area
+        ("Consumable", "Gold Pine Resin", 16, 26, 0),
+        ("TitaniteShard", "Large Titanite Shard", 20, 30, 0),
+        ("Consumable", "Gold Pine Resin", 22, 28, 0),
         # Dragon bridge
-        ("SoulOrb", "Soul of an Unknown Traveler", 30, 36, 400),
+        ("SoulOrb", "Large Soul of a Deserted Corpse", 30, 36, 400),
         ("TitaniteShard", "Titanite Shard", 50, 34, 0),
+        ("Consumable", "Green Blossom", 38, 38, 0),
+        ("Consumable", "Black Firebomb", 44, 32, 0),
+        ("Consumable", "Black Firebomb", 28, 40, 0),
+        ("Consumable", "Black Firebomb", 36, 34, 0),
         # Tower area
-        ("WeaponDrop", "Deep Battle Axe", 58, 46, 0),
-        ("RingDrop", "Estus Ring", 64, 44, 0),
-        # Residential
-        ("WeaponDrop", "Claymore", 50, 34, 0),
+        ("Consumable", "Cell Key", 56, 48, 0),
+        ("Consumable", "Throwing Knife", 60, 38, 0),
+        ("SoulOrb", "Soul of a Deserted Corpse", 58, 44, 200),
+        ("SoulOrb", "Soul of a Deserted Corpse", 44, 58, 200),
+        # Residential maze
         ("EstusShard", "Estus Shard", 72, 58, 0),
-        ("Consumable", "Homeward Bone", 44, 70, 0),
+        ("SoulOrb", "Soul of a Deserted Corpse", 44, 70, 200),
         ("TitaniteShard", "Titanite Shard", 68, 76, 0),
+        ("Consumable", "Firebomb", 36, 60, 0),
+        ("Consumable", "Throwing Knife", 58, 68, 0),
+        ("Consumable", "Alluring Skull", 46, 72, 0),
+        ("WeaponDrop", "Broadsword", 32, 56, 0),
+        ("WeaponDrop", "Mail Breaker", 64, 62, 0),
+        ("Consumable", "Red Eye Orb", 76, 58, 0),
+        ("Consumable", "Undead Hunter Charm", 38, 62, 0),
+        ("Consumable", "Undead Hunter Charm", 42, 66, 0),
         # Courtyard
-        ("WeaponDrop", "Astora Straight Sword", 22, 90, 0),
         ("Consumable", "Firebomb", 40, 92, 0),
         ("SoulOrb", "Soul of a Deserted Corpse", 50, 94, 200),
+        ("Consumable", "Green Blossom", 14, 86, 0),
+        ("Consumable", "Green Blossom", 48, 84, 0),
+        ("Consumable", "Green Blossom", 52, 96, 0),
+        ("Consumable", "Green Blossom", 18, 96, 0),
+        ("RingDrop", "Way of Blue", 34, 88, 0),
+        ("TitaniteShard", "Titanite Shard", 42, 90, 0),
+        ("Ember", "Ember", 30, 90, 0),
+        ("Ember", "Ember", 44, 94, 0),
+        ("SoulOrb", "Soul of a Deserted Corpse", 22, 88, 200),
+        ("SoulOrb", "Soul of a Deserted Corpse", 54, 86, 200),
+        ("SoulOrb", "Soul of a Deserted Corpse", 48, 92, 200),
         # Knight path / cathedral
         ("EstusShard", "Estus Shard", 74, 100, 0),
         ("TitaniteShard", "Titanite Shard", 88, 104, 0),
         ("RingDrop", "Blue Tearstone Ring", 80, 112, 0),
+        ("Consumable", "Small Lothric Banner", 82, 108, 0),
+        ("WeaponDrop", "Lucerne", 90, 98, 0),
+        ("Consumable", "Firebomb", 66, 96, 0),
+        ("WeaponDrop", "Rapier", 76, 94, 0),
+        ("Consumable", "Refined Gem", 84, 102, 0),
+        ("SoulOrb", "Large Soul of a Deserted Corpse", 86, 100, 400),
+        ("RingDrop", "Ring of Sacrifice", 78, 98, 0),
         # Frost stairs
-        ("Consumable", "Homeward Bone", 84, 128, 0),
-        ("SoulOrb", "Soul of a Nameless Soldier", 90, 136, 800),
+        ("Consumable", "Throwing Knife", 78, 132, 0),
+        ("TitaniteShard", "Titanite Shard", 96, 130, 0),
+        ("WeaponDrop", "Club", 88, 118, 0),
     ]
     for kind, name, tx, ty, val in items:
         fields = [make_field("kind", "LocalEnum.ItemKind", kind),
@@ -1017,6 +1246,38 @@ def make_lothric_wall():
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
         entities.append(make_entity("Item", tx * 16, ty * 16, fields))
+
+    # --- Chests (DS3 High Wall of Lothric) ---
+    # Silver Eagle Kite Shield — chest on rampart near dragon bridge
+    entities.append(make_entity("Chest", 14 * 16, 32 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Silver Eagle Kite Shield"),
+        make_field("is_mimic", "Bool", False)]))
+    # Astora Straight Sword — chest in tower basement
+    entities.append(make_entity("Chest", 60 * 16, 50 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Astora Straight Sword"),
+        make_field("is_mimic", "Bool", False)]))
+    # Deep Battle Axe — mimic in room below dragon
+    entities.append(make_entity("Chest", 42 * 16, 38 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Deep Battle Axe"),
+        make_field("is_mimic", "Bool", True)]))
+    # Titanite Shard — chest in residential area
+    entities.append(make_entity("Chest", 38 * 16, 64 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Titanite Shard"),
+        make_field("is_mimic", "Bool", False)]))
+    # Claymore — chest on rooftop near cathedral
+    entities.append(make_entity("Chest", 72 * 16, 82 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Claymore"),
+        make_field("is_mimic", "Bool", False)]))
 
     # --- Fog Gates ---
     # Back to CemeteryOfAsh (NW entry point)
@@ -1033,6 +1294,22 @@ def make_lothric_wall():
         make_field("dest_x", "Float", 100.0),
         make_field("dest_y", "Float", 100.0),
         make_field("width", "Float", 80.0),
+        make_field("height", "Float", 80.0),
+    ]))
+    # To Lothric Castle (Dancer lift — post-Dancer area NE)
+    entities.append(make_entity("FogGate", 107 * 16, 95 * 16, [
+        make_field("dest_area", "String", "LothricCastle"),
+        make_field("dest_x", "Float", 200.0),
+        make_field("dest_y", "Float", 500.0),
+        make_field("width", "Float", 64.0),
+        make_field("height", "Float", 80.0),
+    ]))
+    # To Consumed King's Garden (post-Dancer, SE path)
+    entities.append(make_entity("FogGate", 120 * 16, 115 * 16, [
+        make_field("dest_area", "String", "ConsumedKingsGarden"),
+        make_field("dest_x", "Float", 200.0),
+        make_field("dest_y", "Float", 200.0),
+        make_field("width", "Float", 64.0),
         make_field("height", "Float", 80.0),
     ]))
 
@@ -1171,66 +1448,347 @@ def make_undead_settlement():
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 90 * 16, 106 * 16))
 
-    # --- Enemies ---
+    # --- Enemies (DS3 Undead Settlement: Peasant Hollows, Evangelists, Thralls) ---
     enemy_data = [
-        # Entrance
+        # Entrance — hollow soldiers + Starved Hounds at portcullis (DS3: 3 hounds released through gate)
         ("HollowSoldier", 22, 14), ("HollowSoldier", 26, 22),
-        # House Street
-        ("HollowSoldier", 34, 28), ("PeasantHollow", 42, 36),
-        ("PeasantHollow", 54, 42), ("Assassin", 48, 44),
+        ("StarvedHound", 18, 18), ("StarvedHound", 20, 20), ("StarvedHound", 16, 22),
+        # House streets — Peasant Hollows are the main enemy (DS3: pitchfork hollows, hat-wearing hollows)
+        ("PeasantHollow", 34, 28), ("PeasantHollow", 42, 36),
+        ("PeasantHollow", 54, 42), ("PeasantHollow", 48, 44),
+        ("PeasantHollow", 60, 34), ("PeasantHollow", 66, 38),
+        ("HollowSoldier", 38, 32),
+        # Starved Hounds in the streets (DS3: dogs behind overturned coach, near sewers)
         ("StarvedHound", 30, 36), ("StarvedHound", 58, 38),
-        ("Evangelist", 62, 46),
-        # Giant Tower
-        ("HollowSoldier", 48, 24), ("Thrall", 56, 30),
-        # Bonfire Square
-        ("Evangelist", 66, 52), ("Evangelist", 76, 60),
-        ("Thrall", 72, 50),
-        # Cliffside
+        ("StarvedHound", 82, 50),                                    # DS3: dog guarding ember near sewers
+        # Evangelists — heavy mace women patrol the squares
+        ("Evangelist", 62, 46), ("Evangelist", 66, 52),
+        ("Evangelist", 76, 60), ("Evangelist", 86, 54),
+        # Thralls hiding on rooftops and rafters (DS3: many thrall drop ambushes)
+        ("Thrall", 56, 30), ("Thrall", 72, 50),
+        ("Thrall", 46, 38), ("Thrall", 80, 58),
+        ("Thrall", 50, 36), ("Thrall", 64, 42),                      # DS3: thralls drop from ceiling in houses
+        # Cliffside — more hollows
         ("HollowSoldier", 90, 42), ("HollowSoldier", 96, 44),
-        # Fire Demon
+        ("PeasantHollow", 94, 50),
+        # Fire Demon (DS3: fights alongside Siegward)
         ("FireDemon", 102, 62),
-        # Pilgrim Camp
-        ("PeasantHollow", 120, 32), ("PeasantHollow", 126, 36),
-        ("PeasantHollow", 134, 40),
-        # Cliff Underside
-        ("HollowSoldier", 58, 82), ("HollowSoldier", 68, 86),
-        # Path to pit
+        # Cliff Underside area
+        ("PeasantHollow", 58, 82), ("PeasantHollow", 68, 86),
+        ("HollowSoldier", 64, 78),
+        # Sewers — rats (DS3: 3 small rats + 1 big rat in sewers, drops Bloodbite Ring)
+        ("Rat", 78, 76), ("Rat", 80, 78), ("Rat", 82, 80),          # DS3: small rats in sewers
+        ("Dog", 84, 76),                                              # DS3: big rat (Dog for larger enemy)
+        # Path to pit / Curse-Rotted Greatwood area
         ("HollowSoldier", 78, 78), ("HollowSoldier", 84, 88),
+        ("Thrall", 82, 82),
+        # Giant Slave on tower (DS3: shoots great arrows at player throughout the level)
+        ("GiantSlave", 52, 22),                                       # DS3: Giant atop tower with great bow
+        # Boreal Outrider Knight at lift (DS3: Knight of the Boreal Valley guarding Road of Sacrifices exit)
+        ("WingedKnight", 146, 52),                                    # DS3: Irithyll Straight Sword drop
+        # Holy Knight Hodrick invasion (DS3: Mad Spirit invades near Dilapidated Bridge if Embered)
+        ("MiniBoss", 64, 66),                                         # DS3: Hodrick, Mound-Makers member
+        # Irina's area — Skeletons (DS3: skeletons animate and attack in graveyard near Irina)
+        ("Skeleton", 140, 52), ("Skeleton", 142, 54), ("Skeleton", 144, 48),
+        # Crystal Lizard (DS3: near Hodrick invasion area / cliff path)
+        ("CrystalLizard", 112, 46),
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- NPCs ---
-    # Siegward — at Fire Demon square
+    # --- NPCs (DS3 Undead Settlement: Yoel, Siegward, Cornyx) ---
+    # Yoel of Londor — among the pilgrims at the entrance (DS3: offers free levels)
+    entities.append(make_entity("Npc", 120 * 16, 34 * 16, [
+        make_field("name", "String", "Yoel of Londor"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#4A4A5A"),
+        make_field("dialogue", "String",
+            "I am Yoel of Londor|Let me grant you true strength|Come. Touch the darkness within me"),
+    ]))
+    # Siegward of Catarina — at Fire Demon square (DS3: helps fight the demon)
     entities.append(make_entity("Npc", 96 * 16, 60 * 16, [
         make_field("name", "String", "Siegward"),
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#C0A060"),
         make_field("dialogue", "String",
-            "Aah, hello again|Let us fight this demon together!"),
+            "Aah, hello again|Let us fight this demon together!|Oh, very good. Very good indeed"),
+    ]))
+    # Cornyx — pyromancy trainer in cage on rooftop (DS3: freed from cage, offers pyromancies)
+    entities.append(make_entity("Npc", 44 * 16, 28 * 16, [
+        make_field("name", "String", "Cornyx"),
+        make_field("kind", "LocalEnum.NpcKind", "Merchant"),
+        make_field("color", "Color", "#B8860B"),
+        make_field("dialogue", "String",
+            "You are a Pyromancy student?|I can teach you the flame arts|The flame is both a blessing and a curse"),
+    ]))
+    # Irina of Carim — miracle teacher in cell (DS3: found through locked door in sewers, near skeletons)
+    entities.append(make_entity("Npc", 146 * 16, 54 * 16, [
+        make_field("name", "String", "Irina of Carim"),
+        make_field("kind", "LocalEnum.NpcKind", "Merchant"),
+        make_field("color", "Color", "#8B7D9B"),
+        make_field("dialogue", "String",
+            "I am Irina of Carim|I can teach you miracles|Please, take me to Firelink Shrine"),
+    ]))
+    # Eygon of Carim — guards Irina (DS3: found outside near Irina, warns about the champion)
+    entities.append(make_entity("Npc", 148 * 16, 50 * 16, [
+        make_field("name", "String", "Eygon of Carim"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#4A3A2A"),
+        make_field("dialogue", "String",
+            "I am Eygon of Carim|Keep your hands off the woman|She is under my protection"),
     ]))
 
-    # --- Items ---
-    item_data = [
-        ("SoulOrb", "Soul of a Deserted Corpse", 22, 12, 200),
-        ("EstusShard", "Estus Shard", 44, 40, 0),
-        ("TitaniteShard", "Titanite Shard", 56, 44, 0),
-        ("Consumable", "Homeward Bone", 56, 32, 0),
-        ("SoulOrb", "Soul of an Unknown Traveler", 62, 38, 400),
-        ("Firebomb", "Firebomb", 68, 48, 0),
-        ("EstusShard", "Estus Shard", 130, 38, 0),
-        ("WeaponDrop", "Mace", 146, 56, 0),
-        ("RingDrop", "Lloyd's Sword Ring", 60, 88, 0),
-        ("TitaniteShard", "Titanite Shard", 82, 90, 0),
-    ]
-    for kind, name, tx, ty, val in item_data:
-        fields = [make_field("kind", "LocalEnum.ItemKind", kind),
-                  make_field("name", "String", name)]
-        if kind == "SoulOrb":
-            fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
+    # --- Items (DS3 Undead Settlement) ---
+    # Large Soul of a Deserted Corpse — entry rampart
+    entities.append(make_entity("Item", 22 * 16, 12 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Deserted Corpse"),
+        make_field("value", "Int", 400)]))
+    # Alluring Skull 2x — near dogs by overturned coach
+    entities.append(make_entity("Item", 24 * 16, 18 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Alluring Skull")]))
+    # Homeward Bone 2x — end of broken road near Yoel
+    entities.append(make_entity("Item", 30 * 16, 22 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    # Small Leather Shield — hanging body in first house
+    entities.append(make_entity("Item", 44 * 16, 28 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Small Leather Shield"),
+        make_field("slot", "String", "Hands")]))
+    # Charcoal Pine Bundle 2x — first house balcony
+    entities.append(make_entity("Item", 46 * 16, 32 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Charcoal Pine Bundle")]))
+    # Loretta's Bone — hanging body outside house
+    entities.append(make_entity("Item", 48 * 16, 36 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Loretta's Bone")]))
+    # Repair Powder 2x — around corner from Loretta's Bone
+    entities.append(make_entity("Item", 42 * 16, 34 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Repair Powder")]))
+    # Charcoal Pine Bundle 2x — lower floor of house
+    entities.append(make_entity("Item", 44 * 16, 38 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Charcoal Pine Bundle")]))
+    # Firebomb 6x — corpse in front of blazing fire (wiki: 6x Firebomb)
+    entities.append(make_entity("Item", 44 * 16, 40 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Firebomb"),
+        make_field("name", "String", "Firebomb")]))
+    # Ember — behind the blazing fire
+    entities.append(make_entity("Item", 46 * 16, 42 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    # Large Soul of a Deserted Corpse — settlement house
+    entities.append(make_entity("Item", 56 * 16, 34 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Deserted Corpse"),
+        make_field("value", "Int", 400)]))
+    # Homeward Bone 2x — rooftop path
+    entities.append(make_entity("Item", 58 * 16, 30 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    # Caduceus Round Shield — cliff corner near double doors
+    entities.append(make_entity("Item", 62 * 16, 38 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Caduceus Round Shield"),
+        make_field("slot", "String", "Hands")]))
+    # Plank Shield — near caged hollow NPC
+    entities.append(make_entity("Item", 66 * 16, 40 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Plank Shield"),
+        make_field("slot", "String", "Hands")]))
+    # Reinforced Club — hanging body near cage hollow (wiki: weapon pickup)
+    entities.append(make_entity("Item", 70 * 16, 44 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Reinforced Club")]))
+    # Titanite Shard — ledge near Cornyx bridge
+    entities.append(make_entity("Item", 72 * 16, 32 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    # Partizan — hanging corpse shot down near Cornyx roof
+    entities.append(make_entity("Item", 76 * 16, 28 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Partizan")]))
+    # Hand Axe — balcony near Cornyx cage
+    entities.append(make_entity("Item", 80 * 16, 30 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Hand Axe")]))
+    # Soul of an Unknown Traveler — wooden torture platform
+    entities.append(make_entity("Item", 82 * 16, 36 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of an Unknown Traveler"),
+        make_field("value", "Int", 400)]))
+    # Fire Clutch Ring — end of half-broken bridge
+    entities.append(make_entity("Item", 86 * 16, 34 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
+        make_field("name", "String", "Fire Clutch Ring")]))
+    # Large Soul of a Deserted Corpse — around corner from Fire Clutch
+    entities.append(make_entity("Item", 88 * 16, 38 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Deserted Corpse"),
+        make_field("value", "Int", 400)]))
+    # Ember — past sewers, dog guarding
+    entities.append(make_entity("Item", 64 * 16, 60 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    # Bloodbite Ring — dropped by big rat in sewers
+    entities.append(make_entity("Item", 68 * 16, 68 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
+        make_field("name", "String", "Bloodbite Ring")]))
+    # Caestus — corpse in sewer hallway
+    entities.append(make_entity("Item", 66 * 16, 72 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Caestus")]))
+    # Loincloth — behind locked door (Grave Key)
+    entities.append(make_entity("Item", 72 * 16, 76 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Loincloth"),
+        make_field("slot", "String", "Legs")]))
+    # Red Hilted Halberd — hallway behind locked door
+    entities.append(make_entity("Item", 74 * 16, 80 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Red Hilted Halberd")]))
+    # Soul of an Unknown Traveler — skeleton room behind locked door
+    entities.append(make_entity("Item", 78 * 16, 78 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of an Unknown Traveler"),
+        make_field("value", "Int", 400)]))
+    # Titanite Shard 2x — beyond skeleton room
+    entities.append(make_entity("Item", 80 * 16, 82 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 82 * 16, 84 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    # Saint's Talisman — room with rats near Irina
+    entities.append(make_entity("Item", 84 * 16, 80 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Saint's Talisman")]))
+    # Estus Shard — house near Dilapidated Bridge bonfire
+    entities.append(make_entity("Item", 58 * 16, 36 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("name", "String", "Estus Shard")]))
+    # Warriors of Sunlight Covenant — drop down hole in dwelling
+    entities.append(make_entity("Item", 50 * 16, 56 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Warriors of Sunlight")]))
+    # Charcoal Pine Resin 2x — near caged limbs
+    entities.append(make_entity("Item", 52 * 16, 60 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Charcoal Pine Resin")]))
+    # Titanite Shard — lower level house
+    entities.append(make_entity("Item", 56 * 16, 44 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    # Whip — open dwelling
+    entities.append(make_entity("Item", 60 * 16, 54 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Whip")]))
+    # Titanite Shard — ladder up to bridge
+    entities.append(make_entity("Item", 64 * 16, 56 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    # Rusted Coin — roof after Hodrick invasion
+    entities.append(make_entity("Item", 100 * 16, 56 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Rusted Coin")]))
+    # Fading Soul — path near Hodrick
+    entities.append(make_entity("Item", 98 * 16, 52 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Fading Soul")]))
+    # Red Bug Pellet 2x — open area after Fire Demon
+    entities.append(make_entity("Item", 92 * 16, 40 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Red Bug Pellet")]))
+    # Large Club — open area after Fire Demon
+    entities.append(make_entity("Item", 90 * 16, 44 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Large Club")]))
+    # Alluring Skull 2x — structure near Fire Demon area
+    entities.append(make_entity("Item", 96 * 16, 48 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Alluring Skull")]))
+    # Flynn's Ring — roof of structure near Fire Demon
+    entities.append(make_entity("Item", 98 * 16, 46 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
+        make_field("name", "String", "Flynn's Ring")]))
+    # Homeward Bone 2x — drop from wooden scaffolding
+    entities.append(make_entity("Item", 94 * 16, 42 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    # Chloranthy Ring — drop down tower near Fire Demon
+    entities.append(make_entity("Item", 96 * 16, 38 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
+        make_field("name", "String", "Chloranthy Ring")]))
+    # Irithyll Straight Sword — from Boreal Knight at lift
+    entities.append(make_entity("Item", 130 * 16, 52 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Irithyll Straight Sword")]))
+    # Fading Soul — giant spear area
+    entities.append(make_entity("Item", 108 * 16, 60 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Fading Soul")]))
+    # Ember — giant spear area
+    entities.append(make_entity("Item", 110 * 16, 64 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    # Young White Branch 2x — giant spear area
+    entities.append(make_entity("Item", 106 * 16, 58 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Young White Branch")]))
+    # Large Soul of a Deserted Corpse — giant spear area
+    entities.append(make_entity("Item", 112 * 16, 66 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Deserted Corpse"),
+        make_field("value", "Int", 400)]))
+    # Mortician's Ashes — graveyard up from giant area
+    entities.append(make_entity("Item", 116 * 16, 62 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Mortician's Ashes")]))
+    # Cleric Set (armor) — hut near graveyard
+    entities.append(make_entity("Item", 118 * 16, 66 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Cleric Set"),
+        make_field("slot", "String", "Chest")]))
+    # Blue Wooden Shield — same hut
+    entities.append(make_entity("Item", 120 * 16, 64 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Blue Wooden Shield"),
+        make_field("slot", "String", "Hands")]))
+    # Undead Bone Shard — jump across gap near giant
+    entities.append(make_entity("Item", 114 * 16, 60 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "UndeadBoneShard"),
+        make_field("name", "String", "Undead Bone Shard")]))
+    # Great Scythe — jump to ledge in building
+    entities.append(make_entity("Item", 124 * 16, 56 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Great Scythe")]))
+    # Homeward Bone — Pit of Hollows
+    entities.append(make_entity("Item", 90 * 16, 112 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    # Soul of a Deserted Corpse — lower path
+    entities.append(make_entity("Item", 54 * 16, 46 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Deserted Corpse"),
+        make_field("value", "Int", 200)]))
+    # Titanite Shard — base of wall near Warriors of Sunlight
+    entities.append(make_entity("Item", 50 * 16, 50 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+
+    # --- Chests (DS3 Undead Settlement) ---
+    # Human Pine Resin x4 — chest in Fire Demon area structures
+    entities.append(make_entity("Chest", 96 * 16, 50 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Human Pine Resin"),
+        make_field("is_mimic", "Bool", False)]))
 
     # --- Fog Gates ---
     entities.append(make_entity("FogGate", 148 * 16, 55 * 16, [
@@ -1388,48 +1946,240 @@ def make_road_of_sacrifices():
     # Boss - Crystal Sage
     entities.append(make_entity("BossSpawn", 130 * 16, 112 * 16))
 
-    # Enemies - corvians in woods, lycanthropes near fortress, Black Knight in corvian forest
+    # Enemies - DS3 faithful: Corvians in woods, Lycanthropes near fortress, Black Knight near Farron Coal
+    # Corvians (Assassin closest match — winged hollow enemies), Corvian Storytellers (DarkMage),
+    # Lycanthrope Hunters (Knight), Lycanthropes (StarvedHound), Dogs, Crabs (GiantSlave closest)
     enemy_data = [
-        ("HollowSoldier", 25, 20), ("HollowSoldier", 35, 24),     # Entry woods
-        ("StarvedHound", 42, 26), ("StarvedHound", 48, 28),       # Near fortress
-        ("HollowSoldier", 56, 35), ("HollowSoldier", 62, 40),     # Woods approach
-        ("DarkMage", 70, 48), ("DarkMage", 88, 55),               # Woods mages
-        ("HollowSoldier", 75, 52), ("HollowSoldier", 82, 58),     # Woods hollows
+        # Entry dark woods — Corvians (winged hollows) patrolling the path
+        ("Assassin", 25, 20), ("Assassin", 35, 24),
+        ("Dog", 28, 22),                                          # Dogs ambush near entry
+        # Near Halfway Fortress — Lycanthropes (large beast enemies)
+        ("StarvedHound", 42, 26), ("StarvedHound", 48, 28),
+        # Crucifixion Woods — Corvians and Corvian Storytellers
+        ("Assassin", 56, 35), ("Assassin", 62, 40),               # Corvians in woods
+        ("DarkMage", 70, 48),                                      # Corvian Storyteller (casts poison mist)
+        ("DarkMage", 88, 55),                                      # Corvian Storyteller
+        ("Assassin", 75, 52), ("Assassin", 82, 58),               # More Corvians
+        ("Knight", 72, 55), ("Knight", 85, 60),                   # Lycanthrope Hunters (spear wielders)
         ("CrystalLizard", 50, 26),                                 # Fortress crystal lizard
-        ("BlackKnight", 108, 85),                                  # Corvian forest patrol
-        ("Ghru", 118, 88), ("Ghru", 122, 92), ("Ghru", 125, 96), # Corvian forest ghru
-        ("DarkMage", 125, 115), ("DarkMage", 135, 118),           # Crystal cave
-        ("HollowSoldier", 68, 80), ("HollowSoldier", 72, 85),     # South path
-        ("StarvedHound", 110, 95), ("StarvedHound", 115, 100),    # Corvian forest
-        ("Archer", 100, 78), ("Archer", 120, 82),                 # Corvian forest archers
+        # Swamp area — Poisonhorn Bugs (poison mist mushrooms in lower woods)
+        ("PoisonhornBug", 65, 62), ("PoisonhornBug", 70, 65),
+        ("PoisonhornBug", 62, 70), ("PoisonhornBug", 58, 68),
+        # Swamp area — Lesser Crabs and Great Crab
+        ("GiantSlave", 76, 70),                                    # Great Crab in swamp (drops Great Swamp Ring)
+        ("LesserCrab", 78, 68), ("LesserCrab", 80, 72),                    # Lesser Crabs in swamp
+        # Black Knight guarding Farron Coal in ruins
+        ("BlackKnight", 108, 85),
+        # Corvian forest — more Corvians and Storytellers
+        ("Assassin", 118, 88), ("Assassin", 122, 92), ("Assassin", 125, 96),
+        # Crystal Sage cave — hollow sorcerers
+        ("DarkMage", 125, 115), ("DarkMage", 135, 118),
+        # South path toward Farron Keep
+        ("Assassin", 68, 80), ("Assassin", 72, 85),
+        ("StarvedHound", 110, 95), ("StarvedHound", 115, 100),    # Lycanthropes
+        ("Archer", 100, 78), ("Archer", 120, 82),                 # Corvian archers
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # Items
-    item_data = [
-        ("SoulOrb", "Soul of a Deserted Corpse", 22, 20, 300),
-        ("TitaniteShard", "Titanite Shard", 30, 22, 0),
-        ("EstusShard", "Estus Shard", 52, 32, 0),
-        ("SoulOrb", "Soul of an Unknown Traveler", 60, 42, 500),
-        ("WeaponDrop", "Rapier", 72, 55, 0),
-        ("PurpleMoss", "Purple Moss", 75, 90, 0),
-        ("Consumable", "Homeward Bone", 85, 50, 0),
-        ("RingDrop", "Sage Ring", 112, 88, 0),
-        ("TitaniteShard", "Titanite Shard", 95, 70, 0),
-        ("SoulOrb", "Soul of a Crestfallen Knight", 130, 108, 800),
-        ("WeaponDrop", "Great Scythe", 105, 98, 0),
-        ("Consumable", "Firebomb", 40, 26, 0),
-    ]
-    for kind, name, tx, ty, val in item_data:
-        fields = [make_field("kind", "LocalEnum.ItemKind", kind), make_field("name", "String", name)]
-        if kind == "SoulOrb":
-            fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
+    # --- Items (DS3 Road of Sacrifices) — accurate from wiki ---
+    # Shriving Stone — end of left path in entry woods
+    entities.append(make_entity("Item", 30 * 16, 22 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Shriving Stone")]))
+    # Soul of an Unknown Traveler — overturned coach in entry woods
+    entities.append(make_entity("Item", 22 * 16, 20 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of an Unknown Traveler"),
+        make_field("value", "Int", 500)]))
+    # Brigand Axe — ledge below entry path
+    entities.append(make_entity("Item", 28 * 16, 25 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Brigand Axe")]))
+    # Brigand Set — end of lower entry path
+    entities.append(make_entity("Item", 26 * 16, 28 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Brigand Set"),
+        make_field("slot", "String", "Chest")]))
+    # Brigand Twindaggers — very end of entry path
+    entities.append(make_entity("Item", 26 * 16, 30 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Brigand Twindaggers")]))
+    # Titanite Shard — cavern path along cliff
+    entities.append(make_entity("Item", 38 * 16, 26 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    # Braille Divine Tome of Carim — ledge with dogs ambush
+    entities.append(make_entity("Item", 40 * 16, 30 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Braille Divine Tome of Carim")]))
+    # Morne's Ring — same ledge area as tome
+    entities.append(make_entity("Item", 42 * 16, 32 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
+        make_field("name", "String", "Morne's Ring")]))
+    # Ember — mound near storyteller at Halfway Fortress
+    entities.append(make_entity("Item", 52 * 16, 32 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    # Blue Sentinels Covenant — from Horace at Halfway Fortress
+    entities.append(make_entity("Item", 55 * 16, 30 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Blue Sentinels")]))
+    # Titanite Shard — near poison brumers in woods
+    entities.append(make_entity("Item", 60 * 16, 42 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    # Titanite Shard — near crosses in woods
+    entities.append(make_entity("Item", 64 * 16, 45 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    # Twin Dragon Greatshield — base of tree in woods
+    entities.append(make_entity("Item", 68 * 16, 48 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Twin Dragon Greatshield"),
+        make_field("slot", "String", "Hands")]))
+    # Fading Soul — in the woods area
+    entities.append(make_entity("Item", 70 * 16, 50 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Fading Soul"),
+        make_field("value", "Int", 50)]))
+    # Estus Shard — drop down from ledges in woods
+    entities.append(make_entity("Item", 52 * 16, 38 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("name", "String", "Estus Shard")]))
+    # Ember — blazing fire with crucified hollows
+    entities.append(make_entity("Item", 62 * 16, 48 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    # Soul of an Unknown Traveler — drop from ledge near bonfire
+    entities.append(make_entity("Item", 55 * 16, 42 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of an Unknown Traveler"),
+        make_field("value", "Int", 500)]))
+    # Heretic's Staff — under overhang in ruins
+    entities.append(make_entity("Item", 90 * 16, 55 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Heretic's Staff")]))
+    # Blue Bug Pellet — near Orbeck's room
+    entities.append(make_entity("Item", 82 * 16, 60 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Blue Bug Pellet")]))
+    # Blue Bug Pellet — second pellet in ruins
+    entities.append(make_entity("Item", 88 * 16, 58 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Blue Bug Pellet")]))
+    # Ring of Sacrifice — ledge drop in ruins
+    entities.append(make_entity("Item", 92 * 16, 62 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
+        make_field("name", "String", "Ring of Sacrifice")]))
+    # Sorcerer Set — flooded room below ruins
+    entities.append(make_entity("Item", 95 * 16, 65 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Sorcerer Set"),
+        make_field("slot", "String", "Chest")]))
+    # Sage Ring — flooded room below ruins
+    entities.append(make_entity("Item", 95 * 16, 58 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
+        make_field("name", "String", "Sage Ring")]))
+    # Crystal Gem — ruins upper area
+    entities.append(make_entity("Item", 98 * 16, 55 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Crystal Gem")]))
+    # Twinkling Titanite — in ruins
+    entities.append(make_entity("Item", 100 * 16, 58 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Twinkling Titanite")]))
+    # Twinkling Titanite — in ruins
+    entities.append(make_entity("Item", 100 * 16, 62 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Twinkling Titanite")]))
+    # Green Blossom — swamp edge
+    entities.append(make_entity("Item", 75 * 16, 62 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Green Blossom")]))
+    # Green Blossom — swamp area near crabs
+    entities.append(make_entity("Item", 80 * 16, 68 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Green Blossom")]))
+    # Green Blossom — swamp area
+    entities.append(make_entity("Item", 72 * 16, 75 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Green Blossom")]))
+    # Green Blossom — swamp area
+    entities.append(make_entity("Item", 85 * 16, 72 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Green Blossom")]))
+    # Grass Crest Shield — before giant crab at tree base
+    entities.append(make_entity("Item", 72 * 16, 70 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Grass Crest Shield"),
+        make_field("slot", "String", "Hands")]))
+    # Fallen Knight Set — in the swamp
+    entities.append(make_entity("Item", 78 * 16, 72 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Fallen Knight Set"),
+        make_field("slot", "String", "Chest")]))
+    # Titanite Shard — swamp area
+    entities.append(make_entity("Item", 95 * 16, 70 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    # Great Club — Exile NPC drop at Farron Keep entrance
+    entities.append(make_entity("Item", 110 * 16, 90 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Great Club")]))
+    # Exile Greatsword — Exile NPC drop at Farron Keep entrance
+    entities.append(make_entity("Item", 115 * 16, 95 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Exile Greatsword")]))
+    # Homeward Bone — corpse in Farron Keep castle
+    entities.append(make_entity("Item", 112 * 16, 92 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    # Homeward Bone — corpse in Farron Keep castle
+    entities.append(make_entity("Item", 114 * 16, 93 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    # Golden Falcon Shield — ledge drop near Farron entrance
+    entities.append(make_entity("Item", 105 * 16, 80 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Golden Falcon Shield"),
+        make_field("slot", "String", "Hands")]))
+    # Great Swamp Pyromancy Tome — base of large tree in swamp
+    entities.append(make_entity("Item", 90 * 16, 68 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Great Swamp Pyromancy Tome")]))
+    # Conjurator Set — near pyromancy tome area
+    entities.append(make_entity("Item", 92 * 16, 72 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Conjurator Set"),
+        make_field("slot", "String", "Chest")]))
+    # Farron Coal moved to Farron Keep (wiki: behind illusory wall near Old Wolf)
+    # Sellsword Set — corpse in ruins near Farron Coal
+    entities.append(make_entity("Item", 118 * 16, 88 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Sellsword Set"),
+        make_field("slot", "String", "Chest")]))
+    # Sellsword Twinblades — drop down in ruins
+    entities.append(make_entity("Item", 120 * 16, 90 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Sellsword Twinblades")]))
+    # Herald Set — past boss near fire
+    entities.append(make_entity("Item", 130 * 16, 105 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("name", "String", "Herald Set"),
+        make_field("slot", "String", "Chest")]))
+    # Titanite Shard — Crystal Sage area
+    entities.append(make_entity("Item", 128 * 16, 110 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
 
-    # NPCs - Anri and Horace at Halfway Fortress
-    entities.append(make_entity("Npc", 50 * 16, 30 * 16, [make_field("name", "String", "Anri"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Hello|I am Anri of Astora|Have you seen Horace?")]))
+    # NPCs - Anri and Horace at Halfway Fortress (DS3: they sit together at the bonfire)
+    entities.append(make_entity("Npc", 50 * 16, 30 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Hello|I am Anri of Astora|We are on a journey to find the Lords of Cinder")]))
+    entities.append(make_entity("Npc", 54 * 16, 30 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|...Anri is my companion|I will protect them")]))
+
+    # Orbeck of Vinheim — sorcery teacher in the ruins (DS3: found in a side room of the Crucifixion Woods ruins)
+    entities.append(make_entity("Npc", 82 * 16, 60 * 16, [make_field("name", "String", "Orbeck of Vinheim"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#7090B0"), make_field("dialogue", "String", "I am Orbeck of Vinheim|Bring me scrolls and I shall teach you sorceries")]))
 
     # Fog Gate to FarronKeep
     entities.append(make_entity("FogGate", 68 * 16, 134 * 16, [
@@ -1582,49 +2332,112 @@ def make_farron_keep():
     # Bonfires
     entities.append(make_entity("Bonfire", 15 * 16, 18 * 16))     # Keep entry
     entities.append(make_entity("Bonfire", 72 * 16, 68 * 16))     # Keep Ruins
+    entities.append(make_entity("Bonfire", 120 * 16, 94 * 16))    # Keep Perimeter
     entities.append(make_entity("Bonfire", 45 * 16, 105 * 16))    # Old Wolf
     entities.append(make_entity("Bonfire", 140 * 16, 118 * 16))   # Abyss Watchers
 
     # Boss - Abyss Watchers
     entities.append(make_entity("BossSpawn", 140 * 16, 112 * 16))
 
-    # Enemies - many Ghru in swamp, Darkwraiths near boss, Basilisks in cave
+    # Enemies - DS3 faithful: Ghru (swamp), Elder Ghru (elite), Darkwraiths (abyss),
+    # Basilisks (curse cave), Rotten Slugs (leeches), Great Crabs, Corvians, Crystal Lizards
     enemy_data = [
-        ("Ghru", 35, 45), ("Ghru", 40, 48), ("Ghru", 48, 50),       # Left torch area
-        ("Ghru", 68, 48), ("Ghru", 72, 52), ("Ghru", 75, 55),       # Center torch area
-        ("Ghru", 95, 42), ("Ghru", 100, 45),                        # Right torch area
-        ("Ghru", 65, 72), ("Ghru", 72, 76), ("Ghru", 78, 70),      # Keep Ruins
-        ("Darkwraith", 100, 88), ("Darkwraith", 108, 95),           # Darkwraith patrol
-        ("Basilisk", 24, 70), ("Basilisk", 30, 75), ("Basilisk", 32, 68),  # Curse cave
-        ("Ghru", 50, 85), ("Ghru", 55, 90),                         # South swamp
-        ("StarvedHound", 42, 55), ("StarvedHound", 62, 58),         # Swamp hounds
+        # Left torch area — Ghru swarm (regular Ghru leap/gaunt variants)
+        ("Ghru", 35, 45), ("Ghru", 40, 48), ("Ghru", 48, 50),
+        # Center torch area — more Ghru
+        ("Ghru", 68, 48), ("Ghru", 72, 52), ("Ghru", 75, 55),
+        # Right torch area
+        ("Ghru", 95, 42), ("Ghru", 100, 45),
+        # Keep Ruins — Ghru and Ghru Shaman
+        ("Ghru", 65, 72), ("Ghru", 72, 76), ("Ghru", 78, 70),
+        ("DarkMage", 70, 74),                                        # Ghru Shaman (casts poison)
+        # Darkwraith patrol — deep in swamp and near boss approach
+        ("Darkwraith", 100, 88), ("Darkwraith", 108, 95),
+        ("Darkwraith", 125, 108),                                    # Near arena gate
+        # Basilisk curse cave (SE corner)
+        ("Basilisk", 24, 70), ("Basilisk", 30, 75), ("Basilisk", 32, 68),
+        # Rotten Slugs (leeches) in swamp water and around Old Wolf tower
+        ("Rat", 42, 82), ("Rat", 45, 85), ("Rat", 50, 88),         # Rotten Slugs near leech building
+        ("Rat", 48, 105), ("Rat", 52, 110),                         # Rotten Slugs at ladder base
+        # Elder Ghru — elite horned beasts with tree weapons (Knight closest match)
+        ("Knight", 55, 62), ("Knight", 60, 68), ("Knight", 58, 75), # Elder Ghru trio around Poison Gem
+        ("Knight", 110, 100),                                        # Elder Ghru near gate
+        # Great Crab in swamp (GiantSlave closest — large enemy)
+        ("GiantSlave", 65, 62),                                      # Great Crab (drops Lingering Dragoncrest Ring)
+        # Corvian and Corvian Storyteller in second half
+        ("Assassin", 115, 95), ("Assassin", 120, 100),              # Corvians in second half
+        ("DarkMage", 118, 98),                                       # Corvian Storyteller
+        # Crystal Lizards — rare spawns
         ("CrystalLizard", 85, 82),                                   # Near gate
-        ("Ghru", 115, 95), ("Ghru", 120, 100),                      # Gate approach
-        ("Darkwraith", 125, 108),                                    # Near arena
+        ("CrystalLizard", 48, 112),                                  # Near Old Wolf tower
+        # Stray Demon (DS3: optional mini-boss in Keep Ruins area, drops Soul of a Stray Demon)
+        ("MiniBoss", 120, 98),                                    # Stray Demon
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # Items
-    item_data = [
-        ("SoulOrb", "Soul of a Deserted Corpse", 18, 22, 500),
-        ("PurpleMoss", "Purple Moss Clump", 38, 50, 0),
-        ("EstusShard", "Estus Shard", 72, 70, 0),
-        ("TitaniteShard", "Titanite Shard", 45, 108, 0),
-        ("SoulOrb", "Soul of an Unknown Traveler", 65, 65, 800),
-        ("Consumable", "Homeward Bone", 100, 40, 0),
-        ("RingDrop", "Lingering Dragoncrest Ring", 28, 74, 0),
-        ("WeaponDrop", "Greatsword", 92, 44, 0),
-    ]
-    for kind, name, tx, ty, val in item_data:
-        fields = [make_field("kind", "LocalEnum.ItemKind", kind), make_field("name", "String", name)]
-        if kind == "SoulOrb":
-            fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
+    # --- Items (DS3 Farron Keep) — accurate from wiki ---
+    # Pyromancies / Spells / Key items
+    entities.append(make_entity("Item", 22 * 16, 45 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Iron Flesh")]))
+    entities.append(make_entity("Item", 25 * 16, 68 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Golden Scroll")]))
+    entities.append(make_entity("Item", 30 * 16, 55 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Sage's Coal")]))
+    # Farron Coal — behind illusory wall near Old Wolf of Farron (wiki: Farron Keep)
+    entities.append(make_entity("Item", 32 * 16, 58 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Farron Coal")]))
+    entities.append(make_entity("Item", 45 * 16, 100 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Dreamchaser's Ashes")]))
+    entities.append(make_entity("Item", 110 * 16, 85 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Lightning Spear")]))
+    entities.append(make_entity("Item", 55 * 16, 82 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Sage's Scroll")]))
+    entities.append(make_entity("Item", 60 * 16, 78 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Poison Gem")]))
+    entities.append(make_entity("Item", 75 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Great Magic Weapon")]))
+    entities.append(make_entity("Item", 88 * 16, 48 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Atonement")]))
+    # Wolf's Blood Swordgrass (covenant item on ground before ladder)
+    entities.append(make_entity("Item", 42 * 16, 98 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Wolf's Blood Swordgrass")]))
+    # Upgrade materials
+    entities.append(make_entity("Item", 50 * 16, 85 * 16, [make_field("kind", "LocalEnum.ItemKind", "UndeadBoneShard"), make_field("name", "String", "Undead Bone Shard")]))
+    entities.append(make_entity("Item", 72 * 16, 70 * 16, [make_field("kind", "LocalEnum.ItemKind", "EstusShard"), make_field("name", "String", "Estus Shard")]))
+    entities.append(make_entity("Item", 45 * 16, 108 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 55 * 16, 95 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 85 * 16, 82 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 48 * 16, 112 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 52 * 16, 95 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Twinkling Titanite")]))
+    entities.append(make_entity("Item", 58 * 16, 65 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Heavy Gem")]))
+    entities.append(make_entity("Item", 62 * 16, 72 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Hollow Gem")]))
+    # Weapons
+    entities.append(make_entity("Item", 92 * 16, 44 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Greatsword")]))
+    entities.append(make_entity("Item", 48 * 16, 115 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Greataxe")]))
+    entities.append(make_entity("Item", 70 * 16, 56 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Sunlight Talisman")]))
+    entities.append(make_entity("Item", 35 * 16, 62 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Black Bow of Pharis")]))
+    entities.append(make_entity("Item", 40 * 16, 58 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Stone Parma"), make_field("slot", "String", "Hands")]))
+    entities.append(make_entity("Item", 105 * 16, 55 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Dragon Crest Shield"), make_field("slot", "String", "Hands")]))
+    # Rings
+    entities.append(make_entity("Item", 28 * 16, 74 * 16, [make_field("kind", "LocalEnum.ItemKind", "RingDrop"), make_field("name", "String", "Lingering Dragoncrest Ring")]))
+    # Armor sets and pieces
+    entities.append(make_entity("Item", 35 * 16, 50 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Dark Set"), make_field("slot", "String", "Chest")]))
+    entities.append(make_entity("Item", 68 * 16, 95 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Crown of Dusk"), make_field("slot", "String", "Head")]))
+    entities.append(make_entity("Item", 42 * 16, 65 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Ragged Mask"), make_field("slot", "String", "Head")]))
+    entities.append(make_entity("Item", 50 * 16, 72 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Antiquated Set"), make_field("slot", "String", "Chest")]))
+    entities.append(make_entity("Item", 32 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Pharis's Hat"), make_field("slot", "String", "Head")]))
+    entities.append(make_entity("Item", 82 * 16, 55 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Nameless Knight Set"), make_field("slot", "String", "Chest")]))
+    # Consumables
+    entities.append(make_entity("Item", 105 * 16, 50 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 38 * 16, 50 * 16, [make_field("kind", "LocalEnum.ItemKind", "PurpleMoss"), make_field("name", "String", "Purple Moss Clump")]))
+    entities.append(make_entity("Item", 38 * 16, 54 * 16, [make_field("kind", "LocalEnum.ItemKind", "PurpleMoss"), make_field("name", "String", "Purple Moss Clump")]))
+    entities.append(make_entity("Item", 38 * 16, 58 * 16, [make_field("kind", "LocalEnum.ItemKind", "PurpleMoss"), make_field("name", "String", "Purple Moss Clump")]))
+    entities.append(make_entity("Item", 48 * 16, 100 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Young White Branch")]))
+    entities.append(make_entity("Item", 44 * 16, 96 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Young White Branch")]))
+    entities.append(make_entity("Item", 65 * 16, 65 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Soul of a Nameless Soldier"), make_field("value", "Int", 800)]))
+    entities.append(make_entity("Item", 78 * 16, 50 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Large Soul of a Nameless Soldier"), make_field("value", "Int", 1200)]))
+    entities.append(make_entity("Item", 130 * 16, 108 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Soul of a Stray Demon"), make_field("value", "Int", 20000)]))
+    # Shriving Stone (used for reverse weapon infusions)
+    entities.append(make_entity("Item", 68 * 16, 78 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Shriving Stone")]))
 
     # NPC - Old Wolf of Farron
     entities.append(make_entity("Npc", 45 * 16, 103 * 16, [make_field("name", "String", "Old Wolf of Farron"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#8899AA"), make_field("dialogue", "String", "(The wolf gazes silently|Its eyes reflect distant flames)")]))
+
+    # NPC - Hawkwood (event: he meditates at Farron Keep, relating to Abyss Watchers)
+    entities.append(make_entity("Npc", 68 * 16, 72 * 16, [make_field("name", "String", "Hawkwood"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#8B7355"), make_field("dialogue", "String", "The Undead Legion used to be around here|They were a fierce bunch|They linked the fire long ago")]))
 
     # Fog Gate to CatacombsOfCarthus
     entities.append(make_entity("FogGate", 140 * 16, 130 * 16, [
@@ -1634,6 +2447,8 @@ def make_farron_keep():
         make_field("width", "Float", 64.0),
         make_field("height", "Float", 80.0),
     ]))
+
+    # No chests in Farron Keep per DS3 wiki — all items are ground pickups
 
     # Lights - torch fires and bonfire glow
     entities.append(make_entity("Light", 15 * 16, 18 * 16, [make_field("radius", "Float", 140.0), make_field("r", "Float", 0.8), make_field("g", "Float", 0.7), make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.4)]))
@@ -1756,8 +2571,8 @@ def make_cathedral_deep():
     fill_tiles(chunk, TILE_GROUND, 58, 65, 64, 70)
 
     # ================================================================
-    # SECTION 8: Siegward's well - doc: x=1400,y=1300,w=200,h=200
-    # Small well area where Siegward is trapped
+    # SECTION 8: Well / drop area - doc: x=1400,y=1300,w=200,h=200
+    # Area where Patches kicks player down into Giant room
     # ================================================================
     carve_ellipse(chunk, 58, 85, 5, 4)
 
@@ -1803,67 +2618,176 @@ def make_cathedral_deep():
     spawn_px, spawn_py = 30 * 16, 8 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
-    # Bonfires
-    entities.append(make_entity("Bonfire", 30 * 16, 8 * 16))       # Cemetery entry
+    # Bonfires — DS3: Cathedral of the Deep, Cleansing Chapel, Deacons of the Deep, Rosaria's Bed Chamber
+    entities.append(make_entity("Bonfire", 30 * 16, 8 * 16))       # Cathedral of the Deep (entry)
     entities.append(make_entity("Bonfire", 32 * 16, 44 * 16))      # Cleansing Chapel
-    entities.append(make_entity("Bonfire", 52 * 16, 75 * 16))      # Cathedral nave
-    entities.append(make_entity("Bonfire", 38 * 16, 150 * 16))     # Rosaria's
+    entities.append(make_entity("Bonfire", 45 * 16, 124 * 16))     # Deacons of the Deep (boss arena)
+    entities.append(make_entity("Bonfire", 38 * 16, 150 * 16))     # Rosaria's Bed Chamber
 
     # Boss - Deacons of the Deep
     entities.append(make_entity("BossSpawn", 45 * 16, 114 * 16))
 
-    # Enemies
+    # Enemies (DS3 Cathedral of the Deep: Cathedral Knights, Thralls/Hollow Slaves,
+    # Evangelists, Deacons, Infested Corpses, Reanimated Corpses, Devout Hollows,
+    # Writhing Rotten Flesh, Cage Spiders, Man-grubs, Deep Accursed, Mimic,
+    # Longfinger Kirk invader, Starved Hounds, Corpse-grubs, Crystal Lizards,
+    # Cathedral Grave Wardens, Ravenous Crystal Lizards)
     enemy_data = [
-        ("PeasantHollow", 28, 6), ("PeasantHollow", 34, 8),        # Cemetery
-        ("StarvedHound", 25, 10), ("StarvedHound", 35, 12),        # Cemetery dogs
-        ("CathedralKnight", 40, 16), ("CathedralKnight", 45, 20),  # Outer graveyard
-        ("InfestedCorpse", 30, 28), ("InfestedCorpse", 36, 30),    # Graveyard corpses
-        ("Evangelist", 34, 42),                                    # Cleansing Chapel
-        ("Thrall", 60, 60), ("Thrall", 64, 65), ("Thrall", 68, 62),# Side aisle
-        ("HollowSoldier", 48, 54), ("HollowSoldier", 52, 56),      # Gate area
-        ("CathedralKnight", 50, 70), ("CathedralKnight", 55, 72),  # Nave knights
-        ("Evangelist", 66, 64), ("Evangelist", 72, 68),            # Upper gallery
-        ("HollowSoldier", 70, 62),                                 # Gallery
-        ("GiantSlave", 44, 92), ("GiantSlave", 56, 98),            # Giant room
-        ("CathedralKnight", 48, 88), ("CathedralKnight", 52, 96),  # Giant room guards
-        ("Evangelist", 40, 96),                                    # Giant room
-        ("Thrall", 46, 100), ("Thrall", 54, 102),                  # Giant room thralls
-        ("Deacon", 38, 110), ("Deacon", 42, 108), ("Deacon", 48, 112),  # Deacon hall
-        ("Deacon", 52, 116), ("Deacon", 56, 114), ("Deacon", 40, 118),  # More deacons
-        ("Deacon", 45, 122), ("Deacon", 50, 124),                  # More deacons
-        ("Deacon", 55, 120), ("Deacon", 35, 124),                  # More deacons
-        ("CathedralKnight", 60, 110),                               # Deacon hall guard
-        ("ManGrub", 34, 135), ("ManGrub", 38, 138),                # Slug corridor
-        ("ManGrub", 42, 140), ("ManGrub", 36, 142),                # More slugs
+        # Cemetery entry — Infested Corpses among the graves (DS3: 4-5 infested corpses)
+        ("InfestedCorpse", 28, 6), ("InfestedCorpse", 34, 8),
+        ("InfestedCorpse", 25, 10), ("InfestedCorpse", 35, 12),
+        ("CrystalLizard", 38, 4),                                     # Ravenous Crystal Lizard
+        # Outer graveyard — Cathedral Knights, Starved Hounds, Grave Wardens
+        ("CathedralKnight", 40, 16), ("CathedralKnight", 45, 20),    # Cathedral Knight patrols
+        ("InfestedCorpse", 30, 28), ("InfestedCorpse", 36, 30),      # Graveyard corpses
+        ("StarvedHound", 22, 24), ("StarvedHound", 26, 28),                   # DS3: Starved Hounds prowl the graveyard
+        ("CathedralGraveWarden", 34, 26), ("CathedralGraveWarden", 38, 32),         # DS3: dual-wielding grave wardens
+        # Cleansing Chapel — Evangelist guards bonfire area
+        ("Evangelist", 34, 42),
+        ("PeasantHollow", 28, 40),                                    # Reanimated Corpse near chapel
+        # Side aisle — Thralls/Hollow Slaves ambush from above (DS3: drop from ceiling)
+        ("Thrall", 60, 60), ("Thrall", 64, 65), ("Thrall", 68, 62),
+        ("Thrall", 62, 68),                                           # Extra thrall in dark corner
+        ("PeasantHollow", 58, 64),                                    # Devout Hollow in side aisle
+        # Gate area — Cathedral Knights guard locked door
+        ("CathedralKnight", 48, 54), ("CathedralKnight", 52, 56),
+        ("Evangelist", 46, 50),                                       # Evangelist near gate
+        # Nave — heavy knight and evangelist presence (DS3: multiple knight patrols)
+        ("CathedralKnight", 50, 70), ("CathedralKnight", 55, 72),
+        ("Evangelist", 42, 74),                                       # Evangelist in nave corner
+        ("Thrall", 48, 76), ("Thrall", 56, 78),                       # Thrall ambush in nave
+        ("Thrall", 52, 73), ("Thrall", 58, 75), ("Thrall", 54, 77),       # DS3: rafter ambush (3 thralls on curved rafters)
+        # Upper gallery — Evangelists and knights
+        ("Evangelist", 66, 64), ("Evangelist", 72, 68),
+        ("CathedralKnight", 70, 62),                                  # Gallery guard
+        ("InfestedCorpse", 76, 66),                                   # Corpse in gallery
+        # Deep Accursed — lurks in side room (DS3: giant spider enemy near entrance shortcut)
+        ("DeepAccursed", 22, 38),
+        # Writhing Rotten Flesh in swampy area near giant room
+        ("Rat", 38, 86), ("Rat", 42, 88),                             # Writhing Rotten Flesh
+        ("InfestedCorpse", 38, 86), ("InfestedCorpse", 42, 88),                   # DS3: Writhing Rotten Flesh
+        ("GiantSlave", 44, 92), ("GiantSlave", 56, 98),
+        ("CathedralKnight", 48, 88), ("CathedralKnight", 52, 96),
+        ("Evangelist", 40, 96),
+        ("Thrall", 46, 100), ("Thrall", 54, 102),
+        # Cage Spider area (DS3: basilisks in dark room near giant)
+        ("Basilisk", 36, 94), ("Basilisk", 40, 98),                   # Cage Spiders
+        # Deacon hall — mass of Deacons before the boss (DS3: dozens of deacons)
+        ("Deacon", 38, 110), ("Deacon", 42, 108), ("Deacon", 48, 112),
+        ("Deacon", 52, 116), ("Deacon", 56, 114), ("Deacon", 40, 118),
+        ("Deacon", 45, 122), ("Deacon", 50, 124),
+        ("Deacon", 55, 120), ("Deacon", 35, 124),
+        ("Deacon", 58, 118), ("Deacon", 32, 120),                     # More deacons
+        ("CathedralKnight", 60, 110),                                 # Deacon hall guard
+        ("CathedralGraveWarden", 58, 106), ("CathedralGraveWarden", 62, 108),   # DS3: 2 grave wardens before Deacon stairs
+        # Slug corridor to Rosaria — Man-grubs (DS3: 4-5 along the corridor)
+        ("ManGrub", 34, 135), ("ManGrub", 38, 138),
+        ("ManGrub", 42, 140), ("ManGrub", 36, 142),
+        ("ManGrub", 40, 144),                                         # Extra man-grub near Rosaria
+        # Longfinger Kirk invasion (DS3: dark spirit invader in cathedral, Darkwraith closest match)
+        ("Darkwraith", 64, 70),                                       # Longfinger Kirk (wears Dark Set)
+        # Mimic in upper gallery handled as Chest entity below
+        # Corpse-grubs near deacon hall entrance
+        ("InfestedCorpse", 30, 108), ("InfestedCorpse", 28, 114),     # Corpse-grubs
+        # Crystal Lizard near nave
+        ("CrystalLizard", 60, 76),
     ]
     for kind, tx, ty in enemy_data:
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", kind)]))
+        mapped = ENEMY_KIND_MAP.get(kind, kind)
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # Items
-    items = [
-        ("SoulOrb", "Soul of a Deserted Corpse", 28, 6, 200),
-        ("EstusShard", "Estus Shard", 40, 22, 0),
-        ("TitaniteShard", "Titanite Shard", 28, 26, 0),
-        ("SoulOrb", "Soul of an Unknown Traveler", 45, 32, 500),
-        ("Consumable", "Homeward Bone", 62, 58, 0),
-        ("SoulOrb", "Soul of a Nameless Warrior", 50, 68, 300),
-        ("TitaniteShard", "Titanite Shard", 66, 66, 0),
-        ("Ember", "Ember", 44, 94, 0),
-        ("SoulOrb", "Soul of a Weary Warrior", 52, 76, 1000),
-        ("SoulOrb", "Soul of a Crestfallen Knight", 48, 96, 1000),
-        ("Consumable", "Titanite Shard", 42, 120, 0),
-        ("EstusShard", "Estus Shard", 72, 66, 0),
-    ]
-    for kind, name, tx, ty, val in items:
-        fields = [make_field("kind", "LocalEnum.ItemKind", kind), make_field("name", "String", name)]
-        if kind == "SoulOrb":
-            fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
+    # --- Items (DS3 Cathedral of the Deep) — accurate from wiki ---
+    # Cemetery / approach area
+    entities.append(make_entity("Item", 28 * 16, 6 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Fading Soul"), make_field("value", "Int", 50)]))
+    entities.append(make_entity("Item", 30 * 16, 35 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Paladin's Ashes")]))
+    # Outer graveyard
+    entities.append(make_entity("Item", 28 * 16, 26 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 45 * 16, 32 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Large Soul of an Unknown Traveler"), make_field("value", "Int", 800)]))
+    entities.append(make_entity("Item", 42 * 16, 30 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Crest Shield"), make_field("slot", "String", "Hands")]))
+    entities.append(make_entity("Item", 44 * 16, 36 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Astora Greatsword")]))
+    entities.append(make_entity("Item", 46 * 16, 34 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Executioner's Greatsword")]))
+    entities.append(make_entity("Item", 26 * 16, 28 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Fading Soul"), make_field("value", "Int", 50)]))
+    # Cleansing Chapel
+    entities.append(make_entity("Item", 40 * 16, 22 * 16, [make_field("kind", "LocalEnum.ItemKind", "EstusShard"), make_field("name", "String", "Estus Shard")]))
+    entities.append(make_entity("Item", 38 * 16, 42 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Notched Whip")]))
+    # Graveyard paths
+    entities.append(make_entity("Item", 48 * 16, 40 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Young White Branch")]))
+    entities.append(make_entity("Item", 50 * 16, 42 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Large Soul of an Unknown Traveler"), make_field("value", "Int", 800)]))
+    entities.append(make_entity("Item", 52 * 16, 44 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Repair Powder")]))
+    entities.append(make_entity("Item", 54 * 16, 46 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Repair Powder")]))
+    entities.append(make_entity("Item", 56 * 16, 48 * 16, [make_field("kind", "LocalEnum.ItemKind", "UndeadBoneShard"), make_field("name", "String", "Undead Bone Shard")]))
+    entities.append(make_entity("Item", 58 * 16, 50 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Young White Branch")]))
+    entities.append(make_entity("Item", 60 * 16, 52 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Curse Ward Greatshield"), make_field("slot", "String", "Hands")]))
+    entities.append(make_entity("Item", 62 * 16, 54 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 64 * 16, 56 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Saint-tree Bellvine")]))
+    entities.append(make_entity("Item", 36 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "RingDrop"), make_field("name", "String", "Poisonbite Ring")]))
+    # Cathedral interior
+    entities.append(make_entity("Item", 50 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Red Bug Pellet")]))
+    entities.append(make_entity("Item", 52 * 16, 62 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Red Bug Pellet")]))
+    entities.append(make_entity("Item", 66 * 16, 58 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Rusted Coin")]))
+    entities.append(make_entity("Item", 68 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Rusted Coin")]))
+    entities.append(make_entity("Item", 54 * 16, 64 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Soul of an Unknown Traveler"), make_field("value", "Int", 500)]))
+    entities.append(make_entity("Item", 56 * 16, 66 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Red Bug Pellet")]))
+    entities.append(make_entity("Item", 70 * 16, 62 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Undead Hunter Charm")]))
+    entities.append(make_entity("Item", 58 * 16, 68 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Soul of a Nameless Soldier"), make_field("value", "Int", 800)]))
+    entities.append(make_entity("Item", 60 * 16, 70 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 62 * 16, 72 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Duel Charm")]))
+    entities.append(make_entity("Item", 64 * 16, 74 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Duel Charm")]))
+    # Giant room
+    entities.append(make_entity("Item", 44 * 16, 94 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 46 * 16, 96 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Seek Guidance")]))
+    entities.append(make_entity("Item", 48 * 16, 98 * 16, [make_field("kind", "LocalEnum.ItemKind", "RingDrop"), make_field("name", "String", "Lloyd's Sword Ring")]))
+    entities.append(make_entity("Item", 50 * 16, 100 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Deep Braille Divine Tome")]))
+    entities.append(make_entity("Item", 52 * 16, 90 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Drang Set"), make_field("slot", "String", "Chest")]))
+    # Pale Tongue removed (duplicate — wiki says 1x for Cathedral of the Deep)
+    entities.append(make_entity("Item", 40 * 16, 102 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Maiden Set"), make_field("slot", "String", "Chest")]))
+    entities.append(make_entity("Item", 42 * 16, 104 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 44 * 16, 106 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Duel Charm")]))
+    entities.append(make_entity("Item", 46 * 16, 108 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Duel Charm")]))
+    entities.append(make_entity("Item", 48 * 16, 110 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Dung Pie")]))
+    entities.append(make_entity("Item", 50 * 16, 112 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Dung Pie")]))
+    entities.append(make_entity("Item", 52 * 16, 114 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Dung Pie")]))
+    entities.append(make_entity("Item", 54 * 16, 116 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Dung Pie")]))
+    entities.append(make_entity("Item", 56 * 16, 118 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 58 * 16, 120 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 42 * 16, 122 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Large Titanite Shard")]))
+    # Deep Accursed area
+    entities.append(make_entity("Item", 24 * 16, 40 * 16, [make_field("kind", "LocalEnum.ItemKind", "RingDrop"), make_field("name", "String", "Aldrich's Sapphire")]))
+    # Rafter / upper areas
+    entities.append(make_entity("Item", 72 * 16, 66 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Deep Ring")]))
+    entities.append(make_entity("Item", 74 * 16, 68 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Red Sign Soapstone")]))
+    entities.append(make_entity("Item", 76 * 16, 70 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Pale Tongue")]))
+    entities.append(make_entity("Item", 78 * 16, 72 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Blessed Gem")]))
+    entities.append(make_entity("Item", 70 * 16, 64 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Arbalest")]))
+    entities.append(make_entity("Item", 68 * 16, 68 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Drang Hammers")]))
+    # Rosaria's Bedchamber
+    entities.append(make_entity("Item", 38 * 16, 136 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Saint Bident")]))
+    entities.append(make_entity("Item", 40 * 16, 138 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 42 * 16, 140 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 36 * 16, 142 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Small Doll")]))
+    entities.append(make_entity("Item", 34 * 16, 148 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Armor of Thorns"), make_field("slot", "String", "Chest")]))
+    entities.append(make_entity("Item", 38 * 16, 152 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Archdeacon Set"), make_field("slot", "String", "Chest")]))
+    # Longfinger Kirk invasion drops
+    entities.append(make_entity("Item", 62 * 16, 72 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Barbed Straight Sword")]))
+    entities.append(make_entity("Item", 64 * 16, 74 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Spiked Shield"), make_field("slot", "String", "Hands")]))
+    # Consumables scattered through walkthrough
+    entities.append(make_entity("Item", 22 * 16, 20 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Repair Powder")]))
+    # Titanite Shard removed (duplicate — wiki says 2x for Cathedral of the Deep)
+    entities.append(make_entity("Item", 66 * 16, 76 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Twinkling Titanite")]))
+    entities.append(make_entity("Item", 68 * 16, 78 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Twinkling Titanite")]))
 
-    # NPCs
-    entities.append(make_entity("Npc", 60 * 16, 85 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D4A840"), make_field("dialogue", "String", "Aah, you found me|I seem to have gotten myself stuck")]))
+    # NPCs - DS3 Cathedral of the Deep: Patches, Rosaria
     entities.append(make_entity("Npc", 52 * 16, 78 * 16, [make_field("name", "String", "Patches"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#808080"), make_field("dialogue", "String", "What's the matter?|You fell for it!")]))
     entities.append(make_entity("Npc", 38 * 16, 148 * 16, [make_field("name", "String", "Rosaria"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D0A0B0"), make_field("dialogue", "String", "Welcome|I am Rosaria, Mother of Rebirth")]))
+    # Siegward of Catarina — stuck in the well outside Cathedral (DS3: freed via lift mechanism)
+    entities.append(make_entity("Npc", 24 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Aah, hello|I seem to be stuck in this well|Could you find a way to get me out?")]))
+
+    # Chests - DS3 Cathedral of the Deep: Mimic in rafters drops Lightning Stake
+    entities.append(make_entity("Chest", 74 * 16, 60 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Lightning Stake"),
+        make_field("is_mimic", "Bool", True)]))
 
     # Fog Gate to Irithyll
     entities.append(make_entity("FogGate", 38 * 16, 154 * 16, [
@@ -2049,44 +2973,116 @@ def make_catacombs_of_carthus():
     # Boss - Wolnir
     entities.append(make_entity("BossSpawn", 125 * 16, 100 * 16))
 
-    # Enemies
+    # Enemies — DS3 Catacombs of Carthus: Skeleton Swordsmen, Skeleton Wheels,
+    # Hound-Rats, Writhing Rotten Flesh, Black Knight (Tsorig invasion), Crystal Lizard
     enemy_data = [
-        ("Skeleton", 18, 18), ("Skeleton", 22, 22),                # Entry
-        ("Skeleton", 25, 28), ("Skeleton", 35, 30), ("Skeleton", 42, 26),  # Ball corridor
-        ("Skeleton", 48, 32), ("Skeleton", 52, 34),                # Ball corridor end
-        ("Skeleton", 60, 30),                                       # Bridge area
-        ("Skeleton", 20, 48), ("Skeleton", 28, 52),                # Lower tombs
-        ("Skeleton", 35, 56), ("Skeleton", 40, 60), ("Skeleton", 45, 65),  # Tombs deep
-        ("CathedralGraveWarden", 32, 58), ("CathedralGraveWarden", 38, 62),  # Grave wardens
-        ("CrystalLizard", 48, 50),                                  # Crystal lizard
-        ("Rat", 20, 78), ("Rat", 25, 82), ("Rat", 30, 88),       # Abandoned tomb rats
-        ("FireDemon", 35, 98),                                      # Fire Demon
-        ("Skeleton", 55, 62), ("Skeleton", 60, 68),                # Wheel area
-        ("Skeleton", 65, 72),                                       # Wheel area
-        ("Skeleton", 80, 60), ("Skeleton", 90, 70),                # Wolnir path
-        ("Skeleton", 110, 85), ("Skeleton", 115, 90), ("Skeleton", 120, 95),  # Arena approach
-        ("Skeleton", 130, 92), ("Skeleton", 135, 98),              # Arena
+        # Entry stairs — Skeleton Swordsman ambush
+        ("Skeleton", 18, 18), ("Skeleton", 22, 20),
+        ("Assassin", 16, 22),                                  # Skeleton Swordsman (curved sword variant)
+        # Skeleton ball corridor — Skeletons in side alcoves
+        ("Skeleton", 25, 28), ("Skeleton", 35, 30), ("Skeleton", 42, 26),
+        ("Archer", 20, 21),                                    # Skeleton Swordsman (archer)
+        ("Assassin", 36, 22), ("Assassin", 50, 21),           # Skeleton Swordsmen in alcoves
+        ("Skeleton", 48, 32), ("Skeleton", 52, 34),
+        # Rope bridge area
+        ("Skeleton", 60, 30), ("Assassin", 64, 32),
+        # Lower tomb chambers — dense skeleton groups
+        ("Skeleton", 20, 48), ("Skeleton", 28, 52),
+        ("Assassin", 24, 55), ("Assassin", 32, 50),           # Skeleton Swordsmen in tomb chambers
+        ("Skeleton", 35, 56), ("Skeleton", 40, 60), ("Skeleton", 45, 65),
+        ("Skeleton", 32, 58), ("Skeleton", 38, 62),
+        # Skeleton Wheel area — rapid rolling skeletons (use MiniBoss for wheels)
+        ("MiniBoss", 55, 62), ("MiniBoss", 60, 68),           # Skeleton Wheels
+        ("MiniBoss", 65, 72),                                  # Skeleton Wheel
+        ("Skeleton", 58, 66), ("Skeleton", 63, 70),
+        # Abandoned Tomb / Smouldering Lake passage — rats and Writhing Rotten Flesh
+        ("Rat", 20, 78), ("Rat", 25, 82), ("Rat", 30, 88),   # Hound-Rats
+        ("Rat", 18, 85), ("Rat", 22, 92),                     # More Hound-Rats
+        ("InfestedCorpse", 28, 95),                            # Writhing Rotten Flesh
+        ("FireDemon", 35, 98),                                 # Fire Demon (guards Smouldering Lake)
+        ("LesserCrab", 22, 96),                                 # Lesser Crab (Smouldering Lake passage, wiki-confirmed)
+        # Crystal Lizard
+        ("CrystalLizard", 48, 50),
+        # Path to Wolnir — Knight Slayer Tsorig invasion
+        ("BlackKnight", 80, 60),                               # Knight Slayer Tsorig (Black Knight set)
+        ("Skeleton", 90, 70), ("Assassin", 95, 66),
+        # Wolnir arena approach
+        ("Skeleton", 110, 85), ("Skeleton", 115, 90), ("Skeleton", 120, 95),
+        ("Skeleton", 130, 92), ("Skeleton", 135, 98),
+        ("Archer", 125, 88),                                   # Skeleton archer at arena entry
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    items = [("SoulOrb", "Soul of a Deserted Corpse", 18, 16, 500),
-             ("TitaniteShard", "Titanite Shard", 40, 28, 0),
-             ("SoulOrb", "Soul of an Unknown Traveler", 32, 55, 800),
-             ("Consumable", "Homeward Bone", 65, 28, 0),
-             ("RingDrop", "Carthus Milkring", 28, 62, 0),
-             ("EstusShard", "Estus Shard", 25, 82, 0),
-             ("SoulOrb", "Soul of a Crestfallen Knight", 85, 65, 1200),
-             ("TitaniteShard", "Titanite Shard", 50, 65, 0)]
-    for kind, name, tx, ty, val in items:
+    # Items — DS3 Catacombs of Carthus (verified against wiki)
+    # 2x Sharp Gem, Dark Gem, Carthus Pyromancy Tome, Grave Warden Pyromancy Tome,
+    # Grave Warden's Ashes, Witch's Ring, Carthus Bloodring, Carthus Milkring,
+    # Carthus Rouge x2, Old Sage's Blindfold, Knight Slayer's Ring,
+    # Undead Bone Shard, Titanite Shard x2, Large Titanite Shard x2, Twinkling Titanite,
+    # Yellow Bug Pellet x3, Black Bug Pellet x2, Bloodred Moss Clump x3,
+    # Ember x2, Soul of a Deserted Corpse x2, Soul of a Nameless Soldier x2,
+    # Large Soul of an Unknown Traveler
+    for kind, name, tx, ty, val in [
+        # Upper Catacombs — entry area
+        ("Consumable", "Sharp Gem", 18, 16, 0),
+        ("SoulOrb", "Soul of a Deserted Corpse", 22, 20, 200),
+        ("Consumable", "Carthus Rouge", 25, 22, 0),
+        ("Consumable", "Yellow Bug Pellet", 30, 18, 0),
+        ("Consumable", "Yellow Bug Pellet", 32, 19, 0),
+        ("Consumable", "Yellow Bug Pellet", 34, 20, 0),
+        ("Consumable", "Black Bug Pellet", 36, 22, 0),
+        ("Consumable", "Black Bug Pellet", 38, 23, 0),
+        ("Consumable", "Bloodred Moss Clump", 40, 19, 0),
+        ("Consumable", "Bloodred Moss Clump", 42, 20, 0),
+        ("Consumable", "Bloodred Moss Clump", 44, 21, 0),
+        # Skeleton ball corridor area
+        ("Consumable", "Carthus Pyromancy Tome", 40, 28, 0),
+        ("TitaniteShard", "Titanite Shard", 48, 30, 0),
+        ("Consumable", "Carthus Rouge", 50, 32, 0),
+        ("Consumable", "Dark Gem", 52, 36, 0),
+        ("SoulOrb", "Soul of a Deserted Corpse", 20, 30, 200),
+        # Lower tomb chambers
+        ("Consumable", "Grave Warden's Ashes", 28, 50, 0),
+        ("Consumable", "Old Sage's Blindfold", 48, 48, 0),
+        ("TitaniteShard", "Large Titanite Shard", 35, 55, 0),
+        # Large Titanite Shard removed (extra — wiki says 1x for Catacombs)
+        ("SoulOrb", "Soul of a Nameless Soldier", 32, 55, 800),
+        # Deep tomb — Grave Warden area
+        ("Consumable", "Grave Warden Pyromancy Tome", 40, 64, 0),
+        ("RingDrop", "Carthus Milkring", 28, 62, 0),
+        ("RingDrop", "Carthus Bloodring", 55, 58, 0),
+        ("TitaniteShard", "Twinkling Titanite", 42, 66, 0),
+        # Skeleton bridge area
+        ("Consumable", "Sharp Gem", 58, 40, 0),
+        ("TitaniteShard", "Titanite Shard", 62, 45, 0),
+        ("Ember", "Ember", 65, 50, 0),
+        # Ember removed (duplicate — wiki says 1x Ember for Catacombs of Carthus)
+        ("SoulOrb", "Soul of a Nameless Soldier", 70, 52, 800),
+        ("SoulOrb", "Large Soul of an Unknown Traveler", 72, 55, 800),
+        # Knight Slayer Tsorig area
+        ("RingDrop", "Knight Slayer's Ring", 45, 70, 0),
+        # Abandoned Tomb / Wolnir approach
+        ("RingDrop", "Witch's Ring", 25, 90, 0),
+        ("UndeadBoneShard", "Undead Bone Shard", 30, 85, 0),
+        # Titanite Shard removed (extra — wiki says 2x for Catacombs)
+        # Titanite Shard removed (extra — wiki says 2x for Catacombs)
+    ]:
         fields = [make_field("kind", "LocalEnum.ItemKind", kind), make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
         entities.append(make_entity("Item", tx * 16, ty * 16, fields))
 
-    # NPC - Anri in the catacombs
-    entities.append(make_entity("Npc", 50 * 16, 45 * 16, [make_field("name", "String", "Anri"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "We meet again|Have you seen Horace?")]))
+    # Chests — DS3 Catacombs: Mimic drops Black Blade (only chest in area)
+    entities.append(make_entity("Chest", 38 * 16, 58 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("loot_name", "String", "Black Blade"),
+        make_field("is_mimic", "Bool", True),
+    ]))
+
+    # NPCs — DS3 Catacombs: Anri at the first bonfire area, Horace deeper in
+    entities.append(make_entity("Npc", 15 * 16, 18 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "We meet again|Have you seen Horace anywhere?|I am worried about him")]))
+    entities.append(make_entity("Npc", 50 * 16, 45 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods slowly)")]))
 
     entities.append(make_entity("FogGate", 25 * 16, 112 * 16, [
         make_field("dest_area", "String", "SmoulderingLake"),
@@ -2235,37 +3231,117 @@ def make_smouldering_lake():
     # Boss - Old Demon King
     entities.append(make_entity("BossSpawn", 135 * 16, 105 * 16))
 
-    # Enemies
+    # Enemies — DS3 Smouldering Lake: Demon Clerics, Demon Statues, Basilisks,
+    # Smouldering Ghru, Smouldering Rotten Flesh, Great Crab, Carthus Sandworm,
+    # Skeleton Swordsmen, Skeleton Wheels, Knight Slayer Tsorig NPC
     enemy_data = [
-        ("FireDemon", 58, 55),                                     # Demon ruins
-        ("DemonStatue", 28, 42), ("DemonStatue", 50, 60), ("DemonStatue", 65, 50),  # Lake shore
-        ("Basilisk", 52, 65), ("Basilisk", 58, 70), ("Basilisk", 55, 72),  # Near lava
-        ("BlackKnight", 78, 58), ("BlackKnight", 108, 68),        # Demon ruins
-        ("FireDemon", 95, 70), ("FireDemon", 100, 75),            # Cleric corridors
-        ("HollowSoldier", 18, 32), ("HollowSoldier", 35, 40),     # Lake shore
-        ("Dog", 15, 85), ("Dog", 20, 90), ("Dog", 25, 95),       # Ballista area
-        ("StarvedHound", 40, 58), ("StarvedHound", 48, 64),      # Lake mid
-        ("CrystalLizard", 82, 55),                                 # Crystal lizard
-        ("Ghru", 62, 58), ("Ghru", 68, 62), ("Ghru", 72, 55),    # Demon ruins
-        ("HollowSoldier", 112, 82), ("HollowSoldier", 118, 88),   # Arena approach
+        # Entry cave
+        ("DemonStatue", 18, 18), ("DemonStatue", 22, 22),
+        # Lake shore — Demon Statues and Ghru
+        ("DemonStatue", 28, 42), ("DemonStatue", 50, 60), ("DemonStatue", 65, 50),
+        ("DemonStatue", 18, 32), ("DemonStatue", 35, 40),
+        ("Ghru", 62, 58), ("Ghru", 68, 62), ("Ghru", 72, 55),
+        ("Ghru", 42, 48), ("Ghru", 55, 52),                    # Smouldering Ghru
+        # Smouldering Rotten Flesh — DS3 wiki: 6 in corridor, 3 in demon ruins room (9 total)
+        ("InfestedCorpse", 48, 55), ("InfestedCorpse", 58, 62),
+        ("InfestedCorpse", 65, 60), ("InfestedCorpse", 70, 58),
+        ("InfestedCorpse", 72, 62), ("InfestedCorpse", 68, 65),
+        ("InfestedCorpse", 95, 62), ("InfestedCorpse", 98, 65), ("InfestedCorpse", 100, 60),
+        # Basilisks near lava pools
+        ("Basilisk", 52, 65), ("Basilisk", 58, 70), ("Basilisk", 55, 72),
+        # Great Crab in lake (rare giant enemy)
+        ("GiantSlave", 38, 45),                                 # Great Crab
+        # Demon Clerics (FireDemon) at demon ruins
+        ("FireDemon", 58, 55),                                  # Demon ruins entrance
+        ("FireDemon", 95, 70), ("FireDemon", 100, 75),         # Inner demon ruins
+        ("FireDemon", 118, 88),                                 # Arena approach
+        # Black Knights (rare in demon ruins)
+        ("BlackKnight", 78, 58), ("BlackKnight", 108, 68),
+        # Skeleton remains from Carthus — walkthrough: group + red-eyed with shotels
+        ("Skeleton", 82, 52), ("Skeleton", 88, 60),            # Skeleton Swordsmen
+        ("Skeleton", 18, 92), ("Skeleton", 25, 88),            # Skeletons in ballista area
+        ("Skeleton", 30, 90),                                   # Red-eyed skeleton swordsman
+        ("MiniBoss", 75, 50),                                   # Skeleton Wheel 1
+        ("MiniBoss", 22, 88), ("MiniBoss", 28, 92),            # Skeleton Wheels 2-3 (ballista area)
+        # Hound-rats in ballista caves (DS3: Hound-rats, not Dogs)
+        ("Rat", 15, 85), ("Rat", 20, 90), ("Rat", 25, 95),
+        ("Rat", 40, 58), ("Rat", 48, 64),
+        # Large Hound-rat in lower ruins
+        ("Rat", 62, 68),
+        # Carthus Sandworm (giant enemy at lake center)
+        ("GiantSlave", 45, 68),                                 # Carthus Sandworm
+        # Crystal Lizards — wiki: 3 total (1 near bonfire, 2 in cavern after ballista)
+        ("CrystalLizard", 82, 55), ("CrystalLizard", 112, 78), ("CrystalLizard", 25, 95),
+        # Demon Statues at arena approach
+        ("DemonStatue", 112, 82),
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    items = [("SoulOrb", "Soul of a Deserted Corpse", 18, 20, 500),
-             ("TitaniteShard", "Titanite Shard", 60, 50, 0),
-             ("SoulOrb", "Soul of an Unknown Traveler", 72, 55, 800),
-             ("EstusShard", "Estus Shard", 22, 88, 0),
-             ("Consumable", "Homeward Bone", 100, 70, 0),
-             ("RingDrop", "Speckled Stoneplate Ring", 42, 55, 0),
-             ("SoulOrb", "Soul of a Crestfallen Knight", 125, 92, 1000),
-             ("TitaniteShard", "Titanite Shard", 90, 65, 0)]
+    # Items — DS3 Smouldering Lake: Black Knight Sword, Izalith Staff, Fume Ultra Greatsword,
+    # Dragonrider Bow, Shield of Want, Chaos Gem, Quelana/Izalith Pyromancy Tomes, etc.
+    items = [
+        ("Ember", "Ember", 18, 20, 0),  # wiki: 3x Ember in Smouldering Lake
+        ("Consumable", "Quelana Pyromancy Tome", 28, 38, 0),    # Lake shore
+        ("Consumable", "Izalith Pyromancy Tome", 65, 52, 0),    # Near demon ruins
+        ("Consumable", "Chaos Gem", 58, 60, 0),                 # Lake mid area
+        ("Consumable", "Toxic Mist", 52, 68, 0),                # Near basilisks
+        ("Consumable", "Lightning Stake", 90, 68, 0),           # Demon ruins
+        ("Consumable", "Sacred Flame", 105, 72, 0),             # Inner ruins
+        ("Consumable", "White Hair Talisman", 98, 78, 0),       # Deep ruins
+        ("TitaniteShard", "Large Titanite Shard", 60, 50, 0),  # wiki: 10x Large Titanite
+        ("TitaniteShard", "Large Titanite Shard", 90, 65, 0),
+        ("Ember", "Ember", 72, 55, 0),  # wiki: 3x Ember
+        ("EstusShard", "Estus Shard", 22, 88, 0),               # Ballista caves
+        ("UndeadBoneShard", "Undead Bone Shard", 48, 72, 0),    # Lake hidden area
+        ("HomewardBone", "Homeward Bone", 100, 70, 0),
+        ("RingDrop", "Speckled Stoneplate Ring", 42, 55, 0),
+        ("SoulOrb", "Soul of a Crestfallen Knight", 125, 92, 1000),
+        ("WeaponDrop", "Dragonrider Bow", 130, 92, 0),        # Ledge drop near ballista path
+        ("WeaponDrop", "Izalith Staff", 88, 78, 0),           # Drop down behind illusory wall in demon ruins
+        ("WeaponDrop", "Fume Ultra Greatsword", 32, 92, 0),   # Knight Slayer Tsorig drop
+        ("Consumable", "Black Iron Greatshield", 32, 90, 0),  # Knight Slayer Tsorig drop
+        ("Consumable", "Llewellyn Shield", 20, 86, 0),        # Horace drop
+        ("Consumable", "Yellow Bug Pellet", 18, 84, 0),       # Horace cavern corpse
+        ("Consumable", "Yellow Bug Pellet", 18, 82, 0),       # Horace cavern corpse
+        # Additional items from wiki verification
+        ("Ember", "Ember", 65, 55, 0),                      # 3rd Ember (wiki: 3x)
+        ("UndeadBoneShard", "Undead Bone Shard", 110, 80, 0), # 2nd Undead Bone Shard (wiki: 2x)
+        ("HomewardBone", "Homeward Bone", 55, 62, 0),          # 2nd Homeward Bone (wiki: 2x)
+        ("WeaponDrop", "Black Knight Sword", 108, 70, 0),    # wiki: weapon pickup
+        ("Consumable", "Shield of Want", 115, 85, 0),        # wiki: shield pickup
+        ("TitaniteShard", "Large Titanite Shard", 42, 52, 0), # Large Titanite (wiki: 10x)
+        ("TitaniteShard", "Large Titanite Shard", 55, 56, 0),
+        ("TitaniteShard", "Large Titanite Shard", 62, 60, 0),
+        ("TitaniteShard", "Large Titanite Shard", 95, 75, 0),
+        ("TitaniteShard", "Large Titanite Shard", 102, 68, 0),
+        ("Consumable", "Yellow Bug Pellet", 35, 45, 0),      # wiki: 4x Yellow Bug Pellet
+        ("Consumable", "Yellow Bug Pellet", 48, 58, 0),
+    ]
     for kind, name, tx, ty, val in items:
         fields = [make_field("kind", "LocalEnum.ItemKind", kind), make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
         entities.append(make_entity("Item", tx * 16, ty * 16, fields))
+
+    # Chests — DS3 Smouldering Lake
+    # Black Knight Sword (corpse in demon ruins, behind illusory wall)
+    entities.append(make_entity("Chest", 80 * 16, 60 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("loot_name", "String", "Black Knight Sword"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    # Shield of Want (corpse near sandworm area)
+    entities.append(make_entity("Chest", 95 * 16, 75 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("loot_name", "String", "Shield of Want"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+
+    # NPCs — DS3 Smouldering Lake: Knight Slayer Tsorig, Horace
+    entities.append(make_entity("Npc", 30 * 16, 92 * 16, [make_field("name", "String", "Knight Slayer Tsorig"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#804020"), make_field("dialogue", "String", "Heh heh|Forgive me|I was just finishing a conquest")]))
+    entities.append(make_entity("Npc", 20 * 16, 88 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(shakes head sadly)")]))
 
     entities.append(make_entity("FogGate", 135 * 16, 125 * 16, [
         make_field("dest_area", "String", "CatacombsOfCarthus"),
@@ -2375,46 +3451,245 @@ def make_irithyll():
     spawn_px, spawn_py = 10 * 16, 35 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
-    # Bonfires
-    entities.append(make_entity("Bonfire", 10 * 16, 35 * 16))      # Entry bridge
+    # Bonfires — DS3 Irithyll of the Boreal Valley: 6 bonfires
+    entities.append(make_entity("Bonfire", 10 * 16, 35 * 16))      # Irithyll of the Boreal Valley (entry bridge)
     entities.append(make_entity("Bonfire", 62 * 16, 40 * 16))      # Church of Yorshka
+    entities.append(make_entity("Bonfire", 46 * 16, 52 * 16))      # Central Irithyll
     entities.append(make_entity("Bonfire", 30 * 16, 78 * 16))      # Distant Manor
-    entities.append(make_entity("Bonfire", 120 * 16, 82 * 16))     # Pontiff Sulyvahn
+    entities.append(make_entity("Bonfire", 75 * 16, 92 * 16))      # Water Reserve (sewer area)
+    entities.append(make_entity("Bonfire", 120 * 16, 82 * 16))     # Pontiff Sulyvahn (boss)
 
     # Boss - Pontiff Sulyvahn
     entities.append(make_entity("BossSpawn", 120 * 16, 76 * 16))
 
-    # Enemies
+    # Enemies — DS3 Irithyll of the Boreal Valley:
+    # Pontiff Knights (wield fire swords), Fire Witches (ranged fire magic),
+    # Irithyllian Slaves (cloaked ambushers), Sulyvahn's Beasts,
+    # Irithyllian Beast-hounds, Sewer Centipedes, Silver Knights, Mimic,
+    # Cathedral Evangelist (near hidden staircase)
     enemy_data = [
-        ("SilverKnight", 38, 50), ("SilverKnight", 55, 55),       # Boulevard
-        ("SilverKnight", 75, 60), ("SilverKnight", 90, 58),       # Boulevard
-        ("HollowSoldier", 15, 40), ("HollowSoldier", 22, 45),     # Bridge
-        ("Evangelist", 42, 52), ("Evangelist", 95, 62),           # Near church
-        ("StarvedHound", 50, 48), ("StarvedHound", 80, 55),       # City dogs
-        ("CrystalLizard", 65, 42), ("CrystalLizard", 128, 75),    # Crystal lizards
-        ("Darkwraith", 32, 72), ("Darkwraith", 40, 82),           # Manor area
-        ("ManGrub", 68, 80), ("ManGrub", 78, 85), ("ManGrub", 88, 90),  # Sewers
-        ("SilverKnight", 30, 100), ("SilverKnight", 42, 110),     # Silver Knight hall
-        ("SilverKnight", 48, 118),                                 # Silver Knight hall
-        ("Deacon", 35, 108), ("Deacon", 45, 115),                 # Near knights
-        ("DeepAccursed", 132, 88),                                 # Arena entrance
+        # Bridge entrance — Sulyvahn's Beast ambush (DS3: attacks on entry bridge)
+        ("GiantSlave", 12, 38),                                 # Sulyvahn's Beast at bridge
+        ("Knight", 18, 42),                                      # Pontiff Knight patrol
+        # Main boulevard — Pontiff Knights (Knight = closest to Pontiff Knight)
+        ("Knight", 38, 50), ("Knight", 55, 55),
+        ("Knight", 75, 60), ("Knight", 90, 58),
+        # Irithyllian Slaves — cloaked ambushers (Assassin = closest match)
+        ("Assassin", 42, 48), ("Assassin", 60, 52),
+        ("Assassin", 78, 56),
+        # Fire Witches (DarkMage) — cast fire spells from balconies
+        ("DarkMage", 42, 52), ("DarkMage", 95, 62),
+        ("DarkMage", 68, 58),
+        # Irithyllian Beast-hounds (Dog) in alleys
+        ("Dog", 50, 48), ("Dog", 80, 55), ("Dog", 65, 54),
+        ("Dog", 48, 60),
+        # Crystal Lizards (DS3: 1 near illusory wall stairs, 2 post-Pontiff courtyard, 1 lever path)
+        ("CrystalLizard", 65, 42), ("CrystalLizard", 128, 75),
+        ("CrystalLizard", 135, 80), ("CrystalLizard", 140, 72),
+        # Distant Manor area — Irithyllian Slaves and Pontiff Knights
+        ("Assassin", 28, 70), ("Assassin", 35, 75),            # Slaves near manor
+        ("Knight", 32, 72), ("Knight", 40, 82),
+        # Corvian near the manor gardens
+        ("Assassin", 22, 68),
+        # Church of Yorshka area — Pontiff Knight guard
+        ("Knight", 70, 45), ("Knight", 72, 42),
+        # Cathedral Evangelist near hidden staircase (DS3: drops Dorhys' Gnawing)
+        ("Evangelist", 45, 55),
+        # Sewers — Sewer Centipedes (ManGrub = closest to centipede)
+        ("ManGrub", 68, 80), ("ManGrub", 78, 85), ("ManGrub", 88, 90),
+        ("ManGrub", 72, 88), ("ManGrub", 82, 82),
+        # Sulyvahn's Beasts at sewer reservoir (GiantSlave) — DS3 wiki: 2 beasts
+        ("GiantSlave", 72, 90), ("GiantSlave", 78, 94),
+        # Silver Knight hall / rooftops — Silver Knights guard the path to Anor Londo
+        ("SilverKnight", 30, 100), ("SilverKnight", 42, 110),
+        ("SilverKnight", 48, 118), ("SilverKnight", 36, 108),
+        # Arena approach — Pontiff Knight + Fire Witch guard
+        ("Knight", 105, 65), ("DarkMage", 110, 70),
+        ("Knight", 100, 62),
+        # Deacons on bridge to Anor Londo (DS3: "several deacons along the way")
+        ("Deacon", 140, 50), ("Deacon", 142, 48), ("Deacon", 144, 52),
+        # Pontiff arena entrance — Deep Accursed (DS3: lurks near arena)
+        ("DeepAccursed", 132, 88),
+        # Mimic near boulevard (DS3: drops Golden Ritual Spear)
+        ("Mimic", 58, 56),
     ]
     for kind, tx, ty in enemy_data:
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", kind)]))
+        mapped = ENEMY_KIND_MAP.get(kind, kind)
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    items = [("SoulOrb", "Soul of a Deserted Corpse", 12, 38, 600),
-             ("SoulOrb", "Soul of an Unknown Traveler", 62, 42, 800),
-             ("TitaniteShard", "Titanite Shard", 35, 80, 0),
-             ("EstusShard", "Estus Shard", 95, 60, 0),
-             ("Consumable", "Homeward Bone", 120, 78, 0),
-             ("RingDrop", "Pontiff's Right Eye", 14, 36, 0)]
-    for kind, name, tx, ty, val in items:
+    # Items — DS3 Irithyll of the Boreal Valley (verified against wiki)
+    # Major items: Pontiff's Right Eye, Magic Clutch Ring, Ring of the Sun's First Born,
+    # Leo Ring, Dark Stoneplate Ring, Ring of Favor, Sun Princess Ring, Aldrich's Ruby,
+    # Giant's Coal, Easterner's Ashes, Smough's Great Hammer, Dragonslayer Greatbow,
+    # Drang Twinspears, Yorshka's Spear, Dorhys' Gnawing, Great Heal, Witchtree Branch,
+    # Brass Set, Painting Guardian Set, Painting Guardian's Curved Sword, Golden Ritual Spear
+    for kind, name, tx, ty, val in [
+        # Bridge — Sulyvahn's Beast drops Pontiff's Right Eye
+        ("RingDrop", "Pontiff's Right Eye", 14, 36, 0),
+        ("HomewardBone", "Homeward Bone", 16, 34, 0),
+        # Central Irithyll courtyard
+        ("Consumable", "Rime-blue Moss Clump", 20, 38, 0),
+        ("SoulOrb", "Soul of a Weary Warrior", 22, 40, 2000),
+        ("SoulOrb", "Large Soul of a Nameless Soldier", 24, 42, 800),
+        # Upper streets — Pontiff Knight area
+        ("SoulOrb", "Soul of a Weary Warrior", 30, 38, 2000),
+        ("TitaniteShard", "Large Titanite Shard", 35, 36, 0),
+        ("Consumable", "Budding Green Blossom", 38, 38, 0),
+        ("SoulOrb", "Large Soul of a Nameless Soldier", 42, 40, 800),
+        ("Consumable", "Rime-blue Moss Clump", 44, 42, 0),
+        ("Consumable", "Rime-blue Moss Clump", 46, 44, 0),
+        ("TitaniteShard", "Large Titanite Shard", 48, 38, 0),
+        # Hidden staircase area — Evangelist
+        ("Consumable", "Dorhys' Gnawing", 40, 50, 0),
+        ("WeaponDrop", "Witchtree Branch", 42, 52, 0),
+        ("TitaniteShard", "Large Titanite Shard", 38, 48, 0),
+        # Church of Yorshka vicinity
+        ("SoulOrb", "Large Soul of a Nameless Soldier", 55, 40, 800),
+        ("TitaniteShard", "Large Titanite Shard", 58, 42, 0),
+        ("TitaniteShard", "Large Titanite Shard", 60, 44, 0),
+        ("SoulOrb", "Soul of a Weary Warrior", 62, 42, 2000),
+        # Altar area (illusory wall → Magic Clutch Ring)
+        ("Consumable", "Lightning Gem", 65, 46, 0),
+        ("RingDrop", "Magic Clutch Ring", 66, 48, 0),
+        ("RingDrop", "Ring of the Sun's First Born", 68, 44, 0),
+        # Church interior
+        ("Consumable", "Proof of Concord Kept", 70, 38, 0),
+        ("Consumable", "Roster of Knights", 72, 40, 0),
+        # Graveyard behind church
+        ("Consumable", "Fading Soul", 64, 52, 0),
+        ("HomewardBone", "Homeward Bone", 62, 54, 0),
+        ("HomewardBone", "Homeward Bone", 60, 56, 0),
+        ("HomewardBone", "Homeward Bone", 58, 58, 0),
+        ("UndeadBoneShard", "Undead Bone Shard", 66, 55, 0),
+        # Dark room / hags
+        ("Consumable", "Blue Bug Pellet", 50, 58, 0),
+        ("Consumable", "Blue Bug Pellet", 52, 60, 0),
+        ("Consumable", "Shriving Stone", 48, 56, 0),
+        # Sewer area
+        ("Consumable", "Kukri", 46, 65, 0),
+        ("Consumable", "Kukri", 47, 66, 0),
+        ("Consumable", "Kukri", 48, 67, 0),
+        ("Consumable", "Kukri", 49, 68, 0),
+        ("Consumable", "Kukri", 50, 69, 0),
+        ("Consumable", "Kukri", 51, 70, 0),
+        ("Consumable", "Kukri", 52, 71, 0),
+        ("Consumable", "Kukri", 53, 72, 0),
+        ("Consumable", "Rusted Gold Coin", 44, 62, 0),
+        ("Consumable", "Dung Pie", 56, 68, 0),
+        ("Consumable", "Dung Pie", 57, 69, 0),
+        ("Consumable", "Dung Pie", 58, 70, 0),
+        ("Consumable", "Dung Pie", 60, 72, 0),
+        ("Consumable", "Dung Pie", 62, 74, 0),
+        ("Consumable", "Dung Pie", 64, 76, 0),
+        ("Consumable", "Excrement-covered Ashes", 52, 78, 0),
+        # Dark room stairs — Blood Gem at foot of tree (DS3: alcove with tree/hags)
+        ("TitaniteShard", "Blood Gem", 54, 72, 0),
+        # Water / sewer underground
+        ("RingDrop", "Ring of Sacrifice", 70, 78, 0),
+        ("Consumable", "Green Blossom", 72, 80, 0),
+        ("Consumable", "Green Blossom", 74, 82, 0),
+        ("Consumable", "Green Blossom", 76, 84, 0),
+        ("SoulOrb", "Large Soul of a Nameless Soldier", 78, 80, 800),
+        ("Consumable", "Great Heal", 80, 82, 0),
+        ("Consumable", "Green Blossom", 82, 78, 0),
+        ("Consumable", "Green Blossom", 84, 80, 0),
+        ("Consumable", "Green Blossom", 86, 82, 0),
+        ("Consumable", "Green Blossom", 88, 84, 0),
+        # Distant Manor — Siegward's kitchen
+        ("EstusShard", "Estus Shard", 28, 82, 0),
+        ("TitaniteShard", "Large Titanite Shard", 32, 85, 0),
+        # Silver Knight hall — three chests area (Leo Ring, Smough's Great Hammer, Divine Blessing)
+        # Leo Ring and Smough's Great Hammer are in chests, not ground items
+        # Post-Silver Knight outdoor area
+        ("Consumable", "Rusted Gold Coin", 36, 100, 0),
+        ("SoulOrb", "Large Soul of a Nameless Soldier", 34, 98, 800),
+        ("TitaniteShard", "Large Titanite Shard", 42, 105, 0),
+        ("TitaniteShard", "Large Titanite Shard", 44, 102, 0),
+        ("Consumable", "Blue Bug Pellet", 46, 108, 0),
+        ("Consumable", "Blue Bug Pellet", 48, 110, 0),
+        ("SoulOrb", "Soul of a Weary Warrior", 50, 106, 2000),
+        ("Ember", "Ember", 52, 108, 0),
+        # Shortcut lift area
+        ("TitaniteShard", "Large Titanite Shard", 56, 100, 0),
+        ("TitaniteShard", "Large Titanite Shard", 58, 98, 0),
+        # Pontiff approach
+        ("Ember", "Ember", 120, 72, 0),
+        ("Ember", "Ember", 125, 75, 0),
+        ("RingDrop", "Dark Stoneplate Ring", 130, 80, 0),
+        ("WeaponDrop", "Drang Twinspears", 135, 78, 0),
+        ("SoulOrb", "Soul of a Weary Warrior", 132, 85, 2000),
+        # Post-Pontiff area
+        ("TitaniteShard", "Large Titanite Shard", 128, 90, 0),
+        ("Consumable", "Deep Gem", 132, 92, 0),
+        ("RingDrop", "Ring of Favor", 130, 95, 0),
+        ("Consumable", "Human Dregs", 128, 98, 0),
+        ("RingDrop", "Aldrich's Ruby", 134, 96, 0),
+        # Silver Knight rooftops
+        ("Consumable", "Easterner's Ashes", 140, 68, 0),
+        ("TitaniteShard", "Titanite Scale", 142, 70, 0),
+        ("TitaniteShard", "Large Titanite Shard", 144, 72, 0),
+        ("Consumable", "Dragonslayer Greatarrow", 146, 68, 0),
+        ("Consumable", "Dragonslayer Greatarrow", 147, 69, 0),
+        ("Consumable", "Dragonslayer Greatarrow", 148, 70, 0),
+        ("Consumable", "Dragonslayer Greatarrow", 149, 71, 0),
+        ("Consumable", "Dragonslayer Greatarrow", 150, 72, 0),
+        ("WeaponDrop", "Dragonslayer Greatbow", 145, 66, 0),
+        ("TitaniteShard", "Large Titanite Shard", 143, 64, 0),
+        ("TitaniteShard", "Twinkling Titanite", 138, 62, 0),
+        ("TitaniteShard", "Twinkling Titanite", 140, 60, 0),
+        ("TitaniteShard", "Twinkling Titanite", 142, 58, 0),
+        # Darkmoon Tomb — Brass Set
+        ("ArmorDrop", "Brass Set", 112, 95, 0),
+        # Painting Guardian items are in AnorLondo map (near Prison Tower/Yorshka church)
+        # Silver Knight rooftops — additional Soul
+        ("SoulOrb", "Large Soul of a Weary Warrior", 148, 66, 5000),
+    ]:
         fields = [make_field("kind", "LocalEnum.ItemKind", kind), make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
         entities.append(make_entity("Item", tx * 16, ty * 16, fields))
 
-    entities.append(make_entity("Npc", 62 * 16, 38 * 16, [make_field("name", "String", "Anri"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Hello|Have you seen Horace?")]))
+    # Chests — DS3 Irithyll
+    # Three chests in Silver Knight hall: Leo Ring, Smough's Great Hammer, Divine Blessing
+    entities.append(make_entity("Chest", 36 * 16, 108 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("loot_name", "String", "Divine Blessing"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    entities.append(make_entity("Chest", 40 * 16, 108 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "RingDrop"),
+        make_field("loot_name", "String", "Leo Ring"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    entities.append(make_entity("Chest", 38 * 16, 110 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("loot_name", "String", "Smough's Great Hammer"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    # Mimic after Pontiff shortcut lever area (Golden Ritual Spear)
+    entities.append(make_entity("Chest", 132 * 16, 88 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("loot_name", "String", "Golden Ritual Spear"),
+        make_field("is_mimic", "Bool", True),
+    ]))
+    # Yorshka's Spear chest in dark room beams
+    entities.append(make_entity("Chest", 54 * 16, 56 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("loot_name", "String", "Yorshka's Spear"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    # Reversal Ring chest in Darkmoon Tomb
+    entities.append(make_entity("Chest", 114 * 16, 96 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "RingDrop"),
+        make_field("loot_name", "String", "Reversal Ring"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+
+    # NPCs — DS3 Irithyll: Anri (Church of Yorshka), Siegward (Distant Manor kitchen), Sirris
+    entities.append(make_entity("Npc", 62 * 16, 38 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Hello|I am Anri of Astora|Have you seen Horace?|We must find the Lords of Cinder")]))
+    entities.append(make_entity("Npc", 28 * 16, 80 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Oh! Hello again|I seem to have gotten lost|But I found some estus soup!")]))
+    # Sirris — appears near Church of Yorshka after Rosaria covenant
+    entities.append(make_entity("Npc", 58 * 16, 44 * 16, [make_field("name", "String", "Sirris of the Sunless Realms"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#A0B0C0"), make_field("dialogue", "String", "I am Sirris|I offer my services as a knight|I will not forget this debt"), make_field("appear_condition", "String", "rosaria_covenant")]))
 
     entities.append(make_entity("FogGate", 144 * 16, 45 * 16, [
         make_field("dest_area", "String", "IrithyllDungeon"),
@@ -2550,42 +3825,146 @@ def make_irithyll_dungeon():
     spawn_px, spawn_py = 15 * 16, 12 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
-    # Bonfires
-    entities.append(make_entity("Bonfire", 15 * 16, 15 * 16))     # Entry
-    entities.append(make_entity("Bonfire", 135 * 16, 32 * 16))    # Exit
+    # Bonfires — DS3: only Irithyll Dungeon bonfire
+    entities.append(make_entity("Bonfire", 15 * 16, 15 * 16))     # Irithyll Dungeon
 
-    # Enemies - many jailers, rats, basilisks
+    # Enemies — DS3 Irithyll Dungeon: Jailers, Reanimated Corpses, Wretches,
+    # Rats, Basilisks, Infested Corpses, Lycanthropes, Monstrosities of Sin,
+    # Corpse-grubs, Sewer Centipedes, Mimics
     enemy_data = [
-        ("Jailer", 22, 20), ("Jailer", 35, 30), ("Jailer", 48, 38),   # Upper block
-        ("Jailer", 55, 55), ("Jailer", 60, 60), ("Jailer", 68, 52),   # Central block
-        ("Jailer", 88, 55),                                          # Siegward area
-        ("Rat", 28, 78), ("Rat", 35, 82), ("Rat", 42, 88),         # Lower drains
-        ("Basilisk", 55, 80), ("Basilisk", 62, 85),                 # Lower drains
-        ("Gargoyle", 95, 42),                                        # Tower
-        ("Wretch", 78, 60), ("Wretch", 82, 65),                     # Near Siegward
-        ("HollowSoldier", 25, 25), ("HollowSoldier", 32, 32),       # Entry
-        ("CrystalLizard", 52, 52),                                   # Central block
-        ("PeasantHollow", 20, 28), ("PeasantHollow", 28, 35),       # Entry area
-        ("Jailer", 85, 85), ("Jailer", 95, 90),                     # Karla area
-        ("Gargoyle", 125, 30),                                       # Exit corridor
+        # Upper prison block — jailers patrol with branding irons
+        ("Jailer", 22, 20), ("Jailer", 35, 30), ("Jailer", 48, 38),
+        ("Jailer", 25, 25), ("Jailer", 32, 32),
+        # Reanimated Corpses in cells (PeasantHollow)
+        ("PeasantHollow", 20, 30), ("PeasantHollow", 28, 35),
+        ("PeasantHollow", 38, 28), ("PeasantHollow", 45, 34),
+        # Central prison block — heavy jailer presence
+        ("Jailer", 55, 55), ("Jailer", 60, 60), ("Jailer", 68, 52),
+        ("PeasantHollow", 50, 50), ("PeasantHollow", 62, 55),
+        ("CrystalLizard", 52, 52),
+        # Siegward cell area — Wretches and Reanimated Corpses
+        ("Jailer", 88, 55),
+        ("Wretch", 78, 60), ("Wretch", 82, 65),
+        ("PeasantHollow", 85, 62), ("PeasantHollow", 92, 58),
+        # Lower drains — rats, basilisks, Infested Corpses
+        ("Rat", 28, 78), ("Rat", 35, 82), ("Rat", 42, 88),
+        ("Rat", 32, 85), ("Rat", 48, 90),                             # More rats
+        ("Basilisk", 55, 80), ("Basilisk", 62, 85),
+        ("InfestedCorpse", 38, 80), ("InfestedCorpse", 45, 86),       # Corpse-grubs
+        # Sewer Centipede (ManGrub) in drain area
+        ("ManGrub", 60, 75), ("ManGrub", 50, 78),
+        # Cage Spider in drain area
+        ("Spider", 55, 88),                                    # Cage Spider → Basilisk via ENEMY_KIND_MAP
+        # Monstrosity of Sin (GiantSlave) near lower level
+        ("GiantSlave", 42, 75),                               # Monstrosity of Sin
+        # Lycanthrope (Dog) in rat tunnels
+        ("Dog", 22, 82), ("Dog", 38, 85),
+        # Gargoyle tower and exit corridor
+        ("Gargoyle", 95, 42), ("Gargoyle", 125, 30),
+        # Karla's cell area — jailers guard
+        ("Jailer", 85, 85), ("Jailer", 95, 90),
+        ("PeasantHollow", 88, 88), ("PeasantHollow", 92, 82),
+        # Alva Seeker of the Spurned — invades near Karla's cell (MiniBoss)
+        ("MiniBoss", 78, 82),
+        # Mimic near exit corridor (drops Lightning Blade)
+        ("Mimic", 118, 32),
+        # Mimic in sewer area (DS3 wiki: drops Dark Clutch Ring)
+        ("Mimic", 45, 82),
+        # Mimic near hooded enemies (DS3 wiki: drops Estus Shard)
+        ("Mimic", 62, 68),
     ]
     for kind, tx, ty in enemy_data:
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", kind)]))
+        mapped = ENEMY_KIND_MAP.get(kind, kind)
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    items = [("SoulOrb", "Soul of a Deserted Corpse", 20, 20, 400),
-             ("TitaniteShard", "Titanite Shard", 52, 56, 0),
-             ("SoulOrb", "Soul of an Unknown Traveler", 92, 60, 600),
-             ("EstusShard", "Estus Shard", 90, 85, 0),
-             ("Consumable", "Homeward Bone", 135, 30, 0),
-             ("Consumable", "Purple Moss", 40, 82, 0)]
-    for kind, name, tx, ty, val in items:
+    # Items — DS3 Irithyll Dungeon (verified against wiki)
+    for kind, name, tx, ty, val in [
+        # Upper prison cells
+        ("Consumable", "Rusted Coin", 20, 16, 0),            # First cell near bonfire (wiki walkthrough)
+        ("Consumable", "Fading Soul", 18, 22, 0),
+        ("TitaniteShard", "Large Titanite Shard", 28, 32, 0),
+        ("TitaniteShard", "Large Titanite Shard", 48, 40, 0),
+        ("Consumable", "Pale Pine Resin", 38, 35, 0),
+        ("Consumable", "Pale Pine Resin", 40, 36, 0),
+        ("ArmorDrop", "Old Sorcerer Hat", 35, 42, 0),
+        ("ArmorDrop", "Old Sorcerer Coat", 36, 43, 0),
+        ("ArmorDrop", "Old Sorcerer Gauntlets", 37, 44, 0),
+        ("ArmorDrop", "Old Sorcerer Boots", 38, 45, 0),
+        ("Consumable", "Great Magic Shield", 42, 38, 0),
+        # Central cell block
+        ("Consumable", "Rusted Gold Coin", 52, 56, 0),
+        ("TitaniteShard", "Large Titanite Shard", 60, 60, 0),
+        ("RingDrop", "Bellowing Dragoncrest Ring", 55, 62, 0),
+        ("Consumable", "Jailbreaker's Key", 58, 58, 0),
+        # Siegward area
+        ("Consumable", "Simple Gem", 82, 60, 0),
+        ("Consumable", "Profaned Coal", 75, 58, 0),
+        ("TitaniteShard", "Large Titanite Shard", 78, 62, 0),
+        # Lower sewers
+        ("SoulOrb", "Large Soul of a Nameless Soldier", 30, 80, 800),
+        ("Consumable", "Dung Pie", 34, 82, 0),
+        ("Consumable", "Dung Pie", 36, 84, 0),
+        ("Consumable", "Dung Pie", 38, 86, 0),
+        ("Consumable", "Dung Pie", 40, 88, 0),
+        ("TitaniteShard", "Large Titanite Shard", 45, 85, 0),
+        ("HomewardBone", "Homeward Bone", 55, 75, 0),
+        ("HomewardBone", "Homeward Bone", 57, 77, 0),
+        # Old Cell Key is in the chest at (58,78), not a ground pickup
+        # Dragon Stone area
+        ("Consumable", "Dragon Torso Stone", 105, 38, 0),
+        ("SoulOrb", "Large Soul of a Nameless Soldier", 110, 35, 800),
+        ("Consumable", "Lightning Blade", 108, 32, 0),
+        # Karla area
+        ("Consumable", "Xanthous Ashes", 82, 88, 0),
+        ("RingDrop", "Dusk Crown Ring", 84, 90, 0),
+        ("Ember", "Ember", 88, 85, 0),
+        ("Ember", "Ember", 92, 88, 0),
+        ("SoulOrb", "Soul of a Weary Warrior", 95, 92, 2000),
+        # Exit area
+        ("WeaponDrop", "Pickaxe", 115, 32, 0),
+        ("SoulOrb", "Large Soul of a Weary Warrior", 130, 28, 2000),
+        ("UndeadBoneShard", "Undead Bone Shard", 135, 30, 0),
+    ]:
         fields = [make_field("kind", "LocalEnum.ItemKind", kind), make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
         entities.append(make_entity("Item", tx * 16, ty * 16, fields))
 
-    entities.append(make_entity("Npc", 92 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D4A520"), make_field("dialogue", "String", "Mmm|You have my thanks")]))
-    entities.append(make_entity("Npc", 90 * 16, 84 * 16, [make_field("name", "String", "Karla"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#4A0080"), make_field("dialogue", "String", "What do you want?|I can teach you pyromancies")]))
+    # Chests — DS3 Irithyll Dungeon: 4 Mimics, 1 regular chest
+    # Mimic drops Estus Shard (upper cells)
+    entities.append(make_entity("Chest", 65 * 16, 48 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("loot_name", "String", "Estus Shard"),
+        make_field("is_mimic", "Bool", True),
+    ]))
+    # Mimic drops Dark Clutch Ring (sewer area)
+    entities.append(make_entity("Chest", 62 * 16, 82 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "RingDrop"),
+        make_field("loot_name", "String", "Dark Clutch Ring"),
+        make_field("is_mimic", "Bool", True),
+    ]))
+    # Mimic drops Dragonslayer Lightning Arrow (near giant)
+    entities.append(make_entity("Chest", 85 * 16, 78 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("loot_name", "String", "Dragonslayer Lightning Arrow"),
+        make_field("is_mimic", "Bool", True),
+    ]))
+    # Mimic drops Titanite Scale x2 (Karla area)
+    entities.append(make_entity("Chest", 78 * 16, 85 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("loot_name", "String", "Titanite Scale"),
+        make_field("is_mimic", "Bool", True),
+    ]))
+    # Regular chest with Old Cell Key (sewer)
+    entities.append(make_entity("Chest", 58 * 16, 78 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("loot_name", "String", "Old Cell Key"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+
+    # NPCs — DS3 Irithyll Dungeon: Siegward in cell, Karla in deep cell
+    entities.append(make_entity("Npc", 92 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D4A520"), make_field("dialogue", "String", "Mmm|You have my thanks|I seem to be trapped in this cell")]))
+    entities.append(make_entity("Npc", 90 * 16, 84 * 16, [make_field("name", "String", "Karla"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#4A0080"), make_field("dialogue", "String", "What do you want?|I can teach you sorceries and pyromancies")]))
 
     entities.append(make_entity("FogGate", 142 * 16, 32 * 16, [
         make_field("dest_area", "String", "ProfanedCapital"),
@@ -2774,42 +4153,45 @@ def make_profaned_capital():
     entities.append(make_entity("BossSpawn", 108 * 16, 14 * 16))
 
     # --- Enemies ---
-    enemy_positions = [
-        # Entry bridge gargoyle ambush
-        ("Gargoyle", 8, 10),
-        # Boss path bridge
-        ("Gargoyle", 44, 12),
-        # First jailer room
-        ("Jailer", 52, 10), ("Jailer", 54, 14), ("Jailer", 60, 8), ("Jailer", 62, 18),
-        ("Gargoyle", 64, 14),
-        # Second jailer room
-        ("Jailer", 72, 10), ("Jailer", 74, 16), ("Jailer", 80, 12), ("Jailer", 82, 20),
+    # DS3 Profaned Capital enemies: Handmaids (Jailer), Gargoyles (Headless),
+    # Monstrosities of Sin (GiantSlave), Sewer Centipedes (ManGrub),
+    # Rats, Crystal Lizards, Mimic
+    enemy_data = [
+        # Entry bridge — Headless Gargoyle ambush (DS3: gargoyle on bridge)
+        ("Gargoyle", 10, 11),
+        # Boss path bridge — Gargoyle patrol
+        ("Gargoyle", 44, 12), ("Gargoyle", 48, 14),
+        # First jailer room — Jailer Handmaids + fire-casting Gargoyle (wiki: 4 jailers in white + gargoyle)
+        ("Jailer", 52, 10), ("Jailer", 54, 14), ("Jailer", 60, 8),
+        ("Jailer", 62, 18), ("Gargoyle", 64, 14),
+        # Second jailer room — more jailers + gargoyle lurks up and to the right
+        ("Jailer", 72, 10), ("Jailer", 74, 16), ("Jailer", 80, 12),
         ("Gargoyle", 88, 8),
-        # Upper ruins
-        ("HollowSoldier", 20, 38), ("HollowSoldier", 30, 42),
-        ("Jailer", 38, 44), ("Jailer", 42, 46),
-        # Ruins / streets
+        # Upper ruins — Jailer patrols (wiki: 2 invisible jailers near Jailer's Key Ring)
+        ("Jailer", 20, 38), ("Jailer", 30, 42),
+        ("Jailer", 38, 44),
+        # Ruins/streets — Gargoyle patrols + jailer
         ("Gargoyle", 34, 52), ("Gargoyle", 50, 60),
-        ("HollowSoldier", 26, 56), ("HollowSoldier", 46, 62),
-        # Toxic pool
+        ("Jailer", 26, 56),
+        # Toxic pool — Rats (wiki: rats respawn in giant's room)
         ("Rat", 52, 64), ("Rat", 60, 72), ("Rat", 66, 68),
-        ("CrystalLizard", 56, 68), ("CrystalLizard", 62, 64),
-        # Church (Monstrosities of Sin)
-        ("ManGrub", 30, 72), ("ManGrub", 36, 78), ("ManGrub", 42, 74),
-        # Court sorcerer roof
-        ("DarkMage", 48, 42),
-        ("CrystalLizard", 56, 44),
-        # Siegward cell area
+        # Crystal Lizards (wiki: 3 — one at hole jump, one in left tunnel, one down hallway)
+        ("CrystalLizard", 56, 68), ("CrystalLizard", 62, 64), ("CrystalLizard", 56, 44),
+        # Church — Monstrosities of Sin (wiki: 3 in the church + 1 in separate room = 4)
+        ("GiantSlave", 30, 72), ("GiantSlave", 36, 78), ("GiantSlave", 42, 74),
+        # Monstrosity of Sin — separate room above church (wiki: "single Monstrosity of Sin")
+        ("GiantSlave", 48, 46),
+        # Sewer Centipedes in toxic pool (wiki: insect-like creatures)
+        ("ManGrub", 58, 70), ("ManGrub", 64, 74),
+        # Avaricious Being — hostile NPC with Gargoyle Flame Hammer (wiki: drops Logan's Scroll)
+        ("MiniBoss", 48, 42),
+        # Siegward cell area — Jailer guard
         ("Jailer", 62, 48),
-        # Giant room
-        ("Rat", 70, 60), ("Rat", 74, 66), ("Rat", 80, 62), ("Rat", 78, 68),
+        # Giant room — rats and Giant Slave (wiki: giant in treasure room, rats respawn)
+        ("Rat", 70, 60), ("Rat", 74, 66), ("Rat", 80, 62),
         ("GiantSlave", 76, 60),
-        # Mimic in second jailer room
-        ("Mimic", 86, 16),
-        # Mimic near giant room
-        ("Mimic", 72, 70),
     ]
-    for kind, tx, ty in enemy_positions:
+    for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
@@ -2824,40 +4206,52 @@ def make_profaned_capital():
             "...Yhorm, old friend|I promised you|On the day you lost your mind|I would be there to end it"),
     ]))
 
-    # --- Items ---
+    # --- Items — DS3 Profaned Capital (wiki-verified) ---
     items = [
-        # Bonfire area (Gilligan)
-        ("Consumable", "Undead Bone Shard", 14, 10, 0),
+        # Gilligan's ladder area
+        ("UndeadBoneShard", "Undead Bone Shard", 14, 10, 0),
+        ("Consumable", "Poison Arrow", 50, 38, 0),  # near Avaricious Being roof (wiki)
         # Boss path bridge
         ("SoulOrb", "Large Soul of a Weary Warrior", 48, 14, 1000),
         ("Consumable", "Onislayer Greatarrow", 36, 12, 0),
         # First jailer room
         ("Consumable", "Rusted Coin", 62, 20, 0),
+        ("Consumable", "Dung Pie", 68, 58, 0),  # giant room (wiki: all 4 in giant room)
         # Second jailer room
         ("Consumable", "Rusted Coin", 90, 22, 0),
-        ("Consumable", "Ember", 88, 20, 0),
+        ("Consumable", "Blooming Purple Moss Clump", 84, 18, 0),
+        ("Consumable", "Blooming Purple Moss Clump", 86, 20, 0),
+        ("Consumable", "Blooming Purple Moss Clump", 88, 22, 0),
+        ("Consumable", "Dung Pie", 72, 62, 0),  # giant room
         # Upper ruins
-        ("Consumable", "Rusted Coin", 24, 40, 0),
-        ("Consumable", "Rusted Gold Coin", 40, 44, 0),
-        # Toxic pool
+        ("Consumable", "Lightning Bolt", 28, 42, 0),
+        ("Consumable", "Dung Pie", 84, 68, 0),  # giant room
+        ("Consumable", "Dung Pie", 82, 56, 0),  # giant room
+        ("TitaniteShard", "Large Titanite Shard", 86, 60, 0),  # giant room (wiki: 2x in giant room)
+        # Toxic pool / sewer
+        ("Consumable", "Purging Stone", 50, 70, 0),
+        ("Consumable", "Purging Stone", 32, 80, 0),
         ("Consumable", "Poison Gem", 54, 72, 0),
         ("RingDrop", "Cursebite Ring", 64, 76, 0),
-        ("Consumable", "Purging Stone", 50, 70, 0),
         ("Consumable", "Shriving Stone", 68, 74, 0),
-        # Church
+        ("Consumable", "Dragonslayer Lightning Arrow", 60, 70, 0),
+        ("Consumable", "Rusted Gold Coin", 40, 44, 0),
+        # Church — Monstrosity of Sin area
         ("WeaponDrop", "Eleonora", 36, 76, 0),
-        ("Consumable", "Purging Stone", 32, 80, 0),
-        # Court sorcerer roof
+        # Court sorcerer rooftop
         ("ArmorDrop", "Court Sorcerer Set", 48, 46, 0),
-        ("WeaponDrop", "Court Sorcerer's Staff", 58, 46, 0),
         ("Consumable", "Logan's Scroll", 52, 40, 0),
-        # Siegward's cell
+        ("Consumable", "Rubbish", 54, 42, 0),
+        ("Consumable", "Stretch Out Gesture", 14, 14, 0),  # Gilligan body at bonfire tower (wiki)
+        # Siegward's cell area
         ("RingDrop", "Covetous Gold Serpent Ring", 64, 52, 0),
+        ("Consumable", "Jailer's Key Ring", 58, 50, 0),
+        ("Consumable", "Prisoner Chief's Ashes", 60, 54, 0),
         ("Consumable", "Wrath of the Gods", 56, 48, 0),
-        # Giant room
+        # Giant room / treasure room
         ("Consumable", "Profaned Flame", 78, 62, 0),
         ("TitaniteShard", "Large Titanite Shard", 82, 64, 0),
-        ("Consumable", "Titanite Chunk", 84, 60, 0),
+        ("TitaniteShard", "Titanite Chunk", 84, 60, 0),
         # Yhorm arena
         ("WeaponDrop", "Storm Ruler", 108, 16, 0),
     ]
@@ -2867,6 +4261,38 @@ def make_profaned_capital():
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
         entities.append(make_entity("Item", tx * 16, ty * 16, fields))
+
+    # --- Chests — DS3 Profaned Capital (wiki-verified) ---
+    # Mimic: Court Sorcerer's Staff (upper capital building)
+    entities.append(make_entity("Chest", 80 * 16, 45 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Court Sorcerer's Staff"),
+        make_field("is_mimic", "Bool", True)]))
+    # Mimic: Greatshield of Glory (second jailer room, side by side with Rusted Gold Coin mimic)
+    entities.append(make_entity("Chest", 76 * 16, 22 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Greatshield of Glory"),
+        make_field("is_mimic", "Bool", True)]))
+    # Mimic: Rusted Gold Coin (second jailer room, side by side with Greatshield of Glory)
+    entities.append(make_entity("Chest", 70 * 16, 24 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Rusted Gold Coin"),
+        make_field("is_mimic", "Bool", True)]))
+    # Mimic: Dragonslayer Lightning Arrow (wiki: ladder room above giant area)
+    entities.append(make_entity("Chest", 80 * 16, 56 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Dragonslayer Lightning Arrow"),
+        make_field("is_mimic", "Bool", True)]))
+    # Regular chest: Ember (second jailer room, wiki: "solitary legitimate chest")
+    entities.append(make_entity("Chest", 82 * 16, 20 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Ember"),
+        make_field("is_mimic", "Bool", False)]))
 
     # --- Fog Gates ---
     # Back to Irithyll Dungeon (NW entry)
@@ -3015,50 +4441,61 @@ def make_anor_londo():
     spawn_px, spawn_py = 10 * 16, 38 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
-    # --- Bonfires ---
+    # --- Bonfires --- DS3: Anor Londo, Prison Tower, Aldrich Devourer of Gods
     entities.append(make_entity("Bonfire", 10 * 16, 38 * 16))
-    entities.append(make_entity("Bonfire", 62 * 16, 90 * 16))   # Prison Tower (hidden)
+    entities.append(make_entity("Bonfire", 62 * 16, 90 * 16))   # Prison Tower (invisible bridge area)
     entities.append(make_entity("Bonfire", 128 * 16, 85 * 16))  # Aldrich boss bonfire
 
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 128 * 16, 78 * 16))
 
-    # --- Enemies ---
+    # --- Enemies — DS3 Anor Londo: Silver Knights (3), Giant Slave (1),
+    # Deep Accursed (1), Deacons (pyromancers + 3 before fog), Rotten Flesh (ManGrub)
     enemy_data = [
-        # Cathedral entrance
+        # Cathedral entrance stairs — 2 Silver Knights (wiki: "two silver knights attack")
         ("SilverKnight", 20, 35), ("SilverKnight", 34, 42),
-        # Royal avenue
-        ("SilverKnight", 42, 38), ("SilverKnight", 55, 45),
-        ("SilverKnight", 68, 40), ("Deacon", 45, 48), ("Deacon", 58, 50), ("Deacon", 70, 46),
+        # Right side — red-eyed Silver Knight (wiki: "red eyed Silver Knight")
+        ("SilverKnight", 42, 38),
+        # Giant Slave — giant archer on upper level (wiki: Giant Slave enemy)
         ("GiantSlave", 38, 52),
-        # Silver Knight hall — Deep Accursed lair
-        ("SilverKnight", 85, 35), ("SilverKnight", 98, 44),
-        ("SilverKnight", 110, 42), ("DeepAccursed", 100, 40),
-        # Staircase corridor — gauntlet
-        ("SilverKnight", 125, 38), ("SilverKnight", 135, 44),
-        ("SilverKnight", 138, 50),
-        # Around arena
-        ("SilverKnight", 115, 62),
-        ("ManGrub", 142, 75), ("ManGrub", 148, 82),
+        # Main chamber — Deacon pyromancers casting fireballs from other side
+        ("Deacon", 55, 45), ("Deacon", 68, 40), ("Deacon", 70, 46),
+        # Main chamber — Rotten Flesh of Aldrich / slimes (wiki: "dispatch slimes")
+        ("ManGrub", 142, 75), ("ManGrub", 148, 82), ("ManGrub", 136, 68),
+        ("ManGrub", 124, 88), ("ManGrub", 132, 92),
+        # Corner — Deep Accursed at revolving switch (wiki: "Deep Accursed waiting for you")
+        ("DeepAccursed", 100, 40),
+        # Hallway to fog gate — 3 Deacons (wiki: "three enemies from Deacons of the Deep boss fight")
+        ("Deacon", 125, 38), ("Deacon", 135, 44), ("Deacon", 138, 50),
     ]
     for kind, tx, ty in enemy_data:
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", kind)]))
+        mapped = ENEMY_KIND_MAP.get(kind, kind)
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- Items ---
+    # --- Items — DS3 Anor Londo (wiki-verified) ---
     items = [
-        ("SoulOrb", "Soul of a Deserted Corpse", 18, 36, 500),
-        ("SoulOrb", "Soul of an Unknown Traveler", 52, 44, 700),
-        ("HomewardBone", "Homeward Bone", 72, 46, 0),
-        ("TitaniteShard", "Titanite Shard", 92, 42, 0),
-        ("TitaniteShard", "Titanite Shard", 108, 40, 0),
-        ("SoulOrb", "Soul of a Weary Warrior", 130, 42, 800),
-        ("EstusShard", "Estus Shard", 135, 52, 0),
-        ("RingDrop", "Aldrich's Ruby", 100, 42, 0),
-        ("TwinklingTitanite", "Twinkling Titanite", 60, 88, 0),
-        ("RingDrop", "Sun Princess Ring", 130, 90, 0),
-        ("WeaponDrop", "Crescent Moon Sword", 138, 85, 0),
-        ("SoulOrb", "Soul of a Crestfallen Knight", 115, 60, 1000),
+        # Top of stairs — left side (DS3: after climbing stairs past Silver Knights)
+        ("SoulOrb", "Large Soul of a Weary Warrior", 18, 40, 1000),
+        # Right side — red-eyed Silver Knight corpse (DS3: loot corpse)
+        ("SoulOrb", "Soul of a Crestfallen Knight", 22, 42, 1000),
+        # Dead giant blacksmith room (DS3: Giant's Coal in his hand)
+        ("Consumable", "Giant's Coal", 26, 48, 0),
+        # Main chamber — near pyromancers (DS3: corpse near fireball casters)
         ("Consumable", "Proof of a Concord Kept", 96, 48, 0),
+        # Opposite staircase (DS3: corpse with Moonlight Arrow x5)
+        ("Consumable", "Moonlight Arrow", 120, 60, 0),
+        ("Consumable", "Moonlight Arrow", 121, 61, 0),
+        ("Consumable", "Moonlight Arrow", 122, 60, 0),
+        ("Consumable", "Moonlight Arrow", 120, 62, 0),
+        ("Consumable", "Moonlight Arrow", 122, 62, 0),
+        # Deep Accursed area near revolving platform (DS3: ring drop)
+        ("RingDrop", "Aldrich's Ruby", 100, 50, 0),
+        # Yorshka tower beam (DS3: drop down from invisible bridge)
+        ("WeaponDrop", "Painting Guardian's Curved Sword", 58, 88, 0),
+        # Below beam in tower (DS3: further drop)
+        ("ArmorDrop", "Painting Guardian Set", 60, 94, 0),
+        # Post-boss elevator — Gwynevere's chamber (DS3: after defeating Aldrich)
+        ("RingDrop", "Sun Princess Ring", 130, 90, 0),
     ]
     for kind, name, tx, ty, val in items:
         fields = [make_field("kind", "LocalEnum.ItemKind", kind),
@@ -3067,30 +4504,31 @@ def make_anor_londo():
             fields.append(make_field("value", "Int", val))
         entities.append(make_entity("Item", tx * 16, ty * 16, fields))
 
-    # --- Chests ---
+    # --- Chests — DS3 Anor Londo (wiki-verified) ---
+    # Regular chest: Estus Shard (main hall, left wall facing from stairs)
     entities.append(make_entity("Chest", 125 * 16, 55 * 16, [
         make_field("loot_kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("loot_name", "String", "Estus Shard"),
         make_field("is_mimic", "Bool", False),
     ]))
 
     # --- NPCs ---
+    # Anri of Astora — summon sign near main doors (wiki: "purple sign on the floor")
+    entities.append(make_entity("Npc", 128 * 16, 72 * 16, [
+        make_field("name", "String", "Anri of Astora"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#d0d0ff"),
+        make_field("dialogue", "String",
+            "Good day|I am Anri of Astora|Would you help me|defeat Aldrich together?"),
+    ]))
+    # Company Captain Yorshka — Darkmoon Tomb, reached from Prison Tower bonfire
     entities.append(make_entity("Npc", 62 * 16, 92 * 16, [
         make_field("name", "String", "Company Captain Yorshka"),
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
-        make_field("color", "Color", "#a0c0ff"),
+        make_field("color", "Color", "#E0E8F0"),
         make_field("dialogue", "String",
-            "I am Yorshka, Captain of the Darkmoon Knights.|"
-            "This duty was given to me by my elder brother Gwyndolin.|"
-            "But he has been devoured by that monster.|"
-            "If you would serve the Darkmoon, swear the oath here."),
-    ]))
-    entities.append(make_entity("Npc", 128 * 16, 72 * 16, [
-        make_field("name", "String", "Sirris of the Sunless Realms"),
-        make_field("kind", "LocalEnum.NpcKind", "Summon"),
-        make_field("color", "Color", "#d0d0ff"),
-        make_field("dialogue", "String",
-            "I can sense your kindness.|Please let me help you.|"
-            "Together we shall defeat the Devourer of Gods."),
+            "I am Yorshka|Captain of the Darkmoon Knights|"
+            "The Darkmoon remains true to its duty"),
     ]))
 
     # --- Fog Gates ---
@@ -3289,51 +4727,130 @@ def make_lothric_castle():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py,
         [make_field("heal", "Bool", True)]))
 
-    # --- Bonfires ---
-    entities.append(make_entity("Bonfire", 10 * 16, 30 * 16))    # Castle gate
-    entities.append(make_entity("Bonfire", 42 * 16, 35 * 16))    # Corridor
-    entities.append(make_entity("Bonfire", 80 * 16, 25 * 16))    # Dragon barracks
-    entities.append(make_entity("Bonfire", 132 * 16, 68 * 16))   # Boss room
+    # --- Bonfires --- DS3: Dragon Barracks, Lothric Castle, Grand Archives, Dragonslayer Armour
+    entities.append(make_entity("Bonfire", 42 * 16, 35 * 16))    # Dragon Barracks (entry)
+    entities.append(make_entity("Bonfire", 80 * 16, 25 * 16))    # Lothric Castle
+    entities.append(make_entity("Bonfire", 132 * 16, 68 * 16))   # Dragonslayer Armour (boss)
+    entities.append(make_entity("Bonfire", 146 * 16, 85 * 16))   # Grand Archives
 
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 132 * 16, 62 * 16))  # Dragonslayer Armour
 
     # --- Enemies ---
+    # DS3 Lothric Castle enemies: Lothric Knights, Hollow Soldiers, Hollow Assassins,
+    # Hollow Priests (DarkMage), Winged Knights, Pus of Man, Boreal Outrider Knight,
+    # Mimic, Crystal Lizards, Lothric Wyverns
     enemy_positions = [
-        # Castle gate area
-        ("LothricKnight", 18, 28),
-        # Outer corridor
-        ("LothricKnight", 35, 32),
-        ("HollowAssassin", 32, 38),
+        # Castle gate area — Lothric Knight + Hollow Priest healing combo
+        ("LothricKnight", 18, 28), ("DarkMage", 22, 30),              # Priest heals knight (DS3)
+        ("HollowSoldier", 14, 34), ("HollowSoldier", 20, 40),        # Crossbow hollows at gate
+        # Outer corridor — Lothric Knights, Hollow Assassins, Starved Hounds
+        ("LothricKnight", 35, 32), ("HollowAssassin", 32, 38),
+        ("HollowSoldier", 28, 36),                                    # Crossbow hollow
+        ("StarvedHound", 30, 30), ("StarvedHound", 38, 36),         # DS3: dogs in corridors
+        ("HollowSoldier", 40, 40), ("HollowAssassin", 44, 44),      # Hollow ambushes in corridor
         # Corridor -> barracks transition
-        ("LothricKnight", 55, 38),
-        ("WingedKnight", 50, 38),
-        # Dragon barracks
-        ("HollowSoldier", 68, 18),
-        ("PusOfMan", 78, 18),
-        ("HollowSoldier", 75, 22),
-        ("CrystalLizard", 82, 22),
-        ("HollowSoldier", 85, 28),
-        # Inner stairs
-        ("WingedKnight", 108, 48),
-        ("CrystalLizard", 115, 45),
+        ("LothricKnight", 55, 38), ("WingedKnight", 50, 38),
+        ("DarkMage", 48, 42),                                         # Priest healer
+        ("LothricKnight", 58, 44), ("LothricKnight", 62, 34),       # Knight pair guards stairs
+        # Dragon barracks — Wyvern area (Pus of Man on dragon corpses)
+        ("HollowSoldier", 68, 18), ("PusOfMan", 78, 18),
+        ("HollowSoldier", 75, 22), ("CrystalLizard", 82, 22),
+        ("HollowSoldier", 85, 28), ("PusOfMan", 95, 32),             # Second Pus of Man
+        ("HollowSoldier", 70, 25), ("HollowSoldier", 92, 28),       # More hollows in barracks
+        ("LothricKnight", 88, 34),                                    # Knight patrolling barracks
+        # Boreal Outrider Knight (DS3: in a room with chests, frost damage)
+        ("BorealOutriderKnight", 45, 55),                             # DS3: frost knight in side room
+        ("StarvedHound", 48, 60),                                     # DS3: dog in side path
+        # Inner stairs — Winged Knight gauntlet
+        ("WingedKnight", 108, 48), ("CrystalLizard", 115, 45),
+        ("LothricKnight", 112, 52),                                   # Knight on stairs
+        ("LothricKnight", 100, 42),                                   # Red-eyed Lothric Knight
+        ("HollowAssassin", 105, 54), ("HollowAssassin", 118, 50),   # Assassin ambush on stairs
         # Arena approaches
-        ("PusOfMan", 125, 55),
-        ("LothricKnight", 132, 58),
+        ("PusOfMan", 125, 55), ("LothricKnight", 132, 58),
+        ("HollowSoldier", 128, 62), ("HollowAssassin", 135, 65),      # Hollow gauntlet to boss
+        ("WingedKnight", 140, 60),                                    # Ascended Winged Knight near arena
+        ("HollowSoldier", 138, 68), ("HollowSoldier", 142, 72),     # Hollows at arena entrance
     ]
     for kind, tx, ty in enemy_positions:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- Items ---
+    # --- Items - DS3 Lothric Castle (wiki-verified) ---
     items = [
-        ("SoulOrb", "Soul of a Crestfallen Knight", 25, 25, 600),
-        ("EstusShard", "Estus Shard", 55, 36, 0),
-        ("TitaniteShard", "Titanite Shard", 80, 26, 0),
-        ("SoulOrb", "Soul of a Nameless Soldier", 122, 52, 1000),
-        ("RingDrop", "Red Tearstone Ring", 132, 75, 0),
-        ("Consumable", "Homeward Bone", 48, 45, 0),
+        # Souls
+        ("SoulOrb", "Soul of a Crestfallen Knight", 25, 25, 600),      # Altar room
+        ("SoulOrb", "Soul of a Crestfallen Knight", 128, 62, 600),     # After wyvern dead
+        ("SoulOrb", "Soul of a Weary Warrior", 55, 36, 1000),          # Right of stairs
+        ("SoulOrb", "Soul of a Weary Warrior", 90, 35, 2000),          # Lever room
+        ("SoulOrb", "Large Soul of a Nameless Soldier", 75, 18, 1500), # Hanging corpse
+        ("SoulOrb", "Large Soul of a Nameless Soldier", 98, 28, 1500), # Tower top
+        ("SoulOrb", "Large Soul of a Nameless Soldier", 105, 40, 1500),# Over ledge
+        ("SoulOrb", "Large Soul of a Weary Warrior", 88, 30, 2000),    # Lever room
+        # Lightning Urn x7
+        ("Consumable", "Lightning Urn", 72, 15, 0),
+        ("Consumable", "Lightning Urn", 78, 12, 0),
+        ("Consumable", "Lightning Urn", 74, 18, 0),
+        ("Consumable", "Lightning Urn", 76, 14, 0),
+        ("Consumable", "Lightning Urn", 80, 16, 0),
+        ("Consumable", "Lightning Urn", 82, 18, 0),
+        ("Consumable", "Lightning Urn", 84, 15, 0),
+        # Other consumables
+        ("Consumable", "Sniper Bolt", 88, 25, 11),                     # Near sniper crossbow (11x)
+        ("Consumable", "Pale Pine Resin", 115, 55, 0),                 # Mimic room
+        ("Consumable", "Black Firebomb", 125, 62, 0),                  # Lower ladder room
+        ("Consumable", "Black Firebomb", 126, 63, 0),                  # Same pickup (3x total)
+        ("Consumable", "Black Firebomb", 124, 64, 0),                  # Same pickup (3x total)
+        ("Consumable", "Sunlight Medal", 138, 68, 0),                  # Corpse outside church
+        ("Consumable", "Rusted Coin", 125, 70, 0),                     # Church room
+        ("Consumable", "Rusted Coin", 128, 72, 0),                     # Church room
+        ("UndeadBoneShard", "Undead Bone Shard", 70, 20, 0),                # Under wyvern bridge
+        # Embers x5
+        ("Ember", "Ember", 68, 22, 0),                                 # Dragon barracks
+        ("Ember", "Ember", 62, 30, 0),                                 # Wyvern bridge
+        ("Ember", "Ember", 130, 65, 0),                                # Corner corpse
+        ("Ember", "Ember", 82, 20, 0),                                 # Wyvern area
+        ("Ember", "Ember", 135, 58, 0),                                # Post-wyvern
+        # Weapons
+        ("WeaponDrop", "Greatlance", 62, 28, 0),                       # Red-eye knight guards
+        ("WeaponDrop", "Sniper Crossbow", 85, 28, 0),                  # Tower top near WK
+        ("WeaponDrop", "Irithyll Rapier", 45, 55, 0),                  # Boreal Knight area
+        ("WeaponDrop", "Caitha's Chime", 128, 75, 0),                  # Church roof
+        ("WeaponDrop", "Sacred Bloom Shield", 52, 42, 0),              # Illusory wall
+        # Armor
+        ("ArmorDrop", "Winged Knight Set", 55, 42, 0),                 # Illusory wall
+        # Upgrade materials — Large Titanite Shard x2
+        ("TitaniteShard", "Large Titanite Shard", 75, 16, 0),
+        ("TitaniteShard", "Large Titanite Shard", 95, 30, 0),
+        # Titanite Chunk x10
+        ("TitaniteShard", "Titanite Chunk", 42, 40, 0),
+        ("TitaniteShard", "Titanite Chunk", 92, 30, 0),
+        ("TitaniteShard", "Titanite Chunk", 72, 25, 0),
+        ("TitaniteShard", "Titanite Chunk", 115, 48, 0),
+        ("TitaniteShard", "Titanite Chunk", 135, 60, 0),
+        ("TitaniteShard", "Titanite Chunk", 65, 20, 0),
+        ("TitaniteShard", "Titanite Chunk", 125, 55, 0),
+        ("TitaniteShard", "Titanite Chunk", 132, 42, 0),
+        ("TitaniteShard", "Titanite Chunk", 140, 60, 0),
+        ("TitaniteShard", "Titanite Chunk", 50, 44, 0),
+        # Twinkling Titanite (ground pickups)
+        ("TitaniteShard", "Twinkling Titanite", 52, 38, 0),            # Winged Knight room corpse
+        ("TitaniteShard", "Twinkling Titanite", 118, 55, 0),           # Wyvern bridge far side
+        # Titanite Scale (ground pickup)
+        ("TitaniteShard", "Titanite Scale", 116, 50, 0),               # Outside mimic room corpse
+        ("TitaniteShard", "Titanite Scale", 130, 68, 0),               # Shortcut path
+        ("TitaniteShard", "Titanite Scale", 142, 62, 0),               # Shortcut path near Archives
+        # Titanite Slab (DS3: elevator shortcut going down from Prince fight)
+        ("TitaniteShard", "Titanite Slab", 148, 68, 0),                # Near Grand Archives exit
+        # Rings & key items
+        ("RingDrop", "Red Tearstone Ring", 132, 75, 0),                # Church jump
+        ("RingDrop", "Knight's Ring", 108, 48, 0),                     # Ladder room
+        ("Consumable", "Braille Divine Tome of Lothric", 102, 32, 0),  # Up stairs from mimic
+        # Gems
+        ("Consumable", "Raw Gem", 82, 35, 0),                          # Side room
+        ("Consumable", "Refined Gem", 76, 22, 0),                      # After wyvern kill
     ]
     for kind, name, tx, ty, val in items:
         fields = [make_field("kind", "LocalEnum.ItemKind", kind),
@@ -3342,16 +4859,89 @@ def make_lothric_castle():
             fields.append(make_field("value", "Int", val))
         entities.append(make_entity("Item", tx * 16, ty * 16, fields))
 
-    # --- NPC ---
-    # Emma — speaks of the princes and the fire linking
-    entities.append(make_entity("Npc", 12 * 16, 28 * 16, [
+    # --- Chests - DS3 Lothric Castle (wiki-verified, 9 chests: 7 regular + 2 mimics) ---
+    # Prayer Set (regular, early room)
+    entities.append(make_entity("Chest", 38 * 16, 35 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "ArmorDrop"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Prayer Set"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    # Twinkling Titanite (regular, Boreal Knight room)
+    entities.append(make_entity("Chest", 45 * 16, 58 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Twinkling Titanite"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    # Spirit Tree Crest Shield (regular, Boreal Knight room)
+    entities.append(make_entity("Chest", 47 * 16, 56 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Spirit Tree Crest Shield"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    # Titanite Scale (regular, Boreal Knight room)
+    entities.append(make_entity("Chest", 48 * 16, 54 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Titanite Scale"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    # Twinkling Titanite (regular, hidden behind boxes, Boreal room)
+    entities.append(make_entity("Chest", 50 * 16, 52 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Twinkling Titanite"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    # Titanite Scale (MIMIC, wyvern fire room)
+    entities.append(make_entity("Chest", 115 * 16, 52 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Titanite Scale"),
+        make_field("is_mimic", "Bool", True),
+    ]))
+    # Titanite Scale (regular, church room)
+    entities.append(make_entity("Chest", 125 * 16, 72 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Titanite Scale"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    # Titanite Scale (regular, Sunlight Altar room)
+    entities.append(make_entity("Chest", 120 * 16, 58 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Titanite Scale"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    # Sunlight Straight Sword (MIMIC, near wyvern dead area)
+    entities.append(make_entity("Chest", 100 * 16, 34 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Sunlight Straight Sword"),
+        make_field("is_mimic", "Bool", True),
+    ]))
+
+    # --- NPCs - DS3 Lothric Castle ---
+    # Emma, High Priestess of Lothric — in the cathedral/church area
+    # DS3: gives Basin of Vows and Way of Blue covenant
+    entities.append(make_entity("Npc", 122 * 16, 62 * 16, [
         make_field("name", "String", "Emma"),
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
-        make_field("color", "Color", "#C0C0E0"),
+        make_field("color", "Color", "#D4AF37"),
         make_field("dialogue", "String",
-            "The prince loathes his fire-linking destiny|"
-            "but it falls to you to rouse him|"
-            "however reluctant he may be"),
+            "I am Emma|High Priestess of Lothric|The Prince has refused his duty|Please save him"),
+    ]))
+    # Eygon of Carim — summon sign near Dragonslayer Armour arena approach
+    # DS3: can be summoned for Dragonslayer Armour if Irina quest is in correct state
+    entities.append(make_entity("Npc", 115 * 16, 56 * 16, [
+        make_field("name", "String", "Eygon of Carim"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#4A4A4A"),
+        make_field("dialogue", "String",
+            "What do you want?|I am Eygon of Carim|I am bound by duty to protect Irina"),
     ]))
 
     # --- Fog Gates ---
@@ -3480,6 +5070,11 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_GROUND, 80, 5, 140, 35)
     carve_ellipse(chunk, 110, 18, 22, 14)
 
+    # 8. Lift shortcut alcove — Lothric Castle shortcut off the Bridge of Glory
+    fill_tiles(chunk, TILE_GROUND, 128, 28, 148, 38)
+    # Hidden lift platform alcove (Titanite Slab from lift trick)
+    fill_tiles(chunk, TILE_GROUND, 132, 36, 142, 46)
+
     # ================================================================
     # CONNECTIONS — vertical staircases between levels
     # ================================================================
@@ -3489,6 +5084,7 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_GROUND, 85, 30, 95, 35)      # Scholar tower → WK corridor
     fill_tiles(chunk, TILE_GROUND, 75, 15, 85, 22)      # WK corridor → Rooftop
     fill_tiles(chunk, TILE_GROUND, 98, 10, 105, 18)     # Rooftop → Princes chamber
+    fill_tiles(chunk, TILE_GROUND, 128, 22, 135, 30)    # Bridge → Lift shortcut alcove
 
     # ================================================================
     # PLAYER SPAWN & BONFIRES
@@ -3505,58 +5101,188 @@ def make_grand_archives():
     entities.append(make_entity("BossSpawn", 110 * 16, 12 * 16))
 
     # ================================================================
-    # ENEMIES
+    # ENEMIES — DS3 Grand Archives (wiki-complete)
     # ================================================================
     enemy_data = [
-        # Dark Mages — scholars of the archives
-        ("DarkMage", 45, 130),
-        ("DarkMage", 62, 95),
-        ("DarkMage", 85, 40),
-        ("DarkMage", 75, 28),
-        # Hollow Soldiers — fallen scholars
-        ("HollowSoldier", 35, 135),
-        ("HollowSoldier", 50, 100),
-        ("HollowSoldier", 55, 65),
-        # Lothric Knights — garrison patrols
-        ("LothricKnight", 70, 92),
-        ("LothricKnight", 88, 45),
-        # Gargoyles — rooftop guardians
-        ("Gargoyle", 68, 12),
-        ("Gargoyle", 82, 15),
-        ("Gargoyle", 95, 10),
-        # Man Grubs — transformed scholars
-        ("ManGrub", 92, 48),
-        ("ManGrub", 98, 52),
-        # Crystal Lizards — rare spawns
-        ("CrystalLizard", 52, 85),
-        ("CrystalLizard", 78, 15),
-        # Cathedral Knights — heavy guards
-        ("CathedralKnight", 65, 38),
-        ("CathedralKnight", 90, 28),
-        # Deacons — cultists near entry
-        ("Deacon", 32, 142),
-        ("Deacon", 42, 145),
+        # Grand Archives Scholars (DarkMage — candle-wielding wax priests)
+        # Wiki walkthrough: wax priests at altar, next room, stairs, upper level (~8 total)
+        ("DarkMage", 45, 130), ("DarkMage", 62, 95),
+        ("DarkMage", 85, 40), ("DarkMage", 75, 28),
+        ("DarkMage", 50, 100), ("DarkMage", 55, 75),
+        ("DarkMage", 48, 85), ("DarkMage", 72, 55),
+        # Crystal Sage (teleports around area, first encounter in entry hall)
+        ("CrystalSage", 48, 128),
+        # Hollow Slaves (Thrall — drop from ceilings, walls)
+        ("HollowSlave", 42, 132), ("HollowSlave", 55, 98),
+        ("HollowSlave", 68, 108), ("HollowSlave", 75, 50),
+        ("HollowSlave", 62, 65),
+        # Hollow Soldiers — generic hollows in library
+        ("HollowSoldier", 40, 138), ("HollowSoldier", 52, 92),
+        ("HollowSoldier", 58, 80),
+        # Lothric Knights — including red-eyed knight guard
+        ("LothricKnight", 70, 92), ("LothricKnight", 88, 45),
+        ("LothricKnight", 55, 65), ("LothricKnight", 78, 48),
+        # Ascended Winged Knights (golden, 3 on tower rooftop — drop Titanite Slab)
+        ("AscendedWingedKnight", 82, 38), ("AscendedWingedKnight", 92, 35),
+        ("AscendedWingedKnight", 75, 32),
+        # Boreal Outrider Knight — behind illusory wall (drops Outrider Armor Set)
+        ("BorealOutriderKnight", 58, 68),
+        # Clawed Curse (Basilisk — curse hands from walls/books)
+        ("ClawedCurse", 48, 70), ("ClawedCurse", 65, 78),
+        ("ClawedCurse", 55, 82),
+        # Man-grubs — caster on beam below cage
+        ("ManGrub", 90, 25), ("ManGrub", 95, 30),
+        # Gargoyles — rooftop guardians (wiki: 3 gargoyles on roof)
+        ("Gargoyle", 68, 12), ("Gargoyle", 82, 15), ("Gargoyle", 95, 10),
+        # Corvians — bird people near storyteller on rooftops
+        ("Corvian", 78, 18), ("Corvian", 85, 12),
+        # Corvian Storyteller — leading corvian flock
+        ("CorvianStoryteller", 72, 15),
+        # Crystal Lizards (wiki walkthrough: ~6 throughout — entry room, 2 in secret room, 1 mid-level, 2 on roof)
+        ("CrystalLizard", 52, 85), ("CrystalLizard", 48, 72),
+        ("CrystalLizard", 50, 75), ("CrystalLizard", 65, 55),
+        ("CrystalLizard", 78, 15), ("CrystalLizard", 88, 22),
+        # Black Hand NPC trio — hostile NPCs in courtyard with statue
+        # Faraam armor warrior (drops Golden Wing Crest Shield)
+        ("MiniBoss", 60, 110),
+        # Mage Kriemhild (drops Sage's Crystal Staff)
+        ("DarkMage", 62, 112),
+        # Dual katana wielder (drops Onikiri and Ubadachi)
+        ("MiniBoss", 64, 108),
+        # Bridge of Glory — barricade gauntlet (wiki: "series of blockades with many hollows, then knights")
+        ("HollowSoldier", 112, 8), ("HollowSoldier", 114, 10),
+        ("HollowSoldier", 119, 15), ("HollowSoldier", 121, 18),
+        ("HollowSoldier", 125, 7), ("HollowSoldier", 127, 12),
+        ("LothricKnight", 130, 10), ("LothricKnight", 132, 15),
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # ================================================================
-    # ITEMS
+    # ITEMS — DS3 Grand Archives (wiki-complete)
     # ================================================================
     items = [
+        # Spells
+        ("Consumable", "Power Within", 55, 80, 0),
+        ("Consumable", "Soul Stream", 60, 70, 0),
+        ("Consumable", "Divine Pillars of Light", 88, 32, 0),
+        # Consumables — souls
         ("SoulOrb", "Soul of a Crestfallen Knight", 32, 138, 600),
-        ("EstusShard", "Estus Shard", 68, 102, 0),
-        ("TitaniteShard", "Titanite Shard", 85, 42, 0),
+        ("SoulOrb", "Soul of a Crestfallen Knight", 78, 35, 600),
+        ("SoulOrb", "Soul of a Nameless Soldier", 52, 78, 1000),
         ("SoulOrb", "Soul of a Weary Warrior", 72, 15, 1000),
+        ("SoulOrb", "Large Soul of a Crestfallen Knight", 82, 30, 1500),
+        # Consumables
+        ("HomewardBone", "Homeward Bone", 60, 108, 0),
+        ("HomewardBone", "Homeward Bone", 65, 88, 0),
+        ("HomewardBone", "Homeward Bone", 72, 92, 0),
+        ("Ember", "Ember", 55, 98, 0),
+        # Weapons
+        ("WeaponDrop", "Avelyn", 68, 85, 0),
+        ("WeaponDrop", "Golden Wing Crest Shield", 80, 32, 0),
+        ("WeaponDrop", "Sage's Crystal Staff", 82, 28, 0),
+        ("WeaponDrop", "Onikiri and Ubadachi", 84, 30, 0),
+        ("WeaponDrop", "Crystal Chime", 70, 60, 0),
+        # Scrolls
+        ("Consumable", "Crystal Scroll", 48, 125, 0),
+        # Armor
+        ("ArmorDrop", "Outrider Knight Armor Set", 58, 68, 0),
+        # Upgrade materials — Titanite Chunks (8x)
+        ("TitaniteShard", "Titanite Chunk", 42, 90, 0),
+        ("TitaniteShard", "Titanite Chunk", 55, 95, 0),
+        ("TitaniteShard", "Titanite Chunk", 65, 60, 0),
+        ("TitaniteShard", "Titanite Chunk", 75, 42, 0),
+        ("TitaniteShard", "Titanite Chunk", 88, 18, 0),
+        ("TitaniteShard", "Titanite Chunk", 95, 22, 0),
+        ("TitaniteShard", "Titanite Chunk", 70, 125, 0),
+        ("TitaniteShard", "Titanite Chunk", 62, 75, 0),
+        # Titanite Scales (5x ground pickups)
+        ("TitaniteShard", "Titanite Scale", 58, 95, 0),
+        ("TitaniteShard", "Titanite Scale", 52, 72, 0),
+        ("TitaniteShard", "Titanite Scale", 68, 68, 0),
+        ("TitaniteShard", "Titanite Scale", 75, 55, 0),
+        ("TitaniteShard", "Titanite Scale", 65, 50, 0),
+        # Titanite Slabs (3x — elevator secret + Winged Knights trio + lift trick)
+        ("TitaniteShard", "Titanite Slab", 108, 15, 0),
+        ("TitaniteShard", "Titanite Slab", 95, 35, 0),
+        # Titanite Slab from lift trick (activate lift, roll off, ride second platform down)
+        ("TitaniteShard", "Titanite Slab", 137, 42, 0),
+        # Greirat's Ashes (adjacent rooftop — only obtainable by jumping)
+        ("Consumable", "Greirat's Ashes", 92, 8, 0),
+        # Third Soul of a Crestfallen Knight (near Winged Knights / rooftops)
+        ("SoulOrb", "Soul of a Crestfallen Knight", 85, 8, 600),
+        # Other upgrade materials
+        ("Consumable", "Shriving Stone", 82, 45, 0),
+        ("Consumable", "Hollow Gem", 100, 15, 0),
+        ("Consumable", "Blessed Gem", 90, 30, 0),
+        ("UndeadBoneShard", "Undead Bone Shard", 55, 100, 0),
+        ("EstusShard", "Estus Shard", 82, 20, 0),
+        # Rings
         ("RingDrop", "Fleshbite Ring", 90, 22, 0),
-        ("Consumable", "Homeward Bone", 60, 108, 0),
+        ("RingDrop", "Hunter's Ring", 88, 18, 0),
+        ("RingDrop", "Scholar Ring", 68, 72, 0),
     ]
     for kind, name, tx, ty, val in items:
         fields = [make_field("kind", "LocalEnum.ItemKind", kind), make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
         entities.append(make_entity("Item", tx * 16, ty * 16, fields))
+
+    # ================================================================
+    # CHESTS — DS3 Grand Archives (5 chests, 0 mimics)
+    # ================================================================
+    # Witch's Locks (secret room, lever-activated)
+    entities.append(make_entity("Chest", 50 * 16, 75 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("loot_name", "String", "Witch's Locks"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    # Titanite Scale x3 (upper level room)
+    entities.append(make_entity("Chest", 78 * 16, 38 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("loot_name", "String", "Titanite Scale"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    # Titanite Slab (near giant wax pool)
+    entities.append(make_entity("Chest", 60 * 16, 82 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("loot_name", "String", "Titanite Slab"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    # Divine Blessing (beam, lower level)
+    entities.append(make_entity("Chest", 92 * 16, 28 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("loot_name", "String", "Divine Blessing"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+    # Twinkling Titanite x3 (beam, lower level)
+    entities.append(make_entity("Chest", 95 * 16, 25 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("loot_name", "String", "Twinkling Titanite"),
+        make_field("is_mimic", "Bool", False),
+    ]))
+
+    # ================================================================
+    # NPC — DS3 Grand Archives
+    # ================================================================
+    # Black Hand Gotthard (dead body at entrance — drops Grand Archives Key)
+    entities.append(make_entity("Npc", 30 * 16, 140 * 16, [
+        make_field("name", "String", "Black Hand Gotthard"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#606060"),
+        make_field("dialogue", "String",
+            "A corpse with the Grand Archives Key|"
+            "Gotthard's journey ends here"),
+    ]))
+    # Siegward of Catarina — summon sign at bonfire (wiki: helps clear path to Twin Princes)
+    entities.append(make_entity("Npc", 28 * 16, 140 * 16, [
+        make_field("name", "String", "Siegward of Catarina"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#C8A832"),
+        make_field("dialogue", "String",
+            "I shall assist you|On this final journey|To the Twin Princes"),
+    ]))
 
     # ================================================================
     # FOG GATES — area transitions
@@ -3572,6 +5298,12 @@ def make_grand_archives():
         make_field("dest_area", "String", "KilnOfTheFirstFlame"),
         make_field("dest_x", "Float", 1280.0), make_field("dest_y", "Float", 2320.0),
         make_field("width", "Float", 64.0), make_field("height", "Float", 80.0),
+    ]))
+    # Lift shortcut to Lothric Castle (from bridge area near Twin Princes)
+    entities.append(make_entity("FogGate", 138 * 16, 32 * 16, [
+        make_field("dest_area", "String", "LothricCastle"),
+        make_field("dest_x", "Float", 3500.0), make_field("dest_y", "Float", 800.0),
+        make_field("width", "Float", 48.0), make_field("height", "Float", 80.0),
     ]))
 
     # ================================================================
@@ -3626,6 +5358,14 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_WALL, 125, 8, 127, 10)
     fill_tiles(chunk, TILE_WALL, 105, 20, 107, 22)
     fill_tiles(chunk, TILE_WALL, 118, 22, 120, 24)
+    # Bridge of Glory — barricade walls (zigzag gauntlet before Twin Princes)
+    # Wiki: "series of blockades with many hollows behind them, then knights"
+    fill_tiles(chunk, TILE_WALL, 110, 5, 112, 11)     # Barricade 1 (north gap)
+    fill_tiles(chunk, TILE_WALL, 116, 13, 118, 20)    # Barricade 2 (south gap)
+    fill_tiles(chunk, TILE_WALL, 122, 5, 124, 12)     # Barricade 3 (north gap)
+    # Lift shortcut alcove walls
+    fill_tiles(chunk, TILE_WALL, 130, 30, 132, 34)
+    fill_tiles(chunk, TILE_WALL, 144, 30, 146, 36)
 
     # ================================================================
     # FINALIZE — connectivity check
@@ -3677,9 +5417,8 @@ def make_kiln_of_the_first_flame():
     # --- No regular enemies ---
 
     # --- Items ---
-    items = [
-        ("SoulOrb", "Soul of the Flame", 80, 38, 5000),
-    ]
+    # DS3 Kiln has no item pickups — only the Soul of Cinder boss fight and endings
+    items = []
     for kind, name, tx, ty, val in items:
         fields = [make_field("kind", "LocalEnum.ItemKind", kind),
                   make_field("name", "String", name)]
@@ -3754,6 +5493,8 @@ def make_consumed_kings_garden():
 
     # === Serpent corridor ===
     fill_tiles(chunk, TILE_GROUND, 68, 48, 105, 72)
+    # Lift mid-way ledge (wiki: roll off lift halfway to reach exterior ledge → Dragonscale Ring)
+    fill_tiles(chunk, TILE_GROUND, 108, 55, 122, 64)
     # Corridor walls
     fill_tiles(chunk, TILE_WALL, 78, 52, 80, 56)
     fill_tiles(chunk, TILE_WALL, 92, 60, 94, 64)
@@ -3775,6 +5516,8 @@ def make_consumed_kings_garden():
     fill_tiles(chunk, TILE_GROUND, 65, 48, 72, 55)
     # Corridor -> Arena
     fill_tiles(chunk, TILE_GROUND, 100, 65, 108, 75)
+    # Lift mid-way ledge connection (serpent corridor → ledge → arena approach)
+    fill_tiles(chunk, TILE_GROUND, 105, 55, 112, 64)
 
     # === ADDITIONAL INTERNAL STRUCTURES — crystal garden ===
     # Entry — overgrown stone pillars
@@ -3812,35 +5555,69 @@ def make_consumed_kings_garden():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # --- Bonfires ---
-    entities.append(make_entity("Bonfire", 15 * 16, 15 * 16))    # Entry
+    # DS3: only 1 bonfire — Oceiros the Consumed King (after defeating boss)
     entities.append(make_entity("Bonfire", 120 * 16, 95 * 16))   # Oceiros boss bonfire
 
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 120 * 16, 88 * 16))  # Oceiros
 
-    # --- Enemies ---
+    # --- Enemies — DS3 Consumed King's Garden: Cathedral Knights, Serpent Men,
+    # Hollow Slaves (Thrall), Pus of Man (x3), Rotten Slugs, Lothric Priests
     enemy_data = [
-        ("CathedralKnight", 32, 30), ("CathedralKnight", 55, 40),
-        ("SerpentMan", 42, 38), ("SerpentMan", 80, 55),
-        ("HollowSoldier", 35, 35),
-        ("PusOfMan", 52, 42),
-        ("Dog", 45, 70), ("Dog", 50, 75), ("Dog", 55, 78),
-        ("WingedKnight", 98, 68),
-        ("HollowSoldier", 88, 62),
-        ("CathedralKnight", 112, 82),
-        ("SerpentMan", 128, 90),
+        # Consumed King's Knights (Cathedral Knight type) — heavy armor guards
+        ("ConsumedKingKnight", 32, 30), ("ConsumedKingKnight", 55, 40), ("ConsumedKingKnight", 112, 82),
+        ("ConsumedKingKnight", 98, 68),
+        # Serpent Men guard the path to Oceiros (correct — they serve Oceiros)
+        ("SerpentMan", 42, 38), ("SerpentMan", 80, 55), ("SerpentMan", 128, 90),
+        ("SerpentMan", 72, 48), ("SerpentMan", 95, 72),
+        # Hollow Slaves (Thrall) — ambush throughout the garden (DS3: Hollow Slaves not Soldiers)
+        ("Thrall", 35, 35), ("Thrall", 88, 62),
+        ("Thrall", 22, 22), ("Thrall", 60, 32),
+        # Hollow Slaves (Thrall) — ambush in upper rooms
+        ("Thrall", 90, 58), ("Thrall", 100, 64), ("Thrall", 108, 70),
+        ("Thrall", 118, 78),
+        # Pus of Man — x3 in toxic swamp area (DS3 accurate count)
+        ("PusOfMan", 52, 42), ("PusOfMan", 48, 76), ("PusOfMan", 58, 84),
+        # Rotten Slugs in poison swamp (Rat type for small creature)
+        ("Rat", 45, 70), ("Rat", 50, 75), ("Rat", 55, 78),
+        ("Rat", 42, 78), ("Rat", 60, 82),
+        # Lothric Priests (DarkMage type)
+        ("DarkMage", 30, 28), ("DarkMage", 65, 44),
+        # Crystal Lizard
+        ("CrystalLizard", 68, 42),
     ]
     for kind, tx, ty in enemy_data:
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", kind)]))
+        mapped = ENEMY_KIND_MAP.get(kind, kind)
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- Items ---
+    # --- Items — DS3 Consumed King's Garden (complete per wiki) ---
+    # Wiki items: Estus Shard, Titanite Chunk x3, Titanite Scale x3 (1 ground + 2 chests),
+    # Dark Gem, Black Firebomb x2, Human Pine Resin, Claw weapon, Shadow Set,
+    # Ring of Sacrifice, Dragonscale Ring, Path of the Dragon gesture
     items = [
-        ("SoulOrb", "Soul of a Deserted Corpse", 20, 18, 400),
-        ("TitaniteShard", "Titanite Shard", 48, 40, 0),
         ("EstusShard", "Estus Shard", 50, 72, 0),
-        ("SoulOrb", "Soul of an Unknown Traveler", 100, 70, 800),
-        ("RingDrop", "Dragonscale Ring", 120, 98, 0),
-        ("Consumable", "Path of the Dragon", 65, 52, 0),
+        # Dragonscale Ring — wiki: on exterior ledge accessed from lift mid-way roll-off
+        ("RingDrop", "Dragonscale Ring", 115, 60, 0),
+        # Path of the Dragon gesture — wiki: found in room AFTER defeating Oceiros, not in courtyard
+        ("Consumable", "Path of the Dragon", 130, 100, 0),
+        # Toxic swamp loot per walkthrough
+        ("WeaponDrop", "Claw", 45, 74, 0),
+        ("ArmorDrop", "Shadow Set", 52, 78, 0),
+        ("Consumable", "Black Firebomb", 48, 76, 0),
+        ("Consumable", "Black Firebomb", 56, 80, 0),
+        ("Consumable", "Human Pine Resin", 50, 82, 0),
+        ("RingDrop", "Ring of Sacrifice", 54, 70, 0),
+        ("Consumable", "Dark Gem", 42, 68, 0),
+        # Magic Stoneplate Ring (wiki: dropped by Cathedral Knight near courtyard)
+        ("RingDrop", "Magic Stoneplate Ring", 52, 40, 0),
+        # Tower area — from lift and staircase
+        ("TitaniteShard", "Titanite Chunk", 40, 58, 0),
+        ("TitaniteShard", "Titanite Chunk", 105, 72, 0),
+        ("TitaniteShard", "Titanite Chunk", 92, 66, 0),
+        # 4th Titanite Chunk (wiki comments: right side of courtyard near Hawkwood summon)
+        ("TitaniteShard", "Titanite Chunk", 118, 85, 0),
+        # Ground Titanite Scale (room before Oceiros)
+        ("TitaniteShard", "Titanite Scale", 108, 75, 0),
     ]
     for kind, name, tx, ty, val in items:
         fields = [make_field("kind", "LocalEnum.ItemKind", kind),
@@ -3848,6 +5625,30 @@ def make_consumed_kings_garden():
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
         entities.append(make_entity("Item", tx * 16, ty * 16, fields))
+
+    # --- Chests — DS3 Consumed King's Garden ---
+    # Post-Oceiros room chest with Titanite Scale
+    entities.append(make_entity("Chest", 135 * 16, 95 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Titanite Scale"),
+        make_field("is_mimic", "Bool", False)]))
+    # Second chest behind illusory wall (Titanite Scale)
+    entities.append(make_entity("Chest", 140 * 16, 100 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Titanite Scale"),
+        make_field("is_mimic", "Bool", False)]))
+
+    # --- NPCs ---
+    # Hawkwood — summon sign before Oceiros (DS3: he can be summoned for Oceiros)
+    entities.append(make_entity("Npc", 115 * 16, 82 * 16, [
+        make_field("name", "String", "Hawkwood"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#7F8C8D"),
+        make_field("dialogue", "String",
+            "I came to see Oceiros|The Consumed King|He holds the Path of the Dragon"),
+    ]))
 
     # --- Fog Gates ---
     # Back to Lothric Castle (NW)
@@ -3863,6 +5664,14 @@ def make_consumed_kings_garden():
         make_field("dest_area", "String", "UntendedGraves"),
         make_field("dest_x", "Float", 300.0),
         make_field("dest_y", "Float", 400.0),
+        make_field("width", "Float", 48.0),
+        make_field("height", "Float", 80.0),
+    ]))
+    # Shortcut to Lothric Castle (wiki: door in upper room, near Titanite Chunk corpse)
+    entities.append(make_entity("FogGate", 95 * 16, 52 * 16, [
+        make_field("dest_area", "String", "LothricCastle"),
+        make_field("dest_x", "Float", 1200.0),
+        make_field("dest_y", "Float", 800.0),
         make_field("width", "Float", 48.0),
         make_field("height", "Float", 80.0),
     ]))
@@ -3990,45 +5799,103 @@ def make_untended_graves():
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 105 * 16, 78 * 16))  # Champion Gundyr
 
-    # --- Enemies ---
+    # --- Enemies — DS3 Untended Graves: Black Knights, Pus of Man, Cathedral Grave Wardens,
+    # Grave Wardens, Starved Hounds, Corvians, Corvian Storytellers, Ravenous Crystal Lizard.
+    # Champion Gundyr is the boss. Daughter of Crystal Kriemhild invades (MiniBoss).
     enemy_data = [
-        ("BlackKnight", 30, 28), ("BlackKnight", 45, 35),
-        ("BlackKnight", 62, 45), ("BlackKnight", 75, 50),
-        ("BlackKnight", 55, 60), ("BlackKnight", 88, 58),
-        ("BlackKnight", 95, 68),
+        # Dark cemetery path — Black Knights patrol (DS3: 5 Black Knights total)
+        ("BlackKnight", 45, 35), ("BlackKnight", 62, 45),
+        ("BlackKnight", 75, 50), ("BlackKnight", 55, 60),
+        ("BlackKnight", 88, 58),
+        # Starved Hounds — undead dogs in the dark graveyard
+        ("StarvedHound", 30, 25), ("StarvedHound", 48, 42),
+        # Crystal Lizard near entry
         ("CrystalLizard", 40, 32),
+        # Ravenous Crystal Lizard — larger variant near Dark Firelink (DS3: 2 Ravenous Crystal Lizards)
+        ("CrystalLizard", 125, 105), ("CrystalLizard", 130, 110),
+        # Pus of Man — dark infected enemies in cemetery area (DS3 has 2)
+        ("PusOfMan", 35, 30), ("PusOfMan", 72, 56),
+        # Cathedral Grave Wardens — dual-wielding grave wardens in the dark cemetery
+        ("CathedralGraveWarden", 50, 38), ("CathedralGraveWarden", 65, 45),
+        ("CathedralGraveWarden", 42, 55),
+        # Corvians (Assassin type) — lurk in the dark cemetery corners
+        ("Assassin", 38, 40), ("Assassin", 58, 52),
+        # Corvian Storyteller (DarkMage type) — perched near tombstones
+        ("DarkMage", 48, 48), ("DarkMage", 70, 62),
+        # Daughter of Crystal Kriemhild — invader near Dark Firelink area
+        ("MiniBoss", 120, 98),
     ]
     for kind, tx, ty in enemy_data:
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", kind)]))
+        mapped = ENEMY_KIND_MAP.get(kind, kind)
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- Items ---
-    items = [
-        ("SoulOrb", "Soul of a Crestfallen Knight", 25, 25, 1000),
-        ("Consumable", "Fire Keeper's Eyes", 132, 115, 0),
-        ("TitaniteShard", "Titanite Shard", 50, 40, 0),
-    ]
-    for kind, name, tx, ty, val in items:
-        fields = [make_field("kind", "LocalEnum.ItemKind", kind),
-                  make_field("name", "String", name)]
-        if kind == "SoulOrb":
-            fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
+    # --- Items (DS3 Untended Graves) ---
+    # Hidden Blessing — behind dark Firelink, on a corpse
+    entities.append(make_entity("Item", 135 * 16, 118 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Hidden Blessing")]))
+    # Eyes of a Fire Keeper — inside dark Firelink Shrine, on the floor near coiled sword
+    entities.append(make_entity("Item", 130 * 16, 112 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Eyes of a Fire Keeper")]))
+    # Coiled Sword Fragment — given by dark Fire Keeper in Dark Firelink
+    entities.append(make_entity("Item", 128 * 16, 114 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Coiled Sword Fragment")]))
+    # Ashen Estus Ring — in dark cemetery area, behind illusory wall
+    entities.append(make_entity("Item", 40 * 16, 35 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
+        make_field("name", "String", "Ashen Estus Ring")]))
+    # Hornet Ring — dark Firelink tower ledge area
+    entities.append(make_entity("Item", 145 * 16, 100 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
+        make_field("name", "String", "Hornet Ring")]))
+    # Black Knight Glaive — dropped by Black Knight in cemetery
+    entities.append(make_entity("Item", 62 * 16, 45 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Black Knight Glaive")]))
+    # Black Knight Sword removed — not a ground pickup in Untended Graves (wiki)
+    # Chaos Blade — in dark courtyard area
+    entities.append(make_entity("Item", 78 * 16, 52 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Chaos Blade")]))
+    # Blacksmith Hammer — near dark Firelink Shrine
+    entities.append(make_entity("Item", 120 * 16, 100 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Blacksmith Hammer")]))
+    # Soul of a Crestfallen Knight x2 — one in cemetery, one near arena
+    entities.append(make_entity("Item", 30 * 16, 28 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Crestfallen Knight"),
+        make_field("value", "Int", 2000)]))
+    entities.append(make_entity("Item", 95 * 16, 70 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Crestfallen Knight"),
+        make_field("value", "Int", 2000)]))
+    # Titanite Chunk x2 — in Black Knight cemetery and near Gundyr arena
+    entities.append(make_entity("Item", 50 * 16, 55 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Chunk")]))
+    entities.append(make_entity("Item", 110 * 16, 80 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Chunk")]))
 
     # --- NPCs ---
+    # Dark Shrine Handmaid in Dark Firelink Shrine (different from normal Firelink)
     entities.append(make_entity("Npc", 132 * 16, 112 * 16, [
         make_field("name", "String", "Shrine Handmaid"),
         make_field("kind", "LocalEnum.NpcKind", "Merchant"),
         make_field("color", "Color", "#606060"),
         make_field("dialogue", "String",
-            "What is it?|The fire has long been out"),
+            "What is it?|The fire has long been out|I will tend to the ash"),
     ]))
 
     # --- Fog Gate ---
-    # To Cemetery of Ash (SE)
+    # To Firelink Shrine (DS3: dark Firelink connects back to normal Firelink)
     entities.append(make_entity("FogGate", 148 * 16, 115 * 16, [
-        make_field("dest_area", "String", "CemeteryOfAsh"),
+        make_field("dest_area", "String", "FirelinkShrine"),
         make_field("dest_x", "Float", 1280.0),
-        make_field("dest_y", "Float", 288.0),
+        make_field("dest_y", "Float", 1280.0),
         make_field("width", "Float", 48.0),
         make_field("height", "Float", 80.0),
     ]))
@@ -4178,39 +6045,104 @@ def make_archdragon_peak():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # --- Bonfires ---
-    entities.append(make_entity("Bonfire", 18 * 16, 132 * 16))    # Entry
-    entities.append(make_entity("Bonfire", 48 * 16, 100 * 16))    # Barracks
-    entities.append(make_entity("Bonfire", 122 * 16, 22 * 16))    # Belfry
+    entities.append(make_entity("Bonfire", 18 * 16, 132 * 16))    # Entry: Archdragon Peak
+    entities.append(make_entity("Bonfire", 80 * 16, 50 * 16))     # Dragonkin Mausoleum
+    entities.append(make_entity("Bonfire", 122 * 16, 22 * 16))    # Great Belfry
     entities.append(make_entity("Bonfire", 128 * 16, 92 * 16))    # Nameless King
 
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 128 * 16, 85 * 16))  # Nameless King
 
-    # --- Enemies ---
+    # --- Enemies (DS3 Archdragon Peak: Serpent-Men, Summoners, Drakeblood Knights,
+    # Havel Knight, Rock Lizards, Wyvern) ---
     enemy_data = [
+        # Serpent-Men — main enemy throughout the peak (DS3 has many)
         ("SerpentMan", 22, 115), ("SerpentMan", 38, 98), ("SerpentMan", 45, 108),
         ("SerpentMan", 55, 75), ("SerpentMan", 68, 58), ("SerpentMan", 80, 48),
         ("SerpentMan", 95, 35), ("SerpentMan", 108, 28), ("SerpentMan", 118, 25),
-        ("Dog", 22, 128), ("Dog", 32, 130),
-        ("StarvedHound", 50, 72), ("StarvedHound", 62, 76),
-        ("CrystalLizard", 35, 110), ("CrystalLizard", 118, 20),
-        ("DarkMage", 110, 30), ("DarkMage", 135, 28),
-        ("BlackKnight", 120, 75), ("BlackKnight", 142, 88),
-        ("Gargoyle", 112, 68), ("Gargoyle", 148, 95),
+        ("SerpentMan", 120, 75), ("SerpentMan", 135, 28),
+        # Serpent-Man Summoners (DarkMage type — they cast spells and summon NPC phantoms)
+        ("DarkMage", 72, 52), ("DarkMage", 85, 42), ("DarkMage", 98, 45),
+        # Rock Lizards — passive lizard enemies found throughout peak (DS3: ~6-8)
+        # These use "RockLizard" alias → CrystalLizard via ENEMY_KIND_MAP
+        ("RockLizard", 35, 110), ("RockLizard", 42, 95),
+        ("RockLizard", 118, 20), ("RockLizard", 130, 25),
+        ("RockLizard", 142, 85), ("RockLizard", 112, 72),
+        ("RockLizard", 148, 95),
+        # Regular Crystal Lizards — drop titanite
+        ("CrystalLizard", 50, 72), ("CrystalLizard", 28, 118),
+        # Drakeblood Knights (Knight closest match) — summoned by Serpent-Man Summoners
+        ("Knight", 110, 30), ("Knight", 142, 88),
+        # Havel Knight — appears at Great Belfry area (DS3: tough NPC)
+        ("Knight", 128, 70),
+        # Ancient Wyvern — DS3: sleeps on bridge, must be sniped or dropped onto
+        # Two wyverns in the dragon-path area; MiniBoss fits the "dragon" role
+        ("MiniBoss", 55, 66),                                   # Ancient Wyvern (bridge)
+        ("MiniBoss", 62, 76),                                   # Wyvern (path approach)
     ]
     for kind, tx, ty in enemy_data:
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", kind)]))
+        mapped = ENEMY_KIND_MAP.get(kind, kind)
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- Items ---
+    # --- Items — DS3 Archdragon Peak (complete per wiki walkthrough) ---
     items = [
-        ("SoulOrb", "Soul of a Deserted Corpse", 22, 135, 400),
-        ("TitaniteShard", "Titanite Shard", 55, 68, 0),
-        ("SoulOrb", "Soul of an Unknown Traveler", 122, 25, 1000),
-        ("EstusShard", "Estus Shard", 128, 95, 0),
-        ("RingDrop", "Lightning Clutch Ring", 50, 62, 0),
-        ("Consumable", "Homeward Bone", 118, 30, 0),
-        ("TwinklingTitanite", "Twinkling Titanite", 82, 45, 0),
-        ("TitaniteShard", "Titanite Shard", 100, 40, 0),
+        # Mountain entry area
+        ("SoulOrb", "Soul of a Weary Warrior", 22, 135, 2000),
+        ("Consumable", "Lightning Gem", 35, 112, 0),                # Entry path
+        ("HomewardBone", "Homeward Bone", 42, 118, 0),                # Path to barracks
+        ("TitaniteShard", "Titanite Chunk", 55, 68, 0),             # Near bonfire
+        ("Ember", "Ember", 28, 125, 0),                             # Near entry bonfire
+        # Barracks area
+        ("SoulOrb", "Soul of a Nameless Soldier", 50, 98, 1000),
+        ("TitaniteShard", "Titanite Chunk", 52, 95, 0),             # Stairs landing
+        ("WeaponDrop", "Ancient Dragon Greatshield", 62, 102, 0),   # Near overhang
+        ("TitaniteShard", "Titanite Chunk", 45, 108, 0),            # Left stairs
+        ("TitaniteShard", "Large Titanite Shard", 38, 115, 0),      # Hop down short stairs
+        # Wyvern arena
+        ("Ember", "Ember", 55, 62, 0),                              # Wyvern arena
+        ("Ember", "Ember", 65, 78, 0),                              # Wyvern arena
+        ("Consumable", "Stalk Dung Pie", 58, 70, 0),
+        ("Consumable", "Stalk Dung Pie", 60, 72, 0),
+        ("Consumable", "Stalk Dung Pie", 62, 74, 0),
+        ("Consumable", "Stalk Dung Pie", 64, 68, 0),
+        ("Consumable", "Stalk Dung Pie", 66, 70, 0),
+        ("Consumable", "Stalk Dung Pie", 68, 72, 0),
+        ("SoulOrb", "Soul of a Weary Warrior", 70, 82, 2000),       # Wyvern arena
+        ("RingDrop", "Ring of Steel Protection", 52, 60, 0),        # Right side steps
+        ("Consumable", "Lightning Urn", 72, 78, 0),                 # Up stairs left
+        ("TitaniteShard", "Titanite Chunk", 75, 55, 0),             # Building interior
+        ("TitaniteShard", "Twinkling Titanite", 78, 48, 0),         # Ladder top
+        ("TitaniteShard", "Twinkling Titanite", 80, 45, 0),         # Ladder top x2
+        # Upper wyvern path — plank ledges
+        ("TitaniteShard", "Titanite Chunk", 85, 40, 0),
+        ("TitaniteShard", "Titanite Chunk", 88, 38, 0),
+        ("Consumable", "Lightning Bolt", 90, 35, 0),                # 12x Lightning Bolt
+        # Dragon-Kin Mausoleum
+        ("Consumable", "Dragon Head Stone", 42, 100, 0),            # After Wyvern defeat
+        ("TitaniteShard", "Titanite Scale", 75, 45, 0),             # Corpse over railing
+        ("TitaniteShard", "Titanite Scale", 78, 42, 0),             # Left side
+        ("TitaniteShard", "Titanite Scale", 82, 48, 0),             # Room leading out
+        ("SoulOrb", "Soul of a Crestfallen Knight", 85, 50, 1500),  # Corner corpse
+        ("Consumable", "Calamity Ring", 80, 52, 0),                  # Altar dragon gesture
+        # Storm path / Great Belfry
+        ("RingDrop", "Thunder Stoneplate Ring", 98, 32, 0),         # Ladder top
+        ("Ember", "Ember", 118, 28, 0),                             # Ruins doorway
+        ("SoulOrb", "Soul of a Weary Warrior", 130, 25, 2000),      # After wyvern area
+        # Belfry area — Havel area
+        ("Consumable", "Great Magic Barrier", 138, 82, 0),          # Drop down from Havel area
+        ("TitaniteShard", "Titanite Slab", 132, 78, 0),             # Next to wyvern claw
+        ("SoulOrb", "Large Soul of a Crestfallen Knight", 125, 85, 2500),
+        # Path to altar
+        ("Consumable", "Dragon Chaser's Ashes", 110, 40, 0),        # Behind Rock Lizard
+        ("Consumable", "Twinkling Dragon Torso Stone", 120, 55, 0),  # Altar at top of stairs
+        # Nameless King arena — post-boss
+        ("TitaniteShard", "Titanite Slab", 128, 95, 0),             # After Nameless King
+        ("ArmorDrop", "Dragonslayer Set", 125, 100, 0),             # After Nameless King
+        # Weapons from drops/transposition
+        ("WeaponDrop", "Dragonslayer Spear", 128, 92, 0),           # Gate before Nameless King
+        ("WeaponDrop", "Dragon Tooth", 132, 80, 0),                 # Havel NPC drop
+        ("WeaponDrop", "Havel's Greatshield", 135, 82, 0),          # Havel NPC drop
+        ("RingDrop", "Lightning Clutch Ring", 50, 62, 0),           # Left of wyvern gate
     ]
     for kind, name, tx, ty, val in items:
         fields = [make_field("kind", "LocalEnum.ItemKind", kind),
@@ -4218,6 +6150,30 @@ def make_archdragon_peak():
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
         entities.append(make_entity("Item", tx * 16, ty * 16, fields))
+
+    # --- Chests — DS3 Archdragon Peak ---
+    # Chest with Titanite Scale x3 (upper building after belfry)
+    entities.append(make_entity("Chest", 108 * 16, 25 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Titanite Scale"),
+        make_field("is_mimic", "Bool", False)]))
+    # Chest with Twinkling Titanite x3 (near belfry bonfire)
+    entities.append(make_entity("Chest", 118 * 16, 32 * 16, [
+        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("loot_value", "Int", 0),
+        make_field("loot_name", "String", "Twinkling Titanite"),
+        make_field("is_mimic", "Bool", False)]))
+
+    # --- NPCs ---
+    # Hawkwood — can be summoned for Nameless King (DS3: summon sign at Great Belfry)
+    entities.append(make_entity("Npc", 122 * 16, 22 * 16, [
+        make_field("name", "String", "Hawkwood"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#7F8C8D"),
+        make_field("dialogue", "String",
+            "The Nameless King awaits|He is the firstborn of Gwyn|I must face him alone"),
+    ]))
 
     # --- Fog Gate ---
     # Back to Irithyll Dungeon (NW)
