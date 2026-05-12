@@ -9561,9 +9561,9 @@ def make_consumed_kings_garden():
         # Pus of Man — x3 on wyvern corpses (DS3 accurate count)
         ("PusOfMan", 52, 42), ("PusOfMan", 48, 76), ("PusOfMan", 58, 84),
         # Rotten Slugs in poison swamp (DS3: several slugs in toxic mist)
-        ("Rat", 45, 70), ("Rat", 50, 75), ("Rat", 55, 78),
-        ("Rat", 42, 78), ("Rat", 60, 82), ("Rat", 52, 84),
-        ("Rat", 48, 72), ("Rat", 56, 68), ("Rat", 44, 82),
+        ("RottenSlug", 45, 70), ("RottenSlug", 50, 75), ("RottenSlug", 55, 78),
+        ("RottenSlug", 42, 78), ("RottenSlug", 60, 82), ("RottenSlug", 52, 84),
+        ("RottenSlug", 48, 72), ("RottenSlug", 56, 68), ("RottenSlug", 44, 82),
         # Crystal Lizard
         ("CrystalLizard", 68, 42),
         # Boss — Oceiros, the Consumed King
