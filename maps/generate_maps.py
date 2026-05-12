@@ -10536,7 +10536,7 @@ def make_archdragon_peak():
         ("TitaniteShard", "Titanite Scale", 78, 42, 0),             # Left side
         ("TitaniteShard", "Titanite Scale", 82, 48, 0),             # Room leading out
         ("SoulOrb", "Soul of a Crestfallen Knight", 85, 50, 1500),  # Corner corpse
-        ("Consumable", "Calamity Ring", 80, 52, 0),                  # Altar dragon gesture
+        ("RingDrop", "Calamity Ring", 80, 52, 0),                  # Altar dragon gesture
         # Storm path / Great Belfry
         ("RingDrop", "Thunder Stoneplate Ring", 98, 32, 0),         # Ladder top
         ("Ember", "Ember", 118, 28, 0),                             # Ruins doorway
