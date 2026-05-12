@@ -9317,8 +9317,8 @@ def make_grand_archives():
             "A corpse with the Grand Archives Key|"
             "Black Hand Gotthard's journey ends here|He was one of the King's Black Hands"),
     ]))
-    # Siegward of Catarina — summon sign at bonfire (wiki: helps clear path to Twin Princes)
-    entities.append(make_entity("Npc", 28 * 16, 140 * 16, [
+    # Siegward of Catarina — in hidden room near lift (DS3: found in cell, helps vs Yhorm/Twin Princes)
+    entities.append(make_entity("Npc", 42 * 16, 132 * 16, [
         make_field("name", "String", "Siegward of Catarina"),
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#C8A832"),
