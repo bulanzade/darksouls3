@@ -1148,7 +1148,7 @@ def make_firelink_shrine():
     # --- Enemies (DS3 Firelink Shrine exterior) ---
     # Sword Master — down the left stairs from shrine, wields Uchigatana
     entities.append(make_entity("Enemy", 68 * 16, 136 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "Assassin")]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP["SwordMaster"])]))
     # Crystal Lizard — behind the tower (upper east roof drop-down)
     entities.append(make_entity("Enemy", 122 * 16, 62 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", "CrystalLizard")]))
