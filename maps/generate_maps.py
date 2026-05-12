@@ -126,6 +126,10 @@ ENEMY_KIND_MAP = {
     "IrithyllianSlave": "Assassin",
     "LycanthropeHunter": "Knight",
     "CageSpider": "Basilisk",
+    "MonstrosityOfSin": "GiantSlave",
+    "GreatCrab": "GiantSlave",
+    "SulyvahnsBeast": "GiantSlave",
+    "CarthusSandworm": "MiniBoss",
 }
 
 
@@ -3164,7 +3168,7 @@ def make_road_of_sacrifices():
         ("PoisonhornBug", 65, 62), ("PoisonhornBug", 70, 65),
         ("PoisonhornBug", 62, 70), ("PoisonhornBug", 58, 68),
         # Swamp area — Lesser Crabs and Great Crab
-        ("GiantSlave", 76, 70),                                    # Great Crab in swamp (drops Great Swamp Ring)
+        ("GreatCrab", 76, 70),                                    # Great Crab in swamp (drops Great Swamp Ring)
         ("LesserCrab", 78, 68), ("LesserCrab", 80, 72),                    # Lesser Crabs in swamp
         # Black Knight guarding Farron Coal in ruins (DS3: "Black Knight in the ruins")
         ("BlackKnight", 108, 85),
@@ -3864,7 +3868,7 @@ def make_farron_keep():
         ("GiantHollow", 82, 60),                                          # Elder Ghru near second torch (wiki: "another of these beasts")
         ("GiantHollow", 90, 55),                                          # Elder Ghru on ramp to third torch
         # Great Crab in swamp — DS3: "giant crab which drops Lingering Dragoncrest Ring"
-        ("GiantSlave", 65, 62),                                      # Great Crab
+        ("GreatCrab", 65, 62),                                      # Great Crab
         # Corvian and Corvian Storyteller — DS3: in second half wooded area
         ("Corvian", 115, 95), ("Corvian", 120, 100),              # Corvians in second half
         ("DarkMage", 118, 98),                                       # Corvian Storyteller
@@ -5420,7 +5424,7 @@ def make_smouldering_lake():
         # Basilisks near lava pools
         ("Basilisk", 52, 65), ("Basilisk", 58, 70), ("Basilisk", 55, 72),
         # Great Crab in lake (rare giant enemy)
-        ("GiantSlave", 38, 45),                                 # Great Crab
+        ("GreatCrab", 38, 45),                                 # Great Crab
         # Demon Clerics (FireDemon) at demon ruins
         ("FireDemon", 58, 55),                                  # Demon ruins entrance
         ("FireDemon", 95, 70), ("FireDemon", 100, 75),         # Inner demon ruins
@@ -5439,7 +5443,7 @@ def make_smouldering_lake():
         # Large Hound-rat in lower ruins
         ("Rat", 62, 68),
         # Carthus Sandworm (giant enemy at lake center)
-        ("GiantSlave", 45, 68),                                 # Carthus Sandworm
+        ("CarthusSandworm", 45, 68),                                 # Carthus Sandworm
         # Crystal Lizards — wiki: 3 total (1 near bonfire, 2 in cavern after ballista)
         ("CrystalLizard", 82, 55), ("CrystalLizard", 112, 78), ("CrystalLizard", 22, 98),
         # Demon Statues at arena approach
@@ -5794,7 +5798,7 @@ def make_irithyll():
     # Giant Slaves (giants in post-Pontiff courtyard), Mimic, Evangelist, Deep Accursed
     enemy_data = [
         # Bridge entrance — Sulyvahn's Beast ambush (DS3: attacks on entry bridge)
-        ("GiantSlave", 12, 38),                                 # Sulyvahn's Beast at bridge
+        ("SulyvahnsBeast", 12, 38),                                 # Sulyvahn's Beast at bridge
         ("BorealKnight", 18, 42),                                      # Pontiff Knight patrol
         # Main boulevard — Pontiff Knights (DS3: "encounter Pontiff Knights", "fast attack movements")
         ("BorealKnight", 38, 50), ("BorealKnight", 55, 55),
@@ -5836,7 +5840,7 @@ def make_irithyll():
         ("SewerCentipede", 68, 80), ("SewerCentipede", 78, 85), ("SewerCentipede", 88, 90),
         ("SewerCentipede", 72, 88), ("SewerCentipede", 82, 82),
         # Sulyvahn's Beasts at sewer reservoir — DS3 wiki: 2 beasts in flooded chamber
-        ("GiantSlave", 72, 90), ("GiantSlave", 78, 94),
+        ("SulyvahnsBeast", 72, 90), ("SulyvahnsBeast", 78, 94),
         # Silver Knight hall / rooftops — DS3: "several Silver Knights",
         # "Silver Knight straight ahead and another to the left",
         # "two archer Silver Knights"
@@ -6390,7 +6394,7 @@ def make_irithyll_dungeon():
     # Enemies — DS3 Irithyll Dungeon (wiki-verified walkthrough):
     # Jailers (branding iron wardens — many throughout), Reanimated Corpses in cells,
     # Wretches (screaming enemies), Rats (swarms in drains), Basilisks (curse spawners),
-    # Infested Corpses (corpse-grubs), Lycanthropes (Dog), Monstrosity of Sin (GiantSlave),
+    # Infested Corpses (corpse-grubs), Lycanthropes (Dog), Monstrosity of Sin (MonstrosityOfSin),
     # Sewer Centipedes (ManGrub), Gargoyles (tower guard), Crystal Lizards, Mimics
     enemy_data = [
         # Upper prison block — DS3: "3 jailers down stairs", jailers patrol corridors
@@ -6423,8 +6427,8 @@ def make_irithyll_dungeon():
         ("SewerCentipede", 60, 75), ("SewerCentipede", 50, 78),
         # Cage Spider in drain area
         ("CageSpider", 55, 88),                                       # DS3: Cage Spider in drain area (→ Basilisk)
-        # Monstrosity of Sin (GiantSlave) — DS3: sleeping giant near lower level
-        ("GiantSlave", 42, 75),
+        # Monstrosity of Sin — DS3: sleeping giant near lower level
+        ("MonstrosityOfSin", 42, 75),
         # Lycanthrope (Dog) in rat tunnels
         ("Dog", 22, 82), ("Dog", 38, 85),
         # Exit corridor — DS3: Wretches (bloated prisoners) guard the upper exit path
@@ -7006,7 +7010,7 @@ def make_profaned_capital():
 
     # --- Enemies ---
     # DS3 Profaned Capital enemies: Handmaids (Jailer), Gargoyles (Headless),
-    # Monstrosities of Sin (GiantSlave), Sewer Centipedes (ManGrub),
+    # Monstrosities of Sin (MonstrosityOfSin), Sewer Centipedes (SewerCentipede),
     # Rats, Crystal Lizards, Mimic
     enemy_data = [
         # Entry bridge — Headless Gargoyle ambush (DS3: gargoyle on bridge)
@@ -7026,16 +7030,16 @@ def make_profaned_capital():
         ("Gargoyle", 34, 52), ("Gargoyle", 50, 60),
         ("Jailer", 26, 56),
         ("Jailer", 24, 48), ("Jailer", 40, 55), ("Jailer", 32, 60),
-        # Toxic pool — Rats (wiki: rats respawn in giant's room)
-        ("Rat", 52, 64), ("Rat", 60, 72), ("Rat", 66, 68),
+        # Toxic pool — Sewer Centipedes (DS3: centipede creatures in flooded cells)
+        ("SewerCentipede", 52, 64), ("SewerCentipede", 60, 72), ("SewerCentipede", 66, 68),
         # Crystal Lizards (wiki: 3 — one at hole jump, one in left tunnel, one down hallway)
         ("CrystalLizard", 56, 68), ("CrystalLizard", 62, 64), ("CrystalLizard", 56, 44),
         # Church — Monstrosities of Sin (wiki: 3 in the church + 1 in separate room = 4)
-        ("GiantSlave", 30, 72), ("GiantSlave", 36, 78), ("GiantSlave", 42, 74),
+        ("MonstrosityOfSin", 30, 72), ("MonstrosityOfSin", 36, 78), ("MonstrosityOfSin", 42, 74),
         # Monstrosity of Sin — separate room above church (wiki: "single Monstrosity of Sin")
-        ("GiantSlave", 48, 46),
+        ("MonstrosityOfSin", 48, 46),
         # Monstrosities of Sin in toxic pool (DS3: bloated creatures in flooded cells)
-        ("GiantSlave", 58, 70), ("GiantSlave", 64, 74),
+        ("MonstrosityOfSin", 58, 70), ("MonstrosityOfSin", 64, 74),
         # Avaricious Being — hostile NPC with Gargoyle Flame Hammer (wiki: drops Logan's Scroll)
         ("MiniBoss", 48, 42),
         # Siegward cell area — Jailer guard

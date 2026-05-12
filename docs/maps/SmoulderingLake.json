@@ -309,8 +309,8 @@
       "count": 1
     },
     {
-      "kind": "GiantSlave",
-      "name_en": "GiantSlave",
+      "kind": "GreatCrab",
+      "name_en": "Great Crab",
       "x": 38,
       "y": 45,
       "count": 1
@@ -435,8 +435,8 @@
       "count": 1
     },
     {
-      "kind": "GiantSlave",
-      "name_en": "GiantSlave",
+      "kind": "CarthusSandworm",
+      "name_en": "Carthus Sandworm",
       "x": 45,
       "y": 68,
       "count": 1

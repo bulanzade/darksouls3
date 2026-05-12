@@ -305,22 +305,22 @@
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "SewerCentipede",
+      "name_en": "Sewer Centipede",
       "x": 52,
       "y": 64,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "SewerCentipede",
+      "name_en": "Sewer Centipede",
       "x": 60,
       "y": 72,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "SewerCentipede",
+      "name_en": "Sewer Centipede",
       "x": 66,
       "y": 68,
       "count": 1
@@ -347,43 +347,43 @@
       "count": 1
     },
     {
-      "kind": "GiantSlave",
-      "name_en": "GiantSlave",
+      "kind": "MonstrosityOfSin",
+      "name_en": "Monstrosity of Sin",
       "x": 30,
       "y": 72,
       "count": 1
     },
     {
-      "kind": "GiantSlave",
-      "name_en": "GiantSlave",
+      "kind": "MonstrosityOfSin",
+      "name_en": "Monstrosity of Sin",
       "x": 36,
       "y": 78,
       "count": 1
     },
     {
-      "kind": "GiantSlave",
-      "name_en": "GiantSlave",
+      "kind": "MonstrosityOfSin",
+      "name_en": "Monstrosity of Sin",
       "x": 42,
       "y": 74,
       "count": 1
     },
     {
-      "kind": "GiantSlave",
-      "name_en": "GiantSlave",
+      "kind": "MonstrosityOfSin",
+      "name_en": "Monstrosity of Sin",
       "x": 48,
       "y": 46,
       "count": 1
     },
     {
-      "kind": "GiantSlave",
-      "name_en": "GiantSlave",
+      "kind": "MonstrosityOfSin",
+      "name_en": "Monstrosity of Sin",
       "x": 58,
       "y": 70,
       "count": 1
     },
     {
-      "kind": "GiantSlave",
-      "name_en": "GiantSlave",
+      "kind": "MonstrosityOfSin",
+      "name_en": "Monstrosity of Sin",
       "x": 64,
       "y": 74,
       "count": 1

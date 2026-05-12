@@ -231,8 +231,8 @@
   },
   "enemies": [
     {
-      "kind": "GiantSlave",
-      "name_en": "GiantSlave",
+      "kind": "SulyvahnsBeast",
+      "name_en": "Sulyvahn's Beast",
       "x": 12,
       "y": 38,
       "count": 1
@@ -567,15 +567,15 @@
       "count": 1
     },
     {
-      "kind": "GiantSlave",
-      "name_en": "GiantSlave",
+      "kind": "SulyvahnsBeast",
+      "name_en": "Sulyvahn's Beast",
       "x": 72,
       "y": 90,
       "count": 1
     },
     {
-      "kind": "GiantSlave",
-      "name_en": "GiantSlave",
+      "kind": "SulyvahnsBeast",
+      "name_en": "Sulyvahn's Beast",
       "x": 78,
       "y": 94,
       "count": 1
@@ -638,14 +638,14 @@
     },
     {
       "kind": "GiantSlave",
-      "name_en": "GiantSlave",
+      "name_en": "Giant Slave",
       "x": 126,
       "y": 78,
       "count": 1
     },
     {
       "kind": "GiantSlave",
-      "name_en": "GiantSlave",
+      "name_en": "Giant Slave",
       "x": 134,
       "y": 82,
       "count": 1
