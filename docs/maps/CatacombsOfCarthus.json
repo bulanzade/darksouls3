@@ -164,7 +164,7 @@
     },
     {
       "kind": "Skeleton",
-      "name_en": "SkeletonSwordman (Skeleton)",
+      "name_en": "SkeletonSwordman",
       "x": 16,
       "y": 22,
       "count": 1
@@ -199,14 +199,14 @@
     },
     {
       "kind": "Skeleton",
-      "name_en": "SkeletonSwordman (Skeleton)",
+      "name_en": "SkeletonSwordman",
       "x": 36,
       "y": 22,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "SkeletonSwordman (Skeleton)",
+      "name_en": "SkeletonSwordman",
       "x": 50,
       "y": 21,
       "count": 1
@@ -234,7 +234,7 @@
     },
     {
       "kind": "Skeleton",
-      "name_en": "SkeletonSwordman (Skeleton)",
+      "name_en": "SkeletonSwordman",
       "x": 64,
       "y": 32,
       "count": 1
@@ -255,14 +255,14 @@
     },
     {
       "kind": "Skeleton",
-      "name_en": "SkeletonSwordman (Skeleton)",
+      "name_en": "SkeletonSwordman",
       "x": 24,
       "y": 55,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "SkeletonSwordman (Skeleton)",
+      "name_en": "SkeletonSwordman",
       "x": 32,
       "y": 50,
       "count": 1
@@ -367,7 +367,7 @@
     },
     {
       "kind": "Dog",
-      "name_en": "LesserCrab (Dog)",
+      "name_en": "LesserCrab",
       "x": 22,
       "y": 96,
       "count": 1
@@ -395,7 +395,7 @@
     },
     {
       "kind": "Skeleton",
-      "name_en": "SkeletonSwordman (Skeleton)",
+      "name_en": "SkeletonSwordman",
       "x": 95,
       "y": 66,
       "count": 1

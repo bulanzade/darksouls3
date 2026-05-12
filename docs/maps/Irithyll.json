@@ -239,98 +239,98 @@
     },
     {
       "kind": "Knight",
-      "name_en": "BorealKnight (Knight)",
+      "name_en": "BorealKnight",
       "x": 18,
       "y": 42,
       "count": 1
     },
     {
       "kind": "Knight",
-      "name_en": "BorealKnight (Knight)",
+      "name_en": "BorealKnight",
       "x": 38,
       "y": 50,
       "count": 1
     },
     {
       "kind": "Knight",
-      "name_en": "BorealKnight (Knight)",
+      "name_en": "BorealKnight",
       "x": 55,
       "y": 55,
       "count": 1
     },
     {
       "kind": "Knight",
-      "name_en": "BorealKnight (Knight)",
+      "name_en": "BorealKnight",
       "x": 75,
       "y": 60,
       "count": 1
     },
     {
       "kind": "Knight",
-      "name_en": "BorealKnight (Knight)",
+      "name_en": "BorealKnight",
       "x": 90,
       "y": 58,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 42,
       "y": 48,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 60,
       "y": 52,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 78,
       "y": 56,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 36,
       "y": 44,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 46,
       "y": 46,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 52,
       "y": 50,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 56,
       "y": 48,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 62,
       "y": 56,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 82,
       "y": 52,
       "count": 1
@@ -442,126 +442,126 @@
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 28,
       "y": 70,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 35,
       "y": 75,
       "count": 1
     },
     {
       "kind": "Knight",
-      "name_en": "BorealKnight (Knight)",
+      "name_en": "BorealKnight",
       "x": 32,
       "y": 72,
       "count": 1
     },
     {
       "kind": "Knight",
-      "name_en": "BorealKnight (Knight)",
+      "name_en": "BorealKnight",
       "x": 40,
       "y": 82,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 22,
       "y": 68,
       "count": 1
     },
     {
       "kind": "Knight",
-      "name_en": "BorealKnight (Knight)",
+      "name_en": "BorealKnight",
       "x": 70,
       "y": 45,
       "count": 1
     },
     {
       "kind": "Knight",
-      "name_en": "BorealKnight (Knight)",
+      "name_en": "BorealKnight",
       "x": 72,
       "y": 42,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 64,
       "y": 44,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 45,
       "y": 55,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 48,
       "y": 54,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 54,
       "y": 56,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 50,
       "y": 58,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "IrithyllianSlave (Assassin)",
+      "name_en": "IrithyllianSlave",
       "x": 56,
       "y": 60,
       "count": 1
     },
     {
       "kind": "Wretch",
-      "name_en": "SewerCentipede (Wretch)",
+      "name_en": "SewerCentipede",
       "x": 68,
       "y": 80,
       "count": 1
     },
     {
       "kind": "Wretch",
-      "name_en": "SewerCentipede (Wretch)",
+      "name_en": "SewerCentipede",
       "x": 78,
       "y": 85,
       "count": 1
     },
     {
       "kind": "Wretch",
-      "name_en": "SewerCentipede (Wretch)",
+      "name_en": "SewerCentipede",
       "x": 88,
       "y": 90,
       "count": 1
     },
     {
       "kind": "Wretch",
-      "name_en": "SewerCentipede (Wretch)",
+      "name_en": "SewerCentipede",
       "x": 72,
       "y": 88,
       "count": 1
     },
     {
       "kind": "Wretch",
-      "name_en": "SewerCentipede (Wretch)",
+      "name_en": "SewerCentipede",
       "x": 82,
       "y": 82,
       "count": 1
@@ -652,7 +652,7 @@
     },
     {
       "kind": "Knight",
-      "name_en": "BorealKnight (Knight)",
+      "name_en": "BorealKnight",
       "x": 105,
       "y": 65,
       "count": 1
@@ -666,14 +666,14 @@
     },
     {
       "kind": "Knight",
-      "name_en": "BorealKnight (Knight)",
+      "name_en": "BorealKnight",
       "x": 100,
       "y": 62,
       "count": 1
     },
     {
       "kind": "Knight",
-      "name_en": "BorealKnight (Knight)",
+      "name_en": "BorealKnight",
       "x": 108,
       "y": 68,
       "count": 1

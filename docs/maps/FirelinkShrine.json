@@ -127,16 +127,16 @@
   "enemies": [
     {
       "kind": "Assassin",
-      "name_en": "Sword Master (Uchigatana)",
-      "x": 1300,
-      "y": 1800,
+      "name_en": "Assassin",
+      "x": 68,
+      "y": 136,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard (tower roof)",
-      "x": 1800,
-      "y": 360,
+      "name_en": "CrystalLizard",
+      "x": 122,
+      "y": 62,
       "count": 1
     }
   ],

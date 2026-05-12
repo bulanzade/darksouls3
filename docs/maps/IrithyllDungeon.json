@@ -463,21 +463,21 @@
     },
     {
       "kind": "Wretch",
-      "name_en": "SewerCentipede (Wretch)",
+      "name_en": "SewerCentipede",
       "x": 60,
       "y": 75,
       "count": 1
     },
     {
       "kind": "Wretch",
-      "name_en": "SewerCentipede (Wretch)",
+      "name_en": "SewerCentipede",
       "x": 50,
       "y": 78,
       "count": 1
     },
     {
       "kind": "Basilisk",
-      "name_en": "Spider (Basilisk)",
+      "name_en": "Spider",
       "x": 55,
       "y": 88,
       "count": 1

@@ -648,49 +648,49 @@
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "RockLizard (CrystalLizard)",
+      "name_en": "RockLizard",
       "x": 35,
       "y": 110,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "RockLizard (CrystalLizard)",
+      "name_en": "RockLizard",
       "x": 42,
       "y": 95,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "RockLizard (CrystalLizard)",
+      "name_en": "RockLizard",
       "x": 118,
       "y": 20,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "RockLizard (CrystalLizard)",
+      "name_en": "RockLizard",
       "x": 130,
       "y": 25,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "RockLizard (CrystalLizard)",
+      "name_en": "RockLizard",
       "x": 142,
       "y": 85,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "RockLizard (CrystalLizard)",
+      "name_en": "RockLizard",
       "x": 112,
       "y": 72,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "RockLizard (CrystalLizard)",
+      "name_en": "RockLizard",
       "x": 148,
       "y": 95,
       "count": 1
@@ -711,28 +711,28 @@
     },
     {
       "kind": "Knight",
-      "name_en": "DrakebloodKnight (Knight)",
+      "name_en": "DrakebloodKnight",
       "x": 110,
       "y": 30,
       "count": 1
     },
     {
       "kind": "Knight",
-      "name_en": "DrakebloodKnight (Knight)",
+      "name_en": "DrakebloodKnight",
       "x": 142,
       "y": 88,
       "count": 1
     },
     {
       "kind": "Knight",
-      "name_en": "DrakebloodKnight (Knight)",
+      "name_en": "DrakebloodKnight",
       "x": 78,
       "y": 52,
       "count": 1
     },
     {
       "kind": "WingedKnight",
-      "name_en": "HavelKnight (WingedKnight)",
+      "name_en": "HavelKnight",
       "x": 128,
       "y": 70,
       "count": 1

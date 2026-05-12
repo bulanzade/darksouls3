@@ -566,42 +566,42 @@
     },
     {
       "kind": "GiantSlave",
-      "name_en": "GiantHollow (GiantSlave)",
+      "name_en": "GiantHollow",
       "x": 55,
       "y": 62,
       "count": 1
     },
     {
       "kind": "GiantSlave",
-      "name_en": "GiantHollow (GiantSlave)",
+      "name_en": "GiantHollow",
       "x": 60,
       "y": 68,
       "count": 1
     },
     {
       "kind": "GiantSlave",
-      "name_en": "GiantHollow (GiantSlave)",
+      "name_en": "GiantHollow",
       "x": 58,
       "y": 75,
       "count": 1
     },
     {
       "kind": "GiantSlave",
-      "name_en": "GiantHollow (GiantSlave)",
+      "name_en": "GiantHollow",
       "x": 110,
       "y": 100,
       "count": 1
     },
     {
       "kind": "GiantSlave",
-      "name_en": "GiantHollow (GiantSlave)",
+      "name_en": "GiantHollow",
       "x": 82,
       "y": 60,
       "count": 1
     },
     {
       "kind": "GiantSlave",
-      "name_en": "GiantHollow (GiantSlave)",
+      "name_en": "GiantHollow",
       "x": 90,
       "y": 55,
       "count": 1
@@ -615,14 +615,14 @@
     },
     {
       "kind": "Assassin",
-      "name_en": "Assassin",
+      "name_en": "Corvian",
       "x": 115,
       "y": 95,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "Assassin",
+      "name_en": "Corvian",
       "x": 120,
       "y": 100,
       "count": 1

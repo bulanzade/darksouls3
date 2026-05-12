@@ -354,14 +354,14 @@
     },
     {
       "kind": "Knight",
-      "name_en": "LargeHollowSoldier (Knight)",
+      "name_en": "LargeHollowSoldier",
       "x": 56,
       "y": 46,
       "count": 1
     },
     {
-      "kind": "Assassin",
-      "name_en": "Assassin",
+      "kind": "HollowAssassin",
+      "name_en": "HollowAssassin",
       "x": 38,
       "y": 56,
       "count": 1
@@ -402,8 +402,8 @@
       "count": 1
     },
     {
-      "kind": "Assassin",
-      "name_en": "Assassin",
+      "kind": "HollowAssassin",
+      "name_en": "HollowAssassin",
       "x": 62,
       "y": 66,
       "count": 1

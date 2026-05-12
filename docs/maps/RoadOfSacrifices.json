@@ -181,14 +181,14 @@
   "enemies": [
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 25,
       "y": 20,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 35,
       "y": 24,
       "count": 1
@@ -223,14 +223,14 @@
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 56,
       "y": 35,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 62,
       "y": 40,
       "count": 1
@@ -251,56 +251,56 @@
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 75,
       "y": 52,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 82,
       "y": 58,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 65,
       "y": 45,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 78,
       "y": 48,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 90,
       "y": 50,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 58,
       "y": 55,
       "count": 1
     },
     {
       "kind": "Knight",
-      "name_en": "Knight",
+      "name_en": "LycanthropeHunter",
       "x": 72,
       "y": 55,
       "count": 1
     },
     {
       "kind": "Knight",
-      "name_en": "Knight",
+      "name_en": "LycanthropeHunter",
       "x": 85,
       "y": 60,
       "count": 1
@@ -328,28 +328,28 @@
     },
     {
       "kind": "Basilisk",
-      "name_en": "PoisonhornBug (Basilisk)",
+      "name_en": "PoisonhornBug",
       "x": 65,
       "y": 62,
       "count": 1
     },
     {
       "kind": "Basilisk",
-      "name_en": "PoisonhornBug (Basilisk)",
+      "name_en": "PoisonhornBug",
       "x": 70,
       "y": 65,
       "count": 1
     },
     {
       "kind": "Basilisk",
-      "name_en": "PoisonhornBug (Basilisk)",
+      "name_en": "PoisonhornBug",
       "x": 62,
       "y": 70,
       "count": 1
     },
     {
       "kind": "Basilisk",
-      "name_en": "PoisonhornBug (Basilisk)",
+      "name_en": "PoisonhornBug",
       "x": 58,
       "y": 68,
       "count": 1
@@ -363,14 +363,14 @@
     },
     {
       "kind": "Dog",
-      "name_en": "LesserCrab (Dog)",
+      "name_en": "LesserCrab",
       "x": 78,
       "y": 68,
       "count": 1
     },
     {
       "kind": "Dog",
-      "name_en": "LesserCrab (Dog)",
+      "name_en": "LesserCrab",
       "x": 80,
       "y": 72,
       "count": 1
@@ -384,35 +384,35 @@
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 118,
       "y": 88,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 122,
       "y": 92,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 125,
       "y": 96,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 112,
       "y": 82,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 128,
       "y": 85,
       "count": 1
@@ -433,14 +433,14 @@
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 68,
       "y": 80,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "Corvian (Assassin)",
+      "name_en": "Corvian",
       "x": 72,
       "y": 85,
       "count": 1
@@ -475,14 +475,14 @@
     },
     {
       "kind": "Knight",
-      "name_en": "DarkSpirit (Knight)",
+      "name_en": "DarkSpirit",
       "x": 108,
       "y": 100,
       "count": 1
     },
     {
       "kind": "Knight",
-      "name_en": "DarkSpirit (Knight)",
+      "name_en": "DarkSpirit",
       "x": 115,
       "y": 105,
       "count": 1
