@@ -2621,7 +2621,7 @@ def make_undead_settlement():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#4A4A5A"),
         make_field("dialogue", "String",
-            "I am Yoel of Londor, a pilgrim|Let me grant you true strength|Come. Touch the darkness within me"),
+            "Ahh, a kind soul. I am Yoel of Londor, a pilgrim|Let me grant you true strength|Come. Touch the darkness within me"),
     ]))
     # Siegward of Catarina — at Fire Demon square (DS3: helps fight the demon)
     entities.append(make_entity("Npc", 96 * 16, 60 * 16, [
@@ -2645,7 +2645,7 @@ def make_undead_settlement():
         make_field("kind", "LocalEnum.NpcKind", "Merchant"),
         make_field("color", "Color", "#8B7D9B"),
         make_field("dialogue", "String",
-            "I am Irina of Carim|I can teach you miracles, if you wish|Please, take me to the shrine"),
+            "Oh, hello there. I am Irina of Carim|I can teach you miracles, if you bring me braille divine tomes|Please, take me to the shrine, I beg of you"),
     ]))
     # Eygon of Carim — guards Irina (DS3: found outside near Irina, warns about the champion)
     entities.append(make_entity("Npc", 148 * 16, 50 * 16, [
@@ -2653,7 +2653,7 @@ def make_undead_settlement():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#4A3A2A"),
         make_field("dialogue", "String",
-            "I am Eygon of Carim, of the Morne bloodline|Keep your hands off the woman|She is my responsibility, not yours"),
+            "Keep your hands off the woman|I am Eygon of Carim, of the Morne bloodline|She is my responsibility, not yours|You would do well to remember that"),
     ]))
 
     # --- Items (DS3 Undead Settlement) ---
@@ -3587,7 +3587,7 @@ def make_road_of_sacrifices():
         make_field("name", "String", "Titanite Shard")]))
 
     # NPCs - Anri and Horace at Halfway Fortress (DS3: they sit together at the bonfire)
-    entities.append(make_entity("Npc", 50 * 16, 30 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello. I am Anri of Astora|This is Horace the Hushed|We are travelling to find the Lords of Cinder|Won't you join us on our journey?")]))
+    entities.append(make_entity("Npc", 50 * 16, 30 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello. We meet again|I am Anri of Astora, and this is Horace the Hushed|We journey to find the Lords of Cinder|Won't you join us?")]))
     entities.append(make_entity("Npc", 54 * 16, 30 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods silently)|(gestures toward Anri)")]))
 
     # Orbeck of Vinheim — sorcery teacher in the ruins (DS3: found in a side room of the Crucifixion Woods ruins)
@@ -4794,7 +4794,7 @@ def make_cathedral_deep():
 
     # NPCs - DS3 Cathedral of the Deep: Patches, Rosaria
     entities.append(make_entity("Npc", 52 * 16, 78 * 16, [make_field("name", "String", "Patches"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#808080"), make_field("dialogue", "String", "You're a parasite, only thinking of yourself|I know your kind, you're nothing but trouble|What's wrong? Something the matter?|Heh heh heh")]))
-    entities.append(make_entity("Npc", 38 * 16, 148 * 16, [make_field("name", "String", "Rosaria"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D0A0B0"), make_field("dialogue", "String", "(No tongue, but a voice is not needed)|Offer me pale tongues|And I shall grant your desire|I am Rosaria, Mother of Rebirth")]))
+    entities.append(make_entity("Npc", 38 * 16, 148 * 16, [make_field("name", "String", "Rosaria"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D0A0B0"), make_field("dialogue", "String", "(No tongue, but her will is clear)|Offer me pale tongues, and I shall grant your desire|Rebirth, or fingers to invade others|I am Rosaria, Mother of Rebirth")]))
     # Siegward of Catarina — stuck in the well outside Cathedral (DS3: freed via lift mechanism)
     entities.append(make_entity("Npc", 24 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Aah, hello! Up here!|I seem to be stuck in this well|Could you find a way to get me out?")]))
 
@@ -6454,7 +6454,7 @@ def make_irithyll():
     entities.append(make_entity("Npc", 62 * 16, 38 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Hello again. We seem destined to cross paths|Are you also headed for Anor Londo?|I must reach Aldrich of the Deep|To avenge my companions who fell to him")]))
     entities.append(make_entity("Npc", 28 * 16, 80 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Oh, hello there! Fancy meeting you here|I'm cooking up some estus soup, my specialty|Care to join me? It's quite good, you know|Oh, very good indeed, to see a friendly face")]))
     # Sirris — appears near Church of Yorshka after Rosaria covenant
-    entities.append(make_entity("Npc", 58 * 16, 44 * 16, [make_field("name", "String", "Sirris of the Sunless Realms"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#A0B0C0"), make_field("dialogue", "String", "I am Sirris of the Sunless Realms|I was once a knight, but no longer|Let me swear to you my knightly vows|I shall serve you faithfully until death"), make_field("appear_condition", "String", "rosaria_covenant")]))
+    entities.append(make_entity("Npc", 58 * 16, 44 * 16, [make_field("name", "String", "Sirris of the Sunless Realms"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#A0B0C0"), make_field("dialogue", "String", "Forgive me. I am Sirris of the Sunless Realms|I was once a knight, but no longer|Let me swear to you my knightly vows|I shall serve you faithfully, until death"), make_field("appear_condition", "String", "rosaria_covenant")]))
 
     entities.append(make_entity("FogGate", 144 * 16, 45 * 16, [
         make_field("dest_area", "String", "IrithyllDungeon"),
@@ -7012,7 +7012,7 @@ def make_irithyll_dungeon():
 
     # NPCs — DS3 Irithyll Dungeon: Siegward in cell, Karla in deep cell
     entities.append(make_entity("Npc", 92 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D4A520"), make_field("dialogue", "String", "Oh! You have my thanks, my deepest thanks|I seem to have gotten myself locked in this cell|A brave warrior like yourself, I knew you would come")]))
-    entities.append(make_entity("Npc", 90 * 16, 84 * 16, [make_field("name", "String", "Karla"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#4A0080"), make_field("dialogue", "String", "What do you want? I'm a prisoner, same as you|I can teach you dark sorceries, if you bring me tomes|But nothing that could harm the Fire Keeper, understand|I am Karla, a humble student of the dark arts")]))
+    entities.append(make_entity("Npc", 90 * 16, 84 * 16, [make_field("name", "String", "Karla"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#4A0080"), make_field("dialogue", "String", "Hmm. A visitor? I'm a prisoner, same as you|I can teach you dark sorceries, if you bring me tomes|But nothing that could harm the Fire Keeper, understand|The pygmy is not to be trifled with")]))
 
     entities.append(make_entity("FogGate", 142 * 16, 32 * 16, [
         make_field("dest_area", "String", "ProfanedCapital"),
@@ -8112,7 +8112,7 @@ def make_anor_londo():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#d0d0ff"),
         make_field("dialogue", "String",
-            "Hello again, we meet at last in this grand cathedral|I am Anri of Astora|Will you help me defeat Aldrich, together?|I cannot do this alone"),
+            "We meet at last, in this grand cathedral|Aldrich, Devourer of Gods, lies ahead|Will you help me defeat him, together?|I cannot do this alone"),
     ]))
     # Company Captain Yorshka — Darkmoon Tomb, reached from Prison Tower bonfire
     entities.append(make_entity("Npc", 62 * 16, 92 * 16, [
@@ -8908,7 +8908,7 @@ def make_lothric_castle():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#D4AF37"),
         make_field("dialogue", "String",
-            "I am Emma, High Priestess of Lothric|The Prince has refused his duty as a Lord of Cinder|Please, I beg of you, save Prince Lothric|He must be made to see his duty through"),
+            "The Prince has refused his duty as a Lord of Cinder|I am Emma, High Priestess of Lothric, and I beg of you|Save Prince Lothric, he must be made to see his duty through|Take this Basin of Vows"),
     ]))
     # Eygon of Carim — summon sign near Dragonslayer Armour arena approach
     # DS3: can be summoned for Dragonslayer Armour if Irina quest is in correct state
@@ -8917,7 +8917,7 @@ def make_lothric_castle():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#4A4A4A"),
         make_field("dialogue", "String",
-            "What do you want? I am Eygon of Carim|I am bound by duty to protect Irina|Keep your hands off her|She is under my protection"),
+            "Keep your hands off Irina|I am Eygon of Carim, bound by duty to protect her|She is under my protection, not yours|Do not forget that"),
     ]))
 
     # --- Fog Gates ---
