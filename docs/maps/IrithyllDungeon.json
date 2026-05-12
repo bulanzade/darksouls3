@@ -448,15 +448,15 @@
       "count": 1
     },
     {
-      "kind": "InfestedCorpse",
-      "name_en": "InfestedCorpse",
+      "kind": "Wretch",
+      "name_en": "Wretch",
       "x": 38,
       "y": 80,
       "count": 1
     },
     {
-      "kind": "InfestedCorpse",
-      "name_en": "InfestedCorpse",
+      "kind": "Wretch",
+      "name_en": "Wretch",
       "x": 45,
       "y": 86,
       "count": 1

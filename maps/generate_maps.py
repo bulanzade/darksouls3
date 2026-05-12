@@ -1291,15 +1291,8 @@ def make_firelink_shrine():
     entities.append(make_entity("Enemy", 122 * 16, 62 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", "CrystalLizard")]))
 
-    # Exterior graveyard — Hollow Soldiers rise from graves (DS3: 4 hollows in graveyard)
-    entities.append(make_entity("Enemy", 68 * 16, 112 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    entities.append(make_entity("Enemy", 80 * 16, 116 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    entities.append(make_entity("Enemy", 92 * 16, 114 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    entities.append(make_entity("Enemy", 72 * 16, 124 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    # Exterior graveyard — in DS3, Firelink Shrine exterior has NO hostile enemies
+    # besides the Sword Master. The graveyard is peaceful.
 
     # --- NPCs (DS3 Firelink Shrine inhabitants) ---
     # Fire Keeper (level up) — stands near bonfire, south side
@@ -6904,7 +6897,7 @@ def make_irithyll_dungeon():
         ("Basilisk", 55, 80), ("Basilisk", 62, 85),
         ("Basilisk", 40, 88), ("Basilisk", 65, 78),             # More basilisks in drains
         ("Basilisk", 48, 82), ("Basilisk", 58, 90),             # Additional curse-spawners
-        ("InfestedCorpse", 38, 80), ("InfestedCorpse", 45, 86), # Corpse-grubs
+        ("Wretch", 38, 80), ("Wretch", 45, 86), # DS3: bloated prisoners in drain cells
         # Sewer Centipede in drain area (DS3: Sewer Centipedes in Irithyll Dungeon drains)
         ("SewerCentipede", 60, 75), ("SewerCentipede", 50, 78),
         # Cage Spider in drain area
