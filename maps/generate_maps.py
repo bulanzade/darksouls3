@@ -5898,7 +5898,7 @@ def make_irithyll():
         ("IrithyllianSlave", 45, 55),
         # Dark room / staircase area — DS3: "take stairs down, encounter many hags",
         # "hags in each of these alcoves", "two more hags at foot of tree"
-        ("IrithyllianSlave", 48, 54), ("IrithyllianSlave", 54, 56),             # Hags in dark room
+        ("IrithyllianSlave", 48, 54), ("IrithyllianSlave", 58, 60),             # Hags in dark room
         ("IrithyllianSlave", 50, 58), ("IrithyllianSlave", 56, 60),             # Hags in alcoves along stairs
         # Sewers — Sewer Centipedes (DS3: "few Sewer Centipedes in the water")
         ("SewerCentipede", 68, 80), ("SewerCentipede", 78, 85), ("SewerCentipede", 88, 90),
@@ -8231,7 +8231,7 @@ def make_lothric_castle():
         # Embers x5
         ("Ember", "Ember", 68, 22, 0),                                 # Dragon barracks
         ("Ember", "Ember", 62, 30, 0),                                 # Wyvern bridge
-        ("Ember", "Ember", 130, 65, 0),                                # Corner corpse
+        ("Ember", "Ember", 132, 63, 0),                                # Corner corpse
         ("Ember", "Ember", 82, 20, 0),                                 # Wyvern area
         ("Ember", "Ember", 135, 58, 0),                                # Post-wyvern
         # Weapons
