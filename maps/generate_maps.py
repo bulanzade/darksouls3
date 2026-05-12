@@ -2363,6 +2363,14 @@ def make_undead_settlement():
         ("Skeleton", 140, 52), ("Skeleton", 142, 54), ("Skeleton", 144, 48),
         # Crystal Lizard (DS3: near Hodrick invasion area / cliff path)
         ("CrystalLizard", 112, 46),
+        # Additional DS3 enemies for fidelity
+        ("PeasantHollow", 36, 34),                                   # DS3: hollow in house near entrance
+        ("PeasantHollow", 72, 44),                                   # DS3: hollow in market square
+        ("Thrall", 88, 48),                                          # DS3: thrall ambush on rooftops
+        ("Thrall", 92, 52),                                          # DS3: thrall drops from ceiling
+        ("HollowSoldier", 76, 64),                                   # DS3: soldier near fire demon area
+        ("PeasantHollow", 100, 58),                                  # DS3: hollow near cliff edge
+        ("HollowSoldier", 104, 66),                                  # DS3: soldier on lower cliff
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -7421,6 +7429,13 @@ def make_anor_londo():
         ("CrystalLizard", 56, 84),
         # Boss — Aldrich, Devourer of Gods
         ("MiniBoss", 128, 78),                                      # Aldrich boss entity
+        # Additional DS3 enemies for fidelity
+        ("SilverKnight", 28, 48),                                   # DS3: knight in side corridor
+        ("SilverKnight", 58, 54),                                   # DS3: knight in royal chamber
+        ("Deacon", 65, 55),                                         # DS3: deacon in upper chamber
+        ("Deacon", 78, 52),                                         # DS3: deacon near dark room
+        ("Deacon", 82, 58),                                         # DS3: deacon in dark corners
+        ("ManGrub", 145, 88),                                       # DS3: slime near Aldrich arena
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
