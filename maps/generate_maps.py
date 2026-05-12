@@ -1530,6 +1530,23 @@ def make_firelink_shrine():
     # Shrine upper — rafters and beam supports (DS3: exposed wooden rafters)
     fill_tiles(chunk, TILE_WALL, 116, 64, 117, 65)
     fill_tiles(chunk, TILE_WALL, 122, 60, 123, 61)
+    # SESSION 10 PASS B — Firelink Shrine
+    # Additional DS3 terrain: shrine exterior stones, Ludleth throne detail,
+    # grave wreath stones, tower base steps
+    fill_tiles(chunk, TILE_WALL, 74, 66, 75, 67)
+    fill_tiles(chunk, TILE_WALL, 86, 64, 87, 65)
+    fill_tiles(chunk, TILE_WALL, 60, 72, 61, 73)
+    fill_tiles(chunk, TILE_WALL, 96, 70, 97, 71)
+    fill_tiles(chunk, TILE_WALL, 80, 74, 81, 75)
+    fill_tiles(chunk, TILE_WALL, 52, 76, 53, 77)
+    fill_tiles(chunk, TILE_WALL, 98, 116, 99, 117)
+    fill_tiles(chunk, TILE_WALL, 62, 126, 63, 127)
+    fill_tiles(chunk, TILE_WALL, 84, 124, 85, 125)
+    fill_tiles(chunk, TILE_WALL, 42, 60, 43, 61)
+    fill_tiles(chunk, TILE_WALL, 30, 58, 31, 59)
+    fill_tiles(chunk, TILE_WALL, 116, 62, 117, 63)
+    fill_tiles(chunk, TILE_WALL, 120, 66, 121, 67)
+
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
