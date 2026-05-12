@@ -4677,8 +4677,8 @@ def make_cathedral_deep():
         ("InfestedCorpse", 76, 66),                                   # Corpse in gallery
         # Deep Accursed — lurks in side room (DS3: giant spider enemy near entrance shortcut)
         ("DeepAccursed", 22, 38),
-        # Writhing Rotten Flesh in swampy area near giant room
-        ("Rat", 36, 84), ("Rat", 44, 86),                             # Writhing Rotten Flesh
+        # Writhing Rotten Flesh in swampy area near giant room (DS3: writhing corpses in swamp)
+        ("InfestedCorpse", 36, 84), ("InfestedCorpse", 44, 86),                             # DS3: Writhing Rotten Flesh
         ("InfestedCorpse", 38, 86), ("InfestedCorpse", 42, 88),                   # DS3: Writhing Rotten Flesh
         ("GiantSlave", 44, 92), ("GiantSlave", 56, 98),
         ("CathedralKnight", 48, 88), ("CathedralKnight", 52, 96),
