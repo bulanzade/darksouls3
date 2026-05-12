@@ -125,6 +125,7 @@ ENEMY_KIND_MAP = {
     "SewerCentipede": "Wretch",
     "IrithyllianSlave": "Assassin",
     "LycanthropeHunter": "Knight",
+    "CageSpider": "Basilisk",
 }
 
 
@@ -6370,7 +6371,7 @@ def make_irithyll_dungeon():
         # Sewer Centipede in drain area (DS3: Sewer Centipedes in Irithyll Dungeon drains)
         ("SewerCentipede", 60, 75), ("SewerCentipede", 50, 78),
         # Cage Spider in drain area
-        ("Spider", 55, 88),                                    # Cage Spider → Basilisk via ENEMY_KIND_MAP
+        ("CageSpider", 55, 88),                                       # DS3: Cage Spider in drain area (→ Basilisk)
         # Monstrosity of Sin (GiantSlave) — DS3: sleeping giant near lower level
         ("GiantSlave", 42, 75),
         # Lycanthrope (Dog) in rat tunnels
