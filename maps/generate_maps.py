@@ -3355,7 +3355,7 @@ def make_road_of_sacrifices():
     enemy_data = [
         # Entry dark woods — Corvians (winged hollows) patrolling the path
         ("Corvian", 25, 20), ("Corvian", 35, 24),
-        ("Dog", 28, 22),                                          # Dogs ambush near entry
+        ("Corvian", 28, 22),                                          # DS3: Corvian ambush near entry
         # Near Halfway Fortress — Lycanthropes (DS3: "two Lycanthropes" at fortress entrance)
         ("StarvedHound", 42, 26), ("StarvedHound", 48, 28),
         ("StarvedHound", 45, 32),                                 # DS3: third Lycanthrope nearby
@@ -5251,9 +5251,9 @@ def make_catacombs_of_carthus():
         ("MiniBoss", 55, 62), ("MiniBoss", 60, 68),           # Skeleton Wheels
         ("MiniBoss", 65, 72),                                  # Skeleton Wheel
         ("Skeleton", 58, 66), ("Skeleton", 63, 70),
-        # Abandoned Tomb / Smouldering Lake passage — rats and Writhing Rotten Flesh
-        ("Rat", 20, 78), ("Rat", 25, 82), ("Rat", 30, 88),   # Hound-Rats
-        ("Rat", 18, 85), ("Rat", 22, 92),                     # More Hound-Rats
+        # Abandoned Tomb / Smouldering Lake passage — more skeletons (DS3: catacombs have skeletons only)
+        ("Skeleton", 20, 78), ("Skeleton", 25, 82), ("Skeleton", 30, 88),   # DS3: skeleton warriors
+        ("SkeletonSwordman", 18, 85), ("SkeletonSwordman", 22, 92),         # DS3: skeleton swordsmen
         ("Skeleton", 28, 95),                                        # Skeleton in abandoned tomb passage
         ("Skeleton", 35, 98),                                        # Skeleton patrol near lake entrance
         ("LesserCrab", 22, 96),                                 # Lesser Crab (Smouldering Lake passage, wiki-confirmed)
@@ -7602,8 +7602,8 @@ def make_profaned_capital():
         ("MiniBoss", 48, 42),
         # Siegward cell area — Jailer guard
         ("Jailer", 62, 48),
-        # Giant room — rats and Giant Slave (wiki: giant in treasure room, rats respawn)
-        ("Rat", 70, 60), ("Rat", 74, 66), ("Rat", 80, 62),
+        # Giant room — Sewer Centipedes in toxic swamp (DS3: centipedes in poison pools)
+        ("SewerCentipede", 70, 60), ("SewerCentipede", 74, 66), ("SewerCentipede", 80, 62),
         ("GiantSlave", 76, 60),
     ]
     for kind, tx, ty in enemy_data:
