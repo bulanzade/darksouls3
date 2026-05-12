@@ -1148,6 +1148,16 @@ def make_firelink_shrine():
     entities.append(make_entity("Enemy", 122 * 16, 62 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", "CrystalLizard")]))
 
+    # Exterior graveyard — Hollow Soldiers rise from graves (DS3: 4 hollows in graveyard)
+    entities.append(make_entity("Enemy", 68 * 16, 112 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    entities.append(make_entity("Enemy", 80 * 16, 116 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    entities.append(make_entity("Enemy", 92 * 16, 114 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    entities.append(make_entity("Enemy", 72 * 16, 124 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+
     # --- NPCs (DS3 Firelink Shrine inhabitants) ---
     # Fire Keeper (level up) — stands near bonfire, south side
     entities.append(make_entity("Npc", 78 * 16, 86 * 16, [
