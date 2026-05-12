@@ -5076,6 +5076,23 @@ def make_catacombs_of_carthus():
     fill_tiles(chunk, TILE_WALL, 112, 86, 113, 87)
     fill_tiles(chunk, TILE_WALL, 104, 82, 105, 83)
 
+    # SESSION 10 PASS B — CatacombsOfCarthus
+    # Additional DS3 terrain: bone pile clusters, Wolnir approach bones, skeleton alcove debris
+    fill_tiles(chunk, TILE_WALL, 44, 46, 45, 47)
+    fill_tiles(chunk, TILE_WALL, 56, 54, 57, 55)
+    fill_tiles(chunk, TILE_WALL, 68, 50, 69, 51)
+    fill_tiles(chunk, TILE_WALL, 80, 58, 81, 59)
+    fill_tiles(chunk, TILE_WALL, 92, 52, 93, 53)
+    fill_tiles(chunk, TILE_WALL, 104, 60, 105, 61)
+    fill_tiles(chunk, TILE_WALL, 116, 56, 117, 57)
+    fill_tiles(chunk, TILE_WALL, 128, 64, 129, 65)
+    fill_tiles(chunk, TILE_WALL, 140, 58, 141, 59)
+    fill_tiles(chunk, TILE_WALL, 136, 72, 137, 73)
+    fill_tiles(chunk, TILE_WALL, 120, 68, 121, 69)
+    fill_tiles(chunk, TILE_WALL, 108, 74, 109, 75)
+    fill_tiles(chunk, TILE_WALL, 96, 70, 97, 71)
+    fill_tiles(chunk, TILE_WALL, 84, 66, 85, 67)
+
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -5547,6 +5564,23 @@ def make_smouldering_lake():
     fill_tiles(chunk, TILE_WALL, 34, 42, 35, 43)
     fill_tiles(chunk, TILE_WALL, 40, 46, 41, 47)
     fill_tiles(chunk, TILE_WALL, 28, 44, 29, 45)
+
+    # SESSION 10 PASS B — SmoulderingLake
+    # Additional DS3 terrain: ballista bolt debris, lava island stones, demon archway fragments
+    fill_tiles(chunk, TILE_WALL, 44, 46, 45, 47)
+    fill_tiles(chunk, TILE_WALL, 56, 54, 57, 55)
+    fill_tiles(chunk, TILE_WALL, 68, 50, 69, 51)
+    fill_tiles(chunk, TILE_WALL, 80, 58, 81, 59)
+    fill_tiles(chunk, TILE_WALL, 92, 52, 93, 53)
+    fill_tiles(chunk, TILE_WALL, 104, 60, 105, 61)
+    fill_tiles(chunk, TILE_WALL, 116, 56, 117, 57)
+    fill_tiles(chunk, TILE_WALL, 128, 64, 129, 65)
+    fill_tiles(chunk, TILE_WALL, 140, 58, 141, 59)
+    fill_tiles(chunk, TILE_WALL, 136, 72, 137, 73)
+    fill_tiles(chunk, TILE_WALL, 120, 68, 121, 69)
+    fill_tiles(chunk, TILE_WALL, 108, 74, 109, 75)
+    fill_tiles(chunk, TILE_WALL, 96, 70, 97, 71)
+    fill_tiles(chunk, TILE_WALL, 84, 66, 85, 67)
 
 
     populate_entity_def_uids(entities)
@@ -8891,6 +8925,23 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_WALL, 146, 78, 147, 79)
     fill_tiles(chunk, TILE_WALL, 140, 76, 141, 77)
 
+    # SESSION 10 PASS B — GrandArchives
+    # Additional DS3 terrain: scholar desk debris, crystal sage formations, Twin Princes tower stones
+    fill_tiles(chunk, TILE_WALL, 44, 46, 45, 47)
+    fill_tiles(chunk, TILE_WALL, 56, 54, 57, 55)
+    fill_tiles(chunk, TILE_WALL, 68, 50, 69, 51)
+    fill_tiles(chunk, TILE_WALL, 80, 58, 81, 59)
+    fill_tiles(chunk, TILE_WALL, 92, 52, 93, 53)
+    fill_tiles(chunk, TILE_WALL, 104, 60, 105, 61)
+    fill_tiles(chunk, TILE_WALL, 116, 56, 117, 57)
+    fill_tiles(chunk, TILE_WALL, 128, 64, 129, 65)
+    fill_tiles(chunk, TILE_WALL, 140, 58, 141, 59)
+    fill_tiles(chunk, TILE_WALL, 136, 72, 137, 73)
+    fill_tiles(chunk, TILE_WALL, 120, 68, 121, 69)
+    fill_tiles(chunk, TILE_WALL, 108, 74, 109, 75)
+    fill_tiles(chunk, TILE_WALL, 96, 70, 97, 71)
+    fill_tiles(chunk, TILE_WALL, 84, 66, 85, 67)
+
     # ================================================================
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -10707,6 +10758,23 @@ def make_archdragon_peak():
     fill_tiles(chunk, TILE_WALL, 124, 88, 125, 89)
     fill_tiles(chunk, TILE_WALL, 130, 92, 131, 93)
     fill_tiles(chunk, TILE_WALL, 136, 86, 137, 87)
+
+    # SESSION 10 PASS B — ArchdragonPeak
+    # Additional DS3 terrain: dragon-crest steps, serpent altar stones, wyvern bridge debris
+    fill_tiles(chunk, TILE_WALL, 44, 46, 45, 47)
+    fill_tiles(chunk, TILE_WALL, 56, 54, 57, 55)
+    fill_tiles(chunk, TILE_WALL, 68, 50, 69, 51)
+    fill_tiles(chunk, TILE_WALL, 80, 58, 81, 59)
+    fill_tiles(chunk, TILE_WALL, 92, 52, 93, 53)
+    fill_tiles(chunk, TILE_WALL, 104, 60, 105, 61)
+    fill_tiles(chunk, TILE_WALL, 116, 56, 117, 57)
+    fill_tiles(chunk, TILE_WALL, 128, 64, 129, 65)
+    fill_tiles(chunk, TILE_WALL, 140, 58, 141, 59)
+    fill_tiles(chunk, TILE_WALL, 136, 72, 137, 73)
+    fill_tiles(chunk, TILE_WALL, 120, 68, 121, 69)
+    fill_tiles(chunk, TILE_WALL, 108, 74, 109, 75)
+    fill_tiles(chunk, TILE_WALL, 96, 70, 97, 71)
+    fill_tiles(chunk, TILE_WALL, 84, 66, 85, 67)
 
 
     populate_entity_def_uids(entities)
