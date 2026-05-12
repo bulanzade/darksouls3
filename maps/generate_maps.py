@@ -5530,7 +5530,7 @@ def make_smouldering_lake():
         ("Consumable", "White Hair Talisman", 98, 78, 0),       # Deep ruins
         ("TitaniteShard", "Large Titanite Shard", 60, 50, 0),  # wiki: 10x Large Titanite
         ("TitaniteShard", "Large Titanite Shard", 90, 65, 0),
-        ("Ember", "Ember", 72, 55, 0),  # wiki: 3x Ember
+        ("Ember", "Ember", 70, 53, 0),  # wiki: 3x Ember
         ("EstusShard", "Estus Shard", 22, 88, 0),               # Ballista caves
         ("UndeadBoneShard", "Undead Bone Shard", 48, 72, 0),    # Lake hidden area
         ("HomewardBone", "Homeward Bone", 100, 70, 0),
@@ -8664,7 +8664,7 @@ def make_grand_archives():
         ("HomewardBone", "Homeward Bone", 60, 108, 0),
         ("HomewardBone", "Homeward Bone", 65, 88, 0),
         ("HomewardBone", "Homeward Bone", 72, 92, 0),
-        ("Ember", "Ember", 55, 98, 0),
+        ("Ember", "Ember", 57, 96, 0),
         # Weapons
         ("WeaponDrop", "Avelyn", 68, 85, 0),
         ("WeaponDrop", "Golden Wing Crest Shield", 80, 32, 0),
