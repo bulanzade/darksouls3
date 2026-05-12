@@ -4687,7 +4687,7 @@ def make_cathedral_deep():
         # Cage Spider area (DS3: basilisks in dark room near giant)
         ("Thrall", 36, 94), ("Thrall", 40, 98),                       # Hollow Slaves in dark room near giant
         # Deacon hall — mass of Deacons before the boss (DS3: dozens of deacons)
-        ("Deacon", 38, 110), ("Deacon", 42, 108), ("Deacon", 48, 112),
+        ("Deacon", 38, 110), ("Deacon", 42, 108), ("Deacon", 48, 118),
         ("Deacon", 52, 116), ("Deacon", 56, 114), ("Deacon", 40, 118),
         ("Deacon", 45, 122), ("Deacon", 50, 124),
         ("Deacon", 55, 120), ("Deacon", 35, 124),
@@ -8746,7 +8746,7 @@ def make_lothric_castle():
         ("LothricKnight", 75, 30), ("LothricKnight", 82, 26),      # Knights patrolling wyvern area
         ("LothricKnight", 95, 36), ("LothricKnight", 108, 44),     # Knights on inner stairs
         ("HollowSoldier", 60, 36), ("HollowSoldier", 85, 32),      # More hollows in barracks
-        ("LothricKnight", 130, 64), ("LothricKnight", 136, 68),    # Knights near arena
+        ("LothricKnight", 128, 60), ("LothricKnight", 136, 68),    # Knights near arena approach
         ("DarkMage", 122, 60),                                        # Priest healing knights near arena
     ]
     for kind, tx, ty in enemy_positions:
