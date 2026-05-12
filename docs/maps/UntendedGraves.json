@@ -330,74 +330,66 @@
   "enemies": [
     {
       "kind": "BlackKnight",
-      "name_en": "Black Knight (cemetery path, greatsword)",
-      "x": 1400,
-      "y": 1060,
+      "name_en": "BlackKnight",
+      "x": 45,
+      "y": 35,
       "count": 1
     },
     {
       "kind": "BlackKnight",
-      "name_en": "Black Knight (middle courtyard, sword+shield)",
-      "x": 1740,
-      "y": 1200,
+      "name_en": "BlackKnight",
+      "x": 62,
+      "y": 45,
       "count": 1
     },
     {
       "kind": "BlackKnight",
-      "name_en": "Black Knight (Gundyr approach, halberd)",
-      "x": 1920,
-      "y": 1420,
+      "name_en": "BlackKnight",
+      "x": 75,
+      "y": 55,
       "count": 1
     },
     {
       "kind": "BlackKnight",
-      "name_en": "Black Knight (arena edge, greatsword)",
-      "x": 1600,
-      "y": 1600,
+      "name_en": "BlackKnight",
+      "x": 88,
+      "y": 58,
       "count": 1
     },
     {
       "kind": "StarvedHound",
-      "name_en": "Starved Hound (dark cemetery)",
-      "x": 1500,
-      "y": 1120,
+      "name_en": "StarvedHound",
+      "x": 48,
+      "y": 42,
       "count": 1
     },
     {
       "kind": "StarvedHound",
-      "name_en": "Starved Hound (dark cemetery 2)",
-      "x": 1900,
-      "y": 1400,
+      "name_en": "StarvedHound",
+      "x": 70,
+      "y": 52,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard (cemetery path)",
-      "x": 1280,
-      "y": 1020,
+      "name_en": "CrystalLizard",
+      "x": 40,
+      "y": 32,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Ravenous Crystal Lizard (near Dark Firelink)",
-      "x": 3060,
-      "y": 3020,
+      "name_en": "CrystalLizard",
+      "x": 125,
+      "y": 105,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Ravenous Crystal Lizard (Dark Firelink 2)",
-      "x": 3100,
-      "y": 3080,
+      "name_en": "CrystalLizard",
+      "x": 130,
+      "y": 110,
       "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "Champion Gundyr",
-      "x": 2480,
-      "y": 2220,
-      "count": 1,
-      "note": "Boss entity in arena"
     }
   ],
   "items": [

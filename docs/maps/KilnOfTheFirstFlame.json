@@ -177,16 +177,7 @@
     "y": 1180,
     "source_status": "official_identity_projected_position"
   },
-  "enemies": [
-    {
-      "kind": "MiniBoss",
-      "name_en": "Soul of Cinder",
-      "x": 1560,
-      "y": 1260,
-      "count": 1,
-      "note": "Boss entity in arena"
-    }
-  ],
+  "enemies": [],
   "items": [
     {
       "kind": "SoulOrb",

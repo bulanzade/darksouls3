@@ -228,435 +228,401 @@
   "enemies": [
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 380,
-      "y": 280,
+      "name_en": "HollowSoldier",
+      "x": 14,
+      "y": 10,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 520,
-      "y": 320,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 680,
-      "y": 380,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 780,
-      "y": 500,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 440,
-      "y": 540,
+      "name_en": "HollowSoldier",
+      "x": 22,
+      "y": 14,
       "count": 1
     },
     {
       "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 600,
-      "y": 420,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 880,
-      "y": 580,
+      "name_en": "LothricKnight",
+      "x": 30,
+      "y": 18,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier (crossbow)",
-      "x": 920,
-      "y": 440,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "Starved Hound",
-      "x": 750,
-      "y": 600,
+      "name_en": "HollowSoldier",
+      "x": 16,
+      "y": 20,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 1280,
-      "y": 740,
+      "name_en": "HollowSoldier",
+      "x": 48,
+      "y": 10,
       "count": 1
     },
     {
-      "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 1400,
-      "y": 800,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "Lothric Knight (Sword & Shield)",
-      "x": 1600,
-      "y": 960,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "Lothric Knight (Spear)",
-      "x": 1660,
-      "y": 1050,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier (crossbow)",
-      "x": 1720,
-      "y": 740,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 1300,
-      "y": 1080,
-      "count": 1
-    },
-    {
-      "kind": "LothricWyvern",
-      "name_en": "Lothric Wyvern",
-      "x": 2160,
-      "y": 620,
-      "count": 1,
-      "note": "Fire-breathing dragon perched on bridge"
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier (bridge)",
-      "x": 1820,
-      "y": 680,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier (bridge)",
-      "x": 1980,
-      "y": 720,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier (bridge)",
-      "x": 2340,
-      "y": 800,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier (bridge)",
-      "x": 2500,
-      "y": 860,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 1900,
-      "y": 780,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 2600,
-      "y": 920,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "Starved Hound",
-      "x": 2420,
-      "y": 940,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "Starved Hound",
-      "x": 2200,
-      "y": 880,
-      "count": 1
-    },
-    {
-      "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard",
-      "x": 2560,
-      "y": 960,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 1080,
-      "y": 1420,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 1340,
-      "y": 1560,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "Lothric Knight (Greatsword)",
-      "x": 1500,
-      "y": 1680,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 1200,
-      "y": 1800,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 1020,
-      "y": 1600,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 1600,
-      "y": 1520,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "Starved Hound",
-      "x": 1700,
-      "y": 1840,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "Starved Hound",
-      "x": 1800,
-      "y": 1920,
+      "kind": "Archer",
+      "name_en": "Archer",
+      "x": 54,
+      "y": 14,
       "count": 1
     },
     {
       "kind": "PusOfMan",
-      "name_en": "Pus of Man",
-      "x": 1100,
-      "y": 1740,
-      "count": 1,
-      "note": "Praying hollow that transforms"
+      "name_en": "PusOfMan",
+      "x": 50,
+      "y": 12,
+      "count": 1
     },
     {
-      "kind": "Assassin",
-      "name_en": "Hollow Assassin",
-      "x": 1820,
-      "y": 1420,
+      "kind": "StarvedHound",
+      "name_en": "StarvedHound",
+      "x": 16,
+      "y": 24,
+      "count": 1
+    },
+    {
+      "kind": "StarvedHound",
+      "name_en": "StarvedHound",
+      "x": 20,
+      "y": 28,
+      "count": 1
+    },
+    {
+      "kind": "StarvedHound",
+      "name_en": "StarvedHound",
+      "x": 18,
+      "y": 22,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 18,
+      "y": 34,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 28,
+      "y": 38,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 40,
+      "y": 32,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 52,
+      "y": 36,
+      "count": 1
+    },
+    {
+      "kind": "WingedKnight",
+      "name_en": "WingedKnight",
+      "x": 62,
+      "y": 42,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "CrystalLizard",
+      "x": 58,
+      "y": 48,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "CrystalLizard",
+      "x": 48,
+      "y": 50,
+      "count": 1
+    },
+    {
+      "kind": "Mimic",
+      "name_en": "Mimic",
+      "x": 42,
+      "y": 38,
+      "count": 1
+    },
+    {
+      "kind": "Knight",
+      "name_en": "LargeHollowSoldier (Knight)",
+      "x": 56,
+      "y": 46,
       "count": 1
     },
     {
       "kind": "Assassin",
-      "name_en": "Hollow Assassin",
-      "x": 1980,
-      "y": 1560,
+      "name_en": "Assassin",
+      "x": 38,
+      "y": 56,
       "count": 1
     },
     {
-      "kind": "Assassin",
-      "name_en": "Hollow Assassin",
-      "x": 2100,
-      "y": 1680,
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 50,
+      "y": 54,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 62,
+      "y": 54,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 74,
+      "y": 54,
       "count": 1
     },
     {
       "kind": "Darkwraith",
       "name_en": "Darkwraith",
-      "x": 2340,
-      "y": 1800,
-      "count": 1,
-      "note": "Locked behind cell gate"
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 1900,
-      "y": 1900,
+      "x": 54,
+      "y": 50,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 2200,
-      "y": 1700,
+      "name_en": "HollowSoldier",
+      "x": 50,
+      "y": 66,
       "count": 1
     },
     {
-      "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard",
-      "x": 2400,
-      "y": 1600,
+      "kind": "Assassin",
+      "name_en": "Assassin",
+      "x": 62,
+      "y": 66,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 74,
+      "y": 64,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 40,
+      "y": 74,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 56,
+      "y": 74,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 20,
+      "y": 84,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 44,
+      "y": 96,
+      "count": 1
+    },
+    {
+      "kind": "StarvedHound",
+      "name_en": "StarvedHound",
+      "x": 16,
+      "y": 92,
+      "count": 1
+    },
+    {
+      "kind": "StarvedHound",
+      "name_en": "StarvedHound",
+      "x": 46,
+      "y": 88,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 34,
+      "y": 94,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 52,
+      "y": 90,
       "count": 1
     },
     {
       "kind": "PusOfMan",
-      "name_en": "Pus of Man",
-      "x": 2000,
-      "y": 1820,
-      "count": 1,
-      "note": "Praying hollow that transforms"
-    },
-    {
-      "kind": "WingedKnight",
-      "name_en": "Winged Knight",
-      "x": 2640,
-      "y": 2340,
-      "count": 1,
-      "note": "Patrols rooftop courtyard"
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 2400,
-      "y": 2200,
+      "name_en": "PusOfMan",
+      "x": 42,
+      "y": 60,
       "count": 1
     },
     {
       "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 2560,
-      "y": 2460,
+      "name_en": "LothricKnight",
+      "x": 62,
+      "y": 94,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 82,
+      "y": 102,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 2800,
-      "y": 2580,
+      "name_en": "HollowSoldier",
+      "x": 70,
+      "y": 100,
       "count": 1
     },
     {
       "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 2600,
-      "y": 2640,
+      "name_en": "LothricKnight",
+      "x": 86,
+      "y": 96,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 70,
+      "y": 106,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 90,
+      "y": 108,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 92,
+      "y": 115,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 80,
+      "y": 118,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 2520,
-      "y": 2660,
+      "name_en": "HollowSoldier",
+      "x": 88,
+      "y": 126,
       "count": 1
     },
     {
       "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 2780,
-      "y": 2780,
+      "name_en": "LothricKnight",
+      "x": 76,
+      "y": 134,
       "count": 1
     },
     {
       "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 2820,
-      "y": 2640,
+      "name_en": "LothricKnight",
+      "x": 94,
+      "y": 138,
+      "count": 1
+    },
+    {
+      "kind": "HollowAssassin",
+      "name_en": "HollowAssassin",
+      "x": 44,
+      "y": 40,
+      "count": 1
+    },
+    {
+      "kind": "HollowAssassin",
+      "name_en": "HollowAssassin",
+      "x": 60,
+      "y": 50,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 2860,
-      "y": 2700,
+      "name_en": "HollowSoldier",
+      "x": 34,
+      "y": 14,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier (crossbow)",
-      "x": 2960,
-      "y": 2340,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 2540,
-      "y": 2780,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 2680,
-      "y": 2900,
-      "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "Dancer of the Boreal Valley",
-      "x": 2700,
-      "y": 2500,
-      "count": 1,
-      "note": "Triggered after killing Emma or placing basin"
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 2900,
-      "y": 3260,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
-      "x": 3100,
-      "y": 3400,
+      "name_en": "HollowSoldier",
+      "x": 60,
+      "y": 16,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 3000,
-      "y": 3380,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "Starved Hound",
-      "x": 2920,
-      "y": 3500,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "Starved Hound",
-      "x": 3280,
-      "y": 3560,
+      "name_en": "HollowSoldier",
+      "x": 44,
+      "y": 44,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier",
-      "x": 3060,
-      "y": 3660,
+      "name_en": "HollowSoldier",
+      "x": 64,
+      "y": 58,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 28,
+      "y": 68,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 72,
+      "y": 70,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 26,
+      "y": 86,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 58,
+      "y": 98,
       "count": 1
     }
   ],

@@ -410,354 +410,332 @@
   "enemies": [
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 540,
-      "y": 3540,
+      "name_en": "SerpentMan",
+      "x": 22,
+      "y": 115,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 700,
-      "y": 3660,
+      "name_en": "SerpentMan",
+      "x": 28,
+      "y": 120,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 1180,
-      "y": 2920,
+      "name_en": "SerpentMan",
+      "x": 38,
+      "y": 98,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 1380,
-      "y": 3080,
+      "name_en": "SerpentMan",
+      "x": 45,
+      "y": 108,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 1300,
-      "y": 2980,
+      "name_en": "SerpentMan",
+      "x": 42,
+      "y": 102,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 1460,
-      "y": 2860,
+      "name_en": "SerpentMan",
+      "x": 48,
+      "y": 95,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 1580,
-      "y": 2960,
+      "name_en": "SerpentMan",
+      "x": 55,
+      "y": 100,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 1540,
-      "y": 2800,
+      "name_en": "SerpentMan",
+      "x": 52,
+      "y": 88,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 1640,
-      "y": 2800,
+      "name_en": "SerpentMan",
+      "x": 58,
+      "y": 92,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 2020,
-      "y": 2700,
+      "name_en": "SerpentMan",
+      "x": 55,
+      "y": 75,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 2200,
-      "y": 2820,
+      "name_en": "SerpentMan",
+      "x": 62,
+      "y": 80,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 1980,
-      "y": 2600,
+      "name_en": "SerpentMan",
+      "x": 48,
+      "y": 68,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 2300,
-      "y": 2720,
+      "name_en": "SerpentMan",
+      "x": 65,
+      "y": 72,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 2460,
-      "y": 2900,
+      "name_en": "SerpentMan",
+      "x": 72,
+      "y": 78,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 2060,
-      "y": 2580,
+      "name_en": "SerpentMan",
+      "x": 68,
+      "y": 58,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 2160,
-      "y": 2220,
+      "name_en": "SerpentMan",
+      "x": 80,
+      "y": 48,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 2420,
-      "y": 2080,
+      "name_en": "SerpentMan",
+      "x": 75,
+      "y": 55,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 2300,
-      "y": 2340,
+      "name_en": "SerpentMan",
+      "x": 85,
+      "y": 50,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 2520,
-      "y": 2100,
+      "name_en": "SerpentMan",
+      "x": 90,
+      "y": 45,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 2620,
-      "y": 2180,
+      "name_en": "SerpentMan",
+      "x": 92,
+      "y": 48,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 2780,
-      "y": 1680,
+      "name_en": "SerpentMan",
+      "x": 95,
+      "y": 35,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 2920,
-      "y": 1620,
+      "name_en": "SerpentMan",
+      "x": 100,
+      "y": 42,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 2860,
-      "y": 1760,
+      "name_en": "SerpentMan",
+      "x": 105,
+      "y": 38,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 3340,
-      "y": 1160,
+      "name_en": "SerpentMan",
+      "x": 108,
+      "y": 28,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 3560,
-      "y": 1100,
+      "name_en": "SerpentMan",
+      "x": 118,
+      "y": 25,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 3500,
-      "y": 1240,
+      "name_en": "SerpentMan",
+      "x": 115,
+      "y": 30,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Big)",
-      "x": 3660,
-      "y": 1240,
+      "name_en": "SerpentMan",
+      "x": 120,
+      "y": 75,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Big)",
-      "x": 4100,
-      "y": 1100,
+      "name_en": "SerpentMan",
+      "x": 135,
+      "y": 28,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Big)",
-      "x": 3900,
-      "y": 1320,
+      "name_en": "SerpentMan",
+      "x": 125,
+      "y": 82,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 4040,
-      "y": 1200,
+      "name_en": "SerpentMan",
+      "x": 130,
+      "y": 35,
       "count": 1
     },
     {
       "kind": "SerpentMan",
-      "name_en": "Man-Serpent (Sword)",
-      "x": 4080,
-      "y": 1280,
+      "name_en": "SerpentMan",
+      "x": 132,
+      "y": 40,
       "count": 1
     },
     {
       "kind": "DarkMage",
-      "name_en": "Serpent-Man Sorcerer",
-      "x": 2140,
-      "y": 2260,
+      "name_en": "DarkMage",
+      "x": 72,
+      "y": 52,
       "count": 1
     },
     {
       "kind": "DarkMage",
-      "name_en": "Serpent-Man Sorcerer",
-      "x": 2500,
-      "y": 2060,
+      "name_en": "DarkMage",
+      "x": 85,
+      "y": 42,
       "count": 1
     },
     {
       "kind": "DarkMage",
-      "name_en": "Serpent-Man Sorcerer",
-      "x": 2860,
-      "y": 1720,
+      "name_en": "DarkMage",
+      "x": 98,
+      "y": 45,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard",
-      "x": 1920,
-      "y": 2640,
+      "name_en": "RockLizard (CrystalLizard)",
+      "x": 35,
+      "y": 110,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard",
-      "x": 700,
-      "y": 3620,
+      "name_en": "RockLizard (CrystalLizard)",
+      "x": 42,
+      "y": 95,
       "count": 1
     },
     {
-      "kind": "RockLizard",
-      "name_en": "Rock Lizard",
-      "x": 1080,
-      "y": 3500,
+      "kind": "CrystalLizard",
+      "name_en": "RockLizard (CrystalLizard)",
+      "x": 118,
+      "y": 20,
       "count": 1
     },
     {
-      "kind": "RockLizard",
-      "name_en": "Rock Lizard",
-      "x": 1300,
-      "y": 2880,
+      "kind": "CrystalLizard",
+      "name_en": "RockLizard (CrystalLizard)",
+      "x": 130,
+      "y": 25,
       "count": 1
     },
     {
-      "kind": "RockLizard",
-      "name_en": "Rock Lizard",
-      "x": 3560,
-      "y": 1160,
+      "kind": "CrystalLizard",
+      "name_en": "RockLizard (CrystalLizard)",
+      "x": 142,
+      "y": 85,
       "count": 1
     },
     {
-      "kind": "RockLizard",
-      "name_en": "Rock Lizard",
-      "x": 3940,
-      "y": 1220,
+      "kind": "CrystalLizard",
+      "name_en": "RockLizard (CrystalLizard)",
+      "x": 112,
+      "y": 72,
       "count": 1
     },
     {
-      "kind": "RockLizard",
-      "name_en": "Rock Lizard",
-      "x": 4560,
-      "y": 900,
+      "kind": "CrystalLizard",
+      "name_en": "RockLizard (CrystalLizard)",
+      "x": 148,
+      "y": 95,
       "count": 1
     },
     {
-      "kind": "RockLizard",
-      "name_en": "Rock Lizard",
-      "x": 3400,
-      "y": 1740,
+      "kind": "CrystalLizard",
+      "name_en": "CrystalLizard",
+      "x": 50,
+      "y": 72,
       "count": 1
     },
     {
-      "kind": "RockLizard",
-      "name_en": "Rock Lizard",
-      "x": 4760,
-      "y": 1060,
+      "kind": "CrystalLizard",
+      "name_en": "CrystalLizard",
+      "x": 28,
+      "y": 118,
       "count": 1
     },
     {
-      "kind": "DrakebloodKnight",
-      "name_en": "Drakeblood Knight",
-      "x": 3320,
-      "y": 1260,
+      "kind": "Knight",
+      "name_en": "DrakebloodKnight (Knight)",
+      "x": 110,
+      "y": 30,
       "count": 1
     },
     {
-      "kind": "DrakebloodKnight",
-      "name_en": "Drakeblood Knight",
-      "x": 4560,
-      "y": 940,
+      "kind": "Knight",
+      "name_en": "DrakebloodKnight (Knight)",
+      "x": 142,
+      "y": 88,
       "count": 1
     },
     {
-      "kind": "DrakebloodKnight",
-      "name_en": "Drakeblood Knight",
-      "x": 2260,
-      "y": 2280,
+      "kind": "Knight",
+      "name_en": "DrakebloodKnight (Knight)",
+      "x": 78,
+      "y": 52,
       "count": 1
     },
     {
-      "kind": "HavelKnight",
-      "name_en": "Havel Knight",
-      "x": 4060,
-      "y": 780,
+      "kind": "WingedKnight",
+      "name_en": "HavelKnight (WingedKnight)",
+      "x": 128,
+      "y": 70,
       "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "Ancient Wyvern",
-      "x": 2080,
-      "y": 2680,
-      "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "Wyvern",
-      "x": 2280,
-      "y": 2800,
-      "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "Nameless King",
-      "x": 4200,
-      "y": 960,
-      "count": 1,
-      "note": "Boss entity in arena"
     }
   ],
   "items": [

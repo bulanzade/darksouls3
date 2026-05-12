@@ -348,264 +348,284 @@
   },
   "enemies": [
     {
-      "kind": "GrandArchivesScholar",
-      "name_en": "Grand Archives Scholar (entry hall)",
-      "x": 680,
-      "y": 5340,
+      "kind": "DarkMage",
+      "name_en": "DarkMage",
+      "x": 45,
+      "y": 130,
       "count": 1
     },
     {
-      "kind": "HollowSlave",
-      "name_en": "Hollow Slave (entry ambush)",
-      "x": 620,
-      "y": 5400,
+      "kind": "DarkMage",
+      "name_en": "DarkMage",
+      "x": 62,
+      "y": 95,
       "count": 1
     },
     {
-      "kind": "GrandArchivesScholar",
-      "name_en": "Grand Archives Scholar (first floor)",
-      "x": 1020,
-      "y": 4760,
+      "kind": "DarkMage",
+      "name_en": "DarkMage",
+      "x": 85,
+      "y": 40,
       "count": 1
     },
     {
-      "kind": "GrandArchivesScholar",
-      "name_en": "Grand Archives Scholar (corridor)",
-      "x": 1060,
-      "y": 4620,
+      "kind": "DarkMage",
+      "name_en": "DarkMage",
+      "x": 75,
+      "y": 28,
       "count": 1
     },
     {
-      "kind": "GrandArchivesScholar",
-      "name_en": "Grand Archives Scholar (corridor 2)",
-      "x": 1160,
-      "y": 4500,
+      "kind": "DarkMage",
+      "name_en": "DarkMage",
+      "x": 50,
+      "y": 100,
       "count": 1
     },
     {
-      "kind": "GrandArchivesScholar",
-      "name_en": "Grand Archives Scholar (corridor 3)",
-      "x": 1140,
-      "y": 4600,
+      "kind": "DarkMage",
+      "name_en": "DarkMage",
+      "x": 55,
+      "y": 75,
       "count": 1
     },
     {
-      "kind": "HollowSlave",
-      "name_en": "Hollow Slave (first floor)",
-      "x": 1080,
-      "y": 4700,
+      "kind": "DarkMage",
+      "name_en": "DarkMage",
+      "x": 48,
+      "y": 85,
       "count": 1
     },
     {
-      "kind": "HollowSlave",
-      "name_en": "Hollow Slave (corridor)",
-      "x": 1240,
-      "y": 4540,
+      "kind": "DarkMage",
+      "name_en": "DarkMage",
+      "x": 72,
+      "y": 55,
       "count": 1
     },
     {
-      "kind": "GrandArchivesScholar",
-      "name_en": "Grand Archives Scholar (wax pool)",
-      "x": 1420,
-      "y": 3500,
+      "kind": "DarkMage",
+      "name_en": "DarkMage",
+      "x": 62,
+      "y": 112,
       "count": 1
     },
     {
-      "kind": "GrandArchivesScholar",
-      "name_en": "Grand Archives Scholar (wax pool 2)",
-      "x": 1420,
-      "y": 3640,
+      "kind": "Thrall",
+      "name_en": "HollowSlave (Thrall)",
+      "x": 42,
+      "y": 132,
       "count": 1
     },
     {
-      "kind": "GrandArchivesScholar",
-      "name_en": "Grand Archives Scholar (wax pool 3)",
-      "x": 1420,
-      "y": 3580,
+      "kind": "Thrall",
+      "name_en": "HollowSlave (Thrall)",
+      "x": 55,
+      "y": 98,
       "count": 1
     },
     {
-      "kind": "HollowSlave",
-      "name_en": "Hollow Slave (wax pool)",
-      "x": 1500,
-      "y": 3600,
+      "kind": "Thrall",
+      "name_en": "HollowSlave (Thrall)",
+      "x": 68,
+      "y": 108,
       "count": 1
     },
     {
-      "kind": "HollowSlave",
-      "name_en": "Hollow Slave (wax pool 2)",
-      "x": 1420,
-      "y": 3460,
+      "kind": "Thrall",
+      "name_en": "HollowSlave (Thrall)",
+      "x": 75,
+      "y": 50,
       "count": 1
     },
     {
-      "kind": "BorealOutriderKnight",
-      "name_en": "Boreal Outrider Knight (frozen)",
-      "x": 1220,
-      "y": 4460,
+      "kind": "Thrall",
+      "name_en": "HollowSlave (Thrall)",
+      "x": 62,
+      "y": 65,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "HollowSlave (Thrall)",
+      "x": 40,
+      "y": 138,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "HollowSlave (Thrall)",
+      "x": 52,
+      "y": 92,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "HollowSlave (Thrall)",
+      "x": 58,
+      "y": 80,
       "count": 1
     },
     {
       "kind": "LothricKnight",
-      "name_en": "Lothric Knight (upper floor)",
-      "x": 1460,
-      "y": 3740,
+      "name_en": "LothricKnight",
+      "x": 70,
+      "y": 92,
       "count": 1
     },
     {
       "kind": "LothricKnight",
-      "name_en": "Lothric Knight (upper floor 2)",
-      "x": 1560,
-      "y": 3620,
+      "name_en": "LothricKnight",
+      "x": 88,
+      "y": 45,
       "count": 1
     },
     {
-      "kind": "AscendedWingedKnight",
-      "name_en": "Ascended Winged Knight (rooftop)",
-      "x": 1640,
-      "y": 3480,
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 55,
+      "y": 65,
       "count": 1
     },
     {
-      "kind": "AscendedWingedKnight",
-      "name_en": "Ascended Winged Knight (rooftop 2)",
-      "x": 1800,
-      "y": 3480,
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 78,
+      "y": 48,
       "count": 1
     },
     {
-      "kind": "AscendedWingedKnight",
-      "name_en": "Ascended Winged Knight (rooftop 3)",
-      "x": 1520,
-      "y": 3480,
+      "kind": "WingedKnight",
+      "name_en": "AscendedWingedKnight (WingedKnight)",
+      "x": 82,
+      "y": 38,
+      "count": 1
+    },
+    {
+      "kind": "WingedKnight",
+      "name_en": "AscendedWingedKnight (WingedKnight)",
+      "x": 92,
+      "y": 35,
+      "count": 1
+    },
+    {
+      "kind": "WingedKnight",
+      "name_en": "AscendedWingedKnight (WingedKnight)",
+      "x": 75,
+      "y": 32,
+      "count": 1
+    },
+    {
+      "kind": "WingedKnight",
+      "name_en": "BorealOutriderKnight (WingedKnight)",
+      "x": 58,
+      "y": 68,
       "count": 1
     },
     {
       "kind": "Gargoyle",
-      "name_en": "Gargoyle (rooftop)",
-      "x": 1960,
-      "y": 2520,
+      "name_en": "Gargoyle",
+      "x": 68,
+      "y": 12,
       "count": 1
     },
     {
       "kind": "Gargoyle",
-      "name_en": "Gargoyle (rooftop 2)",
-      "x": 2240,
-      "y": 2560,
+      "name_en": "Gargoyle",
+      "x": 82,
+      "y": 15,
       "count": 1
     },
     {
       "kind": "Gargoyle",
-      "name_en": "Gargoyle (rooftop 3)",
-      "x": 2440,
-      "y": 2480,
+      "name_en": "Gargoyle",
+      "x": 95,
+      "y": 10,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard (first floor)",
-      "x": 1120,
-      "y": 4460,
+      "name_en": "CrystalLizard",
+      "x": 52,
+      "y": 85,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard (upper)",
-      "x": 1420,
-      "y": 3540,
+      "name_en": "CrystalLizard",
+      "x": 48,
+      "y": 72,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard (rooftop)",
-      "x": 2180,
-      "y": 2580,
+      "name_en": "CrystalLizard",
+      "x": 65,
+      "y": 55,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard (rooftop 2)",
-      "x": 2360,
-      "y": 2700,
+      "name_en": "CrystalLizard",
+      "x": 88,
+      "y": 22,
       "count": 1
     },
     {
-      "kind": "MiniBoss",
-      "name_en": "Black Hand (Faraam warrior)",
-      "x": 1060,
-      "y": 4460,
+      "kind": "Thrall",
+      "name_en": "HollowSlave (Thrall)",
+      "x": 112,
+      "y": 8,
       "count": 1
     },
     {
-      "kind": "MiniBoss",
-      "name_en": "Black Hand (dual katana)",
-      "x": 1040,
-      "y": 4600,
+      "kind": "Thrall",
+      "name_en": "HollowSlave (Thrall)",
+      "x": 114,
+      "y": 10,
       "count": 1
     },
     {
-      "kind": "HollowSlave",
-      "name_en": "Hollow Slave (bridge gauntlet)",
-      "x": 2620,
-      "y": 2460,
+      "kind": "Thrall",
+      "name_en": "HollowSlave (Thrall)",
+      "x": 119,
+      "y": 15,
       "count": 1
     },
     {
-      "kind": "HollowSlave",
-      "name_en": "Hollow Slave (bridge gauntlet 2)",
-      "x": 2660,
-      "y": 2500,
+      "kind": "Thrall",
+      "name_en": "HollowSlave (Thrall)",
+      "x": 121,
+      "y": 18,
       "count": 1
     },
     {
-      "kind": "HollowSlave",
-      "name_en": "Hollow Slave (bridge gauntlet 3)",
-      "x": 2740,
-      "y": 2600,
+      "kind": "Thrall",
+      "name_en": "HollowSlave (Thrall)",
+      "x": 125,
+      "y": 7,
       "count": 1
     },
     {
-      "kind": "HollowSlave",
-      "name_en": "Hollow Slave (bridge gauntlet 4)",
-      "x": 2800,
-      "y": 2680,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "Hollow Slave (bridge gauntlet 5)",
-      "x": 2880,
-      "y": 2480,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "Hollow Slave (bridge gauntlet 6)",
-      "x": 2920,
-      "y": 2560,
+      "kind": "Thrall",
+      "name_en": "HollowSlave (Thrall)",
+      "x": 127,
+      "y": 12,
       "count": 1
     },
     {
       "kind": "LothricKnight",
-      "name_en": "Lothric Knight (bridge)",
-      "x": 2940,
-      "y": 2520,
+      "name_en": "LothricKnight",
+      "x": 130,
+      "y": 10,
       "count": 1
     },
     {
       "kind": "LothricKnight",
-      "name_en": "Lothric Knight (bridge 2)",
-      "x": 2940,
-      "y": 2600,
+      "name_en": "LothricKnight",
+      "x": 132,
+      "y": 15,
       "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "Twin Princes",
-      "x": 2900,
-      "y": 700,
-      "count": 1,
-      "note": "Boss entity in arena"
     }
   ],
   "items": [

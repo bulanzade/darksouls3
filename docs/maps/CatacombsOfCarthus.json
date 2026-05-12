@@ -150,212 +150,296 @@
   "enemies": [
     {
       "kind": "Skeleton",
-      "name_en": "Skeleton (entry stairs)",
-      "x": 480,
-      "y": 500,
+      "name_en": "Skeleton",
+      "x": 18,
+      "y": 18,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "Skeleton (entry)",
-      "x": 550,
-      "y": 550,
+      "name_en": "Skeleton",
+      "x": 22,
+      "y": 20,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "Skeleton (entry lower)",
-      "x": 650,
-      "y": 650,
+      "name_en": "SkeletonSwordman (Skeleton)",
+      "x": 16,
+      "y": 22,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "Skeleton (first corridor)",
-      "x": 1200,
-      "y": 800,
+      "name_en": "Skeleton",
+      "x": 25,
+      "y": 28,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "Skeleton (ball corridor)",
-      "x": 1350,
-      "y": 850,
+      "name_en": "Skeleton",
+      "x": 35,
+      "y": 30,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "Skeleton (ball corridor 2)",
-      "x": 1500,
-      "y": 900,
+      "name_en": "Skeleton",
+      "x": 42,
+      "y": 26,
       "count": 1
     },
     {
-      "kind": "MiniBoss",
-      "name_en": "Skeleton Ball (rolling trap)",
-      "x": 1400,
-      "y": 950,
-      "count": 1
-    },
-    {
-      "kind": "Skeleton",
-      "name_en": "Skeleton (upper tomb)",
-      "x": 1800,
-      "y": 1300,
+      "kind": "Archer",
+      "name_en": "Archer",
+      "x": 20,
+      "y": 21,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "Skeleton (upper tomb 2)",
-      "x": 1950,
-      "y": 1350,
+      "name_en": "SkeletonSwordman (Skeleton)",
+      "x": 36,
+      "y": 22,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "Skeleton (upper tomb 3)",
-      "x": 2100,
-      "y": 1400,
+      "name_en": "SkeletonSwordman (Skeleton)",
+      "x": 50,
+      "y": 21,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "Skeleton (upper tomb 4)",
-      "x": 2250,
-      "y": 1450,
-      "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "Carthus Worm (elite skeleton)",
-      "x": 2000,
-      "y": 1500,
+      "name_en": "Skeleton",
+      "x": 48,
+      "y": 32,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "Skeleton (ledge)",
-      "x": 1700,
-      "y": 1600,
+      "name_en": "Skeleton",
+      "x": 52,
+      "y": 34,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "Skeleton (ledge 2)",
-      "x": 2200,
-      "y": 1700,
-      "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "Skeleton Ball (second)",
-      "x": 2600,
-      "y": 2000,
+      "name_en": "Skeleton",
+      "x": 60,
+      "y": 30,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "Skeleton (second ball area)",
-      "x": 2450,
-      "y": 1950,
+      "name_en": "SkeletonSwordman (Skeleton)",
+      "x": 64,
+      "y": 32,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "Skeleton (second ball 2)",
-      "x": 2700,
-      "y": 2050,
+      "name_en": "Skeleton",
+      "x": 20,
+      "y": 48,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 28,
+      "y": 52,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "SkeletonSwordman (Skeleton)",
+      "x": 24,
+      "y": 55,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "SkeletonSwordman (Skeleton)",
+      "x": 32,
+      "y": 50,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 35,
+      "y": 56,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 40,
+      "y": 60,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 45,
+      "y": 65,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 32,
+      "y": 58,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 38,
+      "y": 62,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 58,
+      "y": 66,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 63,
+      "y": 70,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rat (under bridge)",
-      "x": 2800,
-      "y": 2150,
+      "name_en": "Rat",
+      "x": 20,
+      "y": 78,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rat (under bridge 2)",
-      "x": 2850,
-      "y": 2200,
+      "name_en": "Rat",
+      "x": 25,
+      "y": 82,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rat (under bridge 3)",
-      "x": 2900,
-      "y": 2100,
-      "count": 1
-    },
-    {
-      "kind": "Skeleton",
-      "name_en": "Skeleton (rope bridge)",
-      "x": 3000,
-      "y": 2500,
-      "count": 1
-    },
-    {
-      "kind": "Skeleton",
-      "name_en": "Skeleton (bridge end)",
-      "x": 3300,
-      "y": 2600,
-      "count": 1
-    },
-    {
-      "kind": "Skeleton",
-      "name_en": "Skeleton (wolnir approach)",
-      "x": 3450,
-      "y": 2900,
-      "count": 1
-    },
-    {
-      "kind": "Skeleton",
-      "name_en": "Skeleton (ladder area)",
-      "x": 1650,
-      "y": 2900,
-      "count": 1
-    },
-    {
-      "kind": "Skeleton",
-      "name_en": "Skeleton (ladder descent)",
-      "x": 1800,
-      "y": 3000,
+      "name_en": "Rat",
+      "x": 30,
+      "y": 88,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rat (ladder tunnels)",
-      "x": 1900,
-      "y": 3100,
+      "name_en": "Rat",
+      "x": 18,
+      "y": 85,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rat (ladder tunnels 2)",
-      "x": 2000,
-      "y": 3150,
+      "name_en": "Rat",
+      "x": 22,
+      "y": 92,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 28,
+      "y": 95,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 35,
+      "y": 98,
+      "count": 1
+    },
+    {
+      "kind": "Dog",
+      "name_en": "LesserCrab (Dog)",
+      "x": 22,
+      "y": 96,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard (upper tomb)",
-      "x": 2350,
-      "y": 1550,
+      "name_en": "CrystalLizard",
+      "x": 48,
+      "y": 50,
+      "count": 1
+    },
+    {
+      "kind": "BlackKnight",
+      "name_en": "BlackKnight",
+      "x": 80,
+      "y": 60,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "Skeleton Swordsman (bridge approach)",
-      "x": 3200,
-      "y": 2400,
+      "name_en": "Skeleton",
+      "x": 90,
+      "y": 70,
       "count": 1
     },
     {
       "kind": "Skeleton",
-      "name_en": "Skeleton Swordsman (bridge approach 2)",
-      "x": 3350,
-      "y": 2500,
+      "name_en": "SkeletonSwordman (Skeleton)",
+      "x": 95,
+      "y": 66,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 110,
+      "y": 85,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 115,
+      "y": 90,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 120,
+      "y": 95,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 130,
+      "y": 92,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 135,
+      "y": 98,
+      "count": 1
+    },
+    {
+      "kind": "Archer",
+      "name_en": "Archer",
+      "x": 125,
+      "y": 88,
       "count": 1
     }
   ],

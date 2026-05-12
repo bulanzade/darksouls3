@@ -251,417 +251,423 @@
   "enemies": [
     {
       "kind": "Ghru",
-      "name_en": "Ghru (first torch NW 1)",
-      "x": 1180,
-      "y": 960,
+      "name_en": "Ghru",
+      "x": 35,
+      "y": 45,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (first torch NW 2)",
-      "x": 1280,
-      "y": 1000,
+      "name_en": "Ghru",
+      "x": 40,
+      "y": 48,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (first torch NW 3)",
-      "x": 1400,
-      "y": 1040,
+      "name_en": "Ghru",
+      "x": 48,
+      "y": 50,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (swamp approach 1)",
-      "x": 1120,
-      "y": 1060,
+      "name_en": "Ghru",
+      "x": 33,
+      "y": 50,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (swamp approach 2)",
-      "x": 1340,
-      "y": 1120,
+      "name_en": "Ghru",
+      "x": 42,
+      "y": 55,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (swamp approach 3)",
-      "x": 1380,
-      "y": 1160,
+      "name_en": "Ghru",
+      "x": 46,
+      "y": 58,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (center torch 1)",
-      "x": 2060,
-      "y": 1570,
+      "name_en": "Ghru",
+      "x": 68,
+      "y": 48,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (center torch 2)",
-      "x": 2160,
-      "y": 1580,
+      "name_en": "Ghru",
+      "x": 72,
+      "y": 52,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (center torch 3)",
-      "x": 2240,
-      "y": 1640,
+      "name_en": "Ghru",
+      "x": 75,
+      "y": 55,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (swamp mid 1)",
-      "x": 1960,
-      "y": 1660,
+      "name_en": "Ghru",
+      "x": 64,
+      "y": 55,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (swamp mid 2)",
-      "x": 2120,
-      "y": 1700,
+      "name_en": "Ghru",
+      "x": 70,
+      "y": 58,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (right torch 1)",
-      "x": 2920,
-      "y": 1300,
+      "name_en": "Ghru",
+      "x": 95,
+      "y": 42,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (right torch 2)",
-      "x": 3020,
-      "y": 1360,
+      "name_en": "Ghru",
+      "x": 100,
+      "y": 45,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (right torch 3)",
-      "x": 2860,
-      "y": 1400,
+      "name_en": "Ghru",
+      "x": 92,
+      "y": 48,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (right torch 4)",
-      "x": 2980,
-      "y": 1460,
+      "name_en": "Ghru",
+      "x": 98,
+      "y": 52,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (right torch 5)",
-      "x": 3140,
-      "y": 1420,
+      "name_en": "Ghru",
+      "x": 105,
+      "y": 50,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (keep ruins 1)",
-      "x": 2360,
-      "y": 2240,
+      "name_en": "Ghru",
+      "x": 65,
+      "y": 72,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (keep ruins 2)",
-      "x": 2520,
-      "y": 2300,
+      "name_en": "Ghru",
+      "x": 72,
+      "y": 76,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (keep ruins 3)",
-      "x": 2680,
-      "y": 2200,
+      "name_en": "Ghru",
+      "x": 78,
+      "y": 70,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (keep ruins 4)",
-      "x": 2440,
-      "y": 2180,
+      "name_en": "Ghru",
+      "x": 68,
+      "y": 68,
       "count": 1
     },
     {
       "kind": "Ghru",
-      "name_en": "Ghru (keep ruins 5)",
-      "x": 2580,
-      "y": 2160,
+      "name_en": "Ghru",
+      "x": 74,
+      "y": 65,
       "count": 1
     },
     {
       "kind": "DarkMage",
-      "name_en": "Ghru Shaman (casts poison, keep ruins)",
-      "x": 2480,
-      "y": 2260,
+      "name_en": "DarkMage",
+      "x": 70,
+      "y": 74,
       "count": 1
     },
     {
       "kind": "Darkwraith",
-      "name_en": "Darkwraith (SE patrol 1)",
-      "x": 3280,
-      "y": 2480,
+      "name_en": "Darkwraith",
+      "x": 100,
+      "y": 88,
       "count": 1
     },
     {
       "kind": "Darkwraith",
-      "name_en": "Darkwraith (SE patrol 2)",
-      "x": 3480,
-      "y": 2600,
+      "name_en": "Darkwraith",
+      "x": 108,
+      "y": 95,
       "count": 1
     },
     {
       "kind": "Darkwraith",
-      "name_en": "Darkwraith (near arena stairs)",
-      "x": 3960,
-      "y": 2880,
+      "name_en": "Darkwraith",
+      "x": 125,
+      "y": 108,
       "count": 1
     },
     {
       "kind": "Darkwraith",
-      "name_en": "Darkwraith (wooded area)",
-      "x": 2820,
-      "y": 2200,
+      "name_en": "Darkwraith",
+      "x": 88,
+      "y": 75,
       "count": 1
     },
     {
       "kind": "Darkwraith",
-      "name_en": "Darkwraith (fighting enemies)",
-      "x": 3700,
-      "y": 2440,
+      "name_en": "Darkwraith",
+      "x": 115,
+      "y": 90,
       "count": 1
     },
     {
       "kind": "Basilisk",
-      "name_en": "Basilisk (curse cave 1)",
-      "x": 1170,
-      "y": 1335,
+      "name_en": "Basilisk",
+      "x": 24,
+      "y": 70,
       "count": 1
     },
     {
       "kind": "Basilisk",
-      "name_en": "Basilisk (curse cave 2)",
-      "x": 1210,
-      "y": 1365,
+      "name_en": "Basilisk",
+      "x": 30,
+      "y": 75,
       "count": 1
     },
     {
       "kind": "Basilisk",
-      "name_en": "Basilisk (curse cave 3)",
-      "x": 1270,
-      "y": 1360,
+      "name_en": "Basilisk",
+      "x": 32,
+      "y": 68,
       "count": 1
     },
     {
       "kind": "Basilisk",
-      "name_en": "Basilisk (curse cave 4)",
-      "x": 1290,
-      "y": 1360,
+      "name_en": "Basilisk",
+      "x": 28,
+      "y": 78,
       "count": 1
     },
     {
       "kind": "Basilisk",
-      "name_en": "Basilisk (deep swamp 5)",
-      "x": 1370,
-      "y": 1380,
+      "name_en": "Basilisk",
+      "x": 34,
+      "y": 72,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rotten Slug (leech building)",
-      "x": 1340,
-      "y": 1350,
+      "name_en": "Rat",
+      "x": 42,
+      "y": 82,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rotten Slug (leech building 2)",
-      "x": 1730,
-      "y": 2160,
+      "name_en": "Rat",
+      "x": 45,
+      "y": 85,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rotten Slug (ladder base)",
-      "x": 1730,
-      "y": 2260,
+      "name_en": "Rat",
+      "x": 50,
+      "y": 88,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rotten Slug (ladder base 2)",
-      "x": 1730,
-      "y": 2340,
+      "name_en": "Rat",
+      "x": 48,
+      "y": 105,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rotten Slug (deep swamp 1)",
-      "x": 1240,
-      "y": 1350,
+      "name_en": "Rat",
+      "x": 52,
+      "y": 110,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rotten Slug (deep swamp 2)",
-      "x": 1380,
-      "y": 1350,
+      "name_en": "Rat",
+      "x": 38,
+      "y": 60,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rotten Slug (deep swamp 3)",
-      "x": 1640,
-      "y": 1350,
+      "name_en": "Rat",
+      "x": 44,
+      "y": 65,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rotten Slug (swamp scattered 1)",
-      "x": 1820,
-      "y": 1900,
+      "name_en": "Rat",
+      "x": 55,
+      "y": 70,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rotten Slug (swamp scattered 2)",
-      "x": 2020,
-      "y": 1960,
+      "name_en": "Rat",
+      "x": 62,
+      "y": 75,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rotten Slug (swamp scattered 3)",
-      "x": 2420,
-      "y": 1900,
+      "name_en": "Rat",
+      "x": 70,
+      "y": 80,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rotten Slug (wall edge 1)",
-      "x": 1750,
-      "y": 2280,
+      "name_en": "Rat",
+      "x": 85,
+      "y": 75,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rotten Slug (wall edge 2)",
-      "x": 1720,
-      "y": 2380,
+      "name_en": "Rat",
+      "x": 40,
+      "y": 90,
       "count": 1
     },
     {
-      "kind": "Ghru",
-      "name_en": "Elder Ghru (Poison Gem trio 1)",
-      "x": 1820,
-      "y": 1620,
-      "count": 1
-    },
-    {
-      "kind": "Ghru",
-      "name_en": "Elder Ghru (Poison Gem trio 2)",
-      "x": 1940,
-      "y": 1740,
-      "count": 1
-    },
-    {
-      "kind": "Ghru",
-      "name_en": "Elder Ghru (Poison Gem trio 3)",
-      "x": 1900,
-      "y": 1900,
-      "count": 1
-    },
-    {
-      "kind": "Ghru",
-      "name_en": "Elder Ghru (near gate)",
-      "x": 3560,
-      "y": 2600,
-      "count": 1
-    },
-    {
-      "kind": "Ghru",
-      "name_en": "Elder Ghru (second torch)",
-      "x": 2560,
-      "y": 1570,
-      "count": 1
-    },
-    {
-      "kind": "Ghru",
-      "name_en": "Elder Ghru (third torch ramp)",
-      "x": 2790,
-      "y": 1400,
+      "kind": "Rat",
+      "name_en": "Rat",
+      "x": 56,
+      "y": 95,
       "count": 1
     },
     {
       "kind": "GiantSlave",
-      "name_en": "Great Crab (central swamp, drops Lingering Dragoncrest Ring)",
-      "x": 2120,
-      "y": 1580,
+      "name_en": "GiantHollow (GiantSlave)",
+      "x": 55,
+      "y": 62,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "GiantHollow (GiantSlave)",
+      "x": 60,
+      "y": 68,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "GiantHollow (GiantSlave)",
+      "x": 58,
+      "y": 75,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "GiantHollow (GiantSlave)",
+      "x": 110,
+      "y": 100,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "GiantHollow (GiantSlave)",
+      "x": 82,
+      "y": 60,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "GiantHollow (GiantSlave)",
+      "x": 90,
+      "y": 55,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "GiantSlave",
+      "x": 65,
+      "y": 62,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Assassin",
+      "x": 115,
+      "y": 95,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Assassin",
+      "x": 120,
+      "y": 100,
+      "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "DarkMage",
+      "x": 118,
+      "y": 98,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard (near gate)",
-      "x": 2720,
-      "y": 2140,
+      "name_en": "CrystalLizard",
+      "x": 85,
+      "y": 82,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard (Old Wolf illusory wall)",
-      "x": 1730,
-      "y": 2320,
+      "name_en": "CrystalLizard",
+      "x": 48,
+      "y": 112,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard (dragon corpse 1)",
-      "x": 3940,
-      "y": 2540,
+      "name_en": "CrystalLizard",
+      "x": 122,
+      "y": 95,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard (dragon corpse 2)",
-      "x": 4100,
-      "y": 2620,
+      "name_en": "CrystalLizard",
+      "x": 128,
+      "y": 98,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard (stone bridge ramp)",
-      "x": 1760,
-      "y": 1680,
+      "name_en": "CrystalLizard",
+      "x": 56,
+      "y": 65,
       "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "Ravenous Crystal Lizard (giant variant, near Perimeter)",
-      "x": 3520,
-      "y": 2280,
-      "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "Stray Demon (lift access, drops Soul of a Stray Demon)",
-      "x": 3900,
-      "y": 2620,
-      "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "Abyss Watchers",
-      "x": 4400,
-      "y": 3520,
-      "count": 1,
-      "note": "Boss entity in arena"
     }
   ],
   "items": [

@@ -251,305 +251,318 @@
   "enemies": [
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier (rampart approach)",
-      "x": 360,
-      "y": 260,
+      "name_en": "HollowSoldier",
+      "x": 22,
+      "y": 14,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier (entry stairway)",
-      "x": 500,
-      "y": 380,
+      "name_en": "HollowSoldier",
+      "x": 26,
+      "y": 22,
       "count": 1
     },
     {
       "kind": "StarvedHound",
-      "name_en": "Starved Hound (portcullis release)",
-      "x": 480,
-      "y": 440,
+      "name_en": "StarvedHound",
+      "x": 18,
+      "y": 18,
       "count": 1
     },
     {
       "kind": "StarvedHound",
-      "name_en": "Starved Hound (portcullis)",
-      "x": 560,
-      "y": 460,
+      "name_en": "StarvedHound",
+      "x": 20,
+      "y": 20,
       "count": 1
     },
     {
       "kind": "StarvedHound",
-      "name_en": "Starved Hound (portcullis side)",
-      "x": 380,
-      "y": 390,
+      "name_en": "StarvedHound",
+      "x": 16,
+      "y": 22,
       "count": 1
     },
     {
       "kind": "PeasantHollow",
-      "name_en": "Peasant Hollow (street entrance)",
-      "x": 820,
-      "y": 780,
+      "name_en": "PeasantHollow",
+      "x": 34,
+      "y": 28,
       "count": 1
     },
     {
       "kind": "PeasantHollow",
-      "name_en": "Peasant Hollow (house corner)",
-      "x": 980,
-      "y": 960,
+      "name_en": "PeasantHollow",
+      "x": 42,
+      "y": 36,
       "count": 1
     },
     {
       "kind": "PeasantHollow",
-      "name_en": "Peasant Hollow (shortcut house)",
-      "x": 1480,
-      "y": 1080,
+      "name_en": "PeasantHollow",
+      "x": 54,
+      "y": 42,
       "count": 1
     },
     {
       "kind": "PeasantHollow",
-      "name_en": "Peasant Hollow (shortcut lower)",
-      "x": 1440,
-      "y": 1140,
+      "name_en": "PeasantHollow",
+      "x": 48,
+      "y": 44,
       "count": 1
     },
     {
       "kind": "PeasantHollow",
-      "name_en": "Peasant Hollow (bridge approach)",
-      "x": 1560,
-      "y": 990,
+      "name_en": "PeasantHollow",
+      "x": 60,
+      "y": 34,
       "count": 1
     },
     {
       "kind": "PeasantHollow",
-      "name_en": "Peasant Hollow (upper street)",
-      "x": 1640,
-      "y": 1060,
+      "name_en": "PeasantHollow",
+      "x": 66,
+      "y": 38,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier (alley ambush)",
-      "x": 880,
-      "y": 860,
+      "name_en": "HollowSoldier",
+      "x": 38,
+      "y": 32,
       "count": 1
     },
     {
       "kind": "StarvedHound",
-      "name_en": "Starved Hound (overturned coach)",
-      "x": 780,
-      "y": 1020,
+      "name_en": "StarvedHound",
+      "x": 30,
+      "y": 36,
       "count": 1
     },
     {
       "kind": "StarvedHound",
-      "name_en": "Starved Hound (near sewers)",
-      "x": 1540,
-      "y": 1060,
+      "name_en": "StarvedHound",
+      "x": 58,
+      "y": 38,
       "count": 1
     },
     {
       "kind": "StarvedHound",
-      "name_en": "Starved Hound (sewer ember guard)",
-      "x": 2300,
-      "y": 1500,
+      "name_en": "StarvedHound",
+      "x": 82,
+      "y": 50,
       "count": 1
     },
     {
       "kind": "Evangelist",
-      "name_en": "Evangelist (burning square)",
-      "x": 2100,
-      "y": 1300,
+      "name_en": "Evangelist",
+      "x": 62,
+      "y": 46,
       "count": 1
     },
     {
       "kind": "Evangelist",
-      "name_en": "Evangelist (upper square)",
-      "x": 2200,
-      "y": 1480,
+      "name_en": "Evangelist",
+      "x": 66,
+      "y": 52,
       "count": 1
     },
     {
       "kind": "Evangelist",
-      "name_en": "Evangelist (cliff path)",
-      "x": 2500,
-      "y": 1600,
+      "name_en": "Evangelist",
+      "x": 76,
+      "y": 60,
       "count": 1
     },
     {
       "kind": "Evangelist",
-      "name_en": "Evangelist (bridge area)",
-      "x": 2720,
-      "y": 1480,
+      "name_en": "Evangelist",
+      "x": 86,
+      "y": 54,
       "count": 1
     },
     {
       "kind": "Thrall",
-      "name_en": "Thrall (rooftop drop ambush)",
-      "x": 1500,
-      "y": 980,
+      "name_en": "Thrall",
+      "x": 56,
+      "y": 30,
       "count": 1
     },
     {
       "kind": "Thrall",
-      "name_en": "Thrall (ceiling drop, house)",
-      "x": 1900,
-      "y": 1380,
+      "name_en": "Thrall",
+      "x": 72,
+      "y": 50,
       "count": 1
     },
     {
       "kind": "Thrall",
-      "name_en": "Thrall (house rafter)",
-      "x": 1400,
-      "y": 1060,
+      "name_en": "Thrall",
+      "x": 46,
+      "y": 38,
       "count": 1
     },
     {
       "kind": "Thrall",
-      "name_en": "Thrall (bridge rafter)",
-      "x": 2560,
-      "y": 1560,
+      "name_en": "Thrall",
+      "x": 80,
+      "y": 58,
       "count": 1
     },
     {
       "kind": "Thrall",
-      "name_en": "Thrall (building interior)",
-      "x": 1460,
-      "y": 1020,
+      "name_en": "Thrall",
+      "x": 50,
+      "y": 36,
       "count": 1
     },
     {
       "kind": "Thrall",
-      "name_en": "Thrall (ceiling ambush)",
-      "x": 1700,
-      "y": 1200,
+      "name_en": "Thrall",
+      "x": 64,
+      "y": 42,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier (cliff path upper)",
-      "x": 3000,
-      "y": 1060,
+      "name_en": "HollowSoldier",
+      "x": 90,
+      "y": 42,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier (cliff path)",
-      "x": 3100,
-      "y": 1100,
+      "name_en": "HollowSoldier",
+      "x": 96,
+      "y": 44,
       "count": 1
     },
     {
       "kind": "PeasantHollow",
-      "name_en": "Peasant Hollow (cliff edge)",
-      "x": 3060,
-      "y": 1200,
+      "name_en": "PeasantHollow",
+      "x": 94,
+      "y": 50,
       "count": 1
     },
     {
       "kind": "FireDemon",
-      "name_en": "Fire Demon (plaza center)",
-      "x": 3580,
-      "y": 1560,
+      "name_en": "FireDemon",
+      "x": 102,
+      "y": 62,
       "count": 1
     },
     {
       "kind": "PeasantHollow",
-      "name_en": "Peasant Hollow (cliff underside)",
-      "x": 3200,
-      "y": 2280,
+      "name_en": "PeasantHollow",
+      "x": 58,
+      "y": 82,
       "count": 1
     },
     {
       "kind": "PeasantHollow",
-      "name_en": "Peasant Hollow (cliff lower)",
-      "x": 3380,
-      "y": 2360,
+      "name_en": "PeasantHollow",
+      "x": 68,
+      "y": 86,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier (cliff passage)",
-      "x": 3340,
-      "y": 2260,
+      "name_en": "HollowSoldier",
+      "x": 64,
+      "y": 78,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rat (sewer tunnel 1)",
-      "x": 2740,
-      "y": 2080,
+      "name_en": "Rat",
+      "x": 78,
+      "y": 76,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rat (sewer tunnel 2)",
-      "x": 2780,
-      "y": 2120,
+      "name_en": "Rat",
+      "x": 80,
+      "y": 78,
       "count": 1
     },
     {
       "kind": "Rat",
-      "name_en": "Rat (sewer tunnel 3)",
-      "x": 2820,
-      "y": 2160,
+      "name_en": "Rat",
+      "x": 82,
+      "y": 80,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Big Rat (sewer depths, drops Bloodbite Ring)",
-      "x": 2860,
-      "y": 2080,
+      "kind": "Dog",
+      "name_en": "Dog",
+      "x": 84,
+      "y": 76,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier (path to pit)",
-      "x": 2740,
-      "y": 2140,
+      "name_en": "HollowSoldier",
+      "x": 78,
+      "y": 78,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "Hollow Soldier (lower path)",
-      "x": 2860,
-      "y": 2320,
+      "name_en": "HollowSoldier",
+      "x": 84,
+      "y": 88,
       "count": 1
     },
     {
       "kind": "Thrall",
-      "name_en": "Thrall (pit approach)",
-      "x": 2800,
-      "y": 2200,
+      "name_en": "Thrall",
+      "x": 82,
+      "y": 82,
       "count": 1
     },
     {
       "kind": "GiantSlave",
-      "name_en": "Giant Slave (atop tower, shoots great arrows)",
-      "x": 3020,
-      "y": 900,
+      "name_en": "GiantSlave",
+      "x": 52,
+      "y": 22,
       "count": 1
     },
     {
-      "kind": "MiniBoss",
-      "name_en": "Holy Knight Hodrick (Mad Spirit invasion near Dilapidated Bridge)",
-      "x": 2560,
-      "y": 1780,
+      "kind": "PeasantHollow",
+      "name_en": "PeasantHollow",
+      "x": 146,
+      "y": 52,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 140,
+      "y": 52,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 142,
+      "y": 54,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 144,
+      "y": 48,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard (cliff path near Hodrick area)",
-      "x": 2960,
-      "y": 1280,
+      "name_en": "CrystalLizard",
+      "x": 112,
+      "y": 46,
       "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "Curse-rotted Greatwood",
-      "x": 3000,
-      "y": 3380,
-      "count": 1,
-      "note": "Boss entity in arena"
     }
   ],
   "items": [
