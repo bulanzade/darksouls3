@@ -379,6 +379,48 @@
       "x": 56,
       "y": 84,
       "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "SilverKnight",
+      "x": 28,
+      "y": 48,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "SilverKnight",
+      "x": 58,
+      "y": 54,
+      "count": 1
+    },
+    {
+      "kind": "Deacon",
+      "name_en": "Deacon",
+      "x": 65,
+      "y": 55,
+      "count": 1
+    },
+    {
+      "kind": "Deacon",
+      "name_en": "Deacon",
+      "x": 78,
+      "y": 52,
+      "count": 1
+    },
+    {
+      "kind": "Deacon",
+      "name_en": "Deacon",
+      "x": 82,
+      "y": 58,
+      "count": 1
+    },
+    {
+      "kind": "ManGrub",
+      "name_en": "ManGrub",
+      "x": 145,
+      "y": 88,
+      "count": 1
     }
   ],
   "items": [
