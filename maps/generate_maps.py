@@ -1308,7 +1308,7 @@ def make_firelink_shrine():
         make_field("name", "String", "Ludleth of Courland"),
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#DAA520"),
-        make_field("dialogue", "String", "Peace. I am Ludleth of Courland|A Lord, yes, but little more than a cinder|I will not shirk my sworn duty"),
+        make_field("dialogue", "String", "Peace. I am Ludleth of Courland|Let me ask you this: is it not the nature of a Lord to sacrifice himself for his people?|Ah, it singeth, to the bone"),
     ]))
 
     # Blacksmith Andre — forge alcove, west wing
@@ -1316,7 +1316,7 @@ def make_firelink_shrine():
         make_field("name", "String", "Andre of Astora"),
         make_field("kind", "LocalEnum.NpcKind", "Blacksmith"),
         make_field("color", "Color", "#C0C0C0"),
-        make_field("dialogue", "String", "What do you need? Speak freely|I can reinforce your weapons|You must persist, Undead, we are one and the same"),
+        make_field("dialogue", "String", "What do you need? Speak freely|I can reinforce your weapons with titanite|Undead, we are one and the same, we must persist"),
     ]))
 
     # Shrine Handmaiden (merchant) — back-left corner of shrine
@@ -1341,7 +1341,7 @@ def make_firelink_shrine():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#2A1A3A"),
         make_field("dialogue", "String",
-            "I am Yuria of Londor, a servant of the Lord of Hollows|Thou art the Lord of Hollows|The fire has bent to thy will|Let us embrace the age of hollows, together"),
+            "Very well. I am Yuria of Londor, a servant of the Lord of Hollows|Thou art the Lord of Hollows, the fire has bent to thy will|Let us embrace the age of hollows, together|Our battle must go on, for as long as we persist"),
     ]))
 
     # Ringfinger Leonhard — gives Cracked Red Eye Orb (DS3: near lower stairway)
@@ -1350,7 +1350,7 @@ def make_firelink_shrine():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#8B0000"),
         make_field("dialogue", "String",
-            "You have a good look|I am Leonhard, I have a proposition for you|Take this Cracked Red Eye Orb|Invade and pillage the souls of others"),
+            "Fingers crossed, you have a good look|I am Leonhard, a Ringfinger. I have a proposition for you|Take this Cracked Red Eye Orb, invade and pillage the souls of others|That is what we do, after all"),
     ]))
 
     # Yoel of Londor — after recruitment (DS3: stands near lower shrine, eventually dies)
@@ -1359,7 +1359,7 @@ def make_firelink_shrine():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#3A3A4A"),
         make_field("dialogue", "String",
-            "I am Yoel of Londor, a pilgrim as they call me|I can draw out your true strength|Let me level you up|Come back when you need more"),
+            "Ahh, you're a kind soul. I am Yoel of Londor|I can draw out your true strength, the power that sleeps within thee|Accept this draw of true power|Come back when you need more"),
     ]))
 
     # Greirat — after rescue from Lothric Wall (DS3: thief merchant near lower shrine)
@@ -1368,7 +1368,7 @@ def make_firelink_shrine():
         make_field("kind", "LocalEnum.NpcKind", "Merchant"),
         make_field("color", "Color", "#5A5A5A"),
         make_field("dialogue", "String",
-            "I am Greirat of the Undead Settlement|You saved me from that cell, I owe you everything|I can steal items for you, if you like|Just leave it to old Greirat"),
+            "You saved me from that cell, I owe you everything|I am Greirat of the Undead Settlement|I can steal items for you, if you like|Just leave it to old Greirat"),
     ]))
 
     # Cornyx — after rescue from Undead Settlement (DS3: pyromancy teacher, sits near bonfire)
@@ -1377,7 +1377,7 @@ def make_firelink_shrine():
         make_field("kind", "LocalEnum.NpcKind", "Merchant"),
         make_field("color", "Color", "#8B6914"),
         make_field("dialogue", "String",
-            "I am Cornyx, a pyromancer of the Great Swamp|You freed me from my cage, and for that I am grateful|Bring me pyromancy tomes, and I shall teach you their arts|The flame is a wondrous thing"),
+            "You freed me from my cage. I am Cornyx, pyromancer of the Great Swamp|Bring me pyromancy tomes, and I shall teach you their arts|The flame is a wondrous thing, isn't it|Let it serve you well"),
     ]))
 
     # Orbeck of Vinheim — after recruitment (DS3: sorcery teacher, near upper shrine)
@@ -1386,7 +1386,7 @@ def make_firelink_shrine():
         make_field("kind", "LocalEnum.NpcKind", "Merchant"),
         make_field("color", "Color", "#7090B0"),
         make_field("dialogue", "String",
-            "I am Orbeck of Vinheim. A sorcerer, and an assassin|I shall teach you sorceries, as promised|Bring me scrolls, and I shall decipher them|But if you prove talentless, our arrangement ends"),
+            "Orbeck of Vinheim. A sorcerer, and an assassin|I shall teach you sorceries, as promised|Bring me scrolls, and I shall decipher them|But if you prove talentless, our arrangement ends"),
     ]))
 
     # Sirris of the Sunless Realms — after oath (DS3: swears knighthood near shrine)
@@ -1395,7 +1395,7 @@ def make_firelink_shrine():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#A0B0C0"),
         make_field("dialogue", "String",
-            "I am Sirris of the Sunless Realms|I have sworn an oath to serve you|I shall come to your aid whenever you need|Thank you, for accepting my knightly vows"),
+            "I am Sirris of the Sunless Realms|I have sworn a knightly oath to serve you|I shall come to your aid whenever you need|Thank you, for accepting my knightly vows"),
     ]))
 
     # --- Items (DS3 Firelink Shrine) ---
@@ -2028,7 +2028,7 @@ def make_lothric_wall():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#C0A0D0"),
         make_field("dialogue", "String",
-            "Hello, Unkindled One|I am Emma, High Priestess of Lothric|Seek the Basin of Vow, and present it to the statue|To see the Prince, and hear his tale"),
+            "Hello, Unkindled One|I am Emma, High Priestess of Lothric|Seek the Basin of Vows and present it to the statue behind me|Then you may see the Prince"),
     ]))
 
     # --- Items (DS3 High Wall of Lothric) ---
@@ -3591,7 +3591,7 @@ def make_road_of_sacrifices():
     entities.append(make_entity("Npc", 54 * 16, 30 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods silently)|(gestures toward Anri)")]))
 
     # Orbeck of Vinheim — sorcery teacher in the ruins (DS3: found in a side room of the Crucifixion Woods ruins)
-    entities.append(make_entity("Npc", 82 * 16, 60 * 16, [make_field("name", "String", "Orbeck of Vinheim"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#7090B0"), make_field("dialogue", "String", "I am Orbeck of Vinheim. A sorcerer, and an assassin|I wish to repay my debt to you|Bring me scrolls, and I shall teach you their sorceries")]))
+    entities.append(make_entity("Npc", 82 * 16, 60 * 16, [make_field("name", "String", "Orbeck of Vinheim"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#7090B0"), make_field("dialogue", "String", "Orbeck of Vinheim. A sorcerer, and an assassin|I wish to repay my debt to you|Bring me scrolls, and I shall decipher their sorceries")]))
 
     # Fog Gate to FarronKeep
     entities.append(make_entity("FogGate", 68 * 16, 134 * 16, [
