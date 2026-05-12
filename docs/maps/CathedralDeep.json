@@ -421,15 +421,15 @@
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "InfestedCorpse",
+      "name_en": "InfestedCorpse",
       "x": 36,
       "y": 84,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "InfestedCorpse",
+      "name_en": "InfestedCorpse",
       "x": 44,
       "y": 86,
       "count": 1
