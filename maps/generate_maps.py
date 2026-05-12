@@ -3836,11 +3836,11 @@ def make_farron_keep():
         ("Basilisk", 28, 78), ("Basilisk", 34, 72),                 # More basilisks in deep swamp
         # Rotten Slugs (leeches) — DS3: "group of leeches", "surrounding corpse", "at ladder base",
         # "crawling Ghru" areas, everywhere in the swamp water
-        ("Rat", 42, 82), ("Rat", 45, 85), ("Rat", 50, 88),         # Rotten Slugs near leech building
-        ("Rat", 48, 105), ("Rat", 52, 110),                         # Rotten Slugs at ladder base
-        ("Rat", 38, 60), ("Rat", 44, 65), ("Rat", 55, 70),         # Rotten Slugs in deeper swamp
-        ("Rat", 62, 75), ("Rat", 70, 80), ("Rat", 85, 75),         # Rotten Slugs scattered
-        ("Rat", 40, 90), ("Rat", 56, 95),                           # Rotten Slugs near wall edges
+        ("RottenSlug", 42, 82), ("RottenSlug", 45, 85), ("RottenSlug", 50, 88),    # DS3: Rotten Slugs near leech building
+        ("RottenSlug", 48, 105), ("RottenSlug", 52, 110),                    # DS3: Rotten Slugs at ladder base
+        ("RottenSlug", 38, 60), ("RottenSlug", 44, 65), ("RottenSlug", 55, 70), # DS3: Rotten Slugs in deeper swamp
+        ("RottenSlug", 62, 75), ("RottenSlug", 70, 80), ("RottenSlug", 85, 75), # DS3: Rotten Slugs scattered
+        ("RottenSlug", 40, 90), ("RottenSlug", 56, 95),                      # DS3: Rotten Slugs near wall edges
         # Elder Ghru — DS3: "three Elder Ghru huddled around an item", one near fire, more scattered
         ("GiantHollow", 55, 62), ("GiantHollow", 60, 68), ("GiantHollow", 58, 75), # Elder Ghru trio around Poison Gem (wiki)
         ("GiantHollow", 110, 100),                                        # Elder Ghru near gate
