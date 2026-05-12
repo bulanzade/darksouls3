@@ -4449,20 +4449,27 @@ def make_anor_londo():
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 128 * 16, 78 * 16))
 
-    # --- Enemies — DS3 Anor Londo: Silver Knights (3), Giant Slave (1),
+    # --- Enemies — DS3 Anor Londo: Silver Knights (~8), Giant Slave (1),
     # Deep Accursed (1), Deacons (pyromancers + 3 before fog), Rotten Flesh (ManGrub)
     enemy_data = [
         # Cathedral entrance stairs — 2 Silver Knights (wiki: "two silver knights attack")
         ("SilverKnight", 20, 35), ("SilverKnight", 34, 42),
         # Right side — red-eyed Silver Knight (wiki: "red eyed Silver Knight")
         ("SilverKnight", 42, 38),
+        # Royal avenue patrol — Silver Knights guard the corridor (DS3: knights throughout)
+        ("SilverKnight", 52, 42), ("SilverKnight", 64, 48),
+        ("SilverKnight", 48, 50), ("SilverKnight", 70, 44),
+        # Silver Knight hall — knight pair guarding council chamber entrance
+        ("SilverKnight", 82, 38), ("SilverKnight", 90, 42),
         # Giant Slave — giant archer on upper level (wiki: Giant Slave enemy)
         ("GiantSlave", 38, 52),
         # Main chamber — Deacon pyromancers casting fireballs from other side
         ("Deacon", 55, 45), ("Deacon", 68, 40), ("Deacon", 70, 46),
-        # Main chamber — Rotten Flesh of Aldrich / slimes (wiki: "dispatch slimes")
+        # Main chamber — Rotten Flesh of Aldrich / slimes (wiki: "dispatch slimes and deacons")
         ("ManGrub", 142, 75), ("ManGrub", 148, 82), ("ManGrub", 136, 68),
         ("ManGrub", 124, 88), ("ManGrub", 132, 92),
+        # Additional slimes in dark corners of main hall
+        ("ManGrub", 130, 65), ("ManGrub", 115, 72),
         # Corner — Deep Accursed at revolving switch (wiki: "Deep Accursed waiting for you")
         ("DeepAccursed", 100, 40),
         # Hallway to fog gate — 3 Deacons (wiki: "three enemies from Deacons of the Deep boss fight")
@@ -5579,8 +5586,10 @@ def make_consumed_kings_garden():
         # Pus of Man — x3 in toxic swamp area (DS3 accurate count)
         ("PusOfMan", 52, 42), ("PusOfMan", 48, 76), ("PusOfMan", 58, 84),
         # Rotten Slugs in poison swamp (Rat type for small creature)
+        # DS3 walkthrough: "several slugs" throughout toxic mist area
         ("Rat", 45, 70), ("Rat", 50, 75), ("Rat", 55, 78),
-        ("Rat", 42, 78), ("Rat", 60, 82),
+        ("Rat", 42, 78), ("Rat", 60, 82), ("Rat", 52, 84),
+        ("Rat", 48, 72), ("Rat", 56, 68), ("Rat", 44, 82),
         # Lothric Priests (DarkMage type)
         ("DarkMage", 30, 28), ("DarkMage", 65, 44),
         # Crystal Lizard
@@ -5807,8 +5816,10 @@ def make_untended_graves():
         ("BlackKnight", 45, 35), ("BlackKnight", 62, 45),
         ("BlackKnight", 75, 50), ("BlackKnight", 55, 60),
         ("BlackKnight", 88, 58),
-        # Starved Hounds — undead dogs in the dark graveyard
+        # Starved Hounds — undead dogs in the dark graveyard (DS3: multiple packs)
         ("StarvedHound", 30, 25), ("StarvedHound", 48, 42),
+        ("StarvedHound", 60, 38), ("StarvedHound", 70, 52),
+        ("StarvedHound", 42, 48),
         # Crystal Lizard near entry
         ("CrystalLizard", 40, 32),
         # Ravenous Crystal Lizard — larger variant near Dark Firelink (DS3: 2 Ravenous Crystal Lizards)
@@ -5817,9 +5828,10 @@ def make_untended_graves():
         ("PusOfMan", 35, 30), ("PusOfMan", 72, 56),
         # Cathedral Grave Wardens — dual-wielding grave wardens in the dark cemetery
         ("CathedralGraveWarden", 50, 38), ("CathedralGraveWarden", 65, 45),
-        ("CathedralGraveWarden", 42, 55),
+        ("CathedralGraveWarden", 42, 55), ("CathedralGraveWarden", 80, 60),
+        ("CathedralGraveWarden", 55, 68),
         # Corvians (Assassin type) — lurk in the dark cemetery corners
-        ("Assassin", 38, 40), ("Assassin", 58, 52),
+        ("Assassin", 38, 40), ("Assassin", 58, 52), ("Assassin", 45, 62),
         # Corvian Storyteller (DarkMage type) — perched near tombstones
         ("DarkMage", 48, 48), ("DarkMage", 70, 62),
         # Daughter of Crystal Kriemhild — invader near Dark Firelink area
@@ -6053,27 +6065,50 @@ def make_archdragon_peak():
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 128 * 16, 85 * 16))  # Nameless King
 
-    # --- Enemies (DS3 Archdragon Peak: Serpent-Men, Summoners, Drakeblood Knights,
+    # --- Enemies (DS3 Archdragon Peak: dense Serpent-Men, Summoners, Drakeblood Knights,
     # Havel Knight, Rock Lizards, Wyvern) ---
     enemy_data = [
-        # Serpent-Men — main enemy throughout the peak (DS3 has many)
-        ("SerpentMan", 22, 115), ("SerpentMan", 38, 98), ("SerpentMan", 45, 108),
-        ("SerpentMan", 55, 75), ("SerpentMan", 68, 58), ("SerpentMan", 80, 48),
-        ("SerpentMan", 95, 35), ("SerpentMan", 108, 28), ("SerpentMan", 118, 25),
-        ("SerpentMan", 120, 75), ("SerpentMan", 135, 28),
+        # Serpent-Men — main enemy throughout the peak
+        # DS3 walkthrough: 2 at entry, several fire-casters, 2 on overhang, many in buildings,
+        # 3 big ones at end before altar — total ~23 Serpent-Men across the peak
+        # Mountain entry — 2 guarding the path
+        ("SerpentMan", 22, 115), ("SerpentMan", 28, 120),
+        # Serpent barracks — fire-casting group and patrols
+        ("SerpentMan", 38, 98), ("SerpentMan", 45, 108), ("SerpentMan", 42, 102),
+        ("SerpentMan", 48, 95), ("SerpentMan", 55, 100),
+        # Barracks overhang — 2 on top (wiki: "2 more Man-serpents on top of overhang")
+        ("SerpentMan", 52, 88), ("SerpentMan", 58, 92),
+        # Wyvern arena — dragon bone guards
+        ("SerpentMan", 55, 75), ("SerpentMan", 62, 80), ("SerpentMan", 48, 68),
+        ("SerpentMan", 65, 72), ("SerpentMan", 72, 78),
+        # Dragon-Kin Mausoleum — interior guards
+        ("SerpentMan", 68, 58), ("SerpentMan", 80, 48), ("SerpentMan", 75, 55),
+        ("SerpentMan", 85, 50),
+        # Mausoleum side room (wiki: "2 Man-serpents in room leading out")
+        ("SerpentMan", 90, 45), ("SerpentMan", 92, 48),
+        # Storm path — patrols along the ridge
+        ("SerpentMan", 95, 35), ("SerpentMan", 100, 42), ("SerpentMan", 105, 38),
+        # Great Belfry area — guarding the bell tower approach
+        ("SerpentMan", 108, 28), ("SerpentMan", 118, 25), ("SerpentMan", 115, 30),
+        # Path to altar — 3 big Serpent-Men (wiki: "three big ones" before altar)
+        ("SerpentMan", 120, 75), ("SerpentMan", 135, 28), ("SerpentMan", 125, 82),
+        # Altar approach — additional guards
+        ("SerpentMan", 130, 35), ("SerpentMan", 132, 40),
         # Serpent-Man Summoners (DarkMage type — they cast spells and summon NPC phantoms)
+        # DS3: Serpent-Man Sorcerers in upper rooms (Dragonkin Mausoleum + Belfry)
         ("DarkMage", 72, 52), ("DarkMage", 85, 42), ("DarkMage", 98, 45),
         # Rock Lizards — passive lizard enemies found throughout peak (DS3: ~6-8)
-        # These use "RockLizard" alias → CrystalLizard via ENEMY_KIND_MAP
         ("RockLizard", 35, 110), ("RockLizard", 42, 95),
         ("RockLizard", 118, 20), ("RockLizard", 130, 25),
         ("RockLizard", 142, 85), ("RockLizard", 112, 72),
         ("RockLizard", 148, 95),
         # Regular Crystal Lizards — drop titanite
         ("CrystalLizard", 50, 72), ("CrystalLizard", 28, 118),
-        # Drakeblood Knights (Knight closest match) — summoned by Serpent-Man Summoners
+        # Drakeblood Knights (Knight type) — summoned by Serpent-Man Summoners
+        # DS3: Drakeblood Knight + Ricard can be summoned by the sorcerers
         ("Knight", 110, 30), ("Knight", 142, 88),
-        # Havel Knight — appears at Great Belfry area (DS3: tough NPC)
+        ("Knight", 78, 52),                                     # Additional summoned knight
+        # Havel Knight — appears at Great Belfry area (DS3: tough NPC near fallen wyvern)
         ("Knight", 128, 70),
         # Ancient Wyvern — DS3: sleeps on bridge, must be sniped or dropped onto
         # Two wyverns in the dragon-path area; MiniBoss fits the "dragon" role
