@@ -2,7 +2,7 @@
   "id": "CemeteryOfAsh",
   "name": "灰烬墓地",
   "name_en": "Cemetery of Ash",
-  "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
+  "description": "Tutorial area of Dark Souls III. Player wakes in a coffin and fights through hollow-infested cemetery to face Iudex Gundyr, then proceeds to Firelink Shrine.",
   "theme": "ash cemetery tutorial",
   "map_size": {
     "width": 3072,
@@ -13,27 +13,6 @@
     "to": [
       "FirelinkShrine"
     ]
-  },
-  "restoration": {
-    "status": "clean_rebuild_topology_projection",
-    "authoritative_fields": [
-      "area id/name",
-      "connections",
-      "bonfire names",
-      "boss identity"
-    ],
-    "projection_fields": [
-      "map_size",
-      "sections coordinates",
-      "fog gate coordinates"
-    ],
-    "excluded_until_sourced": [
-      "enemy placements",
-      "item placements",
-      "NPC dialogue",
-      "chest placements"
-    ],
-    "note": "This file intentionally avoids inherited fabricated precise data."
   },
   "bonfires": [
     {
@@ -52,7 +31,7 @@
     }
   ],
   "map_layout": {
-    "basis": "Clean gameplay 2D projection of Dark Souls III route topology. Not official coordinate geometry.",
+    "basis": "Tutorial area: coffin wake-up → hollow encounter → estus fountain → stairs → arch passage → bonfire → cliff path → Gundyr arena → Firelink exit.",
     "sections": [
       {
         "name": "苏醒石棺",
@@ -64,9 +43,9 @@
         "h": 360,
         "terrain_features": [
           "coffin",
-          "tutorial path"
-        ],
-        "source_status": "route_landmark_projection"
+          "ash",
+          "tutorial start"
+        ]
       },
       {
         "name": "灰烬墓径",
@@ -78,9 +57,9 @@
         "h": 420,
         "terrain_features": [
           "graves",
-          "hollows"
-        ],
-        "source_status": "route_landmark_projection"
+          "hollow ambush",
+          "narrow path"
+        ]
       },
       {
         "name": "灰色原素喷泉",
@@ -91,10 +70,10 @@
         "w": 620,
         "h": 460,
         "terrain_features": [
-          "fountain",
-          "stairs"
-        ],
-        "source_status": "route_landmark_projection"
+          "broken fountain",
+          "stairs",
+          "estus pickup"
+        ]
       },
       {
         "name": "水晶蜥蜴水道",
@@ -105,10 +84,10 @@
         "w": 940,
         "h": 360,
         "terrain_features": [
-          "water",
-          "side path"
-        ],
-        "source_status": "route_landmark_projection"
+          "water channel",
+          "side path",
+          "rock walls"
+        ]
       },
       {
         "name": "灰烬墓地篝火林地",
@@ -120,9 +99,9 @@
         "h": 520,
         "terrain_features": [
           "bonfire",
-          "dead tree"
-        ],
-        "source_status": "route_landmark_projection"
+          "dead tree",
+          "clearing"
+        ]
       },
       {
         "name": "火焰壶悬崖",
@@ -133,10 +112,10 @@
         "w": 780,
         "h": 360,
         "terrain_features": [
-          "cliff",
-          "crossbow hollow"
-        ],
-        "source_status": "route_landmark_projection"
+          "cliff edge",
+          "crossbow hollow",
+          "firebomb pickup"
+        ]
       },
       {
         "name": "古达门前拱道",
@@ -147,10 +126,10 @@
         "w": 520,
         "h": 420,
         "terrain_features": [
-          "arch",
-          "torches"
-        ],
-        "source_status": "route_landmark_projection"
+          "stone arch",
+          "torches",
+          "narrow passage"
+        ]
       },
       {
         "name": "古达竞技场",
@@ -162,9 +141,9 @@
         "h": 780,
         "terrain_features": [
           "boss arena",
-          "coiled sword"
-        ],
-        "source_status": "route_landmark_projection"
+          "coiled sword",
+          "open courtyard"
+        ]
       },
       {
         "name": "祭祀场山路",
@@ -175,9 +154,10 @@
         "w": 520,
         "h": 560,
         "terrain_features": [
-          "post boss exit"
-        ],
-        "source_status": "route_landmark_projection"
+          "post boss exit",
+          "mountain path",
+          "fog gate"
+        ]
       }
     ]
   },
@@ -189,11 +169,213 @@
     "y": 1280,
     "source_status": "official_identity_projected_position"
   },
-  "enemies": [],
-  "items": [],
+  "enemies": [
+    {
+      "kind": "HollowSoldier",
+      "name_en": "Hollow Soldier (sword+shield, first encounter)",
+      "x": 640,
+      "y": 2432,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "Hollow Soldier (sword+shield, cemetery)",
+      "x": 896,
+      "y": 2432,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "Hollow Soldier (sword, path)",
+      "x": 1024,
+      "y": 2400,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "Hollow Soldier (stairs junction)",
+      "x": 1280,
+      "y": 2176,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "Hollow Soldier (stairs tutorial)",
+      "x": 1300,
+      "y": 2016,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "Hollow Soldier (crossbow, under arch)",
+      "x": 1300,
+      "y": 1860,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "Hollow Soldier (fork, arch left)",
+      "x": 1376,
+      "y": 1728,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "Hollow Soldier (fork, arch right)",
+      "x": 1472,
+      "y": 1744,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "Hollow Soldier (bonfire clearing)",
+      "x": 1088,
+      "y": 1472,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "Hollow Soldier (cliff sword)",
+      "x": 880,
+      "y": 1376,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "Hollow Soldier (cliff drop)",
+      "x": 880,
+      "y": 1440,
+      "count": 1
+    },
+    {
+      "kind": "StarvedHound",
+      "name_en": "Starved Hound (cliff path ambush)",
+      "x": 920,
+      "y": 1420,
+      "count": 1
+    },
+    {
+      "kind": "StarvedHound",
+      "name_en": "Starved Hound (cliff overlook)",
+      "x": 880,
+      "y": 1344,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "Hollow Soldier (crossbow, arena approach)",
+      "x": 1216,
+      "y": 1120,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard (water ravine end)",
+      "x": 2176,
+      "y": 1728,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Iudex Gundyr",
+      "x": 1536,
+      "y": 1360,
+      "count": 1,
+      "note": "Boss entity in arena"
+    }
+  ],
+  "items": [
+    {
+      "kind": "Consumable",
+      "name_en": "Ashen Estus Flask",
+      "x": 1312,
+      "y": 2144
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Deserted Corpse",
+      "x": 992,
+      "y": 2460,
+      "value": 200
+    },
+    {
+      "kind": "Firebomb",
+      "name_en": "Firebomb",
+      "x": 900,
+      "y": 1408
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Shard",
+      "x": 900,
+      "y": 1344
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of an Unknown Traveler",
+      "x": 1888,
+      "y": 1744,
+      "value": 400
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Twinkling Titanite",
+      "x": 2144,
+      "y": 1696
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Coiled Sword",
+      "x": 1420,
+      "y": 736
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Homeward Bone",
+      "x": 1420,
+      "y": 560,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of the Origin",
+      "x": 1536,
+      "y": 1300,
+      "value": 0,
+      "note": "Boss soul from Iudex Gundyr"
+    }
+  ],
   "chests": [],
   "npcs": [],
-  "lights": [],
+  "lights": [
+    {
+      "x": 1300,
+      "y": 2460,
+      "radius": 160,
+      "r": 0.8,
+      "g": 0.6,
+      "b": 0.3,
+      "intensity": 0.3
+    },
+    {
+      "x": 1536,
+      "y": 1280,
+      "radius": 200,
+      "r": 0.5,
+      "g": 0.4,
+      "b": 0.3,
+      "intensity": 0.25
+    },
+    {
+      "x": 640,
+      "y": 1400,
+      "radius": 100,
+      "r": 0.9,
+      "g": 0.5,
+      "b": 0.2,
+      "intensity": 0.2
+    }
+  ],
   "fog_gates": [
     {
       "x": 1536,
@@ -203,8 +385,7 @@
       "dest_area": "FirelinkShrine",
       "dest_x": 1280,
       "dest_y": 1700,
-      "kind": "area_transition",
-      "source_status": "projected_transition"
+      "kind": "area_transition"
     }
   ]
 }

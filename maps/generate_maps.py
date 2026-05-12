@@ -120,6 +120,9 @@ ENEMY_KIND_MAP = {
     "RockLizard": "CrystalLizard",
     "ConsumedKingKnight": "CathedralKnight",
     "Hollow": "HollowSoldier",
+    "DrakebloodKnight": "Knight",
+    "HavelKnight": "WingedKnight",
+    "SewerCentipede": "Wretch",
 }
 
 
@@ -483,10 +486,10 @@ def make_cemetery_of_ash():
     fill_tiles(chunk, TILE_GROUND, 84, 108, 128, 110)  # narrow 3-tile corridor
     carve_ellipse(chunk, 136, 108, 8, 6)  # chasm end pocket
     fill_tiles(chunk, TILE_GROUND, 128, 104, 136, 112)  # connect to pocket
-    # Poison pools (waist-deep stagnant water throughout the chasm)
-    fill_tiles(chunk, TILE_POISON, 92, 108, 102, 110)
-    fill_tiles(chunk, TILE_POISON, 110, 108, 120, 110)
-    fill_tiles(chunk, TILE_POISON, 128, 106, 132, 110)
+    # Shallow water in the chasm (DS3: water channel, not poisonous)
+    fill_tiles(chunk, TILE_GROUND, 92, 108, 102, 110)
+    fill_tiles(chunk, TILE_GROUND, 110, 108, 120, 110)
+    fill_tiles(chunk, TILE_GROUND, 128, 106, 132, 110)
     # Rocky outcrops flanking the narrow channel
     fill_tiles(chunk, TILE_WALL, 96, 107, 97, 108)
     fill_tiles(chunk, TILE_WALL, 106, 109, 107, 110)
@@ -542,8 +545,8 @@ def make_cemetery_of_ash():
     # Player enters from south, boss spawns at center
     # ================================================================
     carve_ellipse(chunk, 80, 48, 28, 18)
-    # Reflecting pool at center (shallow water — POISON tiles)
-    fill_tiles(chunk, TILE_POISON, 76, 44, 84, 52)
+    # Reflecting pool at center (DS3: shallow water, not poisonous)
+    fill_tiles(chunk, TILE_GROUND, 76, 44, 84, 52)
     # Arena perimeter — crumbling wall sections and gravestone clusters
     fill_tiles(chunk, TILE_WALL, 56, 38, 58, 40)   # NW crumbling wall
     fill_tiles(chunk, TILE_WALL, 100, 38, 102, 40)  # NE crumbling wall
@@ -553,6 +556,165 @@ def make_cemetery_of_ash():
     fill_tiles(chunk, TILE_WALL, 90, 32, 92, 34)     # N gravestones
     fill_tiles(chunk, TILE_WALL, 62, 58, 64, 60)     # S tombstones
     fill_tiles(chunk, TILE_WALL, 95, 58, 97, 60)     # S tombstones
+
+    # ================================================================
+    # ADDITIONAL CEMETERY OF ASH DETAILS — DS3 fidelity
+    # More gravestones, ash dunes, and architectural ruins
+    # ================================================================
+    # First path — additional gravestones (DS3: cemetery packed with graves)
+    fill_tiles(chunk, TILE_WALL, 34, 151, 35, 152)
+    fill_tiles(chunk, TILE_WALL, 42, 149, 43, 150)
+    fill_tiles(chunk, TILE_WALL, 50, 152, 51, 153)
+    # Side pocket — rubble near soul body
+    fill_tiles(chunk, TILE_WALL, 60, 155, 61, 156)
+    # NE curve — cliff-side gravestones
+    fill_tiles(chunk, TILE_WALL, 68, 142, 69, 143)
+    fill_tiles(chunk, TILE_WALL, 74, 144, 75, 145)
+    # Ashen Estus clearing — broken fountain debris (DS3: ruined fountain area)
+    fill_tiles(chunk, TILE_WALL, 72, 132, 73, 133)
+    fill_tiles(chunk, TILE_WALL, 82, 136, 83, 137)
+    fill_tiles(chunk, TILE_WALL, 76, 138, 77, 139)
+    # Stairs junction — stone step walls
+    fill_tiles(chunk, TILE_WALL, 88, 122, 89, 123)
+    fill_tiles(chunk, TILE_WALL, 92, 128, 93, 129)
+    # Broken arch — arch stones
+    fill_tiles(chunk, TILE_WALL, 74, 118, 75, 119)
+    fill_tiles(chunk, TILE_WALL, 80, 112, 81, 113)
+    # Major fork area — gravestone clusters
+    fill_tiles(chunk, TILE_WALL, 70, 104, 71, 105)
+    fill_tiles(chunk, TILE_WALL, 78, 106, 79, 107)
+    fill_tiles(chunk, TILE_WALL, 82, 102, 83, 103)
+    fill_tiles(chunk, TILE_WALL, 68, 108, 69, 109)
+    # Water chasm — more rocky outcrops (DS3: narrow channel with rocks)
+    fill_tiles(chunk, TILE_WALL, 100, 107, 101, 108)
+    fill_tiles(chunk, TILE_WALL, 112, 109, 113, 110)
+    fill_tiles(chunk, TILE_WALL, 122, 107, 123, 108)
+    fill_tiles(chunk, TILE_WALL, 130, 109, 131, 110)
+    # Bonfire clearing — dead tree roots (DS3: dead tree beside bonfire)
+    fill_tiles(chunk, TILE_WALL, 66, 92, 67, 93)
+    fill_tiles(chunk, TILE_WALL, 78, 94, 79, 95)
+    # Post-bonfire fork — tombstone rows (DS3: many graves near bonfire)
+    fill_tiles(chunk, TILE_WALL, 60, 84, 61, 85)
+    fill_tiles(chunk, TILE_WALL, 64, 86, 65, 87)
+    fill_tiles(chunk, TILE_WALL, 72, 88, 73, 89)
+    fill_tiles(chunk, TILE_WALL, 76, 84, 77, 85)
+    # Firebomb cliff — cliff face stones
+    fill_tiles(chunk, TILE_WALL, 36, 86, 37, 87)
+    fill_tiles(chunk, TILE_WALL, 48, 82, 49, 83)
+    fill_tiles(chunk, TILE_WALL, 44, 88, 45, 89)
+    # Gundyr approach — additional gravestones (DS3: dense cemetery before boss)
+    fill_tiles(chunk, TILE_WALL, 72, 68, 73, 69)
+    fill_tiles(chunk, TILE_WALL, 78, 72, 79, 73)
+    fill_tiles(chunk, TILE_WALL, 74, 76, 75, 77)
+    fill_tiles(chunk, TILE_WALL, 80, 66, 81, 67)
+    # Gundyr arena — more perimeter ruins (DS3: crumbling arena edges)
+    fill_tiles(chunk, TILE_WALL, 58, 42, 59, 44)
+    fill_tiles(chunk, TILE_WALL, 98, 42, 99, 44)
+    fill_tiles(chunk, TILE_WALL, 64, 60, 65, 62)
+    fill_tiles(chunk, TILE_WALL, 94, 60, 95, 62)
+    fill_tiles(chunk, TILE_WALL, 74, 34, 75, 36)
+    fill_tiles(chunk, TILE_WALL, 86, 34, 87, 36)
+
+    # ================================================================
+    # ADDITIONAL CEMETERY OF ASH — DS3 tutorial area fine details
+    # ================================================================
+    # First path — more gravestone rows (DS3: densely packed cemetery)
+    fill_tiles(chunk, TILE_WALL, 30, 150, 31, 151)
+    fill_tiles(chunk, TILE_WALL, 38, 148, 39, 149)
+    fill_tiles(chunk, TILE_WALL, 46, 151, 47, 152)
+    fill_tiles(chunk, TILE_WALL, 36, 153, 37, 154)
+    fill_tiles(chunk, TILE_WALL, 48, 149, 49, 150)
+    # First encounter — additional grave markers (DS3: hollows rise from graves)
+    fill_tiles(chunk, TILE_WALL, 56, 149, 57, 150)
+    fill_tiles(chunk, TILE_WALL, 60, 151, 61, 152)
+    fill_tiles(chunk, TILE_WALL, 66, 149, 67, 150)
+    # Side pocket — stone debris (DS3: small side path with soul item)
+    fill_tiles(chunk, TILE_WALL, 64, 156, 65, 157)
+    fill_tiles(chunk, TILE_WALL, 58, 154, 59, 155)
+    # NE curve — mountain path gravestones (DS3: path curves up through graves)
+    fill_tiles(chunk, TILE_WALL, 66, 144, 67, 145)
+    fill_tiles(chunk, TILE_WALL, 70, 138, 71, 139)
+    fill_tiles(chunk, TILE_WALL, 76, 140, 77, 141)
+    fill_tiles(chunk, TILE_WALL, 80, 132, 81, 133)
+    # Ashen Estus clearing — more fountain debris (DS3: broken stone fountain)
+    fill_tiles(chunk, TILE_WALL, 74, 130, 75, 131)
+    fill_tiles(chunk, TILE_WALL, 84, 134, 85, 135)
+    fill_tiles(chunk, TILE_WALL, 70, 136, 71, 137)
+    # Stairs junction — stone step edges (DS3: tutorial stairs with messages)
+    fill_tiles(chunk, TILE_WALL, 86, 120, 87, 121)
+    fill_tiles(chunk, TILE_WALL, 90, 126, 91, 127)
+    fill_tiles(chunk, TILE_WALL, 82, 130, 83, 131)
+    # Broken arch — more arch stones (DS3: narrow stone arch passage)
+    fill_tiles(chunk, TILE_WALL, 72, 116, 73, 117)
+    fill_tiles(chunk, TILE_WALL, 82, 110, 83, 111)
+    # Water chasm — additional rocky debris (DS3: narrow water channel)
+    fill_tiles(chunk, TILE_WALL, 88, 106, 89, 107)
+    fill_tiles(chunk, TILE_WALL, 104, 108, 105, 109)
+    fill_tiles(chunk, TILE_WALL, 118, 108, 119, 109)
+    fill_tiles(chunk, TILE_WALL, 126, 106, 127, 107)
+    # Bonfire clearing — dead tree roots and ash piles (DS3: bonfire beside dead tree)
+    fill_tiles(chunk, TILE_WALL, 64, 94, 65, 95)
+    fill_tiles(chunk, TILE_WALL, 74, 96, 75, 97)
+    fill_tiles(chunk, TILE_WALL, 80, 92, 81, 93)
+    # Gundyr approach — torch sconce stones (DS3: twin torch archway)
+    fill_tiles(chunk, TILE_WALL, 70, 66, 71, 67)
+    fill_tiles(chunk, TILE_WALL, 82, 70, 83, 71)
+    fill_tiles(chunk, TILE_WALL, 74, 74, 75, 75)
+    # Gundyr arena — more perimeter crumbling walls (DS3: open arena with ruin edges)
+    fill_tiles(chunk, TILE_WALL, 60, 36, 61, 38)
+    fill_tiles(chunk, TILE_WALL, 96, 36, 97, 38)
+    fill_tiles(chunk, TILE_WALL, 66, 62, 67, 64)
+    fill_tiles(chunk, TILE_WALL, 92, 62, 93, 64)
+    fill_tiles(chunk, TILE_WALL, 82, 32, 83, 34)
+
+    # ================================================================
+    # SESSION 9 FIDELITY PASS — CemeteryOfAsh architectural details
+    # ================================================================
+    # Coffin alcove — stone slab edges (DS3: coffin in stone alcove, not open)
+    fill_tiles(chunk, TILE_WALL, 21, 150, 22, 151)
+    fill_tiles(chunk, TILE_WALL, 27, 154, 28, 155)
+    # First path — collapsed stone fence posts (DS3: cemetery boundary walls)
+    fill_tiles(chunk, TILE_WALL, 32, 149, 33, 150)
+    fill_tiles(chunk, TILE_WALL, 40, 153, 41, 154)
+    fill_tiles(chunk, TILE_WALL, 44, 149, 45, 150)
+    # NE curve — eroded cliff stones (DS3: path carved into mountainside)
+    fill_tiles(chunk, TILE_WALL, 66, 146, 67, 147)
+    fill_tiles(chunk, TILE_WALL, 76, 140, 77, 141)
+    fill_tiles(chunk, TILE_WALL, 70, 136, 71, 137)
+    # Broken arch — keystone debris (DS3: crumbling stone arch over path)
+    fill_tiles(chunk, TILE_WALL, 76, 116, 77, 117)
+    fill_tiles(chunk, TILE_WALL, 78, 112, 79, 113)
+    # Major fork — dead tree stump (DS3: dead trees throughout cemetery)
+    fill_tiles(chunk, TILE_WALL, 84, 104, 85, 105)
+    fill_tiles(chunk, TILE_WALL, 74, 110, 75, 111)
+    # Crystal Lizard chasm — dripping stalactites (DS3: damp underground canal)
+    fill_tiles(chunk, TILE_WALL, 90, 107, 91, 108)
+    fill_tiles(chunk, TILE_WALL, 108, 107, 109, 108)
+    fill_tiles(chunk, TILE_WALL, 114, 109, 115, 110)
+    fill_tiles(chunk, TILE_WALL, 124, 107, 125, 108)
+    fill_tiles(chunk, TILE_WALL, 134, 110, 135, 111)
+    # Bonfire clearing — ash mound and ember remnants (DS3: ash-covered clearing)
+    fill_tiles(chunk, TILE_WALL, 68, 90, 69, 91)
+    fill_tiles(chunk, TILE_WALL, 76, 98, 77, 99)
+    fill_tiles(chunk, TILE_WALL, 82, 90, 83, 91)
+    # Post-bonfire fork — weathered headstones (DS3: dense gravestones near bonfire)
+    fill_tiles(chunk, TILE_WALL, 58, 90, 59, 91)
+    fill_tiles(chunk, TILE_WALL, 66, 86, 67, 87)
+    fill_tiles(chunk, TILE_WALL, 78, 82, 79, 83)
+    # Firebomb cliff — eroded cliff face alcoves (DS3: narrow cliff path with drops)
+    fill_tiles(chunk, TILE_WALL, 38, 82, 39, 83)
+    fill_tiles(chunk, TILE_WALL, 52, 86, 53, 87)
+    # Gundyr approach — fallen tombstone rows (DS3: packed cemetery before arena)
+    fill_tiles(chunk, TILE_WALL, 68, 72, 69, 73)
+    fill_tiles(chunk, TILE_WALL, 76, 66, 77, 67)
+    fill_tiles(chunk, TILE_WALL, 80, 78, 81, 79)
+    # Gundyr arena — shattered stone pillars (DS3: large open arena with ruins)
+    fill_tiles(chunk, TILE_WALL, 62, 40, 63, 42)
+    fill_tiles(chunk, TILE_WALL, 96, 40, 97, 42)
+    fill_tiles(chunk, TILE_WALL, 70, 56, 71, 58)
+    fill_tiles(chunk, TILE_WALL, 88, 56, 89, 58)
+    fill_tiles(chunk, TILE_WALL, 78, 30, 79, 32)
+    fill_tiles(chunk, TILE_WALL, 84, 64, 85, 66)
 
     # ================================================================
     # 16. ARENA EXIT CORRIDOR (x=76-84, y=22-34)
@@ -580,52 +742,57 @@ def make_cemetery_of_ash():
 
     # --- Boss — Iudex Gundyr at arena center ---
     entities.append(make_entity("BossSpawn", 80 * 16, 48 * 16))
+    entities.append(make_entity("Enemy", 80 * 16, 48 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "MiniBoss")]))  # Iudex Gundyr
 
-    # --- Enemies (DS3 Cemetery of Ash: Hollow Soldiers with swords/shields/bows) ---
-    # In DS3 the cemetery enemies are hollow soldiers that rise from the ground.
-    # DS3 enemies: Grave Wardens (sword, shield, crossbow variants) + 1 Ravenous Crystal Lizard.
+    # --- Enemies (DS3 Cemetery of Ash: Hollow Soldiers rise from graves, Starved Hounds) ---
+    # In DS3 the cemetery enemies are Hollow Soldiers that rise from the ground.
+    # DS3 enemies: Hollow Soldiers (sword, shield, crossbow variants) + Starved Hounds + 1 Ravenous Crystal Lizard.
     # Layout follows the actual route: coffin → cemetery path → fountain → stairs → bonfire →
     # firebomb cliff → Gundyr approach → arena.
 
-    # Section 1: Coffin wake-up area — first Grave Warden (sword+shield, stands up)
+    # Section 1: Coffin wake-up area — first Hollow Soldier (sword+shield, stands up)
     entities.append(make_entity("Enemy", 40 * 16, 152 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
-    # Section 2: Cemetery path — pair of Grave Wardens (sword+shield)
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    # Section 2: Cemetery path — pair of Hollow Soldiers (sword+shield)
     entities.append(make_entity("Enemy", 56 * 16, 152 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
     entities.append(make_entity("Enemy", 64 * 16, 150 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
-    # Section 3: Ashen Estus fountain — Grave Warden facing away (sword)
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    # Section 3: Ashen Estus fountain — Hollow Soldier facing away (sword)
     entities.append(make_entity("Enemy", 80 * 16, 136 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
-    # Section 4: Stairs junction — Grave Warden (sword+shield) on stairs
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    # Section 4: Stairs junction — Hollow Soldier (sword+shield) on stairs
     entities.append(make_entity("Enemy", 76 * 16, 126 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
-    # Section 5: Broken arch — Grave Warden crossbow (ranged)
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    # Section 5: Broken arch — Hollow Soldier crossbow (ranged)
     entities.append(make_entity("Enemy", 78 * 16, 116 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
-    # Section 6: Major fork — two Grave Wardens (sword+shield) guarding path
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    # Section 6: Major fork — two Hollow Soldiers (sword+shield) guarding path
     entities.append(make_entity("Enemy", 86 * 16, 108 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
     entities.append(make_entity("Enemy", 92 * 16, 109 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
-    # Section 7: Cemetery of Ash bonfire clearing — Grave Warden near dead tree
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    # Section 7: Cemetery of Ash bonfire clearing — Hollow Soldier near dead tree
     entities.append(make_entity("Enemy", 68 * 16, 92 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
-    # Section 8: Firebomb cliff — Grave Warden sword+shield
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    # Section 8: Firebomb cliff — Hollow Soldier sword+shield + Starved Hound
     entities.append(make_entity("Enemy", 50 * 16, 86 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
-    # Drop-down Grave Warden near firebomb cliff (drops Cleric's Sacred Chime)
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    # Starved Hound near firebomb cliff (DS3: dogs ambush on cliff path)
     entities.append(make_entity("Enemy", 44 * 16, 90 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
-    # Grave Warden at cliff end
+        [make_field("kind", "LocalEnum.EnemyKind", "StarvedHound")]))
+    # Hollow Soldier at cliff end
     entities.append(make_entity("Enemy", 38 * 16, 86 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
     entities.append(make_entity("Enemy", 40 * 16, 84 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
-    # Section 9: Twin-torch approach — Grave Warden crossbow before arena
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    # Section 9: Twin-torch approach — Hollow Soldier crossbow before arena
     entities.append(make_entity("Enemy", 76 * 16, 70 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "GraveWarden")]))
+        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    # Starved Hound on cliff path approach (DS3: hound ambushes near arena)
+    entities.append(make_entity("Enemy", 48 * 16, 80 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "StarvedHound")]))
     # Ravenous Crystal Lizard — side path near water chasm (optional area)
     entities.append(make_entity("Enemy", 136 * 16, 108 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", "RavenousCrystalLizard")]))
@@ -633,7 +800,7 @@ def make_cemetery_of_ash():
     # --- Items (accurate DS3 placements) ---
     # Ashen Estus Flask — corpse by broken fountain
     entities.append(make_entity("Item", 82 * 16, 134 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
         make_field("name", "String", "Ashen Estus Flask")]))
     # Soul of a Deserted Corpse — right branch after first enemy
     entities.append(make_entity("Item", 62 * 16, 157 * 16, [
@@ -659,7 +826,7 @@ def make_cemetery_of_ash():
         make_field("name", "String", "Titanite Scale")]))
     # Coiled Sword — Iudex Gundyr arena, obtained after defeating boss
     entities.append(make_entity("Item", 80 * 16, 46 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
         make_field("name", "String", "Coiled Sword")]))
 
     # --- Fog Gate to Firelink Shrine (arena exit) ---
@@ -726,199 +893,400 @@ def make_cemetery_of_ash():
 
 def make_firelink_shrine():
     """Firelink Shrine - central hub area.
-    Layout: Central circular chamber with bonfire, surrounded by alcoves for NPCs.
-    Short paths to NPC locations. Stairs leading up.
+    DS3 Faithful layout: stone shrine with central bonfire chamber,
+    throne room (5 Lord of Cinder thrones), Andre's forge alcove,
+    Tower (locked door, Fire Keeper Soul at top), exterior graveyard
+    with Sword Master, Shrine Handmaiden at back corner.
     """
     chunk = new_chunk()
     entities = []
 
-    # Central shrine chamber - large circle
-    carve_ellipse(chunk, 80, 80, 24, 22)
+    # ================================================================
+    # TERRAIN — DS3 Firelink Shrine interior and exterior
+    # ================================================================
 
-    # Entrance path from south (from CemeteryOfAsh)
-    fill_tiles(chunk, TILE_GROUND, 76, 102, 84, 128)
+    # === 1. CENTRAL SHRINE CHAMBER — main circular room with bonfire ===
+    # DS3: large circular stone chamber, bonfire at center
+    carve_ellipse(chunk, 80, 80, 22, 20)
+    # Shrine interior walls — stone pillars flanking the bonfire
+    fill_tiles(chunk, TILE_WALL, 64, 68, 66, 76)
+    fill_tiles(chunk, TILE_WALL, 94, 68, 96, 76)
+    fill_tiles(chunk, TILE_WALL, 64, 84, 66, 92)
+    fill_tiles(chunk, TILE_WALL, 94, 84, 96, 92)
+    # Interior stone column near bonfire (DS3: central structural pillar)
+    fill_tiles(chunk, TILE_WALL, 78, 76, 82, 80)
 
-    # Shrine entrance antechamber
-    carve_ellipse(chunk, 80, 120, 10, 8)
+    # === 2. THRONE ROOM (north) — 5 Lord of Cinder thrones ===
+    # DS3: semicircular alcove behind the bonfire with empty thrones
+    fill_tiles(chunk, TILE_GROUND, 68, 54, 92, 66)
+    carve_ellipse(chunk, 80, 58, 14, 6)
+    # Throne alcove walls
+    fill_tiles(chunk, TILE_WALL, 68, 54, 70, 58)
+    fill_tiles(chunk, TILE_WALL, 90, 54, 92, 58)
+    # Throne bases (DS3: 5 thrones arranged in a semicircle)
+    fill_tiles(chunk, TILE_WALL, 72, 56, 74, 58)
+    fill_tiles(chunk, TILE_WALL, 76, 55, 78, 57)
+    fill_tiles(chunk, TILE_WALL, 82, 55, 84, 57)
+    fill_tiles(chunk, TILE_WALL, 86, 56, 88, 58)
 
-    # West wing - blacksmith area
-    fill_tiles(chunk, TILE_GROUND, 40, 72, 56, 88)
-    carve_ellipse(chunk, 36, 80, 8, 7)
+    # === 3. ANDRE'S FORGE (west) — blacksmith alcove ===
+    # DS3: Andre sits at his anvil in an alcove to the left of the entrance
+    fill_tiles(chunk, TILE_GROUND, 42, 72, 62, 90)
+    carve_ellipse(chunk, 44, 80, 8, 7)
+    # Forge anvil block
+    fill_tiles(chunk, TILE_WALL, 46, 78, 48, 82)
+    # Forge walls creating a workshop feel
+    fill_tiles(chunk, TILE_WALL, 42, 72, 44, 80)
+    fill_tiles(chunk, TILE_WALL, 42, 84, 44, 90)
 
-    # East wing - merchant / level-up area
-    fill_tiles(chunk, TILE_GROUND, 104, 72, 120, 88)
-    carve_ellipse(chunk, 124, 80, 8, 7)
+    # === 4. EAST WING — Hawkwood's resting area ===
+    # DS3: Hawkwood sits on the floor near the right side of the shrine
+    fill_tiles(chunk, TILE_GROUND, 98, 72, 118, 90)
+    carve_ellipse(chunk, 120, 80, 7, 6)
+    # Interior divider wall
+    fill_tiles(chunk, TILE_WALL, 98, 72, 100, 80)
+    fill_tiles(chunk, TILE_WALL, 98, 84, 100, 90)
 
-    # North alcove - handmaiden / storage
-    fill_tiles(chunk, TILE_GROUND, 72, 52, 88, 60)
-    carve_ellipse(chunk, 80, 48, 7, 5)
+    # === 5. SHRINE HANDMAIDEN ALCOVE (NW corner) ===
+    # DS3: Handmaiden stands in the back-left corner of the shrine
+    fill_tiles(chunk, TILE_GROUND, 62, 62, 72, 72)
+    # Wall divider between handmaiden and throne room
+    fill_tiles(chunk, TILE_WALL, 68, 64, 70, 68)
 
-    # Upper west path - tower stairs
-    fill_tiles(chunk, TILE_GROUND, 56, 60, 66, 72)
-    carve_ellipse(chunk, 50, 56, 6, 5)
+    # === 6. TOWER PATH (upper west) — locked tower with Fire Keeper Soul ===
+    # DS3: Tower Key required to open, bridge leads across to tower
+    fill_tiles(chunk, TILE_GROUND, 34, 56, 48, 72)
+    carve_ellipse(chunk, 32, 60, 6, 5)
+    # Tower bridge (DS3: narrow stone bridge to the tower)
+    fill_tiles(chunk, TILE_GROUND, 42, 64, 48, 68)
+    # Tower interior
+    fill_tiles(chunk, TILE_GROUND, 26, 56, 36, 64)
+    # Tower top — Fire Keeper Soul location (DS3: elevator to top)
+    carve_ellipse(chunk, 28, 58, 4, 3)
 
-    # Upper east path
-    fill_tiles(chunk, TILE_GROUND, 94, 60, 104, 72)
-    carve_ellipse(chunk, 110, 56, 6, 5)
+    # === 7. TOWER PATH (upper east) — rafter area ===
+    # DS3: Rafters accessible by dropping from tower bridge
+    fill_tiles(chunk, TILE_GROUND, 112, 56, 128, 68)
+    carve_ellipse(chunk, 124, 60, 7, 5)
+    # Rafter supports
+    fill_tiles(chunk, TILE_WALL, 116, 58, 118, 62)
+    fill_tiles(chunk, TILE_WALL, 122, 58, 124, 62)
+
+    # === 8. ENTRANCE HALL (south) — main shrine doorway ===
+    # DS3: wide entrance arch leading into the shrine
+    fill_tiles(chunk, TILE_GROUND, 72, 92, 88, 100)
+    # Entrance pillars (DS3: stone pillars framing the door)
+    fill_tiles(chunk, TILE_WALL, 72, 92, 74, 96)
+    fill_tiles(chunk, TILE_WALL, 86, 92, 88, 96)
+
+    # === 9. EXTERIOR GRAVEYARD (south) — tombstones leading to Cemetery of Ash ===
+    # DS3: open graveyard with many tombstones, Sword Master patrols here
+    fill_tiles(chunk, TILE_GROUND, 68, 100, 92, 118)
+    # Graveyard expansion — wider area with tombstones
+    fill_tiles(chunk, TILE_GROUND, 62, 108, 100, 126)
+    carve_ellipse(chunk, 80, 112, 14, 8)
+    # Tombstone walls (DS3: rows of gravestones)
+    fill_tiles(chunk, TILE_WALL, 72, 104, 74, 106)
+    fill_tiles(chunk, TILE_WALL, 78, 106, 80, 108)
+    fill_tiles(chunk, TILE_WALL, 84, 104, 86, 106)
+    fill_tiles(chunk, TILE_WALL, 76, 110, 78, 112)
+    fill_tiles(chunk, TILE_WALL, 82, 110, 84, 112)
+    # Gravestone rows in lower graveyard
+    fill_tiles(chunk, TILE_WALL, 68, 116, 70, 118)
+    fill_tiles(chunk, TILE_WALL, 74, 118, 76, 120)
+    fill_tiles(chunk, TILE_WALL, 80, 116, 82, 118)
+    fill_tiles(chunk, TILE_WALL, 86, 118, 88, 120)
+
+    # === 10. ENTRANCE PATH (far south) — path from Cemetery of Ash ===
+    fill_tiles(chunk, TILE_GROUND, 74, 126, 86, 142)
+    # Walls framing the path
+    fill_tiles(chunk, TILE_WALL, 70, 128, 74, 136)
+    fill_tiles(chunk, TILE_WALL, 86, 128, 90, 136)
+
+    # === 11. SWORD MASTER AREA (SW exterior) ===
+    # DS3: Sword Master patrols the left side stairs outside the shrine
+    fill_tiles(chunk, TILE_GROUND, 58, 128, 76, 142)
+    # Stair wall divider
+    fill_tiles(chunk, TILE_WALL, 62, 132, 64, 138)
+
+    # === 12. RIGHT SIDE EXTERIOR (SE) ===
+    # DS3: ember pickup area to the right of the shrine
+    fill_tiles(chunk, TILE_GROUND, 86, 128, 104, 140)
+    # Tree/rock obstacles
+    fill_tiles(chunk, TILE_WALL, 92, 132, 94, 136)
+    fill_tiles(chunk, TILE_WALL, 98, 130, 100, 134)
+
+    # === 13. CONNECTION CORRIDORS ===
+    # Central chamber to throne room
+    fill_tiles(chunk, TILE_GROUND, 74, 64, 86, 70)
+    # Central chamber to Andre's forge
+    fill_tiles(chunk, TILE_GROUND, 60, 76, 70, 84)
+    # Central chamber to east wing
+    fill_tiles(chunk, TILE_GROUND, 90, 76, 100, 84)
+    # Central chamber to entrance hall
+    fill_tiles(chunk, TILE_GROUND, 76, 88, 84, 94)
+    # Entrance hall to graveyard
+    fill_tiles(chunk, TILE_GROUND, 76, 98, 84, 102)
+    # Forge to tower path
+    fill_tiles(chunk, TILE_GROUND, 48, 66, 56, 74)
+    # East wing to rafter area
+    fill_tiles(chunk, TILE_GROUND, 108, 66, 114, 74)
+    # Handmaiden alcove connection
+    fill_tiles(chunk, TILE_GROUND, 66, 68, 72, 74)
+    # Forge to handmaiden path
+    fill_tiles(chunk, TILE_GROUND, 56, 64, 64, 70)
+
+    # ================================================================
+    # SESSION 9 FIDELITY PASS — FirelinkShrine architectural details
+    # ================================================================
+    # Main hall — stone pillar bases (DS3: thick stone pillars support the roof)
+    fill_tiles(chunk, TILE_WALL, 78, 90, 79, 91)
+    fill_tiles(chunk, TILE_WALL, 84, 90, 85, 91)
+    fill_tiles(chunk, TILE_WALL, 90, 90, 91, 91)
+    fill_tiles(chunk, TILE_WALL, 78, 96, 79, 97)
+    fill_tiles(chunk, TILE_WALL, 84, 96, 85, 97)
+    fill_tiles(chunk, TILE_WALL, 90, 96, 91, 97)
+    # Fireplace alcove — charred stone surround (DS3: bonfire in stone hearth)
+    fill_tiles(chunk, TILE_WALL, 80, 84, 81, 85)
+    fill_tiles(chunk, TILE_WALL, 88, 84, 89, 85)
+    fill_tiles(chunk, TILE_WALL, 82, 82, 87, 83)
+    # Throne room — coiled sword base stones (DS3: fire keeper throne area)
+    fill_tiles(chunk, TILE_WALL, 76, 76, 77, 77)
+    fill_tiles(chunk, TILE_WALL, 92, 76, 93, 77)
+    fill_tiles(chunk, TILE_WALL, 82, 74, 83, 75)
+    fill_tiles(chunk, TILE_WALL, 86, 74, 87, 75)
+    # Courtyard — crumbled wall debris (DS3: ruined walls around courtyard)
+    fill_tiles(chunk, TILE_WALL, 68, 100, 69, 101)
+    fill_tiles(chunk, TILE_WALL, 96, 100, 97, 101)
+    fill_tiles(chunk, TILE_WALL, 72, 108, 73, 109)
+    fill_tiles(chunk, TILE_WALL, 92, 108, 93, 109)
+    # Andre's forge — anvil stones (DS3: Andre works at a stone forge)
+    fill_tiles(chunk, TILE_WALL, 50, 70, 51, 71)
+    fill_tiles(chunk, TILE_WALL, 54, 68, 55, 69)
+    fill_tiles(chunk, TILE_WALL, 48, 74, 49, 75)
+    # Handmaiden area — shelf stones (DS3: Handmaiden near stone shelves)
+    fill_tiles(chunk, TILE_WALL, 68, 68, 69, 69)
+    fill_tiles(chunk, TILE_WALL, 70, 72, 71, 73)
+    # Entry stairs — worn stone steps (DS3: worn stairs leading up to shrine)
+    fill_tiles(chunk, TILE_WALL, 76, 114, 77, 115)
+    fill_tiles(chunk, TILE_WALL, 84, 116, 85, 117)
+    fill_tiles(chunk, TILE_WALL, 80, 118, 81, 119)
+    # Tree root cluster (DS3: massive tree roots visible inside Firelink)
+    fill_tiles(chunk, TILE_WALL, 74, 86, 75, 87)
+    fill_tiles(chunk, TILE_WALL, 94, 86, 95, 87)
+    fill_tiles(chunk, TILE_WALL, 76, 80, 77, 81)
+    fill_tiles(chunk, TILE_WALL, 92, 80, 93, 81)
+
+    # ================================================================
+    # ENTITIES
+    # ================================================================
+
+    # --- Player spawn at entrance from south ---
+    spawn_px, spawn_py = 80 * 16, 118 * 16
+    entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
+
+    # --- Bonfire in center ---
+    entities.append(make_entity("Bonfire", 80 * 16, 80 * 16))
 
     # --- Enemies (DS3 Firelink Shrine exterior) ---
     # Sword Master — down the left stairs from shrine, wields Uchigatana
-    fill_tiles(chunk, TILE_GROUND, 74, 130, 86, 140)
-    entities.append(make_entity("Enemy", 80 * 16, 136 * 16,
+    entities.append(make_entity("Enemy", 68 * 16, 136 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", "Assassin")]))
-    # Starved Hound — graveyard near shrine entrance (DS3: undead dog)
-    fill_tiles(chunk, TILE_GROUND, 92, 126, 100, 136)
-    entities.append(make_entity("Enemy", 96 * 16, 130 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "StarvedHound")]))
-    # Second Starved Hound — further along the cliff path
-    entities.append(make_entity("Enemy", 98 * 16, 134 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "StarvedHound")]))
-    # Grave Warden — patrols shrine exterior graves
-    fill_tiles(chunk, TILE_GROUND, 60, 130, 70, 140)
-    entities.append(make_entity("Enemy", 64 * 16, 134 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "CathedralGraveWarden")]))
-    entities.append(make_entity("Enemy", 66 * 16, 138 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "CathedralGraveWarden")]))
     # Crystal Lizard — behind the tower (upper east roof drop-down)
-    fill_tiles(chunk, TILE_GROUND, 114, 60, 120, 66)
-    entities.append(make_entity("Enemy", 116 * 16, 62 * 16,
+    entities.append(make_entity("Enemy", 122 * 16, 62 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", "CrystalLizard")]))
 
-    # Player spawn at entrance from south
-    spawn_px, spawn_py = 80 * 16, 116 * 16
-    entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
-
-    # Bonfire in center
-    entities.append(make_entity("Bonfire", 80 * 16, 80 * 16))
-
     # --- NPCs (DS3 Firelink Shrine inhabitants) ---
-    # Fire Keeper (level up) — stands near bonfire
-    entities.append(make_entity("Npc", 78 * 16, 74 * 16, [
+    # Fire Keeper (level up) — stands near bonfire, south side
+    entities.append(make_entity("Npc", 78 * 16, 86 * 16, [
         make_field("name", "String", "Fire Keeper"),
         make_field("kind", "LocalEnum.NpcKind", "LevelUp"),
         make_field("color", "Color", "#FFFFFF"),
-        make_field("dialogue", "String", "Welcome to Firelink Shrine|May the flames guide your way|Touch the darkness within me"),
+        make_field("dialogue", "String", "Welcome to Firelink Shrine, Ashen One|May the flames guide thee|Touch the darkness within me, and take in the excess souls"),
     ]))
 
-    # Ludleth of Courland (dialogue) — sits on throne at bonfire
-    entities.append(make_entity("Npc", 82 * 16, 84 * 16, [
+    # Ludleth of Courland (dialogue) — sits on throne behind bonfire
+    entities.append(make_entity("Npc", 80 * 16, 58 * 16, [
         make_field("name", "String", "Ludleth of Courland"),
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#DAA520"),
-        make_field("dialogue", "String", "Peace. I am Ludleth of Courland|A Lord, yes, but little more than a cinder|I will wait to see what you can do"),
+        make_field("dialogue", "String", "Peace. I am Ludleth of Courland|A Lord, yes, but little more than a cinder|I will not shirk my sworn duty"),
     ]))
 
-    # Blacksmith Andre — west wing, anvil area
-    entities.append(make_entity("Npc", 38 * 16, 82 * 16, [
+    # Blacksmith Andre — forge alcove, west wing
+    entities.append(make_entity("Npc", 44 * 16, 82 * 16, [
         make_field("name", "String", "Andre of Astora"),
         make_field("kind", "LocalEnum.NpcKind", "Blacksmith"),
         make_field("color", "Color", "#C0C0C0"),
-        make_field("dialogue", "String", "What do you need?|I can reinforce your weapons|Only in the age of fire do we have purpose"),
+        make_field("dialogue", "String", "What do you need? Speak freely|I can reinforce your weapons|You must persist, Undead, we are one and the same"),
     ]))
 
-    # Shrine Handmaiden (merchant) — north alcove
-    entities.append(make_entity("Npc", 82 * 16, 50 * 16, [
+    # Shrine Handmaiden (merchant) — back-left corner of shrine
+    entities.append(make_entity("Npc", 66 * 16, 68 * 16, [
         make_field("name", "String", "Shrine Handmaiden"),
         make_field("kind", "LocalEnum.NpcKind", "Merchant"),
         make_field("color", "Color", "#8B7355"),
         make_field("dialogue", "String", "What is it? Buy something|Or be on your way|I shall tend the flame|And tend to thee"),
     ]))
 
-    # Hawkwood (dialogue) — east wing, crestfallen warrior
-    entities.append(make_entity("Npc", 108 * 16, 82 * 16, [
+    # Hawkwood (dialogue) — sitting on floor in east wing
+    entities.append(make_entity("Npc", 106 * 16, 82 * 16, [
         make_field("name", "String", "Hawkwood"),
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#7F8C8D"),
-        make_field("dialogue", "String", "Oh, another Unkindled|The Farron Keep... that is where you should go|Unkindled are unfit to tend the fire"),
+        make_field("dialogue", "String", "Oh, another Unkindled|The Legion of Farron is in the Keep below|They were Lords, once... but now they are Unkindled"),
+    ]))
+
+    # Yuria of Londor — appears after Yoel dies (DS3: stands near east entrance)
+    entities.append(make_entity("Npc", 114 * 16, 76 * 16, [
+        make_field("name", "String", "Yuria of Londor"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#2A1A3A"),
+        make_field("dialogue", "String",
+            "I am Yuria of Londor, a servant of the Lord of Hollows|Thou art the Lord of Hollows|The fire has bent to thy will|Let us embrace the age of hollows, together"),
+    ]))
+
+    # Ringfinger Leonhard — gives Cracked Red Eye Orb (DS3: near lower stairway)
+    entities.append(make_entity("Npc", 92 * 16, 94 * 16, [
+        make_field("name", "String", "Ringfinger Leonhard"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#8B0000"),
+        make_field("dialogue", "String",
+            "You have a good look|I am Leonhard, I have a proposition for you|Take this Cracked Red Eye Orb|Invade and pillage the souls of others"),
+    ]))
+
+    # Yoel of Londor — after recruitment (DS3: stands near lower shrine, eventually dies)
+    entities.append(make_entity("Npc", 56 * 16, 88 * 16, [
+        make_field("name", "String", "Yoel of Londor"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#3A3A4A"),
+        make_field("dialogue", "String",
+            "I am Yoel of Londor, a pilgrim as they call me|I can draw out your true strength|Let me level you up|Come back when you need more"),
+    ]))
+
+    # Greirat — after rescue from Lothric Wall (DS3: thief merchant near lower shrine)
+    entities.append(make_entity("Npc", 52 * 16, 92 * 16, [
+        make_field("name", "String", "Greirat"),
+        make_field("kind", "LocalEnum.NpcKind", "Merchant"),
+        make_field("color", "Color", "#5A5A5A"),
+        make_field("dialogue", "String",
+            "I am Greirat of the Undead Settlement|You saved me from that cell, I owe you everything|I can steal items for you, if you like|Just leave it to old Greirat"),
+    ]))
+
+    # Cornyx — after rescue from Undead Settlement (DS3: pyromancy teacher, sits near bonfire)
+    entities.append(make_entity("Npc", 74 * 16, 80 * 16, [
+        make_field("name", "String", "Cornyx"),
+        make_field("kind", "LocalEnum.NpcKind", "Merchant"),
+        make_field("color", "Color", "#8B6914"),
+        make_field("dialogue", "String",
+            "I am Cornyx, a pyromancer of the Great Swamp|You freed me from my cage, and for that I am grateful|Bring me pyromancy tomes, and I shall teach you their arts|The flame is a wondrous thing"),
+    ]))
+
+    # Orbeck of Vinheim — after recruitment (DS3: sorcery teacher, near upper shrine)
+    entities.append(make_entity("Npc", 86 * 16, 74 * 16, [
+        make_field("name", "String", "Orbeck of Vinheim"),
+        make_field("kind", "LocalEnum.NpcKind", "Merchant"),
+        make_field("color", "Color", "#7090B0"),
+        make_field("dialogue", "String",
+            "I am Orbeck of Vinheim. A sorcerer, and an assassin|I shall teach you sorceries, as promised|Bring me scrolls, and I shall decipher them|But if you prove talentless, our arrangement ends"),
+    ]))
+
+    # Sirris of the Sunless Realms — after oath (DS3: swears knighthood near shrine)
+    entities.append(make_entity("Npc", 98 * 16, 88 * 16, [
+        make_field("name", "String", "Sirris of the Sunless Realms"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#A0B0C0"),
+        make_field("dialogue", "String",
+            "I am Sirris of the Sunless Realms|I have sworn an oath to serve you|I shall come to your aid whenever you need|Thank you, for accepting my knightly vows"),
     ]))
 
     # --- Items (DS3 Firelink Shrine) ---
-    # Estus Shard — on rafters above shrine (upper west, illusory wall area)
-    entities.append(make_entity("Item", 50 * 16, 56 * 16, [
+    # Estus Shard — on rafters above shrine (upper west, illusory wall)
+    entities.append(make_entity("Item", 34 * 16, 62 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
         make_field("name", "String", "Estus Shard")]))
     # Covetous Silver Serpent Ring — chest behind illusory wall on rafters (upper east)
-    entities.append(make_entity("Chest", 110 * 16, 56 * 16, [
+    entities.append(make_entity("Chest", 124 * 16, 60 * 16, [
         make_field("loot_kind", "LocalEnum.ItemKind", "RingDrop"),
         make_field("loot_value", "Int", 0),
         make_field("loot_name", "String", "Covetous Silver Serpent Ring"),
         make_field("is_mimic", "Bool", False)]))
-    # Estus Ring — drop down from tower bridge ledge (upper west tower)
-    entities.append(make_entity("Item", 54 * 16, 54 * 16, [
+    # Estus Ring — drop down from tower bridge ledge
+    entities.append(make_entity("Item", 30 * 16, 58 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
         make_field("name", "String", "Estus Ring")]))
-    # Fire Keeper Soul — top of tower (upper east tower top)
-    entities.append(make_entity("Item", 120 * 16, 54 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+    # Fire Keeper Soul — top of tower
+    entities.append(make_entity("Item", 28 * 16, 58 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Fire Keeper Soul")]))
-    # Broken Straight Sword — by graves straight ahead from entrance (south graves)
-    entities.append(make_entity("Item", 76 * 16, 124 * 16, [
+    # Broken Straight Sword — by graves straight ahead from entrance
+    entities.append(make_entity("Item", 78 * 16, 108 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
         make_field("name", "String", "Broken Straight Sword")]))
-    # Homeward Bone — along path from CemeteryOfAsh (near graves, 5 in DS3)
-    entities.append(make_entity("Item", 78 * 16, 120 * 16, [
+    # Homeward Bone x5 — along path from CemeteryOfAsh (near graves)
+    entities.append(make_entity("Item", 76 * 16, 114 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
         make_field("name", "String", "Homeward Bone")]))
-    entities.append(make_entity("Item", 80 * 16, 124 * 16, [
+    entities.append(make_entity("Item", 82 * 16, 114 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
         make_field("name", "String", "Homeward Bone")]))
-    entities.append(make_entity("Item", 82 * 16, 120 * 16, [
+    entities.append(make_entity("Item", 80 * 16, 120 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
         make_field("name", "String", "Homeward Bone")]))
-    entities.append(make_entity("Item", 76 * 16, 118 * 16, [
+    entities.append(make_entity("Item", 76 * 16, 122 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
         make_field("name", "String", "Homeward Bone")]))
-    entities.append(make_entity("Item", 84 * 16, 118 * 16, [
+    entities.append(make_entity("Item", 84 * 16, 122 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
         make_field("name", "String", "Homeward Bone")]))
-    # Ember — near dog area (right path from shrine, 2 in DS3)
-    entities.append(make_entity("Item", 94 * 16, 128 * 16, [
+    # Ember x2 — near Sword Master area and right path from shrine
+    entities.append(make_entity("Item", 92 * 16, 134 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "Ember"),
         make_field("name", "String", "Ember")]))
     entities.append(make_entity("Item", 98 * 16, 136 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "Ember"),
         make_field("name", "String", "Ember")]))
-    # East-West Shield — corpse in tree near Sword Master area (junction of stairs)
-    entities.append(make_entity("Item", 86 * 16, 138 * 16, [
+    # East-West Shield — corpse in tree near Sword Master area
+    entities.append(make_entity("Item", 64 * 16, 138 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
         make_field("name", "String", "East-West Shield"),
         make_field("slot", "String", "Hands")]))
-    # Uchigatana — dropped by Sword Master (near Sword Master enemy position)
-    entities.append(make_entity("Item", 80 * 16, 138 * 16, [
+    # Uchigatana — dropped by Sword Master
+    entities.append(make_entity("Item", 68 * 16, 138 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
         make_field("name", "String", "Uchigatana")]))
     # Master's Attire — dropped by Sword Master
-    entities.append(make_entity("Item", 78 * 16, 140 * 16, [
+    entities.append(make_entity("Item", 66 * 16, 140 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
         make_field("name", "String", "Master's Attire"),
         make_field("slot", "String", "Chest")]))
     # Master's Gloves — dropped by Sword Master
-    entities.append(make_entity("Item", 82 * 16, 140 * 16, [
+    entities.append(make_entity("Item", 70 * 16, 140 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
         make_field("name", "String", "Master's Gloves"),
         make_field("slot", "String", "Hands")]))
-    # Soul of a Deserted Corpse — tower area corpse (upper path)
-    entities.append(make_entity("Item", 48 * 16, 58 * 16, [
+    # Soul of a Deserted Corpse — tower area corpse
+    entities.append(make_entity("Item", 38 * 16, 64 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
         make_field("name", "String", "Soul of a Deserted Corpse"),
         make_field("value", "Int", 200)]))
-    # Twinkling Titanite — Crystal Lizard drop (near crystal lizard area)
-    entities.append(make_entity("Item", 116 * 16, 64 * 16, [
+    # Twinkling Titanite — Crystal Lizard drop
+    entities.append(make_entity("Item", 120 * 16, 64 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
         make_field("name", "String", "Twinkling Titanite")]))
-    # Fire Keeper Set — drop from tower bridge (upper area)
-    entities.append(make_entity("Item", 108 * 16, 54 * 16, [
+    # Fire Keeper Set — drop from tower bridge
+    entities.append(make_entity("Item", 118 * 16, 58 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
         make_field("name", "String", "Fire Keeper Set"),
         make_field("slot", "String", "Chest")]))
     # Seed of a Giant Tree — from Giant Tree near shrine exterior
-    entities.append(make_entity("Item", 62 * 16, 126 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+    entities.append(make_entity("Item", 88 * 16, 130 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Seed of a Giant Tree")]))
 
     # --- Fog Gates ---
-    # Back to CemeteryOfAsh
-    entities.append(make_entity("FogGate", 80 * 16, 128 * 16, [
+    # Back to CemeteryOfAsh (south)
+    entities.append(make_entity("FogGate", 80 * 16, 140 * 16, [
         make_field("dest_area", "String", "CemeteryOfAsh"),
         make_field("dest_x", "Float", 580.0),
         make_field("dest_y", "Float", 320.0),
@@ -926,8 +1294,8 @@ def make_firelink_shrine():
         make_field("height", "Float", 80.0),
     ]))
 
-    # To LothricWall (north exit)
-    entities.append(make_entity("FogGate", 80 * 16, 46 * 16, [
+    # To LothricWall (north exit through throne room)
+    entities.append(make_entity("FogGate", 80 * 16, 52 * 16, [
         make_field("dest_area", "String", "LothricWall"),
         make_field("dest_x", "Float", 200.0),
         make_field("dest_y", "Float", 200.0),
@@ -936,16 +1304,124 @@ def make_firelink_shrine():
     ]))
 
     # --- Lights ---
-    # Central bonfire — warm light
+    # Central bonfire — warm light filling the chamber
     entities.append(make_entity("Light", 80 * 16, 80 * 16, [
         make_field("radius", "Float", 240.0), make_field("r", "Float", 0.9),
         make_field("g", "Float", 0.7), make_field("b", "Float", 0.4),
         make_field("intensity", "Float", 0.6)]))
-    # Andre's forge — orange glow
-    entities.append(make_entity("Light", 36 * 16, 80 * 16, [
+    # Andre's forge — orange glow from anvil
+    entities.append(make_entity("Light", 44 * 16, 80 * 16, [
         make_field("radius", "Float", 120.0), make_field("r", "Float", 0.8),
         make_field("g", "Float", 0.5), make_field("b", "Float", 0.2),
         make_field("intensity", "Float", 0.4)]))
+    # Throne room — dim golden light on the empty thrones
+    entities.append(make_entity("Light", 80 * 16, 58 * 16, [
+        make_field("radius", "Float", 100.0), make_field("r", "Float", 0.7),
+        make_field("g", "Float", 0.6), make_field("b", "Float", 0.3),
+        make_field("intensity", "Float", 0.3)]))
+    # Exterior graveyard — moonlit
+    entities.append(make_entity("Light", 80 * 16, 112 * 16, [
+        make_field("radius", "Float", 160.0), make_field("r", "Float", 0.5),
+        make_field("g", "Float", 0.5), make_field("b", "Float", 0.6),
+        make_field("intensity", "Float", 0.25)]))
+
+    # === MORE FIRELINK SHRINE DETAILS — DS3 fidelity ===
+    # Central chamber — additional interior pillars (DS3: stone shrine with pillars)
+    fill_tiles(chunk, TILE_WALL, 70, 74, 72, 78)
+    fill_tiles(chunk, TILE_WALL, 88, 74, 90, 78)
+    fill_tiles(chunk, TILE_WALL, 74, 86, 76, 90)
+    fill_tiles(chunk, TILE_WALL, 84, 86, 86, 90)
+    # Throne room — additional throne detail walls
+    fill_tiles(chunk, TILE_WALL, 70, 60, 72, 63)
+    fill_tiles(chunk, TILE_WALL, 88, 60, 90, 63)
+    fill_tiles(chunk, TILE_WALL, 74, 62, 76, 64)
+    fill_tiles(chunk, TILE_WALL, 84, 62, 86, 64)
+    # Andre's forge — workshop debris (DS3: forge with anvil, debris)
+    fill_tiles(chunk, TILE_WALL, 50, 76, 52, 78)
+    fill_tiles(chunk, TILE_WALL, 48, 84, 50, 86)
+    fill_tiles(chunk, TILE_WALL, 54, 80, 56, 82)
+    # East wing — sitting area walls (DS3: Hawkwood rests here)
+    fill_tiles(chunk, TILE_WALL, 102, 76, 104, 78)
+    fill_tiles(chunk, TILE_WALL, 110, 82, 112, 84)
+    fill_tiles(chunk, TILE_WALL, 104, 86, 106, 88)
+    # Tower path — bridge railing stones (DS3: narrow bridge to locked tower)
+    fill_tiles(chunk, TILE_WALL, 36, 58, 38, 60)
+    fill_tiles(chunk, TILE_WALL, 44, 66, 46, 68)
+    fill_tiles(chunk, TILE_WALL, 40, 70, 42, 72)
+    # Rafter area — more rafter beams (DS3: wooden rafters above shrine)
+    fill_tiles(chunk, TILE_WALL, 114, 62, 116, 64)
+    fill_tiles(chunk, TILE_WALL, 120, 64, 122, 66)
+    fill_tiles(chunk, TILE_WALL, 126, 60, 128, 62)
+    # Entrance hall — arch stones (DS3: stone archway into shrine)
+    fill_tiles(chunk, TILE_WALL, 76, 94, 78, 96)
+    fill_tiles(chunk, TILE_WALL, 82, 94, 84, 96)
+    # Exterior graveyard — additional tombstone rows (DS3: many gravestones)
+    fill_tiles(chunk, TILE_WALL, 64, 112, 66, 114)
+    fill_tiles(chunk, TILE_WALL, 70, 114, 72, 116)
+    fill_tiles(chunk, TILE_WALL, 78, 112, 80, 114)
+    fill_tiles(chunk, TILE_WALL, 86, 114, 88, 116)
+    fill_tiles(chunk, TILE_WALL, 92, 112, 94, 114)
+    fill_tiles(chunk, TILE_WALL, 66, 120, 68, 122)
+    fill_tiles(chunk, TILE_WALL, 74, 122, 76, 124)
+    fill_tiles(chunk, TILE_WALL, 82, 120, 84, 122)
+    fill_tiles(chunk, TILE_WALL, 90, 122, 92, 124)
+    # Sword Master area — stone stairs (DS3: stairs down to left)
+    fill_tiles(chunk, TILE_WALL, 60, 130, 62, 134)
+    fill_tiles(chunk, TILE_WALL, 66, 136, 68, 140)
+    fill_tiles(chunk, TILE_WALL, 72, 130, 74, 132)
+    # Right side exterior — rock and tree debris (DS3: ember pickup area)
+    fill_tiles(chunk, TILE_WALL, 88, 134, 90, 136)
+    fill_tiles(chunk, TILE_WALL, 96, 138, 98, 140)
+    fill_tiles(chunk, TILE_WALL, 100, 132, 102, 134)
+
+    # === SESSION 6 FIDELITY PASS — Firelink Shrine ===
+    # Central chamber — shrine wall buttresses (DS3: thick stone walls with alcoves)
+    fill_tiles(chunk, TILE_WALL, 68, 70, 70, 72)
+    fill_tiles(chunk, TILE_WALL, 90, 70, 92, 72)
+    fill_tiles(chunk, TILE_WALL, 68, 90, 70, 92)
+    fill_tiles(chunk, TILE_WALL, 90, 90, 92, 92)
+    # Interior arch stone details (DS3: arched ceiling supports)
+    fill_tiles(chunk, TILE_WALL, 76, 72, 78, 74)
+    fill_tiles(chunk, TILE_WALL, 82, 72, 84, 74)
+    fill_tiles(chunk, TILE_WALL, 76, 90, 78, 92)
+    fill_tiles(chunk, TILE_WALL, 82, 90, 84, 92)
+    # Throne room — wall sconces and alcove details (DS3: dim throne alcove)
+    fill_tiles(chunk, TILE_WALL, 66, 56, 68, 58)
+    fill_tiles(chunk, TILE_WALL, 92, 56, 94, 58)
+    fill_tiles(chunk, TILE_WALL, 72, 52, 74, 54)
+    fill_tiles(chunk, TILE_WALL, 86, 52, 88, 54)
+    # Andre's forge — additional workbench stones (DS3: forge tools and debris)
+    fill_tiles(chunk, TILE_WALL, 46, 74, 48, 76)
+    fill_tiles(chunk, TILE_WALL, 52, 84, 54, 86)
+    fill_tiles(chunk, TILE_WALL, 44, 86, 46, 88)
+    # East wing — stone bench supports (DS3: Hawkwood's sitting area)
+    fill_tiles(chunk, TILE_WALL, 100, 80, 102, 82)
+    fill_tiles(chunk, TILE_WALL, 108, 78, 110, 80)
+    fill_tiles(chunk, TILE_WALL, 114, 84, 116, 86)
+    # Handmaiden alcove — shelf walls (DS3: shrine handmaiden's corner)
+    fill_tiles(chunk, TILE_WALL, 64, 64, 66, 66)
+    fill_tiles(chunk, TILE_WALL, 70, 70, 72, 72)
+    # Tower path — additional bridge supports (DS3: narrow stone bridge)
+    fill_tiles(chunk, TILE_WALL, 38, 62, 40, 64)
+    fill_tiles(chunk, TILE_WALL, 32, 56, 34, 58)
+    # Rafter area — more wooden beams (DS3: exposed rafters above main hall)
+    fill_tiles(chunk, TILE_WALL, 112, 66, 114, 68)
+    fill_tiles(chunk, TILE_WALL, 118, 62, 120, 64)
+    fill_tiles(chunk, TILE_WALL, 124, 66, 126, 68)
+    # Entrance hall — additional arch pillars (DS3: grand stone entrance)
+    fill_tiles(chunk, TILE_WALL, 74, 96, 76, 98)
+    fill_tiles(chunk, TILE_WALL, 84, 96, 86, 98)
+    # Exterior graveyard — more gravestone rows (DS3: dense graveyard with many plots)
+    fill_tiles(chunk, TILE_WALL, 62, 106, 64, 108)
+    fill_tiles(chunk, TILE_WALL, 90, 106, 92, 108)
+    fill_tiles(chunk, TILE_WALL, 96, 116, 98, 118)
+    fill_tiles(chunk, TILE_WALL, 64, 124, 66, 126)
+    fill_tiles(chunk, TILE_WALL, 88, 124, 90, 126)
+    # Entrance path — path edge stones (DS3: stone-lined path to shrine)
+    fill_tiles(chunk, TILE_WALL, 72, 130, 74, 134)
+    fill_tiles(chunk, TILE_WALL, 86, 130, 88, 134)
+    fill_tiles(chunk, TILE_WALL, 76, 138, 78, 140)
+    fill_tiles(chunk, TILE_WALL, 82, 138, 84, 140)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -1061,9 +1537,9 @@ def make_lothric_wall():
     # Wider landings at intervals
     fill_tiles(chunk, TILE_GROUND, 68, 118, 100, 124)
     fill_tiles(chunk, TILE_GROUND, 68, 130, 100, 136)
-    # Icy patches (poison tiles as cold damage)
-    fill_tiles(chunk, TILE_POISON, 78, 120, 84, 122)
-    fill_tiles(chunk, TILE_POISON, 86, 132, 92, 134)
+    # Stone landings on the descent to Vordt (DS3: no frost damage, just stone stairs)
+    fill_tiles(chunk, TILE_GROUND, 78, 120, 84, 122)
+    fill_tiles(chunk, TILE_GROUND, 86, 132, 92, 134)
 
     # Connection: cathedral to frost stairs
     fill_tiles(chunk, TILE_GROUND, 76, 110, 82, 114)
@@ -1074,6 +1550,51 @@ def make_lothric_wall():
     fill_tiles(chunk, TILE_GROUND, 86, 136, 114, 142)
 
     # ================================================================
+    # SESSION 9 FIDELITY PASS — LothricWall architectural details
+    # ================================================================
+    # High Wall ramparts — crenellation stones (DS3: walkable battlements)
+    fill_tiles(chunk, TILE_WALL, 20, 16, 21, 17)
+    fill_tiles(chunk, TILE_WALL, 26, 20, 27, 21)
+    fill_tiles(chunk, TILE_WALL, 16, 24, 17, 25)
+    fill_tiles(chunk, TILE_WALL, 30, 14, 31, 15)
+    # Dragon fire courtyard — scorched stone patches (DS3: dragon burns area)
+    fill_tiles(chunk, TILE_WALL, 42, 28, 43, 29)
+    fill_tiles(chunk, TILE_WALL, 46, 32, 47, 33)
+    fill_tiles(chunk, TILE_WALL, 38, 36, 39, 37)
+    fill_tiles(chunk, TILE_WALL, 50, 26, 51, 27)
+    fill_tiles(chunk, TILE_WALL, 44, 38, 45, 39)
+    # Lothric Knight barracks — weapon rack stones (DS3: knight equipment room)
+    fill_tiles(chunk, TILE_WALL, 56, 44, 57, 45)
+    fill_tiles(chunk, TILE_WALL, 60, 48, 61, 49)
+    fill_tiles(chunk, TILE_WALL, 52, 52, 53, 53)
+    fill_tiles(chunk, TILE_WALL, 64, 42, 65, 43)
+    # Treasury room — coffer debris (DS3: looted treasury with empty chests)
+    fill_tiles(chunk, TILE_WALL, 70, 56, 71, 57)
+    fill_tiles(chunk, TILE_WALL, 74, 60, 75, 61)
+    fill_tiles(chunk, TILE_WALL, 66, 64, 67, 65)
+    fill_tiles(chunk, TILE_WALL, 78, 54, 79, 55)
+    # Frost bridge approach — ice-cracked stones (DS3: frost-covered path to Vordt)
+    fill_tiles(chunk, TILE_WALL, 82, 70, 83, 71)
+    fill_tiles(chunk, TILE_WALL, 86, 74, 87, 75)
+    fill_tiles(chunk, TILE_WALL, 78, 78, 79, 79)
+    fill_tiles(chunk, TILE_WALL, 90, 68, 91, 69)
+    fill_tiles(chunk, TILE_WALL, 84, 80, 85, 81)
+    # Dancer's arena approach — tapestry stones (DS3: ornate hall before Emma)
+    fill_tiles(chunk, TILE_WALL, 96, 86, 97, 87)
+    fill_tiles(chunk, TILE_WALL, 100, 90, 101, 91)
+    fill_tiles(chunk, TILE_WALL, 92, 94, 93, 95)
+    fill_tiles(chunk, TILE_WALL, 104, 84, 105, 85)
+    # Vordt frost stairs — frozen step debris (DS3: icy descent to Vordt)
+    fill_tiles(chunk, TILE_WALL, 88, 120, 89, 121)
+    fill_tiles(chunk, TILE_WALL, 94, 124, 95, 125)
+    fill_tiles(chunk, TILE_WALL, 90, 128, 91, 129)
+    fill_tiles(chunk, TILE_WALL, 96, 132, 97, 133)
+    fill_tiles(chunk, TILE_WALL, 86, 136, 87, 137)
+    # Pus of Man tower — blackened bricks (DS3: wyvern with dark mass)
+    fill_tiles(chunk, TILE_WALL, 34, 44, 35, 45)
+    fill_tiles(chunk, TILE_WALL, 38, 48, 39, 49)
+    fill_tiles(chunk, TILE_WALL, 30, 52, 31, 53)
+
     # ENTITIES
     # ================================================================
     entities = []
@@ -1147,6 +1668,11 @@ def make_lothric_wall():
         ("LothricKnight", 76, 134), ("LothricKnight", 94, 138),
         # Hollow Assassins on rooftops (DS3: ambush near wyvern)
         ("HollowAssassin", 44, 40), ("HollowAssassin", 60, 50),
+        # Additional DS3 High Wall enemies — more hollow soldiers (DS3: dense with hollow soldiers)
+        ("HollowSoldier", 34, 14), ("HollowSoldier", 60, 16),        # Wall rampart reinforcements
+        ("HollowSoldier", 44, 44), ("HollowSoldier", 64, 58),        # Tower area hollows
+        ("HollowSoldier", 28, 68), ("HollowSoldier", 72, 70),        # Residential maze hollows
+        ("HollowSoldier", 26, 86), ("HollowSoldier", 58, 98),        # Courtyard hollows
     ]
     for kind, tx, ty in enemy_positions:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -1154,21 +1680,21 @@ def make_lothric_wall():
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # --- NPCs ---
-    # Greirat — locked in cell below tower (DS3: basement cell)
+    # Greirat — locked in cell below tower (DS3: basement cell, asks for Loretta's Bone)
     entities.append(make_entity("Npc", 36 * 16, 60 * 16, [
         make_field("name", "String", "Greirat"),
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#A0A0A0"),
         make_field("dialogue", "String",
-            "...Who are you? Can you let me out?|Find the cell key and I will serve you"),
+            "...Who are you?|Will you let me out of here?|I can show you a thing or two in return"),
     ]))
-    # Emma — High Priestess in the cathedral (DS3: gives Small Lothric Banner)
+    # Emma — High Priestess in the cathedral (DS3: gives Small Lothric Banner, triggers Dancer)
     entities.append(make_entity("Npc", 80 * 16, 108 * 16, [
         make_field("name", "String", "Emma"),
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#C0A0D0"),
         make_field("dialogue", "String",
-            "Hello, Unkindled|I am Emma, High Priestess of Lothric|Find the Prince, give him this banner"),
+            "Hello, Unkindled One|I am Emma, High Priestess of Lothric|Seek the Basin of Vow, and present it to the statue|To see the Prince, and hear his tale"),
     ]))
 
     # --- Items (DS3 High Wall of Lothric) ---
@@ -1225,7 +1751,7 @@ def make_lothric_wall():
         ("SoulOrb", "Soul of a Deserted Corpse", 54, 86, 200),
         ("SoulOrb", "Soul of a Deserted Corpse", 48, 92, 200),
         # Knight path / cathedral
-        ("EstusShard", "Estus Shard", 74, 100, 0),
+        ("Consumable", "Firebomb", 74, 100, 0),                    # Replaces duplicate Estus Shard
         ("TitaniteShard", "Titanite Shard", 88, 104, 0),
         ("RingDrop", "Blue Tearstone Ring", 80, 112, 0),
         ("Consumable", "Small Lothric Banner", 82, 108, 0),
@@ -1350,6 +1876,126 @@ def make_lothric_wall():
         make_field("r", "Float", 0.3), make_field("g", "Float", 0.5),
         make_field("b", "Float", 0.9), make_field("intensity", "Float", 0.4)]))
 
+    # === ADDITIONAL HIGH WALL DETAILS — DS3 fidelity ===
+    # Wall entrance — battlement stones (DS3: stone ramparts with hollow soldiers)
+    fill_tiles(chunk, TILE_WALL, 10, 8, 12, 10)
+    fill_tiles(chunk, TILE_WALL, 20, 12, 22, 14)
+    fill_tiles(chunk, TILE_WALL, 28, 16, 30, 18)
+    fill_tiles(chunk, TILE_WALL, 14, 14, 16, 16)
+    # Dragon bridge — more fire debris and cover pillars (DS3: wyvern burns sections)
+    fill_tiles(chunk, TILE_WALL, 16, 32, 18, 34)
+    fill_tiles(chunk, TILE_WALL, 28, 36, 30, 38)
+    fill_tiles(chunk, TILE_WALL, 40, 34, 42, 36)
+    fill_tiles(chunk, TILE_WALL, 48, 38, 50, 40)
+    fill_tiles(chunk, TILE_WALL, 12, 38, 14, 40)
+    # Tower area — more interior walls (DS3: Winged Knight room, Greirat's cell)
+    fill_tiles(chunk, TILE_WALL, 54, 38, 56, 40)
+    fill_tiles(chunk, TILE_WALL, 66, 44, 68, 46)
+    fill_tiles(chunk, TILE_WALL, 58, 48, 60, 50)
+    fill_tiles(chunk, TILE_WALL, 70, 48, 72, 50)
+    # Residential maze — additional house walls (DS3: narrow alleys between houses)
+    fill_tiles(chunk, TILE_WALL, 38, 58, 40, 60)
+    fill_tiles(chunk, TILE_WALL, 50, 60, 52, 62)
+    fill_tiles(chunk, TILE_WALL, 62, 58, 64, 60)
+    fill_tiles(chunk, TILE_WALL, 72, 66, 74, 68)
+    fill_tiles(chunk, TILE_WALL, 34, 70, 36, 72)
+    fill_tiles(chunk, TILE_WALL, 56, 70, 58, 72)
+    fill_tiles(chunk, TILE_WALL, 44, 76, 46, 78)
+    fill_tiles(chunk, TILE_WALL, 62, 76, 64, 78)
+    fill_tiles(chunk, TILE_WALL, 36, 80, 38, 82)
+    fill_tiles(chunk, TILE_WALL, 54, 80, 56, 82)
+    # Courtyard — fountain detail and perimeter walls (DS3: central fountain area)
+    fill_tiles(chunk, TILE_WALL, 30, 88, 36, 90)
+    fill_tiles(chunk, TILE_WALL, 22, 94, 24, 96)
+    fill_tiles(chunk, TILE_WALL, 44, 92, 46, 94)
+    fill_tiles(chunk, TILE_WALL, 16, 86, 18, 88)
+    fill_tiles(chunk, TILE_WALL, 50, 84, 52, 86)
+    # Knight path — stone arches (DS3: stone path to cathedral)
+    fill_tiles(chunk, TILE_WALL, 60, 90, 62, 92)
+    fill_tiles(chunk, TILE_WALL, 70, 96, 72, 98)
+    fill_tiles(chunk, TILE_WALL, 82, 100, 84, 102)
+    fill_tiles(chunk, TILE_WALL, 88, 94, 90, 96)
+    # Cathedral — chapel columns (DS3: Emma's chapel)
+    fill_tiles(chunk, TILE_WALL, 68, 102, 70, 104)
+    fill_tiles(chunk, TILE_WALL, 78, 108, 80, 110)
+    fill_tiles(chunk, TILE_WALL, 90, 104, 92, 106)
+    fill_tiles(chunk, TILE_WALL, 74, 110, 76, 112)
+    # Frost stairs — ice-covered walls (DS3: cold descent to Vordt)
+    fill_tiles(chunk, TILE_WALL, 74, 116, 76, 118)
+    fill_tiles(chunk, TILE_WALL, 82, 124, 84, 126)
+    fill_tiles(chunk, TILE_WALL, 90, 128, 92, 130)
+    fill_tiles(chunk, TILE_WALL, 78, 134, 80, 136)
+    fill_tiles(chunk, TILE_WALL, 86, 138, 88, 140)
+    # Vordt arena perimeter — ruined walls (DS3: open arena below the wall)
+    fill_tiles(chunk, TILE_WALL, 84, 142, 86, 144)
+    fill_tiles(chunk, TILE_WALL, 108, 140, 110, 142)
+    fill_tiles(chunk, TILE_WALL, 116, 146, 118, 148)
+    fill_tiles(chunk, TILE_WALL, 92, 150, 94, 152)
+
+    # === ADDITIONAL DS3 HIGH WALL TERRAIN — Session 6 fidelity pass ===
+    # Wall entrance — stone parapet merlons (DS3: battlement crenellations along rampart)
+    fill_tiles(chunk, TILE_WALL, 6, 10, 8, 12)
+    fill_tiles(chunk, TILE_WALL, 38, 6, 40, 8)
+    fill_tiles(chunk, TILE_WALL, 56, 10, 58, 12)
+    fill_tiles(chunk, TILE_WALL, 34, 18, 36, 20)
+    # Entry stairway edges (DS3: curved stone stairs from coiled sword to rampart)
+    fill_tiles(chunk, TILE_WALL, 8, 4, 10, 6)
+    fill_tiles(chunk, TILE_WALL, 12, 4, 14, 6)
+    fill_tiles(chunk, TILE_WALL, 40, 14, 42, 16)
+    # Dragon bridge — wyvern corpse debris (DS3: massive dead dragon body across bridge)
+    fill_tiles(chunk, TILE_WALL, 20, 28, 22, 30)
+    fill_tiles(chunk, TILE_WALL, 44, 32, 46, 34)
+    fill_tiles(chunk, TILE_WALL, 52, 34, 54, 36)
+    # Scorched walls near wyvern head (DS3: burned stone where wyvern breathes fire)
+    fill_tiles(chunk, TILE_WALL, 14, 26, 16, 28)
+    fill_tiles(chunk, TILE_WALL, 50, 30, 52, 32)
+    # Tower area — Greirat's cell bars (DS3: iron bar divider in basement cell)
+    fill_tiles(chunk, TILE_WALL, 60, 42, 62, 44)
+    fill_tiles(chunk, TILE_WALL, 64, 46, 66, 48)
+    fill_tiles(chunk, TILE_WALL, 72, 42, 74, 44)
+    # Tower upper walkway rail (DS3: stone railing around tower on the wall bonfire)
+    fill_tiles(chunk, TILE_WALL, 56, 36, 58, 38)
+    fill_tiles(chunk, TILE_WALL, 68, 50, 70, 52)
+    # Residential maze — wooden scaffolding supports (DS3: wooden scaffolding in narrow alleys)
+    fill_tiles(chunk, TILE_WALL, 26, 56, 28, 58)
+    fill_tiles(chunk, TILE_WALL, 46, 54, 48, 56)
+    fill_tiles(chunk, TILE_WALL, 58, 62, 60, 64)
+    fill_tiles(chunk, TILE_WALL, 68, 60, 70, 62)
+    fill_tiles(chunk, TILE_WALL, 40, 68, 42, 70)
+    fill_tiles(chunk, TILE_WALL, 52, 68, 54, 70)
+    # Hanging corpse posts (DS3: bodies hanging from wooden frames throughout settlement)
+    fill_tiles(chunk, TILE_WALL, 32, 60, 34, 62)
+    fill_tiles(chunk, TILE_WALL, 64, 70, 66, 72)
+    fill_tiles(chunk, TILE_WALL, 42, 80, 44, 82)
+    # Courtyard — sewer grate pillars (DS3: sewer entrance with iron grate)
+    fill_tiles(chunk, TILE_WALL, 56, 84, 58, 86)
+    fill_tiles(chunk, TILE_WALL, 60, 92, 62, 94)
+    # Lift mechanism housing (DS3: stone lift room with pressure plate)
+    fill_tiles(chunk, TILE_WALL, 62, 96, 64, 98)
+    fill_tiles(chunk, TILE_WALL, 56, 94, 58, 96)
+    # Cathedral — altar block (DS3: stone altar where Emma sits)
+    fill_tiles(chunk, TILE_WALL, 76, 104, 78, 106)
+    # Chapel pews (DS3: wooden bench rows inside chapel)
+    fill_tiles(chunk, TILE_WALL, 80, 100, 82, 102)
+    fill_tiles(chunk, TILE_WALL, 86, 108, 88, 110)
+    # Statue alcove (DS3: knight statue where Basin of Vows is placed)
+    fill_tiles(chunk, TILE_WALL, 92, 108, 94, 110)
+    # Frost stairs — ice-covered pillars (DS3: frozen columns along cold descent)
+    fill_tiles(chunk, TILE_WALL, 80, 114, 82, 116)
+    fill_tiles(chunk, TILE_WALL, 92, 120, 94, 122)
+    fill_tiles(chunk, TILE_WALL, 76, 128, 78, 130)
+    fill_tiles(chunk, TILE_WALL, 88, 134, 90, 136)
+    fill_tiles(chunk, TILE_WALL, 94, 138, 96, 140)
+    # Collapsed masonry debris (DS3: crumbling castle walls on the descent)
+    fill_tiles(chunk, TILE_WALL, 72, 120, 74, 122)
+    fill_tiles(chunk, TILE_WALL, 84, 130, 86, 132)
+    fill_tiles(chunk, TILE_WALL, 96, 136, 98, 138)
+    # Vordt arena — gate arch (DS3: massive stone gate at arena edge)
+    fill_tiles(chunk, TILE_WALL, 96, 144, 98, 146)
+    fill_tiles(chunk, TILE_WALL, 112, 144, 114, 146)
+    fill_tiles(chunk, TILE_WALL, 100, 150, 102, 152)
+    fill_tiles(chunk, TILE_WALL, 106, 148, 108, 150)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -1378,40 +2024,85 @@ def make_undead_settlement():
     # 1. SETTLEMENT ENTRANCE (top-left) — from High Wall
     fill_tiles(chunk, TILE_GROUND, 8, 8, 35, 28)
     carve_ellipse(chunk, 18, 18, 10, 8)
+    # Entry gate walls (DS3: stone archway entry)
+    fill_tiles(chunk, TILE_WALL, 8, 10, 10, 18)
+    fill_tiles(chunk, TILE_WALL, 32, 10, 34, 18)
+    # Tombstones near entry (DS3: graveyard at entrance)
+    fill_tiles(chunk, TILE_WALL, 14, 14, 15, 16)
+    fill_tiles(chunk, TILE_WALL, 22, 16, 23, 18)
 
     # 2. HOUSE STREET — main street with wooden houses
     fill_tiles(chunk, TILE_GROUND, 30, 22, 62, 48)
     # House wall protrusions creating narrow alleys
-    fill_tiles(chunk, TILE_WALL, 36, 26, 42, 32)
-    fill_tiles(chunk, TILE_WALL, 50, 34, 56, 40)
-    fill_tiles(chunk, TILE_WALL, 38, 40, 44, 46)
+    # DS3: densely packed wooden houses with narrow gaps between them
+    fill_tiles(chunk, TILE_WALL, 36, 26, 42, 32)  # First house block (left)
+    fill_tiles(chunk, TILE_WALL, 50, 34, 56, 40)  # Second house block (right)
+    fill_tiles(chunk, TILE_WALL, 38, 40, 44, 46)  # Third house block (lower left)
+    # Additional house walls for DS3 fidelity
+    fill_tiles(chunk, TILE_WALL, 30, 30, 34, 36)  # Entry house
+    fill_tiles(chunk, TILE_WALL, 44, 24, 48, 28)  # Upper house
+    fill_tiles(chunk, TILE_WALL, 58, 42, 62, 48)  # Lower right house
+    fill_tiles(chunk, TILE_WALL, 30, 44, 34, 48)  # Southwest corner house
 
     # 3. GIANT TOWER — circular tower (center-left)
     carve_ellipse(chunk, 52, 26, 10, 12)
     fill_tiles(chunk, TILE_GROUND, 44, 22, 56, 30)
+    # Tower base walls (DS3: stone tower base)
+    fill_tiles(chunk, TILE_WALL, 44, 24, 46, 28)
+    fill_tiles(chunk, TILE_WALL, 54, 24, 56, 28)
 
     # 4. BONFIRE SQUARE — open area with large bonfire (center)
     carve_ellipse(chunk, 70, 56, 16, 12)
     fill_tiles(chunk, TILE_GROUND, 56, 42, 72, 50)
+    # Square perimeter walls (DS3: buildings surrounding the square)
+    fill_tiles(chunk, TILE_WALL, 58, 44, 60, 48)   # NW building corner
+    fill_tiles(chunk, TILE_WALL, 68, 44, 70, 48)   # NE building corner
+    fill_tiles(chunk, TILE_WALL, 62, 62, 64, 66)   # South building
+    fill_tiles(chunk, TILE_WALL, 74, 58, 76, 62)   # SE building
 
     # 5. DILAPIDATED BRIDGE — connecting tower area to square
     fill_tiles(chunk, TILE_GROUND, 54, 34, 64, 42)
+    # Bridge railing remnants (DS3: broken wooden bridge)
+    fill_tiles(chunk, TILE_WALL, 56, 34, 57, 36)
+    fill_tiles(chunk, TILE_WALL, 62, 38, 63, 40)
 
     # 6. CLIFFSIDE PATH — narrow path along cliff (east)
     fill_tiles(chunk, TILE_GROUND, 84, 38, 112, 48)
     carve_ellipse(chunk, 100, 42, 8, 6)
+    # Cliff edge walls (DS3: sheer drops on one side)
+    fill_tiles(chunk, TILE_WALL, 86, 38, 88, 42)
+    fill_tiles(chunk, TILE_WALL, 94, 44, 96, 48)
+    fill_tiles(chunk, TILE_WALL, 104, 38, 106, 42)
+    # Sewer pipe exits (DS3: sewer grates along cliffside)
+    fill_tiles(chunk, TILE_WALL, 90, 46, 92, 48)
+    fill_tiles(chunk, TILE_WALL, 108, 46, 110, 48)
 
     # 7. FIRE DEMON SQUARE (center-right)
     carve_ellipse(chunk, 100, 64, 14, 10)
     fill_tiles(chunk, TILE_GROUND, 82, 56, 96, 66)
+    # Building ruins around fire demon area (DS3: burnt structures)
+    fill_tiles(chunk, TILE_WALL, 84, 58, 86, 62)
+    fill_tiles(chunk, TILE_WALL, 92, 60, 94, 64)
+    fill_tiles(chunk, TILE_WALL, 86, 66, 88, 70)
 
     # 8. PILGRIM CAMP (upper-right) — Yoel and pilgrims
     fill_tiles(chunk, TILE_GROUND, 114, 28, 140, 42)
     carve_ellipse(chunk, 128, 34, 10, 6)
+    # Pilgrim stones (DS3: pilgrim bodies lying in rows)
+    fill_tiles(chunk, TILE_WALL, 118, 32, 120, 34)
+    fill_tiles(chunk, TILE_WALL, 124, 36, 126, 38)
+    fill_tiles(chunk, TILE_WALL, 132, 30, 134, 32)
+    fill_tiles(chunk, TILE_WALL, 136, 36, 138, 38)
 
     # 9. IRINA'S CELL (right edge)
     fill_tiles(chunk, TILE_GROUND, 140, 48, 152, 60)
     carve_ellipse(chunk, 146, 54, 6, 5)
+    # Cell walls (DS3: locked room in graveyard)
+    fill_tiles(chunk, TILE_WALL, 140, 50, 142, 54)
+    fill_tiles(chunk, TILE_WALL, 150, 52, 152, 56)
+    # Gravestones near Irina (DS3: graveyard area)
+    fill_tiles(chunk, TILE_WALL, 144, 58, 145, 60)
+    fill_tiles(chunk, TILE_WALL, 148, 48, 149, 50)
 
     # Connection: cliffside to pilgrim camp
     fill_tiles(chunk, TILE_GROUND, 110, 38, 118, 44)
@@ -1430,6 +2121,50 @@ def make_undead_settlement():
     carve_corridor(chunk, 78, 68, 84, 92, width=4)
 
     # ================================================================
+    # SESSION 9 FIDELITY PASS — UndeadSettlement architectural details
+    # ================================================================
+    # Entry houses — thatched roof debris (DS3: wooden houses with thatched roofs)
+    fill_tiles(chunk, TILE_WALL, 20, 18, 21, 19)
+    fill_tiles(chunk, TILE_WALL, 26, 22, 27, 23)
+    fill_tiles(chunk, TILE_WALL, 16, 26, 17, 27)
+    fill_tiles(chunk, TILE_WALL, 30, 16, 31, 17)
+    fill_tiles(chunk, TILE_WALL, 22, 30, 23, 31)
+    # Central square — bonfire well stones (DS3: well in center of settlement)
+    fill_tiles(chunk, TILE_WALL, 44, 34, 45, 35)
+    fill_tiles(chunk, TILE_WALL, 48, 38, 49, 39)
+    fill_tiles(chunk, TILE_WALL, 40, 42, 41, 43)
+    fill_tiles(chunk, TILE_WALL, 52, 32, 53, 33)
+    fill_tiles(chunk, TILE_WALL, 46, 44, 47, 45)
+    # Evangelist house — overturned furniture stones (DS3: houses with evangelists)
+    fill_tiles(chunk, TILE_WALL, 56, 48, 57, 49)
+    fill_tiles(chunk, TILE_WALL, 60, 52, 61, 53)
+    fill_tiles(chunk, TILE_WALL, 52, 56, 53, 57)
+    fill_tiles(chunk, TILE_WALL, 64, 46, 65, 47)
+    # Tree hollow area — dead tree roots (DS3: massive hollow tree)
+    fill_tiles(chunk, TILE_WALL, 68, 58, 69, 59)
+    fill_tiles(chunk, TILE_WALL, 72, 62, 73, 63)
+    fill_tiles(chunk, TILE_WALL, 64, 66, 65, 67)
+    fill_tiles(chunk, TILE_WALL, 76, 56, 77, 57)
+    fill_tiles(chunk, TILE_WALL, 70, 68, 71, 69)
+    # Cliffside path — wooden scaffold debris (DS3: wooden platforms along cliff)
+    fill_tiles(chunk, TILE_WALL, 80, 64, 81, 65)
+    fill_tiles(chunk, TILE_WALL, 84, 68, 85, 69)
+    fill_tiles(chunk, TILE_WALL, 76, 72, 77, 73)
+    fill_tiles(chunk, TILE_WALL, 88, 60, 89, 61)
+    fill_tiles(chunk, TILE_WALL, 82, 74, 83, 75)
+    # Greatwood arena — roots and debris (DS3: Curse-rotted Greatwood arena pit)
+    fill_tiles(chunk, TILE_WALL, 96, 100, 97, 101)
+    fill_tiles(chunk, TILE_WALL, 100, 104, 101, 105)
+    fill_tiles(chunk, TILE_WALL, 92, 108, 93, 109)
+    fill_tiles(chunk, TILE_WALL, 104, 98, 105, 99)
+    fill_tiles(chunk, TILE_WALL, 98, 110, 99, 111)
+    # Fire Demon arena — scorched workshop (DS3: Siegward's demon encounter)
+    fill_tiles(chunk, TILE_WALL, 110, 78, 111, 79)
+    fill_tiles(chunk, TILE_WALL, 114, 82, 115, 83)
+    fill_tiles(chunk, TILE_WALL, 106, 86, 107, 87)
+    fill_tiles(chunk, TILE_WALL, 118, 76, 119, 77)
+
+        # ================================================================
     # ENTITIES
     # ================================================================
     entities = []
@@ -1485,7 +2220,7 @@ def make_undead_settlement():
         # Giant Slave on tower (DS3: shoots great arrows at player throughout the level)
         ("GiantSlave", 52, 22),                                       # DS3: Giant atop tower with great bow
         # Boreal Outrider Knight at lift (DS3: Knight of the Boreal Valley guarding Road of Sacrifices exit)
-        ("WingedKnight", 146, 52),                                    # DS3: Irithyll Straight Sword drop
+        ("PeasantHollow", 146, 52),                                   # DS3: Hollow in lift tower area
         # Holy Knight Hodrick invasion (DS3: Mad Spirit invades near Dilapidated Bridge if Embered)
         ("MiniBoss", 64, 66),                                         # DS3: Hodrick, Mound-Makers member
         # Irina's area — Skeletons (DS3: skeletons animate and attack in graveyard near Irina)
@@ -1505,7 +2240,7 @@ def make_undead_settlement():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#4A4A5A"),
         make_field("dialogue", "String",
-            "I am Yoel of Londor|Let me grant you true strength|Come. Touch the darkness within me"),
+            "I am Yoel of Londor, a pilgrim|Let me grant you true strength|Come. Touch the darkness within me"),
     ]))
     # Siegward of Catarina — at Fire Demon square (DS3: helps fight the demon)
     entities.append(make_entity("Npc", 96 * 16, 60 * 16, [
@@ -1521,7 +2256,7 @@ def make_undead_settlement():
         make_field("kind", "LocalEnum.NpcKind", "Merchant"),
         make_field("color", "Color", "#B8860B"),
         make_field("dialogue", "String",
-            "You are a Pyromancy student?|I can teach you the flame arts|The flame is both a blessing and a curse"),
+            "A pyromancy student? Very well|I can teach you the flame arts|Ah, the flame is a fickle thing, as unpredictable as a woman"),
     ]))
     # Irina of Carim — miracle teacher in cell (DS3: found through locked door in sewers, near skeletons)
     entities.append(make_entity("Npc", 146 * 16, 54 * 16, [
@@ -1529,7 +2264,7 @@ def make_undead_settlement():
         make_field("kind", "LocalEnum.NpcKind", "Merchant"),
         make_field("color", "Color", "#8B7D9B"),
         make_field("dialogue", "String",
-            "I am Irina of Carim|I can teach you miracles|Please, take me to Firelink Shrine"),
+            "I am Irina of Carim|I can teach you miracles, if you wish|Please, take me to the shrine"),
     ]))
     # Eygon of Carim — guards Irina (DS3: found outside near Irina, warns about the champion)
     entities.append(make_entity("Npc", 148 * 16, 50 * 16, [
@@ -1537,7 +2272,7 @@ def make_undead_settlement():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#4A3A2A"),
         make_field("dialogue", "String",
-            "I am Eygon of Carim|Keep your hands off the woman|She is under my protection"),
+            "I am Eygon of Carim, of the Morne bloodline|Keep your hands off the woman|She is my responsibility, not yours"),
     ]))
 
     # --- Items (DS3 Undead Settlement) ---
@@ -1548,7 +2283,7 @@ def make_undead_settlement():
         make_field("value", "Int", 400)]))
     # Alluring Skull 2x — near dogs by overturned coach
     entities.append(make_entity("Item", 24 * 16, 18 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Alluring Skull")]))
     # Homeward Bone 2x — end of broken road near Yoel
     entities.append(make_entity("Item", 30 * 16, 22 * 16, [
@@ -1561,19 +2296,19 @@ def make_undead_settlement():
         make_field("slot", "String", "Hands")]))
     # Charcoal Pine Bundle 2x — first house balcony
     entities.append(make_entity("Item", 46 * 16, 32 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Charcoal Pine Bundle")]))
     # Loretta's Bone — hanging body outside house
     entities.append(make_entity("Item", 48 * 16, 36 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Loretta's Bone")]))
     # Repair Powder 2x — around corner from Loretta's Bone
     entities.append(make_entity("Item", 42 * 16, 34 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Repair Powder")]))
     # Charcoal Pine Bundle 2x — lower floor of house
     entities.append(make_entity("Item", 44 * 16, 38 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Charcoal Pine Bundle")]))
     # Firebomb 6x — corpse in front of blazing fire (wiki: 6x Firebomb)
     entities.append(make_entity("Item", 44 * 16, 40 * 16, [
@@ -1675,11 +2410,11 @@ def make_undead_settlement():
         make_field("name", "String", "Estus Shard")]))
     # Warriors of Sunlight Covenant — drop down hole in dwelling
     entities.append(make_entity("Item", 50 * 16, 56 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Warriors of Sunlight")]))
     # Charcoal Pine Resin 2x — near caged limbs
     entities.append(make_entity("Item", 52 * 16, 60 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Charcoal Pine Resin")]))
     # Titanite Shard — lower level house
     entities.append(make_entity("Item", 56 * 16, 44 * 16, [
@@ -1695,15 +2430,15 @@ def make_undead_settlement():
         make_field("name", "String", "Titanite Shard")]))
     # Rusted Coin — roof after Hodrick invasion
     entities.append(make_entity("Item", 100 * 16, 56 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Rusted Coin")]))
     # Fading Soul — path near Hodrick
     entities.append(make_entity("Item", 98 * 16, 52 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
         make_field("name", "String", "Fading Soul")]))
     # Red Bug Pellet 2x — open area after Fire Demon
     entities.append(make_entity("Item", 92 * 16, 40 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Red Bug Pellet")]))
     # Large Club — open area after Fire Demon
     entities.append(make_entity("Item", 90 * 16, 44 * 16, [
@@ -1711,7 +2446,7 @@ def make_undead_settlement():
         make_field("name", "String", "Large Club")]))
     # Alluring Skull 2x — structure near Fire Demon area
     entities.append(make_entity("Item", 96 * 16, 48 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Alluring Skull")]))
     # Flynn's Ring — roof of structure near Fire Demon
     entities.append(make_entity("Item", 98 * 16, 46 * 16, [
@@ -1731,15 +2466,15 @@ def make_undead_settlement():
         make_field("name", "String", "Irithyll Straight Sword")]))
     # Fading Soul — giant spear area
     entities.append(make_entity("Item", 108 * 16, 60 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
         make_field("name", "String", "Fading Soul")]))
     # Ember — giant spear area
     entities.append(make_entity("Item", 110 * 16, 64 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Ember")]))
     # Young White Branch 2x — giant spear area
     entities.append(make_entity("Item", 106 * 16, 58 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Young White Branch")]))
     # Large Soul of a Deserted Corpse — giant spear area
     entities.append(make_entity("Item", 112 * 16, 66 * 16, [
@@ -1748,7 +2483,7 @@ def make_undead_settlement():
         make_field("value", "Int", 400)]))
     # Mortician's Ashes — graveyard up from giant area
     entities.append(make_entity("Item", 116 * 16, 62 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Mortician's Ashes")]))
     # Cleric Set (armor) — hut near graveyard
     entities.append(make_entity("Item", 118 * 16, 66 * 16, [
@@ -1824,20 +2559,129 @@ def make_undead_settlement():
         make_field("r", "Float", 0.5), make_field("g", "Float", 0.4),
         make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.3)]))
 
-    # === ADDITIONAL INTERNAL STRUCTURES — Undead Settlement houses ===
+    # === ADDITIONAL INTERNAL STRUCTURES — Undead Settlement DS3 fidelity ===
+    # Entry street — wooden house interior walls (DS3: multi-room houses line the street)
     fill_tiles(chunk, TILE_WALL, 18, 38, 20, 42)
     fill_tiles(chunk, TILE_WALL, 28, 35, 30, 38)
     fill_tiles(chunk, TILE_WALL, 38, 40, 40, 42)
+    # Hanging corpse posts along street (DS3: many hanging bodies on wooden frames)
+    fill_tiles(chunk, TILE_WALL, 24, 30, 25, 33)
+    fill_tiles(chunk, TILE_WALL, 32, 34, 33, 37)
+    # House street — additional narrow alley walls (DS3: cramped alleys between houses)
+    fill_tiles(chunk, TILE_WALL, 46, 30, 48, 33)
+    fill_tiles(chunk, TILE_WALL, 52, 38, 54, 41)
+    fill_tiles(chunk, TILE_WALL, 40, 34, 42, 36)
+    # Multi-story dwelling interior partitions (DS3: Cornyx cage building has rooms)
+    fill_tiles(chunk, TILE_WALL, 42, 26, 43, 28)
+    fill_tiles(chunk, TILE_WALL, 48, 32, 49, 35)
+    # Burning tree square — pyre remnants and stone edges (DS3: massive blazing tree)
     fill_tiles(chunk, TILE_WALL, 22, 52, 24, 55)
     fill_tiles(chunk, TILE_WALL, 35, 48, 37, 50)
+    fill_tiles(chunk, TILE_WALL, 62, 54, 64, 56)
+    fill_tiles(chunk, TILE_WALL, 70, 50, 72, 52)
+    # Giant tower — tower base reinforcement (DS3: tall circular stone tower)
+    fill_tiles(chunk, TILE_WALL, 50, 24, 52, 26)
+    fill_tiles(chunk, TILE_WALL, 56, 28, 58, 30)
+    # Dilapidated bridge — broken plank remnants (DS3: rotting wooden bridge)
+    fill_tiles(chunk, TILE_WALL, 58, 36, 59, 38)
+    fill_tiles(chunk, TILE_WALL, 62, 40, 63, 42)
+    # Cliffside path — sewer grates and rock outcrops
     fill_tiles(chunk, TILE_WALL, 45, 55, 47, 57)
     fill_tiles(chunk, TILE_WALL, 55, 50, 57, 52)
     fill_tiles(chunk, TILE_WALL, 15, 62, 17, 65)
     fill_tiles(chunk, TILE_WALL, 28, 65, 30, 68)
+    # Sewer tunnel walls (DS3: narrow tunnels beneath settlement leading to Irina)
     fill_tiles(chunk, TILE_WALL, 42, 62, 44, 65)
     fill_tiles(chunk, TILE_WALL, 55, 60, 57, 62)
     fill_tiles(chunk, TILE_WALL, 68, 55, 70, 58)
     fill_tiles(chunk, TILE_WALL, 78, 52, 80, 55)
+    # Graveyard tombstone rows (DS3: dense graveyard near Dilapidated Bridge)
+    fill_tiles(chunk, TILE_WALL, 74, 62, 75, 64)
+    fill_tiles(chunk, TILE_WALL, 80, 66, 81, 68)
+    fill_tiles(chunk, TILE_WALL, 86, 60, 87, 62)
+    # Irina's cell area walls (DS3: locked cell with skeleton graveyard outside)
+    fill_tiles(chunk, TILE_WALL, 142, 56, 144, 58)
+    fill_tiles(chunk, TILE_WALL, 148, 54, 150, 56)
+    # Cliff underside — underground passage walls (DS3: tunnels below the cliff)
+    fill_tiles(chunk, TILE_WALL, 56, 80, 58, 83)
+    fill_tiles(chunk, TILE_WALL, 70, 86, 72, 88)
+    fill_tiles(chunk, TILE_WALL, 62, 76, 64, 78)
+    # Pit of Hollows / Greatwood arena edge (DS3: circular pit with hollow worshippers)
+    fill_tiles(chunk, TILE_WALL, 82, 100, 84, 103)
+    fill_tiles(chunk, TILE_WALL, 96, 108, 98, 110)
+    fill_tiles(chunk, TILE_WALL, 86, 114, 88, 116)
+    fill_tiles(chunk, TILE_WALL, 94, 96, 96, 98)
+    # Lift shaft walls (DS3: stone elevator to Road of Sacrifices, guarded by Boreal Knight)
+    fill_tiles(chunk, TILE_WALL, 143, 48, 145, 51)
+    fill_tiles(chunk, TILE_WALL, 149, 50, 151, 53)
+    # Pilgrim camp stones (DS3: Yoel among collapsed pilgrims in stone alcoves)
+    fill_tiles(chunk, TILE_WALL, 122, 38, 124, 40)
+    fill_tiles(chunk, TILE_WALL, 130, 34, 132, 36)
+    fill_tiles(chunk, TILE_WALL, 136, 32, 138, 34)
+    # Fire Demon plaza ruins (DS3: Siegward helps fight demon among stone debris)
+    fill_tiles(chunk, TILE_WALL, 88, 68, 90, 70)
+    fill_tiles(chunk, TILE_WALL, 104, 60, 106, 62)
+    fill_tiles(chunk, TILE_WALL, 98, 56, 100, 58)
+
+    # === SESSION 6 FIDELITY PASS — Undead Settlement ===
+    # Entry area — more tombstones and stone walls (DS3: graveyard at settlement entry)
+    fill_tiles(chunk, TILE_WALL, 10, 22, 12, 24)
+    fill_tiles(chunk, TILE_WALL, 28, 20, 30, 22)
+    fill_tiles(chunk, TILE_WALL, 16, 24, 18, 26)
+    fill_tiles(chunk, TILE_WALL, 26, 26, 28, 28)
+    # House street — more interior walls (DS3: cramped multi-room wooden houses)
+    fill_tiles(chunk, TILE_WALL, 34, 34, 36, 36)
+    fill_tiles(chunk, TILE_WALL, 56, 36, 58, 38)
+    fill_tiles(chunk, TILE_WALL, 44, 38, 46, 40)
+    fill_tiles(chunk, TILE_WALL, 36, 42, 38, 44)
+    fill_tiles(chunk, TILE_WALL, 52, 44, 54, 46)
+    fill_tiles(chunk, TILE_WALL, 60, 40, 62, 42)
+    # Giant tower — additional base stones (DS3: massive circular stone tower)
+    fill_tiles(chunk, TILE_WALL, 48, 26, 50, 28)
+    fill_tiles(chunk, TILE_WALL, 54, 30, 56, 32)
+    fill_tiles(chunk, TILE_WALL, 46, 30, 48, 32)
+    # Bonfire square — building corners (DS3: buildings surround the square)
+    fill_tiles(chunk, TILE_WALL, 60, 46, 62, 48)
+    fill_tiles(chunk, TILE_WALL, 66, 48, 68, 50)
+    fill_tiles(chunk, TILE_WALL, 70, 54, 72, 56)
+    fill_tiles(chunk, TILE_WALL, 56, 58, 58, 60)
+    # Cliffside path — rock formations (DS3: sheer cliff with rock outcrops)
+    fill_tiles(chunk, TILE_WALL, 92, 40, 94, 42)
+    fill_tiles(chunk, TILE_WALL, 100, 44, 102, 46)
+    fill_tiles(chunk, TILE_WALL, 108, 42, 110, 44)
+    fill_tiles(chunk, TILE_WALL, 98, 48, 100, 50)
+    # Fire Demon square — more burnt debris (DS3: scorched plaza after demon fight)
+    fill_tiles(chunk, TILE_WALL, 84, 64, 86, 66)
+    fill_tiles(chunk, TILE_WALL, 96, 62, 98, 64)
+    fill_tiles(chunk, TILE_WALL, 102, 66, 104, 68)
+    fill_tiles(chunk, TILE_WALL, 88, 70, 90, 72)
+    # Pilgrim camp — more stone markers (DS3: rows of turned pilgrims)
+    fill_tiles(chunk, TILE_WALL, 116, 34, 118, 36)
+    fill_tiles(chunk, TILE_WALL, 126, 32, 128, 34)
+    fill_tiles(chunk, TILE_WALL, 134, 38, 136, 40)
+    fill_tiles(chunk, TILE_WALL, 120, 40, 122, 42)
+    # Irina's cell — more graveyard stones (DS3: graveyard near locked cell)
+    fill_tiles(chunk, TILE_WALL, 136, 48, 138, 50)
+    fill_tiles(chunk, TILE_WALL, 144, 52, 146, 54)
+    fill_tiles(chunk, TILE_WALL, 140, 56, 142, 58)
+    fill_tiles(chunk, TILE_WALL, 148, 58, 150, 60)
+    # Cliff underside — more tunnel walls (DS3: underground passages below village)
+    fill_tiles(chunk, TILE_WALL, 52, 78, 54, 80)
+    fill_tiles(chunk, TILE_WALL, 66, 82, 68, 84)
+    fill_tiles(chunk, TILE_WALL, 74, 88, 76, 90)
+    fill_tiles(chunk, TILE_WALL, 58, 86, 60, 88)
+    # Pit of Hollows — arena edge stones (DS3: circular hollow pit)
+    fill_tiles(chunk, TILE_WALL, 80, 96, 82, 98)
+    fill_tiles(chunk, TILE_WALL, 98, 102, 100, 104)
+    fill_tiles(chunk, TILE_WALL, 84, 116, 86, 118)
+    fill_tiles(chunk, TILE_WALL, 92, 112, 94, 114)
+    # Lift area — stone shaft walls (DS3: elevator shaft to Road of Sacrifices)
+    fill_tiles(chunk, TILE_WALL, 141, 46, 143, 48)
+    fill_tiles(chunk, TILE_WALL, 151, 52, 153, 54)
+    # Sewer tunnel details (DS3: underground sewer with rats)
+    fill_tiles(chunk, TILE_WALL, 76, 74, 78, 76)
+    fill_tiles(chunk, TILE_WALL, 82, 72, 84, 74)
+    fill_tiles(chunk, TILE_WALL, 72, 70, 74, 72)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -1863,27 +2707,40 @@ def make_road_of_sacrifices():
     # ================================================================
     # SECTION 1: Entry dark woods (top-left) - doc: x=0,y=0,w=800,h=800
     # Narrow forest path with root obstacles, player enters from Undead Settlement
+    # DS3: winding path through dark forest with multiple Corvian ambushes
     # ================================================================
     carve_ellipse(chunk, 18, 18, 8, 6)
     fill_tiles(chunk, TILE_GROUND, 14, 16, 40, 28)
     # Tree root obstacles
     fill_tiles(chunk, TILE_WALL, 20, 20, 22, 22)
     fill_tiles(chunk, TILE_WALL, 32, 24, 34, 26)
+    # Additional tree clusters (DS3: dense dark woods at entry)
+    fill_tiles(chunk, TILE_WALL, 16, 16, 17, 18)
+    fill_tiles(chunk, TILE_WALL, 24, 22, 25, 24)
+    fill_tiles(chunk, TILE_WALL, 36, 18, 37, 20)
+    fill_tiles(chunk, TILE_WALL, 28, 26, 29, 28)
 
     # ================================================================
     # SECTION 2: Halfway Fortress - doc: x=1000,y=500,w=500,h=500
     # Ruined stone fortress with Anri and Horace, interior rooms
+    # DS3: stone ruin with bonfire room, Anri and Horace sitting inside
     # ================================================================
     carve_ellipse(chunk, 52, 28, 12, 10)
     # Stone walls creating fortress rooms
     fill_tiles(chunk, TILE_WALL, 48, 24, 49, 30)
     fill_tiles(chunk, TILE_WALL, 56, 26, 57, 32)
+    # Fortress doorway pillars (DS3: arched stone entry)
+    fill_tiles(chunk, TILE_WALL, 46, 26, 47, 28)
+    fill_tiles(chunk, TILE_WALL, 58, 28, 59, 30)
+    # Interior wall divider (DS3: room partition)
+    fill_tiles(chunk, TILE_WALL, 50, 30, 54, 31)
     # Corridor connecting entry to fortress
     fill_tiles(chunk, TILE_GROUND, 38, 22, 52, 30)
 
     # ================================================================
     # SECTION 3: Crucifixion Woods - doc: x=1700,y=300,w=600,h=500
     # Wide wetland forest with branching paths, large central hub
+    # DS3: sprawling wetland with shallow water, fallen trees, ruin walls
     # ================================================================
     fill_tiles(chunk, TILE_GROUND, 50, 35, 110, 75)
     # Large tree root clusters as wall obstacles
@@ -1892,10 +2749,23 @@ def make_road_of_sacrifices():
     fill_tiles(chunk, TILE_WALL, 95, 40, 99, 44)
     fill_tiles(chunk, TILE_WALL, 68, 62, 72, 66)
     fill_tiles(chunk, TILE_WALL, 88, 65, 92, 69)
+    # Additional forest detail (DS3: scattered ruins and fallen trees)
+    fill_tiles(chunk, TILE_WALL, 52, 38, 54, 40)
+    fill_tiles(chunk, TILE_WALL, 64, 50, 66, 52)
+    fill_tiles(chunk, TILE_WALL, 85, 45, 87, 47)
+    fill_tiles(chunk, TILE_WALL, 102, 55, 104, 57)
+    fill_tiles(chunk, TILE_WALL, 74, 70, 76, 72)
+    # Ruined stone wall (DS3: collapsed wall section in woods)
+    fill_tiles(chunk, TILE_WALL, 55, 55, 57, 58)
+    fill_tiles(chunk, TILE_WALL, 92, 58, 94, 60)
+    # Fallen tree trunks
+    fill_tiles(chunk, TILE_WALL, 108, 48, 110, 50)
+    fill_tiles(chunk, TILE_WALL, 62, 68, 64, 70)
 
     # ================================================================
     # SECTION 4: Corvian Forest - doc: x=2200,y=800,w=600,h=600
     # Dense forest toward Crystal Sage, Black Knight patrols here
+    # DS3: path narrows through dense trees with Corvian ambushes
     # ================================================================
     fill_tiles(chunk, TILE_GROUND, 85, 75, 130, 110)
     # Dense tree clusters
@@ -1903,16 +2773,27 @@ def make_road_of_sacrifices():
     fill_tiles(chunk, TILE_WALL, 115, 90, 118, 93)
     fill_tiles(chunk, TILE_WALL, 100, 100, 103, 103)
     fill_tiles(chunk, TILE_WALL, 120, 78, 123, 81)
+    # Additional dense tree walls (DS3: very dense forest section)
+    fill_tiles(chunk, TILE_WALL, 88, 76, 90, 78)
+    fill_tiles(chunk, TILE_WALL, 105, 85, 107, 87)
+    fill_tiles(chunk, TILE_WALL, 125, 95, 127, 97)
+    fill_tiles(chunk, TILE_WALL, 92, 95, 94, 97)
+    fill_tiles(chunk, TILE_WALL, 110, 105, 112, 107)
 
     # ================================================================
     # SECTION 5: Crystal Sage cave - doc: x=2300,y=1200,w=800,h=600
     # Boss arena: open rocky cave with crystal obstacles
+    # DS3: open arena with crystal growths and ruined pillars
     # ================================================================
     carve_ellipse(chunk, 130, 120, 20, 18)
     # Crystal obstacles inside the cave
     fill_tiles(chunk, TILE_WALL, 122, 114, 124, 116)
     fill_tiles(chunk, TILE_WALL, 138, 126, 140, 128)
     fill_tiles(chunk, TILE_WALL, 125, 130, 127, 132)
+    # Additional crystal growths (DS3: scattered crystal formations)
+    fill_tiles(chunk, TILE_WALL, 130, 115, 132, 117)
+    fill_tiles(chunk, TILE_WALL, 118, 122, 120, 124)
+    fill_tiles(chunk, TILE_WALL, 142, 118, 144, 120)
     # Corridor from Corvian Forest to Crystal Sage
     fill_tiles(chunk, TILE_GROUND, 120, 108, 135, 118)
 
@@ -1933,7 +2814,103 @@ def make_road_of_sacrifices():
     # ================================================================
     fill_tiles(chunk, TILE_GROUND, 42, 30, 55, 38)
 
-    # --- ENTITIES ---
+    # ================================================================
+    # ADDITIONAL DS3 ROAD OF SACRIFICES — forest depth, ruin details
+    # ================================================================
+    # Entry dark woods — more tree clusters (DS3: dense dark forest with Corvians)
+    fill_tiles(chunk, TILE_WALL, 18, 22, 19, 24)
+    fill_tiles(chunk, TILE_WALL, 30, 18, 31, 20)
+    fill_tiles(chunk, TILE_WALL, 22, 26, 23, 28)
+    fill_tiles(chunk, TILE_WALL, 34, 22, 35, 24)
+    # Halfway Fortress — more interior walls (DS3: multi-room stone ruin)
+    fill_tiles(chunk, TILE_WALL, 44, 28, 45, 32)
+    fill_tiles(chunk, TILE_WALL, 60, 30, 61, 34)
+    fill_tiles(chunk, TILE_WALL, 50, 34, 52, 36)
+    fill_tiles(chunk, TILE_WALL, 55, 24, 56, 26)
+    # Crucifixion Woods — more wetland detail (DS3: sprawling marsh with ruins)
+    fill_tiles(chunk, TILE_WALL, 56, 42, 57, 44)
+    fill_tiles(chunk, TILE_WALL, 70, 48, 71, 50)
+    fill_tiles(chunk, TILE_WALL, 80, 55, 81, 57)
+    fill_tiles(chunk, TILE_WALL, 98, 48, 99, 50)
+    fill_tiles(chunk, TILE_WALL, 65, 56, 66, 58)
+    fill_tiles(chunk, TILE_WALL, 90, 62, 91, 64)
+    fill_tiles(chunk, TILE_WALL, 105, 60, 106, 62)
+    fill_tiles(chunk, TILE_WALL, 75, 72, 76, 74)
+    fill_tiles(chunk, TILE_WALL, 58, 65, 59, 67)
+    # Corvian Forest — additional dense trees (DS3: very thick forest near Crystal Sage)
+    fill_tiles(chunk, TILE_WALL, 90, 80, 91, 82)
+    fill_tiles(chunk, TILE_WALL, 100, 88, 101, 90)
+    fill_tiles(chunk, TILE_WALL, 112, 95, 113, 97)
+    fill_tiles(chunk, TILE_WALL, 118, 82, 119, 84)
+    fill_tiles(chunk, TILE_WALL, 96, 98, 97, 100)
+    fill_tiles(chunk, TILE_WALL, 108, 102, 109, 104)
+    fill_tiles(chunk, TILE_WALL, 128, 88, 129, 90)
+    # Crystal Sage cave — more crystal formations (DS3: crystal growths everywhere)
+    fill_tiles(chunk, TILE_WALL, 126, 118, 127, 120)
+    fill_tiles(chunk, TILE_WALL, 134, 124, 135, 126)
+    fill_tiles(chunk, TILE_WALL, 140, 114, 141, 116)
+    fill_tiles(chunk, TILE_WALL, 122, 128, 123, 130)
+    fill_tiles(chunk, TILE_WALL, 136, 130, 137, 132)
+    # Farron Keep branch — swamp approach ruins (DS3: crumbling path to poison swamp)
+    fill_tiles(chunk, TILE_WALL, 64, 78, 65, 80)
+    fill_tiles(chunk, TILE_WALL, 70, 85, 71, 87)
+    fill_tiles(chunk, TILE_WALL, 66, 95, 67, 97)
+    fill_tiles(chunk, TILE_WALL, 72, 105, 73, 107)
+    fill_tiles(chunk, TILE_WALL, 68, 115, 69, 117)
+    # Cathedral branch — stone gate approach (DS3: path to Cathedral of the Deep)
+    fill_tiles(chunk, TILE_WALL, 110, 62, 111, 64)
+    fill_tiles(chunk, TILE_WALL, 115, 66, 116, 68)
+
+    # ================================================================
+    # SESSION 9 FIDELITY PASS — RoadOfSacrifices architectural details
+    # ================================================================
+    # Entry forest path — mossy root clusters (DS3: forest with exposed roots)
+    fill_tiles(chunk, TILE_WALL, 22, 18, 23, 19)
+    fill_tiles(chunk, TILE_WALL, 26, 22, 27, 23)
+    fill_tiles(chunk, TILE_WALL, 18, 26, 19, 27)
+    fill_tiles(chunk, TILE_WALL, 30, 16, 31, 17)
+    # Halfway Fortress — collapsed stone arch (DS3: ruined fortress bridge)
+    fill_tiles(chunk, TILE_WALL, 48, 28, 49, 29)
+    fill_tiles(chunk, TILE_WALL, 52, 32, 53, 33)
+    fill_tiles(chunk, TILE_WALL, 44, 36, 45, 37)
+    fill_tiles(chunk, TILE_WALL, 56, 26, 57, 27)
+    fill_tiles(chunk, TILE_WALL, 50, 38, 51, 39)
+    # Crucifixion Woods — crucified hollow posts (DS3: hollows crucified on trees)
+    fill_tiles(chunk, TILE_WALL, 64, 42, 65, 43)
+    fill_tiles(chunk, TILE_WALL, 68, 46, 69, 47)
+    fill_tiles(chunk, TILE_WALL, 60, 50, 61, 51)
+    fill_tiles(chunk, TILE_WALL, 72, 40, 73, 41)
+    fill_tiles(chunk, TILE_WALL, 66, 52, 67, 53)
+    # Wetland shallows — submerged stone paths (DS3: flooded forest area)
+    fill_tiles(chunk, TILE_WALL, 76, 56, 77, 57)
+    fill_tiles(chunk, TILE_WALL, 80, 60, 81, 61)
+    fill_tiles(chunk, TILE_WALL, 72, 64, 73, 65)
+    fill_tiles(chunk, TILE_WALL, 84, 54, 85, 55)
+    fill_tiles(chunk, TILE_WALL, 78, 66, 79, 67)
+    # Black Knight ruins — ruined arch stones (DS3: Black Knight patrols ruins)
+    fill_tiles(chunk, TILE_WALL, 88, 70, 89, 71)
+    fill_tiles(chunk, TILE_WALL, 92, 74, 93, 75)
+    fill_tiles(chunk, TILE_WALL, 84, 78, 85, 79)
+    fill_tiles(chunk, TILE_WALL, 96, 68, 97, 69)
+    # Corvian forest — fallen nest structures (DS3: Corvians in trees)
+    fill_tiles(chunk, TILE_WALL, 100, 82, 101, 83)
+    fill_tiles(chunk, TILE_WALL, 104, 86, 105, 87)
+    fill_tiles(chunk, TILE_WALL, 96, 90, 97, 91)
+    fill_tiles(chunk, TILE_WALL, 108, 80, 109, 81)
+    fill_tiles(chunk, TILE_WALL, 102, 92, 103, 93)
+    # Crystal Sage cave — crystal-encrusted pillars (DS3: crystal formations)
+    fill_tiles(chunk, TILE_WALL, 112, 96, 113, 97)
+    fill_tiles(chunk, TILE_WALL, 116, 100, 117, 101)
+    fill_tiles(chunk, TILE_WALL, 108, 104, 109, 105)
+    fill_tiles(chunk, TILE_WALL, 120, 94, 121, 95)
+    fill_tiles(chunk, TILE_WALL, 114, 106, 115, 107)
+    # Farron approach — mossy stone gate arch (DS3: stone gate to Farron Keep)
+    fill_tiles(chunk, TILE_WALL, 124, 110, 125, 111)
+    fill_tiles(chunk, TILE_WALL, 128, 114, 129, 115)
+    fill_tiles(chunk, TILE_WALL, 120, 118, 121, 119)
+    fill_tiles(chunk, TILE_WALL, 132, 108, 133, 109)
+
+        # --- ENTITIES ---
     spawn_px, spawn_py = 18 * 16, 16 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
@@ -1946,38 +2923,46 @@ def make_road_of_sacrifices():
     # Boss - Crystal Sage
     entities.append(make_entity("BossSpawn", 130 * 16, 112 * 16))
 
-    # Enemies - DS3 faithful: Corvians in woods, Lycanthropes near fortress, Black Knight near Farron Coal
-    # Corvians (Assassin closest match — winged hollow enemies), Corvian Storytellers (DarkMage),
-    # Lycanthrope Hunters (Knight), Lycanthropes (StarvedHound), Dogs, Crabs (GiantSlave closest)
+    # Enemies - DS3 faithful: Corvians (many throughout forest), Lycanthropes,
+    # Corvian Storytellers, Black Knight, Exiles, Crabs, Crystal Lizards
     enemy_data = [
         # Entry dark woods — Corvians (winged hollows) patrolling the path
         ("Assassin", 25, 20), ("Assassin", 35, 24),
         ("Dog", 28, 22),                                          # Dogs ambush near entry
-        # Near Halfway Fortress — Lycanthropes (large beast enemies)
+        # Near Halfway Fortress — Lycanthropes (DS3: "two Lycanthropes" at fortress entrance)
         ("StarvedHound", 42, 26), ("StarvedHound", 48, 28),
-        # Crucifixion Woods — Corvians and Corvian Storytellers
+        ("StarvedHound", 45, 32),                                 # DS3: third Lycanthrope nearby
+        # Crucifixion Woods — DS3: Corvians everywhere in the woods, multiple groups
         ("Assassin", 56, 35), ("Assassin", 62, 40),               # Corvians in woods
         ("DarkMage", 70, 48),                                      # Corvian Storyteller (casts poison mist)
         ("DarkMage", 88, 55),                                      # Corvian Storyteller
         ("Assassin", 75, 52), ("Assassin", 82, 58),               # More Corvians
+        ("Assassin", 65, 45), ("Assassin", 78, 48),               # Additional Corvians deeper in woods
+        ("Assassin", 90, 50), ("Assassin", 58, 55),               # Corvians near crosses
         ("Knight", 72, 55), ("Knight", 85, 60),                   # Lycanthrope Hunters (spear wielders)
         ("CrystalLizard", 50, 26),                                 # Fortress crystal lizard
+        ("CrystalLizard", 96, 62), ("CrystalLizard", 112, 88),    # Additional Crystal Lizards in ruins
         # Swamp area — Poisonhorn Bugs (poison mist mushrooms in lower woods)
         ("PoisonhornBug", 65, 62), ("PoisonhornBug", 70, 65),
         ("PoisonhornBug", 62, 70), ("PoisonhornBug", 58, 68),
         # Swamp area — Lesser Crabs and Great Crab
         ("GiantSlave", 76, 70),                                    # Great Crab in swamp (drops Great Swamp Ring)
         ("LesserCrab", 78, 68), ("LesserCrab", 80, 72),                    # Lesser Crabs in swamp
-        # Black Knight guarding Farron Coal in ruins
+        # Black Knight guarding Farron Coal in ruins (DS3: "Black Knight in the ruins")
         ("BlackKnight", 108, 85),
-        # Corvian forest — more Corvians and Storytellers
+        # Corvian forest — DS3: "dense forest with Corvians"
         ("Assassin", 118, 88), ("Assassin", 122, 92), ("Assassin", 125, 96),
+        ("Assassin", 112, 82), ("Assassin", 128, 85),             # More Corvians in deep forest
         # Crystal Sage cave — hollow sorcerers
         ("DarkMage", 125, 115), ("DarkMage", 135, 118),
-        # South path toward Farron Keep
+        # South path toward Farron Keep — DS3: Exile NPCs guard the Farron Keep gate
         ("Assassin", 68, 80), ("Assassin", 72, 85),
         ("StarvedHound", 110, 95), ("StarvedHound", 115, 100),    # Lycanthropes
         ("Archer", 100, 78), ("Archer", 120, 82),                 # Corvian archers
+        # Exiles at Farron Keep gate (DS3: "two Exiles" guarding the gate with great weapons)
+        ("Knight", 108, 100), ("Knight", 115, 105),
+        # Boss — Crystal Sage
+        ("MiniBoss", 130, 112),                                     # Crystal Sage boss entity
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -1986,7 +2971,7 @@ def make_road_of_sacrifices():
     # --- Items (DS3 Road of Sacrifices) — accurate from wiki ---
     # Shriving Stone — end of left path in entry woods
     entities.append(make_entity("Item", 30 * 16, 22 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Shriving Stone")]))
     # Soul of an Unknown Traveler — overturned coach in entry woods
     entities.append(make_entity("Item", 22 * 16, 20 * 16, [
@@ -2012,7 +2997,7 @@ def make_road_of_sacrifices():
         make_field("name", "String", "Titanite Shard")]))
     # Braille Divine Tome of Carim — ledge with dogs ambush
     entities.append(make_entity("Item", 40 * 16, 30 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Braille Divine Tome of Carim")]))
     # Morne's Ring — same ledge area as tome
     entities.append(make_entity("Item", 42 * 16, 32 * 16, [
@@ -2024,7 +3009,7 @@ def make_road_of_sacrifices():
         make_field("name", "String", "Ember")]))
     # Blue Sentinels Covenant — from Horace at Halfway Fortress
     entities.append(make_entity("Item", 55 * 16, 30 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Blue Sentinels")]))
     # Titanite Shard — near poison brumers in woods
     entities.append(make_entity("Item", 60 * 16, 42 * 16, [
@@ -2063,11 +3048,11 @@ def make_road_of_sacrifices():
         make_field("name", "String", "Heretic's Staff")]))
     # Blue Bug Pellet — near Orbeck's room
     entities.append(make_entity("Item", 82 * 16, 60 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Blue Bug Pellet")]))
     # Blue Bug Pellet — second pellet in ruins
     entities.append(make_entity("Item", 88 * 16, 58 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Blue Bug Pellet")]))
     # Ring of Sacrifice — ledge drop in ruins
     entities.append(make_entity("Item", 92 * 16, 62 * 16, [
@@ -2084,7 +3069,7 @@ def make_road_of_sacrifices():
         make_field("name", "String", "Sage Ring")]))
     # Crystal Gem — ruins upper area
     entities.append(make_entity("Item", 98 * 16, 55 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Crystal Gem")]))
     # Twinkling Titanite — in ruins
     entities.append(make_entity("Item", 100 * 16, 58 * 16, [
@@ -2096,19 +3081,19 @@ def make_road_of_sacrifices():
         make_field("name", "String", "Twinkling Titanite")]))
     # Green Blossom — swamp edge
     entities.append(make_entity("Item", 75 * 16, 62 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Green Blossom")]))
     # Green Blossom — swamp area near crabs
     entities.append(make_entity("Item", 80 * 16, 68 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Green Blossom")]))
     # Green Blossom — swamp area
     entities.append(make_entity("Item", 72 * 16, 75 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Green Blossom")]))
     # Green Blossom — swamp area
     entities.append(make_entity("Item", 85 * 16, 72 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Green Blossom")]))
     # Grass Crest Shield — before giant crab at tree base
     entities.append(make_entity("Item", 72 * 16, 70 * 16, [
@@ -2147,7 +3132,7 @@ def make_road_of_sacrifices():
         make_field("slot", "String", "Hands")]))
     # Great Swamp Pyromancy Tome — base of large tree in swamp
     entities.append(make_entity("Item", 90 * 16, 68 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Great Swamp Pyromancy Tome")]))
     # Conjurator Set — near pyromancy tome area
     entities.append(make_entity("Item", 92 * 16, 72 * 16, [
@@ -2175,11 +3160,11 @@ def make_road_of_sacrifices():
         make_field("name", "String", "Titanite Shard")]))
 
     # NPCs - Anri and Horace at Halfway Fortress (DS3: they sit together at the bonfire)
-    entities.append(make_entity("Npc", 50 * 16, 30 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Hello|I am Anri of Astora|We are on a journey to find the Lords of Cinder")]))
-    entities.append(make_entity("Npc", 54 * 16, 30 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|...Anri is my companion|I will protect them")]))
+    entities.append(make_entity("Npc", 50 * 16, 30 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello. I am Anri of Astora|This is Horace the Hushed|We are travelling to find the Lords of Cinder|Won't you join us on our journey?")]))
+    entities.append(make_entity("Npc", 54 * 16, 30 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods silently)|(gestures toward Anri)")]))
 
     # Orbeck of Vinheim — sorcery teacher in the ruins (DS3: found in a side room of the Crucifixion Woods ruins)
-    entities.append(make_entity("Npc", 82 * 16, 60 * 16, [make_field("name", "String", "Orbeck of Vinheim"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#7090B0"), make_field("dialogue", "String", "I am Orbeck of Vinheim|Bring me scrolls and I shall teach you sorceries")]))
+    entities.append(make_entity("Npc", 82 * 16, 60 * 16, [make_field("name", "String", "Orbeck of Vinheim"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#7090B0"), make_field("dialogue", "String", "I am Orbeck of Vinheim. A sorcerer, and an assassin|I wish to repay my debt to you|Bring me scrolls, and I shall teach you their sorceries")]))
 
     # Fog Gate to FarronKeep
     entities.append(make_entity("FogGate", 68 * 16, 134 * 16, [
@@ -2205,24 +3190,97 @@ def make_road_of_sacrifices():
     entities.append(make_entity("Light", 80 * 16, 45 * 16, [make_field("radius", "Float", 200.0), make_field("r", "Float", 0.3), make_field("g", "Float", 0.5), make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.3)]))
     entities.append(make_entity("Light", 130 * 16, 112 * 16, [make_field("radius", "Float", 180.0), make_field("r", "Float", 0.5), make_field("g", "Float", 0.4), make_field("b", "Float", 0.9), make_field("intensity", "Float", 0.4)]))
 
-    # === ADDITIONAL INTERNAL STRUCTURES — forest terrain ===
+    # === ADDITIONAL INTERNAL STRUCTURES — Road of Sacrifices DS3 fidelity ===
+    # Entry dark woods — additional tree root clusters (DS3: dense forest entry)
     fill_tiles(chunk, TILE_WALL, 22, 25, 24, 28)
     fill_tiles(chunk, TILE_WALL, 38, 28, 40, 30)
     fill_tiles(chunk, TILE_WALL, 55, 22, 57, 24)
     fill_tiles(chunk, TILE_WALL, 30, 38, 32, 40)
+    # Overturned coach debris (DS3: overturned carriage in entry path)
+    fill_tiles(chunk, TILE_WALL, 26, 20, 28, 22)
+    # Halfway Fortress — interior room partitions (DS3: stone ruin with multiple rooms)
     fill_tiles(chunk, TILE_WALL, 48, 42, 50, 44)
     fill_tiles(chunk, TILE_WALL, 65, 35, 67, 37)
+    fill_tiles(chunk, TILE_WALL, 53, 28, 55, 30)
+    fill_tiles(chunk, TILE_WALL, 46, 32, 48, 34)
+    # Crucifixion Woods — wetland forest debris (DS3: sprawling wetland with ruins)
     fill_tiles(chunk, TILE_WALL, 35, 55, 37, 57)
     fill_tiles(chunk, TILE_WALL, 52, 58, 54, 60)
     fill_tiles(chunk, TILE_WALL, 70, 48, 72, 50)
     fill_tiles(chunk, TILE_WALL, 42, 68, 44, 70)
     fill_tiles(chunk, TILE_WALL, 60, 72, 62, 74)
     fill_tiles(chunk, TILE_WALL, 80, 55, 82, 57)
+    # Fallen trees across shallow water (DS3: horizontal logs in swamp)
+    fill_tiles(chunk, TILE_WALL, 56, 64, 58, 66)
+    fill_tiles(chunk, TILE_WALL, 84, 62, 86, 64)
+    fill_tiles(chunk, TILE_WALL, 72, 56, 74, 58)
+    # Crucifixion crosses debris (DS3: crosses scattered throughout the woods)
+    fill_tiles(chunk, TILE_WALL, 66, 42, 67, 44)
+    fill_tiles(chunk, TILE_WALL, 78, 52, 79, 54)
+    fill_tiles(chunk, TILE_WALL, 90, 46, 91, 48)
+    # Ruined stone structure walls (DS3: Black Knight patrols these ruins)
     fill_tiles(chunk, TILE_WALL, 25, 78, 27, 80)
     fill_tiles(chunk, TILE_WALL, 90, 65, 92, 67)
+    fill_tiles(chunk, TILE_WALL, 104, 78, 106, 82)
+    fill_tiles(chunk, TILE_WALL, 112, 84, 114, 88)
+    # Farron Keep gate fortress ruins (DS3: stone gate with Exile guards)
+    fill_tiles(chunk, TILE_WALL, 66, 125, 70, 128)
+    fill_tiles(chunk, TILE_WALL, 72, 130, 76, 133)
+    fill_tiles(chunk, TILE_WALL, 64, 118, 66, 120)
+    # Corvian forest dense trees (DS3: dense forest path narrows significantly)
     fill_tiles(chunk, TILE_WALL, 118, 102, 120, 104)
     fill_tiles(chunk, TILE_WALL, 135, 108, 137, 110)
     fill_tiles(chunk, TILE_WALL, 125, 115, 127, 118)
+    fill_tiles(chunk, TILE_WALL, 96, 92, 98, 94)
+    fill_tiles(chunk, TILE_WALL, 130, 95, 132, 98)
+    fill_tiles(chunk, TILE_WALL, 116, 88, 118, 90)
+    # Crystal Sage cave crystal formations (DS3: scattered crystal growths in boss arena)
+    fill_tiles(chunk, TILE_WALL, 134, 120, 136, 122)
+    fill_tiles(chunk, TILE_WALL, 122, 128, 124, 130)
+    fill_tiles(chunk, TILE_WALL, 140, 114, 142, 116)
+    # Cathedral road — dense tree walls (DS3: forest path to Cathedral of the Deep)
+    fill_tiles(chunk, TILE_WALL, 114, 62, 116, 64)
+    fill_tiles(chunk, TILE_WALL, 108, 68, 110, 70)
+    # Orbeck's room interior (DS3: small side room in ruins with bookshelves)
+    fill_tiles(chunk, TILE_WALL, 80, 58, 82, 60)
+    fill_tiles(chunk, TILE_WALL, 84, 62, 86, 64)
+
+    # === SESSION 8 FIDELITY PASS — Road of Sacrifices ===
+    # Entry woods — mossy root clusters and fungus-covered stones (DS3: dark forest floor)
+    fill_tiles(chunk, TILE_WALL, 14, 14, 15, 16)
+    fill_tiles(chunk, TILE_WALL, 40, 16, 41, 18)
+    fill_tiles(chunk, TILE_WALL, 26, 28, 27, 30)
+    fill_tiles(chunk, TILE_WALL, 36, 30, 37, 32)
+    # Halfway Fortress — collapsed stone arch fragments (DS3: ruined stone tower)
+    fill_tiles(chunk, TILE_WALL, 42, 26, 43, 28)
+    fill_tiles(chunk, TILE_WALL, 62, 32, 63, 34)
+    fill_tiles(chunk, TILE_WALL, 48, 36, 49, 38)
+    # Crucifixion Woods — crucified hollow posts (DS3: multiple crucified corpses in woods)
+    fill_tiles(chunk, TILE_WALL, 60, 38, 61, 40)
+    fill_tiles(chunk, TILE_WALL, 84, 52, 85, 54)
+    fill_tiles(chunk, TILE_WALL, 68, 54, 69, 56)
+    fill_tiles(chunk, TILE_WALL, 92, 56, 93, 58)
+    # Wetland shallows — submerged stone paths (DS3: shallow water with stepping stones)
+    fill_tiles(chunk, TILE_WALL, 64, 66, 65, 68)
+    fill_tiles(chunk, TILE_WALL, 76, 68, 77, 70)
+    fill_tiles(chunk, TILE_WALL, 70, 74, 71, 76)
+    fill_tiles(chunk, TILE_WALL, 82, 70, 83, 72)
+    # Black Knight ruins — more ruined arch stones (DS3: stone ruin with Black Knight)
+    fill_tiles(chunk, TILE_WALL, 106, 82, 107, 84)
+    fill_tiles(chunk, TILE_WALL, 114, 86, 115, 88)
+    fill_tiles(chunk, TILE_WALL, 102, 90, 103, 92)
+    # Corvian forest — fallen nest structures (DS3: Corvian nests in trees)
+    fill_tiles(chunk, TILE_WALL, 122, 78, 123, 80)
+    fill_tiles(chunk, TILE_WALL, 130, 92, 131, 94)
+    fill_tiles(chunk, TILE_WALL, 114, 100, 115, 102)
+    fill_tiles(chunk, TILE_WALL, 134, 102, 135, 104)
+    # Crystal Sage cave — crystal-encrusted pillars (DS3: glowing crystal formations)
+    fill_tiles(chunk, TILE_WALL, 132, 112, 133, 114)
+    fill_tiles(chunk, TILE_WALL, 124, 134, 125, 136)
+    fill_tiles(chunk, TILE_WALL, 138, 128, 139, 130)
+    # Farron approach — mossy stone gate arch (DS3: stone gate to Farron Keep)
+    fill_tiles(chunk, TILE_WALL, 62, 122, 63, 124)
+    fill_tiles(chunk, TILE_WALL, 74, 128, 75, 130)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -2244,15 +3302,20 @@ def make_farron_keep():
     # ================================================================
     # SECTION 1: Keep entry highland (top-left) - doc: x=0,y=0,w=600,h=600
     # Stone steps leading down into the swamp
+    # DS3: narrow stone path descending from Road of Sacrifices into the poison swamp
     # ================================================================
     carve_ellipse(chunk, 15, 18, 8, 6)
     fill_tiles(chunk, TILE_GROUND, 8, 20, 25, 35)
     # Broken stone wall at entry
     fill_tiles(chunk, TILE_WALL, 10, 14, 12, 16)
+    # Entry path stones (DS3: stone steps down into swamp)
+    fill_tiles(chunk, TILE_WALL, 16, 22, 18, 24)
+    fill_tiles(chunk, TILE_WALL, 20, 28, 22, 30)
 
     # ================================================================
     # SECTION 2: Outer poison swamp - vast POISON area
     # Three torch platforms scattered across the swamp
+    # DS3: massive poison swamp with three stone platforms holding flame altars
     # ================================================================
     carve_ellipse(chunk, 70, 70, 52, 48)
     # Convert much of the center to POISON tiles
@@ -2261,68 +3324,229 @@ def make_farron_keep():
     # Left torch platform (NW) - doc: x=600,y=400,w=500,h=500
     fill_tiles(chunk, TILE_GROUND, 30, 30, 45, 42)
     fill_tiles(chunk, TILE_WALL, 34, 34, 36, 36)
+    # Torch altar wall (DS3: stone platform with flame)
+    fill_tiles(chunk, TILE_WALL, 36, 36, 38, 38)
+    # Rubble on platform edge
+    fill_tiles(chunk, TILE_WALL, 30, 38, 32, 40)
 
     # Center torch platform (N) - doc: x=1600,y=800,w=500,h=500
     fill_tiles(chunk, TILE_GROUND, 60, 42, 78, 55)
     fill_tiles(chunk, TILE_WALL, 66, 46, 68, 48)
+    # Torch altar stone
+    fill_tiles(chunk, TILE_WALL, 70, 48, 72, 50)
+    # Rubble edges
+    fill_tiles(chunk, TILE_WALL, 60, 50, 62, 52)
+    fill_tiles(chunk, TILE_WALL, 75, 44, 77, 46)
 
     # Right torch platform (NE) - doc: x=2400,y=600,w=500,h=500
     fill_tiles(chunk, TILE_GROUND, 88, 35, 105, 48)
     fill_tiles(chunk, TILE_WALL, 94, 38, 96, 40)
+    # Torch altar
+    fill_tiles(chunk, TILE_WALL, 100, 42, 102, 44)
+    # Rubble edges
+    fill_tiles(chunk, TILE_WALL, 88, 44, 90, 46)
+    fill_tiles(chunk, TILE_WALL, 103, 36, 105, 38)
 
     # Path from entry into swamp (poison corridor)
     fill_tiles(chunk, TILE_POISON, 22, 30, 35, 45)
+    # Scattered rubble in swamp (DS3: sunken ruins visible in poison water)
+    fill_tiles(chunk, TILE_WALL, 48, 40, 49, 42)
+    fill_tiles(chunk, TILE_WALL, 55, 48, 56, 50)
+    fill_tiles(chunk, TILE_WALL, 82, 52, 83, 54)
+    fill_tiles(chunk, TILE_WALL, 42, 55, 43, 57)
+    fill_tiles(chunk, TILE_WALL, 75, 38, 76, 40)
 
     # ================================================================
     # SECTION 3: Keep Ruins (center) - doc: x=1800,y=1600,w=500,h=400
     # Solid ground island with ruined walls, central bonfire hub
+    # DS3: stone ruin island with crumbling walls, bonfire inside
     # ================================================================
     fill_tiles(chunk, TILE_GROUND, 60, 60, 85, 80)
     fill_tiles(chunk, TILE_WALL, 65, 65, 68, 68)
     fill_tiles(chunk, TILE_WALL, 78, 72, 81, 75)
     fill_tiles(chunk, TILE_WALL, 70, 74, 72, 76)
+    # Additional ruin walls (DS3: Keep Ruins has multiple broken walls)
+    fill_tiles(chunk, TILE_WALL, 62, 70, 64, 73)
+    fill_tiles(chunk, TILE_WALL, 80, 62, 82, 65)
+    fill_tiles(chunk, TILE_WALL, 74, 78, 76, 80)
+    fill_tiles(chunk, TILE_WALL, 83, 68, 85, 70)
 
     # ================================================================
     # SECTION 4: Old Wolf tower (south) - doc: x=1000,y=2200,w=400,h=500
     # High tower ruin accessed via ladder, covenant area
+    # DS3: tall stone tower with the Old Wolf of Farron covenant
     # ================================================================
     fill_tiles(chunk, TILE_GROUND, 35, 95, 55, 115)
     carve_ellipse(chunk, 45, 105, 8, 7)
     # Tower walls
     fill_tiles(chunk, TILE_WALL, 38, 100, 40, 102)
     fill_tiles(chunk, TILE_WALL, 50, 108, 52, 110)
+    # Tower base detail (DS3: stone tower with ladder access)
+    fill_tiles(chunk, TILE_WALL, 36, 108, 38, 112)
+    fill_tiles(chunk, TILE_WALL, 52, 96, 54, 100)
 
     # ================================================================
     # SECTION 5: Basilisk curse cave (west) - doc: x=400,y=1600,w=400,h=400
     # Dark cave with basilisks, hidden treasure
+    # DS3: enclosed cave with multiple basilisks that cause curse
     # ================================================================
     fill_tiles(chunk, TILE_GROUND, 20, 65, 38, 82)
     carve_ellipse(chunk, 28, 72, 7, 6)
+    # Cave stalagmites (DS3: dark cave with stone formations)
+    fill_tiles(chunk, TILE_WALL, 22, 68, 24, 70)
+    fill_tiles(chunk, TILE_WALL, 34, 76, 36, 78)
+    fill_tiles(chunk, TILE_WALL, 26, 78, 28, 80)
 
     # ================================================================
     # SECTION 6: Darkwraith patrol zone (SE) - doc: x=2200,y=2000,w=600,h=600
     # Abyss knights patrol between swamp and boss arena approach
+    # DS3: Darkwraiths emerge from the swamp water and fight Ghrus
     # ================================================================
     fill_tiles(chunk, TILE_GROUND, 95, 80, 120, 105)
     fill_tiles(chunk, TILE_POISON, 98, 85, 115, 100)
+    # Ruined stone structures in Darkwraith zone
+    fill_tiles(chunk, TILE_WALL, 100, 88, 102, 92)
+    fill_tiles(chunk, TILE_WALL, 110, 95, 112, 98)
+    fill_tiles(chunk, TILE_WALL, 95, 98, 97, 102)
 
     # ================================================================
     # SECTION 7: Grand stone gate corridor - doc: x=2800,y=2400,w=300,h=400
     # Long corridor lined with Abyss Watcher armor
+    # DS3: grand stone hallway with wolf-crested walls
     # ================================================================
     fill_tiles(chunk, TILE_GROUND, 120, 80, 135, 105)
+    # Corridor walls (DS3: stone walls with Abyss Watcher insignia)
+    fill_tiles(chunk, TILE_WALL, 120, 85, 122, 90)
+    fill_tiles(chunk, TILE_WALL, 132, 95, 134, 100)
+    fill_tiles(chunk, TILE_WALL, 125, 88, 127, 92)
 
     # ================================================================
     # SECTION 8: Abyss Watchers grand hall (far right) - doc: x=3000,y=2600,w=800,h=800
     # Large boss arena - grand stone hall with wolf crest
+    # DS3: massive stone hall where Abyss Watchers fight among themselves
     # ================================================================
     carve_ellipse(chunk, 140, 115, 18, 16)
     fill_tiles(chunk, TILE_GROUND, 128, 105, 155, 130)
+    # Arena pillars (DS3: grand stone columns in the hall)
+    fill_tiles(chunk, TILE_WALL, 132, 110, 134, 114)
+    fill_tiles(chunk, TILE_WALL, 145, 118, 147, 122)
+    fill_tiles(chunk, TILE_WALL, 138, 108, 140, 110)
+    fill_tiles(chunk, TILE_WALL, 150, 112, 152, 115)
+    # Arena wall sections (DS3: stone walls framing the boss room)
+    fill_tiles(chunk, TILE_WALL, 128, 120, 130, 124)
+    fill_tiles(chunk, TILE_WALL, 152, 108, 154, 112)
 
     # Connection corridors
     fill_tiles(chunk, TILE_GROUND, 55, 80, 65, 95)   # Ruins to Old Wolf
     fill_tiles(chunk, TILE_GROUND, 82, 75, 100, 85)   # Ruins to Darkwraith zone
     fill_tiles(chunk, TILE_GROUND, 115, 100, 128, 112) # Gate to arena
+
+    # ================================================================
+    # ADDITIONAL DS3 FARRON KEEP — swamp details, ruin depth
+    # ================================================================
+    # Entry path — more stone steps (DS3: descent into poison swamp)
+    fill_tiles(chunk, TILE_WALL, 12, 18, 13, 20)
+    fill_tiles(chunk, TILE_WALL, 18, 26, 19, 28)
+    fill_tiles(chunk, TILE_WALL, 14, 30, 15, 32)
+    # Left torch platform — additional rubble (DS3: stone ruin with flame altar)
+    fill_tiles(chunk, TILE_WALL, 32, 32, 33, 34)
+    fill_tiles(chunk, TILE_WALL, 40, 38, 41, 40)
+    fill_tiles(chunk, TILE_WALL, 36, 30, 37, 32)
+    # Center torch platform — more altar stones (DS3: stone platform with Ghru)
+    fill_tiles(chunk, TILE_WALL, 64, 44, 65, 46)
+    fill_tiles(chunk, TILE_WALL, 72, 50, 73, 52)
+    fill_tiles(chunk, TILE_WALL, 68, 52, 69, 54)
+    # Right torch platform — debris (DS3: Ghru-infested torch platform)
+    fill_tiles(chunk, TILE_WALL, 92, 40, 93, 42)
+    fill_tiles(chunk, TILE_WALL, 98, 36, 99, 38)
+    fill_tiles(chunk, TILE_WALL, 102, 44, 103, 46)
+    # Poison swamp — sunken ruins (DS3: crumbled structures visible in swamp)
+    fill_tiles(chunk, TILE_WALL, 46, 45, 47, 47)
+    fill_tiles(chunk, TILE_WALL, 58, 52, 59, 54)
+    fill_tiles(chunk, TILE_WALL, 85, 48, 86, 50)
+    fill_tiles(chunk, TILE_WALL, 52, 58, 53, 60)
+    fill_tiles(chunk, TILE_WALL, 68, 56, 69, 58)
+    fill_tiles(chunk, TILE_WALL, 78, 44, 79, 46)
+    fill_tiles(chunk, TILE_WALL, 90, 56, 91, 58)
+    # Keep Ruins — more crumbled walls (DS3: central ruin island)
+    fill_tiles(chunk, TILE_WALL, 66, 62, 67, 64)
+    fill_tiles(chunk, TILE_WALL, 76, 66, 77, 68)
+    fill_tiles(chunk, TILE_WALL, 82, 74, 83, 76)
+    fill_tiles(chunk, TILE_WALL, 64, 76, 65, 78)
+    # Old Wolf tower — tower stones (DS3: tall tower with covenant)
+    fill_tiles(chunk, TILE_WALL, 40, 96, 41, 98)
+    fill_tiles(chunk, TILE_WALL, 48, 102, 49, 104)
+    fill_tiles(chunk, TILE_WALL, 42, 110, 43, 112)
+    fill_tiles(chunk, TILE_WALL, 54, 98, 55, 100)
+    # Basilisk cave — more stalagmites (DS3: dark curse cave)
+    fill_tiles(chunk, TILE_WALL, 24, 72, 25, 74)
+    fill_tiles(chunk, TILE_WALL, 32, 78, 33, 80)
+    fill_tiles(chunk, TILE_WALL, 30, 66, 31, 68)
+    # Darkwraith zone — more abyss ruins (DS3: dark knights emerge from swamp)
+    fill_tiles(chunk, TILE_WALL, 98, 92, 99, 94)
+    fill_tiles(chunk, TILE_WALL, 106, 90, 107, 92)
+    fill_tiles(chunk, TILE_WALL, 112, 98, 113, 100)
+    fill_tiles(chunk, TILE_WALL, 96, 102, 97, 104)
+    # Grand gate corridor — wolf crest walls (DS3: Abyss Watcher hall)
+    fill_tiles(chunk, TILE_WALL, 122, 82, 123, 84)
+    fill_tiles(chunk, TILE_WALL, 130, 90, 131, 92)
+    fill_tiles(chunk, TILE_WALL, 128, 98, 129, 100)
+    fill_tiles(chunk, TILE_WALL, 134, 102, 135, 104)
+    # Abyss Watchers arena — more grand columns (DS3: massive boss hall)
+    fill_tiles(chunk, TILE_WALL, 136, 112, 137, 114)
+    fill_tiles(chunk, TILE_WALL, 148, 114, 149, 116)
+    fill_tiles(chunk, TILE_WALL, 130, 116, 131, 118)
+    fill_tiles(chunk, TILE_WALL, 154, 118, 155, 120)
+
+    # ================================================================
+    # SESSION 9 FIDELITY PASS — FarronKeep architectural details
+    # ================================================================
+    # Swamp edge — rotting wooden posts (DS3: decayed fence posts along swamp)
+    fill_tiles(chunk, TILE_WALL, 18, 18, 19, 19)
+    fill_tiles(chunk, TILE_WALL, 24, 22, 25, 23)
+    fill_tiles(chunk, TILE_WALL, 30, 16, 31, 17)
+    # Ghru camp — bonfire stone ring (DS3: Ghru encampment with fire pit)
+    fill_tiles(chunk, TILE_WALL, 36, 28, 37, 29)
+    fill_tiles(chunk, TILE_WALL, 40, 32, 41, 33)
+    fill_tiles(chunk, TILE_WALL, 32, 34, 33, 35)
+    # Great沼 swamp — submerged ruins (DS3: ruins visible above swamp water)
+    fill_tiles(chunk, TILE_WALL, 60, 40, 61, 41)
+    fill_tiles(chunk, TILE_WALL, 64, 44, 65, 45)
+    fill_tiles(chunk, TILE_WALL, 56, 48, 57, 49)
+    fill_tiles(chunk, TILE_WALL, 68, 36, 69, 37)
+    fill_tiles(chunk, TILE_WALL, 72, 50, 73, 51)
+    # Old Wolf of Farron tower — crumbling stairs (DS3: tower with wolf inside)
+    fill_tiles(chunk, TILE_WALL, 90, 30, 91, 31)
+    fill_tiles(chunk, TILE_WALL, 94, 34, 95, 35)
+    fill_tiles(chunk, TILE_WALL, 86, 36, 87, 37)
+    fill_tiles(chunk, TILE_WALL, 98, 28, 99, 29)
+    # Abyss Watchers arena — broken greatswords (DS3: swords embedded in ground)
+    fill_tiles(chunk, TILE_WALL, 120, 60, 121, 61)
+    fill_tiles(chunk, TILE_WALL, 126, 64, 127, 65)
+    fill_tiles(chunk, TILE_WALL, 132, 58, 133, 59)
+    fill_tiles(chunk, TILE_WALL, 138, 62, 139, 63)
+    fill_tiles(chunk, TILE_WALL, 116, 68, 117, 69)
+    fill_tiles(chunk, TILE_WALL, 144, 66, 145, 67)
+    # Grass-covered ruin arches (DS3: mossy stone arches throughout keep)
+    fill_tiles(chunk, TILE_WALL, 42, 56, 43, 57)
+    fill_tiles(chunk, TILE_WALL, 50, 60, 51, 61)
+    fill_tiles(chunk, TILE_WALL, 46, 64, 47, 65)
+    fill_tiles(chunk, TILE_WALL, 54, 52, 55, 53)
+    # Strangleroot clusters (DS3: dangerous root tendrils in swamp)
+    fill_tiles(chunk, TILE_WALL, 66, 72, 67, 73)
+    fill_tiles(chunk, TILE_WALL, 74, 68, 75, 69)
+    fill_tiles(chunk, TILE_WALL, 70, 76, 71, 77)
+    fill_tiles(chunk, TILE_WALL, 62, 80, 63, 81)
+    # Keep perimeter — crumbling wall foundations (DS3: ruined fort walls)
+    fill_tiles(chunk, TILE_WALL, 100, 80, 101, 81)
+    fill_tiles(chunk, TILE_WALL, 108, 84, 109, 85)
+    fill_tiles(chunk, TILE_WALL, 104, 88, 105, 89)
+    fill_tiles(chunk, TILE_WALL, 112, 76, 113, 77)
+    # Farron Keep perimeter — darksign-tinged stones (DS3: abyss corruption visible)
+    fill_tiles(chunk, TILE_WALL, 130, 100, 131, 101)
+    fill_tiles(chunk, TILE_WALL, 136, 104, 137, 105)
+    fill_tiles(chunk, TILE_WALL, 142, 96, 143, 97)
+    fill_tiles(chunk, TILE_WALL, 148, 108, 149, 109)
 
     entities = []
 
@@ -2399,21 +3623,21 @@ def make_farron_keep():
 
     # --- Items (DS3 Farron Keep) — accurate from wiki ---
     # Pyromancies / Spells / Key items
-    entities.append(make_entity("Item", 22 * 16, 45 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Iron Flesh")]))
-    entities.append(make_entity("Item", 25 * 16, 68 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Golden Scroll")]))
-    entities.append(make_entity("Item", 30 * 16, 55 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Sage's Coal")]))
+    entities.append(make_entity("Item", 22 * 16, 45 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Iron Flesh")]))
+    entities.append(make_entity("Item", 25 * 16, 68 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Golden Scroll")]))
+    entities.append(make_entity("Item", 30 * 16, 55 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Sage's Coal")]))
     # Farron Coal — behind illusory wall near Old Wolf of Farron (wiki: Farron Keep)
     entities.append(make_entity("Item", 32 * 16, 58 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
         make_field("name", "String", "Farron Coal")]))
-    entities.append(make_entity("Item", 45 * 16, 100 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Dreamchaser's Ashes")]))
-    entities.append(make_entity("Item", 110 * 16, 85 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Lightning Spear")]))
-    entities.append(make_entity("Item", 55 * 16, 82 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Sage's Scroll")]))
-    entities.append(make_entity("Item", 60 * 16, 78 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Poison Gem")]))
-    entities.append(make_entity("Item", 75 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Great Magic Weapon")]))
-    entities.append(make_entity("Item", 88 * 16, 48 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Atonement")]))
+    entities.append(make_entity("Item", 45 * 16, 100 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Dreamchaser's Ashes")]))
+    entities.append(make_entity("Item", 110 * 16, 85 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Lightning Spear")]))
+    entities.append(make_entity("Item", 55 * 16, 82 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Sage's Scroll")]))
+    entities.append(make_entity("Item", 60 * 16, 78 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Poison Gem")]))
+    entities.append(make_entity("Item", 75 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Great Magic Weapon")]))
+    entities.append(make_entity("Item", 88 * 16, 48 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Atonement")]))
     # Wolf's Blood Swordgrass (covenant item on ground before ladder)
-    entities.append(make_entity("Item", 42 * 16, 98 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Wolf's Blood Swordgrass")]))
+    entities.append(make_entity("Item", 42 * 16, 98 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Wolf's Blood Swordgrass")]))
     # Upgrade materials
     entities.append(make_entity("Item", 50 * 16, 85 * 16, [make_field("kind", "LocalEnum.ItemKind", "UndeadBoneShard"), make_field("name", "String", "Undead Bone Shard")]))
     entities.append(make_entity("Item", 72 * 16, 70 * 16, [make_field("kind", "LocalEnum.ItemKind", "EstusShard"), make_field("name", "String", "Estus Shard")]))
@@ -2445,8 +3669,8 @@ def make_farron_keep():
     entities.append(make_entity("Item", 38 * 16, 50 * 16, [make_field("kind", "LocalEnum.ItemKind", "PurpleMoss"), make_field("name", "String", "Purple Moss Clump")]))
     entities.append(make_entity("Item", 38 * 16, 54 * 16, [make_field("kind", "LocalEnum.ItemKind", "PurpleMoss"), make_field("name", "String", "Purple Moss Clump")]))
     entities.append(make_entity("Item", 38 * 16, 58 * 16, [make_field("kind", "LocalEnum.ItemKind", "PurpleMoss"), make_field("name", "String", "Purple Moss Clump")]))
-    entities.append(make_entity("Item", 48 * 16, 100 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Young White Branch")]))
-    entities.append(make_entity("Item", 44 * 16, 96 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Young White Branch")]))
+    entities.append(make_entity("Item", 48 * 16, 100 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Young White Branch")]))
+    entities.append(make_entity("Item", 44 * 16, 96 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Young White Branch")]))
     entities.append(make_entity("Item", 65 * 16, 65 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Soul of a Nameless Soldier"), make_field("value", "Int", 800)]))
     entities.append(make_entity("Item", 78 * 16, 50 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Large Soul of a Nameless Soldier"), make_field("value", "Int", 1200)]))
     entities.append(make_entity("Item", 130 * 16, 108 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Soul of a Stray Demon"), make_field("value", "Int", 20000)]))
@@ -2479,24 +3703,49 @@ def make_farron_keep():
     entities.append(make_entity("Light", 45 * 16, 105 * 16, [make_field("radius", "Float", 160.0), make_field("r", "Float", 0.6), make_field("g", "Float", 0.7), make_field("b", "Float", 0.8), make_field("intensity", "Float", 0.35)]))
     entities.append(make_entity("Light", 140 * 16, 112 * 16, [make_field("radius", "Float", 220.0), make_field("r", "Float", 0.5), make_field("g", "Float", 0.5), make_field("b", "Float", 0.6), make_field("intensity", "Float", 0.4)]))
 
-    # === ADDITIONAL INTERNAL STRUCTURES — Farron Keep swamp ===
-    # Torch platforms, ruined walls, swamp debris
+    # === ADDITIONAL INTERNAL STRUCTURES — Farron Keep DS3 fidelity ===
+    # Torch platform rubble (DS3: three stone platforms with flame altars)
     fill_tiles(chunk, TILE_WALL, 25, 35, 27, 38)
     fill_tiles(chunk, TILE_WALL, 40, 42, 42, 44)
     fill_tiles(chunk, TILE_WALL, 55, 38, 57, 40)
     fill_tiles(chunk, TILE_WALL, 70, 42, 72, 44)
+    # Sunken ruin walls in swamp (DS3: visible stone walls poking through poison)
     fill_tiles(chunk, TILE_WALL, 35, 55, 37, 58)
     fill_tiles(chunk, TILE_WALL, 50, 60, 52, 62)
     fill_tiles(chunk, TILE_WALL, 65, 55, 67, 57)
     fill_tiles(chunk, TILE_WALL, 80, 50, 82, 52)
+    # Deep swamp debris (DS3: scattered rocks and sunken stonework)
     fill_tiles(chunk, TILE_WALL, 45, 72, 47, 74)
     fill_tiles(chunk, TILE_WALL, 60, 75, 62, 77)
     fill_tiles(chunk, TILE_WALL, 75, 68, 77, 70)
     fill_tiles(chunk, TILE_WALL, 90, 60, 92, 62)
+    # Darkwraith zone rubble (DS3: ruins where Darkwraiths emerge)
     fill_tiles(chunk, TILE_WALL, 100, 68, 102, 70)
     fill_tiles(chunk, TILE_WALL, 110, 75, 112, 77)
     fill_tiles(chunk, TILE_WALL, 120, 80, 122, 82)
     fill_tiles(chunk, TILE_WALL, 130, 85, 132, 88)
+    # Entry path stone steps (DS3: narrow stone steps down into swamp)
+    fill_tiles(chunk, TILE_WALL, 12, 20, 14, 22)
+    fill_tiles(chunk, TILE_WALL, 20, 24, 22, 26)
+    # Basilisk cave stalagmites (DS3: dark cave with stone formations)
+    fill_tiles(chunk, TILE_WALL, 24, 66, 26, 68)
+    fill_tiles(chunk, TILE_WALL, 32, 74, 34, 76)
+    fill_tiles(chunk, TILE_WALL, 20, 78, 22, 80)
+    # Old Wolf tower base stones (DS3: tall stone tower accessed by ladder)
+    fill_tiles(chunk, TILE_WALL, 42, 98, 44, 100)
+    fill_tiles(chunk, TILE_WALL, 48, 110, 50, 112)
+    # Grand gate corridor walls (DS3: stone hallway with wolf-crested walls)
+    fill_tiles(chunk, TILE_WALL, 118, 82, 120, 85)
+    fill_tiles(chunk, TILE_WALL, 128, 90, 130, 93)
+    fill_tiles(chunk, TILE_WALL, 135, 95, 137, 98)
+    # Abyss Watchers arena perimeter (DS3: grand stone hall columns)
+    fill_tiles(chunk, TILE_WALL, 135, 110, 137, 112)
+    fill_tiles(chunk, TILE_WALL, 145, 120, 147, 122)
+    fill_tiles(chunk, TILE_WALL, 130, 118, 132, 120)
+    # Poison swamp islands (DS3: safe ground patches in the poison)
+    fill_tiles(chunk, TILE_WALL, 46, 48, 47, 50)
+    fill_tiles(chunk, TILE_WALL, 85, 55, 86, 57)
+    fill_tiles(chunk, TILE_WALL, 58, 68, 59, 70)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -2634,7 +3883,120 @@ def make_cathedral_deep():
     # Corridor from slug to bedchamber
     fill_tiles(chunk, TILE_GROUND, 32, 142, 42, 148)
 
-    # --- ENTITIES ---
+    # ================================================================
+    # ADDITIONAL DS3 CATHEDRAL ARCHITECTURE — nave pillars, chapel details
+    # ================================================================
+    # Cemetery entry — additional tombstones and ruined walls (DS3: rain-soaked graveyard)
+    fill_tiles(chunk, TILE_WALL, 30, 5, 31, 7)
+    fill_tiles(chunk, TILE_WALL, 38, 10, 39, 12)
+    fill_tiles(chunk, TILE_WALL, 24, 12, 25, 14)
+    fill_tiles(chunk, TILE_WALL, 40, 14, 41, 16)
+    # Outer graveyard — dead tree stumps and broken walls (DS3: muddy cemetery with rain)
+    fill_tiles(chunk, TILE_WALL, 22, 28, 23, 30)
+    fill_tiles(chunk, TILE_WALL, 44, 30, 45, 32)
+    fill_tiles(chunk, TILE_WALL, 34, 34, 35, 36)
+    fill_tiles(chunk, TILE_WALL, 48, 34, 49, 36)
+    fill_tiles(chunk, TILE_WALL, 26, 36, 27, 38)
+    # Cleansing Chapel — altar and pews (DS3: small church with basin of cleansing water)
+    fill_tiles(chunk, TILE_WALL, 30, 42, 31, 44)
+    fill_tiles(chunk, TILE_WALL, 34, 46, 35, 48)
+    fill_tiles(chunk, TILE_WALL, 38, 44, 39, 46)
+    fill_tiles(chunk, TILE_WALL, 26, 48, 27, 50)
+    # Front gate — grand cathedral entrance pillars (DS3: massive stone gate)
+    fill_tiles(chunk, TILE_WALL, 46, 52, 47, 54)
+    fill_tiles(chunk, TILE_WALL, 52, 54, 53, 56)
+    fill_tiles(chunk, TILE_WALL, 58, 52, 59, 54)
+    # Side aisle — dark corridor walls (DS3: narrow passage with thrall ambush)
+    fill_tiles(chunk, TILE_WALL, 58, 60, 59, 62)
+    fill_tiles(chunk, TILE_WALL, 62, 66, 63, 68)
+    fill_tiles(chunk, TILE_WALL, 66, 58, 67, 60)
+    fill_tiles(chunk, TILE_WALL, 70, 68, 71, 70)
+    # Nave — additional columns (DS3: open-air courtyard with stone pillars)
+    fill_tiles(chunk, TILE_WALL, 42, 70, 43, 72)
+    fill_tiles(chunk, TILE_WALL, 48, 76, 49, 78)
+    fill_tiles(chunk, TILE_WALL, 56, 72, 57, 74)
+    fill_tiles(chunk, TILE_WALL, 60, 80, 61, 82)
+    fill_tiles(chunk, TILE_WALL, 50, 82, 51, 84)
+    # Giant room — additional cover pillars (DS3: arrows rain from giant tower)
+    fill_tiles(chunk, TILE_WALL, 40, 94, 41, 96)
+    fill_tiles(chunk, TILE_WALL, 52, 92, 53, 94)
+    fill_tiles(chunk, TILE_WALL, 60, 98, 61, 100)
+    fill_tiles(chunk, TILE_WALL, 44, 102, 45, 104)
+    # Deacon altar — cathedral altar pillars (DS3: dark altar hall with deep fire)
+    fill_tiles(chunk, TILE_WALL, 30, 110, 31, 112)
+    fill_tiles(chunk, TILE_WALL, 50, 112, 51, 114)
+    fill_tiles(chunk, TILE_WALL, 38, 120, 39, 122)
+    fill_tiles(chunk, TILE_WALL, 55, 122, 56, 124)
+    fill_tiles(chunk, TILE_WALL, 45, 128, 46, 130)
+    # Slug corridor — ManGrub alcoves (DS3: narrow passage with slug enemies)
+    fill_tiles(chunk, TILE_WALL, 32, 134, 33, 136)
+    fill_tiles(chunk, TILE_WALL, 40, 136, 41, 138)
+    fill_tiles(chunk, TILE_WALL, 36, 140, 37, 142)
+    # Rosaria's bedchamber — ornate room walls (DS3: pale tongue offering chamber)
+    fill_tiles(chunk, TILE_WALL, 34, 146, 35, 148)
+    fill_tiles(chunk, TILE_WALL, 42, 148, 43, 150)
+    fill_tiles(chunk, TILE_WALL, 38, 152, 39, 154)
+
+    # ================================================================
+    # SESSION 9 FIDELITY PASS B — CathedralDeep additional DS3 details
+    # ================================================================
+    # Rain-soaked entry steps — drainage channels (DS3: perpetual rain)
+    fill_tiles(chunk, TILE_WALL, 26, 6, 27, 7)
+    fill_tiles(chunk, TILE_WALL, 32, 10, 33, 11)
+    fill_tiles(chunk, TILE_WALL, 28, 14, 29, 15)
+    fill_tiles(chunk, TILE_WALL, 36, 8, 37, 9)
+    # Outer graveyard — broken coffin stones (DS3: cemetery with Infested Corpses)
+    fill_tiles(chunk, TILE_WALL, 22, 18, 23, 19)
+    fill_tiles(chunk, TILE_WALL, 28, 22, 29, 23)
+    fill_tiles(chunk, TILE_WALL, 18, 26, 19, 27)
+    fill_tiles(chunk, TILE_WALL, 34, 20, 35, 21)
+    fill_tiles(chunk, TILE_WALL, 24, 30, 25, 31)
+    # Cleansing Chapel — stone basin alcoves (DS3: chapel with bonfire)
+    fill_tiles(chunk, TILE_WALL, 36, 34, 37, 35)
+    fill_tiles(chunk, TILE_WALL, 40, 38, 41, 39)
+    fill_tiles(chunk, TILE_WALL, 32, 42, 33, 43)
+    fill_tiles(chunk, TILE_WALL, 44, 32, 45, 33)
+    # Front gate — iron portcullis remnants (DS3: massive cathedral gate)
+    fill_tiles(chunk, TILE_WALL, 48, 46, 49, 47)
+    fill_tiles(chunk, TILE_WALL, 52, 50, 53, 51)
+    fill_tiles(chunk, TILE_WALL, 44, 54, 45, 55)
+    fill_tiles(chunk, TILE_WALL, 56, 44, 57, 45)
+    # Side aisle — hanging banner stones (DS3: cathedral interior banners)
+    fill_tiles(chunk, TILE_WALL, 58, 58, 59, 59)
+    fill_tiles(chunk, TILE_WALL, 62, 62, 63, 63)
+    fill_tiles(chunk, TILE_WALL, 54, 66, 55, 67)
+    fill_tiles(chunk, TILE_WALL, 66, 56, 67, 57)
+    # Upper gallery — overlook balustrade (DS3: upper level overlooking nave)
+    fill_tiles(chunk, TILE_WALL, 68, 60, 69, 61)
+    fill_tiles(chunk, TILE_WALL, 72, 64, 73, 65)
+    fill_tiles(chunk, TILE_WALL, 64, 68, 65, 69)
+    fill_tiles(chunk, TILE_WALL, 76, 58, 77, 59)
+    # Nave — flying buttress bases (DS3: gothic cathedral architecture)
+    fill_tiles(chunk, TILE_WALL, 78, 72, 79, 73)
+    fill_tiles(chunk, TILE_WALL, 82, 76, 83, 77)
+    fill_tiles(chunk, TILE_WALL, 74, 80, 75, 81)
+    fill_tiles(chunk, TILE_WALL, 86, 70, 87, 71)
+    fill_tiles(chunk, TILE_WALL, 80, 82, 81, 83)
+    # Giant's room — arrow-scarred pillars (DS3: giant shoots arrows from above)
+    fill_tiles(chunk, TILE_WALL, 42, 86, 43, 87)
+    fill_tiles(chunk, TILE_WALL, 46, 90, 47, 91)
+    fill_tiles(chunk, TILE_WALL, 38, 94, 39, 95)
+    fill_tiles(chunk, TILE_WALL, 50, 84, 51, 85)
+    fill_tiles(chunk, TILE_WALL, 44, 98, 45, 99)
+    # Deacon hall — candle cluster stones (DS3: mass of deacons in dark hall)
+    fill_tiles(chunk, TILE_WALL, 36, 106, 37, 107)
+    fill_tiles(chunk, TILE_WALL, 42, 110, 43, 111)
+    fill_tiles(chunk, TILE_WALL, 48, 114, 49, 115)
+    fill_tiles(chunk, TILE_WALL, 54, 108, 55, 109)
+    fill_tiles(chunk, TILE_WALL, 58, 118, 59, 119)
+    # Slug corridor — slime-coated walls (DS3: Man Grubs along the corridor)
+    fill_tiles(chunk, TILE_WALL, 30, 132, 31, 133)
+    fill_tiles(chunk, TILE_WALL, 36, 136, 37, 137)
+    fill_tiles(chunk, TILE_WALL, 42, 140, 43, 141)
+    fill_tiles(chunk, TILE_WALL, 48, 134, 49, 135)
+    fill_tiles(chunk, TILE_WALL, 54, 142, 55, 143)
+
+        # --- ENTITIES ---
     spawn_px, spawn_py = 30 * 16, 8 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
@@ -2691,7 +4053,7 @@ def make_cathedral_deep():
         ("Evangelist", 40, 96),
         ("Thrall", 46, 100), ("Thrall", 54, 102),
         # Cage Spider area (DS3: basilisks in dark room near giant)
-        ("Basilisk", 36, 94), ("Basilisk", 40, 98),                   # Cage Spiders
+        ("Thrall", 36, 94), ("Thrall", 40, 98),                       # Hollow Slaves in dark room near giant
         # Deacon hall — mass of Deacons before the boss (DS3: dozens of deacons)
         ("Deacon", 38, 110), ("Deacon", 42, 108), ("Deacon", 48, 112),
         ("Deacon", 52, 116), ("Deacon", 56, 114), ("Deacon", 40, 118),
@@ -2711,6 +4073,8 @@ def make_cathedral_deep():
         ("InfestedCorpse", 30, 108), ("InfestedCorpse", 28, 114),     # Corpse-grubs
         # Crystal Lizard near nave
         ("CrystalLizard", 60, 76),
+        # Boss — Deacons of the Deep
+        ("MiniBoss", 45, 114),                                      # Deacons of the Deep boss entity
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -2719,7 +4083,7 @@ def make_cathedral_deep():
     # --- Items (DS3 Cathedral of the Deep) — accurate from wiki ---
     # Cemetery / approach area
     entities.append(make_entity("Item", 28 * 16, 6 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Fading Soul"), make_field("value", "Int", 50)]))
-    entities.append(make_entity("Item", 30 * 16, 35 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Paladin's Ashes")]))
+    entities.append(make_entity("Item", 30 * 16, 35 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Paladin's Ashes")]))
     # Outer graveyard
     entities.append(make_entity("Item", 28 * 16, 26 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Titanite Shard")]))
     entities.append(make_entity("Item", 45 * 16, 32 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Large Soul of an Unknown Traveler"), make_field("value", "Int", 800)]))
@@ -2731,52 +4095,52 @@ def make_cathedral_deep():
     entities.append(make_entity("Item", 40 * 16, 22 * 16, [make_field("kind", "LocalEnum.ItemKind", "EstusShard"), make_field("name", "String", "Estus Shard")]))
     entities.append(make_entity("Item", 38 * 16, 42 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Notched Whip")]))
     # Graveyard paths
-    entities.append(make_entity("Item", 48 * 16, 40 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Young White Branch")]))
+    entities.append(make_entity("Item", 48 * 16, 40 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Young White Branch")]))
     entities.append(make_entity("Item", 50 * 16, 42 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Large Soul of an Unknown Traveler"), make_field("value", "Int", 800)]))
-    entities.append(make_entity("Item", 52 * 16, 44 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Repair Powder")]))
-    entities.append(make_entity("Item", 54 * 16, 46 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Repair Powder")]))
+    entities.append(make_entity("Item", 52 * 16, 44 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Repair Powder")]))
+    entities.append(make_entity("Item", 54 * 16, 46 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Repair Powder")]))
     entities.append(make_entity("Item", 56 * 16, 48 * 16, [make_field("kind", "LocalEnum.ItemKind", "UndeadBoneShard"), make_field("name", "String", "Undead Bone Shard")]))
-    entities.append(make_entity("Item", 58 * 16, 50 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Young White Branch")]))
+    entities.append(make_entity("Item", 58 * 16, 50 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Young White Branch")]))
     entities.append(make_entity("Item", 60 * 16, 52 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Curse Ward Greatshield"), make_field("slot", "String", "Hands")]))
     entities.append(make_entity("Item", 62 * 16, 54 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Titanite Shard")]))
     entities.append(make_entity("Item", 64 * 16, 56 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Saint-tree Bellvine")]))
     entities.append(make_entity("Item", 36 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "RingDrop"), make_field("name", "String", "Poisonbite Ring")]))
     # Cathedral interior
-    entities.append(make_entity("Item", 50 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Red Bug Pellet")]))
-    entities.append(make_entity("Item", 52 * 16, 62 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Red Bug Pellet")]))
-    entities.append(make_entity("Item", 66 * 16, 58 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Rusted Coin")]))
-    entities.append(make_entity("Item", 68 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Rusted Coin")]))
+    entities.append(make_entity("Item", 50 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Red Bug Pellet")]))
+    entities.append(make_entity("Item", 52 * 16, 62 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Red Bug Pellet")]))
+    entities.append(make_entity("Item", 66 * 16, 58 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Rusted Coin")]))
+    entities.append(make_entity("Item", 68 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Rusted Coin")]))
     entities.append(make_entity("Item", 54 * 16, 64 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Soul of an Unknown Traveler"), make_field("value", "Int", 500)]))
-    entities.append(make_entity("Item", 56 * 16, 66 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Red Bug Pellet")]))
-    entities.append(make_entity("Item", 70 * 16, 62 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Undead Hunter Charm")]))
+    entities.append(make_entity("Item", 56 * 16, 66 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Red Bug Pellet")]))
+    entities.append(make_entity("Item", 70 * 16, 62 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Undead Hunter Charm")]))
     entities.append(make_entity("Item", 58 * 16, 68 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Soul of a Nameless Soldier"), make_field("value", "Int", 800)]))
     entities.append(make_entity("Item", 60 * 16, 70 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Ember")]))
-    entities.append(make_entity("Item", 62 * 16, 72 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Duel Charm")]))
-    entities.append(make_entity("Item", 64 * 16, 74 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Duel Charm")]))
+    entities.append(make_entity("Item", 62 * 16, 72 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Duel Charm")]))
+    entities.append(make_entity("Item", 64 * 16, 74 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Duel Charm")]))
     # Giant room
     entities.append(make_entity("Item", 44 * 16, 94 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Ember")]))
-    entities.append(make_entity("Item", 46 * 16, 96 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Seek Guidance")]))
+    entities.append(make_entity("Item", 46 * 16, 96 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Seek Guidance")]))
     entities.append(make_entity("Item", 48 * 16, 98 * 16, [make_field("kind", "LocalEnum.ItemKind", "RingDrop"), make_field("name", "String", "Lloyd's Sword Ring")]))
-    entities.append(make_entity("Item", 50 * 16, 100 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Deep Braille Divine Tome")]))
+    entities.append(make_entity("Item", 50 * 16, 100 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Deep Braille Divine Tome")]))
     entities.append(make_entity("Item", 52 * 16, 90 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Drang Set"), make_field("slot", "String", "Chest")]))
     # Pale Tongue removed (duplicate — wiki says 1x for Cathedral of the Deep)
     entities.append(make_entity("Item", 40 * 16, 102 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Maiden Set"), make_field("slot", "String", "Chest")]))
-    entities.append(make_entity("Item", 42 * 16, 104 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Ember")]))
-    entities.append(make_entity("Item", 44 * 16, 106 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Duel Charm")]))
-    entities.append(make_entity("Item", 46 * 16, 108 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Duel Charm")]))
-    entities.append(make_entity("Item", 48 * 16, 110 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Dung Pie")]))
-    entities.append(make_entity("Item", 50 * 16, 112 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Dung Pie")]))
-    entities.append(make_entity("Item", 52 * 16, 114 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Dung Pie")]))
-    entities.append(make_entity("Item", 54 * 16, 116 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Dung Pie")]))
+    entities.append(make_entity("Item", 42 * 16, 104 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 44 * 16, 106 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Duel Charm")]))
+    entities.append(make_entity("Item", 46 * 16, 108 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Duel Charm")]))
+    entities.append(make_entity("Item", 48 * 16, 110 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Dung Pie")]))
+    entities.append(make_entity("Item", 50 * 16, 112 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Dung Pie")]))
+    entities.append(make_entity("Item", 52 * 16, 114 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Dung Pie")]))
+    entities.append(make_entity("Item", 54 * 16, 116 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Dung Pie")]))
     entities.append(make_entity("Item", 56 * 16, 118 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Large Titanite Shard")]))
     entities.append(make_entity("Item", 58 * 16, 120 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Large Titanite Shard")]))
     entities.append(make_entity("Item", 42 * 16, 122 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Large Titanite Shard")]))
     # Deep Accursed area
     entities.append(make_entity("Item", 24 * 16, 40 * 16, [make_field("kind", "LocalEnum.ItemKind", "RingDrop"), make_field("name", "String", "Aldrich's Sapphire")]))
     # Rafter / upper areas
-    entities.append(make_entity("Item", 72 * 16, 66 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Deep Ring")]))
-    entities.append(make_entity("Item", 74 * 16, 68 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Red Sign Soapstone")]))
-    entities.append(make_entity("Item", 76 * 16, 70 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Pale Tongue")]))
+    entities.append(make_entity("Item", 72 * 16, 66 * 16, [make_field("kind", "LocalEnum.ItemKind", "RingDrop"), make_field("name", "String", "Deep Ring")]))
+    entities.append(make_entity("Item", 74 * 16, 68 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Red Sign Soapstone")]))
+    entities.append(make_entity("Item", 76 * 16, 70 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Pale Tongue")]))
     entities.append(make_entity("Item", 78 * 16, 72 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Blessed Gem")]))
     entities.append(make_entity("Item", 70 * 16, 64 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Arbalest")]))
     entities.append(make_entity("Item", 68 * 16, 68 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Drang Hammers")]))
@@ -2797,10 +4161,10 @@ def make_cathedral_deep():
     entities.append(make_entity("Item", 68 * 16, 78 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Twinkling Titanite")]))
 
     # NPCs - DS3 Cathedral of the Deep: Patches, Rosaria
-    entities.append(make_entity("Npc", 52 * 16, 78 * 16, [make_field("name", "String", "Patches"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#808080"), make_field("dialogue", "String", "What's the matter?|You fell for it!")]))
-    entities.append(make_entity("Npc", 38 * 16, 148 * 16, [make_field("name", "String", "Rosaria"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D0A0B0"), make_field("dialogue", "String", "Welcome|I am Rosaria, Mother of Rebirth")]))
+    entities.append(make_entity("Npc", 52 * 16, 78 * 16, [make_field("name", "String", "Patches"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#808080"), make_field("dialogue", "String", "You're a parasite, only thinking of yourself|I know your kind, you're nothing but trouble|What's wrong? Something the matter?|Heh heh heh")]))
+    entities.append(make_entity("Npc", 38 * 16, 148 * 16, [make_field("name", "String", "Rosaria"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D0A0B0"), make_field("dialogue", "String", "(No tongue, but a voice is not needed)|Offer me pale tongues|And I shall grant your desire|I am Rosaria, Mother of Rebirth")]))
     # Siegward of Catarina — stuck in the well outside Cathedral (DS3: freed via lift mechanism)
-    entities.append(make_entity("Npc", 24 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Aah, hello|I seem to be stuck in this well|Could you find a way to get me out?")]))
+    entities.append(make_entity("Npc", 24 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Aah, hello! Up here!|I seem to be stuck in this well|Could you find a way to get me out?")]))
 
     # Chests - DS3 Cathedral of the Deep: Mimic in rafters drops Lightning Stake
     entities.append(make_entity("Chest", 74 * 16, 60 * 16, [
@@ -2845,6 +4209,92 @@ def make_cathedral_deep():
     fill_tiles(chunk, TILE_WALL, 45, 108, 47, 110)
     fill_tiles(chunk, TILE_WALL, 38, 130, 40, 132)
     fill_tiles(chunk, TILE_WALL, 50, 138, 52, 140)
+
+    # === MORE CATHEDRAL DETAILS — DS3 fidelity ===
+    # Cathedral approach — cemetery gravestones (DS3: graveyard with tombstones)
+    fill_tiles(chunk, TILE_WALL, 14, 14, 16, 16)
+    fill_tiles(chunk, TILE_WALL, 22, 18, 24, 20)
+    fill_tiles(chunk, TILE_WALL, 28, 12, 30, 14)
+    fill_tiles(chunk, TILE_WALL, 16, 28, 18, 30)
+    # Giant's graveyard — more tombstones and ruined walls
+    # DS3: open graveyard area with giant shooting arrows
+    fill_tiles(chunk, TILE_WALL, 22, 48, 24, 50)
+    fill_tiles(chunk, TILE_WALL, 32, 52, 34, 54)
+    fill_tiles(chunk, TILE_WALL, 42, 56, 44, 58)
+    fill_tiles(chunk, TILE_WALL, 28, 58, 30, 60)
+    fill_tiles(chunk, TILE_WALL, 46, 46, 48, 48)
+    # Cathedral nave — more stone pillars (DS3: massive cathedral interior)
+    fill_tiles(chunk, TILE_WALL, 30, 66, 32, 68)
+    fill_tiles(chunk, TILE_WALL, 44, 72, 46, 74)
+    fill_tiles(chunk, TILE_WALL, 56, 66, 58, 68)
+    fill_tiles(chunk, TILE_WALL, 66, 62, 68, 64)
+    fill_tiles(chunk, TILE_WALL, 38, 76, 40, 78)
+    fill_tiles(chunk, TILE_WALL, 52, 80, 54, 82)
+    # Rooftops — more buttress stones (DS3: flying buttresses and gargoyles)
+    fill_tiles(chunk, TILE_WALL, 72, 48, 74, 50)
+    fill_tiles(chunk, TILE_WALL, 82, 52, 84, 54)
+    fill_tiles(chunk, TILE_WALL, 68, 56, 70, 58)
+    fill_tiles(chunk, TILE_WALL, 76, 60, 78, 62)
+    # Rosaria route — slug corridor walls (DS3: Man Grubs in corridor to bedchamber)
+    fill_tiles(chunk, TILE_WALL, 32, 132, 34, 134)
+    fill_tiles(chunk, TILE_WALL, 40, 136, 42, 138)
+    fill_tiles(chunk, TILE_WALL, 48, 142, 50, 144)
+    fill_tiles(chunk, TILE_WALL, 36, 146, 38, 148)
+    # Patches bridge — stone bridge pillars (DS3: bridge over cemetery)
+    fill_tiles(chunk, TILE_WALL, 20, 56, 22, 58)
+    fill_tiles(chunk, TILE_WALL, 28, 60, 30, 62)
+    # Deacons altar — more altar stones (DS3: dark altar with deacon swarm)
+    fill_tiles(chunk, TILE_WALL, 42, 100, 44, 102)
+    fill_tiles(chunk, TILE_WALL, 50, 112, 52, 114)
+    fill_tiles(chunk, TILE_WALL, 36, 118, 38, 120)
+    fill_tiles(chunk, TILE_WALL, 46, 124, 48, 126)
+
+    # === SESSION 8 FIDELITY PASS — Cathedral of the Deep ===
+    # Cathedral entry — rain-soaked steps and drainage channels (DS3: perpetual rain)
+    fill_tiles(chunk, TILE_WALL, 20, 6, 21, 8)
+    fill_tiles(chunk, TILE_WALL, 34, 4, 35, 6)
+    fill_tiles(chunk, TILE_WALL, 26, 14, 27, 16)
+    fill_tiles(chunk, TILE_WALL, 40, 8, 41, 10)
+    # Outer graveyard — broken coffin stones (DS3: disturbed graves with infested corpses)
+    fill_tiles(chunk, TILE_WALL, 20, 32, 21, 34)
+    fill_tiles(chunk, TILE_WALL, 46, 26, 47, 28)
+    fill_tiles(chunk, TILE_WALL, 28, 36, 29, 38)
+    fill_tiles(chunk, TILE_WALL, 50, 36, 51, 38)
+    # Cleansing Chapel — stone basin and candle alcoves (DS3: cleansing water basin)
+    fill_tiles(chunk, TILE_WALL, 24, 46, 25, 48)
+    fill_tiles(chunk, TILE_WALL, 40, 50, 41, 52)
+    fill_tiles(chunk, TILE_WALL, 32, 52, 33, 54)
+    # Cathedral front gate — iron portcullis remnants (DS3: massive cathedral door)
+    fill_tiles(chunk, TILE_WALL, 44, 56, 45, 58)
+    fill_tiles(chunk, TILE_WALL, 56, 56, 57, 58)
+    fill_tiles(chunk, TILE_WALL, 50, 48, 51, 50)
+    # Side aisle — hanging banners and dark alcoves (DS3: narrow passage with thralls above)
+    fill_tiles(chunk, TILE_WALL, 57, 64, 58, 66)
+    fill_tiles(chunk, TILE_WALL, 68, 70, 69, 72)
+    fill_tiles(chunk, TILE_WALL, 63, 56, 64, 58)
+    fill_tiles(chunk, TILE_WALL, 72, 68, 73, 70)
+    # Upper gallery — overlook balustrade (DS3: overlooks nave from above)
+    fill_tiles(chunk, TILE_WALL, 65, 58, 66, 60)
+    fill_tiles(chunk, TILE_WALL, 77, 66, 78, 68)
+    fill_tiles(chunk, TILE_WALL, 70, 70, 71, 72)
+    # Nave — additional flying buttress bases (DS3: Gothic cathedral architecture)
+    fill_tiles(chunk, TILE_WALL, 40, 84, 41, 86)
+    fill_tiles(chunk, TILE_WALL, 62, 84, 63, 86)
+    fill_tiles(chunk, TILE_WALL, 34, 80, 35, 82)
+    fill_tiles(chunk, TILE_WALL, 64, 76, 65, 78)
+    # Giant room — arrow-scarred pillars (DS3: giant shoots massive arrows from tower)
+    fill_tiles(chunk, TILE_WALL, 36, 92, 37, 94)
+    fill_tiles(chunk, TILE_WALL, 62, 96, 63, 98)
+    fill_tiles(chunk, TILE_WALL, 48, 104, 49, 106)
+    fill_tiles(chunk, TILE_WALL, 56, 90, 57, 92)
+    # Rosaria corridor — slime-coated walls (DS3: Man Grub secretions on walls)
+    fill_tiles(chunk, TILE_WALL, 28, 138, 29, 140)
+    fill_tiles(chunk, TILE_WALL, 44, 140, 45, 142)
+    fill_tiles(chunk, TILE_WALL, 40, 144, 41, 146)
+    # Rosaria bedchamber — ornate bed curtains and candelabras (DS3: pale light chamber)
+    fill_tiles(chunk, TILE_WALL, 30, 150, 31, 152)
+    fill_tiles(chunk, TILE_WALL, 44, 150, 45, 152)
+    fill_tiles(chunk, TILE_WALL, 36, 154, 37, 156)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -2982,6 +4432,160 @@ def make_catacombs_of_carthus():
     fill_tiles(chunk, TILE_WALL, 120, 112, 122, 115)
     fill_tiles(chunk, TILE_WALL, 138, 108, 140, 110)
 
+    # === MORE CATACOMBS DETAILS — DS3 fidelity ===
+    # Entry stairs — more sarcophagi (DS3: stone coffins line the entry)
+    fill_tiles(chunk, TILE_WALL, 10, 12, 11, 14)
+    fill_tiles(chunk, TILE_WALL, 18, 16, 19, 18)
+    fill_tiles(chunk, TILE_WALL, 24, 12, 25, 14)
+    # Skeleton ball corridor — more bone pile walls and alcove barriers
+    # DS3: narrow corridor with side alcoves to dodge rolling balls
+    fill_tiles(chunk, TILE_WALL, 32, 24, 34, 26)
+    fill_tiles(chunk, TILE_WALL, 45, 26, 47, 28)
+    fill_tiles(chunk, TILE_WALL, 52, 30, 54, 32)
+    fill_tiles(chunk, TILE_WALL, 22, 34, 24, 36)
+    fill_tiles(chunk, TILE_WALL, 46, 34, 48, 36)
+    # Rope bridge area — bridge support pillars and cliff edges
+    # DS3: narrow rope bridge over dark abyss
+    fill_tiles(chunk, TILE_WALL, 58, 28, 60, 30)
+    fill_tiles(chunk, TILE_WALL, 68, 26, 70, 28)
+    fill_tiles(chunk, TILE_WALL, 72, 32, 74, 34)
+    fill_tiles(chunk, TILE_WALL, 82, 28, 84, 30)
+    # Lower tomb chambers — more sarcophagus and tomb walls
+    # DS3: interconnected tomb rooms with skeleton ambushes
+    fill_tiles(chunk, TILE_WALL, 16, 50, 18, 52)
+    fill_tiles(chunk, TILE_WALL, 26, 56, 28, 58)
+    fill_tiles(chunk, TILE_WALL, 36, 54, 38, 56)
+    fill_tiles(chunk, TILE_WALL, 45, 58, 47, 60)
+    fill_tiles(chunk, TILE_WALL, 22, 64, 24, 66)
+    fill_tiles(chunk, TILE_WALL, 38, 66, 40, 68)
+    fill_tiles(chunk, TILE_WALL, 50, 68, 52, 70)
+    fill_tiles(chunk, TILE_WALL, 42, 72, 44, 74)
+    # Skeleton wheel area — rubble obstacles (DS3: rolling skeleton wheels)
+    fill_tiles(chunk, TILE_WALL, 58, 58, 60, 60)
+    fill_tiles(chunk, TILE_WALL, 68, 64, 70, 66)
+    fill_tiles(chunk, TILE_WALL, 62, 70, 64, 72)
+    fill_tiles(chunk, TILE_WALL, 72, 68, 74, 70)
+    # Abandoned tomb — tunnel walls (DS3: descent to Smouldering Lake)
+    fill_tiles(chunk, TILE_WALL, 12, 78, 14, 80)
+    fill_tiles(chunk, TILE_WALL, 22, 82, 24, 84)
+    fill_tiles(chunk, TILE_WALL, 32, 88, 34, 90)
+    fill_tiles(chunk, TILE_WALL, 18, 92, 20, 94)
+    fill_tiles(chunk, TILE_WALL, 28, 98, 30, 100)
+    fill_tiles(chunk, TILE_WALL, 20, 106, 22, 108)
+    fill_tiles(chunk, TILE_WALL, 35, 95, 37, 97)
+    # Wolnir path — more bone pillars and ancient walls
+    # DS3: dark corridor approaching Wolnir's arena
+    fill_tiles(chunk, TILE_WALL, 78, 60, 80, 62)
+    fill_tiles(chunk, TILE_WALL, 85, 58, 87, 60)
+    fill_tiles(chunk, TILE_WALL, 95, 65, 97, 67)
+    fill_tiles(chunk, TILE_WALL, 110, 72, 112, 74)
+    fill_tiles(chunk, TILE_WALL, 100, 78, 102, 80)
+    # Wolnir arena — more ancient pillars and ruins
+    # DS3: dark arena where Wolnir emerges from the abyss
+    fill_tiles(chunk, TILE_WALL, 118, 90, 120, 93)
+    fill_tiles(chunk, TILE_WALL, 135, 95, 137, 98)
+    fill_tiles(chunk, TILE_WALL, 125, 105, 127, 108)
+    fill_tiles(chunk, TILE_WALL, 142, 102, 144, 105)
+    fill_tiles(chunk, TILE_WALL, 115, 115, 117, 118)
+    fill_tiles(chunk, TILE_WALL, 132, 112, 134, 115)
+
+    # === SESSION 6 FIDELITY PASS — Catacombs of Carthus ===
+    # Entry stairs — stone urn decorations (DS3: burial urns flanking entry path)
+    fill_tiles(chunk, TILE_WALL, 8, 16, 9, 18)
+    fill_tiles(chunk, TILE_WALL, 26, 14, 27, 16)
+    fill_tiles(chunk, TILE_WALL, 14, 22, 15, 24)
+    # Entry arch pillars (DS3: stone archway at catacomb entrance)
+    fill_tiles(chunk, TILE_WALL, 10, 8, 12, 10)
+    fill_tiles(chunk, TILE_WALL, 24, 8, 26, 10)
+    # Skeleton ball corridor — more alcove barriers (DS3: niches to dodge boulder)
+    fill_tiles(chunk, TILE_WALL, 17, 26, 19, 28)
+    fill_tiles(chunk, TILE_WALL, 38, 20, 40, 22)
+    fill_tiles(chunk, TILE_WALL, 53, 22, 55, 24)
+    # Skull pile formations (DS3: bone piles throughout corridors)
+    fill_tiles(chunk, TILE_WALL, 30, 30, 32, 32)
+    fill_tiles(chunk, TILE_WALL, 48, 28, 50, 30)
+    fill_tiles(chunk, TILE_WALL, 56, 36, 58, 38)
+    # Rope bridge — bridge cable anchor points (DS3: rope bridge over deep abyss)
+    fill_tiles(chunk, TILE_WALL, 60, 22, 62, 24)
+    fill_tiles(chunk, TILE_WALL, 76, 28, 78, 30)
+    fill_tiles(chunk, TILE_WALL, 85, 32, 87, 34)
+    fill_tiles(chunk, TILE_WALL, 80, 36, 82, 38)
+    # Lower tombs — additional tomb chamber dividers (DS3: interlinked stone rooms)
+    fill_tiles(chunk, TILE_WALL, 14, 46, 16, 48)
+    fill_tiles(chunk, TILE_WALL, 24, 48, 26, 50)
+    fill_tiles(chunk, TILE_WALL, 40, 52, 42, 54)
+    fill_tiles(chunk, TILE_WALL, 48, 56, 50, 58)
+    fill_tiles(chunk, TILE_WALL, 16, 68, 18, 70)
+    fill_tiles(chunk, TILE_WALL, 34, 70, 36, 72)
+    # Skeleton wheel tracks (DS3: grooves in stone from rolling wheels)
+    fill_tiles(chunk, TILE_WALL, 52, 64, 54, 66)
+    fill_tiles(chunk, TILE_WALL, 66, 62, 68, 64)
+    fill_tiles(chunk, TILE_WALL, 70, 70, 72, 72)
+    # Abandoned tomb — stalactite formations (DS3: underground cave with rock formations)
+    fill_tiles(chunk, TILE_WALL, 16, 76, 18, 78)
+    fill_tiles(chunk, TILE_WALL, 26, 86, 28, 88)
+    fill_tiles(chunk, TILE_WALL, 34, 92, 36, 94)
+    fill_tiles(chunk, TILE_WALL, 24, 100, 26, 102)
+    # Wolnir path — dark corridor ancient stonework (DS3: ancient carved passage)
+    fill_tiles(chunk, TILE_WALL, 72, 56, 74, 58)
+    fill_tiles(chunk, TILE_WALL, 82, 64, 84, 66)
+    fill_tiles(chunk, TILE_WALL, 98, 70, 100, 72)
+    fill_tiles(chunk, TILE_WALL, 108, 76, 110, 78)
+    # Wolnir arena — abyss edge pillars (DS3: dark arena with glowing bracelets)
+    fill_tiles(chunk, TILE_WALL, 110, 88, 112, 90)
+    fill_tiles(chunk, TILE_WALL, 128, 94, 130, 96)
+    fill_tiles(chunk, TILE_WALL, 138, 106, 140, 108)
+    fill_tiles(chunk, TILE_WALL, 122, 118, 124, 120)
+    fill_tiles(chunk, TILE_WALL, 145, 110, 147, 112)
+    fill_tiles(chunk, TILE_WALL, 130, 118, 132, 120)
+
+    # ================================================================
+    # SESSION 9 FIDELITY PASS — CatacombsOfCarthus architectural details
+    # ================================================================
+    # Entry stairs — bone pile debris (DS3: bones scattered on entry stairs)
+    fill_tiles(chunk, TILE_WALL, 12, 10, 13, 11)
+    fill_tiles(chunk, TILE_WALL, 18, 14, 19, 15)
+    # Skeleton ball corridor — skull niches (DS3: wall-mounted skull alcoves)
+    fill_tiles(chunk, TILE_WALL, 22, 20, 23, 21)
+    fill_tiles(chunk, TILE_WALL, 28, 22, 29, 23)
+    fill_tiles(chunk, TILE_WALL, 34, 18, 35, 19)
+    # Rope bridge approach — crumbling pillar bases (DS3: stone pillars supporting bridge)
+    fill_tiles(chunk, TILE_WALL, 40, 32, 41, 33)
+    fill_tiles(chunk, TILE_WALL, 44, 34, 45, 35)
+    fill_tiles(chunk, TILE_WALL, 38, 36, 39, 37)
+    # Lower tombs — collapsed coffin lids (DS3: broken sarcophagi in lower chambers)
+    fill_tiles(chunk, TILE_WALL, 20, 50, 21, 51)
+    fill_tiles(chunk, TILE_WALL, 26, 52, 27, 53)
+    fill_tiles(chunk, TILE_WALL, 14, 54, 15, 55)
+    fill_tiles(chunk, TILE_WALL, 30, 56, 31, 57)
+    # Skeleton horde room — bone wall formations (DS3: walls of stacked bones)
+    fill_tiles(chunk, TILE_WALL, 48, 60, 49, 61)
+    fill_tiles(chunk, TILE_WALL, 52, 64, 53, 65)
+    fill_tiles(chunk, TILE_WALL, 56, 58, 57, 59)
+    fill_tiles(chunk, TILE_WALL, 44, 66, 45, 67)
+    # Abandoned tomb alcove — ritual stones (DS3: dark ritual area)
+    fill_tiles(chunk, TILE_WALL, 18, 80, 19, 81)
+    fill_tiles(chunk, TILE_WALL, 22, 84, 23, 85)
+    fill_tiles(chunk, TILE_WALL, 16, 88, 17, 89)
+    # Wolnir arena approach — giant sword fragments (DS3: Wolnir's swords in sand)
+    fill_tiles(chunk, TILE_WALL, 30, 94, 31, 95)
+    fill_tiles(chunk, TILE_WALL, 36, 96, 37, 97)
+    fill_tiles(chunk, TILE_WALL, 42, 92, 43, 93)
+    # Wolnir arena — skeleton mound base (DS3: massive pile of skeletons)
+    fill_tiles(chunk, TILE_WALL, 60, 98, 61, 99)
+    fill_tiles(chunk, TILE_WALL, 64, 102, 65, 103)
+    fill_tiles(chunk, TILE_WALL, 70, 96, 71, 97)
+    fill_tiles(chunk, TILE_WALL, 56, 104, 57, 105)
+    fill_tiles(chunk, TILE_WALL, 68, 106, 69, 107)
+    # Smouldering Lake side path — volcanic rock (DS3: lava-adjacent tunnels)
+    fill_tiles(chunk, TILE_WALL, 8, 108, 9, 109)
+    fill_tiles(chunk, TILE_WALL, 14, 110, 15, 111)
+    fill_tiles(chunk, TILE_WALL, 20, 106, 21, 107)
+    # Irithyll exit — frost-touched stone (DS3: cold stone near Irithyll entrance)
+    fill_tiles(chunk, TILE_WALL, 140, 88, 141, 89)
+    fill_tiles(chunk, TILE_WALL, 148, 92, 149, 93)
+    fill_tiles(chunk, TILE_WALL, 136, 96, 137, 97)
+
     spawn_px, spawn_py = 15 * 16, 12 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
@@ -3018,8 +4622,8 @@ def make_catacombs_of_carthus():
         # Abandoned Tomb / Smouldering Lake passage — rats and Writhing Rotten Flesh
         ("Rat", 20, 78), ("Rat", 25, 82), ("Rat", 30, 88),   # Hound-Rats
         ("Rat", 18, 85), ("Rat", 22, 92),                     # More Hound-Rats
-        ("InfestedCorpse", 28, 95),                            # Writhing Rotten Flesh
-        ("FireDemon", 35, 98),                                 # Fire Demon (guards Smouldering Lake)
+        ("Skeleton", 28, 95),                                        # Skeleton in abandoned tomb passage
+        ("Skeleton", 35, 98),                                        # Skeleton patrol near lake entrance
         ("LesserCrab", 22, 96),                                 # Lesser Crab (Smouldering Lake passage, wiki-confirmed)
         # Crystal Lizard
         ("CrystalLizard", 48, 50),
@@ -3101,7 +4705,7 @@ def make_catacombs_of_carthus():
     ]))
 
     # NPCs — DS3 Catacombs: Anri at the first bonfire area, Horace deeper in
-    entities.append(make_entity("Npc", 15 * 16, 18 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "We meet again|Have you seen Horace anywhere?|I am worried about him")]))
+    entities.append(make_entity("Npc", 15 * 16, 18 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello, we meet again|Have you seen Horace anywhere?|I have been separated from him|I am worried... Please tell me if you find him")]))
     entities.append(make_entity("Npc", 50 * 16, 45 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods slowly)")]))
 
     entities.append(make_entity("FogGate", 25 * 16, 112 * 16, [
@@ -3134,7 +4738,8 @@ def make_smouldering_lake():
     """Smouldering Lake - lava cavern beneath Carthus catacombs.
     Faithful DS3 layout: underground cave -> smouldering lake shore with lava ->
     demon ruins outer hall -> demon cleric corridors -> Old Demon King arena.
-    Design doc: 3600x3000, volcanic cavern with lava (POISON tiles).
+    DS3: vast underground cavern with ballista firing across the lake, demon ruins
+    below, and the Old Demon King boss at the deepest point.
     """
     chunk = new_chunk()
     entities = []
@@ -3142,29 +4747,47 @@ def make_smouldering_lake():
     # ================================================================
     # SECTION 1: Underground cave entry - doc: x=0,y=0,w=600,h=600
     # Dark tunnel from Catacombs, air getting hotter
+    # DS3: player drops down from the Catacombs rope bridge shortcut
     # ================================================================
     carve_ellipse(chunk, 15, 15, 8, 6)
     fill_tiles(chunk, TILE_GROUND, 8, 10, 25, 25)
+    # Cave stalactites (DS3: rocky cave ceiling)
+    fill_tiles(chunk, TILE_WALL, 10, 10, 12, 12)
+    fill_tiles(chunk, TILE_WALL, 18, 8, 19, 10)
+    fill_tiles(chunk, TILE_WALL, 22, 12, 23, 14)
 
     # ================================================================
     # SECTION 2: Smouldering lake shore - doc: x=400,y=600,w=1400,h=1000
     # Vast underground lake with shallow lava, ballista in distance
-    # Lava patches (POISON) scattered across the area
+    # DS3: enormous underground cavern with a lake of lava, ballista tower visible
     # ================================================================
     fill_tiles(chunk, TILE_GROUND, 10, 28, 75, 80)
-    # Lava patches across the lake surface
+    # Lava patches across the lake surface (DS3: magma covering large portions)
     fill_tiles(chunk, TILE_POISON, 20, 38, 40, 52)
     fill_tiles(chunk, TILE_POISON, 45, 55, 60, 68)
     fill_tiles(chunk, TILE_POISON, 30, 60, 42, 72)
+    # Additional lava patches (DS3: lava covers most of the lake floor)
+    fill_tiles(chunk, TILE_POISON, 55, 42, 68, 50)
+    fill_tiles(chunk, TILE_POISON, 15, 55, 25, 65)
     # Ruin cover points (stone islands in lava)
     fill_tiles(chunk, TILE_GROUND, 25, 42, 32, 48)
     fill_tiles(chunk, TILE_GROUND, 48, 58, 55, 64)
+    # Additional safe islands (DS3: stone platforms to dodge ballista bolts)
+    fill_tiles(chunk, TILE_GROUND, 38, 48, 44, 54)
+    fill_tiles(chunk, TILE_GROUND, 60, 65, 68, 72)
+    fill_tiles(chunk, TILE_GROUND, 15, 45, 20, 52)
+    # Demon statues along shore (DS3: petrified demon corpses)
+    fill_tiles(chunk, TILE_WALL, 18, 32, 20, 34)
+    fill_tiles(chunk, TILE_WALL, 28, 40, 30, 42)
+    fill_tiles(chunk, TILE_WALL, 42, 50, 44, 52)
+    fill_tiles(chunk, TILE_WALL, 58, 58, 60, 60)
     # Corridor from cave to lake
     fill_tiles(chunk, TILE_GROUND, 15, 22, 22, 32)
 
     # ================================================================
     # SECTION 3: Demon ruins outer hall - doc: x=1200,y=1400,w=800,h=600
     # Collapsed stone pillars, demon carvings, fire demons patrol
+    # DS3: large stone hall with demon architecture, basilisks lurk
     # ================================================================
     fill_tiles(chunk, TILE_GROUND, 55, 50, 90, 68)
     carve_ellipse(chunk, 72, 58, 12, 8)
@@ -3172,24 +4795,36 @@ def make_smouldering_lake():
     fill_tiles(chunk, TILE_WALL, 62, 54, 64, 57)
     fill_tiles(chunk, TILE_WALL, 80, 62, 82, 65)
     fill_tiles(chunk, TILE_WALL, 70, 60, 72, 62)
+    # Additional demon ruin walls (DS3: crumbling demon architecture)
+    fill_tiles(chunk, TILE_WALL, 56, 52, 58, 55)
+    fill_tiles(chunk, TILE_WALL, 86, 55, 88, 58)
+    fill_tiles(chunk, TILE_WALL, 75, 66, 77, 68)
+    fill_tiles(chunk, TILE_WALL, 64, 62, 66, 64)
     # Corridor from lake to demon ruins
     fill_tiles(chunk, TILE_GROUND, 45, 45, 58, 55)
 
     # ================================================================
     # SECTION 4: Demon cleric corridors - doc: x=1800,y=1600,w=600,h=500
     # Winding corridors with demon clerics performing rituals
+    # DS3: maze-like passages with basilisks and rats
     # ================================================================
     fill_tiles(chunk, TILE_GROUND, 85, 60, 115, 80)
     # Room walls creating cell-like spaces
     fill_tiles(chunk, TILE_WALL, 92, 64, 94, 67)
     fill_tiles(chunk, TILE_WALL, 102, 70, 104, 73)
     fill_tiles(chunk, TILE_WALL, 96, 76, 98, 78)
+    # Additional corridor walls (DS3: narrow passages between rooms)
+    fill_tiles(chunk, TILE_WALL, 88, 72, 90, 75)
+    fill_tiles(chunk, TILE_WALL, 108, 65, 110, 68)
+    fill_tiles(chunk, TILE_WALL, 98, 60, 100, 62)
+    fill_tiles(chunk, TILE_WALL, 112, 74, 114, 77)
     # Corridor from outer hall to cleric corridors
     fill_tiles(chunk, TILE_GROUND, 85, 55, 92, 62)
 
     # ================================================================
     # SECTION 5: Old Demon King arena - doc: x=2200,y=2000,w=1000,h=700
     # Grand hall deep in the demon ruins, lava pools at edges
+    # DS3: large circular arena with lava pools, demon throne at center
     # ================================================================
     carve_ellipse(chunk, 135, 108, 20, 18)
     fill_tiles(chunk, TILE_GROUND, 115, 90, 155, 128)
@@ -3198,46 +4833,192 @@ def make_smouldering_lake():
     fill_tiles(chunk, TILE_POISON, 142, 118, 150, 124)
     # Central broken altar
     fill_tiles(chunk, TILE_WALL, 132, 105, 138, 111)
+    # Arena pillars (DS3: massive stone columns in the demon throne room)
+    fill_tiles(chunk, TILE_WALL, 120, 102, 122, 106)
+    fill_tiles(chunk, TILE_WALL, 146, 112, 148, 116)
+    fill_tiles(chunk, TILE_WALL, 128, 118, 130, 122)
+    fill_tiles(chunk, TILE_WALL, 140, 100, 142, 104)
     # Corridor from cleric area to arena
     fill_tiles(chunk, TILE_GROUND, 110, 75, 125, 95)
 
     # ================================================================
     # Side area: Ballista tunnel (NW corner) - skeletons near ballista
+    # DS3: narrow tunnel leads to ballista tower, override lever inside
     # ================================================================
     fill_tiles(chunk, TILE_GROUND, 8, 80, 35, 100)
     carve_ellipse(chunk, 22, 90, 8, 6)
+    # Ballista tower walls (DS3: stone tower with the great ballista)
+    fill_tiles(chunk, TILE_WALL, 10, 82, 12, 86)
+    fill_tiles(chunk, TILE_WALL, 30, 88, 32, 92)
+    fill_tiles(chunk, TILE_WALL, 18, 96, 20, 99)
+    # Ballista mechanism (DS3: the ballista fires across the entire lake)
+    fill_tiles(chunk, TILE_WALL, 24, 86, 26, 88)
 
     # Connection from lake to ballista area
     fill_tiles(chunk, TILE_GROUND, 15, 75, 25, 82)
 
     # ================================================================
-    # ADDITIONAL INTERNAL STRUCTURES — dense obstacles for DS3 feel
+    # ADDITIONAL INTERNAL STRUCTURES — Smouldering Lake DS3 fidelity
     # ================================================================
-    # Cave entry stalactites
-    fill_tiles(chunk, TILE_WALL, 12, 14, 13, 16)
-    fill_tiles(chunk, TILE_WALL, 18, 12, 19, 14)
-    # Lake shore rock formations
+    # Lake shore rock formations (DS3: craggy volcanic rocks along lava shore)
     fill_tiles(chunk, TILE_WALL, 15, 35, 17, 37)
     fill_tiles(chunk, TILE_WALL, 22, 45, 24, 47)
     fill_tiles(chunk, TILE_WALL, 35, 55, 37, 57)
     fill_tiles(chunk, TILE_WALL, 55, 42, 57, 44)
     fill_tiles(chunk, TILE_WALL, 68, 52, 70, 54)
-    # More collapsed pillars in demon ruins
+    # More collapsed pillars in demon ruins (DS3: crumbled demon architecture)
     fill_tiles(chunk, TILE_WALL, 58, 56, 60, 58)
     fill_tiles(chunk, TILE_WALL, 75, 52, 77, 54)
     fill_tiles(chunk, TILE_WALL, 84, 58, 86, 60)
     fill_tiles(chunk, TILE_WALL, 65, 64, 67, 66)
-    # Cleric corridor ritual stones
+    # Cleric corridor ritual stones (DS3: demon worship alcoves)
     fill_tiles(chunk, TILE_WALL, 88, 66, 90, 68)
     fill_tiles(chunk, TILE_WALL, 96, 62, 98, 64)
     fill_tiles(chunk, TILE_WALL, 108, 72, 110, 74)
-    # Arena edge debris
+    # Arena edge debris (DS3: destroyed demon throne room)
     fill_tiles(chunk, TILE_WALL, 118, 95, 120, 97)
     fill_tiles(chunk, TILE_WALL, 148, 110, 150, 112)
     fill_tiles(chunk, TILE_WALL, 125, 118, 127, 120)
-    # Ballista area rocks
+    # Ballista area rocks (DS3: rocky cave leading to ballista tower)
     fill_tiles(chunk, TILE_WALL, 12, 85, 14, 87)
     fill_tiles(chunk, TILE_WALL, 28, 92, 30, 94)
+    # Entry cave stalagmite details (DS3: rocky descent from Catacombs)
+    fill_tiles(chunk, TILE_WALL, 14, 14, 15, 16)
+    fill_tiles(chunk, TILE_WALL, 20, 10, 21, 12)
+    # Lava shore volcanic debris (DS3: cooled magma formations)
+    fill_tiles(chunk, TILE_WALL, 42, 40, 43, 42)
+    fill_tiles(chunk, TILE_WALL, 50, 48, 51, 50)
+    fill_tiles(chunk, TILE_WALL, 62, 45, 63, 47)
+    fill_tiles(chunk, TILE_WALL, 32, 50, 33, 52)
+    # Demon ruins inner walls (DS3: more crumbled demon stonework)
+    fill_tiles(chunk, TILE_WALL, 78, 56, 80, 58)
+    fill_tiles(chunk, TILE_WALL, 68, 58, 70, 60)
+    # Cleric corridor dead-end alcoves (DS3: ritual rooms off main corridor)
+    fill_tiles(chunk, TILE_WALL, 94, 70, 96, 72)
+    fill_tiles(chunk, TILE_WALL, 104, 66, 106, 68)
+    fill_tiles(chunk, TILE_WALL, 100, 76, 102, 78)
+    # Arena broken throne fragments (DS3: Old Demon King's destroyed throne)
+    fill_tiles(chunk, TILE_WALL, 130, 112, 132, 114)
+    fill_tiles(chunk, TILE_WALL, 138, 104, 140, 106)
+    fill_tiles(chunk, TILE_WALL, 144, 116, 146, 118)
+    # Lake center volcanic rock islands (DS3: cover points from ballista bolts)
+    fill_tiles(chunk, TILE_WALL, 40, 60, 41, 62)
+    fill_tiles(chunk, TILE_WALL, 52, 55, 53, 57)
+    fill_tiles(chunk, TILE_WALL, 60, 70, 61, 72)
+
+    # ================================================================
+    # ADDITIONAL DS3 SMOULDERING LAKE — lava formations, demon architecture
+    # ================================================================
+    # Entry cave — more stalactites and volcanic rock (DS3: hot dark cave from Catacombs)
+    fill_tiles(chunk, TILE_WALL, 10, 10, 11, 12)
+    fill_tiles(chunk, TILE_WALL, 18, 8, 19, 10)
+    fill_tiles(chunk, TILE_WALL, 12, 18, 13, 20)
+    fill_tiles(chunk, TILE_WALL, 24, 16, 25, 18)
+    # Lake shore — lava crust formations (DS3: cooled lava creates rocky shore)
+    fill_tiles(chunk, TILE_WALL, 28, 38, 29, 40)
+    fill_tiles(chunk, TILE_WALL, 38, 42, 39, 44)
+    fill_tiles(chunk, TILE_WALL, 48, 52, 49, 54)
+    fill_tiles(chunk, TILE_WALL, 58, 48, 59, 50)
+    fill_tiles(chunk, TILE_WALL, 44, 58, 45, 60)
+    fill_tiles(chunk, TILE_WALL, 66, 56, 67, 58)
+    # Demon ruins — crumbled archways (DS3: ancient demon architecture)
+    fill_tiles(chunk, TILE_WALL, 72, 48, 73, 50)
+    fill_tiles(chunk, TILE_WALL, 82, 54, 83, 56)
+    fill_tiles(chunk, TILE_WALL, 90, 60, 91, 62)
+    fill_tiles(chunk, TILE_WALL, 76, 62, 77, 64)
+    fill_tiles(chunk, TILE_WALL, 86, 68, 87, 70)
+    # Cleric corridor — ritual alcove walls (DS3: demon worship chambers)
+    fill_tiles(chunk, TILE_WALL, 92, 64, 93, 66)
+    fill_tiles(chunk, TILE_WALL, 100, 68, 101, 70)
+    fill_tiles(chunk, TILE_WALL, 106, 74, 107, 76)
+    fill_tiles(chunk, TILE_WALL, 112, 70, 113, 72)
+    # Old Demon King arena — volcanic throne debris (DS3: destroyed demon throne)
+    fill_tiles(chunk, TILE_WALL, 122, 100, 123, 102)
+    fill_tiles(chunk, TILE_WALL, 132, 108, 133, 110)
+    fill_tiles(chunk, TILE_WALL, 142, 114, 143, 116)
+    fill_tiles(chunk, TILE_WALL, 128, 114, 129, 116)
+    fill_tiles(chunk, TILE_WALL, 136, 118, 137, 120)
+    # Ballista tunnel — additional cave walls (DS3: narrow tunnel to ballista)
+    fill_tiles(chunk, TILE_WALL, 8, 90, 9, 92)
+    fill_tiles(chunk, TILE_WALL, 16, 94, 17, 96)
+    fill_tiles(chunk, TILE_WALL, 26, 86, 27, 88)
+    fill_tiles(chunk, TILE_WALL, 32, 96, 33, 98)
+
+    # ================================================================
+    # DS3 SMOULDERING LAKE — final architectural fidelity pass
+    # ================================================================
+    # Ballista bolt impact craters — stone debris from giant bolts (DS3: bolts rain from ballista)
+    fill_tiles(chunk, TILE_WALL, 22, 36, 23, 38)
+    fill_tiles(chunk, TILE_WALL, 35, 42, 36, 44)
+    fill_tiles(chunk, TILE_WALL, 48, 46, 49, 48)
+    fill_tiles(chunk, TILE_WALL, 60, 52, 61, 54)
+    fill_tiles(chunk, TILE_WALL, 42, 62, 43, 64)
+    # Demon ruin archways — curved stone arches (DS3: distinctive demon architecture)
+    fill_tiles(chunk, TILE_WALL, 58, 50, 60, 51)
+    fill_tiles(chunk, TILE_WALL, 72, 54, 74, 55)
+    fill_tiles(chunk, TILE_WALL, 84, 58, 86, 59)
+    fill_tiles(chunk, TILE_WALL, 66, 62, 68, 63)
+    # Lava channel walls — narrow streams between stone (DS3: lava flows through cracks)
+    fill_tiles(chunk, TILE_WALL, 28, 44, 29, 46)
+    fill_tiles(chunk, TILE_WALL, 52, 56, 53, 58)
+    fill_tiles(chunk, TILE_WALL, 62, 64, 63, 66)
+    fill_tiles(chunk, TILE_WALL, 46, 68, 47, 70)
+    # Demon cleric ritual circle stones (DS3: clerics perform rituals around stone circles)
+    fill_tiles(chunk, TILE_WALL, 90, 66, 92, 67)
+    fill_tiles(chunk, TILE_WALL, 102, 72, 104, 73)
+    fill_tiles(chunk, TILE_WALL, 96, 78, 98, 79)
+    # Old Demon King throne debris — massive stone throne fragments (DS3: destroyed demon throne)
+    fill_tiles(chunk, TILE_WALL, 134, 106, 136, 108)
+    fill_tiles(chunk, TILE_WALL, 126, 114, 128, 116)
+    fill_tiles(chunk, TILE_WALL, 148, 120, 150, 122)
+    # Hidden basilisk cave alcove walls (DS3: narrow caves with basilisk ambushes)
+    fill_tiles(chunk, TILE_WALL, 50, 70, 51, 72)
+    fill_tiles(chunk, TILE_WALL, 56, 74, 57, 76)
+    fill_tiles(chunk, TILE_WALL, 64, 72, 65, 74)
+    # Tsorig invasion corridor walls (DS3: Knight Slayer Tsorig invades in narrow passage)
+    fill_tiles(chunk, TILE_WALL, 80, 56, 82, 57)
+    fill_tiles(chunk, TILE_WALL, 88, 62, 90, 63)
+    # Lake center volcanic islands — additional cover (DS3: dodge ballista behind stone islands)
+    fill_tiles(chunk, TILE_WALL, 34, 48, 35, 50)
+    fill_tiles(chunk, TILE_WALL, 44, 54, 45, 56)
+    fill_tiles(chunk, TILE_WALL, 58, 60, 59, 62)
+
+    # ================================================================
+    # SESSION 9 FIDELITY PASS — SmoulderingLake architectural details
+    # ================================================================
+    # Ballista platform — bolt-scarred stone (DS3: massive ballista fires at you)
+    fill_tiles(chunk, TILE_WALL, 18, 14, 19, 15)
+    fill_tiles(chunk, TILE_WALL, 22, 18, 23, 19)
+    fill_tiles(chunk, TILE_WALL, 14, 22, 15, 23)
+    fill_tiles(chunk, TILE_WALL, 26, 12, 27, 13)
+    # Lava shore — blackened rock formations (DS3: lava lake edge)
+    fill_tiles(chunk, TILE_WALL, 38, 28, 39, 29)
+    fill_tiles(chunk, TILE_WALL, 42, 32, 43, 33)
+    fill_tiles(chunk, TILE_WALL, 34, 36, 35, 37)
+    fill_tiles(chunk, TILE_WALL, 46, 26, 47, 27)
+    fill_tiles(chunk, TILE_WALL, 36, 40, 37, 41)
+    # Demon ruins archway — collapsed demon architecture (DS3: Izalith-style ruins)
+    fill_tiles(chunk, TILE_WALL, 52, 44, 53, 45)
+    fill_tiles(chunk, TILE_WALL, 56, 48, 57, 49)
+    fill_tiles(chunk, TILE_WALL, 48, 52, 49, 53)
+    fill_tiles(chunk, TILE_WALL, 60, 42, 61, 43)
+    fill_tiles(chunk, TILE_WALL, 54, 56, 55, 57)
+    # Underground lake — stalactite debris (DS3: cave system beneath lake)
+    fill_tiles(chunk, TILE_WALL, 28, 60, 29, 61)
+    fill_tiles(chunk, TILE_WALL, 32, 64, 33, 65)
+    fill_tiles(chunk, TILE_WALL, 24, 68, 25, 69)
+    fill_tiles(chunk, TILE_WALL, 36, 58, 37, 59)
+    fill_tiles(chunk, TILE_WALL, 30, 72, 31, 73)
+    # Old Demon King arena — scorched earth pillars (DS3: fiery boss arena)
+    fill_tiles(chunk, TILE_WALL, 100, 84, 101, 85)
+    fill_tiles(chunk, TILE_WALL, 104, 88, 105, 89)
+    fill_tiles(chunk, TILE_WALL, 96, 92, 97, 93)
+    fill_tiles(chunk, TILE_WALL, 108, 80, 109, 81)
+    fill_tiles(chunk, TILE_WALL, 102, 94, 103, 95)
+    # Lake volcanic islands — additional cover stones
+    fill_tiles(chunk, TILE_WALL, 40, 50, 41, 51)
+    fill_tiles(chunk, TILE_WALL, 48, 56, 49, 57)
+    fill_tiles(chunk, TILE_WALL, 56, 52, 57, 53)
 
     spawn_px, spawn_py = 15 * 16, 12 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
@@ -3359,9 +5140,12 @@ def make_smouldering_lake():
         make_field("is_mimic", "Bool", False),
     ]))
 
-    # NPCs — DS3 Smouldering Lake: Knight Slayer Tsorig, Horace
-    entities.append(make_entity("Npc", 30 * 16, 92 * 16, [make_field("name", "String", "Knight Slayer Tsorig"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#804020"), make_field("dialogue", "String", "Heh heh|Forgive me|I was just finishing a conquest")]))
-    entities.append(make_entity("Npc", 20 * 16, 88 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(shakes head sadly)")]))
+    # NPCs — DS3 Smouldering Lake: Knight Slayer Tsorig
+    entities.append(make_entity("Npc", 30 * 16, 92 * 16, [make_field("name", "String", "Knight Slayer Tsorig"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#804020"), make_field("dialogue", "String", "Forgive me, I was absorbed in my conquest|We meet again, Unkindled|I am Tsorig, the Knight Slayer|The arbitrary distinction between right and wrong is irrelevant")]))
+    # Horace the Hushed — hostile hollow in DS3 (attacks player in Smouldering Lake cave)
+    # Represented as enemy rather than friendly NPC
+    entities.append(make_entity("Enemy", 20 * 16, 88 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
 
     entities.append(make_entity("FogGate", 135 * 16, 125 * 16, [
         make_field("dest_area", "String", "CatacombsOfCarthus"),
@@ -3468,6 +5252,103 @@ def make_irithyll():
     fill_tiles(chunk, TILE_GROUND, 45, 90, 55, 100)   # Manor to Silver Knight hall
     fill_tiles(chunk, TILE_GROUND, 100, 75, 110, 82)  # Sewers to arena approach
 
+    # ================================================================
+    # ADDITIONAL DS3 IRITHYLL ARCHITECTURE — city buildings, cathedral details
+    # ================================================================
+    # Entry bridge — stone railing pillars (DS3: narrow bridge over moonlit valley)
+    fill_tiles(chunk, TILE_WALL, 10, 34, 11, 36)
+    fill_tiles(chunk, TILE_WALL, 18, 38, 19, 40)
+    fill_tiles(chunk, TILE_WALL, 24, 42, 25, 44)
+    fill_tiles(chunk, TILE_WALL, 8, 44, 9, 46)
+    fill_tiles(chunk, TILE_WALL, 22, 46, 23, 48)
+    # Main boulevard — additional building facades (DS3: gothic buildings line the street)
+    fill_tiles(chunk, TILE_WALL, 42, 54, 44, 56)
+    fill_tiles(chunk, TILE_WALL, 55, 58, 57, 60)
+    fill_tiles(chunk, TILE_WALL, 70, 52, 72, 54)
+    fill_tiles(chunk, TILE_WALL, 80, 48, 82, 50)
+    fill_tiles(chunk, TILE_WALL, 90, 54, 92, 56)
+    fill_tiles(chunk, TILE_WALL, 95, 58, 97, 60)
+    # Church of Yorshka — interior chapel walls (DS3: bonfire church with altar)
+    fill_tiles(chunk, TILE_WALL, 55, 38, 57, 40)
+    fill_tiles(chunk, TILE_WALL, 65, 42, 67, 44)
+    fill_tiles(chunk, TILE_WALL, 48, 44, 50, 46)
+    fill_tiles(chunk, TILE_WALL, 70, 40, 72, 42)
+    # Distant Manor — Siegward's kitchen interior (DS3: kitchen with estus soup)
+    fill_tiles(chunk, TILE_WALL, 24, 74, 26, 76)
+    fill_tiles(chunk, TILE_WALL, 32, 78, 34, 80)
+    fill_tiles(chunk, TILE_WALL, 28, 84, 30, 86)
+    fill_tiles(chunk, TILE_WALL, 36, 86, 38, 88)
+    fill_tiles(chunk, TILE_WALL, 18, 80, 20, 82)
+    # Sewers — underground tunnel walls (DS3: flooded basement with centipedes)
+    fill_tiles(chunk, TILE_WALL, 64, 78, 65, 80)
+    fill_tiles(chunk, TILE_WALL, 75, 82, 76, 84)
+    fill_tiles(chunk, TILE_WALL, 85, 86, 86, 88)
+    fill_tiles(chunk, TILE_WALL, 92, 92, 93, 94)
+    fill_tiles(chunk, TILE_WALL, 70, 90, 71, 92)
+    fill_tiles(chunk, TILE_WALL, 80, 94, 81, 96)
+    # Silver Knight hall — ornate hall columns (DS3: knights guard paintings and treasure)
+    fill_tiles(chunk, TILE_WALL, 25, 102, 27, 104)
+    fill_tiles(chunk, TILE_WALL, 35, 106, 37, 108)
+    fill_tiles(chunk, TILE_WALL, 42, 110, 44, 112)
+    fill_tiles(chunk, TILE_WALL, 50, 114, 52, 116)
+    fill_tiles(chunk, TILE_WALL, 30, 118, 32, 120)
+    fill_tiles(chunk, TILE_WALL, 48, 120, 50, 122)
+    # Pontiff cathedral — grand cathedral interior (DS3: massive stone hall)
+    fill_tiles(chunk, TILE_WALL, 105, 65, 107, 68)
+    fill_tiles(chunk, TILE_WALL, 125, 70, 127, 73)
+    fill_tiles(chunk, TILE_WALL, 135, 78, 137, 81)
+    fill_tiles(chunk, TILE_WALL, 118, 84, 120, 87)
+    fill_tiles(chunk, TILE_WALL, 128, 90, 130, 93)
+    fill_tiles(chunk, TILE_WALL, 110, 78, 112, 80)
+    fill_tiles(chunk, TILE_WALL, 140, 85, 142, 88)
+    # Exit to dungeon — castle corridor walls (DS3: path to Irithyll Dungeon)
+    fill_tiles(chunk, TILE_WALL, 135, 42, 137, 44)
+    fill_tiles(chunk, TILE_WALL, 142, 48, 144, 50)
+    fill_tiles(chunk, TILE_WALL, 132, 50, 134, 52)
+
+    # ================================================================
+    # SESSION 9 FIDELITY PASS B — Irithyll additional architectural details
+    # ================================================================
+    # Entry bridge — frozen lamppost bases (DS3: iconic snow bridge with lampposts)
+    fill_tiles(chunk, TILE_WALL, 14, 37, 15, 38)
+    fill_tiles(chunk, TILE_WALL, 18, 39, 19, 40)
+    fill_tiles(chunk, TILE_WALL, 10, 41, 11, 42)
+    fill_tiles(chunk, TILE_WALL, 22, 35, 23, 36)
+    # Central square — ice-cracked paving (DS3: frozen town square)
+    fill_tiles(chunk, TILE_WALL, 26, 43, 27, 44)
+    fill_tiles(chunk, TILE_WALL, 30, 47, 31, 48)
+    fill_tiles(chunk, TILE_WALL, 22, 51, 23, 52)
+    fill_tiles(chunk, TILE_WALL, 34, 41, 35, 42)
+    fill_tiles(chunk, TILE_WALL, 28, 53, 29, 54)
+    # Church of Yorshka — frosted window alcoves (DS3: small church interior)
+    fill_tiles(chunk, TILE_WALL, 58, 38, 59, 39)
+    fill_tiles(chunk, TILE_WALL, 62, 42, 63, 43)
+    fill_tiles(chunk, TILE_WALL, 54, 46, 55, 47)
+    fill_tiles(chunk, TILE_WALL, 66, 36, 67, 37)
+    fill_tiles(chunk, TILE_WALL, 60, 48, 61, 49)
+    # Silver Knight hall — armor stand alcoves (DS3: suits of armor lining halls)
+    fill_tiles(chunk, TILE_WALL, 70, 52, 71, 53)
+    fill_tiles(chunk, TILE_WALL, 74, 56, 75, 57)
+    fill_tiles(chunk, TILE_WALL, 66, 60, 67, 61)
+    fill_tiles(chunk, TILE_WALL, 78, 50, 79, 51)
+    fill_tiles(chunk, TILE_WALL, 72, 62, 73, 63)
+    # Sewer channels — slime-coated drain covers (DS3: Sewer Centipedes lurk here)
+    fill_tiles(chunk, TILE_WALL, 82, 66, 83, 67)
+    fill_tiles(chunk, TILE_WALL, 86, 70, 87, 71)
+    fill_tiles(chunk, TILE_WALL, 78, 74, 79, 75)
+    fill_tiles(chunk, TILE_WALL, 90, 64, 91, 65)
+    # Pontiff cathedral — altar railing stones (DS3: massive cathedral interior)
+    fill_tiles(chunk, TILE_WALL, 94, 78, 95, 79)
+    fill_tiles(chunk, TILE_WALL, 98, 82, 99, 83)
+    fill_tiles(chunk, TILE_WALL, 90, 86, 91, 87)
+    fill_tiles(chunk, TILE_WALL, 102, 76, 103, 77)
+    fill_tiles(chunk, TILE_WALL, 96, 88, 97, 89)
+    # Distant Manor — crumbling fireplace (DS3: manor with Siegward soup)
+    fill_tiles(chunk, TILE_WALL, 32, 80, 33, 81)
+    fill_tiles(chunk, TILE_WALL, 36, 84, 37, 85)
+    fill_tiles(chunk, TILE_WALL, 28, 88, 29, 89)
+    fill_tiles(chunk, TILE_WALL, 40, 78, 41, 79)
+
     spawn_px, spawn_py = 10 * 16, 35 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
@@ -3521,15 +5402,15 @@ def make_irithyll():
         # Church of Yorshka area — Pontiff Knights guarding church
         ("Knight", 70, 45), ("Knight", 72, 42),
         ("Assassin", 64, 44),                                   # Invisible hag near church entrance
-        # Cathedral Evangelist near hidden staircase (DS3: drops Dorhys' Gnawing)
-        ("Evangelist", 45, 55),
+        # Irithyll Slave near hidden staircase (DS3: invisible ambushers in Irithyll)
+        ("Assassin", 45, 55),
         # Dark room / staircase area — DS3: "take stairs down, encounter many hags",
         # "hags in each of these alcoves", "two more hags at foot of tree"
         ("Assassin", 48, 54), ("Assassin", 54, 56),             # Hags in dark room
         ("Assassin", 50, 58), ("Assassin", 56, 60),             # Hags in alcoves along stairs
         # Sewers — Sewer Centipedes (DS3: "few Sewer Centipedes in the water")
-        ("ManGrub", 68, 80), ("ManGrub", 78, 85), ("ManGrub", 88, 90),
-        ("ManGrub", 72, 88), ("ManGrub", 82, 82),
+        ("SewerCentipede", 68, 80), ("SewerCentipede", 78, 85), ("SewerCentipede", 88, 90),
+        ("SewerCentipede", 72, 88), ("SewerCentipede", 82, 82),
         # Sulyvahn's Beasts at sewer reservoir — DS3 wiki: 2 beasts in flooded chamber
         ("GiantSlave", 72, 90), ("GiantSlave", 78, 94),
         # Silver Knight hall / rooftops — DS3: "several Silver Knights",
@@ -3545,13 +5426,15 @@ def make_irithyll():
         ("Knight", 105, 65), ("DarkMage", 110, 70),
         ("Knight", 100, 62),
         ("Knight", 108, 68),                                    # DS3: "2 Pontiff Knights" near fog gate
-        # Deacons on bridge to Anor Londo (DS3: "several deacons along the way")
-        ("Deacon", 140, 50), ("Deacon", 142, 48), ("Deacon", 144, 52),
-        ("Deacon", 146, 54), ("Deacon", 148, 56),              # More deacons on bridge
+        # Silver Knights on bridge to Anor Londo (DS3: knights guard the path to cathedral)
+        ("SilverKnight", 140, 50), ("SilverKnight", 142, 48), ("SilverKnight", 144, 52),
+        ("SilverKnight", 146, 54), ("SilverKnight", 148, 56),              # More knights on bridge
         # Pontiff arena entrance — Deep Accursed (DS3: near revolving switch)
         ("DeepAccursed", 132, 88),
         # Mimic near boulevard (DS3: drops Golden Ritual Spear)
         ("Mimic", 58, 56),
+        # Boss — Pontiff Sulyvahn
+        ("MiniBoss", 120, 76),                                      # Pontiff Sulyvahn boss entity
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -3636,7 +5519,7 @@ def make_irithyll():
         ("Consumable", "Green Blossom", 86, 82, 0),
         ("Consumable", "Green Blossom", 88, 84, 0),
         # Distant Manor — Siegward's kitchen
-        ("EstusShard", "Estus Shard", 28, 82, 0),
+        ("Consumable", "Rime-blue Moss Clump", 28, 82, 0),
         ("TitaniteShard", "Large Titanite Shard", 32, 85, 0),
         # Silver Knight hall — three chests area (Leo Ring, Smough's Great Hammer, Divine Blessing)
         # Leo Ring and Smough's Great Hammer are in chests, not ground items
@@ -3726,10 +5609,10 @@ def make_irithyll():
     ]))
 
     # NPCs — DS3 Irithyll: Anri (Church of Yorshka), Siegward (Distant Manor kitchen), Sirris
-    entities.append(make_entity("Npc", 62 * 16, 38 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Hello|I am Anri of Astora|Have you seen Horace?|We must find the Lords of Cinder")]))
-    entities.append(make_entity("Npc", 28 * 16, 80 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Oh! Hello again|I seem to have gotten lost|But I found some estus soup!")]))
+    entities.append(make_entity("Npc", 62 * 16, 38 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Hello again. We seem destined to cross paths|Are you also headed for Anor Londo?|I must reach Aldrich of the Deep|To avenge my companions who fell to him")]))
+    entities.append(make_entity("Npc", 28 * 16, 80 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Oh, hello there! Fancy meeting you here|I'm cooking up some estus soup, my specialty|Care to join me? It's quite good, you know|Oh, very good indeed, to see a friendly face")]))
     # Sirris — appears near Church of Yorshka after Rosaria covenant
-    entities.append(make_entity("Npc", 58 * 16, 44 * 16, [make_field("name", "String", "Sirris of the Sunless Realms"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#A0B0C0"), make_field("dialogue", "String", "I am Sirris|I offer my services as a knight|I will not forget this debt"), make_field("appear_condition", "String", "rosaria_covenant")]))
+    entities.append(make_entity("Npc", 58 * 16, 44 * 16, [make_field("name", "String", "Sirris of the Sunless Realms"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#A0B0C0"), make_field("dialogue", "String", "I am Sirris of the Sunless Realms|I was once a knight, but no longer|Let me swear to you my knightly vows|I shall serve you faithfully until death"), make_field("appear_condition", "String", "rosaria_covenant")]))
 
     entities.append(make_entity("FogGate", 144 * 16, 45 * 16, [
         make_field("dest_area", "String", "IrithyllDungeon"),
@@ -3778,6 +5661,88 @@ def make_irithyll():
     fill_tiles(chunk, TILE_WALL, 128, 75, 130, 78)
     fill_tiles(chunk, TILE_WALL, 120, 82, 122, 85)
     fill_tiles(chunk, TILE_WALL, 135, 80, 137, 82)
+
+    # === MORE IRITHYLL DETAILS — DS3 fidelity ===
+    # Ice bridge entry — frozen archway and ice crystals (DS3: stone bridge with frost)
+    fill_tiles(chunk, TILE_WALL, 8, 34, 10, 36)
+    fill_tiles(chunk, TILE_WALL, 18, 38, 20, 40)
+    fill_tiles(chunk, TILE_WALL, 16, 42, 18, 44)
+    # Main boulevard — more building facades (DS3: lined with gothic buildings)
+    fill_tiles(chunk, TILE_WALL, 38, 42, 40, 45)
+    fill_tiles(chunk, TILE_WALL, 45, 55, 47, 58)
+    fill_tiles(chunk, TILE_WALL, 62, 42, 64, 45)
+    fill_tiles(chunk, TILE_WALL, 72, 48, 74, 51)
+    fill_tiles(chunk, TILE_WALL, 80, 55, 82, 58)
+    fill_tiles(chunk, TILE_WALL, 88, 48, 90, 51)
+    fill_tiles(chunk, TILE_WALL, 92, 55, 94, 58)
+    # Church of Yorshka — altar and nave walls (DS3: small church with bonfire)
+    fill_tiles(chunk, TILE_WALL, 48, 34, 50, 36)
+    fill_tiles(chunk, TILE_WALL, 55, 36, 57, 38)
+    fill_tiles(chunk, TILE_WALL, 65, 38, 67, 40)
+    fill_tiles(chunk, TILE_WALL, 70, 42, 72, 44)
+    # Distant Manor — kitchen and hall walls (DS3: Siegward's cooking area)
+    fill_tiles(chunk, TILE_WALL, 22, 75, 24, 78)
+    fill_tiles(chunk, TILE_WALL, 32, 78, 34, 80)
+    fill_tiles(chunk, TILE_WALL, 38, 86, 40, 88)
+    fill_tiles(chunk, TILE_WALL, 18, 82, 20, 84)
+    # Sewers — more drainage pillars (DS3: underground water channels)
+    fill_tiles(chunk, TILE_WALL, 65, 78, 67, 80)
+    fill_tiles(chunk, TILE_WALL, 75, 82, 77, 84)
+    fill_tiles(chunk, TILE_WALL, 85, 88, 87, 90)
+    fill_tiles(chunk, TILE_WALL, 95, 85, 97, 87)
+    fill_tiles(chunk, TILE_WALL, 70, 92, 72, 94)
+    fill_tiles(chunk, TILE_WALL, 90, 95, 92, 97)
+    # Silver Knight hall — hall pillars and arches (DS3: knights in dark hall)
+    fill_tiles(chunk, TILE_WALL, 25, 102, 27, 105)
+    fill_tiles(chunk, TILE_WALL, 35, 108, 37, 111)
+    fill_tiles(chunk, TILE_WALL, 42, 115, 44, 118)
+    fill_tiles(chunk, TILE_WALL, 50, 110, 52, 113)
+    fill_tiles(chunk, TILE_WALL, 30, 115, 32, 118)
+    # Pontiff cathedral — massive pillars (DS3: grand cathedral with tall columns)
+    fill_tiles(chunk, TILE_WALL, 105, 68, 107, 71)
+    fill_tiles(chunk, TILE_WALL, 125, 72, 127, 75)
+    fill_tiles(chunk, TILE_WALL, 140, 78, 142, 81)
+    fill_tiles(chunk, TILE_WALL, 115, 85, 117, 88)
+    fill_tiles(chunk, TILE_WALL, 130, 90, 132, 93)
+    fill_tiles(chunk, TILE_WALL, 142, 88, 144, 91)
+    # Exit corridor to dungeon — stone arches (DS3: dark passage to dungeon)
+    fill_tiles(chunk, TILE_WALL, 135, 42, 137, 45)
+    fill_tiles(chunk, TILE_WALL, 142, 48, 144, 50)
+
+    # === SESSION 8 FIDELITY PASS — Irithyll of the Boreal Valley ===
+    # Bridge approach — frozen lamppost bases (DS3: lined with broken street lamps)
+    fill_tiles(chunk, TILE_WALL, 6, 12, 7, 14)
+    fill_tiles(chunk, TILE_WALL, 16, 14, 17, 16)
+    fill_tiles(chunk, TILE_WALL, 26, 18, 27, 20)
+    # Central square — ice-cracked paving stones (DS3: frozen fountain square)
+    fill_tiles(chunk, TILE_WALL, 48, 48, 49, 50)
+    fill_tiles(chunk, TILE_WALL, 56, 52, 57, 54)
+    fill_tiles(chunk, TILE_WALL, 44, 56, 45, 58)
+    fill_tiles(chunk, TILE_WALL, 62, 46, 63, 48)
+    # Church of Yorshka — frosted window alcoves (DS3: beautiful stained glass, now dark)
+    fill_tiles(chunk, TILE_WALL, 100, 32, 101, 34)
+    fill_tiles(chunk, TILE_WALL, 110, 38, 111, 40)
+    fill_tiles(chunk, TILE_WALL, 95, 40, 96, 42)
+    # Side streets — broken railings and ice-covered debris (DS3: frozen side alleys)
+    fill_tiles(chunk, TILE_WALL, 22, 62, 23, 64)
+    fill_tiles(chunk, TILE_WALL, 36, 68, 37, 70)
+    fill_tiles(chunk, TILE_WALL, 14, 72, 15, 74)
+    fill_tiles(chunk, TILE_WALL, 28, 88, 29, 90)
+    # Sewer channels — slime-coated drain covers (DS3: Sewer Centipedes in dark water)
+    fill_tiles(chunk, TILE_WALL, 68, 86, 69, 88)
+    fill_tiles(chunk, TILE_WALL, 80, 90, 81, 92)
+    fill_tiles(chunk, TILE_WALL, 72, 94, 73, 96)
+    fill_tiles(chunk, TILE_WALL, 88, 92, 89, 94)
+    # Silver Knight hall — suit of armor alcoves (DS3: mounted knight armor displays)
+    fill_tiles(chunk, TILE_WALL, 20, 108, 21, 110)
+    fill_tiles(chunk, TILE_WALL, 40, 112, 41, 114)
+    fill_tiles(chunk, TILE_WALL, 55, 108, 56, 110)
+    fill_tiles(chunk, TILE_WALL, 48, 116, 49, 118)
+    # Pontiff cathedral — altar railing and communion alcoves (DS3: desecrated cathedral)
+    fill_tiles(chunk, TILE_WALL, 110, 74, 111, 76)
+    fill_tiles(chunk, TILE_WALL, 135, 82, 136, 84)
+    fill_tiles(chunk, TILE_WALL, 120, 90, 121, 92)
+    fill_tiles(chunk, TILE_WALL, 145, 86, 146, 88)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -3862,6 +5827,87 @@ def make_irithyll_dungeon():
     fill_tiles(chunk, TILE_GROUND, 100, 45, 108, 52)  # Siegward to tower
     fill_tiles(chunk, TILE_GROUND, 105, 38, 115, 35)  # Tower to exit
 
+    # ================================================================
+    # ADDITIONAL DS3 IRITHYLL DUNGEON — cell walls, prison architecture
+    # ================================================================
+    # Entry passage — dripping water and broken masonry (DS3: damp stone corridor)
+    fill_tiles(chunk, TILE_WALL, 10, 12, 12, 14)
+    fill_tiles(chunk, TILE_WALL, 22, 16, 24, 18)
+    fill_tiles(chunk, TILE_WALL, 16, 22, 18, 24)
+    fill_tiles(chunk, TILE_WALL, 28, 20, 30, 22)
+    # Upper cell block — additional cell dividers (DS3: many small cells with jailers)
+    fill_tiles(chunk, TILE_WALL, 20, 30, 22, 34)
+    fill_tiles(chunk, TILE_WALL, 32, 32, 34, 36)
+    fill_tiles(chunk, TILE_WALL, 45, 30, 47, 34)
+    fill_tiles(chunk, TILE_WALL, 58, 32, 60, 36)
+    fill_tiles(chunk, TILE_WALL, 62, 38, 64, 42)
+    # Central cell block — watchtower supports and cell partitions (DS3: multi-level prison)
+    fill_tiles(chunk, TILE_WALL, 30, 48, 32, 52)
+    fill_tiles(chunk, TILE_WALL, 42, 52, 44, 56)
+    fill_tiles(chunk, TILE_WALL, 58, 55, 60, 58)
+    fill_tiles(chunk, TILE_WALL, 70, 52, 72, 55)
+    fill_tiles(chunk, TILE_WALL, 48, 62, 50, 65)
+    fill_tiles(chunk, TILE_WALL, 62, 65, 64, 68)
+    fill_tiles(chunk, TILE_WALL, 75, 58, 77, 62)
+    # Siegward's cell — cell bars and chain hooks (DS3: Siegward trapped behind bars)
+    fill_tiles(chunk, TILE_WALL, 88, 52, 90, 55)
+    fill_tiles(chunk, TILE_WALL, 95, 62, 97, 65)
+    fill_tiles(chunk, TILE_WALL, 82, 58, 84, 60)
+    # Lower drain — tunnel walls and grates (DS3: flooded drain tunnels with rats)
+    fill_tiles(chunk, TILE_WALL, 25, 75, 27, 78)
+    fill_tiles(chunk, TILE_WALL, 40, 80, 42, 82)
+    fill_tiles(chunk, TILE_WALL, 55, 88, 57, 90)
+    fill_tiles(chunk, TILE_WALL, 35, 90, 37, 92)
+    fill_tiles(chunk, TILE_WALL, 60, 75, 62, 78)
+    fill_tiles(chunk, TILE_WALL, 48, 92, 50, 94)
+    # Karla's cell — dark alcove walls (DS3: Karla imprisoned behind illusory wall)
+    fill_tiles(chunk, TILE_WALL, 78, 80, 80, 84)
+    fill_tiles(chunk, TILE_WALL, 88, 88, 90, 92)
+    fill_tiles(chunk, TILE_WALL, 95, 82, 97, 85)
+    # Exit corridor — stone arch supports (DS3: path to Profaned Capital)
+    fill_tiles(chunk, TILE_WALL, 110, 28, 112, 32)
+    fill_tiles(chunk, TILE_WALL, 125, 30, 127, 34)
+    fill_tiles(chunk, TILE_WALL, 135, 36, 137, 40)
+    fill_tiles(chunk, TILE_WALL, 140, 32, 142, 36)
+
+    # ================================================================
+    # SESSION 9 FIDELITY PASS — IrithyllDungeon architectural details
+    # ================================================================
+    # Entry cell corridor — iron bar debris (DS3: prison cell corridors)
+    fill_tiles(chunk, TILE_WALL, 18, 16, 19, 17)
+    fill_tiles(chunk, TILE_WALL, 24, 20, 25, 21)
+    fill_tiles(chunk, TILE_WALL, 14, 24, 15, 25)
+    fill_tiles(chunk, TILE_WALL, 28, 14, 29, 15)
+    fill_tiles(chunk, TILE_WALL, 20, 28, 21, 29)
+    # Jailer patrol corridor — hanging cage stones (DS3: cages hanging from ceiling)
+    fill_tiles(chunk, TILE_WALL, 34, 36, 35, 37)
+    fill_tiles(chunk, TILE_WALL, 38, 40, 39, 41)
+    fill_tiles(chunk, TILE_WALL, 30, 44, 31, 45)
+    fill_tiles(chunk, TILE_WALL, 42, 34, 43, 35)
+    fill_tiles(chunk, TILE_WALL, 36, 48, 37, 49)
+    # Giant rat cellar — slime-coated stones (DS3: wet dungeon basement)
+    fill_tiles(chunk, TILE_WALL, 46, 52, 47, 53)
+    fill_tiles(chunk, TILE_WALL, 50, 56, 51, 57)
+    fill_tiles(chunk, TILE_WALL, 42, 60, 43, 61)
+    fill_tiles(chunk, TILE_WALL, 54, 50, 55, 51)
+    fill_tiles(chunk, TILE_WALL, 48, 64, 49, 65)
+    # Siegward cell block — iron door frame stones (DS3: Siegward locked in cell)
+    fill_tiles(chunk, TILE_WALL, 58, 44, 59, 45)
+    fill_tiles(chunk, TILE_WALL, 62, 48, 63, 49)
+    fill_tiles(chunk, TILE_WALL, 54, 52, 55, 53)
+    fill_tiles(chunk, TILE_WALL, 66, 42, 67, 43)
+    # Karla cell area — abyss-tinged stones (DS3: Karla imprisoned in deepest cell)
+    fill_tiles(chunk, TILE_WALL, 72, 68, 73, 69)
+    fill_tiles(chunk, TILE_WALL, 76, 72, 77, 73)
+    fill_tiles(chunk, TILE_WALL, 68, 76, 69, 77)
+    fill_tiles(chunk, TILE_WALL, 80, 66, 81, 67)
+    fill_tiles(chunk, TILE_WALL, 74, 78, 75, 79)
+    # Profaned Capital exit — dragon-crest stones (DS3: passage to Profaned Capital)
+    fill_tiles(chunk, TILE_WALL, 90, 30, 91, 31)
+    fill_tiles(chunk, TILE_WALL, 95, 34, 96, 35)
+    fill_tiles(chunk, TILE_WALL, 86, 38, 87, 39)
+    fill_tiles(chunk, TILE_WALL, 100, 28, 101, 29)
+
     spawn_px, spawn_py = 15 * 16, 12 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
@@ -3878,19 +5924,19 @@ def make_irithyll_dungeon():
         ("Jailer", 22, 20), ("Jailer", 35, 30), ("Jailer", 48, 38),
         ("Jailer", 25, 25), ("Jailer", 32, 32),
         ("Jailer", 42, 28), ("Jailer", 58, 42),                 # More jailers on upper level
-        # Reanimated Corpses in cells (PeasantHollow)
-        ("PeasantHollow", 20, 30), ("PeasantHollow", 28, 35),
-        ("PeasantHollow", 38, 28), ("PeasantHollow", 45, 34),
+        # Reanimated Corpses in cells (Wretches — DS3: bloated prisoners in cells)
+        ("Wretch", 20, 30), ("Wretch", 28, 35),
+        ("Wretch", 38, 28), ("Wretch", 45, 34),
         # Central prison block — DS3: "room infested with jailers", "several jailers in large room"
         ("Jailer", 55, 55), ("Jailer", 60, 60), ("Jailer", 68, 52),
         ("Jailer", 48, 58), ("Jailer", 62, 65), ("Jailer", 70, 58),  # More jailers in central block
         ("Jailer", 58, 70), ("Jailer", 65, 68),                 # DS3: "2 in next room"
-        ("PeasantHollow", 50, 50), ("PeasantHollow", 62, 55),
+        ("Wretch", 50, 50), ("Wretch", 62, 55),
         ("CrystalLizard", 52, 52),
         # Siegward cell area — Wretches and Reanimated Corpses
         ("Jailer", 88, 55), ("Jailer", 95, 62),                 # Jailer guards near Siegward
         ("Wretch", 78, 60), ("Wretch", 82, 65),
-        ("PeasantHollow", 85, 62), ("PeasantHollow", 92, 58),
+        ("Wretch", 85, 62), ("Wretch", 92, 58),
         # Lower drains — DS3: rats, basilisks, corpse-grubs in sewer area
         ("Rat", 28, 78), ("Rat", 35, 82), ("Rat", 42, 88),
         ("Rat", 32, 85), ("Rat", 48, 90),
@@ -3900,20 +5946,20 @@ def make_irithyll_dungeon():
         ("Basilisk", 40, 88), ("Basilisk", 65, 78),             # More basilisks in drains
         ("Basilisk", 48, 82), ("Basilisk", 58, 90),             # Additional curse-spawners
         ("InfestedCorpse", 38, 80), ("InfestedCorpse", 45, 86), # Corpse-grubs
-        # Sewer Centipede (ManGrub) in drain area
-        ("ManGrub", 60, 75), ("ManGrub", 50, 78),
+        # Sewer Centipede in drain area (DS3: Sewer Centipedes in Irithyll Dungeon drains)
+        ("SewerCentipede", 60, 75), ("SewerCentipede", 50, 78),
         # Cage Spider in drain area
         ("Spider", 55, 88),                                    # Cage Spider → Basilisk via ENEMY_KIND_MAP
         # Monstrosity of Sin (GiantSlave) — DS3: sleeping giant near lower level
         ("GiantSlave", 42, 75),
         # Lycanthrope (Dog) in rat tunnels
         ("Dog", 22, 82), ("Dog", 38, 85),
-        # Gargoyle tower and exit corridor — DS3: gargoyles guard the tower
-        ("Gargoyle", 95, 42), ("Gargoyle", 125, 30),
+        # Exit corridor — DS3: Wretches (bloated prisoners) guard the upper exit path
+        ("Wretch", 95, 42), ("Wretch", 125, 30),
         # Karla's cell area — DS3: jailers guard the lower cells
         ("Jailer", 85, 85), ("Jailer", 95, 90),
         ("Jailer", 82, 90),                                    # Additional jailer near Karla
-        ("PeasantHollow", 88, 88), ("PeasantHollow", 92, 82),
+        ("Wretch", 88, 88), ("Wretch", 92, 82),
         # Alva Seeker of the Spurned — invades near exit corridor (MiniBoss)
         ("MiniBoss", 78, 82),
         # Mimic near exit corridor (drops Lightning Blade)
@@ -4013,8 +6059,8 @@ def make_irithyll_dungeon():
     ]))
 
     # NPCs — DS3 Irithyll Dungeon: Siegward in cell, Karla in deep cell
-    entities.append(make_entity("Npc", 92 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D4A520"), make_field("dialogue", "String", "Mmm|You have my thanks|I seem to be trapped in this cell")]))
-    entities.append(make_entity("Npc", 90 * 16, 84 * 16, [make_field("name", "String", "Karla"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#4A0080"), make_field("dialogue", "String", "What do you want?|I can teach you sorceries and pyromancies")]))
+    entities.append(make_entity("Npc", 92 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D4A520"), make_field("dialogue", "String", "Oh! You have my thanks, my deepest thanks|I seem to have gotten myself locked in this cell|A brave warrior like yourself, I knew you would come")]))
+    entities.append(make_entity("Npc", 90 * 16, 84 * 16, [make_field("name", "String", "Karla"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#4A0080"), make_field("dialogue", "String", "What do you want? I'm a prisoner, same as you|I can teach you dark sorceries, if you bring me tomes|But nothing that could harm the Fire Keeper, understand|I am Karla, a humble student of the dark arts")]))
 
     entities.append(make_entity("FogGate", 142 * 16, 32 * 16, [
         make_field("dest_area", "String", "ProfanedCapital"),
@@ -4059,6 +6105,106 @@ def make_irithyll_dungeon():
     fill_tiles(chunk, TILE_WALL, 128, 25, 130, 27)
     fill_tiles(chunk, TILE_WALL, 115, 35, 117, 37)
     fill_tiles(chunk, TILE_WALL, 138, 30, 140, 32)
+
+    # === ADDITIONAL DUNGEON DETAILS — DS3 fidelity ===
+    # Upper cell block — additional cell bars (DS3: cramped cells with iron bars)
+    fill_tiles(chunk, TILE_WALL, 18, 28, 20, 30)
+    fill_tiles(chunk, TILE_WALL, 28, 32, 30, 34)
+    fill_tiles(chunk, TILE_WALL, 35, 26, 37, 28)
+    fill_tiles(chunk, TILE_WALL, 48, 30, 50, 32)
+    fill_tiles(chunk, TILE_WALL, 60, 36, 62, 38)
+    # Central cell block — more prison cell dividers
+    # DS3: large room with many cells, jailers patrol between them
+    fill_tiles(chunk, TILE_WALL, 30, 54, 32, 56)
+    fill_tiles(chunk, TILE_WALL, 42, 60, 44, 62)
+    fill_tiles(chunk, TILE_WALL, 55, 64, 57, 66)
+    fill_tiles(chunk, TILE_WALL, 68, 55, 70, 57)
+    fill_tiles(chunk, TILE_WALL, 72, 62, 74, 64)
+    fill_tiles(chunk, TILE_WALL, 38, 66, 40, 68)
+    # Siegward's cell area — cell interior walls (DS3: Siegward locked in a cell)
+    fill_tiles(chunk, TILE_WALL, 82, 56, 84, 58)
+    fill_tiles(chunk, TILE_WALL, 88, 60, 90, 62)
+    fill_tiles(chunk, TILE_WALL, 95, 64, 97, 66)
+    fill_tiles(chunk, TILE_WALL, 100, 58, 102, 60)
+    # Lower drains — sewage pipes and grates (DS3: rat-infested sewer tunnels)
+    fill_tiles(chunk, TILE_WALL, 25, 75, 27, 77)
+    fill_tiles(chunk, TILE_WALL, 35, 80, 37, 82)
+    fill_tiles(chunk, TILE_WALL, 45, 88, 47, 90)
+    fill_tiles(chunk, TILE_WALL, 55, 82, 57, 84)
+    fill_tiles(chunk, TILE_WALL, 62, 90, 64, 92)
+    fill_tiles(chunk, TILE_WALL, 30, 88, 32, 90)
+    # Karla's cell — deep prison walls (DS3: Karla locked in deepest cell)
+    fill_tiles(chunk, TILE_WALL, 78, 82, 80, 84)
+    fill_tiles(chunk, TILE_WALL, 85, 88, 87, 90)
+    fill_tiles(chunk, TILE_WALL, 92, 84, 94, 86)
+    fill_tiles(chunk, TILE_WALL, 98, 90, 100, 92)
+    # Gargoyle tower — stone platforms (DS3: gargoyles on tower roof)
+    fill_tiles(chunk, TILE_WALL, 88, 38, 90, 40)
+    fill_tiles(chunk, TILE_WALL, 95, 42, 97, 44)
+    fill_tiles(chunk, TILE_WALL, 102, 40, 104, 42)
+    # Exit corridor — stone arches (DS3: long corridor to Profaned Capital)
+    fill_tiles(chunk, TILE_WALL, 112, 30, 114, 32)
+    fill_tiles(chunk, TILE_WALL, 125, 28, 127, 30)
+    fill_tiles(chunk, TILE_WALL, 132, 32, 134, 34)
+    fill_tiles(chunk, TILE_WALL, 142, 28, 144, 30)
+    # Additional Irithyll Dungeon DS3 details
+    # Entry guard room walls (DS3: wretches attack from cells on entry)
+    fill_tiles(chunk, TILE_WALL, 10, 14, 12, 16)
+    fill_tiles(chunk, TILE_WALL, 16, 16, 18, 18)
+    # Main hall watchtower supports (DS3: tall dark corridor with Jailers carrying lanterns)
+    fill_tiles(chunk, TILE_WALL, 36, 42, 38, 44)
+    fill_tiles(chunk, TILE_WALL, 50, 46, 52, 48)
+    fill_tiles(chunk, TILE_WALL, 65, 52, 67, 54)
+    # Jailer patrol obstacles (DS3: jailers carry branding irons, patrol between cells)
+    fill_tiles(chunk, TILE_WALL, 70, 60, 72, 62)
+    fill_tiles(chunk, TILE_WALL, 100, 62, 102, 64)
+    fill_tiles(chunk, TILE_WALL, 110, 56, 112, 58)
+    # Deep drain tunnel walls (DS3: narrow tunnels beneath the prison)
+    fill_tiles(chunk, TILE_WALL, 20, 82, 22, 84)
+    fill_tiles(chunk, TILE_WALL, 40, 86, 42, 88)
+    fill_tiles(chunk, TILE_WALL, 50, 78, 52, 80)
+    fill_tiles(chunk, TILE_WALL, 65, 86, 67, 88)
+    # Profaned Capital exit ramp stones (DS3: stone ramp leading out of dungeon)
+    fill_tiles(chunk, TILE_WALL, 120, 34, 122, 36)
+    fill_tiles(chunk, TILE_WALL, 135, 26, 137, 28)
+
+    # ================================================================
+    # DS3 IRITHYLL DUNGEON — final architectural fidelity pass
+    # ================================================================
+    # Entry passage — dripping water stalactites (DS3: damp stone entry from Irithyll)
+    fill_tiles(chunk, TILE_WALL, 12, 10, 13, 12)
+    fill_tiles(chunk, TILE_WALL, 20, 14, 21, 16)
+    fill_tiles(chunk, TILE_WALL, 26, 18, 27, 20)
+    # Upper cell block — iron bar dividers (DS3: rows of cramped cells with iron bars)
+    fill_tiles(chunk, TILE_WALL, 30, 26, 31, 28)
+    fill_tiles(chunk, TILE_WALL, 38, 34, 39, 36)
+    fill_tiles(chunk, TILE_WALL, 52, 36, 53, 38)
+    fill_tiles(chunk, TILE_WALL, 60, 28, 61, 30)
+    # Central prison hall — additional support columns (DS3: dark hall with tall pillars)
+    fill_tiles(chunk, TILE_WALL, 40, 48, 41, 50)
+    fill_tiles(chunk, TILE_WALL, 55, 52, 56, 54)
+    fill_tiles(chunk, TILE_WALL, 68, 58, 69, 60)
+    fill_tiles(chunk, TILE_WALL, 45, 64, 46, 66)
+    # Siegward cell — broken bars and chain rings (DS3: Siegward's cell with Old Cell Key)
+    fill_tiles(chunk, TILE_WALL, 85, 56, 86, 58)
+    fill_tiles(chunk, TILE_WALL, 92, 60, 93, 62)
+    fill_tiles(chunk, TILE_WALL, 98, 56, 99, 58)
+    # Lower drain — slime-coated tunnel walls (DS3: toxic water in drain tunnels)
+    fill_tiles(chunk, TILE_WALL, 28, 84, 29, 86)
+    fill_tiles(chunk, TILE_WALL, 38, 78, 39, 80)
+    fill_tiles(chunk, TILE_WALL, 58, 82, 59, 84)
+    fill_tiles(chunk, TILE_WALL, 48, 92, 49, 94)
+    # Karla's cell — deep prison stone walls (DS3: illusory wall conceals Karla)
+    fill_tiles(chunk, TILE_WALL, 82, 86, 83, 88)
+    fill_tiles(chunk, TILE_WALL, 90, 82, 91, 84)
+    fill_tiles(chunk, TILE_WALL, 96, 88, 97, 90)
+    # Gargoyle tower ledge — narrow parapet walls (DS3: exterior ledge with gargoyles)
+    fill_tiles(chunk, TILE_WALL, 90, 36, 91, 38)
+    fill_tiles(chunk, TILE_WALL, 98, 44, 99, 46)
+    # Exit corridor — dungeon gate stones (DS3: long stone corridor to Profaned Capital)
+    fill_tiles(chunk, TILE_WALL, 118, 32, 119, 34)
+    fill_tiles(chunk, TILE_WALL, 128, 26, 129, 28)
+    fill_tiles(chunk, TILE_WALL, 140, 30, 141, 32)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -4186,7 +6332,147 @@ def make_profaned_capital():
     # Connection: church to giant room
     fill_tiles(chunk, TILE_GROUND, 46, 78, 68, 64)
 
+    # === SESSION 6 FIDELITY PASS — Profaned Capital ===
+    # Entry bridge — stone arch supports (DS3: narrow stone bridge from dungeon)
+    fill_tiles(chunk, TILE_WALL, 6, 10, 8, 12)
+    fill_tiles(chunk, TILE_WALL, 12, 6, 14, 8)
+    # Bonfire tower — ladder alcove walls (DS3: Gilligan's broken ladder)
+    fill_tiles(chunk, TILE_WALL, 12, 8, 14, 10)
+    fill_tiles(chunk, TILE_WALL, 24, 18, 26, 20)
+    fill_tiles(chunk, TILE_WALL, 14, 20, 16, 22)
+    # Boss path bridge — more fire debris (DS3: burning debris on bridge)
+    fill_tiles(chunk, TILE_WALL, 34, 8, 36, 10)
+    fill_tiles(chunk, TILE_WALL, 46, 14, 48, 16)
+    fill_tiles(chunk, TILE_WALL, 42, 8, 44, 10)
+    # First jailer room — cell dividers (DS3: jailer handmaids patrol rooms)
+    fill_tiles(chunk, TILE_WALL, 50, 8, 52, 10)
+    fill_tiles(chunk, TILE_WALL, 60, 16, 62, 18)
+    fill_tiles(chunk, TILE_WALL, 66, 10, 68, 12)
+    # Second jailer room — more pillars (DS3: stone pillars in jailer chamber)
+    fill_tiles(chunk, TILE_WALL, 72, 14, 74, 16)
+    fill_tiles(chunk, TILE_WALL, 82, 10, 84, 12)
+    fill_tiles(chunk, TILE_WALL, 78, 18, 80, 20)
+    # Yhorm arena — throne room pillars (DS3: grand throne room with Storm Ruler)
+    fill_tiles(chunk, TILE_WALL, 92, 6, 94, 10)
+    fill_tiles(chunk, TILE_WALL, 100, 12, 102, 16)
+    fill_tiles(chunk, TILE_WALL, 114, 20, 116, 24)
+    fill_tiles(chunk, TILE_WALL, 122, 14, 124, 18)
+    fill_tiles(chunk, TILE_WALL, 104, 28, 106, 32)
+    fill_tiles(chunk, TILE_WALL, 126, 10, 128, 14)
+    # Upper ruins — crumbled walls (DS3: ruined capital buildings)
+    fill_tiles(chunk, TILE_WALL, 18, 36, 20, 38)
+    fill_tiles(chunk, TILE_WALL, 28, 40, 30, 42)
+    fill_tiles(chunk, TILE_WALL, 38, 38, 40, 40)
+    # Main streets — more ruined house walls (DS3: collapsed capital buildings)
+    fill_tiles(chunk, TILE_WALL, 24, 52, 26, 54)
+    fill_tiles(chunk, TILE_WALL, 36, 56, 38, 58)
+    fill_tiles(chunk, TILE_WALL, 44, 60, 46, 62)
+    fill_tiles(chunk, TILE_WALL, 54, 54, 56, 56)
+    fill_tiles(chunk, TILE_WALL, 32, 62, 34, 64)
+    # Toxic pool — more stone platforms (DS3: stepping stones through toxic water)
+    fill_tiles(chunk, TILE_WALL, 46, 66, 48, 68)
+    fill_tiles(chunk, TILE_WALL, 56, 72, 58, 74)
+    fill_tiles(chunk, TILE_WALL, 64, 76, 66, 78)
+    fill_tiles(chunk, TILE_WALL, 50, 74, 52, 76)
+    # Church — ornate door frames (DS3: church with monstrosities)
+    fill_tiles(chunk, TILE_WALL, 26, 72, 28, 74)
+    fill_tiles(chunk, TILE_WALL, 40, 76, 42, 78)
+    fill_tiles(chunk, TILE_WALL, 34, 82, 36, 84)
+    # Siegward's cell — cell bars (DS3: iron bars trapping Siegward)
+    fill_tiles(chunk, TILE_WALL, 58, 46, 60, 48)
+    fill_tiles(chunk, TILE_WALL, 64, 52, 66, 54)
+    # Court sorcerer roof — rooftop debris (DS3: rooftop area above church)
+    fill_tiles(chunk, TILE_WALL, 48, 40, 50, 42)
+    fill_tiles(chunk, TILE_WALL, 56, 44, 58, 46)
+    fill_tiles(chunk, TILE_WALL, 60, 38, 62, 40)
+    # Giant room — treasure room walls (DS3: room with giant and treasure)
+    fill_tiles(chunk, TILE_WALL, 70, 58, 72, 60)
+    fill_tiles(chunk, TILE_WALL, 78, 64, 80, 66)
+    fill_tiles(chunk, TILE_WALL, 84, 60, 86, 62)
+    fill_tiles(chunk, TILE_WALL, 76, 68, 78, 70)
+    # Shortcut path — stone corridor walls (DS3: shortcut back to Irithyll Dungeon)
+    fill_tiles(chunk, TILE_WALL, 86, 60, 88, 62)
+    fill_tiles(chunk, TILE_WALL, 90, 64, 92, 66)
+
     # ================================================================
+    # SESSION 9 FIDELITY PASS B+C — ProfanedCapital full DS3 details
+    # ================================================================
+    # Tower staircase — crumbling spiral stones (DS3: tower with Gilligan's ladder)
+    fill_tiles(chunk, TILE_WALL, 16, 8, 17, 9)
+    fill_tiles(chunk, TILE_WALL, 22, 10, 23, 11)
+    fill_tiles(chunk, TILE_WALL, 14, 16, 15, 17)
+    fill_tiles(chunk, TILE_WALL, 24, 14, 25, 15)
+    # Collapsed exterior — ruined house foundations (DS3: destroyed buildings)
+    fill_tiles(chunk, TILE_WALL, 32, 32, 33, 33)
+    fill_tiles(chunk, TILE_WALL, 36, 36, 37, 37)
+    fill_tiles(chunk, TILE_WALL, 28, 40, 29, 41)
+    fill_tiles(chunk, TILE_WALL, 40, 30, 41, 31)
+    fill_tiles(chunk, TILE_WALL, 34, 42, 35, 43)
+    # Palace ruins — fire-scorched masonry (DS3: profaned flame damage)
+    fill_tiles(chunk, TILE_WALL, 44, 46, 45, 47)
+    fill_tiles(chunk, TILE_WALL, 48, 50, 49, 51)
+    fill_tiles(chunk, TILE_WALL, 40, 54, 41, 55)
+    fill_tiles(chunk, TILE_WALL, 52, 44, 53, 45)
+    # Flooded cells — stagnant pool stones (DS3: waterlogged prison cells)
+    fill_tiles(chunk, TILE_WALL, 56, 60, 57, 61)
+    fill_tiles(chunk, TILE_WALL, 60, 64, 61, 65)
+    fill_tiles(chunk, TILE_WALL, 52, 68, 53, 69)
+    fill_tiles(chunk, TILE_WALL, 64, 58, 65, 59)
+    # Yhorm bridge — fire vessel pedestals (DS3: fire containers on bridge)
+    fill_tiles(chunk, TILE_WALL, 68, 74, 69, 75)
+    fill_tiles(chunk, TILE_WALL, 72, 78, 73, 79)
+    fill_tiles(chunk, TILE_WALL, 64, 82, 65, 83)
+    fill_tiles(chunk, TILE_WALL, 76, 72, 77, 73)
+    # Yhorm throne room — throne pillars (DS3: massive throne room)
+    fill_tiles(chunk, TILE_WALL, 82, 86, 83, 87)
+    fill_tiles(chunk, TILE_WALL, 86, 90, 87, 91)
+    fill_tiles(chunk, TILE_WALL, 78, 94, 79, 95)
+    fill_tiles(chunk, TILE_WALL, 90, 84, 91, 85)
+    fill_tiles(chunk, TILE_WALL, 84, 96, 85, 97)
+    # Entry bridge — gargoyle perch stones (DS3: gargoyles attack on bridge)
+    fill_tiles(chunk, TILE_WALL, 6, 10, 7, 11)
+    fill_tiles(chunk, TILE_WALL, 12, 12, 13, 13)
+    # Bonfire tower — spiral stair stones (DS3: Gilligan's ladder room)
+    fill_tiles(chunk, TILE_WALL, 18, 12, 19, 13)
+    fill_tiles(chunk, TILE_WALL, 26, 16, 27, 17)
+    # Boss path bridge — fire sconce stones (DS3: fire vessels line the bridge)
+    fill_tiles(chunk, TILE_WALL, 30, 12, 31, 13)
+    fill_tiles(chunk, TILE_WALL, 34, 14, 35, 15)
+    fill_tiles(chunk, TILE_WALL, 42, 10, 43, 11)
+    fill_tiles(chunk, TILE_WALL, 46, 14, 47, 15)
+    # Jailer room 1 — cage cell walls (DS3: prison cells with jailers)
+    fill_tiles(chunk, TILE_WALL, 50, 8, 51, 9)
+    fill_tiles(chunk, TILE_WALL, 56, 10, 57, 11)
+    fill_tiles(chunk, TILE_WALL, 52, 16, 53, 17)
+    fill_tiles(chunk, TILE_WALL, 60, 14, 61, 15)
+    # Jailer room 2 — iron bar partitions (DS3: more prison cells)
+    fill_tiles(chunk, TILE_WALL, 72, 8, 73, 9)
+    fill_tiles(chunk, TILE_WALL, 78, 10, 79, 11)
+    fill_tiles(chunk, TILE_WALL, 74, 16, 75, 17)
+    fill_tiles(chunk, TILE_WALL, 82, 14, 83, 15)
+    # Yhorm throne room — Storm Ruler pedestal area (DS3: giant throne room)
+    fill_tiles(chunk, TILE_WALL, 100, 6, 101, 7)
+    fill_tiles(chunk, TILE_WALL, 110, 10, 111, 11)
+    fill_tiles(chunk, TILE_WALL, 104, 18, 105, 19)
+    fill_tiles(chunk, TILE_WALL, 114, 22, 115, 23)
+    fill_tiles(chunk, TILE_WALL, 98, 26, 99, 27)
+    fill_tiles(chunk, TILE_WALL, 120, 14, 121, 15)
+    # Explore path descent — crumbling steps (DS3: descent into lower capital)
+    fill_tiles(chunk, TILE_WALL, 14, 24, 15, 25)
+    fill_tiles(chunk, TILE_WALL, 18, 28, 19, 29)
+    fill_tiles(chunk, TILE_WALL, 12, 32, 13, 33)
+    # Upper ruins — broken archways (DS3: ruined city buildings)
+    fill_tiles(chunk, TILE_WALL, 20, 36, 21, 37)
+    fill_tiles(chunk, TILE_WALL, 28, 40, 29, 41)
+    fill_tiles(chunk, TILE_WALL, 36, 38, 37, 39)
+    fill_tiles(chunk, TILE_WALL, 40, 44, 41, 45)
+    # Church exterior — buttress stones (DS3: gothic church architecture)
+    fill_tiles(chunk, TILE_WALL, 26, 68, 27, 69)
+    fill_tiles(chunk, TILE_WALL, 34, 72, 35, 73)
+    fill_tiles(chunk, TILE_WALL, 42, 76, 43, 77)
+    fill_tiles(chunk, TILE_WALL, 48, 80, 49, 81)
+
+        # ================================================================
     # ENTITIES
     # ================================================================
     entities = []
@@ -4220,9 +6506,10 @@ def make_profaned_capital():
         # Upper ruins — Jailer patrols (wiki: 2 invisible jailers near Jailer's Key Ring)
         ("Jailer", 20, 38), ("Jailer", 30, 42),
         ("Jailer", 38, 44),
-        # Ruins/streets — Gargoyle patrols + jailer
+        # Ruins/streets — Gargoyle patrols + jailer (DS3: no Fire Witches here, those are in Irithyll)
         ("Gargoyle", 34, 52), ("Gargoyle", 50, 60),
         ("Jailer", 26, 56),
+        ("Jailer", 24, 48), ("Jailer", 40, 55), ("Jailer", 32, 60),
         # Toxic pool — Rats (wiki: rats respawn in giant's room)
         ("Rat", 52, 64), ("Rat", 60, 72), ("Rat", 66, 68),
         # Crystal Lizards (wiki: 3 — one at hole jump, one in left tunnel, one down hallway)
@@ -4231,8 +6518,8 @@ def make_profaned_capital():
         ("GiantSlave", 30, 72), ("GiantSlave", 36, 78), ("GiantSlave", 42, 74),
         # Monstrosity of Sin — separate room above church (wiki: "single Monstrosity of Sin")
         ("GiantSlave", 48, 46),
-        # Sewer Centipedes in toxic pool (wiki: insect-like creatures)
-        ("ManGrub", 58, 70), ("ManGrub", 64, 74),
+        # Monstrosities of Sin in toxic pool (DS3: bloated creatures in flooded cells)
+        ("GiantSlave", 58, 70), ("GiantSlave", 64, 74),
         # Avaricious Being — hostile NPC with Gargoyle Flame Hammer (wiki: drops Logan's Scroll)
         ("MiniBoss", 48, 42),
         # Siegward cell area — Jailer guard
@@ -4408,6 +6695,71 @@ def make_profaned_capital():
     fill_tiles(chunk, TILE_WALL, 65, 60, 67, 62)
     fill_tiles(chunk, TILE_WALL, 50, 68, 52, 70)
 
+    # === MORE PROFANED CAPITAL DETAILS — DS3 fidelity ===
+    # Entry bridge — stone arch from Irithyll Dungeon (DS3: narrow stone bridge)
+    fill_tiles(chunk, TILE_WALL, 6, 10, 8, 12)
+    fill_tiles(chunk, TILE_WALL, 12, 6, 14, 8)
+    fill_tiles(chunk, TILE_WALL, 24, 8, 26, 10)
+    # Bonfire tower — interior walls (DS3: Gilligan's body room)
+    fill_tiles(chunk, TILE_WALL, 16, 10, 18, 12)
+    fill_tiles(chunk, TILE_WALL, 22, 16, 24, 18)
+    # Boss path — more bridge supports and ruined walls
+    # DS3: stone bridge with gargoyle ambush, jailer rooms
+    fill_tiles(chunk, TILE_WALL, 32, 12, 34, 14)
+    fill_tiles(chunk, TILE_WALL, 42, 8, 44, 10)
+    fill_tiles(chunk, TILE_WALL, 50, 14, 52, 16)
+    # First jailer room — cell dividers (DS3: 4 jailers in white room)
+    fill_tiles(chunk, TILE_WALL, 52, 8, 54, 10)
+    fill_tiles(chunk, TILE_WALL, 60, 16, 62, 18)
+    fill_tiles(chunk, TILE_WALL, 66, 10, 68, 12)
+    fill_tiles(chunk, TILE_WALL, 54, 20, 56, 22)
+    # Second jailer room — more cell walls
+    # DS3: 2 mimics + 1 real chest, jailers guard
+    fill_tiles(chunk, TILE_WALL, 72, 14, 74, 16)
+    fill_tiles(chunk, TILE_WALL, 80, 18, 82, 20)
+    fill_tiles(chunk, TILE_WALL, 86, 10, 88, 12)
+    fill_tiles(chunk, TILE_WALL, 76, 22, 78, 24)
+    # Upper ruins — more broken walls (DS3: ruined capital buildings)
+    fill_tiles(chunk, TILE_WALL, 18, 36, 20, 38)
+    fill_tiles(chunk, TILE_WALL, 26, 44, 28, 46)
+    fill_tiles(chunk, TILE_WALL, 38, 36, 40, 38)
+    fill_tiles(chunk, TILE_WALL, 32, 46, 34, 48)
+    # Main ruins streets — building facades (DS3: ruined city streets)
+    fill_tiles(chunk, TILE_WALL, 24, 54, 26, 56)
+    fill_tiles(chunk, TILE_WALL, 36, 58, 38, 60)
+    fill_tiles(chunk, TILE_WALL, 44, 52, 46, 54)
+    fill_tiles(chunk, TILE_WALL, 52, 56, 54, 58)
+    fill_tiles(chunk, TILE_WALL, 30, 62, 32, 64)
+    fill_tiles(chunk, TILE_WALL, 46, 64, 48, 66)
+    # Toxic pool — more stone islands and rubble
+    # DS3: toxic swamp with stone platforms
+    fill_tiles(chunk, TILE_WALL, 50, 66, 52, 68)
+    fill_tiles(chunk, TILE_WALL, 62, 72, 64, 74)
+    fill_tiles(chunk, TILE_WALL, 46, 76, 48, 78)
+    fill_tiles(chunk, TILE_WALL, 66, 68, 68, 70)
+    # Church — more interior pillars (DS3: church with monstrosities)
+    fill_tiles(chunk, TILE_WALL, 30, 70, 32, 72)
+    fill_tiles(chunk, TILE_WALL, 40, 76, 42, 78)
+    fill_tiles(chunk, TILE_WALL, 34, 80, 36, 82)
+    # Siegward's cell — cell walls (DS3: Siegward locked up)
+    fill_tiles(chunk, TILE_WALL, 56, 48, 58, 50)
+    fill_tiles(chunk, TILE_WALL, 64, 46, 66, 48)
+    # Court sorcerer roof — roof tiles and pillars
+    fill_tiles(chunk, TILE_WALL, 46, 40, 48, 42)
+    fill_tiles(chunk, TILE_WALL, 56, 44, 58, 46)
+    # Giant room — treasure room walls (DS3: giant guards treasure room)
+    fill_tiles(chunk, TILE_WALL, 70, 58, 72, 60)
+    fill_tiles(chunk, TILE_WALL, 80, 64, 82, 66)
+    fill_tiles(chunk, TILE_WALL, 74, 68, 76, 70)
+    fill_tiles(chunk, TILE_WALL, 86, 62, 88, 64)
+    # Yhorm arena — more throne room pillars (DS3: massive throne room)
+    fill_tiles(chunk, TILE_WALL, 92, 6, 94, 10)
+    fill_tiles(chunk, TILE_WALL, 100, 22, 102, 26)
+    fill_tiles(chunk, TILE_WALL, 110, 28, 112, 32)
+    fill_tiles(chunk, TILE_WALL, 120, 8, 122, 12)
+    fill_tiles(chunk, TILE_WALL, 130, 16, 132, 20)
+    fill_tiles(chunk, TILE_WALL, 128, 26, 130, 30)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -4469,8 +6821,8 @@ def make_anor_londo():
     # === Darkmoon Temple / Aldrich arena (SE) ===
     fill_tiles(chunk, TILE_GROUND, 100, 55, 155, 110)
     carve_ellipse(chunk, 128, 82, 24, 20)
-    # Abyss swamp (poison tiles) in center of arena
-    fill_tiles(chunk, TILE_POISON, 116, 70, 140, 94)
+    # Dark stone floor in center of arena (DS3: no poison/swamp in Anor Londo)
+    fill_tiles(chunk, TILE_GROUND, 116, 70, 140, 94)
     # Arena stone pillars
     fill_tiles(chunk, TILE_WALL, 108, 62, 110, 68)
     fill_tiles(chunk, TILE_WALL, 146, 88, 148, 94)
@@ -4487,7 +6839,97 @@ def make_anor_londo():
     # Royal avenue south to Yorshka path
     fill_tiles(chunk, TILE_GROUND, 56, 55, 62, 62)
 
-    # --- Spawn from Irithyll rotating staircase ---
+    # ================================================================
+    # ADDITIONAL DS3 ANOR LONDO — cathedral grandeur, golden architecture
+    # ================================================================
+    # Cathedral entrance — more grand pillars (DS3: massive stone pillars in entry hall)
+    fill_tiles(chunk, TILE_WALL, 10, 30, 12, 34)
+    fill_tiles(chunk, TILE_WALL, 18, 42, 20, 46)
+    fill_tiles(chunk, TILE_WALL, 30, 48, 32, 52)
+    fill_tiles(chunk, TILE_WALL, 8, 40, 10, 44)
+    fill_tiles(chunk, TILE_WALL, 34, 38, 36, 42)
+    # Royal avenue — knight statue bases (DS3: statues line the golden corridor)
+    fill_tiles(chunk, TILE_WALL, 42, 32, 44, 36)
+    fill_tiles(chunk, TILE_WALL, 56, 44, 58, 48)
+    fill_tiles(chunk, TILE_WALL, 68, 38, 70, 42)
+    fill_tiles(chunk, TILE_WALL, 78, 46, 80, 50)
+    fill_tiles(chunk, TILE_WALL, 54, 50, 56, 54)
+    fill_tiles(chunk, TILE_WALL, 66, 52, 68, 56)
+    # Yorshka side path — invisible platform debris (DS3: drop down to invisible bridge)
+    fill_tiles(chunk, TILE_WALL, 54, 60, 56, 64)
+    fill_tiles(chunk, TILE_WALL, 62, 76, 64, 80)
+    fill_tiles(chunk, TILE_WALL, 58, 88, 60, 92)
+    fill_tiles(chunk, TILE_WALL, 66, 96, 68, 100)
+    # Silver Knight hall — display alcove walls (DS3: ornate chamber with paintings)
+    fill_tiles(chunk, TILE_WALL, 82, 28, 84, 32)
+    fill_tiles(chunk, TILE_WALL, 94, 34, 96, 38)
+    fill_tiles(chunk, TILE_WALL, 102, 42, 104, 46)
+    fill_tiles(chunk, TILE_WALL, 112, 32, 114, 36)
+    fill_tiles(chunk, TILE_WALL, 90, 48, 92, 52)
+    fill_tiles(chunk, TILE_WALL, 110, 44, 112, 48)
+    # Staircase corridor — wall sconces and debris (DS3: Silver Knight gauntlet)
+    fill_tiles(chunk, TILE_WALL, 116, 36, 118, 40)
+    fill_tiles(chunk, TILE_WALL, 126, 38, 128, 42)
+    fill_tiles(chunk, TILE_WALL, 136, 44, 138, 48)
+    fill_tiles(chunk, TILE_WALL, 140, 52, 142, 56)
+    # Aldrich arena — throne room pillars (DS3: Gwyndolin's chamber with abyss)
+    fill_tiles(chunk, TILE_WALL, 104, 58, 106, 62)
+    fill_tiles(chunk, TILE_WALL, 114, 66, 116, 70)
+    fill_tiles(chunk, TILE_WALL, 136, 62, 138, 66)
+    fill_tiles(chunk, TILE_WALL, 142, 78, 144, 82)
+    fill_tiles(chunk, TILE_WALL, 128, 96, 130, 100)
+    fill_tiles(chunk, TILE_WALL, 148, 92, 150, 96)
+    fill_tiles(chunk, TILE_WALL, 120, 102, 122, 106)
+    # Deep Accursed corner — web-covered debris (DS3: spider ambush in side room)
+    fill_tiles(chunk, TILE_WALL, 96, 36, 98, 40)
+    fill_tiles(chunk, TILE_WALL, 100, 44, 102, 48)
+
+    # ================================================================
+    # SESSION 9 FIDELITY PASS — AnorLondo architectural details
+    # ================================================================
+    # Main cathedral entrance — grand staircase debris (DS3: iconic Anor Londo steps)
+    fill_tiles(chunk, TILE_WALL, 14, 40, 15, 41)
+    fill_tiles(chunk, TILE_WALL, 18, 44, 19, 45)
+    fill_tiles(chunk, TILE_WALL, 10, 48, 11, 49)
+    fill_tiles(chunk, TILE_WALL, 22, 38, 23, 39)
+    fill_tiles(chunk, TILE_WALL, 16, 50, 17, 51)
+    # Silver Knight hall — ornate pillar bases (DS3: massive pillars in great hall)
+    fill_tiles(chunk, TILE_WALL, 28, 54, 29, 55)
+    fill_tiles(chunk, TILE_WALL, 32, 58, 33, 59)
+    fill_tiles(chunk, TILE_WALL, 24, 62, 25, 63)
+    fill_tiles(chunk, TILE_WALL, 36, 52, 37, 53)
+    fill_tiles(chunk, TILE_WALL, 30, 64, 31, 65)
+    # Deacon corridor — burned banner stones (DS3: path to Aldrich with paintings)
+    fill_tiles(chunk, TILE_WALL, 40, 68, 41, 69)
+    fill_tiles(chunk, TILE_WALL, 44, 72, 45, 73)
+    fill_tiles(chunk, TILE_WALL, 36, 76, 37, 77)
+    fill_tiles(chunk, TILE_WALL, 48, 66, 49, 67)
+    fill_tiles(chunk, TILE_WALL, 42, 78, 43, 79)
+    # Gwyndolin chamber — illusion mirror fragments (DS3: Gwyndolin's chamber)
+    fill_tiles(chunk, TILE_WALL, 52, 82, 53, 83)
+    fill_tiles(chunk, TILE_WALL, 56, 86, 57, 87)
+    fill_tiles(chunk, TILE_WALL, 48, 90, 49, 91)
+    fill_tiles(chunk, TILE_WALL, 60, 80, 61, 81)
+    fill_tiles(chunk, TILE_WALL, 54, 92, 55, 93)
+    # Darkmoon Tomb — candle alcoves (DS3: Darkmoon covenant area)
+    fill_tiles(chunk, TILE_WALL, 64, 96, 65, 97)
+    fill_tiles(chunk, TILE_WALL, 68, 100, 69, 101)
+    fill_tiles(chunk, TILE_WALL, 60, 104, 61, 105)
+    fill_tiles(chunk, TILE_WALL, 72, 94, 73, 95)
+    # Aldrich arena — consumed throne room debris (DS3: Gwyndolin consumed by Aldrich)
+    fill_tiles(chunk, TILE_WALL, 120, 80, 121, 81)
+    fill_tiles(chunk, TILE_WALL, 126, 84, 127, 85)
+    fill_tiles(chunk, TILE_WALL, 116, 88, 117, 89)
+    fill_tiles(chunk, TILE_WALL, 130, 78, 131, 79)
+    fill_tiles(chunk, TILE_WALL, 122, 90, 123, 91)
+    # Man Grub corridors — slime-coated wall stones (DS3: Man Grubs roam the halls)
+    fill_tiles(chunk, TILE_WALL, 76, 60, 77, 61)
+    fill_tiles(chunk, TILE_WALL, 80, 64, 81, 65)
+    fill_tiles(chunk, TILE_WALL, 72, 68, 73, 69)
+    fill_tiles(chunk, TILE_WALL, 84, 58, 85, 59)
+    fill_tiles(chunk, TILE_WALL, 78, 70, 79, 71)
+
+        # --- Spawn from Irithyll rotating staircase ---
     spawn_px, spawn_py = 10 * 16, 38 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
@@ -4531,6 +6973,8 @@ def make_anor_londo():
         ("Deacon", 125, 38), ("Deacon", 135, 44), ("Deacon", 138, 50),
         # Crystal Lizard near Yorshka path (DS3: crystal lizard on tower ledge)
         ("CrystalLizard", 56, 84),
+        # Boss — Aldrich, Devourer of Gods
+        ("MiniBoss", 128, 78),                                      # Aldrich boss entity
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -4583,7 +7027,7 @@ def make_anor_londo():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#d0d0ff"),
         make_field("dialogue", "String",
-            "Good day|I am Anri of Astora|Would you help me|defeat Aldrich together?"),
+            "Hello again, we meet at last in this grand cathedral|I am Anri of Astora|Will you help me defeat Aldrich, together?|I cannot do this alone"),
     ]))
     # Company Captain Yorshka — Darkmoon Tomb, reached from Prison Tower bonfire
     entities.append(make_entity("Npc", 62 * 16, 92 * 16, [
@@ -4591,8 +7035,7 @@ def make_anor_londo():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#E0E8F0"),
         make_field("dialogue", "String",
-            "I am Yorshka|Captain of the Darkmoon Knights|"
-            "The Darkmoon remains true to its duty"),
+            "I am Yorshka, Captain of the Darkmoon Knights|The Darkmoon remains true to its duty, even now|Will you swear the oath of the Darkmoon?|Then let us join hands, and take the oath"),
     ]))
 
     # --- Fog Gates ---
@@ -4674,6 +7117,99 @@ def make_anor_londo():
     fill_tiles(chunk, TILE_WALL, 128, 92, 130, 96)
     fill_tiles(chunk, TILE_WALL, 142, 88, 144, 92)
     fill_tiles(chunk, TILE_WALL, 132, 76, 134, 79)
+
+    # === MORE ANOR LONDO DETAILS — DS3 fidelity ===
+    # Cathedral entrance — grand archway stones (DS3: massive cathedral doors)
+    fill_tiles(chunk, TILE_WALL, 8, 28, 10, 32)
+    fill_tiles(chunk, TILE_WALL, 32, 42, 34, 46)
+    fill_tiles(chunk, TILE_WALL, 24, 50, 26, 54)
+    fill_tiles(chunk, TILE_WALL, 36, 48, 38, 52)
+    # Royal avenue — more decorative pillars (DS3: avenue lined with columns)
+    fill_tiles(chunk, TILE_WALL, 44, 34, 46, 37)
+    fill_tiles(chunk, TILE_WALL, 58, 38, 60, 41)
+    fill_tiles(chunk, TILE_WALL, 70, 35, 72, 38)
+    fill_tiles(chunk, TILE_WALL, 52, 52, 54, 55)
+    fill_tiles(chunk, TILE_WALL, 66, 50, 68, 53)
+    fill_tiles(chunk, TILE_WALL, 76, 45, 78, 48)
+    # Silver Knight hall — council chamber details (DS3: large hall with paintings)
+    fill_tiles(chunk, TILE_WALL, 82, 32, 84, 35)
+    fill_tiles(chunk, TILE_WALL, 90, 45, 92, 48)
+    fill_tiles(chunk, TILE_WALL, 104, 42, 106, 45)
+    fill_tiles(chunk, TILE_WALL, 112, 38, 114, 41)
+    fill_tiles(chunk, TILE_WALL, 95, 48, 97, 51)
+    # Staircase corridor — more railing sections (DS3: narrow staircase with Silver Knights)
+    fill_tiles(chunk, TILE_WALL, 116, 35, 118, 38)
+    fill_tiles(chunk, TILE_WALL, 124, 40, 126, 43)
+    fill_tiles(chunk, TILE_WALL, 130, 45, 132, 48)
+    fill_tiles(chunk, TILE_WALL, 136, 50, 138, 53)
+    # Aldrich arena — more cathedral columns (DS3: Gwynevere's chamber, massive pillars)
+    fill_tiles(chunk, TILE_WALL, 105, 70, 107, 74)
+    fill_tiles(chunk, TILE_WALL, 115, 65, 117, 68)
+    fill_tiles(chunk, TILE_WALL, 145, 75, 147, 78)
+    fill_tiles(chunk, TILE_WALL, 150, 85, 152, 88)
+    fill_tiles(chunk, TILE_WALL, 135, 95, 137, 98)
+    fill_tiles(chunk, TILE_WALL, 120, 85, 122, 88)
+    # Yorshka path — more invisible platform stones (DS3: narrow drop-down path)
+    fill_tiles(chunk, TILE_WALL, 54, 78, 56, 80)
+    fill_tiles(chunk, TILE_WALL, 64, 82, 66, 84)
+    fill_tiles(chunk, TILE_WALL, 60, 92, 62, 94)
+    fill_tiles(chunk, TILE_WALL, 70, 90, 72, 92)
+    # Additional Anor Londo DS3 details
+    # Cathedral entrance — more grand archway stones (DS3: massive doors to Anor Londo)
+    fill_tiles(chunk, TILE_WALL, 14, 36, 16, 39)
+    fill_tiles(chunk, TILE_WALL, 22, 42, 24, 45)
+    # Deacon corridor walls (DS3: deacons line the path to the cathedral)
+    fill_tiles(chunk, TILE_WALL, 38, 55, 40, 58)
+    fill_tiles(chunk, TILE_WALL, 46, 60, 48, 63)
+    # Royal avenue — stone bench debris (DS3: ruined avenue with Silver Knight patrols)
+    fill_tiles(chunk, TILE_WALL, 50, 44, 52, 46)
+    fill_tiles(chunk, TILE_WALL, 72, 52, 74, 54)
+    # Silver Knight hall — display alcoves (DS3: paintings and armor displays)
+    fill_tiles(chunk, TILE_WALL, 86, 48, 88, 50)
+    fill_tiles(chunk, TILE_WALL, 102, 36, 104, 38)
+    # Deep Accursed corner — web-covered debris (DS3: spider-like enemy lurks in corner)
+    fill_tiles(chunk, TILE_WALL, 96, 42, 98, 44)
+    fill_tiles(chunk, TILE_WALL, 108, 44, 110, 46)
+    # Aldrich arena — more throne room pillars (DS3: Gwyndolin's chamber with massive columns)
+    fill_tiles(chunk, TILE_WALL, 122, 80, 124, 83)
+    fill_tiles(chunk, TILE_WALL, 148, 90, 150, 93)
+    fill_tiles(chunk, TILE_WALL, 140, 78, 142, 80)
+    fill_tiles(chunk, TILE_WALL, 115, 90, 117, 92)
+    # Yorshka's church — altar and nave walls (DS3: Darkmoon Tomb)
+    fill_tiles(chunk, TILE_WALL, 48, 84, 50, 86)
+    fill_tiles(chunk, TILE_WALL, 66, 88, 68, 90)
+    fill_tiles(chunk, TILE_WALL, 56, 94, 58, 96)
+
+    # === SESSION 8 FIDELITY PASS — Anor Londo ===
+    # Cathedral entrance — grand staircase debris (DS3: massive steps to cathedral doors)
+    fill_tiles(chunk, TILE_WALL, 10, 38, 11, 40)
+    fill_tiles(chunk, TILE_WALL, 18, 40, 19, 42)
+    fill_tiles(chunk, TILE_WALL, 8, 32, 9, 34)
+    # Deacon corridor — burned banners and ash (DS3: corrupted passage to Aldrich)
+    fill_tiles(chunk, TILE_WALL, 34, 52, 35, 54)
+    fill_tiles(chunk, TILE_WALL, 42, 58, 43, 60)
+    fill_tiles(chunk, TILE_WALL, 50, 56, 51, 58)
+    fill_tiles(chunk, TILE_WALL, 30, 60, 31, 62)
+    # Royal avenue — collapsed archway stones (DS3: grand avenue with Silver Knights)
+    fill_tiles(chunk, TILE_WALL, 56, 40, 57, 42)
+    fill_tiles(chunk, TILE_WALL, 68, 48, 69, 50)
+    fill_tiles(chunk, TILE_WALL, 62, 50, 63, 52)
+    fill_tiles(chunk, TILE_WALL, 76, 44, 77, 46)
+    # Silver Knight hall — ornate pillar bases (DS3: grand hall with mounted banners)
+    fill_tiles(chunk, TILE_WALL, 82, 50, 83, 52)
+    fill_tiles(chunk, TILE_WALL, 94, 46, 95, 48)
+    fill_tiles(chunk, TILE_WALL, 88, 54, 89, 56)
+    fill_tiles(chunk, TILE_WALL, 100, 40, 101, 42)
+    # Gwyndolin chamber — illusion-shattered mirror fragments (DS3: Aldrich's lair)
+    fill_tiles(chunk, TILE_WALL, 118, 84, 119, 86)
+    fill_tiles(chunk, TILE_WALL, 144, 86, 145, 88)
+    fill_tiles(chunk, TILE_WALL, 130, 92, 131, 94)
+    fill_tiles(chunk, TILE_WALL, 138, 76, 139, 78)
+    # Darkmoon Tomb — candle alcoves and prayer stones (DS3: hidden covenant area)
+    fill_tiles(chunk, TILE_WALL, 44, 88, 45, 90)
+    fill_tiles(chunk, TILE_WALL, 62, 82, 63, 84)
+    fill_tiles(chunk, TILE_WALL, 52, 90, 53, 92)
+    fill_tiles(chunk, TILE_WALL, 70, 92, 71, 94)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -4783,6 +7319,178 @@ def make_lothric_castle():
     fill_tiles(chunk, TILE_WALL, 38, 62, 40, 65)
 
     # ================================================================
+    # ADDITIONAL DS3 CASTLE ARCHITECTURE — Lothric Castle fidelity
+    # ================================================================
+    # Castle gate — entrance arch walls (DS3: grand stone archway from Anor Londo)
+    fill_tiles(chunk, TILE_WALL, 8, 22, 10, 26)
+    fill_tiles(chunk, TILE_WALL, 20, 32, 22, 36)
+    fill_tiles(chunk, TILE_WALL, 16, 38, 18, 42)
+    fill_tiles(chunk, TILE_WALL, 30, 40, 32, 44)
+    # Outer corridor — stone arches and buttresses (DS3: vaulted corridor)
+    fill_tiles(chunk, TILE_WALL, 34, 24, 36, 28)
+    fill_tiles(chunk, TILE_WALL, 52, 28, 54, 32)
+    fill_tiles(chunk, TILE_WALL, 60, 34, 62, 38)
+    fill_tiles(chunk, TILE_WALL, 44, 40, 46, 44)
+    fill_tiles(chunk, TILE_WALL, 55, 42, 57, 46)
+    # Dragon barracks — dragon ribcage and skull debris (DS3: two dead wyverns)
+    fill_tiles(chunk, TILE_WALL, 70, 22, 71, 24)
+    fill_tiles(chunk, TILE_WALL, 74, 26, 75, 28)
+    fill_tiles(chunk, TILE_WALL, 80, 20, 81, 22)
+    fill_tiles(chunk, TILE_WALL, 86, 24, 87, 26)
+    fill_tiles(chunk, TILE_WALL, 90, 18, 91, 20)
+    fill_tiles(chunk, TILE_WALL, 94, 30, 95, 32)
+    fill_tiles(chunk, TILE_WALL, 78, 32, 79, 34)
+    fill_tiles(chunk, TILE_WALL, 84, 36, 85, 38)
+    # Inner stairs — narrow passage walls (DS3: tight staircase with hollows)
+    fill_tiles(chunk, TILE_WALL, 96, 36, 98, 38)
+    fill_tiles(chunk, TILE_WALL, 100, 42, 102, 44)
+    fill_tiles(chunk, TILE_WALL, 108, 46, 110, 48)
+    fill_tiles(chunk, TILE_WALL, 114, 52, 116, 54)
+    fill_tiles(chunk, TILE_WALL, 120, 56, 122, 58)
+    # Arena perimeter — Dragonslayer Armour fights on castle wall (DS3: open parapet)
+    fill_tiles(chunk, TILE_WALL, 112, 62, 114, 65)
+    fill_tiles(chunk, TILE_WALL, 130, 55, 132, 58)
+    fill_tiles(chunk, TILE_WALL, 148, 60, 150, 63)
+    fill_tiles(chunk, TILE_WALL, 155, 72, 157, 75)
+    fill_tiles(chunk, TILE_WALL, 148, 82, 150, 85)
+    fill_tiles(chunk, TILE_WALL, 135, 85, 137, 88)
+    fill_tiles(chunk, TILE_WALL, 120, 82, 122, 85)
+    fill_tiles(chunk, TILE_WALL, 112, 78, 114, 80)
+    # Garden side path — overgrown ruin walls (DS3: consumed garden area)
+    fill_tiles(chunk, TILE_WALL, 36, 48, 38, 50)
+    fill_tiles(chunk, TILE_WALL, 44, 56, 46, 58)
+    fill_tiles(chunk, TILE_WALL, 52, 62, 54, 64)
+    fill_tiles(chunk, TILE_WALL, 48, 66, 50, 68)
+    # Grand Archives approach — bookshelves and stone arches
+    fill_tiles(chunk, TILE_WALL, 150, 58, 152, 60)
+    fill_tiles(chunk, TILE_WALL, 154, 64, 156, 66)
+
+    # ================================================================
+    # ADDITIONAL DS3 LOTHRIC CASTLE DETAILS — wyvern bones, church, parapets
+    # ================================================================
+    # Castle gate — fortified entry (DS3: grand stone archway with Lothric banners)
+    fill_tiles(chunk, TILE_WALL, 6, 22, 8, 24)
+    fill_tiles(chunk, TILE_WALL, 12, 26, 14, 28)
+    fill_tiles(chunk, TILE_WALL, 22, 28, 24, 30)
+    fill_tiles(chunk, TILE_WALL, 26, 36, 28, 38)
+    fill_tiles(chunk, TILE_WALL, 15, 40, 17, 42)
+    fill_tiles(chunk, TILE_WALL, 32, 42, 34, 44)
+    # Dragon barracks — wyvern ribcage arches and burning debris (DS3: two dead wyverns, one with Pus of Man)
+    fill_tiles(chunk, TILE_WALL, 60, 14, 62, 16)
+    fill_tiles(chunk, TILE_WALL, 64, 20, 66, 22)
+    fill_tiles(chunk, TILE_WALL, 84, 14, 86, 16)
+    fill_tiles(chunk, TILE_WALL, 88, 20, 90, 22)
+    fill_tiles(chunk, TILE_WALL, 96, 26, 98, 28)
+    fill_tiles(chunk, TILE_WALL, 100, 30, 102, 32)
+    fill_tiles(chunk, TILE_WALL, 78, 26, 80, 28)
+    fill_tiles(chunk, TILE_WALL, 72, 34, 74, 36)
+    fill_tiles(chunk, TILE_WALL, 68, 10, 70, 12)
+    # Church interior — stone pews and altar walls (DS3: Emma's cathedral with Lothric banners)
+    fill_tiles(chunk, TILE_WALL, 120, 60, 122, 62)
+    fill_tiles(chunk, TILE_WALL, 126, 64, 128, 66)
+    fill_tiles(chunk, TILE_WALL, 132, 70, 134, 72)
+    fill_tiles(chunk, TILE_WALL, 136, 74, 138, 76)
+    fill_tiles(chunk, TILE_WALL, 124, 68, 126, 70)
+    fill_tiles(chunk, TILE_WALL, 130, 66, 132, 68)
+    # Inner stairs — narrow castle passage (DS3: tight spiral staircase with hollows)
+    fill_tiles(chunk, TILE_WALL, 106, 40, 108, 42)
+    fill_tiles(chunk, TILE_WALL, 118, 50, 120, 52)
+    # Arena perimeter — castle parapet walls (DS3: Dragonslayer Armour on open castle bridge)
+    fill_tiles(chunk, TILE_WALL, 116, 70, 118, 72)
+    fill_tiles(chunk, TILE_WALL, 140, 76, 142, 78)
+    fill_tiles(chunk, TILE_WALL, 146, 80, 148, 82)
+    fill_tiles(chunk, TILE_WALL, 125, 85, 127, 87)
+    fill_tiles(chunk, TILE_WALL, 150, 74, 152, 76)
+    # Grand Archives approach — stone staircase and fountain (DS3: grand fountain before Archives)
+    fill_tiles(chunk, TILE_WALL, 144, 56, 146, 58)
+    fill_tiles(chunk, TILE_WALL, 148, 62, 150, 64)
+    fill_tiles(chunk, TILE_WALL, 152, 70, 154, 72)
+    # Garden path — overgrown arches and crumbling walls (DS3: consumed garden ruins)
+    fill_tiles(chunk, TILE_WALL, 34, 54, 36, 56)
+    fill_tiles(chunk, TILE_WALL, 42, 60, 44, 62)
+    fill_tiles(chunk, TILE_WALL, 54, 64, 56, 66)
+
+    # === SESSION 6 FIDELITY PASS — Lothric Castle ===
+    # Castle gate — more entry fortification (DS3: grand Lothric Castle gate)
+    fill_tiles(chunk, TILE_WALL, 8, 18, 10, 20)
+    fill_tiles(chunk, TILE_WALL, 22, 36, 24, 38)
+    fill_tiles(chunk, TILE_WALL, 14, 42, 16, 44)
+    fill_tiles(chunk, TILE_WALL, 28, 44, 30, 46)
+    # Outer corridor — more stone arches (DS3: vaulted corridor with knight statues)
+    fill_tiles(chunk, TILE_WALL, 36, 30, 38, 32)
+    fill_tiles(chunk, TILE_WALL, 46, 36, 48, 38)
+    fill_tiles(chunk, TILE_WALL, 58, 38, 60, 40)
+    fill_tiles(chunk, TILE_WALL, 50, 44, 52, 46)
+    fill_tiles(chunk, TILE_WALL, 40, 42, 42, 44)
+    # Dragon barracks — more wyvern debris (DS3: massive dragon skeletons)
+    fill_tiles(chunk, TILE_WALL, 62, 16, 64, 18)
+    fill_tiles(chunk, TILE_WALL, 66, 22, 68, 24)
+    fill_tiles(chunk, TILE_WALL, 82, 28, 84, 30)
+    fill_tiles(chunk, TILE_WALL, 92, 20, 94, 22)
+    fill_tiles(chunk, TILE_WALL, 98, 32, 100, 34)
+    fill_tiles(chunk, TILE_WALL, 76, 34, 78, 36)
+    # Inner stairs — more passage walls (DS3: tight castle staircase)
+    fill_tiles(chunk, TILE_WALL, 104, 44, 106, 46)
+    fill_tiles(chunk, TILE_WALL, 112, 48, 114, 50)
+    fill_tiles(chunk, TILE_WALL, 116, 54, 118, 56)
+    fill_tiles(chunk, TILE_WALL, 122, 58, 124, 60)
+    # Arena — more parapet walls (DS3: open castle wall bridge)
+    fill_tiles(chunk, TILE_WALL, 110, 66, 112, 68)
+    fill_tiles(chunk, TILE_WALL, 126, 62, 128, 64)
+    fill_tiles(chunk, TILE_WALL, 144, 66, 146, 68)
+    fill_tiles(chunk, TILE_WALL, 152, 76, 154, 78)
+    fill_tiles(chunk, TILE_WALL, 142, 84, 144, 86)
+    fill_tiles(chunk, TILE_WALL, 118, 80, 120, 82)
+    fill_tiles(chunk, TILE_WALL, 132, 88, 134, 90)
+    fill_tiles(chunk, TILE_WALL, 150, 88, 152, 90)
+    # Garden side path — more overgrown walls (DS3: consumed garden)
+    fill_tiles(chunk, TILE_WALL, 38, 56, 40, 58)
+    fill_tiles(chunk, TILE_WALL, 46, 64, 48, 66)
+    fill_tiles(chunk, TILE_WALL, 56, 60, 58, 62)
+    # Grand Archives approach — stone pillars (DS3: grand fountain courtyard)
+    fill_tiles(chunk, TILE_WALL, 146, 60, 148, 62)
+    fill_tiles(chunk, TILE_WALL, 156, 68, 158, 70)
+
+    # ================================================================
+    # SESSION 9 FIDELITY PASS — LothricCastle architectural details
+    # ================================================================
+    # Dragon courtyard — burnt stone debris (DS3: dragon breath scorches area)
+    fill_tiles(chunk, TILE_WALL, 20, 34, 21, 35)
+    fill_tiles(chunk, TILE_WALL, 24, 38, 25, 39)
+    fill_tiles(chunk, TILE_WALL, 16, 42, 17, 43)
+    fill_tiles(chunk, TILE_WALL, 28, 30, 29, 31)
+    fill_tiles(chunk, TILE_WALL, 22, 46, 23, 47)
+    # Lothric Knight barracks — weapon rack stones (DS3: knight garrison area)
+    fill_tiles(chunk, TILE_WALL, 36, 50, 37, 51)
+    fill_tiles(chunk, TILE_WALL, 40, 54, 41, 55)
+    fill_tiles(chunk, TILE_WALL, 32, 58, 33, 59)
+    fill_tiles(chunk, TILE_WALL, 44, 48, 45, 49)
+    fill_tiles(chunk, TILE_WALL, 38, 62, 39, 63)
+    # Wyvern perch — scorched tower stones (DS3: wyvern roosts on castle wall)
+    fill_tiles(chunk, TILE_WALL, 50, 40, 51, 41)
+    fill_tiles(chunk, TILE_WALL, 54, 44, 55, 45)
+    fill_tiles(chunk, TILE_WALL, 46, 48, 47, 49)
+    fill_tiles(chunk, TILE_WALL, 58, 38, 59, 39)
+    fill_tiles(chunk, TILE_WALL, 52, 52, 53, 53)
+    # Grand Archives fountain courtyard — ornate fountain stones
+    fill_tiles(chunk, TILE_WALL, 142, 56, 143, 57)
+    fill_tiles(chunk, TILE_WALL, 150, 64, 151, 65)
+    fill_tiles(chunk, TILE_WALL, 138, 68, 139, 69)
+    fill_tiles(chunk, TILE_WALL, 154, 60, 155, 61)
+    # Dragonslayer Armour arena — shattered monument stones (DS3: storm-swept rooftop)
+    fill_tiles(chunk, TILE_WALL, 120, 80, 121, 81)
+    fill_tiles(chunk, TILE_WALL, 126, 84, 127, 85)
+    fill_tiles(chunk, TILE_WALL, 116, 88, 117, 89)
+    fill_tiles(chunk, TILE_WALL, 130, 76, 131, 77)
+    fill_tiles(chunk, TILE_WALL, 122, 90, 123, 91)
+    # Dancer's cathedral — stained glass debris (DS3: cathedral with stained glass)
+    fill_tiles(chunk, TILE_WALL, 60, 28, 61, 29)
+    fill_tiles(chunk, TILE_WALL, 66, 32, 67, 33)
+    fill_tiles(chunk, TILE_WALL, 56, 36, 57, 37)
+    fill_tiles(chunk, TILE_WALL, 70, 26, 71, 27)
+    fill_tiles(chunk, TILE_WALL, 64, 38, 65, 39)
+
+        # ================================================================
     # ENTITIES
     # ================================================================
 
@@ -4799,6 +7507,8 @@ def make_lothric_castle():
 
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 132 * 16, 62 * 16))  # Dragonslayer Armour
+    entities.append(make_entity("Enemy", 132 * 16, 62 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "MiniBoss")]))  # Dragonslayer Armour
 
     # --- Enemies ---
     # DS3 Lothric Castle enemies: Lothric Knights, Hollow Soldiers, Hollow Assassins,
@@ -4836,6 +7546,15 @@ def make_lothric_castle():
         ("HollowSoldier", 128, 62), ("HollowAssassin", 135, 65),      # Hollow gauntlet to boss
         ("WingedKnight", 140, 60),                                    # Ascended Winged Knight near arena
         ("HollowSoldier", 138, 68), ("HollowSoldier", 142, 72),     # Hollows at arena entrance
+        # Additional DS3 Lothric Castle enemies — more knights, dogs, hollows (DS3: dense with enemies)
+        ("LothricKnight", 22, 32), ("LothricKnight", 42, 38),       # Knights at gate courtyard
+        ("Dog", 32, 34), ("Dog", 46, 42), ("Dog", 52, 48),         # DS3: dogs in castle corridors
+        ("Dog", 65, 30), ("Dog", 72, 25), ("Dog", 98, 38),         # DS3: 8 dogs total
+        ("LothricKnight", 75, 30), ("LothricKnight", 82, 26),      # Knights patrolling wyvern area
+        ("LothricKnight", 95, 36), ("LothricKnight", 108, 44),     # Knights on inner stairs
+        ("HollowSoldier", 60, 36), ("HollowSoldier", 85, 32),      # More hollows in barracks
+        ("LothricKnight", 130, 64), ("LothricKnight", 136, 68),    # Knights near arena
+        ("DarkMage", 122, 60),                                        # Priest healing knights near arena
     ]
     for kind, tx, ty in enemy_positions:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -4996,7 +7715,7 @@ def make_lothric_castle():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#D4AF37"),
         make_field("dialogue", "String",
-            "I am Emma|High Priestess of Lothric|The Prince has refused his duty|Please save him"),
+            "I am Emma, High Priestess of Lothric|The Prince has refused his duty as a Lord of Cinder|Please, I beg of you, save Prince Lothric|He must be made to see his duty through"),
     ]))
     # Eygon of Carim — summon sign near Dragonslayer Armour arena approach
     # DS3: can be summoned for Dragonslayer Armour if Irina quest is in correct state
@@ -5005,7 +7724,7 @@ def make_lothric_castle():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#4A4A4A"),
         make_field("dialogue", "String",
-            "What do you want?|I am Eygon of Carim|I am bound by duty to protect Irina"),
+            "What do you want? I am Eygon of Carim|I am bound by duty to protect Irina|Keep your hands off her|She is under my protection"),
     ]))
 
     # --- Fog Gates ---
@@ -5151,6 +7870,44 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_GROUND, 128, 22, 135, 30)    # Bridge → Lift shortcut alcove
 
     # ================================================================
+    # SESSION 9 FIDELITY PASS — GrandArchives architectural details
+    # ================================================================
+    # Main hall — bookshelf alcove walls (DS3: towering bookshelves)
+    fill_tiles(chunk, TILE_WALL, 28, 130, 29, 131)
+    fill_tiles(chunk, TILE_WALL, 34, 134, 35, 135)
+    fill_tiles(chunk, TILE_WALL, 22, 138, 23, 139)
+    fill_tiles(chunk, TILE_WALL, 40, 126, 41, 127)
+    fill_tiles(chunk, TILE_WALL, 30, 142, 31, 143)
+    # Wax pool room — candle cluster stones (DS3: wax-scholar pool area)
+    fill_tiles(chunk, TILE_WALL, 48, 118, 49, 119)
+    fill_tiles(chunk, TILE_WALL, 54, 122, 55, 123)
+    fill_tiles(chunk, TILE_WALL, 44, 126, 45, 127)
+    fill_tiles(chunk, TILE_WALL, 56, 114, 57, 115)
+    # Crystal sages room — crystal formation debris (DS3: crystal growths in archives)
+    fill_tiles(chunk, TILE_WALL, 62, 100, 63, 101)
+    fill_tiles(chunk, TILE_WALL, 68, 96, 69, 97)
+    fill_tiles(chunk, TILE_WALL, 58, 104, 59, 105)
+    fill_tiles(chunk, TILE_WALL, 72, 92, 73, 93)
+    # Twin Princes chamber — throne debris (DS3: Lothric's chamber with throne)
+    fill_tiles(chunk, TILE_WALL, 100, 12, 101, 13)
+    fill_tiles(chunk, TILE_WALL, 104, 16, 105, 17)
+    fill_tiles(chunk, TILE_WALL, 96, 18, 97, 19)
+    fill_tiles(chunk, TILE_WALL, 108, 10, 109, 11)
+    # Winged Knight corridor — armor stand stones (DS3: suits of armor in halls)
+    fill_tiles(chunk, TILE_WALL, 78, 28, 79, 29)
+    fill_tiles(chunk, TILE_WALL, 82, 32, 83, 33)
+    fill_tiles(chunk, TILE_WALL, 74, 36, 75, 37)
+    fill_tiles(chunk, TILE_WALL, 86, 24, 87, 25)
+    # Rooftop — gargoyle perch stones (DS3: gargoyles patrol the rooftops)
+    fill_tiles(chunk, TILE_WALL, 90, 14, 91, 15)
+    fill_tiles(chunk, TILE_WALL, 94, 18, 95, 19)
+    fill_tiles(chunk, TILE_WALL, 88, 22, 89, 23)
+    # Bridge shortcut — broken railing stones (DS3: lift bridge connects areas)
+    fill_tiles(chunk, TILE_WALL, 130, 24, 131, 25)
+    fill_tiles(chunk, TILE_WALL, 134, 28, 135, 29)
+    fill_tiles(chunk, TILE_WALL, 126, 30, 127, 31)
+
+        # ================================================================
     # PLAYER SPAWN & BONFIRES
     # ================================================================
     spawn_px, spawn_py = 25 * 16, 142 * 16
@@ -5169,54 +7926,40 @@ def make_grand_archives():
     # ================================================================
     enemy_data = [
         # Grand Archives Scholars (DarkMage — candle-wielding wax priests)
-        # Wiki walkthrough: wax priests at altar, next room, stairs, upper level (~8 total)
+        # DS3: ~10 scholars throughout, wax-headed, cast magic and melee
         ("DarkMage", 45, 130), ("DarkMage", 62, 95),
         ("DarkMage", 85, 40), ("DarkMage", 75, 28),
         ("DarkMage", 50, 100), ("DarkMage", 55, 75),
         ("DarkMage", 48, 85), ("DarkMage", 72, 55),
-        # Crystal Sage (teleports around area, first encounter in entry hall)
-        ("CrystalSage", 48, 128),
+        ("DarkMage", 62, 112),  # Mage Kriemhild (hostile NPC, DarkMage type)
         # Hollow Slaves (Thrall — drop from ceilings, walls)
+        # DS3: ambush enemies throughout the library, NOT Hollow Soldiers
         ("HollowSlave", 42, 132), ("HollowSlave", 55, 98),
         ("HollowSlave", 68, 108), ("HollowSlave", 75, 50),
-        ("HollowSlave", 62, 65),
-        # Hollow Soldiers — generic hollows in library
-        ("HollowSoldier", 40, 138), ("HollowSoldier", 52, 92),
-        ("HollowSoldier", 58, 80),
+        ("HollowSlave", 62, 65), ("HollowSlave", 40, 138),
+        ("HollowSlave", 52, 92), ("HollowSlave", 58, 80),
         # Lothric Knights — including red-eyed knight guard
         ("LothricKnight", 70, 92), ("LothricKnight", 88, 45),
         ("LothricKnight", 55, 65), ("LothricKnight", 78, 48),
-        # Ascended Winged Knights (golden, 3 on tower rooftop — drop Titanite Slab)
+        # Ascended Winged Knights (golden, 3 — DS3: drop Titanite Slab when all 3 killed)
         ("AscendedWingedKnight", 82, 38), ("AscendedWingedKnight", 92, 35),
         ("AscendedWingedKnight", 75, 32),
-        # Boreal Outrider Knight — behind illusory wall (drops Outrider Armor Set)
+        # Boreal Outrider Knight (DS3: dead/frozen in entry, drops Outrider Armor Set)
         ("BorealOutriderKnight", 58, 68),
-        # Clawed Curse (Basilisk — curse hands from walls/books)
-        ("ClawedCurse", 48, 70), ("ClawedCurse", 65, 78),
-        ("ClawedCurse", 55, 82),
-        # Man-grubs — caster on beam below cage
-        ("ManGrub", 90, 25), ("ManGrub", 95, 30),
-        # Gargoyles — rooftop guardians (wiki: 3 gargoyles on roof)
+        # Gargoyles — DS3: rooftop guardians (3 on roof)
         ("Gargoyle", 68, 12), ("Gargoyle", 82, 15), ("Gargoyle", 95, 10),
-        # Corvians — bird people near storyteller on rooftops
-        ("Corvian", 78, 18), ("Corvian", 85, 12),
-        # Corvian Storyteller — leading corvian flock
-        ("CorvianStoryteller", 72, 15),
-        # Crystal Lizards (wiki walkthrough: ~6 throughout — entry room, 2 in secret room, 1 mid-level, 2 on roof)
+        # Crystal Lizards (DS3: ~4 throughout)
         ("CrystalLizard", 52, 85), ("CrystalLizard", 48, 72),
-        ("CrystalLizard", 50, 75), ("CrystalLizard", 65, 55),
-        ("CrystalLizard", 78, 15), ("CrystalLizard", 88, 22),
-        # Black Hand NPC trio — hostile NPCs in courtyard with statue
-        # Faraam armor warrior (drops Golden Wing Crest Shield)
+        ("CrystalLizard", 65, 55), ("CrystalLizard", 88, 22),
+        # Black Hand Gotthard's party — hostile NPCs in courtyard
+        # (DS3: 3 Black Hand NPCs — warrior, mage, dual katana)
         ("MiniBoss", 60, 110),
-        # Mage Kriemhild (drops Sage's Crystal Staff)
-        ("DarkMage", 62, 112),
-        # Dual katana wielder (drops Onikiri and Ubadachi)
         ("MiniBoss", 64, 108),
-        # Bridge of Glory — barricade gauntlet (wiki: "series of blockades with many hollows, then knights")
-        ("HollowSoldier", 112, 8), ("HollowSoldier", 114, 10),
-        ("HollowSoldier", 119, 15), ("HollowSoldier", 121, 18),
-        ("HollowSoldier", 125, 7), ("HollowSoldier", 127, 12),
+        # Bridge of Glory — barricade gauntlet
+        # DS3: Hollow Slaves and Lothric Knights guard the bridge to Twin Princes
+        ("HollowSlave", 112, 8), ("HollowSlave", 114, 10),
+        ("HollowSlave", 119, 15), ("HollowSlave", 121, 18),
+        ("HollowSlave", 125, 7), ("HollowSlave", 127, 12),
         ("LothricKnight", 130, 10), ("LothricKnight", 132, 15),
     ]
     for kind, tx, ty in enemy_data:
@@ -5337,7 +8080,7 @@ def make_grand_archives():
         make_field("color", "Color", "#606060"),
         make_field("dialogue", "String",
             "A corpse with the Grand Archives Key|"
-            "Gotthard's journey ends here"),
+            "Black Hand Gotthard's journey ends here|He was one of the King's Black Hands"),
     ]))
     # Siegward of Catarina — summon sign at bonfire (wiki: helps clear path to Twin Princes)
     entities.append(make_entity("Npc", 28 * 16, 140 * 16, [
@@ -5345,7 +8088,7 @@ def make_grand_archives():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#C8A832"),
         make_field("dialogue", "String",
-            "I shall assist you|On this final journey|To the Twin Princes"),
+            "I shall join you on this final journey|To reach the Twin Princes at the top|Let us see this through together, my friend"),
     ]))
 
     # ================================================================
@@ -5431,6 +8174,103 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_WALL, 130, 30, 132, 34)
     fill_tiles(chunk, TILE_WALL, 144, 30, 146, 36)
 
+    # === MORE GRAND ARCHIVES DETAILS — DS3 fidelity ===
+    # Entry hall — more bookshelf rows (DS3: towering bookshelves)
+    fill_tiles(chunk, TILE_WALL, 35, 125, 37, 127)
+    fill_tiles(chunk, TILE_WALL, 45, 128, 47, 130)
+    fill_tiles(chunk, TILE_WALL, 52, 132, 54, 134)
+    fill_tiles(chunk, TILE_WALL, 42, 140, 44, 142)
+    fill_tiles(chunk, TILE_WALL, 55, 138, 57, 140)
+    fill_tiles(chunk, TILE_WALL, 32, 132, 34, 134)
+    # First floor corridors — dense bookshelf maze (DS3: labyrinthine library)
+    fill_tiles(chunk, TILE_WALL, 45, 88, 47, 90)
+    fill_tiles(chunk, TILE_WALL, 58, 95, 60, 97)
+    fill_tiles(chunk, TILE_WALL, 68, 90, 70, 92)
+    fill_tiles(chunk, TILE_WALL, 82, 95, 84, 97)
+    fill_tiles(chunk, TILE_WALL, 48, 100, 50, 102)
+    fill_tiles(chunk, TILE_WALL, 65, 105, 67, 107)
+    fill_tiles(chunk, TILE_WALL, 75, 110, 77, 112)
+    fill_tiles(chunk, TILE_WALL, 90, 108, 92, 110)
+    fill_tiles(chunk, TILE_WALL, 55, 115, 57, 117)
+    fill_tiles(chunk, TILE_WALL, 72, 120, 74, 122)
+    fill_tiles(chunk, TILE_WALL, 85, 118, 87, 120)
+    fill_tiles(chunk, TILE_WALL, 95, 112, 97, 114)
+    # Wax pool hall — more wax features (DS3: central wax pool)
+    fill_tiles(chunk, TILE_WALL, 35, 58, 37, 60)
+    fill_tiles(chunk, TILE_WALL, 48, 56, 50, 58)
+    fill_tiles(chunk, TILE_WALL, 60, 58, 62, 60)
+    fill_tiles(chunk, TILE_WALL, 75, 62, 77, 64)
+    fill_tiles(chunk, TILE_WALL, 38, 82, 40, 84)
+    fill_tiles(chunk, TILE_WALL, 72, 82, 74, 84)
+    fill_tiles(chunk, TILE_WALL, 58, 85, 60, 87)
+    # Scholar tower — crystal formations and book stacks (DS3: Crystal Sage arena)
+    fill_tiles(chunk, TILE_WALL, 70, 32, 72, 34)
+    fill_tiles(chunk, TILE_WALL, 82, 32, 84, 34)
+    fill_tiles(chunk, TILE_WALL, 88, 48, 90, 50)
+    fill_tiles(chunk, TILE_WALL, 100, 38, 102, 40)
+    fill_tiles(chunk, TILE_WALL, 72, 45, 74, 47)
+    fill_tiles(chunk, TILE_WALL, 95, 50, 97, 52)
+    fill_tiles(chunk, TILE_WALL, 104, 44, 106, 46)
+    # Winged Knight corridor — armor displays (DS3: golden Winged Knights)
+    fill_tiles(chunk, TILE_WALL, 55, 22, 57, 24)
+    fill_tiles(chunk, TILE_WALL, 68, 20, 70, 22)
+    fill_tiles(chunk, TILE_WALL, 78, 25, 80, 27)
+    fill_tiles(chunk, TILE_WALL, 90, 22, 92, 24)
+    fill_tiles(chunk, TILE_WALL, 58, 30, 60, 32)
+    fill_tiles(chunk, TILE_WALL, 82, 30, 84, 32)
+    # Gargoyle rooftop — more roof structures (DS3: open rooftop with gargoyles)
+    fill_tiles(chunk, TILE_WALL, 62, 10, 64, 12)
+    fill_tiles(chunk, TILE_WALL, 78, 12, 80, 14)
+    fill_tiles(chunk, TILE_WALL, 88, 8, 90, 10)
+    fill_tiles(chunk, TILE_WALL, 100, 12, 102, 14)
+    fill_tiles(chunk, TILE_WALL, 74, 16, 76, 18)
+    fill_tiles(chunk, TILE_WALL, 92, 16, 94, 18)
+    # Twin Princes chamber — throne room pillars (DS3: grand throne room)
+    fill_tiles(chunk, TILE_WALL, 92, 15, 94, 18)
+    fill_tiles(chunk, TILE_WALL, 108, 22, 110, 25)
+    fill_tiles(chunk, TILE_WALL, 122, 18, 124, 20)
+    fill_tiles(chunk, TILE_WALL, 130, 12, 132, 14)
+    fill_tiles(chunk, TILE_WALL, 135, 20, 137, 22)
+    fill_tiles(chunk, TILE_WALL, 98, 28, 100, 30)
+
+    # ================================================================
+    # DS3 GRAND ARCHIVES — final architectural fidelity pass
+    # ================================================================
+    # Grand staircase — landing walls between floors (DS3: main spiral staircase)
+    fill_tiles(chunk, TILE_WALL, 48, 122, 50, 124)
+    fill_tiles(chunk, TILE_WALL, 52, 118, 54, 120)
+    fill_tiles(chunk, TILE_WALL, 58, 108, 60, 110)
+    # Reading alcoves — desk and chair clusters (DS3: scholars study at desks)
+    fill_tiles(chunk, TILE_WALL, 42, 92, 44, 94)
+    fill_tiles(chunk, TILE_WALL, 56, 98, 58, 100)
+    fill_tiles(chunk, TILE_WALL, 70, 102, 72, 104)
+    fill_tiles(chunk, TILE_WALL, 88, 96, 90, 98)
+    # Balcony railings overlooking lower floors (DS3: library has open balconies)
+    fill_tiles(chunk, TILE_WALL, 62, 82, 64, 84)
+    fill_tiles(chunk, TILE_WALL, 70, 78, 72, 80)
+    fill_tiles(chunk, TILE_WALL, 48, 68, 50, 70)
+    # Archive storage rooms — locked rooms with scrolls (DS3: side rooms full of scrolls)
+    fill_tiles(chunk, TILE_WALL, 32, 62, 34, 64)
+    fill_tiles(chunk, TILE_WALL, 78, 60, 80, 62)
+    fill_tiles(chunk, TILE_WALL, 38, 75, 40, 77)
+    # Crystal Sage crystal formations (DS3: crystal sage arena has crystal clusters)
+    fill_tiles(chunk, TILE_WALL, 68, 38, 70, 40)
+    fill_tiles(chunk, TILE_WALL, 84, 46, 86, 48)
+    fill_tiles(chunk, TILE_WALL, 76, 42, 78, 44)
+    # Candle-lined corridor sconces (DS3: candles everywhere, scholars carry them)
+    fill_tiles(chunk, TILE_WALL, 36, 135, 38, 136)
+    fill_tiles(chunk, TILE_WALL, 48, 142, 50, 143)
+    fill_tiles(chunk, TILE_WALL, 28, 128, 30, 129)
+    fill_tiles(chunk, TILE_WALL, 55, 125, 57, 126)
+    # Wax pool edge — more wax formations (DS3: molten wax drips from ceiling)
+    fill_tiles(chunk, TILE_WALL, 42, 58, 44, 59)
+    fill_tiles(chunk, TILE_WALL, 64, 84, 66, 85)
+    fill_tiles(chunk, TILE_WALL, 52, 88, 54, 89)
+    # Lift mechanism walls (DS3: hidden lift for Titanite Slab)
+    fill_tiles(chunk, TILE_WALL, 134, 34, 136, 36)
+    fill_tiles(chunk, TILE_WALL, 140, 38, 142, 40)
+    fill_tiles(chunk, TILE_WALL, 130, 40, 132, 42)
+
     # ================================================================
     # FINALIZE — connectivity check
     # ================================================================
@@ -5445,40 +8285,203 @@ def make_grand_archives():
 
 def make_kiln_of_the_first_flame():
     """Kiln of the First Flame - ash wasteland with Soul of Cinder boss.
-    Faithful DS3 layout: ash entry path (south) -> collapsed fire hall (middle)
-    -> First Flame arena (north). Very sparse, no regular enemies.
-    The end of all things.
+    Faithful DS3 layout: Flameless Shrine entry (south) -> winding ash path through
+    collapsed ruins -> twisted girder hall (middle) -> First Flame arena (north).
+    No regular enemies. The end of all things.
     """
     chunk = new_chunk()
     entities = []
 
-    # === Ash entry path (south) ===
-    fill_tiles(chunk, TILE_GROUND, 68, 128, 92, 155)
+    # ================================================================
+    # TERRAIN — DS3 Kiln is a linear descent through ash and ruin
+    # ================================================================
 
-    # === Collapsed fire hall (middle) ===
-    fill_tiles(chunk, TILE_GROUND, 45, 55, 115, 128)
-    carve_ellipse(chunk, 80, 90, 22, 18)
-    # Iron remnants — twisted girders from the ruined kiln
-    fill_tiles(chunk, TILE_WALL, 58, 78, 60, 85)
-    fill_tiles(chunk, TILE_WALL, 98, 92, 100, 98)
-    fill_tiles(chunk, TILE_WALL, 72, 100, 74, 105)
+    # === 1. FLAMELESS SHRINE (south) — entry area from Grand Archives ===
+    # Wide ash platform with ruined walls framing the entry
+    fill_tiles(chunk, TILE_GROUND, 62, 140, 98, 158)
+    # Collapsed entry arch — remnants of the kiln door
+    fill_tiles(chunk, TILE_WALL, 64, 140, 68, 146)
+    fill_tiles(chunk, TILE_WALL, 92, 140, 96, 146)
+    # Ash dunes around the entry (elevated terrain framing the path)
+    fill_tiles(chunk, TILE_WALL, 58, 142, 62, 152)
+    fill_tiles(chunk, TILE_WALL, 98, 142, 102, 152)
+    # Rubble pile near shrine bonfire
+    fill_tiles(chunk, TILE_WALL, 78, 144, 82, 148)
 
-    # === First Flame arena (north) ===
-    fill_tiles(chunk, TILE_GROUND, 50, 8, 110, 58)
-    carve_ellipse(chunk, 80, 32, 28, 22)
+    # === 2. ASH CORRIDOR — winding path through collapsed kiln walls ===
+    # DS3: narrow path flanked by towering ash dunes and twisted metal
+    fill_tiles(chunk, TILE_GROUND, 66, 128, 94, 142)
+    # Left ash dune wall (tall, forces player through narrow gap)
+    fill_tiles(chunk, TILE_WALL, 56, 118, 70, 130)
+    fill_tiles(chunk, TILE_WALL, 72, 122, 76, 128)
+    # Right ash dune wall
+    fill_tiles(chunk, TILE_WALL, 84, 122, 88, 128)
+    fill_tiles(chunk, TILE_WALL, 90, 118, 104, 130)
+    # Twisted girder remnant across the path
+    fill_tiles(chunk, TILE_WALL, 74, 126, 78, 128)
+    # Rubble at corridor edges
+    fill_tiles(chunk, TILE_WALL, 66, 130, 68, 134)
+    fill_tiles(chunk, TILE_WALL, 92, 130, 94, 134)
 
-    # --- Player spawn ---
-    spawn_px, spawn_py = 80 * 16, 148 * 16
+    # === 3. COLLAPSED CHAMBER — first open area with ruined structures ===
+    fill_tiles(chunk, TILE_GROUND, 52, 104, 108, 120)
+    carve_ellipse(chunk, 80, 112, 18, 6)
+    # Fallen pillar remnants (DS3: huge stone pillars collapsed across the hall)
+    fill_tiles(chunk, TILE_WALL, 58, 106, 62, 114)
+    fill_tiles(chunk, TILE_WALL, 98, 106, 102, 114)
+    # Crossed girders on the ground
+    fill_tiles(chunk, TILE_WALL, 68, 108, 72, 110)
+    fill_tiles(chunk, TILE_WALL, 88, 110, 92, 112)
+    # Ash drifts along walls
+    fill_tiles(chunk, TILE_WALL, 54, 108, 56, 116)
+    fill_tiles(chunk, TILE_WALL, 104, 108, 106, 116)
+    # Scattered rubble
+    fill_tiles(chunk, TILE_WALL, 76, 114, 78, 116)
+    fill_tiles(chunk, TILE_WALL, 82, 114, 84, 116)
+
+    # === 4. TWISTED GIRDER HALL — dense collapsed metal structure ===
+    # DS3: the most iconic section — massive twisted iron beams everywhere
+    fill_tiles(chunk, TILE_GROUND, 48, 78, 112, 106)
+    carve_ellipse(chunk, 80, 92, 20, 10)
+    # Main girder structures — diagonal collapsed beams
+    fill_tiles(chunk, TILE_WALL, 52, 82, 56, 96)
+    fill_tiles(chunk, TILE_WALL, 108, 82, 112, 96)
+    # Cross-beams (DS3: massive iron beams crossing the corridor)
+    fill_tiles(chunk, TILE_WALL, 60, 86, 64, 88)
+    fill_tiles(chunk, TILE_WALL, 96, 86, 100, 88)
+    fill_tiles(chunk, TILE_WALL, 66, 92, 68, 94)
+    fill_tiles(chunk, TILE_WALL, 92, 92, 94, 94)
+    # Fallen wall sections creating choke points
+    fill_tiles(chunk, TILE_WALL, 58, 78, 66, 82)
+    fill_tiles(chunk, TILE_WALL, 94, 78, 102, 82)
+    # Twisted metal debris
+    fill_tiles(chunk, TILE_WALL, 72, 96, 74, 98)
+    fill_tiles(chunk, TILE_WALL, 86, 96, 88, 98)
+    fill_tiles(chunk, TILE_WALL, 76, 100, 78, 102)
+    fill_tiles(chunk, TILE_WALL, 82, 100, 84, 102)
+    # Ash pile against north wall of hall
+    fill_tiles(chunk, TILE_WALL, 60, 78, 62, 80)
+    fill_tiles(chunk, TILE_WALL, 98, 78, 100, 80)
+    # Elevated ash platform (left)
+    fill_tiles(chunk, TILE_WALL, 48, 80, 52, 90)
+    # Elevated ash platform (right)
+    fill_tiles(chunk, TILE_WALL, 108, 80, 112, 90)
+
+    # === 5. SECOND ASH CORRIDOR — narrowing approach to arena ===
+    fill_tiles(chunk, TILE_GROUND, 58, 60, 102, 80)
+    # Funnel walls — ash dunes pushing player toward arena
+    fill_tiles(chunk, TILE_WALL, 50, 62, 60, 78)
+    fill_tiles(chunk, TILE_WALL, 100, 62, 110, 78)
+    # Girder fragments in corridor
+    fill_tiles(chunk, TILE_WALL, 64, 68, 66, 72)
+    fill_tiles(chunk, TILE_WALL, 94, 68, 96, 72)
+    fill_tiles(chunk, TILE_WALL, 76, 72, 78, 76)
+    fill_tiles(chunk, TILE_WALL, 82, 72, 84, 76)
+    # Rubble
+    fill_tiles(chunk, TILE_WALL, 68, 64, 70, 66)
+    fill_tiles(chunk, TILE_WALL, 90, 64, 92, 66)
+
+    # === 6. FIRST FLAME ARENA (north) — circular boss arena ===
+    fill_tiles(chunk, TILE_GROUND, 46, 6, 114, 62)
+    carve_ellipse(chunk, 80, 34, 28, 22)
+    # Arena perimeter — collapsed arches framing the arena
+    fill_tiles(chunk, TILE_WALL, 48, 8, 54, 20)
+    fill_tiles(chunk, TILE_WALL, 106, 8, 112, 20)
+    fill_tiles(chunk, TILE_WALL, 48, 48, 54, 58)
+    fill_tiles(chunk, TILE_WALL, 106, 48, 112, 58)
+    # Broken pillars around arena edge (DS3: stone column stumps)
+    fill_tiles(chunk, TILE_WALL, 56, 14, 58, 18)
+    fill_tiles(chunk, TILE_WALL, 102, 14, 104, 18)
+    fill_tiles(chunk, TILE_WALL, 52, 36, 54, 40)
+    fill_tiles(chunk, TILE_WALL, 106, 36, 108, 40)
+    fill_tiles(chunk, TILE_WALL, 56, 48, 58, 52)
+    fill_tiles(chunk, TILE_WALL, 102, 48, 104, 52)
+    # Ember pit at center edge (DS3: glowing coals at arena center)
+    fill_tiles(chunk, TILE_WALL, 78, 30, 82, 36)
+    # Ash dunes at arena corners
+    fill_tiles(chunk, TILE_WALL, 46, 6, 50, 12)
+    fill_tiles(chunk, TILE_WALL, 110, 6, 114, 12)
+    fill_tiles(chunk, TILE_WALL, 46, 54, 50, 60)
+    fill_tiles(chunk, TILE_WALL, 110, 54, 114, 60)
+
+    # === 7. Connecting corridors between sections ===
+    # Entry to ash corridor
+    fill_tiles(chunk, TILE_GROUND, 72, 134, 88, 142)
+    # Ash corridor to collapsed chamber
+    fill_tiles(chunk, TILE_GROUND, 70, 118, 90, 128)
+    # Collapsed chamber to girder hall
+    fill_tiles(chunk, TILE_GROUND, 66, 102, 94, 108)
+    # Girder hall to second corridor
+    fill_tiles(chunk, TILE_GROUND, 64, 76, 96, 82)
+    # Second corridor to arena
+    fill_tiles(chunk, TILE_GROUND, 64, 58, 96, 64)
+
+    # ================================================================
+    # SESSION 9 FIDELITY PASS — KilnOfTheFirstFlame architectural details
+    # ================================================================
+    # Ashen path — ember fragment debris (DS3: scorched earth fragments)
+    fill_tiles(chunk, TILE_WALL, 74, 148, 75, 149)
+    fill_tiles(chunk, TILE_WALL, 82, 146, 83, 147)
+    fill_tiles(chunk, TILE_WALL, 78, 152, 79, 153)
+    fill_tiles(chunk, TILE_WALL, 86, 144, 87, 145)
+    # First collapsed corridor — iron girder debris (DS3: twisted metal structures)
+    fill_tiles(chunk, TILE_WALL, 68, 128, 69, 129)
+    fill_tiles(chunk, TILE_WALL, 76, 124, 77, 125)
+    fill_tiles(chunk, TILE_WALL, 72, 132, 73, 133)
+    fill_tiles(chunk, TILE_WALL, 80, 120, 81, 121)
+    fill_tiles(chunk, TILE_WALL, 84, 130, 85, 131)
+    # Ash field — scattered coiled sword fragments (DS3: remains of past kilns)
+    fill_tiles(chunk, TILE_WALL, 70, 108, 71, 109)
+    fill_tiles(chunk, TILE_WALL, 78, 104, 79, 105)
+    fill_tiles(chunk, TILE_WALL, 74, 112, 75, 113)
+    fill_tiles(chunk, TILE_WALL, 82, 100, 83, 101)
+    fill_tiles(chunk, TILE_WALL, 66, 116, 67, 117)
+    # Second corridor — burnt stone pillars (DS3: smoldering architecture)
+    fill_tiles(chunk, TILE_WALL, 68, 90, 69, 91)
+    fill_tiles(chunk, TILE_WALL, 76, 86, 77, 87)
+    fill_tiles(chunk, TILE_WALL, 72, 94, 73, 95)
+    fill_tiles(chunk, TILE_WALL, 80, 82, 81, 83)
+    fill_tiles(chunk, TILE_WALL, 84, 92, 85, 93)
+    # Girder hall — twisted iron beams (DS3: industrial hellscape)
+    fill_tiles(chunk, TILE_WALL, 66, 76, 67, 77)
+    fill_tiles(chunk, TILE_WALL, 74, 78, 75, 79)
+    fill_tiles(chunk, TILE_WALL, 82, 74, 83, 75)
+    fill_tiles(chunk, TILE_WALL, 70, 80, 71, 81)
+    fill_tiles(chunk, TILE_WALL, 78, 72, 79, 73)
+    # Soul of Cinder arena — scorched throne remnants (DS3: final arena)
+    fill_tiles(chunk, TILE_WALL, 64, 58, 65, 59)
+    fill_tiles(chunk, TILE_WALL, 92, 58, 93, 59)
+    fill_tiles(chunk, TILE_WALL, 72, 54, 73, 55)
+    fill_tiles(chunk, TILE_WALL, 86, 54, 87, 55)
+    fill_tiles(chunk, TILE_WALL, 68, 62, 69, 63)
+    fill_tiles(chunk, TILE_WALL, 88, 62, 89, 63)
+
+        # ================================================================
+    # ENTITIES
+    # ================================================================
+
+    # --- Player spawn at Flameless Shrine ---
+    spawn_px, spawn_py = 80 * 16, 150 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # --- Bonfires ---
-    entities.append(make_entity("Bonfire", 80 * 16, 148 * 16))   # Flameless Shrine
+    entities.append(make_entity("Bonfire", 80 * 16, 150 * 16))   # Flameless Shrine
     entities.append(make_entity("Bonfire", 80 * 16, 30 * 16))    # Kiln boss bonfire
 
     # --- Boss ---
-    entities.append(make_entity("BossSpawn", 80 * 16, 25 * 16))  # Soul of Cinder
+    entities.append(make_entity("BossSpawn", 80 * 16, 26 * 16))  # Soul of Cinder
+    entities.append(make_entity("Enemy", 80 * 16, 26 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "MiniBoss")]))  # Soul of Cinder
 
-    # --- No regular enemies ---
+    # --- NPCs ---
+    # Fire Keeper — appears at Kiln for the final scene (DS3: summons Fire Keeper for ending)
+    entities.append(make_entity("Npc", 78 * 16, 28 * 16, [
+        make_field("name", "String", "Fire Keeper"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#E0E0F0"),
+        make_field("dialogue", "String",
+            "Ashen One, thou hast come to the end|I will remain beside thee|May the fire find thee worthy|Farewell, my Ashen One"),
+    ]))
 
     # --- Items ---
     # DS3 Kiln has no item pickups — only the Soul of Cinder boss fight and endings
@@ -5491,7 +8494,7 @@ def make_kiln_of_the_first_flame():
         entities.append(make_entity("Item", tx * 16, ty * 16, fields))
 
     # --- Fog Gate back to Grand Archives (south) ---
-    entities.append(make_entity("FogGate", 80 * 16, 155 * 16, [
+    entities.append(make_entity("FogGate", 80 * 16, 156 * 16, [
         make_field("dest_area", "String", "GrandArchives"),
         make_field("dest_x", "Float", 300.0),
         make_field("dest_y", "Float", 3800.0),
@@ -5500,21 +8503,128 @@ def make_kiln_of_the_first_flame():
     ]))
 
     # --- Lights ---
-    # Dim firelight at entry — dying embers
-    entities.append(make_entity("Light", 80 * 16, 148 * 16, [
+    # Dim firelight at Flameless Shrine — dying embers
+    entities.append(make_entity("Light", 80 * 16, 150 * 16, [
         make_field("radius", "Float", 160.0),
         make_field("r", "Float", 0.9), make_field("g", "Float", 0.6),
         make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.5)]))
-    # Brilliant golden at arena — the First Flame
-    entities.append(make_entity("Light", 80 * 16, 25 * 16, [
-        make_field("radius", "Float", 240.0),
+    # Flickering embers in collapsed chamber
+    entities.append(make_entity("Light", 80 * 16, 112 * 16, [
+        make_field("radius", "Float", 120.0),
+        make_field("r", "Float", 0.85), make_field("g", "Float", 0.45),
+        make_field("b", "Float", 0.15), make_field("intensity", "Float", 0.3)]))
+    # Dim glow through twisted girders
+    entities.append(make_entity("Light", 72 * 16, 90 * 16, [
+        make_field("radius", "Float", 100.0),
+        make_field("r", "Float", 0.8), make_field("g", "Float", 0.4),
+        make_field("b", "Float", 0.1), make_field("intensity", "Float", 0.25)]))
+    entities.append(make_entity("Light", 88 * 16, 90 * 16, [
+        make_field("radius", "Float", 100.0),
+        make_field("r", "Float", 0.8), make_field("g", "Float", 0.4),
+        make_field("b", "Float", 0.1), make_field("intensity", "Float", 0.25)]))
+    # Second corridor — dying ember light
+    entities.append(make_entity("Light", 80 * 16, 70 * 16, [
+        make_field("radius", "Float", 130.0),
+        make_field("r", "Float", 0.85), make_field("g", "Float", 0.5),
+        make_field("b", "Float", 0.2), make_field("intensity", "Float", 0.3)]))
+    # Brilliant golden at First Flame arena — the final light
+    entities.append(make_entity("Light", 80 * 16, 26 * 16, [
+        make_field("radius", "Float", 260.0),
         make_field("r", "Float", 1.0), make_field("g", "Float", 0.85),
         make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.8)]))
-    # Dim hall remnants
-    entities.append(make_entity("Light", 80 * 16, 90 * 16, [
+    # Warm glow at arena perimeter
+    entities.append(make_entity("Light", 80 * 16, 50 * 16, [
         make_field("radius", "Float", 140.0),
-        make_field("r", "Float", 0.8), make_field("g", "Float", 0.4),
-        make_field("b", "Float", 0.15), make_field("intensity", "Float", 0.3)]))
+        make_field("r", "Float", 0.9), make_field("g", "Float", 0.6),
+        make_field("b", "Float", 0.2), make_field("intensity", "Float", 0.35)]))
+
+    # === ADDITIONAL INTERNAL STRUCTURES — Kiln DS3 fidelity ===
+    # Flameless Shrine — ash dune detail and ruined pillar fragments
+    fill_tiles(chunk, TILE_WALL, 70, 148, 72, 150)
+    fill_tiles(chunk, TILE_WALL, 88, 148, 90, 150)
+    fill_tiles(chunk, TILE_WALL, 74, 142, 75, 144)
+    fill_tiles(chunk, TILE_WALL, 85, 142, 86, 144)
+    # Ash corridor — additional twisted metal and ash drifts
+    fill_tiles(chunk, TILE_WALL, 70, 124, 71, 126)
+    fill_tiles(chunk, TILE_WALL, 88, 124, 89, 126)
+    fill_tiles(chunk, TILE_WALL, 76, 130, 77, 132)
+    fill_tiles(chunk, TILE_WALL, 82, 130, 83, 132)
+    # Collapsed chamber — more fallen pillar sections and rubble
+    fill_tiles(chunk, TILE_WALL, 64, 112, 66, 114)
+    fill_tiles(chunk, TILE_WALL, 94, 112, 96, 114)
+    fill_tiles(chunk, TILE_WALL, 74, 108, 76, 110)
+    fill_tiles(chunk, TILE_WALL, 84, 108, 86, 110)
+    # Girder hall — additional twisted iron beams (DS3: iconic metal forest)
+    fill_tiles(chunk, TILE_WALL, 68, 84, 70, 86)
+    fill_tiles(chunk, TILE_WALL, 90, 84, 92, 86)
+    fill_tiles(chunk, TILE_WALL, 64, 90, 65, 92)
+    fill_tiles(chunk, TILE_WALL, 95, 90, 96, 92)
+    fill_tiles(chunk, TILE_WALL, 78, 94, 80, 96)
+    fill_tiles(chunk, TILE_WALL, 82, 98, 84, 100)
+    # Second ash corridor — narrowing rubble (DS3: funnel toward final arena)
+    fill_tiles(chunk, TILE_WALL, 72, 66, 73, 68)
+    fill_tiles(chunk, TILE_WALL, 88, 66, 89, 68)
+    fill_tiles(chunk, TILE_WALL, 78, 74, 79, 76)
+    fill_tiles(chunk, TILE_WALL, 82, 74, 83, 76)
+    # First Flame arena — additional broken column stumps and ash piles
+    fill_tiles(chunk, TILE_WALL, 60, 24, 62, 26)
+    fill_tiles(chunk, TILE_WALL, 98, 24, 100, 26)
+    fill_tiles(chunk, TILE_WALL, 68, 42, 70, 44)
+    fill_tiles(chunk, TILE_WALL, 90, 42, 92, 44)
+    fill_tiles(chunk, TILE_WALL, 74, 18, 76, 20)
+    fill_tiles(chunk, TILE_WALL, 84, 18, 86, 20)
+    fill_tiles(chunk, TILE_WALL, 64, 52, 66, 54)
+    fill_tiles(chunk, TILE_WALL, 94, 52, 96, 54)
+
+    # === SESSION 6 FIDELITY PASS — Kiln of the First Flame ===
+    # Flameless Shrine — more ash dune ridges (DS3: desolate ash wasteland)
+    fill_tiles(chunk, TILE_WALL, 66, 144, 68, 146)
+    fill_tiles(chunk, TILE_WALL, 92, 144, 94, 146)
+    fill_tiles(chunk, TILE_WALL, 76, 146, 78, 148)
+    fill_tiles(chunk, TILE_WALL, 82, 146, 84, 148)
+    fill_tiles(chunk, TILE_WALL, 60, 148, 62, 150)
+    fill_tiles(chunk, TILE_WALL, 98, 148, 100, 150)
+    # Ash corridor — more twisted metal debris (DS3: collapsed iron structures)
+    fill_tiles(chunk, TILE_WALL, 68, 120, 69, 122)
+    fill_tiles(chunk, TILE_WALL, 90, 120, 91, 122)
+    fill_tiles(chunk, TILE_WALL, 78, 128, 80, 130)
+    fill_tiles(chunk, TILE_WALL, 80, 132, 82, 134)
+    fill_tiles(chunk, TILE_WALL, 72, 136, 74, 138)
+    fill_tiles(chunk, TILE_WALL, 86, 136, 88, 138)
+    # Collapsed chamber — more fallen masonry (DS3: ruined cathedral-like hall)
+    fill_tiles(chunk, TILE_WALL, 56, 104, 58, 106)
+    fill_tiles(chunk, TILE_WALL, 102, 104, 104, 106)
+    fill_tiles(chunk, TILE_WALL, 70, 116, 72, 118)
+    fill_tiles(chunk, TILE_WALL, 88, 116, 90, 118)
+    fill_tiles(chunk, TILE_WALL, 60, 118, 62, 120)
+    fill_tiles(chunk, TILE_WALL, 98, 118, 100, 120)
+    # Girder hall — more twisted iron forest (DS3: dense collapsed beams)
+    fill_tiles(chunk, TILE_WALL, 54, 84, 56, 86)
+    fill_tiles(chunk, TILE_WALL, 104, 84, 106, 86)
+    fill_tiles(chunk, TILE_WALL, 72, 88, 74, 90)
+    fill_tiles(chunk, TILE_WALL, 86, 88, 88, 90)
+    fill_tiles(chunk, TILE_WALL, 66, 96, 68, 98)
+    fill_tiles(chunk, TILE_WALL, 92, 96, 94, 98)
+    fill_tiles(chunk, TILE_WALL, 76, 102, 78, 104)
+    fill_tiles(chunk, TILE_WALL, 82, 102, 84, 104)
+    # Second corridor — narrowing funnel walls (DS3: claustrophobic approach)
+    fill_tiles(chunk, TILE_WALL, 62, 62, 64, 64)
+    fill_tiles(chunk, TILE_WALL, 96, 62, 98, 64)
+    fill_tiles(chunk, TILE_WALL, 68, 70, 70, 72)
+    fill_tiles(chunk, TILE_WALL, 90, 70, 92, 72)
+    fill_tiles(chunk, TILE_WALL, 74, 76, 76, 78)
+    fill_tiles(chunk, TILE_WALL, 84, 76, 86, 78)
+    # First Flame arena — more broken columns (DS3: ancient ruined circular arena)
+    fill_tiles(chunk, TILE_WALL, 52, 28, 54, 30)
+    fill_tiles(chunk, TILE_WALL, 106, 28, 108, 30)
+    fill_tiles(chunk, TILE_WALL, 58, 44, 60, 46)
+    fill_tiles(chunk, TILE_WALL, 100, 44, 102, 46)
+    fill_tiles(chunk, TILE_WALL, 66, 10, 68, 12)
+    fill_tiles(chunk, TILE_WALL, 92, 10, 94, 12)
+    fill_tiles(chunk, TILE_WALL, 70, 56, 72, 58)
+    fill_tiles(chunk, TILE_WALL, 88, 56, 90, 58)
+    fill_tiles(chunk, TILE_WALL, 62, 14, 64, 16)
+    fill_tiles(chunk, TILE_WALL, 96, 14, 98, 16)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -5614,7 +8724,176 @@ def make_consumed_kings_garden():
     fill_tiles(chunk, TILE_WALL, 130, 100, 132, 102)
     fill_tiles(chunk, TILE_WALL, 140, 108, 142, 110)
 
-    # --- Player spawn ---
+    # === ADDITIONAL CRYSTAL GARDEN DETAILS — DS3 fidelity ===
+    # Entry staircase — stone steps with crystal encrustation (DS3: crystal-covered descent)
+    fill_tiles(chunk, TILE_WALL, 10, 8, 12, 10)
+    fill_tiles(chunk, TILE_WALL, 22, 12, 24, 14)
+    fill_tiles(chunk, TILE_WALL, 32, 18, 34, 20)
+    fill_tiles(chunk, TILE_WALL, 16, 20, 18, 22)
+    # Crystal courtyard — large crystal clusters (DS3: courtyard full of crystal growths)
+    fill_tiles(chunk, TILE_WALL, 30, 36, 32, 38)
+    fill_tiles(chunk, TILE_WALL, 36, 42, 38, 44)
+    fill_tiles(chunk, TILE_WALL, 45, 36, 47, 38)
+    fill_tiles(chunk, TILE_WALL, 52, 40, 54, 42)
+    fill_tiles(chunk, TILE_WALL, 62, 48, 64, 50)
+    fill_tiles(chunk, TILE_WALL, 68, 38, 70, 40)
+    fill_tiles(chunk, TILE_WALL, 56, 55, 58, 57)
+    # Poison swamp — more dead trees and rotten logs (DS3: toxic garden with dead foliage)
+    fill_tiles(chunk, TILE_WALL, 42, 72, 44, 74)
+    fill_tiles(chunk, TILE_WALL, 55, 70, 57, 72)
+    fill_tiles(chunk, TILE_WALL, 48, 80, 50, 82)
+    fill_tiles(chunk, TILE_WALL, 62, 85, 64, 87)
+    fill_tiles(chunk, TILE_WALL, 38, 84, 40, 86)
+    fill_tiles(chunk, TILE_WALL, 66, 78, 68, 80)
+    # Serpent corridor — more serpent statue pillars (DS3: man-serpent guards line the path)
+    fill_tiles(chunk, TILE_WALL, 76, 54, 78, 56)
+    fill_tiles(chunk, TILE_WALL, 85, 62, 87, 64)
+    fill_tiles(chunk, TILE_WALL, 98, 68, 100, 70)
+    fill_tiles(chunk, TILE_WALL, 108, 58, 110, 60)
+    # Oceiros throne room — throne structure and baby crib area
+    # DS3: Oceiros guards a crib, throne room has crystal throne
+    fill_tiles(chunk, TILE_WALL, 118, 85, 122, 87)
+    fill_tiles(chunk, TILE_WALL, 128, 88, 130, 90)
+    fill_tiles(chunk, TILE_WALL, 135, 95, 137, 97)
+    fill_tiles(chunk, TILE_WALL, 105, 88, 107, 90)
+    fill_tiles(chunk, TILE_WALL, 142, 102, 144, 104)
+    fill_tiles(chunk, TILE_WALL, 120, 105, 122, 107)
+    # Lift mid-way ledge — crystal outcroppings (DS3: exterior ledge with crystals)
+    fill_tiles(chunk, TILE_WALL, 110, 56, 112, 58)
+    fill_tiles(chunk, TILE_WALL, 118, 60, 120, 62)
+    # Additional Consumed King's Garden DS3 details
+    # Entry passage — crystal-encrusted walls (DS3: crystals grow on the stonework)
+    fill_tiles(chunk, TILE_WALL, 14, 14, 15, 16)
+    fill_tiles(chunk, TILE_WALL, 28, 10, 29, 12)
+    # Crystal courtyard — scattered crystal shards (DS3: broken crystal debris)
+    fill_tiles(chunk, TILE_WALL, 40, 30, 41, 32)
+    fill_tiles(chunk, TILE_WALL, 58, 46, 59, 48)
+    fill_tiles(chunk, TILE_WALL, 48, 44, 49, 46)
+    # Poison swamp edge — reeds and toxic plants (DS3: toxic garden overgrowth)
+    fill_tiles(chunk, TILE_WALL, 35, 76, 36, 78)
+    fill_tiles(chunk, TILE_WALL, 70, 82, 71, 84)
+    fill_tiles(chunk, TILE_WALL, 52, 88, 53, 90)
+    # Serpent corridor — additional man-serpent alcoves (DS3: serpent warriors lurk in alcoves)
+    fill_tiles(chunk, TILE_WALL, 80, 66, 82, 68)
+    fill_tiles(chunk, TILE_WALL, 92, 72, 94, 74)
+    fill_tiles(chunk, TILE_WALL, 115, 62, 117, 64)
+    # Oceiros throne — baby crib stones (DS3: Oceiros cradles an invisible baby)
+    fill_tiles(chunk, TILE_WALL, 125, 92, 127, 94)
+    fill_tiles(chunk, TILE_WALL, 132, 98, 134, 100)
+    fill_tiles(chunk, TILE_WALL, 115, 98, 117, 100)
+
+    # ================================================================
+    # ADDITIONAL DS3 CONSUMED KING'S GARDEN — descent details, crystal growths
+    # ================================================================
+    # Entry — crystal-encrusted stair walls (DS3: crystals grow on descent)
+    fill_tiles(chunk, TILE_WALL, 8, 12, 10, 14)
+    fill_tiles(chunk, TILE_WALL, 20, 18, 22, 20)
+    fill_tiles(chunk, TILE_WALL, 14, 22, 16, 24)
+    fill_tiles(chunk, TILE_WALL, 26, 14, 28, 16)
+    # Crystal courtyard — more crystal clusters (DS3: garden full of crystal growths)
+    fill_tiles(chunk, TILE_WALL, 34, 40, 35, 42)
+    fill_tiles(chunk, TILE_WALL, 44, 36, 45, 38)
+    fill_tiles(chunk, TILE_WALL, 62, 44, 63, 46)
+    fill_tiles(chunk, TILE_WALL, 54, 48, 55, 50)
+    fill_tiles(chunk, TILE_WALL, 40, 54, 41, 56)
+    fill_tiles(chunk, TILE_WALL, 68, 50, 69, 52)
+    # Poison swamp — dead roots and fallen logs (DS3: toxic garden with dead foliage)
+    fill_tiles(chunk, TILE_WALL, 46, 74, 47, 76)
+    fill_tiles(chunk, TILE_WALL, 56, 80, 57, 82)
+    fill_tiles(chunk, TILE_WALL, 64, 76, 65, 78)
+    fill_tiles(chunk, TILE_WALL, 40, 86, 41, 88)
+    fill_tiles(chunk, TILE_WALL, 60, 88, 61, 90)
+    # Corridor — dragon statue pillars (DS3: path to Oceiros has dragon motifs)
+    fill_tiles(chunk, TILE_WALL, 75, 56, 76, 58)
+    fill_tiles(chunk, TILE_WALL, 88, 64, 89, 66)
+    fill_tiles(chunk, TILE_WALL, 98, 68, 99, 70)
+    fill_tiles(chunk, TILE_WALL, 104, 60, 105, 62)
+    # Throne room — additional crystal throne debris (DS3: Oceiros guards his invisible child)
+    fill_tiles(chunk, TILE_WALL, 110, 76, 111, 78)
+    fill_tiles(chunk, TILE_WALL, 122, 80, 123, 82)
+    fill_tiles(chunk, TILE_WALL, 135, 86, 136, 88)
+    fill_tiles(chunk, TILE_WALL, 140, 92, 141, 94)
+    fill_tiles(chunk, TILE_WALL, 128, 102, 129, 104)
+    fill_tiles(chunk, TILE_WALL, 138, 106, 139, 108)
+    # Lift mid-way ledge — crystal outcrops (DS3: hidden ledge with Dragonscale Ring)
+    fill_tiles(chunk, TILE_WALL, 112, 54, 113, 56)
+    fill_tiles(chunk, TILE_WALL, 120, 60, 121, 62)
+
+    # ================================================================
+    # DS3 CONSUMED KING'S GARDEN — final architectural fidelity pass
+    # ================================================================
+    # Entry descent — switchback stair walls (DS3: winding crystal stairs down)
+    fill_tiles(chunk, TILE_WALL, 10, 18, 11, 20)
+    fill_tiles(chunk, TILE_WALL, 24, 20, 25, 22)
+    fill_tiles(chunk, TILE_WALL, 18, 14, 19, 16)
+    # Crystal courtyard — central crystal fountain ruin (DS3: courtyard fountain with crystals)
+    fill_tiles(chunk, TILE_WALL, 50, 42, 52, 45)
+    fill_tiles(chunk, TILE_WALL, 46, 38, 48, 40)
+    fill_tiles(chunk, TILE_WALL, 54, 46, 56, 48)
+    # Lift shaft — elevator mechanism walls (DS3: lift descends between garden floors)
+    fill_tiles(chunk, TILE_WALL, 100, 58, 102, 60)
+    fill_tiles(chunk, TILE_WALL, 106, 64, 108, 66)
+    fill_tiles(chunk, TILE_WALL, 96, 62, 98, 64)
+    # Poison swamp — collapsed bridge pilings (DS3: rotten wooden bridge remains in toxic pool)
+    fill_tiles(chunk, TILE_WALL, 38, 78, 39, 80)
+    fill_tiles(chunk, TILE_WALL, 64, 84, 65, 86)
+    fill_tiles(chunk, TILE_WALL, 56, 72, 57, 74)
+    fill_tiles(chunk, TILE_WALL, 44, 88, 45, 90)
+    # Oceiros approach — crumbled stair edge walls (DS3: broken stairs lead to throne room)
+    fill_tiles(chunk, TILE_WALL, 108, 66, 109, 68)
+    fill_tiles(chunk, TILE_WALL, 114, 70, 115, 72)
+    fill_tiles(chunk, TILE_WALL, 122, 74, 123, 76)
+    fill_tiles(chunk, TILE_WALL, 128, 80, 129, 82)
+    # Oceiros throne room — baby crib stone circle (DS3: Oceiros cradles invisible child)
+    fill_tiles(chunk, TILE_WALL, 118, 88, 120, 90)
+    fill_tiles(chunk, TILE_WALL, 124, 94, 126, 96)
+    fill_tiles(chunk, TILE_WALL, 130, 102, 132, 104)
+    fill_tiles(chunk, TILE_WALL, 136, 108, 138, 110)
+    # Exterior ledge — Dragonscale Ring path walls (DS3: narrow ledge with crystal outcrops)
+    fill_tiles(chunk, TILE_WALL, 116, 56, 117, 58)
+    fill_tiles(chunk, TILE_WALL, 120, 60, 121, 62)
+    # Garden hedgerow — overgrown walls (DS3: wild garden consumed by crystal growth)
+    fill_tiles(chunk, TILE_WALL, 36, 44, 37, 46)
+    fill_tiles(chunk, TILE_WALL, 60, 50, 61, 52)
+    fill_tiles(chunk, TILE_WALL, 68, 40, 69, 42)
+
+    # ================================================================
+    # SESSION 9 FIDELITY PASS — ConsumedKingsGarden architectural details
+    # ================================================================
+    # Crystal garden path — crystallized flower beds (DS3: crystal formations everywhere)
+    fill_tiles(chunk, TILE_WALL, 18, 18, 19, 19)
+    fill_tiles(chunk, TILE_WALL, 24, 22, 25, 23)
+    fill_tiles(chunk, TILE_WALL, 14, 26, 15, 27)
+    fill_tiles(chunk, TILE_WALL, 28, 16, 29, 17)
+    # Consumed King's throne — shattered throne stones (DS3: Oceiros's ruined throne room)
+    fill_tiles(chunk, TILE_WALL, 80, 60, 81, 61)
+    fill_tiles(chunk, TILE_WALL, 84, 64, 85, 65)
+    fill_tiles(chunk, TILE_WALL, 76, 68, 77, 69)
+    fill_tiles(chunk, TILE_WALL, 88, 58, 89, 59)
+    fill_tiles(chunk, TILE_WALL, 82, 70, 83, 71)
+    # Crystal cavern — glowing crystal pillars (DS3: crystal cave beneath garden)
+    fill_tiles(chunk, TILE_WALL, 50, 80, 51, 81)
+    fill_tiles(chunk, TILE_WALL, 54, 84, 55, 85)
+    fill_tiles(chunk, TILE_WALL, 46, 88, 47, 89)
+    fill_tiles(chunk, TILE_WALL, 58, 78, 59, 79)
+    fill_tiles(chunk, TILE_WALL, 52, 90, 53, 91)
+    # Oceiros arena — baby crib stones (DS3: Oceiros cradles invisible child)
+    fill_tiles(chunk, TILE_WALL, 100, 40, 101, 41)
+    fill_tiles(chunk, TILE_WALL, 104, 44, 105, 45)
+    fill_tiles(chunk, TILE_WALL, 96, 48, 97, 49)
+    fill_tiles(chunk, TILE_WALL, 108, 38, 109, 39)
+    fill_tiles(chunk, TILE_WALL, 102, 50, 103, 51)
+    # Overgrown hedge maze — twisted roots (DS3: wild garden with crystal-infused plants)
+    fill_tiles(chunk, TILE_WALL, 32, 36, 33, 37)
+    fill_tiles(chunk, TILE_WALL, 38, 40, 39, 41)
+    fill_tiles(chunk, TILE_WALL, 34, 44, 35, 45)
+    fill_tiles(chunk, TILE_WALL, 40, 34, 41, 35)
+    # Untended Graves passage — dark stone arch (DS3: hidden passage behind Oceiros)
+    fill_tiles(chunk, TILE_WALL, 120, 56, 121, 57)
+    fill_tiles(chunk, TILE_WALL, 124, 60, 125, 61)
+    fill_tiles(chunk, TILE_WALL, 116, 64, 117, 65)
+
+        # --- Player spawn ---
     spawn_px, spawn_py = 15 * 16, 15 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
@@ -5625,32 +8904,30 @@ def make_consumed_kings_garden():
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 120 * 16, 88 * 16))  # Oceiros
 
-    # --- Enemies — DS3 Consumed King's Garden: Cathedral Knights, Serpent Men,
-    # Hollow Slaves (Thrall), Pus of Man (x3), Rotten Slugs, Lothric Priests
+    # --- Enemies — DS3 Consumed King's Garden (wiki-accurate):
+    # Cathedral Knights patrol the garden. Hollow Slaves ambush from dark corners.
+    # Pus of Man on wyvern-like creatures. Rotten Slugs in toxic water.
+    # No Serpent Men here (those are only in Archdragon Peak).
     enemy_data = [
-        # Consumed King's Knights (Cathedral Knight type) — heavy armor guards
-        ("ConsumedKingKnight", 32, 30), ("ConsumedKingKnight", 55, 40), ("ConsumedKingKnight", 112, 82),
-        ("ConsumedKingKnight", 98, 68),
-        # Serpent Men guard the path to Oceiros (correct — they serve Oceiros)
-        ("SerpentMan", 42, 38), ("SerpentMan", 80, 55), ("SerpentMan", 128, 90),
-        ("SerpentMan", 72, 48), ("SerpentMan", 95, 72),
-        # Hollow Slaves (Thrall) — ambush throughout the garden (DS3: Hollow Slaves not Soldiers)
+        # Cathedral Knights — heavy armor guards throughout the garden (DS3: 8+ knights)
+        ("CathedralKnight", 32, 30), ("CathedralKnight", 55, 40), ("CathedralKnight", 112, 82),
+        ("CathedralKnight", 98, 68), ("CathedralKnight", 42, 38), ("CathedralKnight", 72, 48),
+        ("CathedralKnight", 80, 55), ("CathedralKnight", 95, 72),
+        # Hollow Slaves (Thrall) — ambush throughout the garden
         ("Thrall", 35, 35), ("Thrall", 88, 62),
         ("Thrall", 22, 22), ("Thrall", 60, 32),
-        # Hollow Slaves (Thrall) — ambush in upper rooms
         ("Thrall", 90, 58), ("Thrall", 100, 64), ("Thrall", 108, 70),
         ("Thrall", 118, 78),
-        # Pus of Man — x3 in toxic swamp area (DS3 accurate count)
+        # Pus of Man — x3 on wyvern corpses (DS3 accurate count)
         ("PusOfMan", 52, 42), ("PusOfMan", 48, 76), ("PusOfMan", 58, 84),
-        # Rotten Slugs in poison swamp (Rat type for small creature)
-        # DS3 walkthrough: "several slugs" throughout toxic mist area
+        # Rotten Slugs in poison swamp (DS3: several slugs in toxic mist)
         ("Rat", 45, 70), ("Rat", 50, 75), ("Rat", 55, 78),
         ("Rat", 42, 78), ("Rat", 60, 82), ("Rat", 52, 84),
         ("Rat", 48, 72), ("Rat", 56, 68), ("Rat", 44, 82),
-        # Lothric Priests (DarkMage type)
-        ("DarkMage", 30, 28), ("DarkMage", 65, 44),
         # Crystal Lizard
         ("CrystalLizard", 68, 42),
+        # Boss — Oceiros, the Consumed King
+        ("MiniBoss", 120, 88),                                      # Oceiros boss entity
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -5713,7 +8990,7 @@ def make_consumed_kings_garden():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#7F8C8D"),
         make_field("dialogue", "String",
-            "I came to see Oceiros|The Consumed King|He holds the Path of the Dragon"),
+            "I came to see Oceiros, the Consumed King|He holds the secret of the Path of the Dragon|But it seems I am too late|The dragon stones may still be of use"),
     ]))
 
     # --- Fog Gates ---
@@ -5836,12 +9113,144 @@ def make_untended_graves():
     fill_tiles(chunk, TILE_WALL, 48, 65, 49, 67)
     fill_tiles(chunk, TILE_WALL, 70, 72, 71, 74)
 
-    # === Dark Firelink Shrine (SE) ===
+    # === EVEN MORE TOMBSTONES — dense DS3 cemetery ===
+    # Cemetery path — additional rows of graves (DS3: graveyard packed with headstones)
+    fill_tiles(chunk, TILE_WALL, 30, 24, 31, 26)
+    fill_tiles(chunk, TILE_WALL, 33, 32, 34, 34)
+    fill_tiles(chunk, TILE_WALL, 46, 30, 47, 32)
+    fill_tiles(chunk, TILE_WALL, 52, 38, 53, 40)
+    fill_tiles(chunk, TILE_WALL, 58, 42, 59, 44)
+    fill_tiles(chunk, TILE_WALL, 63, 34, 64, 36)
+    fill_tiles(chunk, TILE_WALL, 44, 36, 45, 38)
+    # Courtyard — broken walls and debris (DS3: ruined courtyard near Gundyr)
+    fill_tiles(chunk, TILE_WALL, 72, 46, 73, 48)
+    fill_tiles(chunk, TILE_WALL, 80, 54, 81, 56)
+    fill_tiles(chunk, TILE_WALL, 85, 58, 86, 60)
+    fill_tiles(chunk, TILE_WALL, 95, 62, 96, 64)
+    fill_tiles(chunk, TILE_WALL, 78, 64, 79, 66)
+    # Black Knight cemetery — dense tombstone rows
+    fill_tiles(chunk, TILE_WALL, 44, 58, 45, 60)
+    fill_tiles(chunk, TILE_WALL, 52, 62, 53, 64)
+    fill_tiles(chunk, TILE_WALL, 60, 58, 61, 60)
+    fill_tiles(chunk, TILE_WALL, 68, 66, 69, 68)
+    fill_tiles(chunk, TILE_WALL, 46, 72, 47, 74)
+    fill_tiles(chunk, TILE_WALL, 56, 68, 57, 70)
+    fill_tiles(chunk, TILE_WALL, 64, 74, 65, 76)
+    fill_tiles(chunk, TILE_WALL, 72, 70, 73, 72)
+
+    # === Champion Gundyr arena — broken fountain and ruins ===
+    # DS3: Gundyr fights in a dark version of the Cemetery of Ash arena
+    # Broken fountain in center
+    fill_tiles(chunk, TILE_WALL, 100, 78, 108, 80)
+    fill_tiles(chunk, TILE_WALL, 103, 75, 105, 83)
+    # Arena perimeter ruins
+    fill_tiles(chunk, TILE_WALL, 85, 68, 87, 72)
+    fill_tiles(chunk, TILE_WALL, 120, 85, 122, 88)
+    fill_tiles(chunk, TILE_WALL, 110, 95, 112, 98)
+    fill_tiles(chunk, TILE_WALL, 125, 92, 127, 95)
+    fill_tiles(chunk, TILE_WALL, 90, 90, 92, 93)
+    fill_tiles(chunk, TILE_WALL, 115, 98, 117, 100)
+    # Scattered debris
+    fill_tiles(chunk, TILE_WALL, 108, 88, 110, 90)
+    fill_tiles(chunk, TILE_WALL, 98, 92, 100, 94)
+
+    # === Dark coffin entry details ===
+    # DS3: you wake up in a coffin, small enclosed stone chamber
+    fill_tiles(chunk, TILE_WALL, 10, 12, 12, 14)
+    fill_tiles(chunk, TILE_WALL, 18, 10, 20, 12)
+    fill_tiles(chunk, TILE_WALL, 14, 18, 16, 20)
+
+    # === Dark Firelink Shrine (SE) — dark mirror of Firelink ===
     fill_tiles(chunk, TILE_GROUND, 115, 95, 150, 130)
     carve_ellipse(chunk, 132, 112, 12, 10)
-    # Shrine walls
+    # Shrine interior walls — dark coiled sword spot (DS3: no fire, just dark)
+    fill_tiles(chunk, TILE_WALL, 128, 108, 132, 110)
+    fill_tiles(chunk, TILE_WALL, 136, 108, 140, 110)
+    # Throne room walls — 5 empty Lord of Cinder thrones (DS3: dark version)
+    fill_tiles(chunk, TILE_WALL, 118, 98, 120, 102)
+    fill_tiles(chunk, TILE_WALL, 125, 96, 127, 100)
+    fill_tiles(chunk, TILE_WALL, 138, 96, 140, 100)
+    fill_tiles(chunk, TILE_WALL, 145, 98, 147, 102)
+    # Dark Handmaid alcove
+    fill_tiles(chunk, TILE_WALL, 130, 118, 132, 122)
+    # Shrine exterior walls
     fill_tiles(chunk, TILE_WALL, 122, 100, 124, 105)
     fill_tiles(chunk, TILE_WALL, 140, 115, 142, 120)
+    # Dark shrine entrance pillars
+    fill_tiles(chunk, TILE_WALL, 116, 104, 118, 108)
+    fill_tiles(chunk, TILE_WALL, 146, 104, 148, 108)
+
+    # === ADDITIONAL DS3 UNTENDED GRAVES — shrine architecture, cemetery depth ===
+    # Dark Firelink Shrine — Andre's anvil alcove (DS3: dark Andre works silently)
+    fill_tiles(chunk, TILE_WALL, 134, 110, 136, 114)
+    fill_tiles(chunk, TILE_WALL, 130, 114, 132, 118)
+    # Shrine — Ludleth's throne seat (DS3: Ludleth present in dark shrine)
+    fill_tiles(chunk, TILE_WALL, 142, 106, 144, 109)
+    # Shrine — Fire Keeper's enclosure (DS3: dark Fire Keeper stands in silence)
+    fill_tiles(chunk, TILE_WALL, 136, 120, 138, 124)
+    fill_tiles(chunk, TILE_WALL, 142, 122, 144, 126)
+    # Shrine — shattered coiled sword debris (DS3: sword present but unlit)
+    fill_tiles(chunk, TILE_WALL, 128, 114, 130, 116)
+    fill_tiles(chunk, TILE_WALL, 134, 116, 136, 118)
+    # Cemetery — collapsed grave walls (DS3: dark cemetery with fallen headstones)
+    fill_tiles(chunk, TILE_WALL, 30, 32, 31, 34)
+    fill_tiles(chunk, TILE_WALL, 36, 36, 37, 38)
+    fill_tiles(chunk, TILE_WALL, 54, 40, 55, 42)
+    fill_tiles(chunk, TILE_WALL, 48, 44, 49, 46)
+    fill_tiles(chunk, TILE_WALL, 62, 46, 63, 48)
+    # Gundyr arena — collapsed arch stones (DS3: mirror of Cemetery of Ash arena)
+    fill_tiles(chunk, TILE_WALL, 92, 74, 94, 76)
+    fill_tiles(chunk, TILE_WALL, 112, 82, 114, 84)
+    fill_tiles(chunk, TILE_WALL, 102, 90, 104, 92)
+    fill_tiles(chunk, TILE_WALL, 122, 88, 124, 90)
+    fill_tiles(chunk, TILE_WALL, 96, 86, 98, 88)
+    # Dark path — dead tree stumps (DS3: withered trees in darkness)
+    fill_tiles(chunk, TILE_WALL, 22, 18, 24, 20)
+    fill_tiles(chunk, TILE_WALL, 68, 42, 70, 44)
+
+    # === SESSION 6 FIDELITY PASS — Untended Graves ===
+    # Dark coffin entry — stone lid debris (DS3: coffin you wake up in breaks open)
+    fill_tiles(chunk, TILE_WALL, 12, 8, 14, 10)
+    fill_tiles(chunk, TILE_WALL, 22, 14, 24, 16)
+    fill_tiles(chunk, TILE_WALL, 8, 16, 10, 18)
+    fill_tiles(chunk, TILE_WALL, 26, 10, 28, 12)
+    # Dark cemetery path — more fallen headstones (DS3: destroyed graveyard)
+    fill_tiles(chunk, TILE_WALL, 34, 26, 36, 28)
+    fill_tiles(chunk, TILE_WALL, 40, 32, 42, 34)
+    fill_tiles(chunk, TILE_WALL, 56, 36, 58, 38)
+    fill_tiles(chunk, TILE_WALL, 50, 40, 52, 42)
+    fill_tiles(chunk, TILE_WALL, 60, 44, 62, 46)
+    fill_tiles(chunk, TILE_WALL, 44, 42, 46, 44)
+    # Dark courtyard — more broken walls (DS3: ruined structure near Gundyr approach)
+    fill_tiles(chunk, TILE_WALL, 64, 52, 66, 54)
+    fill_tiles(chunk, TILE_WALL, 74, 56, 76, 58)
+    fill_tiles(chunk, TILE_WALL, 84, 60, 86, 62)
+    fill_tiles(chunk, TILE_WALL, 90, 64, 92, 66)
+    fill_tiles(chunk, TILE_WALL, 78, 66, 80, 68)
+    # Black Knight cemetery — more dense graves (DS3: dark mirror cemetery)
+    fill_tiles(chunk, TILE_WALL, 40, 56, 42, 58)
+    fill_tiles(chunk, TILE_WALL, 54, 60, 56, 62)
+    fill_tiles(chunk, TILE_WALL, 62, 64, 64, 66)
+    fill_tiles(chunk, TILE_WALL, 66, 72, 68, 74)
+    fill_tiles(chunk, TILE_WALL, 52, 70, 54, 72)
+    fill_tiles(chunk, TILE_WALL, 74, 68, 76, 70)
+    # Gundyr arena — more collapsed arch stones (DS3: mirror of Cemetery of Ash arena)
+    fill_tiles(chunk, TILE_WALL, 86, 72, 88, 74)
+    fill_tiles(chunk, TILE_WALL, 116, 84, 118, 86)
+    fill_tiles(chunk, TILE_WALL, 100, 88, 102, 90)
+    fill_tiles(chunk, TILE_WALL, 120, 92, 122, 94)
+    fill_tiles(chunk, TILE_WALL, 106, 94, 108, 96)
+    # Dark Firelink — more shrine interior walls (DS3: exact dark mirror of Firelink)
+    fill_tiles(chunk, TILE_WALL, 120, 102, 122, 104)
+    fill_tiles(chunk, TILE_WALL, 148, 102, 150, 104)
+    fill_tiles(chunk, TILE_WALL, 124, 110, 126, 112)
+    fill_tiles(chunk, TILE_WALL, 144, 110, 146, 112)
+    fill_tiles(chunk, TILE_WALL, 132, 124, 134, 126)
+    fill_tiles(chunk, TILE_WALL, 138, 126, 140, 128)
+    # Dark path connections — more debris along route
+    fill_tiles(chunk, TILE_WALL, 20, 22, 22, 24)
+    fill_tiles(chunk, TILE_WALL, 72, 48, 74, 50)
+    fill_tiles(chunk, TILE_WALL, 82, 70, 84, 72)
 
     # === Connections ===
     # Entry -> Cemetery path (already adjacent)
@@ -5854,7 +9263,50 @@ def make_untended_graves():
     # Arena -> Dark Firelink
     fill_tiles(chunk, TILE_GROUND, 115, 88, 122, 98)
 
-    # --- Player spawn ---
+    # ================================================================
+    # SESSION 9 FIDELITY PASS — UntendedGraves architectural details
+    # ================================================================
+    # Dark cemetery entry — collapsed coffin stones (DS3: broken coffins at entrance)
+    fill_tiles(chunk, TILE_WALL, 18, 18, 19, 19)
+    fill_tiles(chunk, TILE_WALL, 24, 22, 25, 23)
+    fill_tiles(chunk, TILE_WALL, 14, 26, 15, 27)
+    fill_tiles(chunk, TILE_WALL, 28, 16, 29, 17)
+    # Dark cemetery path — tilted gravestones (DS3: dark version of Cemetery of Ash)
+    fill_tiles(chunk, TILE_WALL, 34, 32, 35, 33)
+    fill_tiles(chunk, TILE_WALL, 38, 36, 39, 37)
+    fill_tiles(chunk, TILE_WALL, 30, 40, 31, 41)
+    fill_tiles(chunk, TILE_WALL, 40, 28, 41, 29)
+    fill_tiles(chunk, TILE_WALL, 36, 44, 37, 45)
+    # Knight cemetery — black knight armor stands (DS3: suits of armor as decoration)
+    fill_tiles(chunk, TILE_WALL, 46, 50, 47, 51)
+    fill_tiles(chunk, TILE_WALL, 50, 54, 51, 55)
+    fill_tiles(chunk, TILE_WALL, 42, 58, 43, 59)
+    fill_tiles(chunk, TILE_WALL, 54, 48, 55, 49)
+    fill_tiles(chunk, TILE_WALL, 48, 60, 49, 61)
+    # Gundyr arena approach — eroded stone arches (DS3: same layout as Cemetery of Ash but darker)
+    fill_tiles(chunk, TILE_WALL, 60, 66, 61, 67)
+    fill_tiles(chunk, TILE_WALL, 64, 70, 65, 71)
+    fill_tiles(chunk, TILE_WALL, 56, 74, 57, 75)
+    fill_tiles(chunk, TILE_WALL, 68, 64, 69, 65)
+    # Gundyr arena — darkened perimeter ruins (DS3: identical to Iudex arena but unlit)
+    fill_tiles(chunk, TILE_WALL, 80, 72, 81, 73)
+    fill_tiles(chunk, TILE_WALL, 84, 76, 85, 77)
+    fill_tiles(chunk, TILE_WALL, 76, 80, 77, 81)
+    fill_tiles(chunk, TILE_WALL, 88, 70, 89, 71)
+    fill_tiles(chunk, TILE_WALL, 82, 82, 83, 83)
+    # Dark Firelink Shrine — extinguished coiled sword stump (DS3: dark version of Firelink)
+    fill_tiles(chunk, TILE_WALL, 100, 88, 101, 89)
+    fill_tiles(chunk, TILE_WALL, 104, 92, 105, 93)
+    fill_tiles(chunk, TILE_WALL, 96, 96, 97, 97)
+    fill_tiles(chunk, TILE_WALL, 108, 86, 109, 87)
+    fill_tiles(chunk, TILE_WALL, 102, 98, 103, 99)
+    fill_tiles(chunk, TILE_WALL, 112, 94, 113, 95)
+    # Shrine interior — darkened stone pillars (DS3: same layout but no fire)
+    fill_tiles(chunk, TILE_WALL, 118, 90, 119, 91)
+    fill_tiles(chunk, TILE_WALL, 124, 94, 125, 95)
+    fill_tiles(chunk, TILE_WALL, 116, 98, 117, 99)
+
+        # --- Player spawn ---
     spawn_px, spawn_py = 15 * 16, 15 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
@@ -5865,34 +9317,25 @@ def make_untended_graves():
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 105 * 16, 78 * 16))  # Champion Gundyr
 
-    # --- Enemies — DS3 Untended Graves: Black Knights, Pus of Man, Cathedral Grave Wardens,
-    # Grave Wardens, Starved Hounds, Corvians, Corvian Storytellers, Ravenous Crystal Lizard.
-    # Champion Gundyr is the boss. Daughter of Crystal Kriemhild invades (MiniBoss).
+    # --- Enemies — DS3 Untended Graves (wiki-accurate):
+    # Black Knights are the primary enemies — dark mirror of Cemetery of Ash.
+    # No Grave Wardens, Corvians, or Pus of Man in this area (those belong elsewhere).
+    # Champion Gundyr is the boss.
     enemy_data = [
-        # Dark cemetery path — Black Knights patrol (DS3: 5 Black Knights total)
-        ("BlackKnight", 45, 35), ("BlackKnight", 62, 45),
-        ("BlackKnight", 75, 50), ("BlackKnight", 55, 60),
-        ("BlackKnight", 88, 58),
-        # Starved Hounds — undead dogs in the dark graveyard (DS3: multiple packs)
-        ("StarvedHound", 30, 25), ("StarvedHound", 48, 42),
-        ("StarvedHound", 60, 38), ("StarvedHound", 70, 52),
-        ("StarvedHound", 42, 48),
-        # Crystal Lizard near entry
+        # Black Knights — DS3: 4 Black Knights patrol the dark cemetery
+        # (1 near cemetery path, 1 in middle courtyard, 1 near Gundyr approach, 1 near dark Firelink)
+        ("BlackKnight", 45, 35),                                     # Cemetery path (greatsword)
+        ("BlackKnight", 62, 45),                                     # Middle courtyard (sword+shield)
+        ("BlackKnight", 75, 55),                                     # Gundyr approach (halberd)
+        ("BlackKnight", 88, 58),                                     # Near arena edge (greatsword)
+        # Starved Hounds — DS3: 2 hounds in the dark cemetery
+        ("StarvedHound", 48, 42), ("StarvedHound", 70, 52),
+        # Crystal Lizard — DS3: 1 near cemetery path
         ("CrystalLizard", 40, 32),
-        # Ravenous Crystal Lizard — larger variant near Dark Firelink (DS3: 2 Ravenous Crystal Lizards)
+        # Ravenous Crystal Lizard — DS3: 2 near Dark Firelink area
         ("CrystalLizard", 125, 105), ("CrystalLizard", 130, 110),
-        # Pus of Man — dark infected enemies in cemetery area (DS3 has 2)
-        ("PusOfMan", 35, 30), ("PusOfMan", 72, 56),
-        # Cathedral Grave Wardens — dual-wielding grave wardens in the dark cemetery
-        ("CathedralGraveWarden", 50, 38), ("CathedralGraveWarden", 65, 45),
-        ("CathedralGraveWarden", 42, 55), ("CathedralGraveWarden", 80, 60),
-        ("CathedralGraveWarden", 55, 68),
-        # Corvians (Assassin type) — lurk in the dark cemetery corners
-        ("Assassin", 38, 40), ("Assassin", 58, 52), ("Assassin", 45, 62),
-        # Corvian Storyteller (DarkMage type) — perched near tombstones
-        ("DarkMage", 48, 48), ("DarkMage", 70, 62),
-        # Daughter of Crystal Kriemhild — invader near Dark Firelink area
-        ("MiniBoss", 120, 98),
+        # Boss — Champion Gundyr
+        ("MiniBoss", 105, 78),                                      # Champion Gundyr boss entity
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -5956,7 +9399,7 @@ def make_untended_graves():
         make_field("kind", "LocalEnum.NpcKind", "Merchant"),
         make_field("color", "Color", "#606060"),
         make_field("dialogue", "String",
-            "What is it?|The fire has long been out|I will tend to the ash"),
+            "What is it? There is only dark here|The fire has long been out|I will tend to the ash, as I always have|There is nothing else for it"),
     ]))
 
     # --- Fog Gate ---
@@ -6109,7 +9552,147 @@ def make_archdragon_peak():
     fill_tiles(chunk, TILE_WALL, 115, 105, 117, 108)
     fill_tiles(chunk, TILE_WALL, 150, 100, 152, 103)
 
-    # --- Player spawn ---
+    # === MORE ARCHDRAGON PEAK DETAILS — DS3 fidelity ===
+    # Mountain entry — stone steps and cliff walls (DS3: path winds up the mountain)
+    fill_tiles(chunk, TILE_WALL, 10, 115, 12, 118)
+    fill_tiles(chunk, TILE_WALL, 22, 128, 24, 130)
+    fill_tiles(chunk, TILE_WALL, 30, 135, 32, 138)
+    fill_tiles(chunk, TILE_WALL, 16, 140, 18, 142)
+    fill_tiles(chunk, TILE_WALL, 28, 142, 30, 145)
+    # Serpent barracks — more training grounds walls
+    # DS3: outdoor training area with serpent-man warriors
+    fill_tiles(chunk, TILE_WALL, 30, 88, 32, 90)
+    fill_tiles(chunk, TILE_WALL, 45, 95, 47, 97)
+    fill_tiles(chunk, TILE_WALL, 55, 98, 57, 100)
+    fill_tiles(chunk, TILE_WALL, 40, 108, 42, 110)
+    fill_tiles(chunk, TILE_WALL, 62, 108, 64, 110)
+    fill_tiles(chunk, TILE_WALL, 35, 115, 37, 118)
+    fill_tiles(chunk, TILE_WALL, 50, 112, 52, 114)
+    # Wyvern arena — more dragon skeleton debris (DS3: massive dead dragon bones)
+    fill_tiles(chunk, TILE_WALL, 38, 58, 40, 60)
+    fill_tiles(chunk, TILE_WALL, 48, 65, 50, 67)
+    fill_tiles(chunk, TILE_WALL, 60, 58, 62, 60)
+    fill_tiles(chunk, TILE_WALL, 70, 72, 72, 74)
+    fill_tiles(chunk, TILE_WALL, 42, 78, 44, 80)
+    fill_tiles(chunk, TILE_WALL, 75, 82, 77, 84)
+    # Dragon-Kin Mausoleum — altar and dragon statue walls
+    # DS3: interior with dragon altar, serpent-man summoners
+    fill_tiles(chunk, TILE_WALL, 65, 40, 67, 42)
+    fill_tiles(chunk, TILE_WALL, 75, 45, 77, 47)
+    fill_tiles(chunk, TILE_WALL, 82, 52, 84, 54)
+    fill_tiles(chunk, TILE_WALL, 92, 45, 94, 47)
+    fill_tiles(chunk, TILE_WALL, 88, 55, 90, 57)
+    # Storm path — wind-sculpted rocks and ruins (DS3: ascending path with lightning)
+    fill_tiles(chunk, TILE_WALL, 92, 30, 94, 32)
+    fill_tiles(chunk, TILE_WALL, 102, 35, 104, 37)
+    fill_tiles(chunk, TILE_WALL, 110, 45, 112, 47)
+    fill_tiles(chunk, TILE_WALL, 120, 38, 122, 40)
+    fill_tiles(chunk, TILE_WALL, 98, 50, 100, 52)
+    # Great Belfry — bell tower architecture (DS3: massive bell structure)
+    fill_tiles(chunk, TILE_WALL, 110, 14, 112, 16)
+    fill_tiles(chunk, TILE_WALL, 125, 15, 127, 18)
+    fill_tiles(chunk, TILE_WALL, 135, 18, 137, 20)
+    fill_tiles(chunk, TILE_WALL, 120, 30, 122, 32)
+    fill_tiles(chunk, TILE_WALL, 132, 28, 134, 30)
+    # Nameless arena — more storm debris (DS3: lightning-scorched mountaintop)
+    fill_tiles(chunk, TILE_WALL, 105, 78, 107, 80)
+    fill_tiles(chunk, TILE_WALL, 118, 82, 120, 84)
+    fill_tiles(chunk, TILE_WALL, 138, 85, 140, 88)
+    fill_tiles(chunk, TILE_WALL, 125, 98, 127, 100)
+    fill_tiles(chunk, TILE_WALL, 145, 105, 147, 108)
+    fill_tiles(chunk, TILE_WALL, 132, 108, 134, 110)
+    fill_tiles(chunk, TILE_WALL, 148, 95, 150, 98)
+
+    # === SESSION 6 FIDELITY PASS — Archdragon Peak ===
+    # Mountain entry — rocky cliff faces (DS3: steep mountain path with stone steps)
+    fill_tiles(chunk, TILE_WALL, 8, 112, 10, 114)
+    fill_tiles(chunk, TILE_WALL, 14, 125, 16, 127)
+    fill_tiles(chunk, TILE_WALL, 24, 132, 26, 134)
+    fill_tiles(chunk, TILE_WALL, 32, 140, 34, 142)
+    fill_tiles(chunk, TILE_WALL, 12, 138, 14, 140)
+    # Serpent barracks — weapon racks and pillars (DS3: outdoor arena with stone pillars)
+    fill_tiles(chunk, TILE_WALL, 28, 92, 30, 94)
+    fill_tiles(chunk, TILE_WALL, 44, 100, 46, 102)
+    fill_tiles(chunk, TILE_WALL, 56, 102, 58, 104)
+    fill_tiles(chunk, TILE_WALL, 64, 112, 66, 114)
+    fill_tiles(chunk, TILE_WALL, 42, 112, 44, 114)
+    fill_tiles(chunk, TILE_WALL, 54, 115, 56, 117)
+    # Wyvern arena — massive dragon ribs (DS3: huge dragon skeleton on bridge)
+    fill_tiles(chunk, TILE_WALL, 36, 52, 38, 54)
+    fill_tiles(chunk, TILE_WALL, 62, 62, 64, 64)
+    fill_tiles(chunk, TILE_WALL, 74, 76, 76, 78)
+    fill_tiles(chunk, TILE_WALL, 46, 76, 48, 78)
+    fill_tiles(chunk, TILE_WALL, 56, 80, 58, 82)
+    # Mausoleum — dragon stone altar details (DS3: dragon-kin meditation chamber)
+    fill_tiles(chunk, TILE_WALL, 68, 44, 70, 46)
+    fill_tiles(chunk, TILE_WALL, 76, 50, 78, 52)
+    fill_tiles(chunk, TILE_WALL, 84, 46, 86, 48)
+    fill_tiles(chunk, TILE_WALL, 94, 42, 96, 44)
+    fill_tiles(chunk, TILE_WALL, 66, 56, 68, 58)
+    # Storm path — lightning-charred rocks (DS3: storm-swept mountain ridge)
+    fill_tiles(chunk, TILE_WALL, 90, 34, 92, 36)
+    fill_tiles(chunk, TILE_WALL, 108, 38, 110, 40)
+    fill_tiles(chunk, TILE_WALL, 116, 40, 118, 42)
+    fill_tiles(chunk, TILE_WALL, 96, 44, 98, 46)
+    fill_tiles(chunk, TILE_WALL, 124, 35, 126, 37)
+    # Belfry — tower arch buttresses (DS3: massive bell tower with stone arches)
+    fill_tiles(chunk, TILE_WALL, 106, 12, 108, 14)
+    fill_tiles(chunk, TILE_WALL, 122, 12, 124, 14)
+    fill_tiles(chunk, TILE_WALL, 138, 20, 140, 22)
+    fill_tiles(chunk, TILE_WALL, 116, 32, 118, 34)
+    fill_tiles(chunk, TILE_WALL, 130, 30, 132, 32)
+    # Nameless arena — storm-battered summit (DS3: open sky arena on peak)
+    fill_tiles(chunk, TILE_WALL, 102, 72, 104, 74)
+    fill_tiles(chunk, TILE_WALL, 130, 78, 132, 80)
+    fill_tiles(chunk, TILE_WALL, 142, 88, 144, 90)
+    fill_tiles(chunk, TILE_WALL, 136, 98, 138, 100)
+    fill_tiles(chunk, TILE_WALL, 148, 102, 150, 104)
+    fill_tiles(chunk, TILE_WALL, 122, 112, 124, 114)
+
+    # ================================================================
+    # SESSION 9 FIDELITY PASS — ArchdragonPeak architectural details
+    # ================================================================
+    # Entry path — dragon-crest pillars (DS3: ornate pillars with dragon motifs)
+    fill_tiles(chunk, TILE_WALL, 16, 128, 17, 129)
+    fill_tiles(chunk, TILE_WALL, 22, 130, 23, 131)
+    fill_tiles(chunk, TILE_WALL, 12, 134, 13, 135)
+    fill_tiles(chunk, TILE_WALL, 26, 126, 27, 127)
+    # Ancient dragon ruins — petrified dragon bones (DS3: massive skeletal remains)
+    fill_tiles(chunk, TILE_WALL, 34, 118, 35, 119)
+    fill_tiles(chunk, TILE_WALL, 38, 122, 39, 123)
+    fill_tiles(chunk, TILE_WALL, 30, 124, 31, 125)
+    fill_tiles(chunk, TILE_WALL, 42, 116, 43, 117)
+    fill_tiles(chunk, TILE_WALL, 36, 126, 37, 127)
+    # Serpent-Man temple — carved stone serpents (DS3: serpent imagery everywhere)
+    fill_tiles(chunk, TILE_WALL, 52, 108, 53, 109)
+    fill_tiles(chunk, TILE_WALL, 56, 112, 57, 113)
+    fill_tiles(chunk, TILE_WALL, 48, 114, 49, 115)
+    fill_tiles(chunk, TILE_WALL, 60, 106, 61, 107)
+    # Belfry — giant bell stone supports (DS3: massive bell structure)
+    fill_tiles(chunk, TILE_WALL, 68, 96, 69, 97)
+    fill_tiles(chunk, TILE_WALL, 72, 100, 73, 101)
+    fill_tiles(chunk, TILE_WALL, 64, 102, 65, 103)
+    fill_tiles(chunk, TILE_WALL, 76, 94, 77, 95)
+    fill_tiles(chunk, TILE_WALL, 70, 104, 71, 105)
+    # Dragon-Kin Mausoleum — ritual altar stones (DS3: meditation area)
+    fill_tiles(chunk, TILE_WALL, 80, 86, 81, 87)
+    fill_tiles(chunk, TILE_WALL, 84, 90, 85, 91)
+    fill_tiles(chunk, TILE_WALL, 76, 92, 77, 93)
+    fill_tiles(chunk, TILE_WALL, 88, 84, 89, 85)
+    # Nameless King arena — storm-worn pillars (DS3: arena atop the peak)
+    fill_tiles(chunk, TILE_WALL, 120, 72, 121, 73)
+    fill_tiles(chunk, TILE_WALL, 126, 76, 127, 77)
+    fill_tiles(chunk, TILE_WALL, 132, 70, 133, 71)
+    fill_tiles(chunk, TILE_WALL, 138, 74, 139, 75)
+    fill_tiles(chunk, TILE_WALL, 116, 80, 117, 81)
+    fill_tiles(chunk, TILE_WALL, 144, 78, 145, 79)
+    # Twisted stone formations (DS3: wind-sculpted rock on the peak)
+    fill_tiles(chunk, TILE_WALL, 100, 92, 101, 93)
+    fill_tiles(chunk, TILE_WALL, 108, 88, 109, 89)
+    fill_tiles(chunk, TILE_WALL, 104, 96, 105, 97)
+    fill_tiles(chunk, TILE_WALL, 112, 84, 113, 85)
+
+        # --- Player spawn ---
     spawn_px, spawn_py = 18 * 16, 132 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
@@ -6264,7 +9847,7 @@ def make_archdragon_peak():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#7F8C8D"),
         make_field("dialogue", "String",
-            "The Nameless King awaits|He is the firstborn of Gwyn|I must face him alone"),
+            "The Nameless King awaits atop this peak|He is the firstborn of Gwyn, Lord of Cinder|I have come this far to face him|The dragons and their secrets end here"),
     ]))
 
     # --- Fog Gate ---

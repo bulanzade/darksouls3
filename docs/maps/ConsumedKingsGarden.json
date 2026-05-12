@@ -2,7 +2,7 @@
   "id": "ConsumedKingsGarden",
   "name": "妖王庭园",
   "name_en": "Consumed King's Garden",
-  "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
+  "description": "Poison-filled garden beneath Lothric Castle. Cathedral Knights and Winged Knights guard the path to Oceiros.",
   "theme": "poison garden",
   "map_size": {
     "width": 4096,
@@ -16,37 +16,16 @@
       "UntendedGraves"
     ]
   },
-  "restoration": {
-    "status": "clean_rebuild_topology_projection",
-    "authoritative_fields": [
-      "area id/name",
-      "connections",
-      "bonfire names",
-      "boss identity"
-    ],
-    "projection_fields": [
-      "map_size",
-      "sections coordinates",
-      "fog gate coordinates"
-    ],
-    "excluded_until_sourced": [
-      "enemy placements",
-      "item placements",
-      "NPC dialogue",
-      "chest placements"
-    ],
-    "note": "This file intentionally avoids inherited fabricated precise data."
-  },
   "bonfires": [
     {
-      "name": "妖王庭园",
+      "name": "吞噬神的艾尔德里奇",
       "name_en": "Consumed King's Garden",
       "x": 620,
       "y": 620,
       "source_status": "official_name_projected_position"
     },
     {
-      "name": "妖王欧斯罗艾斯",
+      "name": "欧斯罗艾斯",
       "name_en": "Oceiros, the Consumed King",
       "x": 3060,
       "y": 2680,
@@ -54,7 +33,7 @@
     }
   ],
   "map_layout": {
-    "basis": "Clean gameplay 2D projection of Dark Souls III route topology. Not official coordinate geometry.",
+    "basis": "Poison swamp garden with dark variant knights guarding the path to the Consumed King. Hidden illusory wall leads to Untended Graves.",
     "sections": [
       {
         "name": "舞娘下层升降机",
@@ -64,7 +43,73 @@
         "y": 420,
         "w": 760,
         "h": 520,
-        "terrain_features": [],
+        "terrain_features": [
+          "elevator_shaft",
+          "stone_walls",
+          "iron_gate",
+          "lantern_sconces"
+        ],
+        "enemies": [
+          {
+            "kind": "CathedralKnight",
+            "name_en": "Cathedral Knight (dark, entry)",
+            "x": 780,
+            "y": 580,
+            "count": 1
+          },
+          {
+            "kind": "CathedralKnight",
+            "name_en": "Cathedral Knight (dark, entry stairs)",
+            "x": 920,
+            "y": 680,
+            "count": 1
+          },
+          {
+            "kind": "Thrall",
+            "name_en": "Hollow Slave (entry ambush)",
+            "x": 620,
+            "y": 540,
+            "count": 1
+          }
+        ],
+        "npcs": [],
+        "items": [
+          {
+            "kind": "SoulOrb",
+            "name_en": "Soul of a Nameless Soldier",
+            "x": 560,
+            "y": 540,
+            "value": 400
+          },
+          {
+            "kind": "TitaniteShard",
+            "name_en": "Titanite Shard",
+            "x": 720,
+            "y": 600,
+            "value": 0
+          }
+        ],
+        "chests": [],
+        "lights": [
+          {
+            "x": 620,
+            "y": 620,
+            "radius": 140,
+            "r": 0.9,
+            "g": 0.8,
+            "b": 0.5,
+            "intensity": 0.4
+          },
+          {
+            "x": 520,
+            "y": 520,
+            "radius": 100,
+            "r": 1.0,
+            "g": 0.85,
+            "b": 0.4,
+            "intensity": 0.3
+          }
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -76,7 +121,219 @@
         "w": 1200,
         "h": 820,
         "terrain_features": [
-          "poison swamp"
+          "毒沼花园",
+          "poison swamp",
+          "dead trees",
+          "toxic water"
+        ],
+        "enemies": [
+          {
+            "kind": "CathedralKnight",
+            "name_en": "Cathedral Knight (dark, garden upper)",
+            "x": 1020,
+            "y": 1300,
+            "count": 1
+          },
+          {
+            "kind": "CathedralKnight",
+            "name_en": "Cathedral Knight (dark, garden mid)",
+            "x": 1200,
+            "y": 1440,
+            "count": 1
+          },
+          {
+            "kind": "CathedralKnight",
+            "name_en": "Cathedral Knight (garden lower)",
+            "x": 1400,
+            "y": 1560,
+            "count": 1
+          },
+          {
+            "kind": "PusOfMan",
+            "name_en": "Pus of Man (garden stairs)",
+            "x": 1100,
+            "y": 1520,
+            "count": 1
+          },
+          {
+            "kind": "PusOfMan",
+            "name_en": "Pus of Man (garden center)",
+            "x": 1280,
+            "y": 1640,
+            "count": 1
+          },
+          {
+            "kind": "PusOfMan",
+            "name_en": "Pus of Man (garden deep)",
+            "x": 1550,
+            "y": 1780,
+            "count": 1
+          },
+          {
+            "kind": "Thrall",
+            "name_en": "Hollow Slave (garden left)",
+            "x": 1300,
+            "y": 1700,
+            "count": 1
+          },
+          {
+            "kind": "Thrall",
+            "name_en": "Hollow Slave (garden center)",
+            "x": 1460,
+            "y": 1720,
+            "count": 1
+          },
+          {
+            "kind": "Thrall",
+            "name_en": "Hollow Slave (garden right)",
+            "x": 1620,
+            "y": 1800,
+            "count": 1
+          },
+          {
+            "kind": "Rat",
+            "name_en": "Rotten Slug (toxic water 1)",
+            "x": 1150,
+            "y": 1580,
+            "count": 1
+          },
+          {
+            "kind": "Rat",
+            "name_en": "Rotten Slug (toxic water 2)",
+            "x": 1350,
+            "y": 1660,
+            "count": 1
+          },
+          {
+            "kind": "Rat",
+            "name_en": "Rotten Slug (toxic water 3)",
+            "x": 1500,
+            "y": 1760,
+            "count": 1
+          },
+          {
+            "kind": "Rat",
+            "name_en": "Rotten Slug (toxic water 4)",
+            "x": 1700,
+            "y": 1850,
+            "count": 1
+          },
+          {
+            "kind": "CrystalLizard",
+            "name_en": "Crystal Lizard (garden edge)",
+            "x": 1840,
+            "y": 1800,
+            "count": 1
+          }
+        ],
+        "npcs": [],
+        "items": [
+          {
+            "kind": "EstusShard",
+            "name_en": "Estus Shard",
+            "x": 1080,
+            "y": 1340,
+            "value": 0
+          },
+          {
+            "kind": "TitaniteShard",
+            "name_en": "Large Titanite Shard",
+            "x": 1300,
+            "y": 1480,
+            "value": 0
+          },
+          {
+            "kind": "TitaniteShard",
+            "name_en": "Titanite Shard",
+            "x": 1520,
+            "y": 1600,
+            "value": 0
+          },
+          {
+            "kind": "SoulOrb",
+            "name_en": "Soul of a Weary Warrior",
+            "x": 1720,
+            "y": 1700,
+            "value": 2000
+          },
+          {
+            "kind": "PurpleMoss",
+            "name_en": "Purple Moss Clump",
+            "x": 1140,
+            "y": 1580,
+            "value": 0
+          },
+          {
+            "kind": "PurpleMoss",
+            "name_en": "Purple Moss Clump",
+            "x": 1360,
+            "y": 1700,
+            "value": 0
+          },
+          {
+            "kind": "Consumable",
+            "name_en": "Dung Pie",
+            "x": 1580,
+            "y": 1780,
+            "value": 0
+          },
+          {
+            "kind": "Ember",
+            "name_en": "Ember",
+            "x": 1800,
+            "y": 1860,
+            "value": 0
+          }
+        ],
+        "chests": [
+          {
+            "x": 1880,
+            "y": 1840,
+            "loot": {
+              "kind": "TitaniteShard",
+              "name_en": "Twinkling Titanite",
+              "value": 0
+            },
+            "is_mimic": false
+          }
+        ],
+        "lights": [
+          {
+            "x": 1200,
+            "y": 1500,
+            "radius": 200,
+            "r": 0.3,
+            "g": 0.6,
+            "b": 0.2,
+            "intensity": 0.35
+          },
+          {
+            "x": 1500,
+            "y": 1640,
+            "radius": 160,
+            "r": 0.4,
+            "g": 0.7,
+            "b": 0.3,
+            "intensity": 0.3
+          },
+          {
+            "x": 1000,
+            "y": 1300,
+            "radius": 120,
+            "r": 0.5,
+            "g": 0.7,
+            "b": 0.2,
+            "intensity": 0.25
+          },
+          {
+            "x": 1800,
+            "y": 1760,
+            "radius": 140,
+            "r": 0.3,
+            "g": 0.5,
+            "b": 0.2,
+            "intensity": 0.3
+          }
         ],
         "source_status": "route_landmark_projection"
       },
@@ -88,18 +345,126 @@
         "y": 980,
         "w": 820,
         "h": 640,
-        "terrain_features": [],
-        "source_status": "route_landmark_projection"
-      },
-      {
-        "name": "妖王长廊",
-        "name_en": "Oceiros Hallway",
-        "kind": "main",
-        "x": 2380,
-        "y": 1760,
-        "w": 760,
-        "h": 580,
-        "terrain_features": [],
+        "terrain_features": [
+          "stone_platform",
+          "crumbling_battlements",
+          "overgrown_masonry",
+          "garden_overlook"
+        ],
+        "enemies": [
+          {
+            "kind": "CathedralKnight",
+            "name_en": "Cathedral Knight (platform upper)",
+            "x": 1980,
+            "y": 1080,
+            "count": 1
+          },
+          {
+            "kind": "CathedralKnight",
+            "name_en": "Cathedral Knight (platform mid)",
+            "x": 2140,
+            "y": 1180,
+            "count": 1
+          },
+          {
+            "kind": "CathedralKnight",
+            "name_en": "Cathedral Knight (platform lower)",
+            "x": 2300,
+            "y": 1280,
+            "count": 1
+          },
+          {
+            "kind": "CathedralKnight",
+            "name_en": "Cathedral Knight (platform, red-eyed)",
+            "x": 2460,
+            "y": 1380,
+            "count": 1
+          },
+          {
+            "kind": "Thrall",
+            "name_en": "Hollow Slave (platform ambush)",
+            "x": 2400,
+            "y": 1100,
+            "count": 1
+          },
+          {
+            "kind": "Thrall",
+            "name_en": "Hollow Slave (platform ambush 2)",
+            "x": 2560,
+            "y": 1200,
+            "count": 1
+          }
+        ],
+        "npcs": [],
+        "items": [
+          {
+            "kind": "SoulOrb",
+            "name_en": "Soul of a Weary Warrior",
+            "x": 2460,
+            "y": 1900,
+            "value": 2000
+          },
+          {
+            "kind": "TitaniteShard",
+            "name_en": "Large Titanite Shard",
+            "x": 2640,
+            "y": 1980,
+            "value": 0
+          },
+          {
+            "kind": "Ember",
+            "name_en": "Ember",
+            "x": 2860,
+            "y": 2080,
+            "value": 0
+          },
+          {
+            "kind": "Consumable",
+            "name_en": "Purple Moss Clump",
+            "x": 2520,
+            "y": 2040,
+            "value": 0
+          },
+          {
+            "kind": "TitaniteShard",
+            "name_en": "Twinkling Titanite",
+            "x": 2650,
+            "y": 2050,
+            "value": 0
+          }
+        ],
+        "chests": [
+          {
+            "x": 2900,
+            "y": 2140,
+            "loot": {
+              "kind": "RingDrop",
+              "name_en": "Havel's Ring",
+              "value": 0
+            },
+            "is_mimic": false
+          }
+        ],
+        "lights": [
+          {
+            "x": 2580,
+            "y": 1920,
+            "radius": 160,
+            "r": 0.4,
+            "g": 0.5,
+            "b": 0.7,
+            "intensity": 0.35
+          },
+          {
+            "x": 2820,
+            "y": 2060,
+            "radius": 120,
+            "r": 0.5,
+            "g": 0.4,
+            "b": 0.6,
+            "intensity": 0.3
+          }
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -110,7 +475,61 @@
         "y": 2380,
         "w": 820,
         "h": 640,
-        "terrain_features": [],
+        "terrain_features": [
+          "boss_arena",
+          "crumbling_throne_room",
+          "overgrown_pillars",
+          "moonlight_shaft"
+        ],
+        "enemies": [
+          {
+            "kind": "MiniBoss",
+            "name_en": "Oceiros, the Consumed King",
+            "x": 3120,
+            "y": 2580,
+            "count": 1
+          }
+        ],
+        "npcs": [],
+        "items": [
+          {
+            "kind": "SoulOrb",
+            "name_en": "Soul of Oceiros, the Consumed King",
+            "x": 3060,
+            "y": 2700,
+            "value": 0
+          }
+        ],
+        "chests": [],
+        "lights": [
+          {
+            "x": 3060,
+            "y": 2680,
+            "radius": 260,
+            "r": 0.3,
+            "g": 0.4,
+            "b": 0.7,
+            "intensity": 0.5
+          },
+          {
+            "x": 2940,
+            "y": 2560,
+            "radius": 140,
+            "r": 0.4,
+            "g": 0.5,
+            "b": 0.8,
+            "intensity": 0.3
+          },
+          {
+            "x": 3180,
+            "y": 2800,
+            "radius": 140,
+            "r": 0.4,
+            "g": 0.5,
+            "b": 0.8,
+            "intensity": 0.3
+          }
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -121,7 +540,60 @@
         "y": 2160,
         "w": 520,
         "h": 420,
-        "terrain_features": [],
+        "terrain_features": [
+          "illusory_wall",
+          "hidden_passage",
+          "ash_covered_floor",
+          "dark_chamber"
+        ],
+        "enemies": [],
+        "npcs": [],
+        "items": [
+          {
+            "kind": "Consumable",
+            "name_en": "Dragon Head Stone",
+            "x": 3380,
+            "y": 2280,
+            "value": 0
+          },
+          {
+            "kind": "TitaniteShard",
+            "name_en": "Twinkling Titanite",
+            "x": 3500,
+            "y": 2340,
+            "value": 0
+          },
+          {
+            "kind": "TitaniteShard",
+            "name_en": "Twinkling Titanite",
+            "x": 3560,
+            "y": 2400,
+            "value": 0
+          }
+        ],
+        "chests": [
+          {
+            "x": 3440,
+            "y": 2360,
+            "loot": {
+              "kind": "EstusShard",
+              "name_en": "Estus Shard",
+              "value": 0
+            },
+            "is_mimic": false
+          }
+        ],
+        "lights": [
+          {
+            "x": 3400,
+            "y": 2300,
+            "radius": 100,
+            "r": 0.2,
+            "g": 0.2,
+            "b": 0.4,
+            "intensity": 0.4
+          }
+        ],
         "source_status": "route_landmark_projection"
       }
     ]
@@ -130,15 +602,566 @@
     "type": "Oceiros",
     "name": "妖王欧斯罗艾斯",
     "name_en": "Oceiros, the Consumed King",
-    "x": 3060,
-    "y": 2680,
-    "source_status": "official_identity_projected_position"
+    "x": 3120,
+    "y": 2580
   },
-  "enemies": [],
-  "items": [],
-  "chests": [],
-  "npcs": [],
-  "lights": [],
+  "enemies": [
+    {
+      "kind": "CathedralKnight",
+      "name_en": "Cathedral Knight (dark, entry)",
+      "x": 780,
+      "y": 580,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "Cathedral Knight (dark, entry stairs)",
+      "x": 920,
+      "y": 680,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "Hollow Slave (entry ambush)",
+      "x": 620,
+      "y": 540,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "Cathedral Knight (dark, garden upper)",
+      "x": 1020,
+      "y": 1300,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "Cathedral Knight (dark, garden mid)",
+      "x": 1200,
+      "y": 1440,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "Cathedral Knight (garden lower)",
+      "x": 1400,
+      "y": 1560,
+      "count": 1
+    },
+    {
+      "kind": "PusOfMan",
+      "name_en": "Pus of Man (garden stairs)",
+      "x": 1100,
+      "y": 1520,
+      "count": 1
+    },
+    {
+      "kind": "PusOfMan",
+      "name_en": "Pus of Man (garden center)",
+      "x": 1280,
+      "y": 1640,
+      "count": 1
+    },
+    {
+      "kind": "PusOfMan",
+      "name_en": "Pus of Man (garden deep)",
+      "x": 1550,
+      "y": 1780,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "Hollow Slave (garden left)",
+      "x": 1300,
+      "y": 1700,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "Hollow Slave (garden center)",
+      "x": 1460,
+      "y": 1720,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "Hollow Slave (garden right)",
+      "x": 1620,
+      "y": 1800,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (toxic water 1)",
+      "x": 1150,
+      "y": 1580,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (toxic water 2)",
+      "x": 1350,
+      "y": 1660,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (toxic water 3)",
+      "x": 1500,
+      "y": 1760,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (toxic water 4)",
+      "x": 1700,
+      "y": 1850,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard (garden edge)",
+      "x": 1840,
+      "y": 1800,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "Cathedral Knight (platform upper)",
+      "x": 1980,
+      "y": 1080,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "Cathedral Knight (platform mid)",
+      "x": 2140,
+      "y": 1180,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "Cathedral Knight (platform lower)",
+      "x": 2300,
+      "y": 1280,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "Cathedral Knight (platform, red-eyed)",
+      "x": 2460,
+      "y": 1380,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "Hollow Slave (platform ambush)",
+      "x": 2400,
+      "y": 1100,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "Hollow Slave (platform ambush 2)",
+      "x": 2560,
+      "y": 1200,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "Cathedral Knight (hallway upper)",
+      "x": 2500,
+      "y": 1860,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "Cathedral Knight (hallway mid)",
+      "x": 2680,
+      "y": 1940,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "Cathedral Knight (hallway lower)",
+      "x": 2840,
+      "y": 2020,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "Cathedral Knight (hallway)",
+      "x": 2560,
+      "y": 2000,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "Cathedral Knight (hallway 2)",
+      "x": 2740,
+      "y": 2100,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard (hallway)",
+      "x": 2600,
+      "y": 1850,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Oceiros, the Consumed King",
+      "x": 3120,
+      "y": 2580,
+      "count": 1
+    }
+  ],
+  "items": [
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Nameless Soldier",
+      "x": 560,
+      "y": 540,
+      "value": 400
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Shard",
+      "x": 720,
+      "y": 600,
+      "value": 0
+    },
+    {
+      "kind": "EstusShard",
+      "name_en": "Estus Shard",
+      "x": 1080,
+      "y": 1340,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 1300,
+      "y": 1480,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Shard",
+      "x": 1520,
+      "y": 1600,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Weary Warrior",
+      "x": 1720,
+      "y": 1700,
+      "value": 2000
+    },
+    {
+      "kind": "PurpleMoss",
+      "name_en": "Purple Moss Clump",
+      "x": 1140,
+      "y": 1580,
+      "value": 0
+    },
+    {
+      "kind": "PurpleMoss",
+      "name_en": "Purple Moss Clump",
+      "x": 1360,
+      "y": 1700,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dung Pie",
+      "x": 1580,
+      "y": 1780,
+      "value": 0
+    },
+    {
+      "kind": "Ember",
+      "name_en": "Ember",
+      "x": 1800,
+      "y": 1860,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Large Soul of a Nameless Soldier",
+      "x": 2020,
+      "y": 1140,
+      "value": 800
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 2260,
+      "y": 1220,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Cathedral Knight Greatsword",
+      "x": 2440,
+      "y": 1400,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Green Blossom",
+      "x": 2100,
+      "y": 1260,
+      "value": 0
+    },
+    {
+      "kind": "HomewardBone",
+      "name_en": "Homeward Bone",
+      "x": 2520,
+      "y": 1320,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Weary Warrior",
+      "x": 2460,
+      "y": 1900,
+      "value": 2000
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 2640,
+      "y": 1980,
+      "value": 0
+    },
+    {
+      "kind": "Ember",
+      "name_en": "Ember",
+      "x": 2860,
+      "y": 2080,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Purple Moss Clump",
+      "x": 2520,
+      "y": 2040,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Twinkling Titanite",
+      "x": 2650,
+      "y": 2050,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of Oceiros, the Consumed King",
+      "x": 3060,
+      "y": 2700,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dragon Head Stone",
+      "x": 3380,
+      "y": 2280,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Twinkling Titanite",
+      "x": 3500,
+      "y": 2340,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Twinkling Titanite",
+      "x": 3560,
+      "y": 2400,
+      "value": 0
+    }
+  ],
+  "chests": [
+    {
+      "x": 1880,
+      "y": 1840,
+      "loot": {
+        "kind": "TitaniteShard",
+        "name_en": "Twinkling Titanite",
+        "value": 0
+      },
+      "is_mimic": false
+    },
+    {
+      "x": 2900,
+      "y": 2140,
+      "loot": {
+        "kind": "RingDrop",
+        "name_en": "Havel's Ring",
+        "value": 0
+      },
+      "is_mimic": false
+    },
+    {
+      "x": 3440,
+      "y": 2360,
+      "loot": {
+        "kind": "EstusShard",
+        "name_en": "Estus Shard",
+        "value": 0
+      },
+      "is_mimic": false
+    }
+  ],
+  "npcs": [
+    {
+      "name": "ホークウッド",
+      "name_en": "Hawkwood (summon sign)",
+      "kind": "Dialogue",
+      "x": 2960,
+      "y": 2280,
+      "color": "#7F8C8D",
+      "dialogue": [
+        "I came to see Oceiros",
+        "The Consumed King",
+        "He holds the Path of the Dragon"
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "x": 620,
+      "y": 620,
+      "radius": 140,
+      "r": 0.9,
+      "g": 0.8,
+      "b": 0.5,
+      "intensity": 0.4
+    },
+    {
+      "x": 520,
+      "y": 520,
+      "radius": 100,
+      "r": 1.0,
+      "g": 0.85,
+      "b": 0.4,
+      "intensity": 0.3
+    },
+    {
+      "x": 1200,
+      "y": 1500,
+      "radius": 200,
+      "r": 0.3,
+      "g": 0.6,
+      "b": 0.2,
+      "intensity": 0.35
+    },
+    {
+      "x": 1500,
+      "y": 1640,
+      "radius": 160,
+      "r": 0.4,
+      "g": 0.7,
+      "b": 0.3,
+      "intensity": 0.3
+    },
+    {
+      "x": 1000,
+      "y": 1300,
+      "radius": 120,
+      "r": 0.5,
+      "g": 0.7,
+      "b": 0.2,
+      "intensity": 0.25
+    },
+    {
+      "x": 1800,
+      "y": 1760,
+      "radius": 140,
+      "r": 0.3,
+      "g": 0.5,
+      "b": 0.2,
+      "intensity": 0.3
+    },
+    {
+      "x": 2180,
+      "y": 1200,
+      "radius": 180,
+      "r": 0.5,
+      "g": 0.6,
+      "b": 0.3,
+      "intensity": 0.35
+    },
+    {
+      "x": 2460,
+      "y": 1300,
+      "radius": 140,
+      "r": 0.6,
+      "g": 0.7,
+      "b": 0.3,
+      "intensity": 0.3
+    },
+    {
+      "x": 2580,
+      "y": 1920,
+      "radius": 160,
+      "r": 0.4,
+      "g": 0.5,
+      "b": 0.7,
+      "intensity": 0.35
+    },
+    {
+      "x": 2820,
+      "y": 2060,
+      "radius": 120,
+      "r": 0.5,
+      "g": 0.4,
+      "b": 0.6,
+      "intensity": 0.3
+    },
+    {
+      "x": 3060,
+      "y": 2680,
+      "radius": 260,
+      "r": 0.3,
+      "g": 0.4,
+      "b": 0.7,
+      "intensity": 0.5
+    },
+    {
+      "x": 2940,
+      "y": 2560,
+      "radius": 140,
+      "r": 0.4,
+      "g": 0.5,
+      "b": 0.8,
+      "intensity": 0.3
+    },
+    {
+      "x": 3180,
+      "y": 2800,
+      "radius": 140,
+      "r": 0.4,
+      "g": 0.5,
+      "b": 0.8,
+      "intensity": 0.3
+    },
+    {
+      "x": 3400,
+      "y": 2300,
+      "radius": 100,
+      "r": 0.2,
+      "g": 0.2,
+      "b": 0.4,
+      "intensity": 0.4
+    }
+  ],
   "fog_gates": [
     {
       "x": 620,
@@ -148,8 +1171,7 @@
       "dest_area": "LothricCastle",
       "dest_x": 920,
       "dest_y": 1760,
-      "kind": "area_transition",
-      "source_status": "projected_transition"
+      "kind": "area_transition"
     },
     {
       "x": 3400,
@@ -159,8 +1181,7 @@
       "dest_area": "UntendedGraves",
       "dest_x": 700,
       "dest_y": 720,
-      "kind": "area_transition",
-      "source_status": "projected_transition"
+      "kind": "area_transition"
     }
   ]
 }

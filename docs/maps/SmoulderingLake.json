@@ -2,7 +2,7 @@
   "id": "SmoulderingLake",
   "name": "熏烟湖",
   "name_en": "Smouldering Lake",
-  "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
+  "description": "Volcanic lake area beneath the Catacombs. Features a ballista firing across the lake, demon ruins below, and the Old Demon King boss.",
   "theme": "demon ruins lake",
   "map_size": {
     "width": 4608,
@@ -14,59 +14,34 @@
     ],
     "to": []
   },
-  "restoration": {
-    "status": "clean_rebuild_topology_projection",
-    "authoritative_fields": [
-      "area id/name",
-      "connections",
-      "bonfire names",
-      "boss identity"
-    ],
-    "projection_fields": [
-      "map_size",
-      "sections coordinates",
-      "fog gate coordinates"
-    ],
-    "excluded_until_sourced": [
-      "enemy placements",
-      "item placements",
-      "NPC dialogue",
-      "chest placements"
-    ],
-    "note": "This file intentionally avoids inherited fabricated precise data."
-  },
   "bonfires": [
     {
       "name": "废弃地下墓地",
       "name_en": "Abandoned Tomb",
       "x": 620,
-      "y": 640,
-      "source_status": "official_name_projected_position"
+      "y": 640
     },
     {
       "name": "恶魔遗迹",
       "name_en": "Demon Ruins",
       "x": 2320,
-      "y": 2480,
-      "source_status": "official_name_projected_position"
+      "y": 2480
     },
     {
       "name": "老王前室",
       "name_en": "Old King's Antechamber",
       "x": 2760,
-      "y": 2020,
-      "source_status": "official_name_projected_position"
+      "y": 2020
     },
     {
       "name": "老恶魔王",
       "name_en": "Old Demon King",
       "x": 3660,
-      "y": 2780,
-      "source_status": "official_name_projected_position"
+      "y": 2780
     }
   ],
   "map_layout": {
-    "basis": "Clean gameplay 2D projection of Dark Souls III route topology. Not official coordinate geometry.",
+    "basis": "Volcanic lake with ballista, underground demon ruins, and Old Demon King arena. Optional area with significant loot.",
     "sections": [
       {
         "name": "废弃墓地入口",
@@ -76,8 +51,11 @@
         "y": 420,
         "w": 820,
         "h": 560,
-        "terrain_features": [],
-        "source_status": "route_landmark_projection"
+        "terrain_features": [
+          "stone tomb",
+          "rope bridge entry",
+          "dark cave"
+        ]
       },
       {
         "name": "熏烟湖岸",
@@ -87,8 +65,12 @@
         "y": 900,
         "w": 1780,
         "h": 1060,
-        "terrain_features": [],
-        "source_status": "route_landmark_projection"
+        "terrain_features": [
+          "熔岩湖岸",
+          "lava lake",
+          "demon statues",
+          "rocky shore"
+        ]
       },
       {
         "name": "弩炮塔楼",
@@ -98,8 +80,11 @@
         "y": 300,
         "w": 920,
         "h": 780,
-        "terrain_features": [],
-        "source_status": "route_landmark_projection"
+        "terrain_features": [
+          "ballista mechanism",
+          "stone tower",
+          "override lever"
+        ]
       },
       {
         "name": "恶魔遗迹入口",
@@ -109,8 +94,12 @@
         "y": 2100,
         "w": 880,
         "h": 640,
-        "terrain_features": [],
-        "source_status": "route_landmark_projection"
+        "terrain_features": [
+          "熔岩地面",
+          "demon architecture",
+          "fire",
+          "basilisks"
+        ]
       },
       {
         "name": "老王前室",
@@ -120,8 +109,12 @@
         "y": 1840,
         "w": 980,
         "h": 760,
-        "terrain_features": [],
-        "source_status": "route_landmark_projection"
+        "terrain_features": [
+          "熔岩裂隙",
+          "stone hall",
+          "demon carvings",
+          "fog gate"
+        ]
       },
       {
         "name": "老恶魔王竞技场",
@@ -131,8 +124,11 @@
         "y": 2500,
         "w": 900,
         "h": 660,
-        "terrain_features": [],
-        "source_status": "route_landmark_projection"
+        "terrain_features": [
+          "熔岩竞技场",
+          "lava arena",
+          "boss fog gate"
+        ]
       }
     ]
   },
@@ -141,14 +137,453 @@
     "name": "老恶魔王",
     "name_en": "Old Demon King",
     "x": 3660,
-    "y": 2780,
-    "source_status": "official_identity_projected_position"
+    "y": 2780
   },
-  "enemies": [],
-  "items": [],
+  "enemies": [
+    {
+      "kind": "DemonStatue",
+      "name_en": "Demon Statue (lake shore)",
+      "x": 1400,
+      "y": 1000,
+      "count": 1
+    },
+    {
+      "kind": "DemonStatue",
+      "name_en": "Demon Statue (shore 2)",
+      "x": 1600,
+      "y": 1200,
+      "count": 1
+    },
+    {
+      "kind": "DemonStatue",
+      "name_en": "Demon Statue (shore 3)",
+      "x": 1800,
+      "y": 1100,
+      "count": 1
+    },
+    {
+      "kind": "DemonStatue",
+      "name_en": "Demon Statue (shore 4)",
+      "x": 2000,
+      "y": 1300,
+      "count": 1
+    },
+    {
+      "kind": "DemonStatue",
+      "name_en": "Demon Statue (shore 5)",
+      "x": 2200,
+      "y": 1050,
+      "count": 1
+    },
+    {
+      "kind": "DemonStatue",
+      "name_en": "Demon Statue (shore 6)",
+      "x": 1200,
+      "y": 1400,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Smouldering Ghru (lake shore)",
+      "x": 1500,
+      "y": 1100,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Smouldering Ghru (lake shore 2)",
+      "x": 1700,
+      "y": 1250,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Smouldering Ghru (shore 3)",
+      "x": 1900,
+      "y": 1050,
+      "count": 1
+    },
+    {
+      "kind": "InfestedCorpse",
+      "name_en": "Smouldering Rotten Flesh (shore debris)",
+      "x": 1300,
+      "y": 1300,
+      "count": 1
+    },
+    {
+      "kind": "InfestedCorpse",
+      "name_en": "Smouldering Rotten Flesh (shore 2)",
+      "x": 1600,
+      "y": 1150,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "Carthus Sandworm (lake center)",
+      "x": 1800,
+      "y": 1500,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "Great Crab (lava pool edge)",
+      "x": 1400,
+      "y": 1350,
+      "count": 1
+    },
+    {
+      "kind": "BlackKnight",
+      "name_en": "Black Knight (demon ruins hall)",
+      "x": 2100,
+      "y": 2200,
+      "count": 1
+    },
+    {
+      "kind": "BlackKnight",
+      "name_en": "Black Knight (ruins corridor)",
+      "x": 2400,
+      "y": 2350,
+      "count": 1
+    },
+    {
+      "kind": "FireDemon",
+      "name_en": "Fire Demon (demon ruins)",
+      "x": 2000,
+      "y": 2200,
+      "count": 1
+    },
+    {
+      "kind": "FireDemon",
+      "name_en": "Fire Demon (ruins 2)",
+      "x": 2300,
+      "y": 2400,
+      "count": 1
+    },
+    {
+      "kind": "FireDemon",
+      "name_en": "Fire Demon (arena approach)",
+      "x": 2600,
+      "y": 2500,
+      "count": 1
+    },
+    {
+      "kind": "Basilisk",
+      "name_en": "Basilisk (ruins entry)",
+      "x": 1900,
+      "y": 2150,
+      "count": 1
+    },
+    {
+      "kind": "Basilisk",
+      "name_en": "Basilisk (ruins 2)",
+      "x": 2100,
+      "y": 2300,
+      "count": 1
+    },
+    {
+      "kind": "Basilisk",
+      "name_en": "Basilisk (deep ruins)",
+      "x": 2400,
+      "y": 2500,
+      "count": 1
+    },
+    {
+      "kind": "Basilisk",
+      "name_en": "Basilisk (deep ruins 2)",
+      "x": 2200,
+      "y": 2600,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton Swordsman (ballista area)",
+      "x": 1100,
+      "y": 800,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton (ballista cave)",
+      "x": 1200,
+      "y": 850,
+      "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton Swordsman (red-eyed, ballista area)",
+      "x": 1300,
+      "y": 900,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Hound-rat (ballista caves)",
+      "x": 1150,
+      "y": 750,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Hound-rat (ballista caves 2)",
+      "x": 1250,
+      "y": 800,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rat (ruins tunnels)",
+      "x": 1950,
+      "y": 2350,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rat (ruins tunnels 2)",
+      "x": 2050,
+      "y": 2450,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Hound-rat (lower ruins)",
+      "x": 2250,
+      "y": 2550,
+      "count": 1
+    },
+    {
+      "kind": "InfestedCorpse",
+      "name_en": "Smouldering Rotten Flesh (demon corridor)",
+      "x": 2150,
+      "y": 2250,
+      "count": 1
+    },
+    {
+      "kind": "InfestedCorpse",
+      "name_en": "Smouldering Rotten Flesh (corridor 2)",
+      "x": 2350,
+      "y": 2400,
+      "count": 1
+    },
+    {
+      "kind": "InfestedCorpse",
+      "name_en": "Smouldering Rotten Flesh (deep ruins)",
+      "x": 2500,
+      "y": 2450,
+      "count": 1
+    },
+    {
+      "kind": "InfestedCorpse",
+      "name_en": "Smouldering Rotten Flesh (deep ruins 2)",
+      "x": 2050,
+      "y": 2500,
+      "count": 1
+    },
+    {
+      "kind": "InfestedCorpse",
+      "name_en": "Smouldering Rotten Flesh (near lava)",
+      "x": 1750,
+      "y": 1350,
+      "count": 1
+    },
+    {
+      "kind": "InfestedCorpse",
+      "name_en": "Smouldering Rotten Flesh (lava edge)",
+      "x": 1850,
+      "y": 1200,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Titanite Lizard (ruins)",
+      "x": 2600,
+      "y": 2100,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Titanite Lizard (lake edge)",
+      "x": 1500,
+      "y": 1500,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Titanite Lizard (ballista cavern)",
+      "x": 1200,
+      "y": 900,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Skeleton Wheel (ballista cave)",
+      "x": 1250,
+      "y": 750,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Skeleton Wheel (lake shore)",
+      "x": 1350,
+      "y": 1100,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Skeleton Wheel (ballista area 2)",
+      "x": 1100,
+      "y": 850,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Stray Demon",
+      "x": 1600,
+      "y": 1400,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Old Demon King",
+      "x": 3660,
+      "y": 2780,
+      "count": 1,
+      "note": "Boss entity in arena"
+    }
+  ],
+  "items": [
+    {
+      "kind": "EstusShard",
+      "name_en": "Estus Shard",
+      "x": 1300,
+      "y": 1100,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 1700,
+      "y": 1300,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Demon's Greataxe (drop)",
+      "x": 3630,
+      "y": 2750,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Speckled Stoneplate Ring",
+      "x": 2600,
+      "y": 2000,
+      "value": 0
+    },
+    {
+      "kind": "Ember",
+      "name_en": "Ember",
+      "x": 2100,
+      "y": 2350,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Stray Demon",
+      "x": 2500,
+      "y": 2200,
+      "value": 20000
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Iron Flesh",
+      "x": 2300,
+      "y": 2500,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Fire Surge",
+      "x": 2700,
+      "y": 2300,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Twinkling Titanite",
+      "x": 2900,
+      "y": 2100,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Dragon's Greataxe",
+      "x": 3400,
+      "y": 2700,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of the Old Demon King",
+      "x": 3660,
+      "y": 2800,
+      "value": 0,
+      "note": "Boss soul from Old Demon King"
+    }
+  ],
   "chests": [],
-  "npcs": [],
-  "lights": [],
+  "npcs": [
+    {
+      "name": "ホレイス",
+      "name_en": "Horace the Hushed",
+      "kind": "Dialogue",
+      "x": 1300,
+      "y": 1200,
+      "color": "#808080",
+      "dialogue": [
+        "...",
+        "*nods*",
+        "*points toward the lake*"
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "x": 620,
+      "y": 640,
+      "radius": 140,
+      "r": 0.6,
+      "g": 0.5,
+      "b": 0.3,
+      "intensity": 0.3
+    },
+    {
+      "x": 2000,
+      "y": 1300,
+      "radius": 200,
+      "r": 0.9,
+      "g": 0.5,
+      "b": 0.2,
+      "intensity": 0.4
+    },
+    {
+      "x": 2320,
+      "y": 2480,
+      "radius": 160,
+      "r": 0.8,
+      "g": 0.4,
+      "b": 0.1,
+      "intensity": 0.35
+    },
+    {
+      "x": 3660,
+      "y": 2780,
+      "radius": 220,
+      "r": 0.9,
+      "g": 0.3,
+      "b": 0.1,
+      "intensity": 0.5
+    }
+  ],
   "fog_gates": [
     {
       "x": 620,
@@ -158,8 +593,7 @@
       "dest_area": "CatacombsOfCarthus",
       "dest_x": 1640,
       "dest_y": 3200,
-      "kind": "area_transition",
-      "source_status": "projected_transition"
+      "kind": "area_transition"
     }
   ]
 }

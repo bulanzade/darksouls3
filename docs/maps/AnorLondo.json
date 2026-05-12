@@ -69,7 +69,11 @@
         "y": 620,
         "w": 700,
         "h": 520,
-        "terrain_features": [],
+        "terrain_features": [
+          "stone_pillars",
+          "revolving_platform",
+          "high_ceiling"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -80,7 +84,11 @@
         "y": 840,
         "w": 820,
         "h": 680,
-        "terrain_features": [],
+        "terrain_features": [
+          "grand_staircase",
+          "knight_statues",
+          "golden_railings"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -91,7 +99,11 @@
         "y": 1300,
         "w": 620,
         "h": 560,
-        "terrain_features": [],
+        "terrain_features": [
+          "invisible_bridge",
+          "tower_beam",
+          "drop_platforms"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -102,7 +114,11 @@
         "y": 1320,
         "w": 780,
         "h": 520,
-        "terrain_features": [],
+        "terrain_features": [
+          "hall_pillars",
+          "silver_knight_positions",
+          "stone_floor"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -113,7 +129,11 @@
         "y": 1680,
         "w": 820,
         "h": 480,
-        "terrain_features": [],
+        "terrain_features": [
+          "stone_railings",
+          "narrow_corridor",
+          "dark_passage"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -124,7 +144,12 @@
         "y": 1940,
         "w": 760,
         "h": 620,
-        "terrain_features": [],
+        "terrain_features": [
+          "dark_cathedral_floor",
+          "cathedral_columns",
+          "debris",
+          "stone_pillars"
+        ],
         "source_status": "route_landmark_projection"
       }
     ]
@@ -137,18 +162,417 @@
     "y": 2100,
     "source_status": "official_identity_projected_position"
   },
-  "enemies": [],
-  "items": [],
-  "chests": [],
-  "npcs": [],
-  "lights": [],
+  "enemies": [
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight",
+      "x": 860,
+      "y": 740,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight",
+      "x": 1020,
+      "y": 870,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Red-eyed Silver Knight",
+      "x": 1120,
+      "y": 820,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight",
+      "x": 1260,
+      "y": 920,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight",
+      "x": 1420,
+      "y": 1010,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight",
+      "x": 1220,
+      "y": 1040,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight",
+      "x": 1520,
+      "y": 940,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight",
+      "x": 1960,
+      "y": 1440,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight",
+      "x": 2080,
+      "y": 1500,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight Archer",
+      "x": 2320,
+      "y": 1400,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight Archer",
+      "x": 2500,
+      "y": 1430,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "Giant Slave Archer",
+      "x": 1160,
+      "y": 1040,
+      "count": 1
+    },
+    {
+      "kind": "Deacon",
+      "name_en": "Deacon Pyromancer",
+      "x": 1340,
+      "y": 960,
+      "count": 1
+    },
+    {
+      "kind": "Deacon",
+      "name_en": "Deacon Pyromancer",
+      "x": 1540,
+      "y": 880,
+      "count": 1
+    },
+    {
+      "kind": "Deacon",
+      "name_en": "Deacon Pyromancer",
+      "x": 1560,
+      "y": 970,
+      "count": 1
+    },
+    {
+      "kind": "Deacon",
+      "name_en": "Deacon Pyromancer",
+      "x": 1580,
+      "y": 1060,
+      "count": 1
+    },
+    {
+      "kind": "Deacon",
+      "name_en": "Deacon Pyromancer",
+      "x": 1600,
+      "y": 1020,
+      "count": 1
+    },
+    {
+      "kind": "ManGrub",
+      "name_en": "Rotten Flesh of Aldrich",
+      "x": 2900,
+      "y": 2050,
+      "count": 1
+    },
+    {
+      "kind": "ManGrub",
+      "name_en": "Rotten Flesh of Aldrich",
+      "x": 2980,
+      "y": 2140,
+      "count": 1
+    },
+    {
+      "kind": "ManGrub",
+      "name_en": "Rotten Flesh of Aldrich",
+      "x": 2820,
+      "y": 1960,
+      "count": 1
+    },
+    {
+      "kind": "ManGrub",
+      "name_en": "Rotten Flesh of Aldrich",
+      "x": 2740,
+      "y": 2240,
+      "count": 1
+    },
+    {
+      "kind": "ManGrub",
+      "name_en": "Rotten Flesh of Aldrich",
+      "x": 2860,
+      "y": 2300,
+      "count": 1
+    },
+    {
+      "kind": "ManGrub",
+      "name_en": "Rotten Flesh of Aldrich",
+      "x": 2780,
+      "y": 1920,
+      "count": 1
+    },
+    {
+      "kind": "ManGrub",
+      "name_en": "Rotten Flesh of Aldrich",
+      "x": 2640,
+      "y": 2020,
+      "count": 1
+    },
+    {
+      "kind": "ManGrub",
+      "name_en": "Rotten Flesh of Aldrich",
+      "x": 2940,
+      "y": 2380,
+      "count": 1
+    },
+    {
+      "kind": "ManGrub",
+      "name_en": "Rotten Flesh of Aldrich",
+      "x": 2600,
+      "y": 2120,
+      "count": 1
+    },
+    {
+      "kind": "DeepAccursed",
+      "name_en": "Deep Accursed",
+      "x": 2180,
+      "y": 1460,
+      "count": 1
+    },
+    {
+      "kind": "Deacon",
+      "name_en": "Deacon",
+      "x": 2600,
+      "y": 1480,
+      "count": 1
+    },
+    {
+      "kind": "Deacon",
+      "name_en": "Deacon",
+      "x": 2760,
+      "y": 1700,
+      "count": 1
+    },
+    {
+      "kind": "Deacon",
+      "name_en": "Deacon",
+      "x": 2800,
+      "y": 1680,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard",
+      "x": 1360,
+      "y": 1180,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Aldrich, Devourer of Gods",
+      "x": 2700,
+      "y": 2180,
+      "count": 1,
+      "note": "Boss entity in arena"
+    }
+  ],
+  "items": [
+    {
+      "kind": "SoulOrb",
+      "name_en": "Large Soul of a Weary Warrior",
+      "x": 840,
+      "y": 850,
+      "value": 1000
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Crestfallen Knight",
+      "x": 900,
+      "y": 880,
+      "value": 1000
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Giant's Coal",
+      "x": 960,
+      "y": 980,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Proof of a Concord Kept",
+      "x": 2160,
+      "y": 1460,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Moonlight Arrow",
+      "x": 2580,
+      "y": 1680,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Moonlight Arrow",
+      "x": 2610,
+      "y": 1710,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Aldrich's Ruby",
+      "x": 2180,
+      "y": 1520,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Painting Guardian's Curved Sword",
+      "x": 1380,
+      "y": 1160,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Painting Guardian Set",
+      "x": 1400,
+      "y": 1240,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Sun Princess Ring",
+      "x": 2780,
+      "y": 2200,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of Aldrich",
+      "x": 2700,
+      "y": 2120,
+      "value": 0,
+      "note": "Boss soul from Aldrich, Devourer of Gods"
+    }
+  ],
+  "chests": [
+    {
+      "x": 2640,
+      "y": 1620,
+      "loot": {
+        "kind": "EstusShard",
+        "name_en": "Estus Shard",
+        "value": 0
+      },
+      "is_mimic": false
+    }
+  ],
+  "npcs": [
+    {
+      "name": "Anri of Astora",
+      "name_en": "Anri of Astora",
+      "kind": "Dialogue",
+      "x": 2740,
+      "y": 2040,
+      "color": "#d0d0ff",
+      "dialogue": [
+        "Good day",
+        "I am Anri of Astora",
+        "Would you help me",
+        "defeat Aldrich together?"
+      ]
+    },
+    {
+      "name": "Company Captain Yorshka",
+      "name_en": "Company Captain Yorshka",
+      "kind": "Dialogue",
+      "x": 580,
+      "y": 1560,
+      "color": "#E0E8F0",
+      "dialogue": [
+        "I am Yorshka",
+        "Captain of the Darkmoon Knights",
+        "The Darkmoon remains true to its duty"
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "x": 980,
+      "y": 900,
+      "radius": 180,
+      "r": 0.9,
+      "g": 0.85,
+      "b": 0.6,
+      "intensity": 0.5
+    },
+    {
+      "x": 1460,
+      "y": 1000,
+      "radius": 200,
+      "r": 1.0,
+      "g": 0.9,
+      "b": 0.5,
+      "intensity": 0.4
+    },
+    {
+      "x": 540,
+      "y": 1560,
+      "radius": 120,
+      "r": 0.5,
+      "g": 0.6,
+      "b": 1.0,
+      "intensity": 0.5
+    },
+    {
+      "x": 2180,
+      "y": 1460,
+      "radius": 160,
+      "r": 1.0,
+      "g": 0.9,
+      "b": 0.5,
+      "intensity": 0.35
+    },
+    {
+      "x": 2180,
+      "y": 1460,
+      "radius": 100,
+      "r": 0.2,
+      "g": 0.1,
+      "b": 0.4,
+      "intensity": 0.5
+    },
+    {
+      "x": 2700,
+      "y": 2100,
+      "radius": 240,
+      "r": 0.3,
+      "g": 0.2,
+      "b": 0.6,
+      "intensity": 0.6
+    }
+  ],
   "fog_gates": [
     {
       "x": 980,
       "y": 800,
       "w": 96,
       "h": 96,
-      "dest_area": "Irithyll",
+      "dest_area": "IrithyllOfTheBorealValley",
       "dest_x": 4300,
       "dest_y": 1000,
       "kind": "area_transition",

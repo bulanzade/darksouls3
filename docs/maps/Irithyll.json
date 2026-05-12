@@ -66,6 +66,13 @@
       "x": 3940,
       "y": 1900,
       "source_status": "official_name_projected_position"
+    },
+    {
+      "name": "Distant Manor",
+      "name_en": "Distant Manor",
+      "x": 480,
+      "y": 1248,
+      "source_status": "official_name_projected_position"
     }
   ],
   "map_layout": {
@@ -79,7 +86,11 @@
         "y": 460,
         "w": 1180,
         "h": 420,
-        "terrain_features": [],
+        "terrain_features": [
+          "冰冻石地",
+          "frozen_stone_bridge",
+          "ice_crystal_pillars"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -90,7 +101,13 @@
         "y": 780,
         "w": 1080,
         "h": 720,
-        "terrain_features": [],
+        "terrain_features": [
+          "冰冻石地",
+          "lamp_posts",
+          "market_stalls",
+          "building_walls",
+          "fountain"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -101,7 +118,12 @@
         "y": 1500,
         "w": 700,
         "h": 520,
-        "terrain_features": [],
+        "terrain_features": [
+          "冰冻石地",
+          "church_pews",
+          "altar",
+          "stone_arches"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -112,7 +134,12 @@
         "y": 2060,
         "w": 900,
         "h": 640,
-        "terrain_features": [],
+        "terrain_features": [
+          "霜冻墓地",
+          "graves",
+          "dark_alcoves",
+          "stone_staircase"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -123,7 +150,11 @@
         "y": 2380,
         "w": 940,
         "h": 560,
-        "terrain_features": [],
+        "terrain_features": [
+          "support_pillars",
+          "shallow_water",
+          "drainage_channels"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -134,7 +165,11 @@
         "y": 2360,
         "w": 760,
         "h": 520,
-        "terrain_features": [],
+        "terrain_features": [
+          "manor_furniture",
+          "fireplace",
+          "kitchen"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -145,7 +180,12 @@
         "y": 1460,
         "w": 980,
         "h": 620,
-        "terrain_features": [],
+        "terrain_features": [
+          "冰冻石地",
+          "rooftop_walkways",
+          "stone_battlements",
+          "archer_positions"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -156,7 +196,11 @@
         "y": 1680,
         "w": 860,
         "h": 620,
-        "terrain_features": [],
+        "terrain_features": [
+          "cathedral_pillars",
+          "boss_arena",
+          "stone_floor"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -167,7 +211,12 @@
         "y": 820,
         "w": 860,
         "h": 700,
-        "terrain_features": [],
+        "terrain_features": [
+          "冰冻石地",
+          "courtyard_walls",
+          "giant_platform",
+          "revolving_staircase"
+        ],
         "source_status": "route_landmark_projection"
       }
     ]
@@ -180,11 +229,903 @@
     "y": 1900,
     "source_status": "official_identity_projected_position"
   },
-  "enemies": [],
-  "items": [],
-  "chests": [],
-  "npcs": [],
-  "lights": [],
+  "enemies": [
+    {
+      "kind": "GiantSlave",
+      "name_en": "Sulyvahn's Beast",
+      "x": 480,
+      "y": 520,
+      "count": 1
+    },
+    {
+      "kind": "BorealKnight",
+      "name_en": "Pontiff Knight",
+      "x": 620,
+      "y": 560,
+      "count": 1
+    },
+    {
+      "kind": "BorealKnight",
+      "name_en": "Pontiff Knight",
+      "x": 1380,
+      "y": 860,
+      "count": 1
+    },
+    {
+      "kind": "BorealKnight",
+      "name_en": "Pontiff Knight",
+      "x": 1560,
+      "y": 940,
+      "count": 1
+    },
+    {
+      "kind": "BorealKnight",
+      "name_en": "Pontiff Knight",
+      "x": 1740,
+      "y": 1020,
+      "count": 1
+    },
+    {
+      "kind": "BorealKnight",
+      "name_en": "Pontiff Knight",
+      "x": 1920,
+      "y": 980,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 1420,
+      "y": 840,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 1620,
+      "y": 900,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 1800,
+      "y": 960,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 1340,
+      "y": 820,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 1460,
+      "y": 830,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 1540,
+      "y": 870,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 1600,
+      "y": 850,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 1680,
+      "y": 950,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 1940,
+      "y": 890,
+      "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "Fire Witch",
+      "x": 1440,
+      "y": 880,
+      "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "Fire Witch",
+      "x": 2020,
+      "y": 1060,
+      "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "Fire Witch",
+      "x": 1780,
+      "y": 1000,
+      "count": 1
+    },
+    {
+      "kind": "Dog",
+      "name_en": "Irithyllian Beast-hound",
+      "x": 1500,
+      "y": 830,
+      "count": 1
+    },
+    {
+      "kind": "Dog",
+      "name_en": "Irithyllian Beast-hound",
+      "x": 1860,
+      "y": 950,
+      "count": 1
+    },
+    {
+      "kind": "Dog",
+      "name_en": "Irithyllian Beast-hound",
+      "x": 1700,
+      "y": 940,
+      "count": 1
+    },
+    {
+      "kind": "Dog",
+      "name_en": "Irithyllian Beast-hound",
+      "x": 1480,
+      "y": 1040,
+      "count": 1
+    },
+    {
+      "kind": "Dog",
+      "name_en": "Irithyllian Beast-hound",
+      "x": 1520,
+      "y": 1080,
+      "count": 1
+    },
+    {
+      "kind": "Dog",
+      "name_en": "Irithyllian Beast-hound",
+      "x": 1820,
+      "y": 990,
+      "count": 1
+    },
+    {
+      "kind": "Dog",
+      "name_en": "Irithyllian Beast-hound",
+      "x": 1400,
+      "y": 1120,
+      "count": 1
+    },
+    {
+      "kind": "Dog",
+      "name_en": "Irithyllian Beast-hound",
+      "x": 1440,
+      "y": 1180,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard",
+      "x": 1700,
+      "y": 800,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard",
+      "x": 4300,
+      "y": 1260,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard",
+      "x": 4480,
+      "y": 1360,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard",
+      "x": 4560,
+      "y": 1220,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 3100,
+      "y": 2460,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 3260,
+      "y": 2560,
+      "count": 1
+    },
+    {
+      "kind": "BorealKnight",
+      "name_en": "Pontiff Knight",
+      "x": 3180,
+      "y": 2500,
+      "count": 1
+    },
+    {
+      "kind": "BorealKnight",
+      "name_en": "Pontiff Knight",
+      "x": 3380,
+      "y": 2700,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 3040,
+      "y": 2400,
+      "count": 1
+    },
+    {
+      "kind": "BorealKnight",
+      "name_en": "Pontiff Knight",
+      "x": 1860,
+      "y": 1590,
+      "count": 1
+    },
+    {
+      "kind": "BorealKnight",
+      "name_en": "Pontiff Knight",
+      "x": 1900,
+      "y": 1550,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 1800,
+      "y": 1560,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 1540,
+      "y": 940,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 1580,
+      "y": 960,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 1560,
+      "y": 1000,
+      "count": 1
+    },
+    {
+      "kind": "Assassin",
+      "name_en": "Irithyllian Slave",
+      "x": 1640,
+      "y": 1030,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "Sulyvahn's Beast",
+      "x": 2620,
+      "y": 2800,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "Sulyvahn's Beast",
+      "x": 2700,
+      "y": 2860,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight",
+      "x": 3000,
+      "y": 1620,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight",
+      "x": 3160,
+      "y": 1780,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight",
+      "x": 3220,
+      "y": 1880,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight",
+      "x": 3080,
+      "y": 1740,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight",
+      "x": 3180,
+      "y": 1710,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight",
+      "x": 3040,
+      "y": 1680,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight Archer",
+      "x": 4500,
+      "y": 1100,
+      "count": 1
+    },
+    {
+      "kind": "SilverKnight",
+      "name_en": "Silver Knight Archer",
+      "x": 4620,
+      "y": 1100,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "Giant Slave",
+      "x": 4200,
+      "y": 1340,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "Giant Slave",
+      "x": 4340,
+      "y": 1400,
+      "count": 1
+    },
+    {
+      "kind": "BorealKnight",
+      "name_en": "Pontiff Knight",
+      "x": 3920,
+      "y": 1160,
+      "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "Fire Witch",
+      "x": 3920,
+      "y": 1240,
+      "count": 1
+    },
+    {
+      "kind": "BorealKnight",
+      "name_en": "Pontiff Knight",
+      "x": 3920,
+      "y": 1100,
+      "count": 1
+    },
+    {
+      "kind": "BorealKnight",
+      "name_en": "Pontiff Knight",
+      "x": 3920,
+      "y": 1200,
+      "count": 1
+    },
+    {
+      "kind": "Mimic",
+      "name_en": "Mimic",
+      "x": 1640,
+      "y": 980,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Pontiff Sulyvahn",
+      "x": 3940,
+      "y": 1980,
+      "count": 1,
+      "note": "Boss entity in arena"
+    }
+  ],
+  "items": [
+    {
+      "kind": "RingDrop",
+      "name_en": "Pontiff's Right Eye",
+      "x": 520,
+      "y": 500,
+      "value": 0
+    },
+    {
+      "kind": "HomewardBone",
+      "name_en": "Homeward Bone",
+      "x": 540,
+      "y": 520,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Rime-blue Moss Clump",
+      "x": 600,
+      "y": 540,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Weary Warrior",
+      "x": 640,
+      "y": 560,
+      "value": 2000
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Large Soul of a Nameless Soldier",
+      "x": 680,
+      "y": 580,
+      "value": 800
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Weary Warrior",
+      "x": 1280,
+      "y": 780,
+      "value": 2000
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 1340,
+      "y": 790,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Budding Green Blossom",
+      "x": 1380,
+      "y": 800,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Large Soul of a Nameless Soldier",
+      "x": 1420,
+      "y": 810,
+      "value": 800
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Rime-blue Moss Clump",
+      "x": 1460,
+      "y": 820,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 1500,
+      "y": 800,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dorhys' Gnawing",
+      "x": 1400,
+      "y": 880,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Witchtree Branch",
+      "x": 1440,
+      "y": 900,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 1360,
+      "y": 860,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Lightning Gem",
+      "x": 1700,
+      "y": 810,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Magic Clutch Ring",
+      "x": 1720,
+      "y": 820,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Ring of the Sun's First Born",
+      "x": 1740,
+      "y": 800,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Proof of Concord Kept",
+      "x": 1780,
+      "y": 820,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Roster of Knights",
+      "x": 1800,
+      "y": 780,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Fading Soul",
+      "x": 1680,
+      "y": 870,
+      "value": 0
+    },
+    {
+      "kind": "HomewardBone",
+      "name_en": "Homeward Bone",
+      "x": 1660,
+      "y": 890,
+      "value": 0
+    },
+    {
+      "kind": "UndeadBoneShard",
+      "name_en": "Undead Bone Shard",
+      "x": 1700,
+      "y": 880,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Blue Bug Pellet",
+      "x": 1550,
+      "y": 930,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Blue Bug Pellet",
+      "x": 1600,
+      "y": 980,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Shriving Stone",
+      "x": 1530,
+      "y": 910,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Kukri",
+      "x": 1480,
+      "y": 1080,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Rusted Gold Coin",
+      "x": 1460,
+      "y": 1060,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dung Pie",
+      "x": 1580,
+      "y": 1160,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Excrement-covered Ashes",
+      "x": 1560,
+      "y": 1300,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Ring of Sacrifice",
+      "x": 2380,
+      "y": 2540,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Green Blossom",
+      "x": 2400,
+      "y": 2580,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Great Heal",
+      "x": 2560,
+      "y": 2640,
+      "value": 0
+    },
+    {
+      "kind": "EstusShard",
+      "name_en": "Estus Shard",
+      "x": 3040,
+      "y": 2640,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Rusted Gold Coin",
+      "x": 2960,
+      "y": 1640,
+      "value": 0
+    },
+    {
+      "kind": "Ember",
+      "name_en": "Ember",
+      "x": 3260,
+      "y": 1760,
+      "value": 0
+    },
+    {
+      "kind": "Ember",
+      "name_en": "Ember",
+      "x": 3940,
+      "y": 1240,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Dark Stoneplate Ring",
+      "x": 3940,
+      "y": 1380,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Drang Twinspears",
+      "x": 3900,
+      "y": 1340,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Deep Gem",
+      "x": 3880,
+      "y": 1720,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Ring of Favor",
+      "x": 3860,
+      "y": 1620,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Human Dregs",
+      "x": 3840,
+      "y": 1660,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Easterner's Ashes",
+      "x": 4580,
+      "y": 1180,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Scale",
+      "x": 4620,
+      "y": 1200,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dragonslayer Greatarrow",
+      "x": 4700,
+      "y": 1180,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Dragonslayer Greatbow",
+      "x": 4680,
+      "y": 1140,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Twinkling Titanite",
+      "x": 4520,
+      "y": 1080,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Twinkling Titanite",
+      "x": 4560,
+      "y": 1060,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Brass Set",
+      "x": 3740,
+      "y": 1620,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Large Soul of a Weary Warrior",
+      "x": 4720,
+      "y": 1140,
+      "value": 5000
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of Pontiff Sulyvahn",
+      "x": 3940,
+      "y": 1920,
+      "value": 0,
+      "note": "Boss soul from Pontiff Sulyvahn"
+    }
+  ],
+  "chests": [
+    {
+      "x": 3000,
+      "y": 1780,
+      "loot": {
+        "kind": "Consumable",
+        "name_en": "Divine Blessing",
+        "value": 0
+      },
+      "is_mimic": false
+    },
+    {
+      "x": 3080,
+      "y": 1780,
+      "loot": {
+        "kind": "RingDrop",
+        "name_en": "Leo Ring",
+        "value": 0
+      },
+      "is_mimic": false
+    },
+    {
+      "x": 4380,
+      "y": 1520,
+      "loot": {
+        "kind": "WeaponDrop",
+        "name_en": "Golden Ritual Spear",
+        "value": 0
+      },
+      "is_mimic": true
+    },
+    {
+      "x": 3760,
+      "y": 1640,
+      "loot": {
+        "kind": "RingDrop",
+        "name_en": "Reversal Ring",
+        "value": 0
+      },
+      "is_mimic": false
+    }
+  ],
+  "npcs": [
+    {
+      "name": "Anri of Astora",
+      "name_en": "Anri of Astora",
+      "kind": "Dialogue",
+      "x": 1840,
+      "y": 1570,
+      "color": "#C0C0C0",
+      "dialogue": [
+        "We meet again. Have you found Horace?",
+        "I am searching for Aldrich with a companion",
+        "If you would, help me defeat Aldrich, Devourer of Gods"
+      ]
+    },
+    {
+      "name": "Siegward",
+      "name_en": "Siegward of Catarina",
+      "kind": "Dialogue",
+      "x": 3100,
+      "y": 2580,
+      "color": "#C0A060",
+      "dialogue": [
+        "Oh! Hello again",
+        "I seem to have gotten lost",
+        "But I found some estus soup!"
+      ]
+    },
+    {
+      "name": "Sirris of the Sunless Realms",
+      "name_en": "Sirris of the Sunless Realms",
+      "kind": "Dialogue",
+      "x": 1580,
+      "y": 780,
+      "color": "#A0B0C0",
+      "dialogue": [
+        "I am Sirris",
+        "I offer my services as a knight",
+        "I will not forget this debt"
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "x": 520,
+      "y": 640,
+      "radius": 140,
+      "r": 0.6,
+      "g": 0.7,
+      "b": 1.0,
+      "intensity": 0.4
+    },
+    {
+      "x": 1980,
+      "y": 1740,
+      "radius": 180,
+      "r": 0.6,
+      "g": 0.7,
+      "b": 1.0,
+      "intensity": 0.35
+    },
+    {
+      "x": 1520,
+      "y": 960,
+      "radius": 200,
+      "r": 0.6,
+      "g": 0.7,
+      "b": 1.0,
+      "intensity": 0.3
+    },
+    {
+      "x": 3940,
+      "y": 1900,
+      "radius": 200,
+      "r": 0.5,
+      "g": 0.3,
+      "b": 0.2,
+      "intensity": 0.4
+    }
+  ],
   "fog_gates": [
     {
       "x": 520,

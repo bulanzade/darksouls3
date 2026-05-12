@@ -62,7 +62,11 @@
         "y": 560,
         "w": 700,
         "h": 620,
-        "terrain_features": [],
+        "terrain_features": [
+          "bonfire_room",
+          "gilligan_ladder",
+          "tower_staircase"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -73,7 +77,11 @@
         "y": 1220,
         "w": 980,
         "h": 760,
-        "terrain_features": [],
+        "terrain_features": [
+          "broken_walls",
+          "ruined_houses",
+          "upper_ruins"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -84,18 +92,27 @@
         "y": 1180,
         "w": 820,
         "h": 700,
-        "terrain_features": [],
+        "terrain_features": [
+          "火焰废墟",
+          "roof_obstacles",
+          "court_sorcerer_roof",
+          "siegiward_cell"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
-        "name": "毒沼牢房",
-        "name_en": "Poison Swamp Cells",
+        "name": "水淹牢房",
+        "name_en": "Flooded Cells",
         "kind": "optional",
         "x": 860,
         "y": 2320,
         "w": 1060,
         "h": 720,
-        "terrain_features": [],
+        "terrain_features": [
+          "flooded_cells",
+          "stagnant_water",
+          "stone_platforms"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -106,7 +123,11 @@
         "y": 2260,
         "w": 820,
         "h": 520,
-        "terrain_features": [],
+        "terrain_features": [
+          "stone_bridge",
+          "jailer_rooms",
+          "fire_vessels"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -117,7 +138,12 @@
         "y": 2920,
         "w": 900,
         "h": 700,
-        "terrain_features": [],
+        "terrain_features": [
+          "火焰大厅",
+          "boss_arena",
+          "throne_pillars",
+          "storm_ruler_pedestal"
+        ],
         "source_status": "route_landmark_projection"
       }
     ]
@@ -130,11 +156,524 @@
     "y": 3220,
     "source_status": "official_identity_projected_position"
   },
-  "enemies": [],
-  "items": [],
-  "chests": [],
-  "npcs": [],
-  "lights": [],
+  "enemies": [
+    {
+      "kind": "Gargoyle",
+      "name_en": "Gargoyle",
+      "x": 800,
+      "y": 730,
+      "count": 1
+    },
+    {
+      "kind": "Gargoyle",
+      "name_en": "Gargoyle",
+      "x": 2560,
+      "y": 2360,
+      "count": 1
+    },
+    {
+      "kind": "Gargoyle",
+      "name_en": "Gargoyle",
+      "x": 2620,
+      "y": 2420,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer Handmaid",
+      "x": 2620,
+      "y": 2340,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer Handmaid",
+      "x": 2650,
+      "y": 2480,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer Handmaid",
+      "x": 2740,
+      "y": 2280,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer Handmaid",
+      "x": 2780,
+      "y": 2580,
+      "count": 1
+    },
+    {
+      "kind": "Gargoyle",
+      "name_en": "Fire-casting Gargoyle",
+      "x": 2800,
+      "y": 2480,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer Handmaid",
+      "x": 2820,
+      "y": 2340,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer Handmaid",
+      "x": 2860,
+      "y": 2540,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer Handmaid",
+      "x": 2940,
+      "y": 2400,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer",
+      "x": 1200,
+      "y": 1540,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rat",
+      "x": 1660,
+      "y": 1960,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rat",
+      "x": 1780,
+      "y": 1960,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rat",
+      "x": 1860,
+      "y": 1960,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard",
+      "x": 1720,
+      "y": 1960,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard",
+      "x": 1800,
+      "y": 1960,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard",
+      "x": 1720,
+      "y": 1680,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "Monstrosity of Sin",
+      "x": 1160,
+      "y": 2380,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "Monstrosity of Sin",
+      "x": 1300,
+      "y": 2540,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "Monstrosity of Sin",
+      "x": 1480,
+      "y": 2460,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "Monstrosity of Sin",
+      "x": 1640,
+      "y": 1640,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rat",
+      "x": 1980,
+      "y": 1860,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rat",
+      "x": 2040,
+      "y": 1860,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rat",
+      "x": 2140,
+      "y": 1860,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer Handmaid (upper ruins)",
+      "x": 1200,
+      "y": 1540,
+      "count": 1
+    },
+    {
+      "kind": "Gargoyle",
+      "name_en": "Gargoyle (ruined street)",
+      "x": 1600,
+      "y": 1700,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer Handmaid (palace ruins)",
+      "x": 2000,
+      "y": 1500,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Yhorm the Giant",
+      "x": 3000,
+      "y": 3300,
+      "count": 1,
+      "note": "Boss entity in arena"
+    }
+  ],
+  "items": [
+    {
+      "kind": "UndeadBoneShard",
+      "name_en": "Undead Bone Shard",
+      "x": 840,
+      "y": 700,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Poison Arrow",
+      "x": 1660,
+      "y": 1640,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Large Soul of a Weary Warrior",
+      "x": 1620,
+      "y": 2420,
+      "value": 1000
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Onislayer Greatarrow",
+      "x": 1380,
+      "y": 2360,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dung Pie",
+      "x": 2080,
+      "y": 1840,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Rusted Coin",
+      "x": 2980,
+      "y": 2600,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Blooming Purple Moss Clump",
+      "x": 2900,
+      "y": 2500,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Lightning Bolt",
+      "x": 1320,
+      "y": 1600,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 2180,
+      "y": 1840,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Purging Stone",
+      "x": 1700,
+      "y": 1940,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Poison Gem",
+      "x": 1760,
+      "y": 1940,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Cursebite Ring",
+      "x": 1880,
+      "y": 2360,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Shriving Stone",
+      "x": 1900,
+      "y": 2380,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dragonslayer Lightning Arrow",
+      "x": 1820,
+      "y": 1940,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Rusted Gold Coin",
+      "x": 1490,
+      "y": 1610,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Eleonora",
+      "x": 1300,
+      "y": 2480,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Court Sorcerer Set",
+      "x": 1610,
+      "y": 1610,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Logan's Scroll",
+      "x": 1700,
+      "y": 1580,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Rubbish",
+      "x": 1740,
+      "y": 1620,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Stretch Out Gesture",
+      "x": 860,
+      "y": 740,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Covetous Gold Serpent Ring",
+      "x": 1880,
+      "y": 1760,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Jailer's Key Ring",
+      "x": 1800,
+      "y": 1720,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Prisoner Chief's Ashes",
+      "x": 1840,
+      "y": 1800,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Wrath of the Gods",
+      "x": 1780,
+      "y": 1700,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Profaned Flame",
+      "x": 2060,
+      "y": 1840,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 2160,
+      "y": 1860,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Chunk",
+      "x": 2220,
+      "y": 1860,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Storm Ruler",
+      "x": 3000,
+      "y": 3200,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of Yhorm the Giant",
+      "x": 3000,
+      "y": 3240,
+      "value": 0,
+      "note": "Boss soul from Yhorm the Giant"
+    }
+  ],
+  "chests": [
+    {
+      "x": 2200,
+      "y": 1700,
+      "loot": {
+        "kind": "WeaponDrop",
+        "name_en": "Court Sorcerer's Staff",
+        "value": 0
+      },
+      "is_mimic": true
+    },
+    {
+      "x": 2740,
+      "y": 2520,
+      "loot": {
+        "kind": "ArmorDrop",
+        "name_en": "Greatshield of Glory",
+        "value": 0
+      },
+      "is_mimic": true
+    },
+    {
+      "x": 2680,
+      "y": 2560,
+      "loot": {
+        "kind": "Consumable",
+        "name_en": "Rusted Gold Coin",
+        "value": 0
+      },
+      "is_mimic": true
+    },
+    {
+      "x": 2140,
+      "y": 1840,
+      "loot": {
+        "kind": "Consumable",
+        "name_en": "Dragonslayer Lightning Arrow",
+        "value": 0
+      },
+      "is_mimic": true
+    },
+    {
+      "x": 2860,
+      "y": 2480,
+      "loot": {
+        "kind": "Consumable",
+        "name_en": "Ember",
+        "value": 0
+      },
+      "is_mimic": false
+    }
+  ],
+  "npcs": [
+    {
+      "name": "Siegward",
+      "name_en": "Siegward of Catarina",
+      "kind": "Dialogue",
+      "x": 1840,
+      "y": 1780,
+      "color": "#D4A520",
+      "dialogue": [
+        "...Yhorm, old friend",
+        "I promised you",
+        "On the day you lost your mind",
+        "I would be there to end it"
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "x": 900,
+      "y": 820,
+      "radius": 160,
+      "r": 0.8,
+      "g": 0.7,
+      "b": 0.5,
+      "intensity": 0.4
+    },
+    {
+      "x": 1720,
+      "y": 2120,
+      "radius": 140,
+      "r": 0.4,
+      "g": 0.6,
+      "b": 0.3,
+      "intensity": 0.3
+    },
+    {
+      "x": 1300,
+      "y": 2460,
+      "radius": 120,
+      "r": 0.7,
+      "g": 0.5,
+      "b": 0.3,
+      "intensity": 0.35
+    },
+    {
+      "x": 3000,
+      "y": 3220,
+      "radius": 200,
+      "r": 0.6,
+      "g": 0.4,
+      "b": 0.2,
+      "intensity": 0.5
+    }
+  ],
   "fog_gates": [
     {
       "x": 900,

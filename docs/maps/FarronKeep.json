@@ -86,7 +86,10 @@
         "w": 820,
         "h": 620,
         "terrain_features": [
-          "poison swamp"
+          "poison swamp",
+          "stone steps descending",
+          "broken stone wall",
+          "entry highland"
         ],
         "source_status": "route_landmark_projection"
       },
@@ -98,7 +101,12 @@
         "y": 860,
         "w": 620,
         "h": 520,
-        "terrain_features": [],
+        "terrain_features": [
+          "torch platform",
+          "fire altar",
+          "Ghru swarm",
+          "stone ruins"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -109,7 +117,13 @@
         "y": 420,
         "w": 660,
         "h": 760,
-        "terrain_features": [],
+        "terrain_features": [
+          "high tower ruin",
+          "ladder access",
+          "covenant area",
+          "illusory wall",
+          "wolf statue"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -121,7 +135,10 @@
         "w": 1320,
         "h": 960,
         "terrain_features": [
-          "poison swamp"
+          "毒沼中央",
+          "vast poison swamp",
+          "Ghru hordes",
+          "torch platforms"
         ],
         "source_status": "route_landmark_projection"
       },
@@ -133,7 +150,12 @@
         "y": 1220,
         "w": 720,
         "h": 560,
-        "terrain_features": [],
+        "terrain_features": [
+          "torch platform",
+          "stone ramp",
+          "Ghru patrol",
+          "Elder Ghru guard"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -144,7 +166,12 @@
         "y": 2060,
         "w": 760,
         "h": 620,
-        "terrain_features": [],
+        "terrain_features": [
+          "torch platform",
+          "ruined structure",
+          "Ghru guards",
+          "Darkwraith patrol zone"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -155,7 +182,11 @@
         "y": 2140,
         "w": 760,
         "h": 560,
-        "terrain_features": [],
+        "terrain_features": [
+          "毒沼废墟",
+          "solid ground island",
+          "ruined walls"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -166,7 +197,12 @@
         "y": 640,
         "w": 760,
         "h": 540,
-        "terrain_features": [],
+        "terrain_features": [
+          "overgrown path",
+          "ruined walls",
+          "Crystal Lizards",
+          "dragon corpse remains"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -177,7 +213,12 @@
         "y": 2520,
         "w": 760,
         "h": 520,
-        "terrain_features": [],
+        "terrain_features": [
+          "stone perimeter wall",
+          "Stray Demon pit",
+          "Ravenous Crystal Lizard",
+          "Darkwraith patrol"
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -188,7 +229,13 @@
         "y": 3180,
         "w": 820,
         "h": 620,
-        "terrain_features": [],
+        "terrain_features": [
+          "grand stone hall",
+          "wolf crest banners",
+          "Abyss Watcher armor lining corridor",
+          "boss arena",
+          "dramatic cinematic entrance"
+        ],
         "source_status": "route_landmark_projection"
       }
     ]
@@ -201,11 +248,805 @@
     "y": 3440,
     "source_status": "official_identity_projected_position"
   },
-  "enemies": [],
-  "items": [],
+  "enemies": [
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (first torch NW 1)",
+      "x": 1180,
+      "y": 960,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (first torch NW 2)",
+      "x": 1280,
+      "y": 1000,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (first torch NW 3)",
+      "x": 1400,
+      "y": 1040,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (swamp approach 1)",
+      "x": 1120,
+      "y": 1060,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (swamp approach 2)",
+      "x": 1340,
+      "y": 1120,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (swamp approach 3)",
+      "x": 1380,
+      "y": 1160,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (center torch 1)",
+      "x": 2060,
+      "y": 1570,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (center torch 2)",
+      "x": 2160,
+      "y": 1580,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (center torch 3)",
+      "x": 2240,
+      "y": 1640,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (swamp mid 1)",
+      "x": 1960,
+      "y": 1660,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (swamp mid 2)",
+      "x": 2120,
+      "y": 1700,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (right torch 1)",
+      "x": 2920,
+      "y": 1300,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (right torch 2)",
+      "x": 3020,
+      "y": 1360,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (right torch 3)",
+      "x": 2860,
+      "y": 1400,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (right torch 4)",
+      "x": 2980,
+      "y": 1460,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (right torch 5)",
+      "x": 3140,
+      "y": 1420,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (keep ruins 1)",
+      "x": 2360,
+      "y": 2240,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (keep ruins 2)",
+      "x": 2520,
+      "y": 2300,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (keep ruins 3)",
+      "x": 2680,
+      "y": 2200,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (keep ruins 4)",
+      "x": 2440,
+      "y": 2180,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Ghru (keep ruins 5)",
+      "x": 2580,
+      "y": 2160,
+      "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "Ghru Shaman (casts poison, keep ruins)",
+      "x": 2480,
+      "y": 2260,
+      "count": 1
+    },
+    {
+      "kind": "Darkwraith",
+      "name_en": "Darkwraith (SE patrol 1)",
+      "x": 3280,
+      "y": 2480,
+      "count": 1
+    },
+    {
+      "kind": "Darkwraith",
+      "name_en": "Darkwraith (SE patrol 2)",
+      "x": 3480,
+      "y": 2600,
+      "count": 1
+    },
+    {
+      "kind": "Darkwraith",
+      "name_en": "Darkwraith (near arena stairs)",
+      "x": 3960,
+      "y": 2880,
+      "count": 1
+    },
+    {
+      "kind": "Darkwraith",
+      "name_en": "Darkwraith (wooded area)",
+      "x": 2820,
+      "y": 2200,
+      "count": 1
+    },
+    {
+      "kind": "Darkwraith",
+      "name_en": "Darkwraith (fighting enemies)",
+      "x": 3700,
+      "y": 2440,
+      "count": 1
+    },
+    {
+      "kind": "Basilisk",
+      "name_en": "Basilisk (curse cave 1)",
+      "x": 1170,
+      "y": 1335,
+      "count": 1
+    },
+    {
+      "kind": "Basilisk",
+      "name_en": "Basilisk (curse cave 2)",
+      "x": 1210,
+      "y": 1365,
+      "count": 1
+    },
+    {
+      "kind": "Basilisk",
+      "name_en": "Basilisk (curse cave 3)",
+      "x": 1270,
+      "y": 1360,
+      "count": 1
+    },
+    {
+      "kind": "Basilisk",
+      "name_en": "Basilisk (curse cave 4)",
+      "x": 1290,
+      "y": 1360,
+      "count": 1
+    },
+    {
+      "kind": "Basilisk",
+      "name_en": "Basilisk (deep swamp 5)",
+      "x": 1370,
+      "y": 1380,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (leech building)",
+      "x": 1340,
+      "y": 1350,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (leech building 2)",
+      "x": 1730,
+      "y": 2160,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (ladder base)",
+      "x": 1730,
+      "y": 2260,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (ladder base 2)",
+      "x": 1730,
+      "y": 2340,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (deep swamp 1)",
+      "x": 1240,
+      "y": 1350,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (deep swamp 2)",
+      "x": 1380,
+      "y": 1350,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (deep swamp 3)",
+      "x": 1640,
+      "y": 1350,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (swamp scattered 1)",
+      "x": 1820,
+      "y": 1900,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (swamp scattered 2)",
+      "x": 2020,
+      "y": 1960,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (swamp scattered 3)",
+      "x": 2420,
+      "y": 1900,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (wall edge 1)",
+      "x": 1750,
+      "y": 2280,
+      "count": 1
+    },
+    {
+      "kind": "Rat",
+      "name_en": "Rotten Slug (wall edge 2)",
+      "x": 1720,
+      "y": 2380,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Elder Ghru (Poison Gem trio 1)",
+      "x": 1820,
+      "y": 1620,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Elder Ghru (Poison Gem trio 2)",
+      "x": 1940,
+      "y": 1740,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Elder Ghru (Poison Gem trio 3)",
+      "x": 1900,
+      "y": 1900,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Elder Ghru (near gate)",
+      "x": 3560,
+      "y": 2600,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Elder Ghru (second torch)",
+      "x": 2560,
+      "y": 1570,
+      "count": 1
+    },
+    {
+      "kind": "Ghru",
+      "name_en": "Elder Ghru (third torch ramp)",
+      "x": 2790,
+      "y": 1400,
+      "count": 1
+    },
+    {
+      "kind": "GiantSlave",
+      "name_en": "Great Crab (central swamp, drops Lingering Dragoncrest Ring)",
+      "x": 2120,
+      "y": 1580,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard (near gate)",
+      "x": 2720,
+      "y": 2140,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard (Old Wolf illusory wall)",
+      "x": 1730,
+      "y": 2320,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard (dragon corpse 1)",
+      "x": 3940,
+      "y": 2540,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard (dragon corpse 2)",
+      "x": 4100,
+      "y": 2620,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard (stone bridge ramp)",
+      "x": 1760,
+      "y": 1680,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Ravenous Crystal Lizard (giant variant, near Perimeter)",
+      "x": 3520,
+      "y": 2280,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Stray Demon (lift access, drops Soul of a Stray Demon)",
+      "x": 3900,
+      "y": 2620,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Abyss Watchers",
+      "x": 4400,
+      "y": 3520,
+      "count": 1,
+      "note": "Boss entity in arena"
+    }
+  ],
+  "items": [
+    {
+      "kind": "Consumable",
+      "name_en": "Iron Flesh (pyromancy)",
+      "x": 720,
+      "y": 1140,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Golden Scroll",
+      "x": 1160,
+      "y": 1320,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Sage's Coal",
+      "x": 1260,
+      "y": 1340,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Farron Coal (illusory wall near Old Wolf)",
+      "x": 1175,
+      "y": 1354,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dreamchaser's Ashes",
+      "x": 1720,
+      "y": 2410,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Lightning Spear (miracle)",
+      "x": 3490,
+      "y": 2250,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Sage's Scroll",
+      "x": 1820,
+      "y": 2080,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Poison Gem",
+      "x": 1960,
+      "y": 1980,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Great Magic Weapon (sorcery)",
+      "x": 2340,
+      "y": 1560,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Atonement (miracle)",
+      "x": 2790,
+      "y": 1250,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Wolf's Blood Swordgrass (covenant item)",
+      "x": 1700,
+      "y": 2450,
+      "value": 0
+    },
+    {
+      "kind": "UndeadBoneShard",
+      "name_en": "Undead Bone Shard",
+      "x": 1700,
+      "y": 2130,
+      "value": 0
+    },
+    {
+      "kind": "EstusShard",
+      "name_en": "Estus Shard",
+      "x": 2320,
+      "y": 1780,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Shard",
+      "x": 1700,
+      "y": 2490,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Shard",
+      "x": 1780,
+      "y": 2420,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 2690,
+      "y": 2110,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 2290,
+      "y": 2670,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Twinkling Titanite",
+      "x": 1700,
+      "y": 2420,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Heavy Gem",
+      "x": 1880,
+      "y": 1660,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Hollow Gem",
+      "x": 2020,
+      "y": 1840,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Shriving Stone",
+      "x": 2180,
+      "y": 1980,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Greatsword",
+      "x": 2860,
+      "y": 1250,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Greataxe",
+      "x": 2260,
+      "y": 2640,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Sunlight Talisman",
+      "x": 2240,
+      "y": 1570,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Black Bow of Pharis",
+      "x": 1260,
+      "y": 1270,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Stone Parma",
+      "x": 1280,
+      "y": 1350,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Dragon Crest Shield",
+      "x": 3380,
+      "y": 1420,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Lingering Dragoncrest Ring",
+      "x": 1230,
+      "y": 1360,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Ragged Mask",
+      "x": 1400,
+      "y": 1350,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Pharis's Hat",
+      "x": 1190,
+      "y": 1310,
+      "value": 0
+    },
+    {
+      "kind": "Ember",
+      "name_en": "Ember",
+      "x": 3380,
+      "y": 1280,
+      "value": 0
+    },
+    {
+      "kind": "PurpleMoss",
+      "name_en": "Purple Moss Clump (swamp 1)",
+      "x": 1240,
+      "y": 1280,
+      "value": 0
+    },
+    {
+      "kind": "PurpleMoss",
+      "name_en": "Purple Moss Clump (swamp 2)",
+      "x": 1240,
+      "y": 1380,
+      "value": 0
+    },
+    {
+      "kind": "PurpleMoss",
+      "name_en": "Purple Moss Clump (swamp 3)",
+      "x": 1210,
+      "y": 1320,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Young White Branch",
+      "x": 1720,
+      "y": 2490,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Young White Branch",
+      "x": 1730,
+      "y": 2440,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Nameless Soldier",
+      "x": 2100,
+      "y": 1680,
+      "value": 800
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Large Soul of a Nameless Soldier",
+      "x": 2790,
+      "y": 1280,
+      "value": 1200
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Stray Demon",
+      "x": 4140,
+      "y": 2860,
+      "value": 20000
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Wolf's Blood (key to Abyss Watchers)",
+      "x": 3200,
+      "y": 2600,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of the Blood of the Wolf",
+      "x": 4400,
+      "y": 3460,
+      "value": 0,
+      "note": "Boss soul from Abyss Watchers"
+    }
+  ],
   "chests": [],
-  "npcs": [],
-  "lights": [],
+  "npcs": [
+    {
+      "name": "Old Wolf of Farron",
+      "name_en": "Old Wolf of Farron",
+      "kind": "Dialogue",
+      "x": 1730,
+      "y": 2470,
+      "color": "#8899AA",
+      "dialogue": [
+        "(The wolf gazes silently)",
+        "Its eyes reflect distant flames"
+      ]
+    },
+    {
+      "name": "Hawkwood",
+      "name_en": "Hawkwood",
+      "kind": "Dialogue",
+      "x": 2200,
+      "y": 1840,
+      "color": "#8B7355",
+      "dialogue": [
+        "The Undead Legion used to be around here",
+        "They were a fierce bunch",
+        "They linked the fire long ago"
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "x": 620,
+      "y": 760,
+      "radius": 140,
+      "r": 0.8,
+      "g": 0.7,
+      "b": 0.4,
+      "intensity": 0.4
+    },
+    {
+      "x": 1220,
+      "y": 940,
+      "radius": 120,
+      "r": 1.0,
+      "g": 0.6,
+      "b": 0.2,
+      "intensity": 0.5
+    },
+    {
+      "x": 2130,
+      "y": 1150,
+      "radius": 120,
+      "r": 1.0,
+      "g": 0.6,
+      "b": 0.2,
+      "intensity": 0.5
+    },
+    {
+      "x": 3080,
+      "y": 1250,
+      "radius": 120,
+      "r": 1.0,
+      "g": 0.6,
+      "b": 0.2,
+      "intensity": 0.5
+    },
+    {
+      "x": 2400,
+      "y": 1780,
+      "radius": 180,
+      "r": 0.8,
+      "g": 0.7,
+      "b": 0.4,
+      "intensity": 0.4
+    },
+    {
+      "x": 1730,
+      "y": 2470,
+      "radius": 160,
+      "r": 0.6,
+      "g": 0.7,
+      "b": 0.8,
+      "intensity": 0.35
+    },
+    {
+      "x": 4400,
+      "y": 3440,
+      "radius": 220,
+      "r": 0.5,
+      "g": 0.5,
+      "b": 0.6,
+      "intensity": 0.4
+    }
+  ],
   "fog_gates": [
     {
       "x": 620,

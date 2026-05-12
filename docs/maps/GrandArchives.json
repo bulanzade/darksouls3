@@ -64,7 +64,22 @@
         "y": 5200,
         "w": 840,
         "h": 600,
-        "terrain_features": [],
+        "terrain_features": [
+          {
+            "kind": "bookshelf_wall",
+            "x": 560,
+            "y": 5260,
+            "w": 40,
+            "h": 130
+          },
+          {
+            "kind": "bookshelf_wall",
+            "x": 640,
+            "y": 5320,
+            "w": 40,
+            "h": 100
+          }
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -75,7 +90,29 @@
         "y": 4440,
         "w": 1020,
         "h": 800,
-        "terrain_features": [],
+        "terrain_features": [
+          {
+            "kind": "wax_pool",
+            "x": 1100,
+            "y": 4540,
+            "w": 500,
+            "h": 300
+          },
+          {
+            "kind": "bookshelf_wall",
+            "x": 1180,
+            "y": 4500,
+            "w": 40,
+            "h": 80
+          },
+          {
+            "kind": "bookshelf_wall",
+            "x": 1380,
+            "y": 4680,
+            "w": 40,
+            "h": 70
+          }
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -86,7 +123,43 @@
         "y": 3460,
         "w": 1000,
         "h": 760,
-        "terrain_features": [],
+        "terrain_features": [
+          {
+            "kind": "desk_cluster",
+            "x": 1500,
+            "y": 3520,
+            "w": 40,
+            "h": 50
+          },
+          {
+            "kind": "bookshelf_wall",
+            "x": 1600,
+            "y": 3580,
+            "w": 40,
+            "h": 50
+          },
+          {
+            "kind": "desk_cluster",
+            "x": 1700,
+            "y": 3500,
+            "w": 40,
+            "h": 40
+          },
+          {
+            "kind": "pillar",
+            "x": 1800,
+            "y": 3620,
+            "w": 40,
+            "h": 40
+          },
+          {
+            "kind": "bookshelf_wall",
+            "x": 1880,
+            "y": 3540,
+            "w": 40,
+            "h": 50
+          }
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -97,7 +170,57 @@
         "y": 2440,
         "w": 1120,
         "h": 760,
-        "terrain_features": [],
+        "terrain_features": [
+          {
+            "kind": "chimney",
+            "x": 1960,
+            "y": 2540,
+            "w": 40,
+            "h": 70
+          },
+          {
+            "kind": "roof_structure",
+            "x": 2100,
+            "y": 2600,
+            "w": 40,
+            "h": 70
+          },
+          {
+            "kind": "chimney",
+            "x": 2260,
+            "y": 2500,
+            "w": 40,
+            "h": 70
+          },
+          {
+            "kind": "roof_structure",
+            "x": 2420,
+            "y": 2560,
+            "w": 40,
+            "h": 70
+          },
+          {
+            "kind": "barricade",
+            "x": 2020,
+            "y": 2460,
+            "w": 30,
+            "h": 100
+          },
+          {
+            "kind": "barricade",
+            "x": 2140,
+            "y": 2580,
+            "w": 30,
+            "h": 110
+          },
+          {
+            "kind": "barricade",
+            "x": 2260,
+            "y": 2460,
+            "w": 30,
+            "h": 110
+          }
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -108,7 +231,29 @@
         "y": 1560,
         "w": 1020,
         "h": 620,
-        "terrain_features": [],
+        "terrain_features": [
+          {
+            "kind": "armor_display",
+            "x": 2200,
+            "y": 1640,
+            "w": 40,
+            "h": 50
+          },
+          {
+            "kind": "armor_display",
+            "x": 2400,
+            "y": 1700,
+            "w": 40,
+            "h": 50
+          },
+          {
+            "kind": "pillar",
+            "x": 2600,
+            "y": 1620,
+            "w": 40,
+            "h": 40
+          }
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -119,7 +264,29 @@
         "y": 920,
         "w": 920,
         "h": 520,
-        "terrain_features": [],
+        "terrain_features": [
+          {
+            "kind": "throne_pillar",
+            "x": 2520,
+            "y": 980,
+            "w": 30,
+            "h": 30
+          },
+          {
+            "kind": "throne_pillar",
+            "x": 2760,
+            "y": 1020,
+            "w": 30,
+            "h": 30
+          },
+          {
+            "kind": "throne_pillar",
+            "x": 2900,
+            "y": 980,
+            "w": 30,
+            "h": 30
+          }
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -130,7 +297,43 @@
         "y": 360,
         "w": 860,
         "h": 620,
-        "terrain_features": [],
+        "terrain_features": [
+          {
+            "kind": "throne_pillar",
+            "x": 2700,
+            "y": 440,
+            "w": 30,
+            "h": 30
+          },
+          {
+            "kind": "throne_pillar",
+            "x": 2940,
+            "y": 460,
+            "w": 30,
+            "h": 30
+          },
+          {
+            "kind": "throne_pillar",
+            "x": 3100,
+            "y": 440,
+            "w": 30,
+            "h": 30
+          },
+          {
+            "kind": "throne_pillar",
+            "x": 2820,
+            "y": 640,
+            "w": 30,
+            "h": 30
+          },
+          {
+            "kind": "throne_pillar",
+            "x": 3020,
+            "y": 660,
+            "w": 30,
+            "h": 30
+          }
+        ],
         "source_status": "route_landmark_projection"
       }
     ]
@@ -143,11 +346,626 @@
     "y": 620,
     "source_status": "official_identity_projected_position"
   },
-  "enemies": [],
-  "items": [],
-  "chests": [],
-  "npcs": [],
-  "lights": [],
+  "enemies": [
+    {
+      "kind": "GrandArchivesScholar",
+      "name_en": "Grand Archives Scholar (entry hall)",
+      "x": 680,
+      "y": 5340,
+      "count": 1
+    },
+    {
+      "kind": "HollowSlave",
+      "name_en": "Hollow Slave (entry ambush)",
+      "x": 620,
+      "y": 5400,
+      "count": 1
+    },
+    {
+      "kind": "GrandArchivesScholar",
+      "name_en": "Grand Archives Scholar (first floor)",
+      "x": 1020,
+      "y": 4760,
+      "count": 1
+    },
+    {
+      "kind": "GrandArchivesScholar",
+      "name_en": "Grand Archives Scholar (corridor)",
+      "x": 1060,
+      "y": 4620,
+      "count": 1
+    },
+    {
+      "kind": "GrandArchivesScholar",
+      "name_en": "Grand Archives Scholar (corridor 2)",
+      "x": 1160,
+      "y": 4500,
+      "count": 1
+    },
+    {
+      "kind": "GrandArchivesScholar",
+      "name_en": "Grand Archives Scholar (corridor 3)",
+      "x": 1140,
+      "y": 4600,
+      "count": 1
+    },
+    {
+      "kind": "HollowSlave",
+      "name_en": "Hollow Slave (first floor)",
+      "x": 1080,
+      "y": 4700,
+      "count": 1
+    },
+    {
+      "kind": "HollowSlave",
+      "name_en": "Hollow Slave (corridor)",
+      "x": 1240,
+      "y": 4540,
+      "count": 1
+    },
+    {
+      "kind": "GrandArchivesScholar",
+      "name_en": "Grand Archives Scholar (wax pool)",
+      "x": 1420,
+      "y": 3500,
+      "count": 1
+    },
+    {
+      "kind": "GrandArchivesScholar",
+      "name_en": "Grand Archives Scholar (wax pool 2)",
+      "x": 1420,
+      "y": 3640,
+      "count": 1
+    },
+    {
+      "kind": "GrandArchivesScholar",
+      "name_en": "Grand Archives Scholar (wax pool 3)",
+      "x": 1420,
+      "y": 3580,
+      "count": 1
+    },
+    {
+      "kind": "HollowSlave",
+      "name_en": "Hollow Slave (wax pool)",
+      "x": 1500,
+      "y": 3600,
+      "count": 1
+    },
+    {
+      "kind": "HollowSlave",
+      "name_en": "Hollow Slave (wax pool 2)",
+      "x": 1420,
+      "y": 3460,
+      "count": 1
+    },
+    {
+      "kind": "BorealOutriderKnight",
+      "name_en": "Boreal Outrider Knight (frozen)",
+      "x": 1220,
+      "y": 4460,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "Lothric Knight (upper floor)",
+      "x": 1460,
+      "y": 3740,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "Lothric Knight (upper floor 2)",
+      "x": 1560,
+      "y": 3620,
+      "count": 1
+    },
+    {
+      "kind": "AscendedWingedKnight",
+      "name_en": "Ascended Winged Knight (rooftop)",
+      "x": 1640,
+      "y": 3480,
+      "count": 1
+    },
+    {
+      "kind": "AscendedWingedKnight",
+      "name_en": "Ascended Winged Knight (rooftop 2)",
+      "x": 1800,
+      "y": 3480,
+      "count": 1
+    },
+    {
+      "kind": "AscendedWingedKnight",
+      "name_en": "Ascended Winged Knight (rooftop 3)",
+      "x": 1520,
+      "y": 3480,
+      "count": 1
+    },
+    {
+      "kind": "Gargoyle",
+      "name_en": "Gargoyle (rooftop)",
+      "x": 1960,
+      "y": 2520,
+      "count": 1
+    },
+    {
+      "kind": "Gargoyle",
+      "name_en": "Gargoyle (rooftop 2)",
+      "x": 2240,
+      "y": 2560,
+      "count": 1
+    },
+    {
+      "kind": "Gargoyle",
+      "name_en": "Gargoyle (rooftop 3)",
+      "x": 2440,
+      "y": 2480,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard (first floor)",
+      "x": 1120,
+      "y": 4460,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard (upper)",
+      "x": 1420,
+      "y": 3540,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard (rooftop)",
+      "x": 2180,
+      "y": 2580,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard (rooftop 2)",
+      "x": 2360,
+      "y": 2700,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Black Hand (Faraam warrior)",
+      "x": 1060,
+      "y": 4460,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Black Hand (dual katana)",
+      "x": 1040,
+      "y": 4600,
+      "count": 1
+    },
+    {
+      "kind": "HollowSlave",
+      "name_en": "Hollow Slave (bridge gauntlet)",
+      "x": 2620,
+      "y": 2460,
+      "count": 1
+    },
+    {
+      "kind": "HollowSlave",
+      "name_en": "Hollow Slave (bridge gauntlet 2)",
+      "x": 2660,
+      "y": 2500,
+      "count": 1
+    },
+    {
+      "kind": "HollowSlave",
+      "name_en": "Hollow Slave (bridge gauntlet 3)",
+      "x": 2740,
+      "y": 2600,
+      "count": 1
+    },
+    {
+      "kind": "HollowSlave",
+      "name_en": "Hollow Slave (bridge gauntlet 4)",
+      "x": 2800,
+      "y": 2680,
+      "count": 1
+    },
+    {
+      "kind": "HollowSlave",
+      "name_en": "Hollow Slave (bridge gauntlet 5)",
+      "x": 2880,
+      "y": 2480,
+      "count": 1
+    },
+    {
+      "kind": "HollowSlave",
+      "name_en": "Hollow Slave (bridge gauntlet 6)",
+      "x": 2920,
+      "y": 2560,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "Lothric Knight (bridge)",
+      "x": 2940,
+      "y": 2520,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "Lothric Knight (bridge 2)",
+      "x": 2940,
+      "y": 2600,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "Twin Princes",
+      "x": 2900,
+      "y": 700,
+      "count": 1,
+      "note": "Boss entity in arena"
+    }
+  ],
+  "items": [
+    {
+      "kind": "Consumable",
+      "name_en": "Power Within",
+      "x": 1220,
+      "y": 4510,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Soul Stream",
+      "x": 1280,
+      "y": 4480,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Divine Pillars of Light",
+      "x": 1680,
+      "y": 3480,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Crestfallen Knight",
+      "x": 630,
+      "y": 5470,
+      "value": 600
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Crestfallen Knight",
+      "x": 1560,
+      "y": 3600,
+      "value": 600
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Nameless Soldier",
+      "x": 1040,
+      "y": 4480,
+      "value": 1000
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Weary Warrior",
+      "x": 2030,
+      "y": 2570,
+      "value": 1000
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Large Soul of a Crestfallen Knight",
+      "x": 1640,
+      "y": 3520,
+      "value": 1500
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Homeward Bone",
+      "x": 1120,
+      "y": 4720,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Homeward Bone",
+      "x": 1300,
+      "y": 4480,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Ember",
+      "x": 1050,
+      "y": 4670,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Avelyn",
+      "x": 1380,
+      "y": 4520,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Golden Wing Crest Shield",
+      "x": 1600,
+      "y": 3540,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Sage's Crystal Staff",
+      "x": 1640,
+      "y": 3460,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Onikiri and Ubadachi",
+      "x": 1680,
+      "y": 3500,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Crystal Chime",
+      "x": 1440,
+      "y": 3560,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Crystal Scroll",
+      "x": 1000,
+      "y": 5180,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Outrider Knight Armor Set",
+      "x": 1190,
+      "y": 4480,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Chunk",
+      "x": 1020,
+      "y": 4620,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Chunk",
+      "x": 1080,
+      "y": 4660,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Chunk",
+      "x": 1480,
+      "y": 3580,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Scale",
+      "x": 1160,
+      "y": 4640,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Scale",
+      "x": 1060,
+      "y": 4480,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Slab",
+      "x": 2180,
+      "y": 2520,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Greirat's Ashes",
+      "x": 1860,
+      "y": 2440,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Shriving Stone",
+      "x": 1640,
+      "y": 3580,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Hollow Gem",
+      "x": 2020,
+      "y": 2520,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Blessed Gem",
+      "x": 1820,
+      "y": 3500,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Undead Bone Shard",
+      "x": 1100,
+      "y": 4680,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Estus Shard",
+      "x": 1610,
+      "y": 3500,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Fleshbite Ring",
+      "x": 1790,
+      "y": 3470,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Hunter's Ring",
+      "x": 1750,
+      "y": 3500,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Scholar Ring",
+      "x": 1400,
+      "y": 4460,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of the Twin Princes",
+      "x": 2900,
+      "y": 640,
+      "value": 0,
+      "note": "Boss soul from Lorian, Elder Prince and Lothric, Younger Prince"
+    }
+  ],
+  "chests": [
+    {
+      "x": 1080,
+      "y": 4480,
+      "loot": {
+        "kind": "WeaponDrop",
+        "name_en": "Witch's Locks",
+        "value": 0
+      },
+      "is_mimic": false
+    },
+    {
+      "x": 1560,
+      "y": 3500,
+      "loot": {
+        "kind": "TitaniteShard",
+        "name_en": "Titanite Scale",
+        "value": 0
+      },
+      "is_mimic": false
+    },
+    {
+      "x": 1200,
+      "y": 4580,
+      "loot": {
+        "kind": "TitaniteShard",
+        "name_en": "Titanite Slab",
+        "value": 0
+      },
+      "is_mimic": false
+    },
+    {
+      "x": 1840,
+      "y": 3460,
+      "loot": {
+        "kind": "Consumable",
+        "name_en": "Divine Blessing",
+        "value": 0
+      },
+      "is_mimic": false
+    },
+    {
+      "x": 1900,
+      "y": 3500,
+      "loot": {
+        "kind": "TitaniteShard",
+        "name_en": "Twinkling Titanite",
+        "value": 0
+      },
+      "is_mimic": false
+    }
+  ],
+  "npcs": [
+    {
+      "name": "黒手のゴットヒルト",
+      "name_en": "Black Hand Gotthard",
+      "kind": "Dialogue",
+      "x": 640,
+      "y": 5560,
+      "color": "#606060",
+      "dialogue": [
+        "A corpse with the Grand Archives Key",
+        "Gotthard's journey ends here"
+      ]
+    },
+    {
+      "name": "卡塔利纳的杰克巴尔多",
+      "name_en": "Siegward of Catarina",
+      "kind": "Dialogue",
+      "x": 448,
+      "y": 2240,
+      "color": "#D4A520",
+      "dialogue": [
+        "Oh, it's you again",
+        "I've been exploring these archives",
+        "Fascinating place, really"
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "x": 720,
+      "y": 5480,
+      "radius": 140,
+      "r": 0.9,
+      "g": 0.7,
+      "b": 0.3,
+      "intensity": 0.3
+    },
+    {
+      "x": 1200,
+      "y": 4500,
+      "radius": 160,
+      "r": 1.0,
+      "g": 0.5,
+      "b": 0.1,
+      "intensity": 0.35
+    },
+    {
+      "x": 1600,
+      "y": 3500,
+      "radius": 160,
+      "r": 0.4,
+      "g": 0.5,
+      "b": 0.9,
+      "intensity": 0.35
+    },
+    {
+      "x": 2900,
+      "y": 620,
+      "radius": 200,
+      "r": 1.0,
+      "g": 0.95,
+      "b": 0.8,
+      "intensity": 0.5
+    }
+  ],
   "fog_gates": [
     {
       "x": 720,

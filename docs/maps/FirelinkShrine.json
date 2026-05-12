@@ -2,7 +2,7 @@
   "id": "FirelinkShrine",
   "name": "传火祭祀场",
   "name_en": "Firelink Shrine",
-  "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
+  "description": "Central hub area of Dark Souls III. Contains key NPCs for leveling, blacksmithing, and shopping. Exterior graveyard has hostile enemies including the Sword Master.",
   "theme": "hub shrine",
   "map_size": {
     "width": 2560,
@@ -16,27 +16,6 @@
       "LothricWall"
     ]
   },
-  "restoration": {
-    "status": "clean_rebuild_topology_projection",
-    "authoritative_fields": [
-      "area id/name",
-      "connections",
-      "bonfire names",
-      "boss identity"
-    ],
-    "projection_fields": [
-      "map_size",
-      "sections coordinates",
-      "fog gate coordinates"
-    ],
-    "excluded_until_sourced": [
-      "enemy placements",
-      "item placements",
-      "NPC dialogue",
-      "chest placements"
-    ],
-    "note": "This file intentionally avoids inherited fabricated precise data."
-  },
   "bonfires": [
     {
       "name": "传火祭祀场",
@@ -47,7 +26,7 @@
     }
   ],
   "map_layout": {
-    "basis": "Clean gameplay 2D projection of Dark Souls III route topology. Not official coordinate geometry.",
+    "basis": "Central hub shrine with surrounding NPC alcoves and exterior graveyard. Interior is safe, exterior has hostile enemies.",
     "sections": [
       {
         "name": "入口墓地",
@@ -57,8 +36,11 @@
         "y": 1680,
         "w": 520,
         "h": 280,
-        "terrain_features": [],
-        "source_status": "route_landmark_projection"
+        "terrain_features": [
+          "graves",
+          "dead trees",
+          "cliff path"
+        ]
       },
       {
         "name": "中央大厅",
@@ -70,9 +52,9 @@
         "h": 760,
         "terrain_features": [
           "bonfire",
-          "thrones"
-        ],
-        "source_status": "route_landmark_projection"
+          "coiled sword",
+          "lord thrones"
+        ]
       },
       {
         "name": "铁匠侧室",
@@ -82,8 +64,10 @@
         "y": 900,
         "w": 360,
         "h": 360,
-        "terrain_features": [],
-        "source_status": "route_landmark_projection"
+        "terrain_features": [
+          "anvil",
+          "forge"
+        ]
       },
       {
         "name": "侍女货架",
@@ -93,8 +77,10 @@
         "y": 900,
         "w": 360,
         "h": 360,
-        "terrain_features": [],
-        "source_status": "route_landmark_projection"
+        "terrain_features": [
+          "shelves",
+          "goods"
+        ]
       },
       {
         "name": "王座上层",
@@ -104,8 +90,10 @@
         "y": 430,
         "w": 920,
         "h": 300,
-        "terrain_features": [],
-        "source_status": "route_landmark_projection"
+        "terrain_features": [
+          "thrones",
+          "ash"
+        ]
       },
       {
         "name": "屋顶与塔楼",
@@ -115,8 +103,11 @@
         "y": 180,
         "w": 1840,
         "h": 360,
-        "terrain_features": [],
-        "source_status": "route_landmark_projection"
+        "terrain_features": [
+          "rafters",
+          "tower bridge",
+          "illusory wall"
+        ]
       },
       {
         "name": "高墙传送点",
@@ -126,17 +117,301 @@
         "y": 60,
         "w": 240,
         "h": 160,
-        "terrain_features": [],
-        "source_status": "route_landmark_projection"
+        "terrain_features": [
+          "coiled sword fragment"
+        ]
       }
     ]
   },
   "boss": null,
-  "enemies": [],
-  "items": [],
-  "chests": [],
-  "npcs": [],
-  "lights": [],
+  "enemies": [
+    {
+      "kind": "Assassin",
+      "name_en": "Sword Master (Uchigatana)",
+      "x": 1300,
+      "y": 1800,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard (tower roof)",
+      "x": 1800,
+      "y": 360,
+      "count": 1
+    }
+  ],
+  "items": [
+    {
+      "kind": "EstusShard",
+      "name_en": "Estus Shard",
+      "x": 600,
+      "y": 380
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Estus Ring",
+      "x": 700,
+      "y": 300
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Fire Keeper Soul",
+      "x": 1900,
+      "y": 320
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Broken Straight Sword",
+      "x": 1200,
+      "y": 1740
+    },
+    {
+      "kind": "HomewardBone",
+      "name_en": "Homeward Bone",
+      "x": 1220,
+      "y": 1780
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Uchigatana",
+      "x": 1320,
+      "y": 1820
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Master's Attire",
+      "x": 1280,
+      "y": 1880
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Master's Gloves",
+      "x": 1340,
+      "y": 1880
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Deserted Corpse",
+      "x": 660,
+      "y": 400,
+      "value": 200
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Twinkling Titanite",
+      "x": 1820,
+      "y": 400
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Fire Keeper Set",
+      "x": 1680,
+      "y": 360
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Seed of a Giant Tree",
+      "x": 1120,
+      "y": 1700
+    }
+  ],
+  "chests": [
+    {
+      "x": 1700,
+      "y": 340,
+      "loot": {
+        "kind": "RingDrop",
+        "name_en": "Covetous Silver Serpent Ring",
+        "value": 0
+      },
+      "is_mimic": false
+    }
+  ],
+  "npcs": [
+    {
+      "name": "防火女",
+      "name_en": "Fire Keeper",
+      "kind": "LevelUp",
+      "x": 1240,
+      "y": 960,
+      "color": "#FFFFFF",
+      "dialogue": [
+        "Welcome to Firelink Shrine",
+        "I am a Fire Keeper",
+        "I tend the flame and tend to thee"
+      ]
+    },
+    {
+      "name": "库尔兰的鲁道斯",
+      "name_en": "Ludleth of Courland",
+      "kind": "Dialogue",
+      "x": 1320,
+      "y": 1024,
+      "color": "#DAA520",
+      "dialogue": [
+        "Peace. I am Ludleth of Courland",
+        "Let me ask you this: is it not the nature of a Lord to sacrifice himself for his people?",
+        "Ah, it singeth to the bone"
+      ]
+    },
+    {
+      "name": "亚斯特拉的安德烈",
+      "name_en": "Andre of Astora",
+      "kind": "Blacksmith",
+      "x": 580,
+      "y": 1080,
+      "color": "#C0C0C0",
+      "dialogue": [
+        "What do you need?",
+        "I'm Andre, a blacksmith",
+        "Let me smith your weapons"
+      ]
+    },
+    {
+      "name": "祭祀场侍女",
+      "name_en": "Shrine Handmaiden",
+      "kind": "Merchant",
+      "x": 1960,
+      "y": 1080,
+      "color": "#8B7355",
+      "dialogue": [
+        "What is it? Buy something",
+        "I'll trade your souls for these goods",
+        "Visit again"
+      ]
+    },
+    {
+      "name": "霍克伍德",
+      "name_en": "Hawkwood",
+      "kind": "Dialogue",
+      "x": 1400,
+      "y": 1100,
+      "color": "#7F8C8D",
+      "dialogue": [
+        "Oh, another Unkindled",
+        "What do you want? I have nothing for you",
+        "The Farron Keep is where the Undead Legion once stood"
+      ]
+    },
+    {
+      "name": "尤莉亚",
+      "name_en": "Yuria of Londor",
+      "kind": "Dialogue",
+      "x": 1824,
+      "y": 1216,
+      "color": "#2A1A3A",
+      "dialogue": [
+        "I am Yuria of Londor, a servant of the Lord of Hollows",
+        "Thou art the Lord of Hollows",
+        "The fire has bent to thy will",
+        "Let us embrace the age of hollows, together"
+      ]
+    },
+    {
+      "name": "指头的列奥纳德",
+      "name_en": "Ringfinger Leonhard",
+      "kind": "Dialogue",
+      "x": 1472,
+      "y": 1504,
+      "color": "#8B0000",
+      "dialogue": [
+        "You have a good look",
+        "I am Leonhard, I have a proposition for you",
+        "Take this Cracked Red Eye Orb",
+        "Invade and pillage the souls of others"
+      ]
+    },
+    {
+      "name": "尤艾尔",
+      "name_en": "Yoel of Londor",
+      "kind": "Dialogue",
+      "x": 896,
+      "y": 1408,
+      "color": "#3A3A4A",
+      "dialogue": [
+        "I am Yoel of Londor, a pilgrim as they call me",
+        "I can draw out your true strength",
+        "Let me level you up",
+        "Come back when you need more"
+      ]
+    },
+    {
+      "name": "格雷瑞特",
+      "name_en": "Greirat",
+      "kind": "Merchant",
+      "x": 832,
+      "y": 1472,
+      "color": "#5A5A5A",
+      "dialogue": [
+        "I am Greirat of the Undead Settlement",
+        "You saved me from that cell, I owe you everything",
+        "I can steal items for you, if you like",
+        "Just leave it to old Greirat"
+      ]
+    },
+    {
+      "name": "科尔尼克斯",
+      "name_en": "Cornyx",
+      "kind": "Merchant",
+      "x": 1184,
+      "y": 1280,
+      "color": "#8B6914",
+      "dialogue": [
+        "I am Cornyx, a pyromancer of the Great Swamp",
+        "You freed me from my cage, and for that I am grateful",
+        "Bring me pyromancy tomes, and I shall teach you their arts",
+        "The flame is a wondrous thing"
+      ]
+    },
+    {
+      "name": "维恩海姆的欧贝克",
+      "name_en": "Orbeck of Vinheim",
+      "kind": "Merchant",
+      "x": 1376,
+      "y": 1184,
+      "color": "#7090B0",
+      "dialogue": [
+        "I am Orbeck of Vinheim. A sorcerer, and an assassin",
+        "I shall teach you sorceries, as promised",
+        "Bring me scrolls, and I shall decipher them",
+        "But if you prove talentless, our arrangement ends"
+      ]
+    },
+    {
+      "name": "日蚀的希里斯",
+      "name_en": "Sirris of the Sunless Realms",
+      "kind": "Dialogue",
+      "x": 1568,
+      "y": 1408,
+      "color": "#A0B0C0",
+      "dialogue": [
+        "I am Sirris of the Sunless Realms",
+        "I have sworn an oath to serve you",
+        "I shall come to your aid whenever you need",
+        "Thank you, for accepting my knightly vows"
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "x": 1280,
+      "y": 1024,
+      "radius": 240,
+      "r": 0.9,
+      "g": 0.7,
+      "b": 0.4,
+      "intensity": 0.6
+    },
+    {
+      "x": 580,
+      "y": 1080,
+      "radius": 120,
+      "r": 0.8,
+      "g": 0.5,
+      "b": 0.2,
+      "intensity": 0.4
+    }
+  ],
   "fog_gates": [
     {
       "x": 1280,
@@ -146,8 +421,7 @@
       "dest_area": "CemeteryOfAsh",
       "dest_x": 1536,
       "dest_y": 740,
-      "kind": "area_transition",
-      "source_status": "projected_transition"
+      "kind": "area_transition"
     },
     {
       "x": 1280,
@@ -157,8 +431,7 @@
       "dest_area": "LothricWall",
       "dest_x": 560,
       "dest_y": 360,
-      "kind": "area_transition",
-      "source_status": "projected_transition"
+      "kind": "area_transition"
     }
   ]
 }

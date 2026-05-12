@@ -37,15 +37,15 @@
   },
   "bonfires": [
     {
-      "name": "无火的祭祀场",
-      "name_en": "Flameless Shrine",
+      "name": "初始之火的火炉",
+      "name_en": "Kiln of the First Flame",
       "x": 620,
       "y": 2200,
       "source_status": "official_name_projected_position"
     },
     {
-      "name": "初始之火的火炉",
-      "name_en": "Kiln of the First Flame",
+      "name": "初始之火",
+      "name_en": "The First Flame",
       "x": 1560,
       "y": 1180,
       "source_status": "official_name_projected_position"
@@ -62,7 +62,29 @@
         "y": 1960,
         "w": 900,
         "h": 620,
-        "terrain_features": [],
+        "terrain_features": [
+          {
+            "kind": "ash_mound",
+            "x": 520,
+            "y": 2040,
+            "w": 60,
+            "h": 40
+          },
+          {
+            "kind": "ash_mound",
+            "x": 700,
+            "y": 2180,
+            "w": 50,
+            "h": 35
+          },
+          {
+            "kind": "ruined_pillar",
+            "x": 880,
+            "y": 2100,
+            "w": 30,
+            "h": 30
+          }
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -73,7 +95,43 @@
         "y": 1440,
         "w": 920,
         "h": 560,
-        "terrain_features": [],
+        "terrain_features": [
+          {
+            "kind": "iron_girder",
+            "x": 1180,
+            "y": 1580,
+            "w": 30,
+            "h": 110
+          },
+          {
+            "kind": "iron_girder",
+            "x": 1780,
+            "y": 1680,
+            "w": 30,
+            "h": 100
+          },
+          {
+            "kind": "iron_girder",
+            "x": 1420,
+            "y": 1820,
+            "w": 30,
+            "h": 80
+          },
+          {
+            "kind": "collapsed_wall",
+            "x": 1300,
+            "y": 1520,
+            "w": 50,
+            "h": 40
+          },
+          {
+            "kind": "collapsed_wall",
+            "x": 1600,
+            "y": 1760,
+            "w": 50,
+            "h": 40
+          }
+        ],
         "source_status": "route_landmark_projection"
       },
       {
@@ -84,7 +142,29 @@
         "y": 760,
         "w": 980,
         "h": 720,
-        "terrain_features": [],
+        "terrain_features": [
+          {
+            "kind": "ash_mound",
+            "x": 1400,
+            "y": 880,
+            "w": 60,
+            "h": 40
+          },
+          {
+            "kind": "ash_mound",
+            "x": 1800,
+            "y": 1000,
+            "w": 50,
+            "h": 35
+          },
+          {
+            "kind": "first_flame_altar",
+            "x": 1560,
+            "y": 1180,
+            "w": 80,
+            "h": 80
+          }
+        ],
         "source_status": "route_landmark_projection"
       }
     ]
@@ -97,11 +177,72 @@
     "y": 1180,
     "source_status": "official_identity_projected_position"
   },
-  "enemies": [],
-  "items": [],
+  "enemies": [
+    {
+      "kind": "MiniBoss",
+      "name_en": "Soul of Cinder",
+      "x": 1560,
+      "y": 1260,
+      "count": 1,
+      "note": "Boss entity in arena"
+    }
+  ],
+  "items": [
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of the Lords",
+      "x": 1560,
+      "y": 1180,
+      "value": 20000,
+      "note": "Boss soul from Soul of Cinder"
+    }
+  ],
   "chests": [],
-  "npcs": [],
-  "lights": [],
+  "npcs": [
+    {
+      "name": "防火女",
+      "name_en": "Fire Keeper",
+      "kind": "Dialogue",
+      "x": 1248,
+      "y": 448,
+      "color": "#FFFFFF",
+      "dialogue": [
+        "Ashen one, link the fire",
+        "Or let it fade to darkness",
+        "I am here to tend to the flame",
+        "And to thee, always"
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "x": 620,
+      "y": 2200,
+      "radius": 160,
+      "r": 0.9,
+      "g": 0.6,
+      "b": 0.3,
+      "intensity": 0.5
+    },
+    {
+      "x": 1560,
+      "y": 1180,
+      "radius": 240,
+      "r": 1.0,
+      "g": 0.85,
+      "b": 0.4,
+      "intensity": 0.8
+    },
+    {
+      "x": 1400,
+      "y": 1680,
+      "radius": 140,
+      "r": 0.8,
+      "g": 0.4,
+      "b": 0.15,
+      "intensity": 0.3
+    }
+  ],
   "fog_gates": [
     {
       "x": 620,
