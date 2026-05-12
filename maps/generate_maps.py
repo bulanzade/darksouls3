@@ -124,6 +124,7 @@ ENEMY_KIND_MAP = {
     "HavelKnight": "WingedKnight",
     "SewerCentipede": "Wretch",
     "IrithyllianSlave": "Assassin",
+    "LycanthropeHunter": "Knight",
 }
 
 
@@ -3120,7 +3121,7 @@ def make_road_of_sacrifices():
         ("Corvian", 75, 52), ("Corvian", 82, 58),               # More Corvians
         ("Corvian", 65, 45), ("Corvian", 78, 48),               # Additional Corvians deeper in woods
         ("Corvian", 90, 50), ("Corvian", 58, 55),               # Corvians near crosses
-        ("Knight", 72, 55), ("Knight", 85, 60),                   # Lycanthrope Hunters (spear wielders)
+        ("LycanthropeHunter", 72, 55), ("LycanthropeHunter", 85, 60),                   # DS3: Lycanthrope Hunters (spear wielders)
         ("CrystalLizard", 50, 26),                                 # Fortress crystal lizard
         ("CrystalLizard", 96, 62), ("CrystalLizard", 112, 88),    # Additional Crystal Lizards in ruins
         # Swamp area — Poisonhorn Bugs (poison mist mushrooms in lower woods)
