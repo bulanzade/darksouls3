@@ -1740,11 +1740,11 @@ def make_lothric_wall():
         # Large Hollow Soldier — in tower with halberd
         ("LargeHollowSoldier", 56, 46),                    # Halberd-wielding large hollow
         # Residential maze — Assassins hide in alleys, Lothric Knights patrol
-        ("Assassin", 38, 56), ("LothricKnight", 50, 54),
+        ("HollowAssassin", 38, 56), ("LothricKnight", 50, 54),
         ("LothricKnight", 62, 54), ("LothricKnight", 74, 54),
         ("Darkwraith", 54, 50),                    # Darkwraith in locked cell under Tower (Lift Chamber Key)
         ("HollowSoldier", 50, 66),
-        ("Assassin", 62, 66), ("HollowSoldier", 74, 64),
+        ("HollowAssassin", 62, 66), ("HollowSoldier", 74, 64),
         ("HollowSoldier", 40, 74), ("HollowSoldier", 56, 74),
         # Courtyard — Lothric Knights guard the fountain area
         ("LothricKnight", 20, 84), ("LothricKnight", 44, 96),
@@ -3700,7 +3700,7 @@ def make_farron_keep():
         # Great Crab in swamp — DS3: "giant crab which drops Lingering Dragoncrest Ring"
         ("GiantSlave", 65, 62),                                      # Great Crab
         # Corvian and Corvian Storyteller — DS3: in second half wooded area
-        ("Assassin", 115, 95), ("Assassin", 120, 100),              # Corvians in second half
+        ("Corvian", 115, 95), ("Corvian", 120, 100),              # Corvians in second half
         ("DarkMage", 118, 98),                                       # Corvian Storyteller
         # Crystal Lizards — DS3 wiki: 2 near dragon corpse, 1 near Old Wolf (illusory wall),
         # 1 giant Ravenous Crystal Lizard near Perimeter, 1 ramp Crystal Lizard
@@ -3842,6 +3842,56 @@ def make_farron_keep():
     fill_tiles(chunk, TILE_WALL, 46, 48, 47, 50)
     fill_tiles(chunk, TILE_WALL, 85, 55, 86, 57)
     fill_tiles(chunk, TILE_WALL, 58, 68, 59, 70)
+    # SESSION 10 FIDELITY PASS — Farron Keep
+    # Additional DS3-faithful terrain: rotting post debris, Ghru camp stones,
+    # submerged ruin walls, Abyss Watchers sword fragments, swamp edge details
+    # Left torch area — rotting post debris (DS3: rotting wooden posts everywhere)
+    fill_tiles(chunk, TILE_WALL, 32, 42, 33, 43)
+    fill_tiles(chunk, TILE_WALL, 36, 48, 37, 49)
+    fill_tiles(chunk, TILE_WALL, 40, 52, 41, 53)
+    fill_tiles(chunk, TILE_WALL, 28, 54, 29, 55)
+    # Center torch — stone platform details (DS3: stone platform with fire)
+    fill_tiles(chunk, TILE_WALL, 66, 46, 67, 47)
+    fill_tiles(chunk, TILE_WALL, 70, 50, 71, 51)
+    fill_tiles(chunk, TILE_WALL, 64, 52, 65, 53)
+    fill_tiles(chunk, TILE_WALL, 72, 54, 73, 55)
+    # Right torch — debris stones (DS3: crumbling stone platform)
+    fill_tiles(chunk, TILE_WALL, 94, 40, 95, 41)
+    fill_tiles(chunk, TILE_WALL, 98, 44, 99, 45)
+    fill_tiles(chunk, TILE_WALL, 102, 48, 103, 49)
+    fill_tiles(chunk, TILE_WALL, 92, 46, 93, 47)
+    # Ghru camp — bonfire ring stones (DS3: Ghru encampment with fire pit)
+    fill_tiles(chunk, TILE_WALL, 62, 70, 63, 71)
+    fill_tiles(chunk, TILE_WALL, 68, 68, 69, 69)
+    fill_tiles(chunk, TILE_WALL, 66, 74, 67, 75)
+    fill_tiles(chunk, TILE_WALL, 72, 72, 73, 73)
+    # Keep Ruins — submerged ruin walls (DS3: flooded ruins of the keep)
+    fill_tiles(chunk, TILE_WALL, 76, 64, 77, 65)
+    fill_tiles(chunk, TILE_WALL, 82, 68, 83, 69)
+    fill_tiles(chunk, TILE_WALL, 86, 72, 87, 73)
+    fill_tiles(chunk, TILE_WALL, 80, 76, 81, 77)
+    # Darkwraith zone — abyss stone debris (DS3: dark knights emerge from abyss)
+    fill_tiles(chunk, TILE_WALL, 96, 82, 97, 83)
+    fill_tiles(chunk, TILE_WALL, 102, 86, 103, 87)
+    fill_tiles(chunk, TILE_WALL, 108, 90, 109, 91)
+    fill_tiles(chunk, TILE_WALL, 114, 94, 115, 95)
+    fill_tiles(chunk, TILE_WALL, 100, 88, 101, 89)
+    # Abyss Watchers arena approach — broken sword fragments (DS3: scattered swords)
+    fill_tiles(chunk, TILE_WALL, 120, 98, 121, 99)
+    fill_tiles(chunk, TILE_WALL, 126, 102, 127, 103)
+    fill_tiles(chunk, TILE_WALL, 122, 106, 123, 107)
+    # Swamp water edges — submerged debris (DS3: debris visible in swamp water)
+    fill_tiles(chunk, TILE_WALL, 38, 58, 39, 59)
+    fill_tiles(chunk, TILE_WALL, 44, 64, 45, 65)
+    fill_tiles(chunk, TILE_WALL, 50, 70, 51, 71)
+    fill_tiles(chunk, TILE_WALL, 56, 76, 57, 77)
+    fill_tiles(chunk, TILE_WALL, 88, 78, 89, 79)
+    fill_tiles(chunk, TILE_WALL, 94, 84, 95, 85)
+    # Basilisk cave — stone formations (DS3: curse cave with stone formations)
+    fill_tiles(chunk, TILE_WALL, 40, 88, 41, 89)
+    fill_tiles(chunk, TILE_WALL, 46, 92, 47, 93)
+    fill_tiles(chunk, TILE_WALL, 52, 96, 53, 97)
+
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
