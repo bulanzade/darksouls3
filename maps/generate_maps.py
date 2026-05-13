@@ -132,10 +132,8 @@ ENEMY_KIND_MAP = {
     "CarthusSandworm": "MiniBoss",
 }
 
-
 def new_chunk(width=CHUNK_SIZE, height=CHUNK_SIZE):
     return [[TILE_WALL for _ in range(width)] for _ in range(height)]
-
 
 def fill_tiles(chunk, tile, x1, y1, x2, y2):
     h = len(chunk)
@@ -143,7 +141,6 @@ def fill_tiles(chunk, tile, x1, y1, x2, y2):
     for y in range(max(0, y1), min(h, y2 + 1)):
         for x in range(max(0, x1), min(w, x2 + 1)):
             chunk[y][x] = tile
-
 
 def carve_ellipse(chunk, cx, cy, rx, ry):
     h = len(chunk)
@@ -155,12 +152,10 @@ def carve_ellipse(chunk, cx, cy, rx, ry):
             if dx * dx + dy * dy <= 1.0:
                 chunk[y][x] = TILE_GROUND
 
-
 def cw(chunk, px, py, r=2):
     """Clear ground around a pixel position."""
     tx, ty = int(px) // TILE_SIZE, int(py) // TILE_SIZE
     fill_tiles(chunk, TILE_GROUND, tx - r, ty - r, tx + r, ty + r)
-
 
 def chunk_to_csv(chunk):
     csv = []
@@ -169,14 +164,11 @@ def chunk_to_csv(chunk):
             csv.append(chunk[y][x])
     return csv
 
-
 def chunk_width(chunk):
     return len(chunk[0]) if chunk else 0
 
-
 def chunk_height(chunk):
     return len(chunk)
-
 
 def make_field(identifier, field_type, value):
     return {
@@ -187,7 +179,6 @@ def make_field(identifier, field_type, value):
         "realEditorValues": [],
         "__tile": None,
     }
-
 
 def make_entity(identifier, px, py, fields=None):
     return {
@@ -207,7 +198,6 @@ def make_entity(identifier, px, py, fields=None):
         "width": 16,
     }
 
-
 def populate_entity_def_uids(entities):
     for ent in entities:
         ent["defUid"] = ENTITY_UIDS[ent["__identifier"]]
@@ -215,16 +205,13 @@ def populate_entity_def_uids(entities):
             key = f"{ent['__identifier']}.{fld['__identifier']}"
             fld["defUid"] = FIELD_UIDS.get(key, 0)
 
-
 # --- Dynamic-size helpers ---
 
 def clamp_tile(value, max_value):
     return max(0, min(max_value - 1, int(round(value))))
 
-
 def doc_tile(px, py, width, height):
     return clamp_tile(px / TILE_SIZE, width), clamp_tile(py / TILE_SIZE, height)
-
 
 def carve_corridor_dynamic(chunk, x1, y1, x2, y2, width=5):
     half = max(1, width // 2)
@@ -233,15 +220,12 @@ def carve_corridor_dynamic(chunk, x1, y1, x2, y2, width=5):
     for y in range(min(y1, y2), max(y1, y2) + 1):
         fill_tiles(chunk, TILE_GROUND, x2 - half, y, x2 + half, y)
 
-
 def section_center_tile(section):
     return ((section["x"] + section["w"] * 0.5) / TILE_SIZE,
             (section["y"] + section["h"] * 0.5) / TILE_SIZE)
 
-
 def is_walkable_tile(tile):
     return tile in (TILE_GROUND, TILE_POISON)
-
 
 def find_walkable_tile(chunk, tx, ty, max_radius=64):
     width = chunk_width(chunk)
@@ -259,7 +243,6 @@ def find_walkable_tile(chunk, tx, ty, max_radius=64):
                     return x, y
     return None
 
-
 def snap_entity_to_walkable(chunk, entity):
     px = entity.get("px", [0, 0])
     if not isinstance(px, list) or len(px) < 2:
@@ -271,7 +254,6 @@ def snap_entity_to_walkable(chunk, entity):
     x, y = found
     entity["px"] = [x * TILE_SIZE + TILE_SIZE // 2, y * TILE_SIZE + TILE_SIZE // 2]
     entity["__grid"] = [x, y]
-
 
 def generate_official_terrain(doc):
     width = max(1, int(round(doc["map_size"]["width"] / TILE_SIZE)))
@@ -314,7 +296,6 @@ def generate_official_terrain(doc):
 
     return chunk
 
-
 # --- Connectivity ---
 
 def bfs_reachable(chunk, sx, sy):
@@ -336,7 +317,6 @@ def bfs_reachable(chunk, sx, sy):
                     q.append((nx, ny))
     return visited
 
-
 def carve_corridor(chunk, x1, y1, x2, y2, width=3):
     """Carve an L-shaped corridor between two tile positions."""
     half = width // 2
@@ -351,7 +331,6 @@ def carve_corridor(chunk, x1, y1, x2, y2, width=3):
             nx = x2 + dx
             if 0 <= nx < CHUNK_SIZE and 0 <= y < CHUNK_SIZE:
                 chunk[y][nx] = TILE_GROUND
-
 
 def ensure_connected(chunk, spawn_px, spawn_py, entity_positions):
     """Ensure all entity tile positions are reachable from spawn. Returns coverage %."""
@@ -379,7 +358,6 @@ def ensure_connected(chunk, spawn_px, spawn_py, entity_positions):
     if not targets:
         return 100
     return int(len(targets & reachable) / len(targets) * 100)
-
 
 # --- Hand-designed terrain overrides (faithful to real DS3) ---
 
@@ -1212,8 +1190,6 @@ def make_cemetery_of_ash():
         if tx % 2 == 0:
             chunk[12][tx] = TILE_WALLTOP  # headstone
 
-
-
     # --- SESSION 86 DS3 terrain (Cemetery of Ash detail pass) ---
     # DS3: Stone archway at spawn (the iconic entrance arch)
     for tx in range(12, 18):
@@ -1278,12 +1254,10 @@ def make_cemetery_of_ash():
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
 
-
     print(f"  CemeteryOfAsh (faithful DS3 layout) "
           f"ground={pct:.1f}% connectivity={coverage}%")
 
     return "CemeteryOfAsh", chunk, entities
-
 
 def make_firelink_shrine():
     """Firelink Shrine - central hub area.
@@ -2130,7 +2104,6 @@ def make_firelink_shrine():
     for tx, ty in [(50, 42), (52, 44)]:
         chunk[ty][tx] = TILE_WALLTOP  # candle debris
 
-
     # --- SESSION 86 DS3 terrain (Firelink Shrine detail pass) ---
     # DS3: Five lord thrones along the back wall (semicircle)
     for tx in [25, 30, 35, 40, 45]:
@@ -2196,7 +2169,6 @@ def make_firelink_shrine():
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  FirelinkShrine (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "FirelinkShrine", chunk, entities
-
 
 def make_lothric_wall():
     """High Wall of Lothric — faithful DS3 layout.
@@ -2516,23 +2488,6 @@ def make_lothric_wall():
     ]
     for kind, tx, ty in enemy_positions:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     
     # --- DS3 faithful enemies (LothricWall) ---
@@ -3230,7 +3185,6 @@ def make_lothric_wall():
     for ty in range(22, 28):
         chunk[ty][44] = TILE_WALL  # staircase wall
 
-
     # --- SESSION 86 DS3 terrain (Lothric Wall detail pass) ---
     # DS3: Dragon perch platform (the dead dragon spot)
     for tx in range(65, 78):
@@ -3302,7 +3256,6 @@ def make_lothric_wall():
     print(f"  LothricWall (faithful DS3 layout) "
           f"ground={pct:.1f}% connectivity={coverage}%")
     return "LothricWall", chunk, entities
-
 
 def make_undead_settlement():
     """Undead Settlement — faithful DS3 layout.
@@ -3598,19 +3551,6 @@ def make_undead_settlement():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     
     # --- DS3 faithful enemies (UndeadSettlement) ---
@@ -4322,8 +4262,6 @@ def make_undead_settlement():
         chunk[ty][15] = TILE_WALL  # gate pillar
         chunk[ty][20] = TILE_WALL  # gate pillar
 
-
-
     # --- SESSION 86 DS3 terrain (Undead Settlement detail pass) ---
     # DS3: Giant's tower (tall structure with archer)
     for tx in range(50, 58):
@@ -4407,7 +4345,6 @@ def make_undead_settlement():
     print(f"  UndeadSettlement (faithful DS3 layout) "
           f"ground={pct:.1f}% connectivity={coverage}%")
     return "UndeadSettlement", chunk, entities
-
 
 def make_road_of_sacrifices():
     """Road of Sacrifices - dark forest with Crucifixion Woods hub.
@@ -4765,16 +4702,6 @@ def make_road_of_sacrifices():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
 
 # --- Items (DS3 Road of Sacrifices) — accurate from wiki ---
-
-
-
-
-
-
-
-
-
-
 
     entities.append(make_entity("Npc", 87 * 16, 71 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello. We meet again|I am Anri of Astora, and this is Horace the Hushed|We journey to find the Lords of Cinder|Won't you join us?|I have no love for the smaller roads, they are treacherous|The Cathedral of the Deep lies ahead, tread carefully|Horace and I have been together for a long time now")]))
     entities.append(make_entity("Npc", 93 * 16, 71 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods silently)|(gestures toward Anri)|(adjusts helmet)")]))
@@ -5224,8 +5151,6 @@ def make_road_of_sacrifices():
     for tx in range(55, 62):
         chunk[42][tx] = TILE_WALLTOP  # hut foundation
 
-
-
     # --- SESSION 87 DS3 terrain (Road of Sacrifices detail pass) ---
     # DS3: Dense forest trees along the path edges
     for tx in [8, 12, 16, 20, 24, 28, 32, 36, 40]:
@@ -5438,7 +5363,6 @@ def make_road_of_sacrifices():
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  RoadOfSacrifices (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "RoadOfSacrifices", chunk, entities
-
 
 def make_farron_keep():
     """Farron Keep - sprawling poison swamp with three torches.
@@ -5907,8 +5831,17 @@ def make_farron_keep():
     entities.append(make_entity("Npc", 137 * 16, 115 * 16, [make_field("name", "String", "Hawkwood"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#8B7355"), make_field("dialogue", "String", "The Undead Legion used to be around here|They were a fierce bunch|They linked the fire long ago|The wolf blood runs through their veins|They kept watch over the Abyss, and its abominations|If you seek them, you must first prove your worth")]))
 
     # Fog Gate to CatacombsOfCarthus
-    entities.append(make_entity("FogGate", 140 * 16, 130 * 16, [
+    entities.append(make_entity("FogGate", 275 * 16, 231 * 16, [
         make_field("dest_area", "String", "CatacombsOfCarthus"),
+        make_field("dest_x", "Float", 100.0),
+        make_field("dest_y", "Float", 100.0),
+        make_field("width", "Float", 64.0),
+        make_field("height", "Float", 80.0),
+    ]))
+
+    # Fog Gate to RoadOfSacrifices (DS3: entrance from Road of Sacrifices)
+    entities.append(make_entity("FogGate", 38 * 16, 38 * 16, [
+        make_field("dest_area", "String", "RoadOfSacrifices"),
         make_field("dest_x", "Float", 100.0),
         make_field("dest_y", "Float", 100.0),
         make_field("width", "Float", 64.0),
@@ -6260,18 +6193,6 @@ def make_farron_keep():
         chunk[ty][tx] = TILE_WALLTOP  # fire ring stone
         chunk[ty][tx+1] = TILE_WALLTOP
 
-
-
-
-
-
-
-
-
-
-
-
-
     # --- SESSION 87 DS3 terrain (Farron Keep detail pass) ---
     # DS3: Poison swamp islands (elevated ground in the swamp)
     for tx in range(15, 25):
@@ -6491,11 +6412,8 @@ def make_farron_keep():
     ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
 
-
-
     print(f"  FarronKeep (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "FarronKeep", chunk, entities
-
 
 def make_cathedral_deep():
     """Cathedral of the Deep - vertical labyrinth from cemetery to Rosaria's bedchamber.
@@ -6960,36 +6878,16 @@ def make_cathedral_deep():
 
 # --- Items (DS3 Cathedral of the Deep) — accurate from wiki ---
 
-
-
-
-
-
-
-
-
-
-
-
-
     entities.append(make_entity("Npc", 100 * 16, 137 * 16, [make_field("name", "String", "Patches"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#808080"), make_field("dialogue", "String", "You're a parasite, only thinking of yourself|I know your kind, you're nothing but trouble|What's wrong? Something the matter?|Heh heh heh|I'm Patches, the one and only|You know what I'm talking about, don't you?")]))
     entities.append(make_entity("Npc", 255 * 16, 91 * 16, [make_field("name", "String", "Rosaria"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D0A0B0"), make_field("dialogue", "String", "(No tongue, but her will is clear)|Offer me pale tongues, and I shall grant your desire|Rebirth, or fingers to invade others|I am Rosaria, Mother of Rebirth|The fingers of the gods stretch far and wide|Each rebirth costs a pale tongue")]))
     # Siegward of Catarina — stuck in the well outside Cathedral (DS3: freed via lift mechanism)
     entities.append(make_entity("Npc", 87 * 16, 134 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Aah, hello! Up here!|I seem to be stuck in this well|Could you find a way to get me out?|Oh, very good! My thanks, friend|Let me repay you with a sip of Siegbräu")]))
 
     # Fog Gate to Road of Sacrifices (DS3: shortcut back from Cathedral)
-    entities.append(make_entity("FogGate", 20 * 16, 10 * 16, [
+    entities.append(make_entity("FogGate", 35 * 16, 32 * 16, [
         make_field("dest_area", "String", "RoadOfSacrifices"),
         make_field("dest_x", "Float", 2400.0),
         make_field("dest_y", "Float", 600.0),
-        make_field("width", "Float", 64.0),
-        make_field("height", "Float", 80.0),
-    ]))
-    # Fog Gate to Farron Keep perimeter (DS3: Cathedral exits back to Farron Keep area)
-    entities.append(make_entity("FogGate", 38 * 16, 154 * 16, [
-        make_field("dest_area", "String", "FarronKeep"),
-        make_field("dest_x", "Float", 100.0),
-        make_field("dest_y", "Float", 100.0),
         make_field("width", "Float", 64.0),
         make_field("height", "Float", 80.0),
     ]))
@@ -7339,8 +7237,6 @@ def make_cathedral_deep():
         chunk[ty][12] = TILE_WALL  # gate pillar
         chunk[ty][16] = TILE_WALL  # gate pillar
 
-
-
     # --- SESSION 87 DS3 terrain (Cathedral of the Deep detail pass) ---
     # DS3: Main cathedral buttresses (flying buttresses)
     for tx in [20, 35, 50, 65, 80, 95]:
@@ -7494,7 +7390,6 @@ def make_cathedral_deep():
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  CathedralDeep (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "CathedralDeep", chunk, entities
-
 
 def make_catacombs_of_carthus():
     """Catacombs of Carthus - underground tunnels with skeleton ball traps.
@@ -7885,15 +7780,6 @@ def make_catacombs_of_carthus():
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
 
-
-
-
-
-
-
-
-
-
     entities.append(make_entity("Npc", 193 * 16, 156 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello, we meet again|Have you seen Horace anywhere?|I have been separated from him|I am worried... Please tell me if you find him")]))
     entities.append(make_entity("Npc", 17 * 16, 19 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods slowly)|(points toward the deeper catacombs)|(holds shield tighter)|Anri... where are you...")]))
 
@@ -8281,7 +8167,6 @@ def make_catacombs_of_carthus():
     # Wolnir's sword mount point
     chunk[65][90] = TILE_WALL  # sword mount
 
-
     # --- SESSION 87 DS3 terrain (Catacombs of Carthus detail pass) ---
     # DS3: Bone piles throughout the catacombs
     for tx in [15, 22, 30, 38, 45, 52, 60, 68, 75, 82, 90, 98, 105]:
@@ -8435,7 +8320,6 @@ def make_catacombs_of_carthus():
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  CatacombsOfCarthus (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "CatacombsOfCarthus", chunk, entities
-
 
 def make_smouldering_lake():
     """Smouldering Lake - lava cavern beneath Carthus catacombs.
@@ -8871,21 +8755,6 @@ def make_smouldering_lake():
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     entities.append(make_entity("Npc", 81 * 16, 75 * 16, [make_field("name", "String", "Knight Slayer Tsorig"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#804020"), make_field("dialogue", "String", "Forgive me, I was absorbed in my conquest|We meet again, Unkindled|I am Tsorig, the Knight Slayer|The arbitrary distinction between right and wrong is irrelevant")]))
 
     entities.append(make_entity("FogGate", 38 * 16, 33 * 16, [
@@ -9215,7 +9084,6 @@ def make_smouldering_lake():
     for tx in range(35, 45):
         chunk[55][tx] = TILE_WALLTOP  # lava bank
 
-
     # --- SESSION 88 DS3 terrain (Smouldering Lake detail pass) ---
     # DS3: Lava crust formations (hardened lava flow patterns)
     for tx in range(40, 60):
@@ -9440,7 +9308,6 @@ def make_smouldering_lake():
 
     print(f"  SmoulderingLake (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "SmoulderingLake", chunk, entities
-
 
 def make_irithyll():
     """Irithyll of the Boreal Valley - frozen city with Pontiff Sulyvahn boss.
@@ -9899,18 +9766,6 @@ def make_irithyll():
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
 
-
-
-
-
-
-
-
-
-
-
-
-
     entities.append(make_entity("Npc", 115 * 16, 98 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Hello again. We seem destined to cross paths|Are you also headed for Anor Londo?|I must reach Aldrich of the Deep|To avenge my companions who fell to him")]))
     entities.append(make_entity("Npc", 193 * 16, 161 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Oh, hello there! Fancy meeting you here|I'm cooking up some estus soup, my specialty|Care to join me? It's quite good, you know|Oh, very good indeed, to see a friendly face")]))
     # Sirris — appears near Church of Yorshka after Rosaria covenant
@@ -10330,7 +10185,6 @@ def make_irithyll():
     for ty in range(32, 38):
         chunk[ty][50] = TILE_WALL  # bell tower base
 
-
     # --- SESSION 88 DS3 terrain (Irithyll detail pass) ---
     # DS3: Main avenue (wide boulevard through the city)
     for tx in range(15, 60):
@@ -10668,7 +10522,6 @@ def make_irithyll():
     print(f"  Irithyll (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "Irithyll", chunk, entities
 
-
 def make_irithyll_dungeon():
     """Irithyll Dungeon - dark prison with jailers, Siegward's cell, Karla's cell.
     No boss. Tight corridors with cell walls creating a maze-like layout.
@@ -11000,19 +10853,6 @@ def make_irithyll_dungeon():
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     entities.append(make_entity("Npc", 112 * 16, 101 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D4A520"), make_field("dialogue", "String", "Oh! You have my thanks, my deepest thanks|I seem to have gotten myself locked in this cell|A brave warrior like yourself, I knew you would come|Let us share a drink, to celebrate your bravery|I am Siegward of Catarina, at your service")]))
     entities.append(make_entity("Npc", 111 * 16, 160 * 16, [make_field("name", "String", "Karla"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#4A0080"), make_field("dialogue", "String", "Hmm. A visitor? I'm a prisoner, same as you|I can teach you dark sorceries, if you bring me tomes|But nothing that could harm the Fire Keeper, understand|The pygmy is not to be trifled with")]))
 
@@ -11264,7 +11104,6 @@ def make_irithyll_dungeon():
     fill_tiles(chunk, TILE_WALL, 82, 86, 83, 88)
     fill_tiles(chunk, TILE_WALL, 100, 80, 101, 82)
 
-
     # ================================================================
     # SESSION 21 FIDELITY PASS — IrithyllDungeon DS3 prison details
     # ================================================================
@@ -11423,7 +11262,6 @@ def make_irithyll_dungeon():
     # Jailer brand rack (DS3: jailers carry glowing branding irons)
     chunk[35][55] = TILE_WALLTOP  # brand rack debris
     chunk[35][56] = TILE_WALLTOP
-
 
     # --- SESSION 88 DS3 terrain (Irithyll Dungeon detail pass) ---
     # DS3: Cell frames along the corridors
@@ -11653,7 +11491,6 @@ def make_irithyll_dungeon():
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  IrithyllDungeon (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "IrithyllDungeon", chunk, entities
-
 
 def make_profaned_capital():
     """Profaned Capital — faithful DS3 layout.
@@ -12058,14 +11895,6 @@ def make_profaned_capital():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-
-
-
-
-
-
-
-
 
     
     # --- DS3 faithful enemies (ProfanedCapital) ---
@@ -12579,7 +12408,6 @@ def make_profaned_capital():
     for ty in range(35, 42):
         chunk[ty][55] = TILE_WALL  # buttress
 
-
     # --- SESSION 89 DS3 terrain (Profaned Capital detail pass) ---
     # DS3: Yhorm's arena pillars (the giant stone columns)
     for tx in [25, 40, 55, 70]:
@@ -12669,7 +12497,6 @@ def make_profaned_capital():
     print(f"  ProfanedCapital (faithful DS3 layout) "
           f"ground={pct:.1f}% connectivity={coverage}%")
     return "ProfanedCapital", chunk, entities
-
 
 def make_anor_londo():
     """Anor Londo - grand cathedral with Aldrich, Devourer of Gods boss.
@@ -12966,15 +12793,6 @@ def make_anor_londo():
 
     # --- Chests — DS3 Anor Londo (wiki-verified) ---
 
-
-
-
-
-
-
-
-
-
     
     # --- DS3 faithful enemies (AnorLondo) ---
     # SilverKnight (20)
@@ -13056,17 +12874,9 @@ def make_anor_londo():
         make_field("name", "String", "Unknown")]))
 # --- Fog Gates ---
     # Back to Irithyll (rotating staircase, west)
-    entities.append(make_entity("FogGate", 5 * 16, 34 * 16, [
+    entities.append(make_entity("FogGate", 61 * 16, 50 * 16, [
         make_field("dest_area", "String", "Irithyll"),
         make_field("dest_x", "Float", 2400.0),
-        make_field("dest_y", "Float", 400.0),
-        make_field("width", "Float", 48.0),
-        make_field("height", "Float", 80.0),
-    ]))
-    # To Irithyll (return path after Aldrich, DS3: return through Irithyll)
-    entities.append(make_entity("FogGate", 152 * 16, 88 * 16, [
-        make_field("dest_area", "String", "Irithyll"),
-        make_field("dest_x", "Float", 200.0),
         make_field("dest_y", "Float", 400.0),
         make_field("width", "Float", 48.0),
         make_field("height", "Float", 80.0),
@@ -13490,7 +13300,6 @@ def make_anor_londo():
     chunk[48][60] = TILE_WALLTOP  # training debris
     chunk[48][62] = TILE_WALLTOP  # training debris
 
-
     # --- SESSION 88 DS3 terrain (Anor Londo detail pass) ---
     # DS3: Grand hall columns (massive stone pillars)
     for tx in [20, 30, 40, 50, 60, 70, 80]:
@@ -13589,7 +13398,6 @@ def make_anor_londo():
     print(f"  AnorLondo (faithful DS3 layout) "
           f"ground={pct:.1f}% connectivity={coverage}%")
     return "AnorLondo", chunk, entities
-
 
 def make_lothric_castle():
     """Lothric Castle - Dragonslayer Armour boss arena.
@@ -14072,21 +13880,6 @@ def make_lothric_castle():
 
     # --- Chests - DS3 Lothric Castle (wiki-verified, 9 chests: 7 regular + 2 mimics) ---
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
     # --- DS3 faithful enemies (LothricCastle) ---
     # LothricKnight (18)
@@ -14545,7 +14338,6 @@ def make_lothric_castle():
     chunk[48][65] = TILE_WALL  # fountain base
     chunk[48][66] = TILE_WALLTOP  # fountain rim
 
-
     # --- SESSION 89 DS3 terrain (Lothric Castle detail pass) ---
     # DS3: Great hall pillars (massive columns in the throne room)
     for tx in [20, 30, 40, 50, 60, 70, 80, 90]:
@@ -14640,7 +14432,6 @@ def make_lothric_castle():
     print(f"  LothricCastle (faithful DS3 layout) "
           f"ground={pct:.1f}% connectivity={coverage}%")
     return "LothricCastle", chunk, entities
-
 
 def make_grand_archives():
     """Grand Archives — vertical library climb with Twin Princes boss.
@@ -14933,22 +14724,16 @@ def make_grand_archives():
     # FOG GATES — area transitions
     # ================================================================
     # South: back to Lothric Castle
-    entities.append(make_entity("FogGate", 25 * 16, 152 * 16, [
+    entities.append(make_entity("FogGate", 45 * 16, 348 * 16, [
         make_field("dest_area", "String", "LothricCastle"),
         make_field("dest_x", "Float", 2400.0), make_field("dest_y", "Float", 1500.0),
         make_field("width", "Float", 64.0), make_field("height", "Float", 80.0),
     ]))
     # North: to Kiln of the First Flame
-    entities.append(make_entity("FogGate", 110 * 16, 5 * 16, [
+    entities.append(make_entity("FogGate", 181 * 16, 32 * 16, [
         make_field("dest_area", "String", "KilnOfTheFirstFlame"),
         make_field("dest_x", "Float", 1280.0), make_field("dest_y", "Float", 2320.0),
         make_field("width", "Float", 64.0), make_field("height", "Float", 80.0),
-    ]))
-    # Lift shortcut to Lothric Castle (from bridge area near Twin Princes)
-    entities.append(make_entity("FogGate", 138 * 16, 32 * 16, [
-        make_field("dest_area", "String", "LothricCastle"),
-        make_field("dest_x", "Float", 2400.0), make_field("dest_y", "Float", 800.0),
-        make_field("width", "Float", 48.0), make_field("height", "Float", 80.0),
     ]))
 
     # ================================================================
@@ -15468,11 +15253,6 @@ def make_grand_archives():
     for tx in range(80, 88):
         chunk[35][tx] = TILE_WALLTOP  # shelf debris
 
-
-
-
-
-
     # --- SESSION 89 DS3 terrain (Grand Archives detail pass) ---
     # DS3: Bookshelf rows (tall wooden shelves lining the halls)
     for tx in [15, 18, 21, 25, 28, 31, 35, 38, 41, 45, 48, 51, 55, 58, 61]:
@@ -15723,18 +15503,8 @@ def make_grand_archives():
     ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
 
-
-
-
-
-
-
-
-
-
     print(f"  GrandArchives (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "GrandArchives", chunk, entities
-
 
 def make_kiln_of_the_first_flame():
     """Kiln of the First Flame - ash wasteland with Soul of Cinder boss.
@@ -15981,8 +15751,6 @@ def make_kiln_of_the_first_flame():
     # --- Boss ---
 
     # --- Enemies — DS3 Kiln of the First Flame ---
-
-
 
     
     # --- DS3 faithful enemies (KilnOfTheFirstFlame) ---
@@ -16431,7 +16199,6 @@ def make_kiln_of_the_first_flame():
     for ty in range(28, 34):
         chunk[ty][65] = TILE_WALL  # archway pillar
 
-
     # --- SESSION 89 DS3 terrain (Kiln of the First Flame detail pass) ---
     # DS3: Ceiling rubble (collapsed stone blocks)
     for tx in [15, 25, 35, 45, 55, 65, 75, 85]:
@@ -16520,7 +16287,6 @@ def make_kiln_of_the_first_flame():
     print(f"  KilnOfTheFirstFlame (faithful DS3 layout) "
           f"ground={pct:.1f}% connectivity={coverage}%")
     return "KilnOfTheFirstFlame", chunk, entities
-
 
 def make_consumed_kings_garden():
     """Consumed King's Garden - descending crystal garden with Oceiros boss.
@@ -16887,18 +16653,6 @@ def make_consumed_kings_garden():
 
     # --- Chests — DS3 Consumed King's Garden ---
 
-
-
-
-
-
-
-
-
-
-
-
-
     
     # --- DS3 faithful enemies (ConsumedKingsGarden) ---
     # LothricKnight (12)
@@ -17020,7 +16774,7 @@ def make_consumed_kings_garden():
         make_field("name", "String", "Unknown")]))
 # --- Fog Gates ---
     # Back to Lothric Castle (NW)
-    entities.append(make_entity("FogGate", 8 * 16, 12 * 16, [
+    entities.append(make_entity("FogGate", 38 * 16, 32 * 16, [
         make_field("dest_area", "String", "LothricCastle"),
         make_field("dest_x", "Float", 1000.0),
         make_field("dest_y", "Float", 900.0),
@@ -17028,21 +16782,14 @@ def make_consumed_kings_garden():
         make_field("height", "Float", 80.0),
     ]))
     # To Untended Graves (E)
-    entities.append(make_entity("FogGate", 142 * 16, 92 * 16, [
+    entities.append(make_entity("FogGate", 212 * 16, 141 * 16, [
         make_field("dest_area", "String", "UntendedGraves"),
         make_field("dest_x", "Float", 300.0),
         make_field("dest_y", "Float", 400.0),
         make_field("width", "Float", 48.0),
         make_field("height", "Float", 80.0),
     ]))
-    # Shortcut to Lothric Castle (wiki: door in upper room, near Titanite Chunk corpse)
-    entities.append(make_entity("FogGate", 95 * 16, 52 * 16, [
-        make_field("dest_area", "String", "LothricCastle"),
-        make_field("dest_x", "Float", 1200.0),
-        make_field("dest_y", "Float", 800.0),
-        make_field("width", "Float", 48.0),
-        make_field("height", "Float", 80.0),
-    ]))
+
     # Fog Gate back to Lothric Wall (DS3: return path from Consumed King's Garden)
     entities.append(make_entity("FogGate", 10 * 16, 90 * 16, [
         make_field("dest_area", "String", "LothricWall"),
@@ -17234,7 +16981,6 @@ def make_consumed_kings_garden():
     fill_tiles(chunk, TILE_WALL, 126, 98, 127, 100)
     fill_tiles(chunk, TILE_WALL, 134, 102, 135, 104)
 
-
     # ================================================================
     # SESSION 22 FIDELITY PASS — ConsumedKingsGarden DS3 garden details
     # ================================================================
@@ -17376,7 +17122,6 @@ def make_consumed_kings_garden():
             if chunk[ty][tx] == TILE_GROUND:
                 chunk[ty][tx] = TILE_POISON
 
-
     # --- SESSION 89 DS3 terrain (Consumed King's Garden detail pass) ---
     # DS3: Hedge walls (overgrown garden paths)
     for tx in [20, 25, 30, 35, 40, 45, 50, 55, 60]:
@@ -17458,7 +17203,6 @@ def make_consumed_kings_garden():
     print(f"  ConsumedKingsGarden (faithful DS3 layout) "
           f"ground={pct:.1f}% connectivity={coverage}%")
     return "ConsumedKingsGarden", chunk, entities
-
 
 def make_untended_graves():
     """Untended Graves - dark mirror of Cemetery of Ash with Champion Gundyr boss.
@@ -17855,10 +17599,6 @@ def make_untended_graves():
 
     # --- Items (DS3 Untended Graves) ---
 
-
-
-
-
     
     # --- DS3 faithful enemies (UntendedGraves) ---
     # BlackKnight (3)
@@ -18226,7 +17966,6 @@ def make_untended_graves():
     for tx in range(55, 65):
         chunk[35][tx] = TILE_WALLTOP  # fence debris
 
-
     # --- SESSION 89 DS3 terrain (Untended Graves detail pass) ---
     # DS3: Dark tombstones (mirroring Firelink's courtyard but darker)
     for tx in [20, 22, 24, 26, 28, 30, 32, 34, 36, 38]:
@@ -18308,7 +18047,6 @@ def make_untended_graves():
     print(f"  UntendedGraves (faithful DS3 layout) "
           f"ground={pct:.1f}% connectivity={coverage}%")
     return "UntendedGraves", chunk, entities
-
 
 def make_archdragon_peak():
     """Archdragon Peak - mountain peak with Nameless King boss.
@@ -18694,19 +18432,6 @@ def make_archdragon_peak():
             fields.append(make_field("value", "Int", val))
 
     # --- Chests — DS3 Archdragon Peak ---
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     
     # --- DS3 faithful enemies (ArchdragonPeak) ---
@@ -19254,7 +18979,6 @@ def make_archdragon_peak():
     for tx, ty in [(60, 48), (68, 52)]:
         chunk[ty][tx] = TILE_WALL  # egg stone
 
-
     # --- SESSION 89 DS3 terrain (Archdragon Peak detail pass) ---
     # DS3: Dragon bones (massive skeletal structures)
     for tx in [20, 25, 30, 35, 40, 45]:
@@ -19364,8 +19088,6 @@ def make_archdragon_peak():
           f"ground={pct:.1f}% connectivity={coverage}%")
     return "ArchdragonPeak", chunk, entities
 
-
-
 # Map ID -> terrain override function (returns (map_id, chunk, entities))
 TERRAIN_OVERRIDES = {
     "CemeteryOfAsh": make_cemetery_of_ash,
@@ -19388,7 +19110,6 @@ TERRAIN_OVERRIDES = {
     "UntendedGraves": make_untended_graves,
     "ArchdragonPeak": make_archdragon_peak,
 }
-
 
 # --- Item kind mapping ---
 
@@ -19426,12 +19147,10 @@ def map_item_kind(item):
         return "ArmorDrop"
     return "Consumable"
 
-
 def map_npc_kind(npc):
     kind = npc.get("kind", "Dialogue")
     return {"LevelUp": "LevelUp", "Merchant": "Merchant", "Blacksmith": "Blacksmith",
             "Trade": "Merchant", "Covenant": "Dialogue"}.get(kind, "Dialogue")
-
 
 def map_chest_kind(loot):
     kind = loot.get("kind", "")
@@ -19442,7 +19161,6 @@ def map_chest_kind(loot):
     if "Key" in kind: return "Consumable"
     if "Item" in kind: return "Consumable"
     return "SoulOrb"
-
 
 # --- Main map generation ---
 
@@ -19556,7 +19274,6 @@ def generate_map_from_doc(doc_path):
           f"entities={len(entities):4d} ground={pct:5.1f}%")
     return map_id, chunk, entities
 
-
 def make_level(identifier, chunk, entities, uid):
     width = chunk_width(chunk)
     height = chunk_height(chunk)
@@ -19618,7 +19335,6 @@ def make_level(identifier, chunk, entities, uid):
         "worldDepth": 0, "worldX": 0, "worldY": 0,
     }
 
-
 def build_enum_defs():
     return [
         {"externalFileChecksum": None, "externalRelPath": None, "iconTilesetUid": None,
@@ -19662,7 +19378,6 @@ def build_enum_defs():
              ("WallTop", 0x16213E), ("Poison", 0x2D6A4F),
          ]]},
     ]
-
 
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -19924,7 +19639,6 @@ def main():
     with open(project_path, "w") as f:
         json.dump(project, f, indent=2)
     print(f"  wrote {project_path}")
-
 
 if __name__ == "__main__":
     main()
