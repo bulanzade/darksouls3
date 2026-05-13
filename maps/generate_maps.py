@@ -5101,6 +5101,35 @@ def make_cathedral_deep():
     fill_tiles(chunk, TILE_WALL, 44, 150, 45, 152)
     fill_tiles(chunk, TILE_WALL, 36, 154, 37, 156)
 
+    # ================================================================
+    # SESSION 14 FIDELITY PASS — CathedralDeep DS3 terrain details
+    # ================================================================
+    # Rain-soaked cemetery — tilted headstone rows (DS3: perpetual rain in graveyard)
+    fill_tiles(chunk, TILE_WALL, 14, 8, 15, 9)
+    fill_tiles(chunk, TILE_WALL, 20, 12, 21, 13)
+    fill_tiles(chunk, TILE_WALL, 28, 6, 29, 7)
+    fill_tiles(chunk, TILE_WALL, 38, 14, 39, 15)
+    # Outer graveyard — broken coffin lids (DS3: disturbed graves everywhere)
+    fill_tiles(chunk, TILE_WALL, 20, 26, 21, 27)
+    fill_tiles(chunk, TILE_WALL, 36, 24, 37, 25)
+    fill_tiles(chunk, TILE_WALL, 46, 28, 47, 29)
+    fill_tiles(chunk, TILE_WALL, 16, 30, 17, 31)
+    # Cathedral nave — gothic pillar bases (DS3: massive stone columns)
+    fill_tiles(chunk, TILE_WALL, 50, 74, 51, 75)
+    fill_tiles(chunk, TILE_WALL, 56, 80, 57, 81)
+    fill_tiles(chunk, TILE_WALL, 62, 76, 63, 77)
+    fill_tiles(chunk, TILE_WALL, 46, 82, 47, 83)
+    # Deacon altar — candle cluster bases (DS3: mass of candles in dark hall)
+    fill_tiles(chunk, TILE_WALL, 30, 116, 31, 117)
+    fill_tiles(chunk, TILE_WALL, 44, 126, 45, 127)
+    fill_tiles(chunk, TILE_WALL, 56, 116, 57, 117)
+    fill_tiles(chunk, TILE_WALL, 38, 122, 39, 123)
+    # Giant's room — arrow-scarred rubble (DS3: giant shoots arrows from above)
+    fill_tiles(chunk, TILE_WALL, 62, 94, 63, 95)
+    fill_tiles(chunk, TILE_WALL, 68, 100, 69, 101)
+    fill_tiles(chunk, TILE_WALL, 58, 98, 59, 99)
+    fill_tiles(chunk, TILE_WALL, 72, 96, 73, 97)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
