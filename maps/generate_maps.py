@@ -1744,6 +1744,25 @@ def make_firelink_shrine():
     fill_tiles(chunk, TILE_WALL, 116, 62, 117, 63)
     fill_tiles(chunk, TILE_WALL, 120, 66, 121, 67)
 
+    # ================================================================
+    # SESSION 15 FIDELITY PASS — FirelinkShrine additional DS3 details
+    # ================================================================
+    # Shrine interior — throne room stonework (DS3: Ludleth's throne, Fire Keeper area)
+    fill_tiles(chunk, TILE_WALL, 76, 86, 77, 87)
+    fill_tiles(chunk, TILE_WALL, 82, 90, 83, 91)
+    fill_tiles(chunk, TILE_WALL, 72, 88, 73, 89)
+    # Andre's anvil area — forge debris (DS3: blacksmith area with anvil)
+    fill_tiles(chunk, TILE_WALL, 42, 84, 43, 85)
+    fill_tiles(chunk, TILE_WALL, 46, 80, 47, 81)
+    fill_tiles(chunk, TILE_WALL, 38, 82, 39, 83)
+    # Exterior graveyard — tilted headstones (DS3: graveyard behind shrine)
+    fill_tiles(chunk, TILE_WALL, 108, 92, 109, 93)
+    fill_tiles(chunk, TILE_WALL, 114, 96, 115, 97)
+    fill_tiles(chunk, TILE_WALL, 102, 94, 103, 95)
+    # Tower base — spiral stair stones (DS3: tower with crow nest)
+    fill_tiles(chunk, TILE_WALL, 110, 78, 111, 79)
+    fill_tiles(chunk, TILE_WALL, 114, 82, 115, 83)
+    fill_tiles(chunk, TILE_WALL, 106, 80, 107, 81)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
