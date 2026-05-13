@@ -8661,6 +8661,9 @@ def make_anor_londo():
         # Additional slimes in dark corners of main hall
         ("ManGrub", 130, 65), ("ManGrub", 115, 72),
         ("ManGrub", 140, 95), ("ManGrub", 112, 80),  # More slimes in Aldrich arena corners
+        # Yorshka tower area Q(0,1) — Man Grubs on invisible bridge path (DS3: slimes near Darkmoon Tomb)
+        ("ManGrub", 55, 85), ("ManGrub", 64, 91),
+        ("ManGrub", 69, 93), ("ManGrub", 61, 101),
         # Corner — Deep Accursed at revolving switch (wiki: "Deep Accursed waiting for you")
         ("DeepAccursed", 100, 40),
         # Hallway to fog gate — Silver Knight sentinels (DS3: knights guard approach to Aldrich)
@@ -11132,6 +11135,11 @@ def make_consumed_kings_garden():
         ("RottenSlug", 48, 72), ("RottenSlug", 56, 68), ("RottenSlug", 44, 82),
         # Crystal Lizard
         ("CrystalLizard", 68, 42),
+        # Lower garden Q(1,1) — Cathedral Knights and Thralls in Oceiros approach (DS3: guards near boss)
+        ("CathedralKnight", 121, 83), ("CathedralKnight", 135, 92),
+        ("CathedralKnight", 128, 101), ("CathedralKnight", 137, 104),
+        ("Thrall", 125, 86), ("Thrall", 136, 89),
+        ("Thrall", 135, 98), ("Thrall", 112, 113),
         # Boss — Oceiros, the Consumed King
         ("MiniBoss", 120, 88),                                      # Oceiros boss entity
     ]
@@ -11756,6 +11764,15 @@ def make_untended_graves():
         ("CrystalLizard", 40, 32),
         # Ravenous Crystal Lizard — DS3: 2 near Dark Firelink area
         ("CrystalLizard", 125, 105), ("CrystalLizard", 130, 110),
+        # Dark cemetery Q(1,0) — Hollow Soldiers in the dark eastern cemetery (DS3: hollows in shadow version)
+        ("HollowSoldier", 91, 49), ("HollowSoldier", 89, 54),
+        ("HollowSoldier", 97, 59), ("HollowSoldier", 88, 65),
+        ("StarvedHound", 96, 71), ("StarvedHound", 103, 73),
+        # Dark Firelink area Q(1,1) — more Hollow Soldiers in the shadow shrine (DS3: hollows near dark shrine)
+        ("HollowSoldier", 119, 86), ("HollowSoldier", 114, 90),
+        ("HollowSoldier", 115, 94), ("HollowSoldier", 87, 100),
+        ("StarvedHound", 134, 104), ("StarvedHound", 141, 110),
+        ("HollowSoldier", 146, 115), ("HollowSoldier", 128, 126),
         # Boss — Champion Gundyr
         ("MiniBoss", 105, 78),                                      # Champion Gundyr boss entity
     ]
