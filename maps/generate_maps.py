@@ -10389,6 +10389,38 @@ def make_kiln_of_the_first_flame():
     fill_tiles(chunk, TILE_WALL, 86, 62, 87, 63)
     fill_tiles(chunk, TILE_WALL, 98, 60, 99, 61)
 
+    # ================================================================
+    # SESSION 13 FIDELITY PASS — KilnOfTheFirstFlame DS3 architecture
+    # ================================================================
+    # Ashen entry path — ember deposits (DS3: glowing embers in ash)
+    fill_tiles(chunk, TILE_WALL, 78, 148, 79, 149)
+    fill_tiles(chunk, TILE_WALL, 82, 146, 83, 147)
+    fill_tiles(chunk, TILE_WALL, 76, 144, 77, 145)
+    fill_tiles(chunk, TILE_WALL, 84, 150, 85, 151)
+    fill_tiles(chunk, TILE_WALL, 80, 142, 81, 143)
+    # Flameless Shrine — collapsed shrine walls (DS3: dark ruined shrine)
+    fill_tiles(chunk, TILE_WALL, 72, 152, 73, 153)
+    fill_tiles(chunk, TILE_WALL, 88, 154, 89, 155)
+    fill_tiles(chunk, TILE_WALL, 76, 156, 77, 157)
+    fill_tiles(chunk, TILE_WALL, 84, 148, 85, 149)
+    fill_tiles(chunk, TILE_WALL, 68, 148, 69, 149)
+    # Kiln ascent — molten cinder walls (DS3: path through burning ash)
+    fill_tiles(chunk, TILE_WALL, 32, 38, 33, 39)
+    fill_tiles(chunk, TILE_WALL, 40, 42, 41, 43)
+    fill_tiles(chunk, TILE_WALL, 48, 40, 49, 41)
+    fill_tiles(chunk, TILE_WALL, 56, 44, 57, 45)
+    fill_tiles(chunk, TILE_WALL, 64, 42, 65, 43)
+    fill_tiles(chunk, TILE_WALL, 72, 46, 73, 47)
+    # Soul of Cinder arena — ash drifts (DS3: vast ash arena for final boss)
+    fill_tiles(chunk, TILE_WALL, 52, 18, 53, 19)
+    fill_tiles(chunk, TILE_WALL, 68, 22, 69, 23)
+    fill_tiles(chunk, TILE_WALL, 84, 20, 85, 21)
+    fill_tiles(chunk, TILE_WALL, 100, 24, 101, 25)
+    fill_tiles(chunk, TILE_WALL, 116, 22, 117, 23)
+    fill_tiles(chunk, TILE_WALL, 108, 28, 109, 29)
+    fill_tiles(chunk, TILE_WALL, 60, 26, 61, 27)
+    fill_tiles(chunk, TILE_WALL, 92, 30, 93, 31)
+
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
