@@ -8600,6 +8600,23 @@ def make_smouldering_lake():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # --- SESSION 59 DS3 enemies (Smouldering Lake) ---
+    # DS3: More Carthus Skeletons in the ruins tunnels
+    for tx, ty in [(22, 40), (35, 45), (48, 42), (62, 48)]:
+        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Fire Demon (DS3: the weakened demon near the ballista)
+    for tx, ty in [(58, 50)]:
+        mapped = ENEMY_KIND_MAP.get("FireDemon", "FireDemon")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Demon Statues in the deeper ruins
+    for tx, ty in [(72, 55), (85, 58)]:
+        mapped = ENEMY_KIND_MAP.get("DemonStatue", "DemonStatue")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # NPCs — DS3 Smouldering Lake: Knight Slayer Tsorig
     entities.append(make_entity("Npc", 30 * 16, 92 * 16, [make_field("name", "String", "Knight Slayer Tsorig"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#804020"), make_field("dialogue", "String", "Forgive me, I was absorbed in my conquest|We meet again, Unkindled|I am Tsorig, the Knight Slayer|The arbitrary distinction between right and wrong is irrelevant")]))
     # Horace the Hushed — hostile hollow in DS3 (attacks player in Smouldering Lake cave)
@@ -13312,6 +13329,23 @@ def make_lothric_castle():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # --- SESSION 59 DS3 enemies (Lothric Castle) ---
+    # DS3: More Hollow Soldiers on the castle walls
+    for tx, ty in [(45, 35), (58, 40), (72, 38)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Lothric Knights on the rampart walkways
+    for tx, ty in [(85, 65), (98, 68)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Starved Hounds in the castle kennels
+    for tx, ty in [(30, 60), (42, 65)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs - DS3 Lothric Castle ---
     # NOTE: Emma is only at High Wall of Lothric (LothricWall) — she dies after giving Basin of Vows
     # NOTE: Eygon of Carim only appears near Irina (Undead Settlement) or Firelink Shrine, not here
@@ -14556,6 +14590,18 @@ def make_grand_archives():
     # Hollow Slaves on the upper balconies
     for tx, ty in [(55, 55), (68, 58)]:
         mapped = ENEMY_KIND_MAP.get("HollowSlave", "Thrall")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 59 DS3 enemies (Grand Archives) ---
+    # DS3: More Grand Archives Scholars on the upper floors
+    for tx, ty in [(30, 55), (45, 58)]:
+        mapped = ENEMY_KIND_MAP.get("GrandArchivesScholar", "DarkMage")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Lothric Knights on the main staircase
+    for tx, ty in [(55, 62), (68, 65)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
@@ -15904,6 +15950,18 @@ def make_consumed_kings_garden():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # --- SESSION 59 DS3 enemies (Consumed King's Garden) ---
+    # DS3: More Hollow Soldiers in the garden paths
+    for tx, ty in [(22, 42), (35, 48), (48, 45)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Consumed King's Guard reinforcements
+    for tx, ty in [(65, 55), (78, 58)]:
+        mapped = ENEMY_KIND_MAP.get("ConsumedKingGuard", "WingedKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs ---
     # Hawkwood — summon sign before Oceiros (DS3: he can be summoned for Oceiros)
     entities.append(make_entity("Npc", 115 * 16, 82 * 16, [
@@ -16829,6 +16887,23 @@ def make_untended_graves():
     # Dark Hollow Assassin near the dark Firelink
     for tx, ty in [(58, 48)]:
         mapped = ENEMY_KIND_MAP.get("HollowAssassin", "Assassin")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 59 DS3 enemies (Untended Graves) ---
+    # DS3: More dark Hollow Soldiers in the cemetery (mirror of Cemetery of Ash)
+    for tx, ty in [(15, 25), (25, 30), (35, 28), (45, 35)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Crystal Lizard near the dark Firelink
+    for tx, ty in [(60, 50)]:
+        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # More Starved Hounds in the dark graveyard
+    for tx, ty in [(20, 40), (38, 45)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
