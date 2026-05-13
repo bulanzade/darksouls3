@@ -5282,12 +5282,12 @@ def make_catacombs_of_carthus():
     for kind, name, tx, ty, val in [
         # Upper Catacombs — entry area
         ("Consumable", "Sharp Gem", 18, 16, 0),
-        ("SoulOrb", "Soul of a Deserted Corpse", 22, 20, 200),
+        ("SoulOrb", "Soul of a Deserted Corpse", 24, 18, 200),
         ("Consumable", "Carthus Rouge", 25, 22, 0),
         ("Consumable", "Yellow Bug Pellet", 30, 18, 0),
         ("Consumable", "Yellow Bug Pellet", 32, 19, 0),
         ("Consumable", "Yellow Bug Pellet", 34, 20, 0),
-        ("Consumable", "Black Bug Pellet", 36, 22, 0),
+        ("Consumable", "Black Bug Pellet", 38, 20, 0),
         ("Consumable", "Black Bug Pellet", 38, 23, 0),
         ("Consumable", "Bloodred Moss Clump", 40, 19, 0),
         ("Consumable", "Bloodred Moss Clump", 42, 20, 0),
@@ -5832,7 +5832,7 @@ def make_smouldering_lake():
         ("TitaniteShard", "Large Titanite Shard", 60, 50, 0),  # wiki: 10x Large Titanite
         ("TitaniteShard", "Large Titanite Shard", 90, 65, 0),
         ("Ember", "Ember", 70, 53, 0),  # wiki: 3x Ember
-        ("EstusShard", "Estus Shard", 22, 88, 0),               # Ballista caves
+        ("EstusShard", "Estus Shard", 20, 86, 0),               # Ballista caves
         ("UndeadBoneShard", "Undead Bone Shard", 48, 72, 0),    # Lake hidden area
         ("HomewardBone", "Homeward Bone", 100, 70, 0),
         ("RingDrop", "Speckled Stoneplate Ring", 42, 55, 0),
@@ -6306,7 +6306,7 @@ def make_irithyll():
         ("TitaniteShard", "Large Titanite Shard", 48, 38, 0),
         # Hidden staircase area — Evangelist
         ("Consumable", "Dorhys' Gnawing", 40, 50, 0),
-        ("WeaponDrop", "Witchtree Branch", 42, 52, 0),
+        ("WeaponDrop", "Witchtree Branch", 44, 50, 0),
         ("TitaniteShard", "Large Titanite Shard", 38, 48, 0),
         # Church of Yorshka vicinity
         ("SoulOrb", "Large Soul of a Nameless Soldier", 55, 40, 800),
@@ -6327,7 +6327,7 @@ def make_irithyll():
         ("HomewardBone", "Homeward Bone", 58, 58, 0),
         ("UndeadBoneShard", "Undead Bone Shard", 66, 55, 0),
         # Dark room / hags
-        ("Consumable", "Blue Bug Pellet", 50, 58, 0),
+        ("Consumable", "Blue Bug Pellet", 52, 56, 0),
         ("Consumable", "Blue Bug Pellet", 52, 60, 0),
         ("Consumable", "Shriving Stone", 48, 56, 0),
         # Sewer area
@@ -8758,7 +8758,7 @@ def make_lothric_castle():
     items = [
         # Souls
         ("SoulOrb", "Soul of a Crestfallen Knight", 25, 25, 600),      # Altar room
-        ("SoulOrb", "Soul of a Crestfallen Knight", 128, 62, 600),     # After wyvern dead
+        ("SoulOrb", "Soul of a Crestfallen Knight", 126, 60, 600),     # After wyvern dead
         ("SoulOrb", "Soul of a Weary Warrior", 55, 36, 1000),          # Right of stairs
         ("SoulOrb", "Soul of a Weary Warrior", 90, 35, 2000),          # Lever room
         ("SoulOrb", "Large Soul of a Nameless Soldier", 75, 18, 1500), # Hanging corpse
@@ -8779,7 +8779,7 @@ def make_lothric_castle():
         ("Consumable", "Black Firebomb", 125, 62, 0),                  # Lower ladder room
         ("Consumable", "Black Firebomb", 126, 63, 0),                  # Same pickup (3x total)
         ("Consumable", "Black Firebomb", 124, 64, 0),                  # Same pickup (3x total)
-        ("Consumable", "Sunlight Medal", 138, 68, 0),                  # Corpse outside church
+        ("Consumable", "Sunlight Medal", 140, 66, 0),                  # Corpse outside church
         ("Consumable", "Rusted Coin", 125, 70, 0),                     # Church room
         ("Consumable", "Rusted Coin", 128, 72, 0),                     # Church room
         ("UndeadBoneShard", "Undead Bone Shard", 70, 20, 0),                # Under wyvern bridge
@@ -8791,8 +8791,8 @@ def make_lothric_castle():
         ("Ember", "Ember", 135, 58, 0),                                # Post-wyvern
         # Weapons
         ("WeaponDrop", "Greatlance", 62, 28, 0),                       # Red-eye knight guards
-        ("WeaponDrop", "Sniper Crossbow", 85, 28, 0),                  # Tower top near WK
-        ("WeaponDrop", "Irithyll Rapier", 45, 55, 0),                  # Boreal Knight area
+        ("WeaponDrop", "Sniper Crossbow", 87, 26, 0),                  # Tower top near WK
+        ("WeaponDrop", "Irithyll Rapier", 43, 53, 0),                  # Boreal Knight area
         ("WeaponDrop", "Caitha's Chime", 128, 75, 0),                  # Church roof
         ("WeaponDrop", "Sacred Bloom Shield", 52, 42, 0),              # Illusory wall
         # Armor
@@ -8803,13 +8803,13 @@ def make_lothric_castle():
         # Titanite Chunk x10
         ("TitaniteShard", "Titanite Chunk", 42, 40, 0),
         ("TitaniteShard", "Titanite Chunk", 92, 30, 0),
-        ("TitaniteShard", "Titanite Chunk", 72, 25, 0),
+        ("TitaniteShard", "Titanite Chunk", 74, 23, 0),
         ("TitaniteShard", "Titanite Chunk", 115, 48, 0),
         ("TitaniteShard", "Titanite Chunk", 135, 60, 0),
         ("TitaniteShard", "Titanite Chunk", 65, 20, 0),
-        ("TitaniteShard", "Titanite Chunk", 125, 55, 0),
+        ("TitaniteShard", "Titanite Chunk", 127, 53, 0),
         ("TitaniteShard", "Titanite Chunk", 132, 42, 0),
-        ("TitaniteShard", "Titanite Chunk", 140, 60, 0),
+        ("TitaniteShard", "Titanite Chunk", 138, 58, 0),
         ("TitaniteShard", "Titanite Chunk", 50, 44, 0),
         # Twinkling Titanite (ground pickups)
         ("TitaniteShard", "Twinkling Titanite", 52, 38, 0),            # Winged Knight room corpse
@@ -8822,11 +8822,11 @@ def make_lothric_castle():
         ("TitaniteShard", "Titanite Slab", 148, 68, 0),                # Near Grand Archives exit
         # Rings & key items
         ("RingDrop", "Red Tearstone Ring", 132, 75, 0),                # Church jump
-        ("RingDrop", "Knight's Ring", 108, 48, 0),                     # Ladder room
+        ("RingDrop", "Knight's Ring", 106, 46, 0),                     # Ladder room
         ("Consumable", "Braille Divine Tome of Lothric", 102, 32, 0),  # Up stairs from mimic
         # Gems
         ("Consumable", "Raw Gem", 82, 35, 0),                          # Side room
-        ("Consumable", "Refined Gem", 76, 22, 0),                      # After wyvern kill
+        ("Consumable", "Refined Gem", 78, 20, 0),                      # After wyvern kill
     ]
     for kind, name, tx, ty, val in items:
         fields = [make_field("kind", "LocalEnum.ItemKind", kind),
@@ -9229,7 +9229,7 @@ def make_grand_archives():
         # Scrolls
         ("Consumable", "Crystal Scroll", 48, 125, 0),
         # Armor
-        ("ArmorDrop", "Outrider Knight Armor Set", 58, 68, 0),
+        ("ArmorDrop", "Outrider Knight Armor Set", 60, 70, 0),
         # Upgrade materials — Titanite Chunks (8x)
         ("TitaniteShard", "Titanite Chunk", 42, 90, 0),
         ("TitaniteShard", "Titanite Chunk", 55, 95, 0),
@@ -9243,7 +9243,7 @@ def make_grand_archives():
         ("TitaniteShard", "Titanite Scale", 58, 95, 0),
         ("TitaniteShard", "Titanite Scale", 52, 72, 0),
         ("TitaniteShard", "Titanite Scale", 68, 68, 0),
-        ("TitaniteShard", "Titanite Scale", 75, 55, 0),
+        ("TitaniteShard", "Titanite Scale", 77, 53, 0),
         ("TitaniteShard", "Titanite Scale", 65, 50, 0),
         # Titanite Slabs (3x — elevator secret + Winged Knights trio + lift trick)
         ("TitaniteShard", "Titanite Slab", 108, 15, 0),
@@ -10383,7 +10383,7 @@ def make_consumed_kings_garden():
         # Toxic swamp loot per walkthrough
         ("WeaponDrop", "Claw", 45, 74, 0),
         ("ArmorDrop", "Shadow Set", 52, 78, 0),
-        ("Consumable", "Black Firebomb", 48, 76, 0),
+        ("Consumable", "Black Firebomb", 50, 74, 0),
         ("Consumable", "Black Firebomb", 56, 80, 0),
         ("Consumable", "Human Pine Resin", 50, 82, 0),
         ("RingDrop", "Ring of Sacrifice", 54, 70, 0),
@@ -11383,7 +11383,7 @@ def make_archdragon_peak():
         ("SoulOrb", "Soul of a Nameless Soldier", 50, 98, 1000),
         ("TitaniteShard", "Titanite Chunk", 52, 95, 0),             # Stairs landing
         ("WeaponDrop", "Ancient Dragon Greatshield", 62, 102, 0),   # Near overhang
-        ("TitaniteShard", "Titanite Chunk", 45, 108, 0),            # Left stairs
+        ("TitaniteShard", "Titanite Chunk", 47, 106, 0),            # Left stairs
         ("TitaniteShard", "Large Titanite Shard", 38, 115, 0),      # Hop down short stairs
         # Wyvern arena
         ("Ember", "Ember", 55, 62, 0),                              # Wyvern arena
@@ -11396,8 +11396,8 @@ def make_archdragon_peak():
         ("Consumable", "Stalk Dung Pie", 68, 72, 0),
         ("SoulOrb", "Soul of a Weary Warrior", 70, 82, 2000),       # Wyvern arena
         ("RingDrop", "Ring of Steel Protection", 52, 60, 0),        # Right side steps
-        ("Consumable", "Lightning Urn", 72, 78, 0),                 # Up stairs left
-        ("TitaniteShard", "Titanite Chunk", 75, 55, 0),             # Building interior
+        ("Consumable", "Lightning Urn", 74, 76, 0),                 # Up stairs left
+        ("TitaniteShard", "Titanite Chunk", 77, 53, 0),             # Building interior
         ("TitaniteShard", "Twinkling Titanite", 78, 48, 0),         # Ladder top
         ("TitaniteShard", "Twinkling Titanite", 80, 45, 0),         # Ladder top x2
         # Upper wyvern path — plank ledges
@@ -11409,12 +11409,12 @@ def make_archdragon_peak():
         ("TitaniteShard", "Titanite Scale", 75, 45, 0),             # Corpse over railing
         ("TitaniteShard", "Titanite Scale", 78, 42, 0),             # Left side
         ("TitaniteShard", "Titanite Scale", 82, 48, 0),             # Room leading out
-        ("SoulOrb", "Soul of a Crestfallen Knight", 85, 50, 1500),  # Corner corpse
+        ("SoulOrb", "Soul of a Crestfallen Knight", 87, 48, 1500),  # Corner corpse
         ("RingDrop", "Calamity Ring", 80, 52, 0),                  # Altar dragon gesture
         # Storm path / Great Belfry
         ("RingDrop", "Thunder Stoneplate Ring", 98, 32, 0),         # Ladder top
         ("Ember", "Ember", 118, 28, 0),                             # Ruins doorway
-        ("SoulOrb", "Soul of a Weary Warrior", 130, 25, 2000),      # After wyvern area
+        ("SoulOrb", "Soul of a Weary Warrior", 132, 27, 2000),      # After wyvern area
         # Belfry area — Havel area
         ("Consumable", "Great Magic Barrier", 138, 82, 0),          # Drop down from Havel area
         ("TitaniteShard", "Titanite Slab", 132, 78, 0),             # Next to wyvern claw
