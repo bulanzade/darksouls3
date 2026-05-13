@@ -10909,6 +10909,61 @@ def make_smouldering_lake():
     for tx in range(35, 45):
         chunk[55][tx] = TILE_WALLTOP  # lava bank
 
+
+    # --- SESSION 88 DS3 terrain (Smouldering Lake detail pass) ---
+    # DS3: Lava crust formations (hardened lava flow patterns)
+    for tx in range(40, 60):
+        for ty in range(30, 45):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in range(80, 100):
+        for ty in range(40, 55):
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Ballista tower (stone structure on the hill)
+    for tx in range(110, 120):
+        for ty in [20, 30]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [110, 120]:
+        for ty in range(20, 31):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(110, 121):
+        chunk[tx][19] = TILE_WALLTOP
+    # DS3: Demon bones scattered across the lake
+    for tx in [25, 35, 50, 65, 80, 95, 110, 125]:
+        for ty in [50, 55]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Scorched earth patches
+    for tx in range(20, 40):
+        for ty in range(60, 70):
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Underground lake (large cavern)
+    for tx in range(30, 80):
+        for ty in range(80, 100):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [30, 80]:
+        for ty in range(80, 101):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(30, 81):
+        for ty in [80, 100]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Demon arches (stone archways in the ruins)
+    for tx in [45, 55, 65]:
+        for ty in range(35, 42):
+            chunk[tx][ty] = TILE_WALL
+            chunk[tx][ty-1] = TILE_WALLTOP
+    # DS3: Old Demon King arena (large open chamber)
+    for tx in range(60, 90):
+        for ty in range(90, 110):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [60, 90]:
+        for ty in range(90, 111):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(60, 91):
+        for ty in [90, 110]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Connecting tunnel to Catacombs
+    for tx in range(10, 25):
+        for ty in range(65, 70):
+            chunk[tx][ty] = TILE_GROUND
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -12199,6 +12254,70 @@ def make_irithyll():
     for ty in range(32, 38):
         chunk[ty][50] = TILE_WALL  # bell tower base
 
+
+    # --- SESSION 88 DS3 terrain (Irithyll detail pass) ---
+    # DS3: Main avenue (wide boulevard through the city)
+    for tx in range(15, 60):
+        for ty in range(20, 28):
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Buildings along the avenue (wall clusters)
+    for tx in [15, 25, 35, 45]:
+        for ty in [15, 16, 17]:
+            chunk[tx][ty] = TILE_WALL
+            chunk[tx][14] = TILE_WALLTOP
+    for tx in [20, 30, 40, 50]:
+        for ty in [30, 31, 32]:
+            chunk[tx][ty] = TILE_WALL
+            chunk[tx][33] = TILE_WALLTOP
+    # DS3: Church of Yorshka (stone building)
+    for tx in range(45, 58):
+        for ty in [35, 48]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [45, 58]:
+        for ty in range(35, 49):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(45, 59):
+        chunk[tx][34] = TILE_WALLTOP
+    # DS3: Church interior columns
+    for tx in [48, 52, 56]:
+        for ty in [38, 42, 46]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Icicles hanging from eaves
+    for tx in [18, 22, 28, 32, 38, 42, 48, 55]:
+        for ty in [18, 19]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Central fountain with debris
+    for tx in range(55, 62):
+        for ty in range(22, 28):
+            chunk[tx][ty] = TILE_WALL
+        chunk[tx][21] = TILE_WALLTOP
+    # DS3: Sewer canal (underground waterway)
+    for tx in range(30, 65):
+        for ty in range(70, 76):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [30, 65]:
+        for ty in range(70, 77):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Pontiff Sulyvahn's cathedral
+    for tx in range(80, 100):
+        for ty in [50, 65]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [80, 100]:
+        for ty in range(50, 66):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(80, 101):
+        chunk[tx][49] = TILE_WALLTOP
+    # DS3: Frost patches on the ground
+    for tx in range(20, 50):
+        for ty in [25, 26]:
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Distant manor (Anor Londo approach)
+    for tx in range(100, 115):
+        for ty in [30, 42]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [100, 115]:
+        for ty in range(30, 43):
+            chunk[tx][ty] = TILE_WALL
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -13348,6 +13467,54 @@ def make_irithyll_dungeon():
     chunk[35][55] = TILE_WALLTOP  # brand rack debris
     chunk[35][56] = TILE_WALLTOP
 
+
+    # --- SESSION 88 DS3 terrain (Irithyll Dungeon detail pass) ---
+    # DS3: Cell frames along the corridors
+    for tx in [15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92, 99]:
+        for ty in [15, 16]:
+            chunk[tx][ty] = TILE_WALL
+        for ty in [22, 23]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Main corridor (long hallway)
+    for tx in range(10, 110):
+        for ty in [18, 19]:
+            chunk[tx][ty] = TILE_GROUND
+    for tx in range(10, 110):
+        chunk[tx][17] = TILE_WALL
+        chunk[tx][20] = TILE_WALL
+    # DS3: Torture racks in side rooms
+    for tx in [20, 35, 50, 65, 80, 95]:
+        for ty in [25, 26]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Pipe fragments along the ceiling
+    for tx in range(15, 100):
+        chunk[tx][10] = TILE_WALL
+        chunk[tx][9] = TILE_WALLTOP
+    # DS3: Lower sewer section
+    for tx in range(20, 80):
+        for ty in range(55, 65):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [20, 80]:
+        for ty in range(55, 66):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Key rack alcoves
+    for tx in [30, 45, 60, 75]:
+        for ty in [12, 13, 14]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Giant's room (the hidden chamber)
+    for tx in range(90, 110):
+        for ty in [40, 55]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [90, 110]:
+        for ty in range(40, 56):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Profaned Capital entrance staircase
+    for tx in range(100, 115):
+        for ty in range(60, 75):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [100, 115]:
+        for ty in range(60, 76):
+            chunk[tx][ty] = TILE_WALL
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -15394,6 +15561,48 @@ def make_anor_londo():
     chunk[48][60] = TILE_WALLTOP  # training debris
     chunk[48][62] = TILE_WALLTOP  # training debris
 
+
+    # --- SESSION 88 DS3 terrain (Anor Londo detail pass) ---
+    # DS3: Grand hall columns (massive stone pillars)
+    for tx in [20, 30, 40, 50, 60, 70, 80]:
+        for ty in range(15, 30):
+            chunk[tx][ty] = TILE_WALL
+            chunk[tx][ty-1] = TILE_WALLTOP
+    # DS3: Knight statues lining the hall
+    for tx in [22, 28, 32, 38, 42, 48, 52, 58, 62, 68, 72, 78]:
+        for ty in [12, 13]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Painting frame (the iconic painting of Ariamis)
+    for tx in range(35, 45):
+        for ty in [8, 14]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [35, 45]:
+        for ty in range(8, 15):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(35, 46):
+        chunk[tx][7] = TILE_WALLTOP
+    # DS3: Balcony railing along the upper level
+    for tx in range(15, 85):
+        chunk[tx][32] = TILE_WALL
+        chunk[tx][31] = TILE_WALLTOP
+    # DS3: Darkmoon tomb (hidden room)
+    for tx in range(60, 75):
+        for ty in [38, 48]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [60, 75]:
+        for ty in range(38, 49):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(60, 76):
+        chunk[tx][37] = TILE_WALLTOP
+    # DS3: Fog corridor pillars
+    for tx in [90, 95, 100, 105, 110]:
+        for ty in [20, 21]:
+            chunk[tx][ty] = TILE_WALL
+            chunk[tx][19] = TILE_WALLTOP
+    # DS3: Main hall floor (open area)
+    for tx in range(18, 82):
+        for ty in range(33, 38):
+            chunk[tx][ty] = TILE_GROUND
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
