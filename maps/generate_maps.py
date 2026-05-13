@@ -3925,6 +3925,28 @@ def make_road_of_sacrifices():
     fill_tiles(chunk, TILE_WALL, 132, 120, 133, 121)
     fill_tiles(chunk, TILE_WALL, 128, 124, 129, 125)
 
+    # ================================================================
+    # SESSION 15 FIDELITY PASS — RoadOfSacrifices additional DS3 details
+    # ================================================================
+    # Crucifixion Woods — additional crucifixion posts (DS3: many crucified bodies)
+    fill_tiles(chunk, TILE_WALL, 58, 42, 59, 43)
+    fill_tiles(chunk, TILE_WALL, 66, 50, 67, 51)
+    fill_tiles(chunk, TILE_WALL, 72, 56, 73, 57)
+    fill_tiles(chunk, TILE_WALL, 78, 48, 79, 49)
+    # Farron Keep gate approach — ruined wall fragments (DS3: stone archway to swamp)
+    fill_tiles(chunk, TILE_WALL, 108, 92, 109, 94)
+    fill_tiles(chunk, TILE_WALL, 114, 96, 115, 98)
+    fill_tiles(chunk, TILE_WALL, 120, 94, 121, 96)
+    fill_tiles(chunk, TILE_WALL, 104, 100, 105, 102)
+    # Cathedral Road — moss-covered stone path (DS3: path branching to Cathedral of the Deep)
+    fill_tiles(chunk, TILE_WALL, 140, 108, 141, 110)
+    fill_tiles(chunk, TILE_WALL, 146, 112, 147, 114)
+    fill_tiles(chunk, TILE_WALL, 136, 116, 137, 118)
+    fill_tiles(chunk, TILE_WALL, 142, 120, 143, 122)
+    # Crystal Sage approach — crystal shard debris (DS3: magical crystal formations)
+    fill_tiles(chunk, TILE_WALL, 122, 110, 123, 112)
+    fill_tiles(chunk, TILE_WALL, 134, 114, 135, 116)
+    fill_tiles(chunk, TILE_WALL, 118, 118, 119, 120)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
