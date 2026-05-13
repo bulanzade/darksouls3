@@ -4899,6 +4899,35 @@ def make_farron_keep():
     fill_tiles(chunk, TILE_WALL, 48, 50, 49, 52)
     fill_tiles(chunk, TILE_WALL, 60, 46, 61, 48)
 
+    # ================================================================
+    # SESSION 21 FIDELITY PASS — FarronKeep DS3 swamp details
+    # ================================================================
+    # Ruined knight corpse mounds (DS3: fallen knight bodies in swamp water)
+    fill_tiles(chunk, TILE_WALL, 30, 50, 32, 52)
+    fill_tiles(chunk, TILE_WALL, 36, 54, 38, 56)
+    fill_tiles(chunk, TILE_WALL, 42, 58, 44, 60)
+    fill_tiles(chunk, TILE_WALL, 24, 56, 26, 58)
+    # Collapsed stone bridge fragments (DS3: broken bridge to Old Wolf tower)
+    fill_tiles(chunk, TILE_WALL, 34, 80, 36, 82)
+    fill_tiles(chunk, TILE_WALL, 40, 84, 42, 86)
+    fill_tiles(chunk, TILE_WALL, 46, 88, 48, 90)
+    fill_tiles(chunk, TILE_WALL, 52, 92, 54, 94)
+    # Ghru totem pole bases (DS3: wooden ghru markers near torch platforms)
+    fill_tiles(chunk, TILE_WALL, 60, 48, 62, 50)
+    fill_tiles(chunk, TILE_WALL, 66, 52, 68, 54)
+    fill_tiles(chunk, TILE_WALL, 72, 56, 74, 58)
+    fill_tiles(chunk, TILE_WALL, 78, 60, 80, 62)
+    # Swamp root cluster obstacles (DS3: thick swamp vegetation clusters)
+    fill_tiles(chunk, TILE_WALL, 18, 36, 20, 38)
+    fill_tiles(chunk, TILE_WALL, 24, 40, 26, 42)
+    fill_tiles(chunk, TILE_WALL, 48, 44, 50, 46)
+    fill_tiles(chunk, TILE_WALL, 56, 50, 58, 52)
+    # Abyss Watcher statue debris (DS3: broken watcher statues near grand hall)
+    fill_tiles(chunk, TILE_WALL, 134, 104, 136, 106)
+    fill_tiles(chunk, TILE_WALL, 140, 108, 142, 110)
+    fill_tiles(chunk, TILE_WALL, 146, 114, 148, 116)
+    fill_tiles(chunk, TILE_WALL, 152, 118, 154, 120)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -6215,6 +6244,34 @@ def make_catacombs_of_carthus():
     fill_tiles(chunk, TILE_WALL, 26, 84, 27, 85)
     fill_tiles(chunk, TILE_WALL, 32, 86, 33, 87)
 
+    # ================================================================
+    # SESSION 21 FIDELITY PASS — CatacombsOfCarthus DS3 crypt details
+    # ================================================================
+    # Bone chariot track debris (DS3: skeleton chariot tracks through corridors)
+    fill_tiles(chunk, TILE_WALL, 16, 22, 18, 24)
+    fill_tiles(chunk, TILE_WALL, 22, 26, 24, 28)
+    fill_tiles(chunk, TILE_WALL, 28, 30, 30, 32)
+    fill_tiles(chunk, TILE_WALL, 34, 28, 36, 30)
+    # Crypt pillar fragments (DS3: broken pillars in Wolnir's antechamber)
+    fill_tiles(chunk, TILE_WALL, 46, 54, 48, 56)
+    fill_tiles(chunk, TILE_WALL, 52, 58, 54, 60)
+    fill_tiles(chunk, TILE_WALL, 40, 50, 42, 52)
+    # Skull candle alcove walls (DS3: skull-lined alcoves with candles)
+    fill_tiles(chunk, TILE_WALL, 58, 34, 60, 36)
+    fill_tiles(chunk, TILE_WALL, 64, 38, 66, 40)
+    fill_tiles(chunk, TILE_WALL, 70, 36, 72, 38)
+    fill_tiles(chunk, TILE_WALL, 76, 42, 78, 44)
+    # Broken sarcophagus fragments (DS3: destroyed coffins in lower tombs)
+    fill_tiles(chunk, TILE_WALL, 20, 40, 22, 42)
+    fill_tiles(chunk, TILE_WALL, 26, 44, 28, 46)
+    fill_tiles(chunk, TILE_WALL, 34, 48, 36, 50)
+    fill_tiles(chunk, TILE_WALL, 14, 52, 16, 54)
+    # Rope bridge anchor stones (DS3: stone posts anchoring the rope bridge)
+    fill_tiles(chunk, TILE_WALL, 48, 28, 50, 30)
+    fill_tiles(chunk, TILE_WALL, 54, 32, 56, 34)
+    fill_tiles(chunk, TILE_WALL, 60, 36, 62, 38)
+    fill_tiles(chunk, TILE_WALL, 66, 40, 68, 42)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -6836,6 +6893,35 @@ def make_smouldering_lake():
     fill_tiles(chunk, TILE_WALL, 26, 82, 27, 84)
     fill_tiles(chunk, TILE_WALL, 32, 90, 33, 92)
     fill_tiles(chunk, TILE_WALL, 14, 96, 15, 98)
+
+    # ================================================================
+    # SESSION 21 FIDELITY PASS — SmoulderingLake DS3 lava cavern details
+    # ================================================================
+    # Demon bone pile debris (DS3: ancient demon skeletons scattered around)
+    fill_tiles(chunk, TILE_WALL, 22, 40, 24, 42)
+    fill_tiles(chunk, TILE_WALL, 28, 44, 30, 46)
+    fill_tiles(chunk, TILE_WALL, 34, 48, 36, 50)
+    fill_tiles(chunk, TILE_WALL, 18, 52, 20, 54)
+    # Lava rock formations (DS3: cooled lava crust forming walkable obstacles)
+    fill_tiles(chunk, TILE_WALL, 40, 56, 42, 58)
+    fill_tiles(chunk, TILE_WALL, 46, 60, 48, 62)
+    fill_tiles(chunk, TILE_WALL, 52, 64, 54, 66)
+    fill_tiles(chunk, TILE_WALL, 58, 68, 60, 70)
+    # Ballista debris (DS3: giant ballista firing into the lake from above)
+    fill_tiles(chunk, TILE_WALL, 66, 74, 68, 76)
+    fill_tiles(chunk, TILE_WALL, 72, 78, 74, 80)
+    fill_tiles(chunk, TILE_WALL, 78, 82, 80, 84)
+    fill_tiles(chunk, TILE_WALL, 84, 86, 86, 88)
+    # Basilisk eye alcove walls (DS3: curse-fog alcoves with basilisk nests)
+    fill_tiles(chunk, TILE_WALL, 16, 76, 18, 78)
+    fill_tiles(chunk, TILE_WALL, 22, 80, 24, 82)
+    fill_tiles(chunk, TILE_WALL, 28, 84, 30, 86)
+    fill_tiles(chunk, TILE_WALL, 34, 88, 36, 90)
+    # Old Demon King throne debris (DS3: shattered throne in boss arena)
+    fill_tiles(chunk, TILE_WALL, 136, 110, 138, 112)
+    fill_tiles(chunk, TILE_WALL, 142, 114, 144, 116)
+    fill_tiles(chunk, TILE_WALL, 148, 118, 150, 120)
+    fill_tiles(chunk, TILE_WALL, 132, 116, 134, 118)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -8229,6 +8315,35 @@ def make_irithyll_dungeon():
     fill_tiles(chunk, TILE_WALL, 100, 80, 101, 82)
 
 
+    # ================================================================
+    # SESSION 21 FIDELITY PASS — IrithyllDungeon DS3 prison details
+    # ================================================================
+    # Jailer lantern bracket posts (DS3: wall-mounted brackets for jailer lanterns)
+    fill_tiles(chunk, TILE_WALL, 15, 34, 17, 36)
+    fill_tiles(chunk, TILE_WALL, 21, 38, 23, 40)
+    fill_tiles(chunk, TILE_WALL, 27, 36, 29, 38)
+    fill_tiles(chunk, TILE_WALL, 33, 42, 35, 44)
+    # Iron cell door frames (DS3: rusted iron door frames on cells)
+    fill_tiles(chunk, TILE_WALL, 41, 46, 43, 48)
+    fill_tiles(chunk, TILE_WALL, 47, 50, 49, 52)
+    fill_tiles(chunk, TILE_WALL, 53, 48, 55, 50)
+    fill_tiles(chunk, TILE_WALL, 59, 52, 61, 54)
+    # Torture rack debris (DS3: broken torture implements in lower cells)
+    fill_tiles(chunk, TILE_WALL, 23, 78, 25, 80)
+    fill_tiles(chunk, TILE_WALL, 29, 82, 31, 84)
+    fill_tiles(chunk, TILE_WALL, 37, 86, 39, 88)
+    fill_tiles(chunk, TILE_WALL, 43, 90, 45, 92)
+    # Dungeon pipe fragments (DS3: rusted pipes along dungeon ceiling)
+    fill_tiles(chunk, TILE_WALL, 65, 60, 67, 62)
+    fill_tiles(chunk, TILE_WALL, 71, 64, 73, 66)
+    fill_tiles(chunk, TILE_WALL, 77, 68, 79, 70)
+    fill_tiles(chunk, TILE_WALL, 83, 72, 85, 74)
+    # Profaned Capital elevator shaft debris (DS3: broken mechanism near exit)
+    fill_tiles(chunk, TILE_WALL, 122, 36, 124, 38)
+    fill_tiles(chunk, TILE_WALL, 130, 40, 132, 42)
+    fill_tiles(chunk, TILE_WALL, 138, 44, 140, 46)
+    fill_tiles(chunk, TILE_WALL, 146, 42, 148, 44)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -8898,6 +9013,35 @@ def make_profaned_capital():
     fill_tiles(chunk, TILE_WALL, 54, 70, 56, 72)
     fill_tiles(chunk, TILE_WALL, 64, 74, 66, 76)
     fill_tiles(chunk, TILE_WALL, 60, 80, 62, 82)
+
+    # ================================================================
+    # SESSION 21 FIDELITY PASS — ProfanedCapital DS3 ruins details
+    # ================================================================
+    # Yhorm arena pillar fragments (DS3: massive shattered pillars in Yhorm's hall)
+    fill_tiles(chunk, TILE_WALL, 94, 10, 96, 12)
+    fill_tiles(chunk, TILE_WALL, 100, 14, 102, 16)
+    fill_tiles(chunk, TILE_WALL, 106, 18, 108, 20)
+    fill_tiles(chunk, TILE_WALL, 112, 22, 114, 24)
+    # Collapsed roof tile piles (DS3: destroyed rooftop debris from Profaned Flame)
+    fill_tiles(chunk, TILE_WALL, 30, 22, 32, 24)
+    fill_tiles(chunk, TILE_WALL, 36, 26, 38, 28)
+    fill_tiles(chunk, TILE_WALL, 42, 30, 44, 32)
+    fill_tiles(chunk, TILE_WALL, 48, 34, 50, 36)
+    # Sewer grate debris (DS3: rusted grates in the toxic lower passage)
+    fill_tiles(chunk, TILE_WALL, 54, 42, 56, 44)
+    fill_tiles(chunk, TILE_WALL, 60, 46, 62, 48)
+    fill_tiles(chunk, TILE_WALL, 66, 50, 68, 52)
+    fill_tiles(chunk, TILE_WALL, 72, 54, 74, 56)
+    # Gargoyle perch stones (DS3: gargoyle landing spots on building ledges)
+    fill_tiles(chunk, TILE_WALL, 22, 48, 24, 50)
+    fill_tiles(chunk, TILE_WALL, 28, 52, 30, 54)
+    fill_tiles(chunk, TILE_WALL, 34, 56, 36, 58)
+    fill_tiles(chunk, TILE_WALL, 40, 60, 42, 62)
+    # Profaned Flame scorch marks (DS3: burned ground near the flame's origin)
+    fill_tiles(chunk, TILE_WALL, 46, 64, 48, 66)
+    fill_tiles(chunk, TILE_WALL, 52, 68, 54, 70)
+    fill_tiles(chunk, TILE_WALL, 58, 72, 60, 74)
+    fill_tiles(chunk, TILE_WALL, 64, 76, 66, 78)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
