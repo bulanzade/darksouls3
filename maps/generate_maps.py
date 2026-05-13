@@ -12111,6 +12111,34 @@ def make_archdragon_peak():
     fill_tiles(chunk, TILE_WALL, 46, 52, 47, 54)
     fill_tiles(chunk, TILE_WALL, 60, 46, 61, 48)
 
+    # ================================================================
+    # SESSION 14 FIDELITY PASS — ArchdragonPeak DS3 terrain details
+    # ================================================================
+    # Serpent-Man statue pedestals (DS3: serpent imagery carved into walls)
+    fill_tiles(chunk, TILE_WALL, 40, 92, 41, 93)
+    fill_tiles(chunk, TILE_WALL, 50, 96, 51, 97)
+    fill_tiles(chunk, TILE_WALL, 60, 100, 61, 101)
+    fill_tiles(chunk, TILE_WALL, 44, 104, 45, 105)
+    # Wyvern perch — petrified dragon claw stones (DS3: dead wyvern on bridge)
+    fill_tiles(chunk, TILE_WALL, 42, 56, 43, 57)
+    fill_tiles(chunk, TILE_WALL, 54, 62, 55, 63)
+    fill_tiles(chunk, TILE_WALL, 66, 68, 67, 69)
+    fill_tiles(chunk, TILE_WALL, 76, 64, 77, 65)
+    # Storm ridge — wind-eroded rock formations (DS3: storm-swept ridge path)
+    fill_tiles(chunk, TILE_WALL, 100, 34, 101, 35)
+    fill_tiles(chunk, TILE_WALL, 108, 42, 109, 43)
+    fill_tiles(chunk, TILE_WALL, 116, 36, 117, 37)
+    fill_tiles(chunk, TILE_WALL, 124, 44, 125, 45)
+    # Nameless King arena — lightning-scorched stone circles (DS3: ritual stones)
+    fill_tiles(chunk, TILE_WALL, 132, 80, 133, 81)
+    fill_tiles(chunk, TILE_WALL, 140, 84, 141, 85)
+    fill_tiles(chunk, TILE_WALL, 136, 92, 137, 93)
+    fill_tiles(chunk, TILE_WALL, 144, 96, 145, 97)
+    # Dragon-Kin Mausoleum — meditation alcove stones (DS3: dragon-kin meditate here)
+    fill_tiles(chunk, TILE_WALL, 70, 44, 71, 45)
+    fill_tiles(chunk, TILE_WALL, 78, 48, 79, 49)
+    fill_tiles(chunk, TILE_WALL, 86, 44, 87, 45)
+    fill_tiles(chunk, TILE_WALL, 94, 50, 95, 51)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
