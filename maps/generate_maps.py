@@ -9112,6 +9112,35 @@ def make_anor_londo():
     fill_tiles(chunk, TILE_WALL, 138, 78, 139, 79)
     fill_tiles(chunk, TILE_WALL, 126, 76, 127, 77)
 
+    # ================================================================
+    # SESSION 17 FIDELITY PASS — AnorLondo DS3 cathedral details
+    # ================================================================
+    # Main cathedral hall — gothic column bases (DS3: grand cathedral with massive columns)
+    fill_tiles(chunk, TILE_WALL, 28, 42, 29, 44)
+    fill_tiles(chunk, TILE_WALL, 36, 48, 37, 50)
+    fill_tiles(chunk, TILE_WALL, 44, 44, 45, 46)
+    fill_tiles(chunk, TILE_WALL, 52, 50, 53, 52)
+    fill_tiles(chunk, TILE_WALL, 60, 46, 61, 48)
+    # Silver Knight gallery — weapon rack alcoves (DS3: knights patrol the gallery)
+    fill_tiles(chunk, TILE_WALL, 68, 54, 69, 56)
+    fill_tiles(chunk, TILE_WALL, 76, 58, 77, 60)
+    fill_tiles(chunk, TILE_WALL, 84, 52, 85, 54)
+    fill_tiles(chunk, TILE_WALL, 92, 56, 93, 58)
+    # Man Grub chambers — slime puddle debris (DS3: slimes throughout the cathedral)
+    fill_tiles(chunk, TILE_WALL, 100, 60, 101, 62)
+    fill_tiles(chunk, TILE_WALL, 108, 64, 109, 66)
+    fill_tiles(chunk, TILE_WALL, 116, 58, 117, 60)
+    fill_tiles(chunk, TILE_WALL, 124, 62, 125, 64)
+    # Yorshka's tower — invisible bridge supports (DS3: invisible bridge to tower)
+    fill_tiles(chunk, TILE_WALL, 48, 82, 49, 84)
+    fill_tiles(chunk, TILE_WALL, 56, 88, 57, 90)
+    fill_tiles(chunk, TILE_WALL, 42, 90, 43, 92)
+    # Aldrich cathedral — stained glass debris (DS3: broken stained glass windows)
+    fill_tiles(chunk, TILE_WALL, 132, 70, 133, 72)
+    fill_tiles(chunk, TILE_WALL, 140, 74, 141, 76)
+    fill_tiles(chunk, TILE_WALL, 148, 70, 149, 72)
+    fill_tiles(chunk, TILE_WALL, 144, 80, 145, 82)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -10976,6 +11005,34 @@ def make_kiln_of_the_first_flame():
     fill_tiles(chunk, TILE_WALL, 108, 28, 109, 29)
     fill_tiles(chunk, TILE_WALL, 60, 26, 61, 27)
     fill_tiles(chunk, TILE_WALL, 92, 30, 93, 31)
+
+    # ================================================================
+    # SESSION 17 FIDELITY PASS — KilnOfTheFirstFlame DS3 ash wasteland
+    # ================================================================
+    # Flameless Shrine — collapsing shrine walls (DS3: dark mirror of Firelink in ash)
+    fill_tiles(chunk, TILE_WALL, 16, 18, 17, 20)
+    fill_tiles(chunk, TILE_WALL, 24, 22, 25, 24)
+    fill_tiles(chunk, TILE_WALL, 32, 26, 33, 28)
+    fill_tiles(chunk, TILE_WALL, 40, 30, 41, 32)
+    fill_tiles(chunk, TILE_WALL, 48, 34, 49, 36)
+    # Ashen Wasteland — iron girder debris (DS3: twisted metal structures in ash)
+    fill_tiles(chunk, TILE_WALL, 56, 38, 57, 40)
+    fill_tiles(chunk, TILE_WALL, 64, 42, 65, 44)
+    fill_tiles(chunk, TILE_WALL, 72, 36, 73, 38)
+    fill_tiles(chunk, TILE_WALL, 80, 40, 81, 42)
+    fill_tiles(chunk, TILE_WALL, 88, 34, 89, 36)
+    # First Flame arena — ash mound debris (DS3: ash piles around the bonfire)
+    fill_tiles(chunk, TILE_WALL, 44, 14, 45, 16)
+    fill_tiles(chunk, TILE_WALL, 56, 16, 57, 18)
+    fill_tiles(chunk, TILE_WALL, 76, 12, 77, 14)
+    fill_tiles(chunk, TILE_WALL, 96, 18, 97, 20)
+    fill_tiles(chunk, TILE_WALL, 112, 14, 113, 16)
+    # Collapsed wall sections (DS3: ruined architecture throughout the kiln)
+    fill_tiles(chunk, TILE_WALL, 28, 32, 29, 34)
+    fill_tiles(chunk, TILE_WALL, 36, 28, 37, 30)
+    fill_tiles(chunk, TILE_WALL, 48, 24, 49, 26)
+    fill_tiles(chunk, TILE_WALL, 64, 28, 65, 30)
+    fill_tiles(chunk, TILE_WALL, 80, 32, 81, 34)
 
 
     populate_entity_def_uids(entities)
