@@ -3418,6 +3418,33 @@ def make_undead_settlement():
     fill_tiles(chunk, TILE_WALL, 100, 102, 101, 104)
     fill_tiles(chunk, TILE_WALL, 106, 106, 107, 108)
 
+    # ================================================================
+    # SESSION 19 FIDELITY PASS — UndeadSettlement DS3 village depth
+    # ================================================================
+    # Sewer tunnel — slime-coated drain walls (DS3: rats and sewage beneath settlement)
+    fill_tiles(chunk, TILE_WALL, 120, 92, 121, 94)
+    fill_tiles(chunk, TILE_WALL, 126, 96, 127, 98)
+    fill_tiles(chunk, TILE_WALL, 132, 90, 133, 92)
+    fill_tiles(chunk, TILE_WALL, 138, 94, 139, 96)
+    fill_tiles(chunk, TILE_WALL, 124, 100, 125, 102)
+    # Cliff houses — wooden beam debris (DS3: houses hanging over cliff edge)
+    fill_tiles(chunk, TILE_WALL, 14, 42, 15, 44)
+    fill_tiles(chunk, TILE_WALL, 20, 46, 21, 48)
+    fill_tiles(chunk, TILE_WALL, 8, 48, 9, 50)
+    fill_tiles(chunk, TILE_WALL, 26, 50, 27, 52)
+    # Evangelist square — paving cracks (DS3: open area where Evangelists patrol)
+    fill_tiles(chunk, TILE_WALL, 36, 62, 37, 64)
+    fill_tiles(chunk, TILE_WALL, 42, 66, 43, 68)
+    fill_tiles(chunk, TILE_WALL, 48, 70, 49, 72)
+    fill_tiles(chunk, TILE_WALL, 54, 74, 55, 76)
+    fill_tiles(chunk, TILE_WALL, 60, 78, 61, 80)
+    # Fire demon arena — scorch marks and debris (DS3: Siegward helps fight demon)
+    fill_tiles(chunk, TILE_WALL, 96, 60, 97, 62)
+    fill_tiles(chunk, TILE_WALL, 102, 64, 103, 66)
+    fill_tiles(chunk, TILE_WALL, 108, 68, 109, 70)
+    fill_tiles(chunk, TILE_WALL, 114, 72, 115, 74)
+    fill_tiles(chunk, TILE_WALL, 100, 76, 101, 78)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -10097,6 +10124,34 @@ def make_lothric_castle():
     fill_tiles(chunk, TILE_WALL, 148, 56, 149, 58)
     fill_tiles(chunk, TILE_WALL, 152, 62, 153, 64)
     fill_tiles(chunk, TILE_WALL, 156, 68, 157, 70)
+
+    # ================================================================
+    # SESSION 19 FIDELITY PASS — LothricCastle DS3 castle depth
+    # ================================================================
+    # Dragon barracks — burnt pillar bases (DS3: dragon-scorched barracks walls)
+    fill_tiles(chunk, TILE_WALL, 66, 20, 67, 22)
+    fill_tiles(chunk, TILE_WALL, 74, 22, 75, 24)
+    fill_tiles(chunk, TILE_WALL, 82, 20, 83, 22)
+    fill_tiles(chunk, TILE_WALL, 90, 24, 91, 26)
+    fill_tiles(chunk, TILE_WALL, 98, 22, 99, 24)
+    # Twin dragon bridge — ribcage debris (DS3: dragon skeletons on bridge)
+    fill_tiles(chunk, TILE_WALL, 76, 74, 77, 76)
+    fill_tiles(chunk, TILE_WALL, 82, 78, 83, 80)
+    fill_tiles(chunk, TILE_WALL, 88, 76, 89, 78)
+    fill_tiles(chunk, TILE_WALL, 94, 80, 95, 82)
+    fill_tiles(chunk, TILE_WALL, 100, 78, 101, 80)
+    # Lothric throne room — curtain rod pillars (DS3: ornate throne chamber)
+    fill_tiles(chunk, TILE_WALL, 138, 94, 139, 96)
+    fill_tiles(chunk, TILE_WALL, 144, 98, 145, 100)
+    fill_tiles(chunk, TILE_WALL, 150, 96, 151, 98)
+    fill_tiles(chunk, TILE_WALL, 142, 100, 143, 102)
+    fill_tiles(chunk, TILE_WALL, 148, 102, 149, 104)
+    # Castle lower passages — iron grate debris (DS3: passages beneath castle)
+    fill_tiles(chunk, TILE_WALL, 18, 56, 19, 58)
+    fill_tiles(chunk, TILE_WALL, 24, 60, 25, 62)
+    fill_tiles(chunk, TILE_WALL, 30, 58, 31, 60)
+    fill_tiles(chunk, TILE_WALL, 36, 62, 37, 64)
+    fill_tiles(chunk, TILE_WALL, 42, 66, 43, 68)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
