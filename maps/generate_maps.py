@@ -9550,12 +9550,11 @@ def make_irithyll():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # Bonfires — DS3 Irithyll of the Boreal Valley: 6 bonfires
-    entities.append(make_entity("Bonfire", 10 * 16, 35 * 16))      # Irithyll of the Boreal Valley (entry bridge)
-    entities.append(make_entity("Bonfire", 62 * 16, 40 * 16))      # Church of Yorshka
-    entities.append(make_entity("Bonfire", 46 * 16, 52 * 16))      # Central Irithyll
+    entities.append(make_entity("Bonfire", 32 * 16, 40 * 16))      # Irithyll of the Boreal Valley (entry bridge)
+    entities.append(make_entity("Bonfire", 246 * 16, 118 * 16))      # Church of Yorshka
     entities.append(make_entity("Bonfire", 30 * 16, 78 * 16))      # Distant Manor
-    entities.append(make_entity("Bonfire", 75 * 16, 92 * 16))      # Water Reserve (sewer area)
-    entities.append(make_entity("Bonfire", 120 * 16, 82 * 16))     # Pontiff Sulyvahn (boss)
+    entities.append(make_entity("Bonfire", 191 * 16, 153 * 16))      # Water Reserve (sewer area)
+    entities.append(make_entity("Bonfire", 123 * 16, 108 * 16))     # Pontiff Sulyvahn (boss)
 
     # Boss - Pontiff Sulyvahn
     entities.append(make_entity("BossSpawn", 120 * 16, 76 * 16))
@@ -13737,10 +13736,15 @@ def make_lothric_castle():
         [make_field("heal", "Bool", True)]))
 
     # --- Bonfires --- DS3: Dragon Barracks, Lothric Castle, Grand Archives, Dragonslayer Armour
-    entities.append(make_entity("Bonfire", 42 * 16, 35 * 16))    # Dragon Barracks (entry)
-    entities.append(make_entity("Bonfire", 80 * 16, 25 * 16))    # Lothric Castle
-    entities.append(make_entity("Bonfire", 132 * 16, 68 * 16))   # Dragonslayer Armour (boss)
-    entities.append(make_entity("Bonfire", 146 * 16, 85 * 16))   # Grand Archives
+    entities.append(make_entity("Bonfire", 38 * 16, 56 * 16))    # Dragon Barracks (entry)
+    entities.append(make_entity("Bonfire", 78 * 16, 80 * 16))    # Lothric Castle
+    entities.append(make_entity("Bonfire", 157 * 16, 68 * 16))   # Dragonslayer Armour (boss)
+    entities.append(make_entity("Bonfire", 253 * 16, 148 * 16))    # Dragonslayer Armour
+    # Grand Archives bonfire (DS3: after Dragonslayer Armour, entrance to Grand Archives)
+    entities.append(make_entity("Bonfire", 292 * 16, 137 * 16, [
+        make_field("name", "String", "Grand Archives"),
+        make_field("kind", "LocalEnum.BonfireKind", "Bonfire"),
+    ]))    # Grand Archives
 
     # --- Boss ---
 
