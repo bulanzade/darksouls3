@@ -952,38 +952,37 @@ def make_cemetery_of_ash():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("RavenousCrystalLizard", "RavenousCrystalLizard"))]))
 
 # --- Items (accurate DS3 placements) ---
-    # Ashen Estus Flask — corpse by broken fountain
+
+    
+    # --- DS3 faithful items ---
     entities.append(make_entity("Item", 82 * 16, 134 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
         make_field("name", "String", "Ashen Estus Flask")]))
-    # Soul of a Deserted Corpse — right branch after first enemy
-    entities.append(make_entity("Item", 62 * 16, 157 * 16, [
+    entities.append(make_entity("Item", 62 * 16, 153 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("value", "Int", 200),
         make_field("name", "String", "Soul of a Deserted Corpse")]))
-    # Firebomb x5 — cliff end, behind sword+shield and crossbow hollows
-    entities.append(make_entity("Item", 38 * 16, 88 * 16, [
+    entities.append(make_entity("Item", 56 * 16, 88 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "Firebomb"),
         make_field("name", "String", "Firebomb")]))
-    # Titanite Shard — small ravine jump, cliff side
-    entities.append(make_entity("Item", 42 * 16, 84 * 16, [
+    entities.append(make_entity("Item", 56 * 16, 84 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
         make_field("name", "String", "Titanite Shard")]))
-    # Soul of an Unknown Traveler — water chasm wider area
     entities.append(make_entity("Item", 118 * 16, 109 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("value", "Int", 400),
         make_field("name", "String", "Soul of an Unknown Traveler")]))
-    # Titanite Scale — Crystal Lizard drop location
     entities.append(make_entity("Item", 134 * 16, 106 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Scale")]))
-    # Coiled Sword — Iudex Gundyr arena, obtained after defeating boss
-    entities.append(make_entity("Item", 80 * 16, 46 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
+        make_field("name", "String", "Twinkling Titanite")]))
+    entities.append(make_entity("Item", 88 * 16, 46 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
         make_field("name", "String", "Coiled Sword")]))
-
-    # --- Fog Gate to Firelink Shrine (arena exit) ---
+    entities.append(make_entity("Item", 88 * 16, 35 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 96 * 16, 81 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of the Origin")]))
+# --- Fog Gate to Firelink Shrine (arena exit) ---
     entities.append(make_entity("FogGate", 80 * 16, 22 * 16, [
         make_field("dest_area", "String", "FirelinkShrine"),
         make_field("dest_x", "Float", 1280.0),
@@ -1674,90 +1673,49 @@ def make_firelink_shrine():
     ]))
 
     # --- Items (DS3 Firelink Shrine) ---
-    # Estus Shard — on rafters above shrine (upper west, illusory wall)
-    entities.append(make_entity("Item", 34 * 16, 62 * 16, [
+
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 37 * 16, 23 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
         make_field("name", "String", "Estus Shard")]))
-    # Covetous Silver Serpent Ring — chest behind illusory wall on rafters (upper east)
-    entities.append(make_entity("Chest", 124 * 16, 60 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "RingDrop"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Covetous Silver Serpent Ring"),
-        make_field("is_mimic", "Bool", False)]))
-    # Estus Ring — drop down from tower bridge ledge
-    entities.append(make_entity("Item", 30 * 16, 58 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
+    entities.append(make_entity("Item", 43 * 16, 18 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
         make_field("name", "String", "Estus Ring")]))
-    # Fire Keeper Soul — top of tower
-    entities.append(make_entity("Item", 28 * 16, 58 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+    entities.append(make_entity("Item", 118 * 16, 20 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "FireKeeperSoul"),
         make_field("name", "String", "Fire Keeper Soul")]))
-    # Broken Straight Sword — by graves straight ahead from entrance
-    entities.append(make_entity("Item", 78 * 16, 108 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+    entities.append(make_entity("Item", 75 * 16, 108 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
         make_field("name", "String", "Broken Straight Sword")]))
-    # Homeward Bone x5 — along path from CemeteryOfAsh (near graves)
-    entities.append(make_entity("Item", 76 * 16, 114 * 16, [
+    entities.append(make_entity("Item", 76 * 16, 111 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
         make_field("name", "String", "Homeward Bone")]))
-    entities.append(make_entity("Item", 82 * 16, 114 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
-        make_field("name", "String", "Homeward Bone")]))
-    entities.append(make_entity("Item", 80 * 16, 120 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
-        make_field("name", "String", "Homeward Bone")]))
-    entities.append(make_entity("Item", 76 * 16, 122 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
-        make_field("name", "String", "Homeward Bone")]))
-    entities.append(make_entity("Item", 84 * 16, 122 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
-        make_field("name", "String", "Homeward Bone")]))
-    # Ember x2 — near Sword Master area and right path from shrine
-    entities.append(make_entity("Item", 92 * 16, 134 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
-        make_field("name", "String", "Ember")]))
-    entities.append(make_entity("Item", 98 * 16, 136 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
-        make_field("name", "String", "Ember")]))
-    # East-West Shield — corpse in tree near Sword Master area
-    entities.append(make_entity("Item", 64 * 16, 138 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "East-West Shield"),
-        make_field("slot", "String", "Hands")]))
-    # Uchigatana — dropped by Sword Master
-    entities.append(make_entity("Item", 68 * 16, 138 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+    entities.append(make_entity("Item", 82 * 16, 113 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
         make_field("name", "String", "Uchigatana")]))
-    # Master's Attire — dropped by Sword Master
-    entities.append(make_entity("Item", 66 * 16, 140 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Master's Attire"),
-        make_field("slot", "String", "Chest")]))
-    # Master's Gloves — dropped by Sword Master
-    entities.append(make_entity("Item", 70 * 16, 140 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Master's Gloves"),
-        make_field("slot", "String", "Hands")]))
-    # Soul of a Deserted Corpse — tower area corpse
-    entities.append(make_entity("Item", 38 * 16, 64 * 16, [
+    entities.append(make_entity("Item", 80 * 16, 117 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Master's Attire")]))
+    entities.append(make_entity("Item", 83 * 16, 117 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Master's Gloves")]))
+    entities.append(make_entity("Item", 41 * 16, 25 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Soul of a Deserted Corpse"),
-        make_field("value", "Int", 200)]))
-    # Twinkling Titanite — Crystal Lizard drop
-    entities.append(make_entity("Item", 120 * 16, 64 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Soul of a Deserted Corpse")]))
+    entities.append(make_entity("Item", 113 * 16, 25 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
         make_field("name", "String", "Twinkling Titanite")]))
-    # Fire Keeper Set — drop from tower bridge
-    entities.append(make_entity("Item", 118 * 16, 58 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Fire Keeper Set"),
-        make_field("slot", "String", "Chest")]))
-    # Seed of a Giant Tree — from Giant Tree near shrine exterior
-    entities.append(make_entity("Item", 88 * 16, 130 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+    entities.append(make_entity("Item", 105 * 16, 22 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Fire Keeper Set")]))
+    entities.append(make_entity("Item", 70 * 16, 106 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
         make_field("name", "String", "Seed of a Giant Tree")]))
-
-    # --- Fog Gates ---
+    # --- DS3 faithful chests ---
+    entities.append(make_entity("Chest", 106 * 16, 21 * 16, [
+        make_field("name", "String", "Unknown")]))
+# --- Fog Gates ---
     # Back to CemeteryOfAsh (south)
     entities.append(make_entity("FogGate", 80 * 16, 140 * 16, [
         make_field("dest_area", "String", "CemeteryOfAsh"),
@@ -2734,41 +2692,97 @@ def make_lothric_wall():
                   make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
 
     # --- Chests (DS3 High Wall of Lothric) ---
-    # Silver Eagle Kite Shield — chest on rampart near dragon bridge
-    entities.append(make_entity("Chest", 14 * 16, 32 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Silver Eagle Kite Shield"),
-        make_field("is_mimic", "Bool", False)]))
-    # Astora Straight Sword — chest in tower basement
-    entities.append(make_entity("Chest", 60 * 16, 50 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Astora Straight Sword"),
-        make_field("is_mimic", "Bool", False)]))
-    # Deep Battle Axe — mimic in room below dragon
-    entities.append(make_entity("Chest", 42 * 16, 38 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Deep Battle Axe"),
-        make_field("is_mimic", "Bool", True)]))
-    # Titanite Shard — chest in residential area
-    entities.append(make_entity("Chest", 38 * 16, 64 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Titanite Shard"),
-        make_field("is_mimic", "Bool", False)]))
-    # Claymore — chest on rooftop near cathedral
-    entities.append(make_entity("Chest", 72 * 16, 82 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Claymore"),
-        make_field("is_mimic", "Bool", False)]))
 
-    # --- Fog Gates ---
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 30 * 16, 30 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Longbow")]))
+    entities.append(make_entity("Item", 38 * 16, 21 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Firebomb"),
+        make_field("name", "String", "Firebomb")]))
+    entities.append(make_entity("Item", 46 * 16, 26 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Firebomb"),
+        make_field("name", "String", "Firebomb")]))
+    entities.append(make_entity("Item", 26 * 16, 18 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Deserted Corpse")]))
+    entities.append(make_entity("Item", 50 * 16, 35 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Deserted Corpse")]))
+    entities.append(make_entity("Item", 56 * 16, 31 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 85 * 16, 55 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Gold Pine Resin")]))
+    entities.append(make_entity("Item", 101 * 16, 62 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Green Blossom")]))
+    entities.append(make_entity("Item", 91 * 16, 67 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 111 * 16, 38 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Throwing Knives")]))
+    entities.append(make_entity("Item", 150 * 16, 52 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Firebomb"),
+        make_field("name", "String", "Firebomb")]))
+    entities.append(make_entity("Item", 158 * 16, 58 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 87 * 16, 108 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 105 * 16, 100 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 137 * 16, 87 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Key"),
+        make_field("name", "String", "Cell Key")]))
+    entities.append(make_entity("Item", 118 * 16, 108 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Deserted Corpse")]))
+    entities.append(make_entity("Item", 155 * 16, 142 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Gold Pine Resin")]))
+    entities.append(make_entity("Item", 168 * 16, 151 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 162 * 16, 168 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BoneShard"),
+        make_field("name", "String", "Undead Bone Shard")]))
+    entities.append(make_entity("Item", 158 * 16, 177 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Crestfallen Knight")]))
+    entities.append(make_entity("Item", 170 * 16, 159 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Key"),
+        make_field("name", "String", "Small Lothric Banner")]))
+    entities.append(make_entity("Item", 187 * 16, 206 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Purple Moss")]))
+    entities.append(make_entity("Item", 200 * 16, 217 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 191 * 16, 146 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("name", "String", "Estus Shard")]))
+    # --- DS3 faithful chests ---
+    entities.append(make_entity("Chest", 45 * 16, 28 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 102 * 16, 42 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 116 * 16, 98 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 163 * 16, 156 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 146 * 16, 125 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 193 * 16, 207 * 16, [
+        make_field("name", "String", "Unknown")]))
+# --- Fog Gates ---
     # Back to CemeteryOfAsh (NW entry point)
     entities.append(make_entity("FogGate", 12 * 16, 8 * 16, [
         make_field("dest_area", "String", "CemeteryOfAsh"),
@@ -3706,256 +3720,171 @@ def make_undead_settlement():
     ]))
 
     # --- Items (DS3 Undead Settlement) ---
-    # Large Soul of a Deserted Corpse — entry rampart
-    entities.append(make_entity("Item", 22 * 16, 12 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Large Soul of a Deserted Corpse"),
-        make_field("value", "Int", 400)]))
-    # Alluring Skull 2x — near dogs by overturned coach
-    entities.append(make_entity("Item", 24 * 16, 18 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Alluring Skull")]))
-    # Homeward Bone 2x — end of broken road near Yoel
-    entities.append(make_entity("Item", 30 * 16, 22 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
-        make_field("name", "String", "Homeward Bone")]))
-    # Small Leather Shield — hanging body in first house
-    entities.append(make_entity("Item", 44 * 16, 28 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Small Leather Shield"),
-        make_field("slot", "String", "Hands")]))
-    # Charcoal Pine Bundle 2x — first house balcony
-    entities.append(make_entity("Item", 46 * 16, 32 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Charcoal Pine Bundle")]))
-    # Loretta's Bone — hanging body outside house
-    entities.append(make_entity("Item", 48 * 16, 36 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Loretta's Bone")]))
-    # Repair Powder 2x — around corner from Loretta's Bone
-    entities.append(make_entity("Item", 42 * 16, 34 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Repair Powder")]))
-    # Charcoal Pine Bundle 2x — lower floor of house
-    entities.append(make_entity("Item", 44 * 16, 38 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Charcoal Pine Bundle")]))
-    # Firebomb 6x — corpse in front of blazing fire (wiki: 6x Firebomb)
-    entities.append(make_entity("Item", 44 * 16, 40 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Firebomb"),
-        make_field("name", "String", "Firebomb")]))
-    # Ember — behind the blazing fire
-    entities.append(make_entity("Item", 46 * 16, 42 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
-        make_field("name", "String", "Ember")]))
-    # Large Soul of a Deserted Corpse — settlement house
-    entities.append(make_entity("Item", 56 * 16, 34 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Large Soul of a Deserted Corpse"),
-        make_field("value", "Int", 400)]))
-    # Homeward Bone 2x — rooftop path
-    entities.append(make_entity("Item", 58 * 16, 30 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
-        make_field("name", "String", "Homeward Bone")]))
-    # Caduceus Round Shield — cliff corner near double doors
-    entities.append(make_entity("Item", 62 * 16, 38 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Caduceus Round Shield"),
-        make_field("slot", "String", "Hands")]))
-    # Plank Shield — near caged hollow NPC
-    entities.append(make_entity("Item", 66 * 16, 40 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Plank Shield"),
-        make_field("slot", "String", "Hands")]))
-    # Reinforced Club — hanging body near cage hollow (wiki: weapon pickup)
-    entities.append(make_entity("Item", 70 * 16, 44 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Reinforced Club")]))
-    # Titanite Shard — ledge near Cornyx bridge
-    entities.append(make_entity("Item", 72 * 16, 32 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Shard")]))
-    # Partizan — hanging corpse shot down near Cornyx roof
-    entities.append(make_entity("Item", 76 * 16, 28 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Partizan")]))
-    # Hand Axe — balcony near Cornyx cage
-    entities.append(make_entity("Item", 80 * 16, 30 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Hand Axe")]))
-    # Soul of an Unknown Traveler — wooden torture platform
-    entities.append(make_entity("Item", 82 * 16, 36 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Soul of an Unknown Traveler"),
-        make_field("value", "Int", 400)]))
-    # Fire Clutch Ring — end of half-broken bridge
-    entities.append(make_entity("Item", 86 * 16, 34 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
-        make_field("name", "String", "Fire Clutch Ring")]))
-    # Large Soul of a Deserted Corpse — around corner from Fire Clutch
-    entities.append(make_entity("Item", 88 * 16, 38 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Large Soul of a Deserted Corpse"),
-        make_field("value", "Int", 400)]))
-    # Ember — past sewers, dog guarding
-    entities.append(make_entity("Item", 64 * 16, 60 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
-        make_field("name", "String", "Ember")]))
-    # Bloodbite Ring — dropped by big rat in sewers
-    entities.append(make_entity("Item", 68 * 16, 68 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
-        make_field("name", "String", "Bloodbite Ring")]))
-    # Caestus — corpse in sewer hallway
-    entities.append(make_entity("Item", 66 * 16, 72 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Caestus")]))
-    # Loincloth — behind locked door (Grave Key)
-    entities.append(make_entity("Item", 72 * 16, 76 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Loincloth"),
-        make_field("slot", "String", "Legs")]))
-    # Red Hilted Halberd — hallway behind locked door
-    entities.append(make_entity("Item", 74 * 16, 80 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Red Hilted Halberd")]))
-    # Soul of an Unknown Traveler — skeleton room behind locked door
-    entities.append(make_entity("Item", 78 * 16, 78 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Soul of an Unknown Traveler"),
-        make_field("value", "Int", 400)]))
-    # Titanite Shard 2x — beyond skeleton room
-    entities.append(make_entity("Item", 80 * 16, 82 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Shard")]))
-    entities.append(make_entity("Item", 82 * 16, 84 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Shard")]))
-    # Saint's Talisman — room with rats near Irina
-    entities.append(make_entity("Item", 84 * 16, 80 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Saint's Talisman")]))
-    # Estus Shard — house near Dilapidated Bridge bonfire
-    entities.append(make_entity("Item", 58 * 16, 36 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
-        make_field("name", "String", "Estus Shard")]))
-    # Warriors of Sunlight Covenant — drop down hole in dwelling
-    entities.append(make_entity("Item", 50 * 16, 56 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Warriors of Sunlight")]))
-    # Charcoal Pine Resin 2x — near caged limbs
-    entities.append(make_entity("Item", 52 * 16, 60 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Charcoal Pine Resin")]))
-    # Titanite Shard — lower level house
-    entities.append(make_entity("Item", 56 * 16, 44 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Shard")]))
-    # Whip — open dwelling
-    entities.append(make_entity("Item", 60 * 16, 54 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Whip")]))
-    # Titanite Shard — ladder up to bridge
-    entities.append(make_entity("Item", 64 * 16, 56 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Shard")]))
-    # Rusted Coin — roof after Hodrick invasion
-    entities.append(make_entity("Item", 100 * 16, 56 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Rusted Coin")]))
-    # Fading Soul — path near Hodrick
-    entities.append(make_entity("Item", 98 * 16, 52 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Fading Soul")]))
-    # Red Bug Pellet 2x — open area after Fire Demon
-    entities.append(make_entity("Item", 92 * 16, 40 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Red Bug Pellet")]))
-    # Large Club — open area after Fire Demon
-    entities.append(make_entity("Item", 90 * 16, 44 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Large Club")]))
-    # Alluring Skull 2x — structure near Fire Demon area
-    entities.append(make_entity("Item", 96 * 16, 48 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Alluring Skull")]))
-    # Flynn's Ring — roof of structure near Fire Demon
-    entities.append(make_entity("Item", 98 * 16, 46 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
-        make_field("name", "String", "Flynn's Ring")]))
-    # Homeward Bone 2x — drop from wooden scaffolding
-    entities.append(make_entity("Item", 94 * 16, 42 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
-        make_field("name", "String", "Homeward Bone")]))
-    # Chloranthy Ring — drop down tower near Fire Demon
-    entities.append(make_entity("Item", 96 * 16, 38 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
-        make_field("name", "String", "Chloranthy Ring")]))
-    # Irithyll Straight Sword — from Boreal Knight at lift
-    entities.append(make_entity("Item", 130 * 16, 52 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Irithyll Straight Sword")]))
-    # Fading Soul — giant spear area
-    entities.append(make_entity("Item", 108 * 16, 60 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Fading Soul")]))
-    # Ember — giant spear area
-    entities.append(make_entity("Item", 110 * 16, 64 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Ember")]))
-    # Young White Branch 2x — giant spear area
-    entities.append(make_entity("Item", 106 * 16, 58 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Young White Branch")]))
-    # Large Soul of a Deserted Corpse — giant spear area
-    entities.append(make_entity("Item", 112 * 16, 66 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Large Soul of a Deserted Corpse"),
-        make_field("value", "Int", 400)]))
-    # Mortician's Ashes — graveyard up from giant area
-    entities.append(make_entity("Item", 116 * 16, 62 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Mortician's Ashes")]))
-    # Cleric Set (armor) — hut near graveyard
-    entities.append(make_entity("Item", 118 * 16, 66 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Cleric Set"),
-        make_field("slot", "String", "Chest")]))
-    # Blue Wooden Shield — same hut
-    entities.append(make_entity("Item", 120 * 16, 64 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Blue Wooden Shield"),
-        make_field("slot", "String", "Hands")]))
-    # Undead Bone Shard — jump across gap near giant
-    entities.append(make_entity("Item", 114 * 16, 60 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "UndeadBoneShard"),
-        make_field("name", "String", "Undead Bone Shard")]))
-    # Great Scythe — jump to ledge in building
-    entities.append(make_entity("Item", 124 * 16, 56 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Great Scythe")]))
-    # Homeward Bone — Pit of Hollows
-    entities.append(make_entity("Item", 90 * 16, 112 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
-        make_field("name", "String", "Homeward Bone")]))
-    # Soul of a Deserted Corpse — lower path
-    entities.append(make_entity("Item", 54 * 16, 46 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Soul of a Deserted Corpse"),
-        make_field("value", "Int", 200)]))
-    # Titanite Shard — base of wall near Warriors of Sunlight
-    entities.append(make_entity("Item", 50 * 16, 50 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Shard")]))
 
     # --- Chests (DS3 Undead Settlement) ---
-    # Human Pine Resin x4 — chest in Fire Demon area structures
-    entities.append(make_entity("Chest", 96 * 16, 50 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Human Pine Resin"),
-        make_field("is_mimic", "Bool", False)]))
 
-    # --- Fog Gates ---
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 22 * 16, 15 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Deserted Corpse")]))
+    entities.append(make_entity("Item", 23 * 16, 21 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Alluring Skull")]))
+    entities.append(make_entity("Item", 28 * 16, 25 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 90 * 16, 61 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Small Leather Shield")]))
+    entities.append(make_entity("Item", 92 * 16, 66 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Coal"),
+        make_field("name", "String", "Charcoal Pine Bundle")]))
+    entities.append(make_entity("Item", 95 * 16, 71 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Key"),
+        make_field("name", "String", "Loretta's Bone")]))
+    entities.append(make_entity("Item", 87 * 16, 68 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Repair Powder")]))
+    entities.append(make_entity("Item", 90 * 16, 75 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Coal"),
+        make_field("name", "String", "Charcoal Pine Bundle")]))
+    entities.append(make_entity("Item", 90 * 16, 77 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Firebomb"),
+        make_field("name", "String", "Firebomb")]))
+    entities.append(make_entity("Item", 92 * 16, 80 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember (behind blazing fire)")]))
+    entities.append(make_entity("Item", 100 * 16, 66 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Deserted Corpse")]))
+    entities.append(make_entity("Item", 112 * 16, 73 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Caduceus Round Shield")]))
+    entities.append(make_entity("Item", 118 * 16, 77 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Plank Shield")]))
+    entities.append(make_entity("Item", 127 * 16, 85 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Reinforced Club")]))
+    entities.append(make_entity("Item", 131 * 16, 66 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 145 * 16, 75 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Hand Axe")]))
+    entities.append(make_entity("Item", 148 * 16, 75 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of an Unknown Traveler")]))
+    entities.append(make_entity("Item", 153 * 16, 75 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Fire Clutch Ring")]))
+    entities.append(make_entity("Item", 113 * 16, 97 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember (past sewers)")]))
+    entities.append(make_entity("Item", 121 * 16, 96 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Bloodbite Ring")]))
+    entities.append(make_entity("Item", 117 * 16, 96 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("name", "String", "Caestus")]))
+    entities.append(make_entity("Item", 127 * 16, 106 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Loincloth")]))
+    entities.append(make_entity("Item", 131 * 16, 106 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Red Hilted Halberd")]))
+    entities.append(make_entity("Item", 171 * 16, 128 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of an Unknown Traveler")]))
+    entities.append(make_entity("Item", 175 * 16, 135 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 178 * 16, 140 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 181 * 16, 131 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Talisman"),
+        make_field("name", "String", "Saint's Talisman")]))
+    entities.append(make_entity("Item", 102 * 16, 68 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("name", "String", "Estus Shard (house near Dilapidated Bridge)")]))
+    entities.append(make_entity("Item", 96 * 16, 93 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Covenant"),
+        make_field("name", "String", "Warriors of Sunlight Covenant")]))
+    entities.append(make_entity("Item", 100 * 16, 96 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Coal"),
+        make_field("name", "String", "Charcoal Pine Resin")]))
+    entities.append(make_entity("Item", 106 * 16, 83 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard (lower house)")]))
+    entities.append(make_entity("Item", 112 * 16, 95 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Whip")]))
+    entities.append(make_entity("Item", 118 * 16, 96 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard (ladder to bridge)")]))
+    entities.append(make_entity("Item", 213 * 16, 96 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Rusted Coin")]))
+    entities.append(make_entity("Item", 211 * 16, 91 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Fading Soul")]))
+    entities.append(make_entity("Item", 198 * 16, 81 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Red Bug Pellet")]))
+    entities.append(make_entity("Item", 195 * 16, 87 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Large Club")]))
+    entities.append(make_entity("Item", 206 * 16, 93 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Alluring Skull")]))
+    entities.append(make_entity("Item", 210 * 16, 91 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Flynn's Ring")]))
+    entities.append(make_entity("Item", 206 * 16, 77 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Chloranthy Ring")]))
+    entities.append(make_entity("Item", 262 * 16, 158 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Irithyll Straight Sword (Boreal Knight drop)")]))
+    entities.append(make_entity("Item", 228 * 16, 100 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Fading Soul (giant spear area)")]))
+    entities.append(make_entity("Item", 231 * 16, 105 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember (giant spear area)")]))
+    entities.append(make_entity("Item", 225 * 16, 97 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Young White Branch")]))
+    entities.append(make_entity("Item", 238 * 16, 102 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ashes"),
+        make_field("name", "String", "Mortician's Ashes")]))
+    entities.append(make_entity("Item", 241 * 16, 107 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Cleric Set")]))
+    entities.append(make_entity("Item", 236 * 16, 100 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BoneShard"),
+        make_field("name", "String", "Undead Bone Shard")]))
+    entities.append(make_entity("Item", 187 * 16, 200 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone (Pit of Hollows)")]))
+    entities.append(make_entity("Item", 105 * 16, 86 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Deserted Corpse")]))
+    entities.append(make_entity("Item", 98 * 16, 91 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard (wall base)")]))
+    entities.append(make_entity("Item", 150 * 16, 87 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Spell"),
+        make_field("name", "String", "Pyromancy Flame")]))
+    entities.append(make_entity("Item", 187 * 16, 207 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of the Rotted")]))
+    # --- DS3 faithful chests ---
+    entities.append(make_entity("Chest", 207 * 16, 95 * 16, [
+        make_field("name", "String", "Unknown")]))
+# --- Fog Gates ---
     entities.append(make_entity("FogGate", 148 * 16, 55 * 16, [
         make_field("dest_area", "String", "RoadOfSacrifices"),
         make_field("dest_x", "Float", 100.0),
@@ -4836,195 +4765,6 @@ def make_road_of_sacrifices():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
 
 # --- Items (DS3 Road of Sacrifices) — accurate from wiki ---
-    # Shriving Stone — end of left path in entry woods
-    entities.append(make_entity("Item", 30 * 16, 22 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Shriving Stone")]))
-    # Soul of an Unknown Traveler — overturned coach in entry woods
-    entities.append(make_entity("Item", 22 * 16, 20 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Soul of an Unknown Traveler"),
-        make_field("value", "Int", 500)]))
-    # Brigand Axe — ledge below entry path
-    entities.append(make_entity("Item", 28 * 16, 25 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Brigand Axe")]))
-    # Brigand Set — end of lower entry path
-    entities.append(make_entity("Item", 26 * 16, 28 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Brigand Set"),
-        make_field("slot", "String", "Chest")]))
-    # Brigand Twindaggers — very end of entry path
-    entities.append(make_entity("Item", 26 * 16, 30 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Brigand Twindaggers")]))
-    # Titanite Shard — cavern path along cliff
-    entities.append(make_entity("Item", 38 * 16, 26 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Shard")]))
-    # Braille Divine Tome of Carim — ledge with dogs ambush
-    entities.append(make_entity("Item", 40 * 16, 30 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Braille Divine Tome of Carim")]))
-    # Morne's Ring — same ledge area as tome
-    entities.append(make_entity("Item", 42 * 16, 32 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
-        make_field("name", "String", "Morne's Ring")]))
-    # Ember — mound near storyteller at Halfway Fortress
-    entities.append(make_entity("Item", 52 * 16, 32 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
-        make_field("name", "String", "Ember")]))
-    # Blue Sentinels Covenant — from Horace at Halfway Fortress
-    entities.append(make_entity("Item", 55 * 16, 30 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Blue Sentinels")]))
-    # Titanite Shard — near poison brumers in woods
-    entities.append(make_entity("Item", 60 * 16, 42 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Shard")]))
-    # Titanite Shard — near crosses in woods
-    entities.append(make_entity("Item", 64 * 16, 45 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Shard")]))
-    # Twin Dragon Greatshield — base of tree in woods
-    entities.append(make_entity("Item", 68 * 16, 48 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Twin Dragon Greatshield"),
-        make_field("slot", "String", "Hands")]))
-    # Fading Soul — in the woods area
-    entities.append(make_entity("Item", 70 * 16, 50 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Fading Soul"),
-        make_field("value", "Int", 50)]))
-    # Estus Shard — drop down from ledges in woods
-    entities.append(make_entity("Item", 52 * 16, 38 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
-        make_field("name", "String", "Estus Shard")]))
-    # Ember — blazing fire with crucified hollows
-    entities.append(make_entity("Item", 62 * 16, 48 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
-        make_field("name", "String", "Ember")]))
-    # Soul of an Unknown Traveler — drop from ledge near bonfire
-    entities.append(make_entity("Item", 55 * 16, 42 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Soul of an Unknown Traveler"),
-        make_field("value", "Int", 500)]))
-    # Heretic's Staff — under overhang in ruins
-    entities.append(make_entity("Item", 90 * 16, 55 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Heretic's Staff")]))
-    # Blue Bug Pellet — near Orbeck's room
-    entities.append(make_entity("Item", 82 * 16, 60 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Blue Bug Pellet")]))
-    # Blue Bug Pellet — second pellet in ruins
-    entities.append(make_entity("Item", 88 * 16, 58 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Blue Bug Pellet")]))
-    # Ring of Sacrifice — ledge drop in ruins
-    entities.append(make_entity("Item", 92 * 16, 62 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
-        make_field("name", "String", "Ring of Sacrifice")]))
-    # Sorcerer Set — flooded room below ruins
-    entities.append(make_entity("Item", 95 * 16, 65 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Sorcerer Set"),
-        make_field("slot", "String", "Chest")]))
-    # Sage Ring — flooded room below ruins
-    entities.append(make_entity("Item", 95 * 16, 58 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
-        make_field("name", "String", "Sage Ring")]))
-    # Crystal Gem — ruins upper area
-    entities.append(make_entity("Item", 98 * 16, 55 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Crystal Gem")]))
-    # Twinkling Titanite — in ruins
-    entities.append(make_entity("Item", 100 * 16, 58 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Twinkling Titanite")]))
-    # Twinkling Titanite — in ruins
-    entities.append(make_entity("Item", 100 * 16, 62 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Twinkling Titanite")]))
-    # Green Blossom — swamp edge
-    entities.append(make_entity("Item", 75 * 16, 62 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Green Blossom")]))
-    # Green Blossom — swamp area near crabs
-    entities.append(make_entity("Item", 80 * 16, 68 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Green Blossom")]))
-    # Green Blossom — swamp area
-    entities.append(make_entity("Item", 72 * 16, 75 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Green Blossom")]))
-    # Green Blossom — swamp area
-    entities.append(make_entity("Item", 85 * 16, 72 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Green Blossom")]))
-    # Grass Crest Shield — before giant crab at tree base
-    entities.append(make_entity("Item", 72 * 16, 70 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Grass Crest Shield"),
-        make_field("slot", "String", "Hands")]))
-    # Fallen Knight Set — in the swamp
-    entities.append(make_entity("Item", 78 * 16, 72 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Fallen Knight Set"),
-        make_field("slot", "String", "Chest")]))
-    # Titanite Shard — swamp area
-    entities.append(make_entity("Item", 95 * 16, 70 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Shard")]))
-    # Great Club — Exile NPC drop at Farron Keep entrance
-    entities.append(make_entity("Item", 110 * 16, 90 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Great Club")]))
-    # Exile Greatsword — Exile NPC drop at Farron Keep entrance
-    entities.append(make_entity("Item", 115 * 16, 95 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Exile Greatsword")]))
-    # Homeward Bone — corpse in Farron Keep castle
-    entities.append(make_entity("Item", 112 * 16, 92 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
-        make_field("name", "String", "Homeward Bone")]))
-    # Homeward Bone — corpse in Farron Keep castle
-    entities.append(make_entity("Item", 114 * 16, 93 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
-        make_field("name", "String", "Homeward Bone")]))
-    # Golden Falcon Shield — ledge drop near Farron entrance
-    entities.append(make_entity("Item", 105 * 16, 80 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Golden Falcon Shield"),
-        make_field("slot", "String", "Hands")]))
-    # Great Swamp Pyromancy Tome — base of large tree in swamp
-    entities.append(make_entity("Item", 90 * 16, 68 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Great Swamp Pyromancy Tome")]))
-    # Conjurator Set — near pyromancy tome area
-    entities.append(make_entity("Item", 92 * 16, 72 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Conjurator Set"),
-        make_field("slot", "String", "Chest")]))
-    # Farron Coal moved to Farron Keep (wiki: behind illusory wall near Old Wolf)
-    # Sellsword Set — corpse in ruins near Farron Coal
-    entities.append(make_entity("Item", 118 * 16, 88 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Sellsword Set"),
-        make_field("slot", "String", "Chest")]))
-    # Sellsword Twinblades — drop down in ruins
-    entities.append(make_entity("Item", 120 * 16, 90 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Sellsword Twinblades")]))
-    # Herald Set — past boss near fire
-    entities.append(make_entity("Item", 130 * 16, 105 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("name", "String", "Herald Set"),
-        make_field("slot", "String", "Chest")]))
-    # Titanite Shard — Crystal Sage area
-    entities.append(make_entity("Item", 128 * 16, 110 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Shard")]))
 
 
 
@@ -5563,6 +5303,134 @@ def make_road_of_sacrifices():
             chunk[tx][ty] = TILE_WALL
     for tx in range(90, 101):
         chunk[tx][59] = TILE_WALLTOP
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 36 * 16, 31 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Shriving Stone")]))
+    entities.append(make_entity("Item", 28 * 16, 30 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of an Unknown Traveler")]))
+    entities.append(make_entity("Item", 40 * 16, 36 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Brigand Axe")]))
+    entities.append(make_entity("Item", 36 * 16, 40 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Brigand Set")]))
+    entities.append(make_entity("Item", 36 * 16, 42 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Brigand Twindaggers")]))
+    entities.append(make_entity("Item", 66 * 16, 63 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard (cliff cavern)")]))
+    entities.append(make_entity("Item", 78 * 16, 70 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Scroll"),
+        make_field("name", "String", "Braille Divine Tome of Carim")]))
+    entities.append(make_entity("Item", 78 * 16, 73 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Morne's Ring")]))
+    entities.append(make_entity("Item", 91 * 16, 73 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember (near storyteller)")]))
+    entities.append(make_entity("Item", 95 * 16, 71 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Covenant"),
+        make_field("name", "String", "Blue Sentinels Covenant (from Horace)")]))
+    entities.append(make_entity("Item", 126 * 16, 90 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard (poison brumers)")]))
+    entities.append(make_entity("Item", 133 * 16, 93 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard (near crosses)")]))
+    entities.append(make_entity("Item", 145 * 16, 101 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Fading Soul")]))
+    entities.append(make_entity("Item", 96 * 16, 83 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("name", "String", "Estus Shard (ledge drop)")]))
+    entities.append(make_entity("Item", 137 * 16, 100 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember (blazing fire, crucified hollows)")]))
+    entities.append(make_entity("Item", 97 * 16, 86 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of an Unknown Traveler (ledge drop)")]))
+    entities.append(make_entity("Item", 170 * 16, 107 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Heretic's Staff")]))
+    entities.append(make_entity("Item", 155 * 16, 113 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Blue Bug Pellet (near Orbeck)")]))
+    entities.append(make_entity("Item", 167 * 16, 112 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Blue Bug Pellet (ruins)")]))
+    entities.append(make_entity("Item", 173 * 16, 118 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Ring of Sacrifice (ledge drop)")]))
+    entities.append(make_entity("Item", 178 * 16, 111 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Sage Ring")]))
+    entities.append(make_entity("Item", 183 * 16, 107 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Gem"),
+        make_field("name", "String", "Crystal Gem")]))
+    entities.append(make_entity("Item", 186 * 16, 112 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
+        make_field("name", "String", "Twinkling Titanite (ruins 1)")]))
+    entities.append(make_entity("Item", 186 * 16, 118 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
+        make_field("name", "String", "Twinkling Titanite (ruins 2)")]))
+    entities.append(make_entity("Item", 151 * 16, 118 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Green Blossom (swamp edge 1)")]))
+    entities.append(make_entity("Item", 160 * 16, 128 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Green Blossom (swamp edge 2)")]))
+    entities.append(make_entity("Item", 142 * 16, 138 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Green Blossom (swamp 3)")]))
+    entities.append(make_entity("Item", 166 * 16, 131 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Green Blossom (swamp 4)")]))
+    entities.append(make_entity("Item", 148 * 16, 130 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Grass Crest Shield (before giant crab)")]))
+    entities.append(make_entity("Item", 157 * 16, 140 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Fallen Knight Set (in the swamp)")]))
+    entities.append(make_entity("Item", 178 * 16, 130 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard (swamp area)")]))
+    entities.append(make_entity("Item", 222 * 16, 115 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Great Club (Exile drop)")]))
+    entities.append(make_entity("Item", 227 * 16, 113 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Exile Greatsword (Exile drop)")]))
+    entities.append(make_entity("Item", 225 * 16, 113 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone (Farron Keep castle 1)")]))
+    entities.append(make_entity("Item", 228 * 16, 113 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone (Farron Keep castle 2)")]))
+    entities.append(make_entity("Item", 224 * 16, 105 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Golden Falcon Shield (ledge drop)")]))
+    entities.append(make_entity("Item", 171 * 16, 128 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Scroll"),
+        make_field("name", "String", "Great Swamp Pyromancy Tome")]))
+    entities.append(make_entity("Item", 235 * 16, 112 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Sellsword Set (ruins)")]))
+    entities.append(make_entity("Item", 238 * 16, 115 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Sellsword Twinblades (ruins drop)")]))
+    entities.append(make_entity("Item", 210 * 16, 137 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Herald Set (past boss)")]))
+    entities.append(make_entity("Item", 206 * 16, 143 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard (Crystal Sage area)")]))
+    entities.append(make_entity("Item", 210 * 16, 150 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of the Crystal Sage")]))
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -6031,60 +5899,6 @@ def make_farron_keep():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
 
 # --- Items (DS3 Farron Keep) — accurate from wiki ---
-    # Pyromancies / Spells / Key items
-    entities.append(make_entity("Item", 22 * 16, 45 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Iron Flesh")]))
-    entities.append(make_entity("Item", 25 * 16, 68 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Golden Scroll")]))
-    entities.append(make_entity("Item", 30 * 16, 55 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Sage's Coal")]))
-    # Farron Coal — behind illusory wall near Old Wolf of Farron (wiki: Farron Keep)
-    entities.append(make_entity("Item", 32 * 16, 58 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Farron Coal")]))
-    entities.append(make_entity("Item", 45 * 16, 100 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Dreamchaser's Ashes")]))
-    entities.append(make_entity("Item", 110 * 16, 85 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Lightning Spear")]))
-    entities.append(make_entity("Item", 55 * 16, 82 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Sage's Scroll")]))
-    entities.append(make_entity("Item", 60 * 16, 78 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Poison Gem")]))
-    entities.append(make_entity("Item", 75 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Great Magic Weapon")]))
-    entities.append(make_entity("Item", 88 * 16, 48 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Atonement")]))
-    # Wolf's Blood Swordgrass (covenant item on ground before ladder)
-    entities.append(make_entity("Item", 42 * 16, 98 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Wolf's Blood Swordgrass")]))
-    # Upgrade materials
-    entities.append(make_entity("Item", 50 * 16, 85 * 16, [make_field("kind", "LocalEnum.ItemKind", "UndeadBoneShard"), make_field("name", "String", "Undead Bone Shard")]))
-    entities.append(make_entity("Item", 72 * 16, 70 * 16, [make_field("kind", "LocalEnum.ItemKind", "EstusShard"), make_field("name", "String", "Estus Shard")]))
-    entities.append(make_entity("Item", 45 * 16, 108 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Titanite Shard")]))
-    entities.append(make_entity("Item", 55 * 16, 95 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Titanite Shard")]))
-    entities.append(make_entity("Item", 85 * 16, 82 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Large Titanite Shard")]))
-    entities.append(make_entity("Item", 48 * 16, 112 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Large Titanite Shard")]))
-    entities.append(make_entity("Item", 52 * 16, 95 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Twinkling Titanite")]))
-    entities.append(make_entity("Item", 58 * 16, 65 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Heavy Gem")]))
-    entities.append(make_entity("Item", 62 * 16, 72 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Hollow Gem")]))
-    # Weapons
-    entities.append(make_entity("Item", 92 * 16, 44 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Greatsword")]))
-    entities.append(make_entity("Item", 48 * 16, 115 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Greataxe")]))
-    entities.append(make_entity("Item", 70 * 16, 56 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Sunlight Talisman")]))
-    entities.append(make_entity("Item", 35 * 16, 62 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Black Bow of Pharis")]))
-    entities.append(make_entity("Item", 40 * 16, 58 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Stone Parma"), make_field("slot", "String", "Hands")]))
-    entities.append(make_entity("Item", 105 * 16, 55 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Dragon Crest Shield"), make_field("slot", "String", "Hands")]))
-    # Rings
-    entities.append(make_entity("Item", 28 * 16, 74 * 16, [make_field("kind", "LocalEnum.ItemKind", "RingDrop"), make_field("name", "String", "Lingering Dragoncrest Ring")]))
-    # Armor sets and pieces
-    entities.append(make_entity("Item", 35 * 16, 50 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Dark Set"), make_field("slot", "String", "Chest")]))
-    entities.append(make_entity("Item", 68 * 16, 95 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Crown of Dusk"), make_field("slot", "String", "Head")]))
-    entities.append(make_entity("Item", 42 * 16, 65 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Ragged Mask"), make_field("slot", "String", "Head")]))
-    entities.append(make_entity("Item", 50 * 16, 72 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Antiquated Set"), make_field("slot", "String", "Chest")]))
-    entities.append(make_entity("Item", 32 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Pharis's Hat"), make_field("slot", "String", "Head")]))
-    entities.append(make_entity("Item", 82 * 16, 55 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Nameless Knight Set"), make_field("slot", "String", "Chest")]))
-    # Consumables
-    entities.append(make_entity("Item", 105 * 16, 50 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Ember")]))
-    entities.append(make_entity("Item", 38 * 16, 50 * 16, [make_field("kind", "LocalEnum.ItemKind", "PurpleMoss"), make_field("name", "String", "Purple Moss Clump")]))
-    entities.append(make_entity("Item", 38 * 16, 54 * 16, [make_field("kind", "LocalEnum.ItemKind", "PurpleMoss"), make_field("name", "String", "Purple Moss Clump")]))
-    entities.append(make_entity("Item", 38 * 16, 58 * 16, [make_field("kind", "LocalEnum.ItemKind", "PurpleMoss"), make_field("name", "String", "Purple Moss Clump")]))
-    entities.append(make_entity("Item", 48 * 16, 100 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Young White Branch")]))
-    entities.append(make_entity("Item", 44 * 16, 96 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Young White Branch")]))
-    entities.append(make_entity("Item", 65 * 16, 65 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Soul of a Nameless Soldier"), make_field("value", "Int", 800)]))
-    entities.append(make_entity("Item", 78 * 16, 50 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Large Soul of a Nameless Soldier"), make_field("value", "Int", 1200)]))
-    entities.append(make_entity("Item", 130 * 16, 108 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Soul of a Stray Demon"), make_field("value", "Int", 20000)]))
-    # Shriving Stone (used for reverse weapon infusions)
-    entities.append(make_entity("Item", 68 * 16, 78 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Shriving Stone")]))
 
     # NPC - Old Wolf of Farron
     entities.append(make_entity("Npc", 108 * 16, 154 * 16, [make_field("name", "String", "Old Wolf of Farron"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#8899AA"), make_field("dialogue", "String", "(The wolf gazes silently|Its eyes reflect distant flames)|(The old wolf acknowledges your presence)|(It carries the scent of the Abyss Watchers)")]))
@@ -6546,6 +6360,131 @@ def make_farron_keep():
     for tx in [12, 14, 16]:
         for ty in [30, 31]:
             chunk[tx][ty] = TILE_WALL
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 45 * 16, 71 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Spell"),
+        make_field("name", "String", "Iron Flesh (pyromancy)")]))
+    entities.append(make_entity("Item", 72 * 16, 82 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Scroll"),
+        make_field("name", "String", "Golden Scroll")]))
+    entities.append(make_entity("Item", 78 * 16, 83 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Coal"),
+        make_field("name", "String", "Sage's Coal")]))
+    entities.append(make_entity("Item", 73 * 16, 84 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Coal"),
+        make_field("name", "String", "Farron Coal (illusory wall near Old Wolf)")]))
+    entities.append(make_entity("Item", 107 * 16, 150 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ashes"),
+        make_field("name", "String", "Dreamchaser's Ashes")]))
+    entities.append(make_entity("Item", 218 * 16, 140 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Lightning Spear (miracle)")]))
+    entities.append(make_entity("Item", 113 * 16, 130 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Scroll"),
+        make_field("name", "String", "Sage's Scroll")]))
+    entities.append(make_entity("Item", 122 * 16, 123 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Gem"),
+        make_field("name", "String", "Poison Gem")]))
+    entities.append(make_entity("Item", 146 * 16, 97 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Spell"),
+        make_field("name", "String", "Great Magic Weapon (sorcery)")]))
+    entities.append(make_entity("Item", 174 * 16, 78 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Spell"),
+        make_field("name", "String", "Atonement (miracle)")]))
+    entities.append(make_entity("Item", 106 * 16, 153 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Covenant"),
+        make_field("name", "String", "Wolf's Blood Swordgrass (covenant item)")]))
+    entities.append(make_entity("Item", 106 * 16, 133 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BoneShard"),
+        make_field("name", "String", "Undead Bone Shard")]))
+    entities.append(make_entity("Item", 145 * 16, 111 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("name", "String", "Estus Shard")]))
+    entities.append(make_entity("Item", 106 * 16, 155 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 111 * 16, 151 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 168 * 16, 131 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 143 * 16, 166 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 106 * 16, 151 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
+        make_field("name", "String", "Twinkling Titanite")]))
+    entities.append(make_entity("Item", 117 * 16, 103 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Gem"),
+        make_field("name", "String", "Heavy Gem")]))
+    entities.append(make_entity("Item", 126 * 16, 115 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Gem"),
+        make_field("name", "String", "Hollow Gem")]))
+    entities.append(make_entity("Item", 136 * 16, 123 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Shriving Stone")]))
+    entities.append(make_entity("Item", 178 * 16, 78 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Greatsword")]))
+    entities.append(make_entity("Item", 141 * 16, 165 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Greataxe")]))
+    entities.append(make_entity("Item", 140 * 16, 98 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Talisman"),
+        make_field("name", "String", "Sunlight Talisman")]))
+    entities.append(make_entity("Item", 78 * 16, 79 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Black Bow of Pharis")]))
+    entities.append(make_entity("Item", 80 * 16, 84 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Stone Parma")]))
+    entities.append(make_entity("Item", 211 * 16, 88 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Dragon Crest Shield")]))
+    entities.append(make_entity("Item", 76 * 16, 85 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Lingering Dragoncrest Ring")]))
+    entities.append(make_entity("Item", 87 * 16, 84 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Ragged Mask")]))
+    entities.append(make_entity("Item", 74 * 16, 81 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Pharis's Hat")]))
+    entities.append(make_entity("Item", 211 * 16, 80 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 77 * 16, 80 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Purple Moss Clump (swamp 1)")]))
+    entities.append(make_entity("Item", 77 * 16, 86 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Purple Moss Clump (swamp 2)")]))
+    entities.append(make_entity("Item", 75 * 16, 82 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Purple Moss Clump (swamp 3)")]))
+    entities.append(make_entity("Item", 107 * 16, 155 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Young White Branch")]))
+    entities.append(make_entity("Item", 108 * 16, 152 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Young White Branch")]))
+    entities.append(make_entity("Item", 131 * 16, 105 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 174 * 16, 80 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 258 * 16, 178 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of a Stray Demon")]))
+    entities.append(make_entity("Item", 200 * 16, 162 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Key"),
+        make_field("name", "String", "Wolf's Blood (key to Abyss Watchers)")]))
+    entities.append(make_entity("Item", 275 * 16, 216 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of the Blood of the Wolf")]))
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -7020,84 +6959,6 @@ def make_cathedral_deep():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
 
 # --- Items (DS3 Cathedral of the Deep) — accurate from wiki ---
-    # Cemetery / approach area
-    entities.append(make_entity("Item", 28 * 16, 6 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Fading Soul"), make_field("value", "Int", 50)]))
-    entities.append(make_entity("Item", 30 * 16, 35 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Paladin's Ashes")]))
-    # Outer graveyard
-    entities.append(make_entity("Item", 28 * 16, 26 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Titanite Shard")]))
-    entities.append(make_entity("Item", 45 * 16, 32 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Large Soul of an Unknown Traveler"), make_field("value", "Int", 800)]))
-    entities.append(make_entity("Item", 42 * 16, 30 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Crest Shield"), make_field("slot", "String", "Hands")]))
-    entities.append(make_entity("Item", 44 * 16, 36 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Astora Greatsword")]))
-    entities.append(make_entity("Item", 46 * 16, 34 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Executioner's Greatsword")]))
-    entities.append(make_entity("Item", 26 * 16, 28 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Fading Soul"), make_field("value", "Int", 50)]))
-    # Cleansing Chapel
-    entities.append(make_entity("Item", 40 * 16, 22 * 16, [make_field("kind", "LocalEnum.ItemKind", "EstusShard"), make_field("name", "String", "Estus Shard")]))
-    entities.append(make_entity("Item", 38 * 16, 42 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Notched Whip")]))
-    # Graveyard paths
-    entities.append(make_entity("Item", 48 * 16, 40 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Young White Branch")]))
-    entities.append(make_entity("Item", 50 * 16, 42 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Large Soul of an Unknown Traveler"), make_field("value", "Int", 800)]))
-    entities.append(make_entity("Item", 52 * 16, 44 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Repair Powder")]))
-    entities.append(make_entity("Item", 54 * 16, 46 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Repair Powder")]))
-    entities.append(make_entity("Item", 56 * 16, 48 * 16, [make_field("kind", "LocalEnum.ItemKind", "UndeadBoneShard"), make_field("name", "String", "Undead Bone Shard")]))
-    entities.append(make_entity("Item", 58 * 16, 50 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Young White Branch")]))
-    entities.append(make_entity("Item", 60 * 16, 52 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Curse Ward Greatshield"), make_field("slot", "String", "Hands")]))
-    entities.append(make_entity("Item", 62 * 16, 54 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Titanite Shard")]))
-    entities.append(make_entity("Item", 64 * 16, 56 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Saint-tree Bellvine")]))
-    entities.append(make_entity("Item", 36 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "RingDrop"), make_field("name", "String", "Poisonbite Ring")]))
-    # Cathedral interior
-    entities.append(make_entity("Item", 50 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Red Bug Pellet")]))
-    entities.append(make_entity("Item", 52 * 16, 62 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Red Bug Pellet")]))
-    entities.append(make_entity("Item", 66 * 16, 58 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Rusted Coin")]))
-    entities.append(make_entity("Item", 68 * 16, 60 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Rusted Coin")]))
-    entities.append(make_entity("Item", 54 * 16, 64 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Soul of an Unknown Traveler"), make_field("value", "Int", 500)]))
-    entities.append(make_entity("Item", 56 * 16, 66 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Red Bug Pellet")]))
-    entities.append(make_entity("Item", 70 * 16, 62 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Undead Hunter Charm")]))
-    entities.append(make_entity("Item", 58 * 16, 68 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Soul of a Nameless Soldier"), make_field("value", "Int", 800)]))
-    entities.append(make_entity("Item", 60 * 16, 70 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Ember")]))
-    entities.append(make_entity("Item", 62 * 16, 72 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Duel Charm")]))
-    entities.append(make_entity("Item", 64 * 16, 74 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Duel Charm")]))
-    # Giant room
-    entities.append(make_entity("Item", 44 * 16, 94 * 16, [make_field("kind", "LocalEnum.ItemKind", "Ember"), make_field("name", "String", "Ember")]))
-    entities.append(make_entity("Item", 46 * 16, 96 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Seek Guidance")]))
-    entities.append(make_entity("Item", 48 * 16, 98 * 16, [make_field("kind", "LocalEnum.ItemKind", "RingDrop"), make_field("name", "String", "Lloyd's Sword Ring")]))
-    entities.append(make_entity("Item", 50 * 16, 100 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Deep Braille Divine Tome")]))
-    entities.append(make_entity("Item", 52 * 16, 90 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Drang Set"), make_field("slot", "String", "Chest")]))
-    # Pale Tongue removed (duplicate — wiki says 1x for Cathedral of the Deep)
-    entities.append(make_entity("Item", 40 * 16, 102 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Maiden Set"), make_field("slot", "String", "Chest")]))
-    entities.append(make_entity("Item", 42 * 16, 104 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Ember")]))
-    entities.append(make_entity("Item", 44 * 16, 106 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Duel Charm")]))
-    entities.append(make_entity("Item", 46 * 16, 108 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Duel Charm")]))
-    entities.append(make_entity("Item", 48 * 16, 110 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Dung Pie")]))
-    entities.append(make_entity("Item", 50 * 16, 112 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Dung Pie")]))
-    entities.append(make_entity("Item", 52 * 16, 114 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Dung Pie")]))
-    entities.append(make_entity("Item", 54 * 16, 116 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Dung Pie")]))
-    entities.append(make_entity("Item", 56 * 16, 118 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Large Titanite Shard")]))
-    entities.append(make_entity("Item", 58 * 16, 120 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Large Titanite Shard")]))
-    entities.append(make_entity("Item", 42 * 16, 122 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Large Titanite Shard")]))
-    # Deep Accursed area
-    entities.append(make_entity("Item", 24 * 16, 40 * 16, [make_field("kind", "LocalEnum.ItemKind", "RingDrop"), make_field("name", "String", "Aldrich's Sapphire")]))
-    # Rafter / upper areas
-    entities.append(make_entity("Item", 72 * 16, 66 * 16, [make_field("kind", "LocalEnum.ItemKind", "RingDrop"), make_field("name", "String", "Deep Ring")]))
-    entities.append(make_entity("Item", 74 * 16, 68 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Red Sign Soapstone")]))
-    entities.append(make_entity("Item", 76 * 16, 70 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Pale Tongue")]))
-    entities.append(make_entity("Item", 78 * 16, 72 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Blessed Gem")]))
-    entities.append(make_entity("Item", 70 * 16, 64 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Arbalest")]))
-    entities.append(make_entity("Item", 68 * 16, 68 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Drang Hammers")]))
-    # Rosaria's Bedchamber
-    entities.append(make_entity("Item", 38 * 16, 136 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Saint Bident")]))
-    entities.append(make_entity("Item", 40 * 16, 138 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Homeward Bone")]))
-    entities.append(make_entity("Item", 42 * 16, 140 * 16, [make_field("kind", "LocalEnum.ItemKind", "HomewardBone"), make_field("name", "String", "Homeward Bone")]))
-    entities.append(make_entity("Item", 36 * 16, 142 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Small Doll")]))
-    entities.append(make_entity("Item", 34 * 16, 148 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Armor of Thorns"), make_field("slot", "String", "Chest")]))
-    entities.append(make_entity("Item", 38 * 16, 152 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Archdeacon Set"), make_field("slot", "String", "Chest")]))
-    # Longfinger Kirk invasion drops
-    entities.append(make_entity("Item", 62 * 16, 72 * 16, [make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"), make_field("name", "String", "Barbed Straight Sword")]))
-    entities.append(make_entity("Item", 64 * 16, 74 * 16, [make_field("kind", "LocalEnum.ItemKind", "ArmorDrop"), make_field("name", "String", "Spiked Shield"), make_field("slot", "String", "Hands")]))
-    # Consumables scattered through walkthrough
-    entities.append(make_entity("Item", 22 * 16, 20 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Repair Powder")]))
-    # Titanite Shard removed (duplicate — wiki says 2x for Cathedral of the Deep)
-    entities.append(make_entity("Item", 66 * 16, 76 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Twinkling Titanite")]))
-    entities.append(make_entity("Item", 68 * 16, 78 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Twinkling Titanite")]))
 
 
 
@@ -7115,13 +6976,6 @@ def make_cathedral_deep():
     entities.append(make_entity("Npc", 255 * 16, 91 * 16, [make_field("name", "String", "Rosaria"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D0A0B0"), make_field("dialogue", "String", "(No tongue, but her will is clear)|Offer me pale tongues, and I shall grant your desire|Rebirth, or fingers to invade others|I am Rosaria, Mother of Rebirth|The fingers of the gods stretch far and wide|Each rebirth costs a pale tongue")]))
     # Siegward of Catarina — stuck in the well outside Cathedral (DS3: freed via lift mechanism)
     entities.append(make_entity("Npc", 87 * 16, 134 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Aah, hello! Up here!|I seem to be stuck in this well|Could you find a way to get me out?|Oh, very good! My thanks, friend|Let me repay you with a sip of Siegbräu")]))
-
-    # Chests - DS3 Cathedral of the Deep: Mimic in rafters drops Lightning Stake
-    entities.append(make_entity("Chest", 74 * 16, 60 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Lightning Stake"),
-        make_field("is_mimic", "Bool", True)]))
 
     # Fog Gate to Road of Sacrifices (DS3: shortcut back from Cathedral)
     entities.append(make_entity("FogGate", 20 * 16, 10 * 16, [
@@ -7583,6 +7437,56 @@ def make_cathedral_deep():
     for tx in [88, 95]:
         for ty in range(68, 75):
             chunk[tx][ty] = TILE_WALL
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 37 * 16, 31 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("name", "String", "Estus Shard")]))
+    entities.append(make_entity("Item", 43 * 16, 40 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Deserted Corpse")]))
+    entities.append(make_entity("Item", 56 * 16, 46 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 93 * 16, 87 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Astora Straight Sword")]))
+    entities.append(make_entity("Item", 106 * 16, 100 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BoneShard"),
+        make_field("name", "String", "Undead Bone Shard")]))
+    entities.append(make_entity("Item", 143 * 16, 125 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 125 * 16, 131 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Deep Ring")]))
+    entities.append(make_entity("Item", 131 * 16, 143 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Red Tearstone Ring")]))
+    entities.append(make_entity("Item", 168 * 16, 103 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Cathedral Knight Set")]))
+    entities.append(make_entity("Item", 187 * 16, 96 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 206 * 16, 56 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 212 * 16, 50 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Sunlight Straight Sword")]))
+    entities.append(make_entity("Item", 254 * 16, 85 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Pale Tongue")]))
+    entities.append(make_entity("Item", 187 * 16, 100 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ashes"),
+        make_field("name", "String", "Paladin's Ashes")]))
+    entities.append(make_entity("Item", 190 * 16, 215 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of the Boreal Valley")]))
+    # --- DS3 faithful chests ---
+    entities.append(make_entity("Chest", 225 * 16, 53 * 16, [
+        make_field("name", "String", "Unknown")]))
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -7980,14 +7884,6 @@ def make_catacombs_of_carthus():
         fields = [make_field("kind", "LocalEnum.ItemKind", kind), make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
-
-    # Chests — DS3 Catacombs: Mimic drops Black Blade (only chest in area)
-    entities.append(make_entity("Chest", 38 * 16, 58 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("loot_name", "String", "Black Blade"),
-        make_field("is_mimic", "Bool", True),
-    ]))
 
 
 
@@ -8500,6 +8396,38 @@ def make_catacombs_of_carthus():
     entities.append(make_entity("Enemy", 80 * 16, 60 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
 
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 31 * 16, 30 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Deserted Corpse")]))
+    entities.append(make_entity("Item", 43 * 16, 37 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 75 * 16, 55 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Scroll"),
+        make_field("name", "String", "Carthus Pyromancy Tome")]))
+    entities.append(make_entity("Item", 112 * 16, 84 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Carthus Bloodring")]))
+    entities.append(make_entity("Item", 131 * 16, 93 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Carthus Curved Sword")]))
+    entities.append(make_entity("Item", 156 * 16, 125 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Carthus Milkring")]))
+    entities.append(make_entity("Item", 168 * 16, 131 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 193 * 16, 159 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 212 * 16, 184 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 222 * 16, 188 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of High Lord Wolnir")]))
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -8942,21 +8870,6 @@ def make_smouldering_lake():
         fields = [make_field("kind", "LocalEnum.ItemKind", kind), make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
-
-    # Chests — DS3 Smouldering Lake
-    # Black Knight Sword (corpse in demon ruins, behind illusory wall)
-    entities.append(make_entity("Chest", 80 * 16, 60 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("loot_name", "String", "Black Knight Sword"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    # Shield of Want (corpse near sandworm area)
-    entities.append(make_entity("Chest", 95 * 16, 75 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("loot_name", "String", "Shield of Want"),
-        make_field("is_mimic", "Bool", False),
-    ]))
 
 
 
@@ -9484,6 +9397,41 @@ def make_smouldering_lake():
         make_field("dialogue", "String", "...|...(groans)|...(shrieks)"),
     ]))
 
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 81 * 16, 68 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("name", "String", "Estus Shard")]))
+    entities.append(make_entity("Item", 106 * 16, 81 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 226 * 16, 171 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Demon's Greataxe (drop)")]))
+    entities.append(make_entity("Item", 162 * 16, 125 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Speckled Stoneplate Ring")]))
+    entities.append(make_entity("Item", 131 * 16, 146 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 156 * 16, 137 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of a Stray Demon")]))
+    entities.append(make_entity("Item", 143 * 16, 156 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Iron Flesh")]))
+    entities.append(make_entity("Item", 168 * 16, 143 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Fire Surge")]))
+    entities.append(make_entity("Item", 181 * 16, 131 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
+        make_field("name", "String", "Twinkling Titanite")]))
+    entities.append(make_entity("Item", 212 * 16, 168 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Dragon's Greataxe")]))
+    entities.append(make_entity("Item", 228 * 16, 175 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of the Old Demon King")]))
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -9950,43 +9898,6 @@ def make_irithyll():
         fields = [make_field("kind", "LocalEnum.ItemKind", kind), make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
-
-    # Chests — DS3 Irithyll
-    # Three chests in Silver Knight hall: Leo Ring, Smough's Great Hammer, Divine Blessing
-    entities.append(make_entity("Chest", 36 * 16, 108 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("loot_name", "String", "Divine Blessing"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    entities.append(make_entity("Chest", 40 * 16, 108 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "RingDrop"),
-        make_field("loot_name", "String", "Leo Ring"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    entities.append(make_entity("Chest", 38 * 16, 110 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("loot_name", "String", "Smough's Great Hammer"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    # Mimic after Pontiff shortcut lever area (Golden Ritual Spear)
-    entities.append(make_entity("Chest", 132 * 16, 88 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("loot_name", "String", "Golden Ritual Spear"),
-        make_field("is_mimic", "Bool", True),
-    ]))
-    # Yorshka's Spear chest in dark room beams
-    entities.append(make_entity("Chest", 54 * 16, 56 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("loot_name", "String", "Yorshka's Spear"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    # Reversal Ring chest in Darkmoon Tomb
-    entities.append(make_entity("Chest", 114 * 16, 96 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "RingDrop"),
-        make_field("loot_name", "String", "Reversal Ring"),
-        make_field("is_mimic", "Bool", False),
-    ]))
 
 
 
@@ -10587,6 +10498,167 @@ def make_irithyll():
     entities.append(make_entity("Enemy", 120 * 16, 76 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
 
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 32 * 16, 31 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Pontiff's Right Eye")]))
+    entities.append(make_entity("Item", 33 * 16, 32 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 37 * 16, 33 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Rime-blue Moss Clump")]))
+    entities.append(make_entity("Item", 40 * 16, 35 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Weary Warrior")]))
+    entities.append(make_entity("Item", 42 * 16, 36 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 80 * 16, 48 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Weary Warrior")]))
+    entities.append(make_entity("Item", 83 * 16, 49 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 86 * 16, 50 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Budding Green Blossom")]))
+    entities.append(make_entity("Item", 88 * 16, 50 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 91 * 16, 51 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Rime-blue Moss Clump")]))
+    entities.append(make_entity("Item", 93 * 16, 50 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 87 * 16, 55 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Dorhys' Gnawing")]))
+    entities.append(make_entity("Item", 90 * 16, 56 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Witchtree Branch")]))
+    entities.append(make_entity("Item", 85 * 16, 53 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 106 * 16, 50 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Gem"),
+        make_field("name", "String", "Lightning Gem")]))
+    entities.append(make_entity("Item", 107 * 16, 51 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Magic Clutch Ring")]))
+    entities.append(make_entity("Item", 108 * 16, 50 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Ring of the Sun's First Born")]))
+    entities.append(make_entity("Item", 111 * 16, 51 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Proof of Concord Kept")]))
+    entities.append(make_entity("Item", 112 * 16, 48 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Roster of Knights")]))
+    entities.append(make_entity("Item", 105 * 16, 54 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Fading Soul")]))
+    entities.append(make_entity("Item", 103 * 16, 55 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 106 * 16, 55 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BoneShard"),
+        make_field("name", "String", "Undead Bone Shard")]))
+    entities.append(make_entity("Item", 96 * 16, 58 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Blue Bug Pellet")]))
+    entities.append(make_entity("Item", 100 * 16, 61 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Blue Bug Pellet")]))
+    entities.append(make_entity("Item", 95 * 16, 56 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Shriving Stone")]))
+    entities.append(make_entity("Item", 92 * 16, 67 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Kukri")]))
+    entities.append(make_entity("Item", 91 * 16, 66 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Rusted Gold Coin")]))
+    entities.append(make_entity("Item", 98 * 16, 72 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Dung Pie")]))
+    entities.append(make_entity("Item", 97 * 16, 81 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ashes"),
+        make_field("name", "String", "Excrement-covered Ashes")]))
+    entities.append(make_entity("Item", 148 * 16, 158 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Ring of Sacrifice")]))
+    entities.append(make_entity("Item", 150 * 16, 161 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Green Blossom")]))
+    entities.append(make_entity("Item", 160 * 16, 165 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Great Heal")]))
+    entities.append(make_entity("Item", 190 * 16, 165 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("name", "String", "Estus Shard")]))
+    entities.append(make_entity("Item", 185 * 16, 102 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Rusted Gold Coin")]))
+    entities.append(make_entity("Item", 203 * 16, 110 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 246 * 16, 77 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 246 * 16, 86 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Dark Stoneplate Ring")]))
+    entities.append(make_entity("Item", 243 * 16, 83 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Drang Twinspears")]))
+    entities.append(make_entity("Item", 242 * 16, 107 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Gem"),
+        make_field("name", "String", "Deep Gem")]))
+    entities.append(make_entity("Item", 241 * 16, 101 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Ring of Favor")]))
+    entities.append(make_entity("Item", 240 * 16, 103 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Human Dregs")]))
+    entities.append(make_entity("Item", 286 * 16, 73 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ashes"),
+        make_field("name", "String", "Easterner's Ashes")]))
+    entities.append(make_entity("Item", 288 * 16, 75 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteScale"),
+        make_field("name", "String", "Titanite Scale")]))
+    entities.append(make_entity("Item", 293 * 16, 73 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Arrow"),
+        make_field("name", "String", "Dragonslayer Greatarrow")]))
+    entities.append(make_entity("Item", 292 * 16, 71 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Dragonslayer Greatbow")]))
+    entities.append(make_entity("Item", 282 * 16, 67 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
+        make_field("name", "String", "Twinkling Titanite")]))
+    entities.append(make_entity("Item", 285 * 16, 66 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
+        make_field("name", "String", "Twinkling Titanite")]))
+    entities.append(make_entity("Item", 233 * 16, 101 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Brass Set")]))
+    entities.append(make_entity("Item", 295 * 16, 71 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Weary Warrior")]))
+    entities.append(make_entity("Item", 246 * 16, 120 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of Pontiff Sulyvahn")]))
+    # --- DS3 faithful chests ---
+    entities.append(make_entity("Chest", 187 * 16, 111 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 192 * 16, 111 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 273 * 16, 95 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 235 * 16, 102 * 16, [
+        make_field("name", "String", "Unknown")]))
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -10927,39 +10999,6 @@ def make_irithyll_dungeon():
         fields = [make_field("kind", "LocalEnum.ItemKind", kind), make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
-
-    # Chests — DS3 Irithyll Dungeon: 4 Mimics, 1 regular chest
-    # Mimic drops Estus Shard (upper cells)
-    entities.append(make_entity("Chest", 65 * 16, 48 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "EstusShard"),
-        make_field("loot_name", "String", "Estus Shard"),
-        make_field("is_mimic", "Bool", True),
-    ]))
-    # Mimic drops Dark Clutch Ring (sewer area)
-    entities.append(make_entity("Chest", 62 * 16, 82 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "RingDrop"),
-        make_field("loot_name", "String", "Dark Clutch Ring"),
-        make_field("is_mimic", "Bool", True),
-    ]))
-    # Mimic drops Dragonslayer Lightning Arrow (near giant)
-    entities.append(make_entity("Chest", 85 * 16, 78 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("loot_name", "String", "Dragonslayer Lightning Arrow"),
-        make_field("is_mimic", "Bool", True),
-    ]))
-    # Mimic drops Titanite Scale x2 (Karla area)
-    entities.append(make_entity("Chest", 78 * 16, 85 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("loot_name", "String", "Titanite Scale"),
-        make_field("is_mimic", "Bool", True),
-    ]))
-    # Regular chest with Old Cell Key (sewer)
-    entities.append(make_entity("Chest", 58 * 16, 78 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("loot_name", "String", "Old Cell Key"),
-        make_field("is_mimic", "Bool", False),
-    ]))
 
 
 
@@ -11501,6 +11540,112 @@ def make_irithyll_dungeon():
     entities.append(make_entity("Enemy", 62 * 16, 68 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Mimic", "Mimic"))]))
 
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 30 * 16, 23 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Rusted Coin")]))
+    entities.append(make_entity("Item", 28 * 16, 28 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Fading Soul")]))
+    entities.append(make_entity("Item", 35 * 16, 35 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 45 * 16, 41 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 41 * 16, 38 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Pale Pine Resin")]))
+    entities.append(make_entity("Item", 38 * 16, 46 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Old Sorcerer Hat")]))
+    entities.append(make_entity("Item", 39 * 16, 47 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Old Sorcerer Coat")]))
+    entities.append(make_entity("Item", 40 * 16, 48 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Old Sorcerer Gauntlets")]))
+    entities.append(make_entity("Item", 40 * 16, 50 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Old Sorcerer Boots")]))
+    entities.append(make_entity("Item", 43 * 16, 42 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Great Magic Shield")]))
+    entities.append(make_entity("Item", 68 * 16, 53 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Rusted Gold Coin")]))
+    entities.append(make_entity("Item", 71 * 16, 58 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 70 * 16, 60 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Bellowing Dragoncrest Ring")]))
+    entities.append(make_entity("Item", 68 * 16, 55 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Key"),
+        make_field("name", "String", "Jailbreaker's Key")]))
+    entities.append(make_entity("Item", 107 * 16, 105 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Gem"),
+        make_field("name", "String", "Simple Gem")]))
+    entities.append(make_entity("Item", 105 * 16, 103 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Coal"),
+        make_field("name", "String", "Profaned Coal")]))
+    entities.append(make_entity("Item", 85 * 16, 162 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 87 * 16, 165 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Dung Pie")]))
+    entities.append(make_entity("Item", 96 * 16, 160 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 97 * 16, 162 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 176 * 16, 91 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Gesture"),
+        make_field("name", "String", "Dragon Torso Stone")]))
+    entities.append(make_entity("Item", 178 * 16, 88 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 177 * 16, 86 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Lightning Blade")]))
+    entities.append(make_entity("Item", 141 * 16, 161 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ashes"),
+        make_field("name", "String", "Xanthous Ashes")]))
+    entities.append(make_entity("Item", 142 * 16, 165 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Dusk Crown Ring")]))
+    entities.append(make_entity("Item", 145 * 16, 160 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 147 * 16, 162 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 148 * 16, 166 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Weary Warrior")]))
+    entities.append(make_entity("Item", 126 * 16, 97 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Pickaxe")]))
+    entities.append(make_entity("Item", 191 * 16, 223 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Weary Warrior")]))
+    entities.append(make_entity("Item", 193 * 16, 225 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BoneShard"),
+        make_field("name", "String", "Undead Bone Shard")]))
+    # --- DS3 faithful chests ---
+    entities.append(make_entity("Chest", 73 * 16, 50 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 100 * 16, 167 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 112 * 16, 158 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 107 * 16, 162 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 97 * 16, 165 * 16, [
+        make_field("name", "String", "Unknown")]))
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -12027,41 +12172,110 @@ def make_profaned_capital():
                   make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
 
     # --- Chests — DS3 Profaned Capital (wiki-verified) ---
-    # Mimic: Court Sorcerer's Staff (upper capital building)
-    entities.append(make_entity("Chest", 80 * 16, 45 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Court Sorcerer's Staff"),
-        make_field("is_mimic", "Bool", True)]))
-    # Mimic: Greatshield of Glory (second jailer room, side by side with Rusted Gold Coin mimic)
-    entities.append(make_entity("Chest", 76 * 16, 22 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Greatshield of Glory"),
-        make_field("is_mimic", "Bool", True)]))
-    # Mimic: Rusted Gold Coin (second jailer room, side by side with Greatshield of Glory)
-    entities.append(make_entity("Chest", 70 * 16, 24 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Rusted Gold Coin"),
-        make_field("is_mimic", "Bool", True)]))
-    # Mimic: Dragonslayer Lightning Arrow (wiki: ladder room above giant area)
-    entities.append(make_entity("Chest", 80 * 16, 56 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Dragonslayer Lightning Arrow"),
-        make_field("is_mimic", "Bool", True)]))
-    # Regular chest: Ember (second jailer room, wiki: "solitary legitimate chest")
-    entities.append(make_entity("Chest", 82 * 16, 20 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Ember"),
-        make_field("is_mimic", "Bool", False)]))
 
-    # --- Fog Gates ---
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 52 * 16, 43 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BoneShard"),
+        make_field("name", "String", "Undead Bone Shard")]))
+    entities.append(make_entity("Item", 103 * 16, 102 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Arrow"),
+        make_field("name", "String", "Poison Arrow")]))
+    entities.append(make_entity("Item", 101 * 16, 151 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Weary Warrior")]))
+    entities.append(make_entity("Item", 86 * 16, 147 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Arrow"),
+        make_field("name", "String", "Onislayer Greatarrow")]))
+    entities.append(make_entity("Item", 130 * 16, 115 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Dung Pie")]))
+    entities.append(make_entity("Item", 186 * 16, 162 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Rusted Coin")]))
+    entities.append(make_entity("Item", 181 * 16, 156 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Blooming Purple Moss Clump")]))
+    entities.append(make_entity("Item", 82 * 16, 100 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Bolt"),
+        make_field("name", "String", "Lightning Bolt")]))
+    entities.append(make_entity("Item", 136 * 16, 115 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 106 * 16, 121 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Purging Stone")]))
+    entities.append(make_entity("Item", 110 * 16, 121 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Gem"),
+        make_field("name", "String", "Poison Gem")]))
+    entities.append(make_entity("Item", 117 * 16, 147 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Cursebite Ring")]))
+    entities.append(make_entity("Item", 118 * 16, 148 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Shriving Stone")]))
+    entities.append(make_entity("Item", 113 * 16, 121 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Arrow"),
+        make_field("name", "String", "Dragonslayer Lightning Arrow")]))
+    entities.append(make_entity("Item", 93 * 16, 100 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Rusted Gold Coin")]))
+    entities.append(make_entity("Item", 81 * 16, 155 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Eleonora")]))
+    entities.append(make_entity("Item", 100 * 16, 100 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Court Sorcerer Set")]))
+    entities.append(make_entity("Item", 106 * 16, 98 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Scroll"),
+        make_field("name", "String", "Logan's Scroll")]))
+    entities.append(make_entity("Item", 108 * 16, 101 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Rubbish")]))
+    entities.append(make_entity("Item", 53 * 16, 46 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Gesture"),
+        make_field("name", "String", "Stretch Out Gesture")]))
+    entities.append(make_entity("Item", 117 * 16, 110 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Covetous Gold Serpent Ring")]))
+    entities.append(make_entity("Item", 112 * 16, 107 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Jailer's Key Ring")]))
+    entities.append(make_entity("Item", 115 * 16, 112 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ashes"),
+        make_field("name", "String", "Prisoner Chief's Ashes")]))
+    entities.append(make_entity("Item", 111 * 16, 106 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Wrath of the Gods")]))
+    entities.append(make_entity("Item", 128 * 16, 115 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Spell"),
+        make_field("name", "String", "Profaned Flame")]))
+    entities.append(make_entity("Item", 135 * 16, 116 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 138 * 16, 116 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteChunk"),
+        make_field("name", "String", "Titanite Chunk")]))
+    entities.append(make_entity("Item", 187 * 16, 200 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Storm Ruler")]))
+    entities.append(make_entity("Item", 187 * 16, 202 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of Yhorm the Giant")]))
+    # --- DS3 faithful chests ---
+    entities.append(make_entity("Chest", 137 * 16, 106 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 171 * 16, 157 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 167 * 16, 160 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 133 * 16, 115 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 178 * 16, 155 * 16, [
+        make_field("name", "String", "Unknown")]))
+# --- Fog Gates ---
     # Back to Irithyll Dungeon (NW entry)
     entities.append(make_entity("FogGate", 6 * 16, 10 * 16, [
         make_field("dest_area", "String", "IrithyllDungeon"),
@@ -12749,15 +12963,8 @@ def make_anor_londo():
                   make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
 
     # --- Chests — DS3 Anor Londo (wiki-verified) ---
-    # Regular chest: Estus Shard (main hall, left wall facing from stairs)
-    entities.append(make_entity("Chest", 125 * 16, 55 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "EstusShard"),
-        make_field("loot_name", "String", "Estus Shard"),
-        make_field("is_mimic", "Bool", False),
-    ]))
 
 
 
@@ -12809,7 +13016,45 @@ def make_anor_londo():
             "I am Yorshka, Captain of the Darkmoon Knights|The Darkmoon remains true to its duty, even now|Will you swear the oath of the Darkmoon?|Then let us join hands, and take the oath"),
     ]))
 
-    # --- Fog Gates ---
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 52 * 16, 53 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Weary Warrior")]))
+    entities.append(make_entity("Item", 56 * 16, 55 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Crestfallen Knight")]))
+    entities.append(make_entity("Item", 60 * 16, 61 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Coal"),
+        make_field("name", "String", "Giant's Coal")]))
+    entities.append(make_entity("Item", 135 * 16, 91 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Proof of a Concord Kept")]))
+    entities.append(make_entity("Item", 161 * 16, 105 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Arrow"),
+        make_field("name", "String", "Moonlight Arrow")]))
+    entities.append(make_entity("Item", 163 * 16, 106 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Arrow"),
+        make_field("name", "String", "Moonlight Arrow")]))
+    entities.append(make_entity("Item", 136 * 16, 95 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Aldrich's Ruby")]))
+    entities.append(make_entity("Item", 86 * 16, 72 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Painting Guardian's Curved Sword")]))
+    entities.append(make_entity("Item", 87 * 16, 77 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Painting Guardian Set")]))
+    entities.append(make_entity("Item", 173 * 16, 137 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Sun Princess Ring")]))
+    entities.append(make_entity("Item", 168 * 16, 132 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of Aldrich")]))
+    # --- DS3 faithful chests ---
+    entities.append(make_entity("Chest", 165 * 16, 101 * 16, [
+        make_field("name", "String", "Unknown")]))
+# --- Fog Gates ---
     # Back to Irithyll (rotating staircase, west)
     entities.append(make_entity("FogGate", 5 * 16, 34 * 16, [
         make_field("dest_area", "String", "Irithyll"),
@@ -13824,72 +14069,8 @@ def make_lothric_castle():
                   make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
 
     # --- Chests - DS3 Lothric Castle (wiki-verified, 9 chests: 7 regular + 2 mimics) ---
-    # Prayer Set (regular, early room)
-    entities.append(make_entity("Chest", 38 * 16, 35 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "ArmorDrop"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Prayer Set"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    # Twinkling Titanite (regular, Boreal Knight room)
-    entities.append(make_entity("Chest", 45 * 16, 58 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Twinkling Titanite"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    # Spirit Tree Crest Shield (regular, Boreal Knight room)
-    entities.append(make_entity("Chest", 47 * 16, 56 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Spirit Tree Crest Shield"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    # Titanite Scale (regular, Boreal Knight room)
-    entities.append(make_entity("Chest", 48 * 16, 54 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Titanite Scale"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    # Twinkling Titanite (regular, hidden behind boxes, Boreal room)
-    entities.append(make_entity("Chest", 50 * 16, 52 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Twinkling Titanite"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    # Titanite Scale (MIMIC, wyvern fire room)
-    entities.append(make_entity("Chest", 115 * 16, 52 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Titanite Scale"),
-        make_field("is_mimic", "Bool", True),
-    ]))
-    # Titanite Scale (regular, church room)
-    entities.append(make_entity("Chest", 125 * 16, 72 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Titanite Scale"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    # Titanite Scale (regular, Sunlight Altar room)
-    entities.append(make_entity("Chest", 120 * 16, 58 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Titanite Scale"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    # Sunlight Straight Sword (MIMIC, near wyvern dead area)
-    entities.append(make_entity("Chest", 100 * 16, 34 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Sunlight Straight Sword"),
-        make_field("is_mimic", "Bool", True),
-    ]))
 
 
 
@@ -13987,7 +14168,84 @@ def make_lothric_castle():
     # NOTE: Eygon of Carim only appears near Irina (Undead Settlement) or Firelink Shrine, not here
     # Lothric Castle NPCs in DS3: summon signs only (no dialogue NPCs roam the castle interior)
 
-    # --- Fog Gates ---
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 30 * 16, 50 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Weary Warrior")]))
+    entities.append(make_entity("Item", 47 * 16, 60 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 67 * 16, 75 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 82 * 16, 80 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 97 * 16, 81 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Key"),
+        make_field("name", "String", "Grand Archives Key")]))
+    entities.append(make_entity("Item", 133 * 16, 56 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Weary Warrior")]))
+    entities.append(make_entity("Item", 160 * 16, 65 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 171 * 16, 68 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 143 * 16, 60 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Firebomb"),
+        make_field("name", "String", "Firebomb")]))
+    entities.append(make_entity("Item", 145 * 16, 61 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Firebomb"),
+        make_field("name", "String", "Firebomb")]))
+    entities.append(make_entity("Item", 181 * 16, 73 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 156 * 16, 107 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 146 * 16, 118 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 176 * 16, 117 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Lothric Knight Greatshield")]))
+    entities.append(make_entity("Item", 172 * 16, 122 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Lothric Knight Set")]))
+    entities.append(make_entity("Item", 143 * 16, 107 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Green Blossom")]))
+    entities.append(make_entity("Item", 162 * 16, 115 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Firebomb"),
+        make_field("name", "String", "Firebomb")]))
+    entities.append(make_entity("Item", 240 * 16, 147 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 218 * 16, 136 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 253 * 16, 150 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of the Dragonslayer Armour")]))
+    entities.append(make_entity("Item", 288 * 16, 133 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
+        make_field("name", "String", "Twinkling Titanite")]))
+    entities.append(make_entity("Item", 56 * 16, 113 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    # --- DS3 faithful chests ---
+    entities.append(make_entity("Chest", 102 * 16, 83 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 185 * 16, 77 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 152 * 16, 112 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 173 * 16, 120 * 16, [
+        make_field("name", "String", "Unknown")]))
+# --- Fog Gates ---
     # Back to LothricWall (return to High Wall, DS3: castle connects back to high wall)
     entities.append(make_entity("FogGate", 6 * 16, 30 * 16, [
         make_field("dest_area", "String", "LothricWall"),
@@ -14647,41 +14905,10 @@ def make_grand_archives():
         fields = [make_field("kind", "LocalEnum.ItemKind", kind), make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
 
     # ================================================================
     # CHESTS — DS3 Grand Archives (5 chests, 0 mimics)
     # ================================================================
-    # Witch's Locks (secret room, lever-activated)
-    entities.append(make_entity("Chest", 50 * 16, 75 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("loot_name", "String", "Witch's Locks"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    # Titanite Scale x3 (upper level room)
-    entities.append(make_entity("Chest", 78 * 16, 38 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("loot_name", "String", "Titanite Scale"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    # Titanite Slab (near giant wax pool)
-    entities.append(make_entity("Chest", 60 * 16, 82 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("loot_name", "String", "Titanite Slab"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    # Divine Blessing (beam, lower level)
-    entities.append(make_entity("Chest", 92 * 16, 28 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("loot_name", "String", "Divine Blessing"),
-        make_field("is_mimic", "Bool", False),
-    ]))
-    # Twinkling Titanite x3 (beam, lower level)
-    entities.append(make_entity("Chest", 95 * 16, 25 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("loot_name", "String", "Twinkling Titanite"),
-        make_field("is_mimic", "Bool", False),
-    ]))
 
     # ================================================================
     # NPC — DS3 Grand Archives
@@ -15375,6 +15602,121 @@ def make_grand_archives():
     entities.append(make_entity("Enemy", 64 * 16, 108 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
 
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 76 * 16, 281 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Power Within")]))
+    entities.append(make_entity("Item", 80 * 16, 280 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Soul Stream")]))
+    entities.append(make_entity("Item", 105 * 16, 217 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Divine Pillars of Light")]))
+    entities.append(make_entity("Item", 39 * 16, 341 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Crestfallen Knight")]))
+    entities.append(make_entity("Item", 97 * 16, 225 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Crestfallen Knight")]))
+    entities.append(make_entity("Item", 65 * 16, 280 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 126 * 16, 160 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Weary Warrior")]))
+    entities.append(make_entity("Item", 102 * 16, 220 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Crestfallen Knight")]))
+    entities.append(make_entity("Item", 70 * 16, 295 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 81 * 16, 280 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 65 * 16, 291 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 86 * 16, 282 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Avelyn")]))
+    entities.append(make_entity("Item", 100 * 16, 221 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Golden Wing Crest Shield")]))
+    entities.append(make_entity("Item", 102 * 16, 216 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Sage's Crystal Staff")]))
+    entities.append(make_entity("Item", 105 * 16, 218 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Onikiri and Ubadachi")]))
+    entities.append(make_entity("Item", 90 * 16, 222 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Crystal Chime")]))
+    entities.append(make_entity("Item", 62 * 16, 323 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Scroll"),
+        make_field("name", "String", "Crystal Scroll")]))
+    entities.append(make_entity("Item", 74 * 16, 280 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Outrider Knight Armor Set")]))
+    entities.append(make_entity("Item", 63 * 16, 288 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteChunk"),
+        make_field("name", "String", "Titanite Chunk")]))
+    entities.append(make_entity("Item", 67 * 16, 291 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteChunk"),
+        make_field("name", "String", "Titanite Chunk")]))
+    entities.append(make_entity("Item", 92 * 16, 223 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteChunk"),
+        make_field("name", "String", "Titanite Chunk")]))
+    entities.append(make_entity("Item", 72 * 16, 290 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteScale"),
+        make_field("name", "String", "Titanite Scale")]))
+    entities.append(make_entity("Item", 66 * 16, 280 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteScale"),
+        make_field("name", "String", "Titanite Scale")]))
+    entities.append(make_entity("Item", 136 * 16, 157 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteSlab"),
+        make_field("name", "String", "Titanite Slab")]))
+    entities.append(make_entity("Item", 116 * 16, 152 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ashes"),
+        make_field("name", "String", "Greirat's Ashes")]))
+    entities.append(make_entity("Item", 102 * 16, 223 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Shriving Stone")]))
+    entities.append(make_entity("Item", 126 * 16, 157 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Gem"),
+        make_field("name", "String", "Hollow Gem")]))
+    entities.append(make_entity("Item", 113 * 16, 218 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Gem"),
+        make_field("name", "String", "Blessed Gem")]))
+    entities.append(make_entity("Item", 68 * 16, 292 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BoneShard"),
+        make_field("name", "String", "Undead Bone Shard")]))
+    entities.append(make_entity("Item", 100 * 16, 218 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("name", "String", "Estus Shard")]))
+    entities.append(make_entity("Item", 111 * 16, 216 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Fleshbite Ring")]))
+    entities.append(make_entity("Item", 109 * 16, 218 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Hunter's Ring")]))
+    entities.append(make_entity("Item", 87 * 16, 278 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Scholar Ring")]))
+    entities.append(make_entity("Item", 181 * 16, 40 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of the Twin Princes")]))
+    # --- DS3 faithful chests ---
+    entities.append(make_entity("Chest", 67 * 16, 280 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 97 * 16, 218 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 75 * 16, 286 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 115 * 16, 216 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 118 * 16, 218 * 16, [
+        make_field("name", "String", "Unknown")]))
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -15677,9 +16019,13 @@ def make_kiln_of_the_first_flame():
                   make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
 
-    # --- Fog Gate back to Grand Archives (south) ---
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 97 * 16, 73 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of the Lords")]))
+# --- Fog Gate back to Grand Archives (south) ---
     entities.append(make_entity("FogGate", 80 * 16, 156 * 16, [
         make_field("dest_area", "String", "GrandArchives"),
         make_field("dest_x", "Float", 300.0),
@@ -16538,21 +16884,8 @@ def make_consumed_kings_garden():
                   make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
 
     # --- Chests — DS3 Consumed King's Garden ---
-    # Post-Oceiros room chest with Titanite Scale
-    entities.append(make_entity("Chest", 135 * 16, 95 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Titanite Scale"),
-        make_field("is_mimic", "Bool", False)]))
-    # Second chest behind illusory wall (Titanite Scale)
-    entities.append(make_entity("Chest", 140 * 16, 100 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Titanite Scale"),
-        make_field("is_mimic", "Bool", False)]))
 
 
 
@@ -16604,7 +16937,88 @@ def make_consumed_kings_garden():
             "I came to see Oceiros, the Consumed King|He holds the secret of the Path of the Dragon|But it seems I am too late|The dragon stones may still be of use"),
     ]))
 
-    # --- Fog Gates ---
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 35 * 16, 33 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 45 * 16, 37 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 67 * 16, 83 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("name", "String", "Estus Shard")]))
+    entities.append(make_entity("Item", 81 * 16, 92 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 95 * 16, 100 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
+        make_field("name", "String", "Titanite Shard")]))
+    entities.append(make_entity("Item", 107 * 16, 106 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Weary Warrior")]))
+    entities.append(make_entity("Item", 71 * 16, 98 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Purple Moss Clump")]))
+    entities.append(make_entity("Item", 85 * 16, 106 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Purple Moss Clump")]))
+    entities.append(make_entity("Item", 98 * 16, 111 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Dung Pie")]))
+    entities.append(make_entity("Item", 112 * 16, 116 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 126 * 16, 71 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 141 * 16, 76 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 152 * 16, 87 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Lothric Knight Greatsword")]))
+    entities.append(make_entity("Item", 131 * 16, 78 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Green Blossom")]))
+    entities.append(make_entity("Item", 157 * 16, 82 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 153 * 16, 118 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Weary Warrior")]))
+    entities.append(make_entity("Item", 165 * 16, 123 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 178 * 16, 130 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 157 * 16, 127 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Purple Moss Clump")]))
+    entities.append(make_entity("Item", 165 * 16, 128 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
+        make_field("name", "String", "Twinkling Titanite")]))
+    entities.append(make_entity("Item", 191 * 16, 168 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of Oceiros, the Consumed King")]))
+    entities.append(make_entity("Item", 211 * 16, 142 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Gesture"),
+        make_field("name", "String", "Dragon Head Stone")]))
+    entities.append(make_entity("Item", 218 * 16, 146 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
+        make_field("name", "String", "Twinkling Titanite")]))
+    entities.append(make_entity("Item", 222 * 16, 150 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
+        make_field("name", "String", "Twinkling Titanite")]))
+    # --- DS3 faithful chests ---
+    entities.append(make_entity("Chest", 117 * 16, 115 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 181 * 16, 133 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 215 * 16, 147 * 16, [
+        make_field("name", "String", "Unknown")]))
+# --- Fog Gates ---
     # Back to Lothric Castle (NW)
     entities.append(make_entity("FogGate", 8 * 16, 12 * 16, [
         make_field("dest_area", "String", "LothricCastle"),
@@ -17440,55 +17854,6 @@ def make_untended_graves():
         mapped = ENEMY_KIND_MAP.get(kind, kind)
 
     # --- Items (DS3 Untended Graves) ---
-    # Hidden Blessing — behind dark Firelink, on a corpse
-    entities.append(make_entity("Item", 135 * 16, 118 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Hidden Blessing")]))
-    # Eyes of a Fire Keeper — inside dark Firelink Shrine, on the floor near coiled sword
-    entities.append(make_entity("Item", 130 * 16, 112 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Eyes of a Fire Keeper")]))
-    # Coiled Sword Fragment — given by dark Fire Keeper in Dark Firelink
-    entities.append(make_entity("Item", 128 * 16, 114 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Coiled Sword Fragment")]))
-    # Ashen Estus Ring — in dark cemetery area, behind illusory wall
-    entities.append(make_entity("Item", 40 * 16, 35 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
-        make_field("name", "String", "Ashen Estus Ring")]))
-    # Hornet Ring — dark Firelink tower ledge area
-    entities.append(make_entity("Item", 145 * 16, 100 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "RingDrop"),
-        make_field("name", "String", "Hornet Ring")]))
-    # Black Knight Glaive — dropped by Black Knight in cemetery
-    entities.append(make_entity("Item", 62 * 16, 45 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Black Knight Glaive")]))
-    # Black Knight Sword removed — not a ground pickup in Untended Graves (wiki)
-    # Chaos Blade — in dark courtyard area
-    entities.append(make_entity("Item", 78 * 16, 52 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Chaos Blade")]))
-    # Blacksmith Hammer — near dark Firelink Shrine
-    entities.append(make_entity("Item", 120 * 16, 100 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
-        make_field("name", "String", "Blacksmith Hammer")]))
-    # Soul of a Crestfallen Knight x2 — one in cemetery, one near arena
-    entities.append(make_entity("Item", 30 * 16, 28 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Soul of a Crestfallen Knight"),
-        make_field("value", "Int", 2000)]))
-    entities.append(make_entity("Item", 95 * 16, 70 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Soul of a Crestfallen Knight"),
-        make_field("value", "Int", 2000)]))
-    # Titanite Chunk x2 — in Black Knight cemetery and near Gundyr arena
-    entities.append(make_entity("Item", 50 * 16, 55 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Chunk")]))
-    entities.append(make_entity("Item", 110 * 16, 80 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Chunk")]))
 
 
 
@@ -17541,7 +17906,48 @@ def make_untended_graves():
             "What is it? There is only dark here|The fire has long been out|I will tend to the ash, as I always have|There is nothing else for it"),
     ]))
 
-    # --- Fog Gate ---
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 201 * 16, 211 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
+        make_field("name", "String", "Hidden Blessing")]))
+    entities.append(make_entity("Item", 191 * 16, 199 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Key"),
+        make_field("name", "String", "Eyes of a Fire Keeper")]))
+    entities.append(make_entity("Item", 191 * 16, 205 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
+        make_field("name", "String", "Coiled Sword Fragment")]))
+    entities.append(make_entity("Item", 80 * 16, 65 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Ashen Estus Ring")]))
+    entities.append(make_entity("Item", 223 * 16, 185 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Hornet Ring")]))
+    entities.append(make_entity("Item", 106 * 16, 73 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Black Knight Glaive")]))
+    entities.append(make_entity("Item", 120 * 16, 85 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Chaos Blade")]))
+    entities.append(make_entity("Item", 181 * 16, 181 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Blacksmith Hammer")]))
+    entities.append(make_entity("Item", 68 * 16, 55 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Crestfallen Knight")]))
+    entities.append(make_entity("Item", 146 * 16, 120 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Crestfallen Knight")]))
+    entities.append(make_entity("Item", 95 * 16, 90 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteChunk"),
+        make_field("name", "String", "Titanite Chunk")]))
+    entities.append(make_entity("Item", 167 * 16, 137 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteChunk"),
+        make_field("name", "String", "Titanite Chunk")]))
+    entities.append(make_entity("Item", 155 * 16, 135 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of Champion Gundyr")]))
+# --- Fog Gate ---
     # To Firelink Shrine (DS3: dark Firelink connects back to normal Firelink)
     entities.append(make_entity("FogGate", 148 * 16, 115 * 16, [
         make_field("dest_area", "String", "FirelinkShrine"),
@@ -18286,21 +18692,8 @@ def make_archdragon_peak():
                   make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
-        entities.append(make_entity("Item", tx * 16, ty * 16, fields))
 
     # --- Chests — DS3 Archdragon Peak ---
-    # Chest with Titanite Scale x3 (upper building after belfry)
-    entities.append(make_entity("Chest", 108 * 16, 25 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Titanite Scale"),
-        make_field("is_mimic", "Bool", False)]))
-    # Chest with Twinkling Titanite x3 (near belfry bonfire)
-    entities.append(make_entity("Chest", 118 * 16, 32 * 16, [
-        make_field("loot_kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("loot_value", "Int", 0),
-        make_field("loot_name", "String", "Twinkling Titanite"),
-        make_field("is_mimic", "Bool", False)]))
 
 
 
@@ -18365,7 +18758,122 @@ def make_archdragon_peak():
             "The Nameless King awaits atop this peak|He is the firstborn of Gwyn, Lord of Cinder|I have come this far to face him|The dragons and their secrets end here"),
     ]))
 
-    # --- Fog Gate ---
+    
+    # --- DS3 faithful items ---
+    entities.append(make_entity("Item", 33 * 16, 231 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Weary Warrior")]))
+    entities.append(make_entity("Item", 67 * 16, 217 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Gem"),
+        make_field("name", "String", "Lightning Gem")]))
+    entities.append(make_entity("Item", 81 * 16, 228 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
+        make_field("name", "String", "Homeward Bone")]))
+    entities.append(make_entity("Item", 121 * 16, 163 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteChunk"),
+        make_field("name", "String", "Titanite Chunk")]))
+    entities.append(make_entity("Item", 46 * 16, 236 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 96 * 16, 186 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Nameless Soldier")]))
+    entities.append(make_entity("Item", 98 * 16, 180 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteChunk"),
+        make_field("name", "String", "Titanite Chunk")]))
+    entities.append(make_entity("Item", 113 * 16, 191 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Ancient Dragon Greatshield")]))
+    entities.append(make_entity("Item", 86 * 16, 202 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteChunk"),
+        make_field("name", "String", "Titanite Chunk")]))
+    entities.append(make_entity("Item", 72 * 16, 217 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
+        make_field("name", "String", "Large Titanite Shard")]))
+    entities.append(make_entity("Item", 130 * 16, 158 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ember"),
+        make_field("name", "String", "Ember")]))
+    entities.append(make_entity("Item", 136 * 16, 168 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
+        make_field("name", "String", "Stalk Dung Pie")]))
+    entities.append(make_entity("Item", 153 * 16, 185 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Weary Warrior")]))
+    entities.append(make_entity("Item", 126 * 16, 160 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Ring of Steel Protection")]))
+    entities.append(make_entity("Item", 150 * 16, 178 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Lightning Urn")]))
+    entities.append(make_entity("Item", 147 * 16, 136 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
+        make_field("name", "String", "Twinkling Titanite")]))
+    entities.append(make_entity("Item", 150 * 16, 130 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
+        make_field("name", "String", "Twinkling Titanite")]))
+    entities.append(make_entity("Item", 168 * 16, 118 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Bolt"),
+        make_field("name", "String", "Lightning Bolt")]))
+    entities.append(make_entity("Item", 141 * 16, 136 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteScale"),
+        make_field("name", "String", "Titanite Scale")]))
+    entities.append(make_entity("Item", 146 * 16, 130 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteScale"),
+        make_field("name", "String", "Titanite Scale")]))
+    entities.append(make_entity("Item", 153 * 16, 141 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteScale"),
+        make_field("name", "String", "Titanite Scale")]))
+    entities.append(make_entity("Item", 157 * 16, 143 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Crestfallen Knight")]))
+    entities.append(make_entity("Item", 150 * 16, 146 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Calamity Ring")]))
+    entities.append(make_entity("Item", 181 * 16, 106 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Thunder Stoneplate Ring")]))
+    entities.append(make_entity("Item", 246 * 16, 73 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Soul of a Weary Warrior")]))
+    entities.append(make_entity("Item", 276 * 16, 57 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Great Magic Barrier")]))
+    entities.append(make_entity("Item", 251 * 16, 53 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteSlab"),
+        make_field("name", "String", "Titanite Slab")]))
+    entities.append(make_entity("Item", 245 * 16, 57 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
+        make_field("name", "String", "Large Soul of a Crestfallen Knight")]))
+    entities.append(make_entity("Item", 210 * 16, 107 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ashes"),
+        make_field("name", "String", "Dragon Chaser's Ashes")]))
+    entities.append(make_entity("Item", 228 * 16, 100 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Gesture"),
+        make_field("name", "String", "Twinkling Dragon Torso Stone")]))
+    entities.append(make_entity("Item", 251 * 16, 67 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Armor"),
+        make_field("name", "String", "Dragonslayer Set")]))
+    entities.append(make_entity("Item", 257 * 16, 60 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Dragonslayer Swordspear")]))
+    entities.append(make_entity("Item", 263 * 16, 52 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Item"),
+        make_field("name", "String", "Dragon Tooth")]))
+    entities.append(make_entity("Item", 270 * 16, 55 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
+        make_field("name", "String", "Havel's Greatshield")]))
+    entities.append(make_entity("Item", 126 * 16, 157 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "Ring"),
+        make_field("name", "String", "Lightning Clutch Ring")]))
+    entities.append(make_entity("Item", 262 * 16, 57 * 16, [
+        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
+        make_field("name", "String", "Soul of the Nameless King")]))
+    # --- DS3 faithful chests ---
+    entities.append(make_entity("Chest", 207 * 16, 71 * 16, [
+        make_field("name", "String", "Unknown")]))
+    entities.append(make_entity("Chest", 226 * 16, 78 * 16, [
+        make_field("name", "String", "Unknown")]))
+# --- Fog Gate ---
     # Back to Irithyll Dungeon (NW)
     entities.append(make_entity("FogGate", 6 * 16, 120 * 16, [
         make_field("dest_area", "String", "IrithyllDungeon"),
