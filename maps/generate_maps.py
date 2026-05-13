@@ -846,6 +846,43 @@ def make_cemetery_of_ash():
     fill_tiles(chunk, TILE_WALL, 84, 26, 85, 27)
 
     # ================================================================
+    # SESSION 13 FIDELITY PASS — CemeteryOfAsh DS3 architecture
+    # ================================================================
+    # Coffin alcove — stone slab debris (DS3: stone coffin in small alcove)
+    fill_tiles(chunk, TILE_WALL, 22, 154, 23, 155)
+    fill_tiles(chunk, TILE_WALL, 27, 150, 28, 151)
+    fill_tiles(chunk, TILE_WALL, 20, 148, 21, 149)
+    # First path — ash dune ridges (DS3: ash-covered path through cemetery)
+    fill_tiles(chunk, TILE_WALL, 32, 152, 33, 153)
+    fill_tiles(chunk, TILE_WALL, 40, 150, 41, 151)
+    fill_tiles(chunk, TILE_WALL, 48, 153, 49, 154)
+    fill_tiles(chunk, TILE_WALL, 36, 148, 37, 149)
+    # NE curve — cliff face outcrops (DS3: path curves around mountain)
+    fill_tiles(chunk, TILE_WALL, 66, 144, 67, 145)
+    fill_tiles(chunk, TILE_WALL, 70, 138, 71, 139)
+    fill_tiles(chunk, TILE_WALL, 74, 134, 75, 135)
+    # Ashen Estus clearing — fountain basin stones (DS3: broken stone fountain)
+    fill_tiles(chunk, TILE_WALL, 80, 138, 81, 139)
+    fill_tiles(chunk, TILE_WALL, 74, 136, 75, 137)
+    fill_tiles(chunk, TILE_WALL, 84, 134, 85, 135)
+    # Stairs junction — stone step edges (DS3: worn stone steps)
+    fill_tiles(chunk, TILE_WALL, 88, 124, 89, 125)
+    fill_tiles(chunk, TILE_WALL, 82, 128, 83, 129)
+    fill_tiles(chunk, TILE_WALL, 90, 130, 91, 131)
+    # Broken arch — arch keystone debris (DS3: stone arch over path)
+    fill_tiles(chunk, TILE_WALL, 76, 116, 77, 117)
+    fill_tiles(chunk, TILE_WALL, 80, 118, 81, 119)
+    # Water chasm — mossy channel stones (DS3: narrow water channel)
+    fill_tiles(chunk, TILE_WALL, 90, 108, 91, 109)
+    fill_tiles(chunk, TILE_WALL, 114, 110, 115, 111)
+    fill_tiles(chunk, TILE_WALL, 124, 106, 125, 107)
+    fill_tiles(chunk, TILE_WALL, 130, 112, 131, 113)
+    # Gundyr approach — memorial pillars (DS3: stone pillars before arena)
+    fill_tiles(chunk, TILE_WALL, 74, 72, 75, 73)
+    fill_tiles(chunk, TILE_WALL, 78, 76, 79, 77)
+    fill_tiles(chunk, TILE_WALL, 70, 68, 71, 69)
+
+    # ================================================================
     # ENTITIES
     # ================================================================
     entities = []
