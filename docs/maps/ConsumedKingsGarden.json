@@ -2,7 +2,7 @@
   "id": "ConsumedKingsGarden",
   "name": "妖王庭园",
   "name_en": "Consumed King's Garden",
-  "description": "Poison-filled garden beneath Lothric Castle. Cathedral Knights and Winged Knights guard the path to Oceiros.",
+  "description": "Poison-filled garden beneath Lothric Castle. Lothric Knights and Winged Knights guard the path to Oceiros.",
   "theme": "poison garden",
   "map_size": {
     "width": 4096,
@@ -51,15 +51,15 @@
         ],
         "enemies": [
           {
-            "kind": "CathedralKnight",
-            "name_en": "Cathedral Knight (dark, entry)",
+            "kind": "LothricKnight",
+            "name_en": "Lothric Knight (dark, entry)",
             "x": 780,
             "y": 580,
             "count": 1
           },
           {
-            "kind": "CathedralKnight",
-            "name_en": "Cathedral Knight (dark, entry stairs)",
+            "kind": "LothricKnight",
+            "name_en": "Lothric Knight (dark, entry stairs)",
             "x": 920,
             "y": 680,
             "count": 1
@@ -128,22 +128,22 @@
         ],
         "enemies": [
           {
-            "kind": "CathedralKnight",
-            "name_en": "Cathedral Knight (dark, garden upper)",
+            "kind": "LothricKnight",
+            "name_en": "Lothric Knight (dark, garden upper)",
             "x": 1020,
             "y": 1300,
             "count": 1
           },
           {
-            "kind": "CathedralKnight",
-            "name_en": "Cathedral Knight (dark, garden mid)",
+            "kind": "LothricKnight",
+            "name_en": "Lothric Knight (dark, garden mid)",
             "x": 1200,
             "y": 1440,
             "count": 1
           },
           {
-            "kind": "CathedralKnight",
-            "name_en": "Cathedral Knight (garden lower)",
+            "kind": "LothricKnight",
+            "name_en": "Lothric Knight (garden lower)",
             "x": 1400,
             "y": 1560,
             "count": 1
@@ -339,7 +339,7 @@
       },
       {
         "name": "骑士平台",
-        "name_en": "Cathedral Knight Platform",
+        "name_en": "Lothric Knight Platform",
         "kind": "main",
         "x": 1880,
         "y": 980,
@@ -353,29 +353,29 @@
         ],
         "enemies": [
           {
-            "kind": "CathedralKnight",
-            "name_en": "Cathedral Knight (platform upper)",
+            "kind": "LothricKnight",
+            "name_en": "Lothric Knight (platform upper)",
             "x": 1980,
             "y": 1080,
             "count": 1
           },
           {
-            "kind": "CathedralKnight",
-            "name_en": "Cathedral Knight (platform mid)",
+            "kind": "LothricKnight",
+            "name_en": "Lothric Knight (platform mid)",
             "x": 2140,
             "y": 1180,
             "count": 1
           },
           {
-            "kind": "CathedralKnight",
-            "name_en": "Cathedral Knight (platform lower)",
+            "kind": "LothricKnight",
+            "name_en": "Lothric Knight (platform lower)",
             "x": 2300,
             "y": 1280,
             "count": 1
           },
           {
-            "kind": "CathedralKnight",
-            "name_en": "Cathedral Knight (platform, red-eyed)",
+            "kind": "LothricKnight",
+            "name_en": "Lothric Knight (platform, red-eyed)",
             "x": 2460,
             "y": 1380,
             "count": 1
@@ -607,57 +607,57 @@
   },
   "enemies": [
     {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
       "x": 32,
       "y": 30,
       "count": 1
     },
     {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
       "x": 55,
       "y": 40,
       "count": 1
     },
     {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
       "x": 112,
       "y": 82,
       "count": 1
     },
     {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
       "x": 98,
       "y": 68,
       "count": 1
     },
     {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
       "x": 42,
       "y": 38,
       "count": 1
     },
     {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
       "x": 72,
       "y": 48,
       "count": 1
     },
     {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
       "x": 80,
       "y": 55,
       "count": 1
     },
     {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
       "x": 95,
       "y": 72,
       "count": 1
@@ -810,29 +810,29 @@
       "count": 1
     },
     {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
       "x": 121,
       "y": 83,
       "count": 1
     },
     {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
       "x": 135,
       "y": 92,
       "count": 1
     },
     {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
       "x": 128,
       "y": 101,
       "count": 1
     },
     {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
       "x": 137,
       "y": 104,
       "count": 1
@@ -960,7 +960,7 @@
     },
     {
       "kind": "WeaponDrop",
-      "name_en": "Cathedral Knight Greatsword",
+      "name_en": "Lothric Knight Greatsword",
       "x": 2440,
       "y": 1400,
       "value": 0
