@@ -11612,7 +11612,7 @@ def make_archdragon_peak():
         # Great Belfry area — guarding the bell tower approach
         ("SerpentMan", 108, 28), ("SerpentMan", 118, 25), ("SerpentMan", 115, 30),
         # Path to altar — 3 big Serpent-Men (wiki: "three big ones" before altar)
-        ("SerpentMan", 120, 75), ("SerpentMan", 135, 28), ("SerpentMan", 125, 82),
+        ("SerpentMan", 120, 75), ("SerpentMan", 135, 28), ("SerpentMan", 125, 72),
         # Altar approach — additional guards
         ("SerpentMan", 130, 35), ("SerpentMan", 132, 40),
         # Serpent-Man Summoners (DarkMage type — they cast spells and summon NPC phantoms)
