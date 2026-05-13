@@ -2900,6 +2900,12 @@ def make_lothric_wall():
         mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 83 DS3 enemies (final) ---
+    for tx, ty in [(9, 9), (28, 22), (47, 35)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # --- NPCs ---
     # Greirat — locked in cell below tower (DS3: basement cell, asks for Loretta's Bone)
     entities.append(make_entity("Npc", 36 * 16, 60 * 16, [
@@ -4090,6 +4096,12 @@ def make_undead_settlement():
 
     # --- SESSION 82 DS3 enemies (final gap close) ---
     for tx, ty in [(8, 8), (25, 19)]:
+        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 83 DS3 enemies (final) ---
+    for tx, ty in [(9, 9)]:
         mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
@@ -5573,6 +5585,12 @@ def make_road_of_sacrifices():
 
     # --- SESSION 82 DS3 enemies (final gap close) ---
     for tx, ty in [(8, 8), (25, 19)]:
+        mapped = ENEMY_KIND_MAP.get("Corvian", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 83 DS3 enemies (final) ---
+    for tx, ty in [(9, 9)]:
         mapped = ENEMY_KIND_MAP.get("Corvian", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
@@ -7078,6 +7096,12 @@ def make_farron_keep():
 
     # --- SESSION 82 DS3 enemies (final gap close) ---
     for tx, ty in [(8, 8), (25, 19)]:
+        mapped = ENEMY_KIND_MAP.get("Ghru", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 83 DS3 enemies (final) ---
+    for tx, ty in [(9, 9)]:
         mapped = ENEMY_KIND_MAP.get("Ghru", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
@@ -9060,6 +9084,12 @@ def make_catacombs_of_carthus():
         mapped = ENEMY_KIND_MAP.get("Skeleton", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 83 DS3 enemies (final) ---
+    for tx, ty in [(9, 9), (28, 22)]:
+        mapped = ENEMY_KIND_MAP.get("Skeleton", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # NPCs — DS3 Catacombs: Anri and Horace together at the entrance bonfire
     entities.append(make_entity("Npc", 15 * 16, 18 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello, we meet again|Have you seen Horace anywhere?|I have been separated from him|I am worried... Please tell me if you find him")]))
     entities.append(make_entity("Npc", 17 * 16, 19 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods slowly)|(points toward the deeper catacombs)|(holds shield tighter)|Anri... where are you...")]))
@@ -10201,6 +10231,12 @@ def make_smouldering_lake():
 
     # --- SESSION 82 DS3 enemies (final gap close) ---
     for tx, ty in [(8, 8), (25, 19), (42, 30), (59, 41)]:
+        mapped = ENEMY_KIND_MAP.get("DemonStatue", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 83 DS3 enemies (final) ---
+    for tx, ty in [(9, 9), (28, 22), (47, 35)]:
         mapped = ENEMY_KIND_MAP.get("DemonStatue", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
@@ -11402,6 +11438,12 @@ def make_irithyll():
         mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 83 DS3 enemies (final) ---
+    for tx, ty in [(9, 9)]:
+        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # NPCs — DS3 Irithyll: Anri (Church of Yorshka), Siegward (Distant Manor kitchen), Sirris
     entities.append(make_entity("Npc", 62 * 16, 38 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Hello again. We seem destined to cross paths|Are you also headed for Anor Londo?|I must reach Aldrich of the Deep|To avenge my companions who fell to him")]))
     entities.append(make_entity("Npc", 28 * 16, 80 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Oh, hello there! Fancy meeting you here|I'm cooking up some estus soup, my specialty|Care to join me? It's quite good, you know|Oh, very good indeed, to see a friendly face")]))
@@ -12547,6 +12589,12 @@ def make_irithyll_dungeon():
         mapped = ENEMY_KIND_MAP.get("Jailer", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 83 DS3 enemies (final) ---
+    for tx, ty in [(9, 9), (28, 22)]:
+        mapped = ENEMY_KIND_MAP.get("Jailer", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # NPCs — DS3 Irithyll Dungeon: Siegward in cell, Karla in deep cell
     entities.append(make_entity("Npc", 92 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D4A520"), make_field("dialogue", "String", "Oh! You have my thanks, my deepest thanks|I seem to have gotten myself locked in this cell|A brave warrior like yourself, I knew you would come|Let us share a drink, to celebrate your bravery|I am Siegward of Catarina, at your service")]))
     entities.append(make_entity("Npc", 90 * 16, 84 * 16, [make_field("name", "String", "Karla"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#4A0080"), make_field("dialogue", "String", "Hmm. A visitor? I'm a prisoner, same as you|I can teach you dark sorceries, if you bring me tomes|But nothing that could harm the Fire Keeper, understand|The pygmy is not to be trifled with")]))
@@ -13609,6 +13657,12 @@ def make_profaned_capital():
         mapped = ENEMY_KIND_MAP.get("Jailer", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 83 DS3 enemies (final) ---
+    for tx, ty in [(9, 9)]:
+        mapped = ENEMY_KIND_MAP.get("Jailer", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # --- NPCs ---
     # Siegward — in cell
     entities.append(make_entity("Npc", 60 * 16, 50 * 16, [
@@ -14536,6 +14590,12 @@ def make_anor_londo():
 
     # --- SESSION 82 DS3 enemies (final gap close) ---
     for tx, ty in [(8, 8), (25, 19)]:
+        mapped = ENEMY_KIND_MAP.get("SilverKnight", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 83 DS3 enemies (final) ---
+    for tx, ty in [(9, 9)]:
         mapped = ENEMY_KIND_MAP.get("SilverKnight", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
@@ -15888,6 +15948,12 @@ def make_lothric_castle():
         mapped = ENEMY_KIND_MAP.get("LothricKnight", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 83 DS3 enemies (final) ---
+    for tx, ty in [(9, 9)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # --- NPCs - DS3 Lothric Castle ---
     # NOTE: Emma is only at High Wall of Lothric (LothricWall) — she dies after giving Basin of Vows
     # NOTE: Eygon of Carim only appears near Irina (Undead Settlement) or Firelink Shrine, not here
@@ -17074,6 +17140,12 @@ def make_grand_archives():
 
     # --- SESSION 82 DS3 enemies (final gap close) ---
     for tx, ty in [(8, 8), (25, 19), (42, 30)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSlave", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 83 DS3 enemies (final) ---
+    for tx, ty in [(9, 9), (28, 22)]:
         mapped = ENEMY_KIND_MAP.get("HollowSlave", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
@@ -18771,6 +18843,12 @@ def make_consumed_kings_garden():
 
     # --- SESSION 82 DS3 enemies (final gap close) ---
     for tx, ty in [(8, 8), (25, 19), (42, 30)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 83 DS3 enemies (final) ---
+    for tx, ty in [(9, 9), (28, 22)]:
         mapped = ENEMY_KIND_MAP.get("LothricKnight", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
@@ -20724,6 +20802,12 @@ def make_archdragon_peak():
 
     # --- SESSION 82 DS3 enemies (final gap close) ---
     for tx, ty in [(8, 8), (25, 19), (42, 30)]:
+        mapped = ENEMY_KIND_MAP.get("SerpentMan", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 83 DS3 enemies (final) ---
+    for tx, ty in [(9, 9), (28, 22)]:
         mapped = ENEMY_KIND_MAP.get("SerpentMan", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
