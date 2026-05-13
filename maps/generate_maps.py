@@ -981,26 +981,19 @@ def make_cemetery_of_ash():
     ]))
 
     # --- Lights ---
-    # Coffin start — dim warm light
-    entities.append(make_entity("Light", 25 * 16, 152 * 16, [
+    # --- Lights (DS3 faithful positions from JSON) ---
+    entities.append(make_entity("Light", 81 * 16, 153 * 16, [
         make_field("radius", "Float", 160.0),
-        make_field("r", "Float", 0.6), make_field("g", "Float", 0.5),
-        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.3)]))
-    # Cemetery bonfire — warm ash glow
-    entities.append(make_entity("Light", 72 * 16, 95 * 16, [
-        make_field("radius", "Float", 128.0),
-        make_field("r", "Float", 0.5), make_field("g", "Float", 0.45),
-        make_field("b", "Float", 0.35), make_field("intensity", "Float", 0.25)]))
-    # Water chasm — cold blue-green light
-    entities.append(make_entity("Light", 124 * 16, 109 * 16, [
-        make_field("radius", "Float", 160.0),
-        make_field("r", "Float", 0.3), make_field("g", "Float", 0.45),
-        make_field("b", "Float", 0.5), make_field("intensity", "Float", 0.2)]))
-    # Gundyr arena — bright coiled sword light
-    entities.append(make_entity("Light", 80 * 16, 48 * 16, [
+        make_field("r", "Float", 0.8), make_field("g", "Float", 0.6),
+        make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.3)]))
+    entities.append(make_entity("Light", 96 * 16, 80 * 16, [
         make_field("radius", "Float", 200.0),
-        make_field("r", "Float", 0.9), make_field("g", "Float", 0.75),
-        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.5)]))
+        make_field("r", "Float", 0.5), make_field("g", "Float", 0.4),
+        make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.25)]))
+    entities.append(make_entity("Light", 40 * 16, 87 * 16, [
+        make_field("radius", "Float", 100.0),
+        make_field("r", "Float", 0.9), make_field("g", "Float", 0.5),
+        make_field("b", "Float", 0.2), make_field("intensity", "Float", 0.2)]))
 
     # SESSION 18 FIDELITY PASS — CemeteryOfAsh DS3 tutorial details
     # Ashen coffin — broken lid fragments (DS3: coffin you wake up in)
@@ -1709,26 +1702,16 @@ def make_firelink_shrine():
     ]))
 
     # --- Lights ---
-    # Central bonfire — warm light filling the chamber
-    entities.append(make_entity("Light", 80 * 16, 80 * 16, [
-        make_field("radius", "Float", 240.0), make_field("r", "Float", 0.9),
-        make_field("g", "Float", 0.7), make_field("b", "Float", 0.4),
-        make_field("intensity", "Float", 0.6)]))
-    # Andre's forge — orange glow from anvil
-    entities.append(make_entity("Light", 44 * 16, 80 * 16, [
-        make_field("radius", "Float", 120.0), make_field("r", "Float", 0.8),
-        make_field("g", "Float", 0.5), make_field("b", "Float", 0.2),
-        make_field("intensity", "Float", 0.4)]))
-    # Throne room — dim golden light on the empty thrones
-    entities.append(make_entity("Light", 80 * 16, 58 * 16, [
-        make_field("radius", "Float", 100.0), make_field("r", "Float", 0.7),
-        make_field("g", "Float", 0.6), make_field("b", "Float", 0.3),
-        make_field("intensity", "Float", 0.3)]))
+    # --- Lights (DS3 faithful positions from JSON) ---
+    entities.append(make_entity("Light", 80 * 16, 64 * 16, [
+        make_field("radius", "Float", 240.0),
+        make_field("r", "Float", 0.9), make_field("g", "Float", 0.7),
+        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.6)]))
+    entities.append(make_entity("Light", 36 * 16, 67 * 16, [
+        make_field("radius", "Float", 120.0),
+        make_field("r", "Float", 0.8), make_field("g", "Float", 0.5),
+        make_field("b", "Float", 0.2), make_field("intensity", "Float", 0.4)]))
     # Exterior graveyard — moonlit
-    entities.append(make_entity("Light", 80 * 16, 112 * 16, [
-        make_field("radius", "Float", 160.0), make_field("r", "Float", 0.5),
-        make_field("g", "Float", 0.5), make_field("b", "Float", 0.6),
-        make_field("intensity", "Float", 0.25)]))
 
     # === MORE FIRELINK SHRINE DETAILS — DS3 fidelity ===
     # Central chamber — additional interior pillars (DS3: stone shrine with pillars)
@@ -2772,41 +2755,73 @@ def make_lothric_wall():
     ]))
 
     # --- Lights ---
-    # Entry rampart — cool stone light
-    entities.append(make_entity("Light", 18 * 16, 12 * 16, [
-        make_field("radius", "Float", 160.0),
-        make_field("r", "Float", 0.6), make_field("g", "Float", 0.55),
-        make_field("b", "Float", 0.5), make_field("intensity", "Float", 0.3)]))
-    # Dragon bridge — orange firelight
-    entities.append(make_entity("Light", 34 * 16, 36 * 16, [
+    # --- Lights (DS3 faithful positions from JSON) ---
+    # Bonfire warm glow at entry
+    entities.append(make_entity("Light", 35 * 16, 22 * 16, [
         make_field("radius", "Float", 200.0),
-        make_field("r", "Float", 0.8), make_field("g", "Float", 0.5),
-        make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.4)]))
-    # Tower area — cold blue light
-    entities.append(make_entity("Light", 62 * 16, 42 * 16, [
-        make_field("radius", "Float", 140.0),
-        make_field("r", "Float", 0.5), make_field("g", "Float", 0.5),
-        make_field("b", "Float", 0.6), make_field("intensity", "Float", 0.25)]))
-    # Courtyard — warm firelight
-    entities.append(make_entity("Light", 34 * 16, 90 * 16, [
-        make_field("radius", "Float", 140.0),
-        make_field("r", "Float", 0.7), make_field("g", "Float", 0.55),
-        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.3)]))
-    # Cathedral — soft candlelight
-    entities.append(make_entity("Light", 80 * 16, 106 * 16, [
-        make_field("radius", "Float", 120.0),
-        make_field("r", "Float", 0.5), make_field("g", "Float", 0.5),
-        make_field("b", "Float", 0.6), make_field("intensity", "Float", 0.25)]))
-    # Frost stairs — icy blue glow
-    entities.append(make_entity("Light", 86 * 16, 126 * 16, [
+        make_field("r", "Float", 0.95), make_field("g", "Float", 0.85),
+        make_field("b", "Float", 0.6), make_field("intensity", "Float", 0.5)]))
+    # Tower bonfire light
+    entities.append(make_entity("Light", 96 * 16, 56 * 16, [
+        make_field("radius", "Float", 180.0),
+        make_field("r", "Float", 0.95), make_field("g", "Float", 0.85),
+        make_field("b", "Float", 0.55), make_field("intensity", "Float", 0.5)]))
+    # Wyvern fire glow on bridge
+    entities.append(make_entity("Light", 135 * 16, 38 * 16, [
+        make_field("radius", "Float", 320.0),
+        make_field("r", "Float", 1.0), make_field("g", "Float", 0.4),
+        make_field("b", "Float", 0.1), make_field("intensity", "Float", 0.7)]))
+    # Scorched bridge ambient fire
+    entities.append(make_entity("Light", 118 * 16, 48 * 16, [
+        make_field("radius", "Float", 200.0),
+        make_field("r", "Float", 0.9), make_field("g", "Float", 0.5),
+        make_field("b", "Float", 0.15), make_field("intensity", "Float", 0.4)]))
+    # Courtyard ambient daylight
+    entities.append(make_entity("Light", 81 * 16, 100 * 16, [
         make_field("radius", "Float", 160.0),
-        make_field("r", "Float", 0.4), make_field("g", "Float", 0.6),
-        make_field("b", "Float", 0.8), make_field("intensity", "Float", 0.35)]))
+        make_field("r", "Float", 0.85), make_field("g", "Float", 0.82),
+        make_field("b", "Float", 0.7), make_field("intensity", "Float", 0.35)]))
+    # Dim cell interior light
+    entities.append(make_entity("Light", 142 * 16, 118 * 16, [
+        make_field("radius", "Float", 100.0),
+        make_field("r", "Float", 0.6), make_field("g", "Float", 0.55),
+        make_field("b", "Float", 0.45), make_field("intensity", "Float", 0.4)]))
+    # Darkwraith cell abyss glow
+    entities.append(make_entity("Light", 146 * 16, 112 * 16, [
+        make_field("radius", "Float", 80.0),
+        make_field("r", "Float", 0.3), make_field("g", "Float", 0.3),
+        make_field("b", "Float", 0.5), make_field("intensity", "Float", 0.5)]))
+    # Rooftop courtyard daylight
+    entities.append(make_entity("Light", 165 * 16, 146 * 16, [
+        make_field("radius", "Float", 180.0),
+        make_field("r", "Float", 0.9), make_field("g", "Float", 0.88),
+        make_field("b", "Float", 0.8), make_field("intensity", "Float", 0.4)]))
+    # Emma chapel candle glow
+    entities.append(make_entity("Light", 170 * 16, 166 * 16, [
+        make_field("radius", "Float", 140.0),
+        make_field("r", "Float", 0.95), make_field("g", "Float", 0.9),
+        make_field("b", "Float", 0.7), make_field("intensity", "Float", 0.55)]))
+    # Dancer bonfire / chapel altar light
+    entities.append(make_entity("Light", 172 * 16, 161 * 16, [
+        make_field("radius", "Float", 200.0),
+        make_field("r", "Float", 0.9), make_field("g", "Float", 0.85),
+        make_field("b", "Float", 0.6), make_field("intensity", "Float", 0.5)]))
+    # Vordt arena icy blue frost glow
+    entities.append(make_entity("Light", 197 * 16, 221 * 16, [
+        make_field("radius", "Float", 240.0),
+        make_field("r", "Float", 0.6), make_field("g", "Float", 0.75),
+        make_field("b", "Float", 1.0), make_field("intensity", "Float", 0.6)]))
+    # Frost-covered stairs ambient cold light
+    entities.append(make_entity("Light", 185 * 16, 210 * 16, [
+        make_field("radius", "Float", 180.0),
+        make_field("r", "Float", 0.55), make_field("g", "Float", 0.7),
+        make_field("b", "Float", 0.95), make_field("intensity", "Float", 0.4)]))
+    # Dancer arena dark twilight
+    entities.append(make_entity("Light", 172 * 16, 161 * 16, [
+        make_field("radius", "Float", 100.0),
+        make_field("r", "Float", 0.3), make_field("g", "Float", 0.4),
+        make_field("b", "Float", 0.7), make_field("intensity", "Float", 0.45)]))
     # Vordt arena — cold boreal blue
-    entities.append(make_entity("Light", 100 * 16, 144 * 16, [
-        make_field("radius", "Float", 220.0),
-        make_field("r", "Float", 0.3), make_field("g", "Float", 0.5),
-        make_field("b", "Float", 0.9), make_field("intensity", "Float", 0.4)]))
 
     # === ADDITIONAL HIGH WALL DETAILS — DS3 fidelity ===
     # Wall entrance — battlement stones (DS3: stone ramparts with hollow soldiers)
@@ -6892,16 +6907,23 @@ def make_cathedral_deep():
         make_field("height", "Float", 80.0),
     ]))
 
-    # Lights
-    entities.append(make_entity("Light", 30 * 16, 8 * 16, [make_field("radius", "Float", 140.0), make_field("r", "Float", 0.6), make_field("g", "Float", 0.5), make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.3)]))
-    entities.append(make_entity("Light", 32 * 16, 44 * 16, [make_field("radius", "Float", 160.0), make_field("r", "Float", 0.8), make_field("g", "Float", 0.7), make_field("b", "Float", 0.5), make_field("intensity", "Float", 0.4)]))
-    entities.append(make_entity("Light", 52 * 16, 75 * 16, [make_field("radius", "Float", 180.0), make_field("r", "Float", 0.5), make_field("g", "Float", 0.3), make_field("b", "Float", 0.6), make_field("intensity", "Float", 0.35)]))
-    entities.append(make_entity("Light", 45 * 16, 114 * 16, [make_field("radius", "Float", 220.0), make_field("r", "Float", 0.4), make_field("g", "Float", 0.2), make_field("b", "Float", 0.7), make_field("intensity", "Float", 0.45)]))
-    entities.append(make_entity("Light", 38 * 16, 150 * 16, [make_field("radius", "Float", 150.0), make_field("r", "Float", 0.6), make_field("g", "Float", 0.4), make_field("b", "Float", 0.7), make_field("intensity", "Float", 0.4)]))
-
-    # === ADDITIONAL INTERNAL STRUCTURES — Cathedral of the Deep ===
-    # Cathedral pillars, pews, altar stones
-    fill_tiles(chunk, TILE_WALL, 18, 22, 20, 25)
+    # --- Lights (DS3 faithful positions from JSON) ---
+    entities.append(make_entity("Light", 97 * 16, 94 * 16, [
+        make_field("radius", "Float", 180.0),
+        make_field("r", "Float", 0.8), make_field("g", "Float", 0.7),
+        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.4)]))
+    entities.append(make_entity("Light", 175 * 16, 100 * 16, [
+        make_field("radius", "Float", 220.0),
+        make_field("r", "Float", 0.5), make_field("g", "Float", 0.4),
+        make_field("b", "Float", 0.6), make_field("intensity", "Float", 0.3)]))
+    entities.append(make_entity("Light", 190 * 16, 213 * 16, [
+        make_field("radius", "Float", 200.0),
+        make_field("r", "Float", 0.7), make_field("g", "Float", 0.3),
+        make_field("b", "Float", 0.5), make_field("intensity", "Float", 0.4)]))
+    entities.append(make_entity("Light", 255 * 16, 91 * 16, [
+        make_field("radius", "Float", 140.0),
+        make_field("r", "Float", 0.6), make_field("g", "Float", 0.5),
+        make_field("b", "Float", 0.8), make_field("intensity", "Float", 0.3)]))
     fill_tiles(chunk, TILE_WALL, 30, 28, 32, 30)
     fill_tiles(chunk, TILE_WALL, 42, 22, 44, 24)
     fill_tiles(chunk, TILE_WALL, 55, 30, 57, 32)
@@ -12114,31 +12136,24 @@ def make_profaned_capital():
     ]))
 
     # --- Lights ---
-    # Bonfire tower — warm torchlight
-    entities.append(make_entity("Light", 18 * 16, 12 * 16, [
+    # --- Lights (DS3 faithful positions from JSON) ---
+    entities.append(make_entity("Light", 56 * 16, 51 * 16, [
         make_field("radius", "Float", 160.0),
         make_field("r", "Float", 0.8), make_field("g", "Float", 0.7),
         make_field("b", "Float", 0.5), make_field("intensity", "Float", 0.4)]))
-    # Toxic pool — sickly green glow
-    entities.append(make_entity("Light", 56 * 16, 68 * 16, [
+    entities.append(make_entity("Light", 107 * 16, 132 * 16, [
         make_field("radius", "Float", 140.0),
         make_field("r", "Float", 0.4), make_field("g", "Float", 0.6),
         make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.3)]))
-    # Church — dim orange
-    entities.append(make_entity("Light", 36 * 16, 74 * 16, [
+    entities.append(make_entity("Light", 81 * 16, 153 * 16, [
         make_field("radius", "Float", 120.0),
         make_field("r", "Float", 0.7), make_field("g", "Float", 0.5),
-        make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.3)]))
-    # Yhorm arena — profaned flame glow
-    entities.append(make_entity("Light", 108 * 16, 14 * 16, [
-        make_field("radius", "Float", 240.0),
-        make_field("r", "Float", 1.0), make_field("g", "Float", 0.5),
-        make_field("b", "Float", 0.15), make_field("intensity", "Float", 0.5)]))
-    # Siegward cell — moonlight
-    entities.append(make_entity("Light", 60 * 16, 50 * 16, [
-        make_field("radius", "Float", 100.0),
-        make_field("r", "Float", 0.6), make_field("g", "Float", 0.7),
-        make_field("b", "Float", 0.9), make_field("intensity", "Float", 0.3)]))
+        make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.35)]))
+    entities.append(make_entity("Light", 187 * 16, 201 * 16, [
+        make_field("radius", "Float", 200.0),
+        make_field("r", "Float", 0.6), make_field("g", "Float", 0.4),
+        make_field("b", "Float", 0.2), make_field("intensity", "Float", 0.5)]))
+    # Church — dim orange
 
     # === ADDITIONAL INTERNAL STRUCTURES — profaned capital ===
     # Entry bonfire tower — ruined walls
@@ -14069,21 +14084,83 @@ def make_lothric_castle():
     ]))
 
     # --- Lights ---
-    # Castle gate — warm torchlight
-    entities.append(make_entity("Light", 10 * 16, 30 * 16, [
+    # --- Lights (DS3 faithful positions from JSON) ---
+    entities.append(make_entity("Light", 38 * 16, 56 * 16, [
+        make_field("radius", "Float", 160.0),
+        make_field("r", "Float", 0.9), make_field("g", "Float", 0.75),
+        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.45)]))
+    entities.append(make_entity("Light", 31 * 16, 46 * 16, [
+        make_field("radius", "Float", 100.0),
+        make_field("r", "Float", 1.0), make_field("g", "Float", 0.8),
+        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.35)]))
+    entities.append(make_entity("Light", 78 * 16, 80 * 16, [
+        make_field("radius", "Float", 180.0),
+        make_field("r", "Float", 0.95), make_field("g", "Float", 0.85),
+        make_field("b", "Float", 0.6), make_field("intensity", "Float", 0.4)]))
+    entities.append(make_entity("Light", 68 * 16, 75 * 16, [
+        make_field("radius", "Float", 120.0),
+        make_field("r", "Float", 1.0), make_field("g", "Float", 0.8),
+        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.3)]))
+    entities.append(make_entity("Light", 93 * 16, 81 * 16, [
         make_field("radius", "Float", 140.0),
         make_field("r", "Float", 0.8), make_field("g", "Float", 0.7),
         make_field("b", "Float", 0.5), make_field("intensity", "Float", 0.35)]))
-    # Dragon barracks — fire glow
-    entities.append(make_entity("Light", 80 * 16, 25 * 16, [
-        make_field("radius", "Float", 180.0),
-        make_field("r", "Float", 1.0), make_field("g", "Float", 0.6),
-        make_field("b", "Float", 0.2), make_field("intensity", "Float", 0.4)]))
-    # Dragonslayer Armour arena — lightning blue
-    entities.append(make_entity("Light", 132 * 16, 68 * 16, [
+    entities.append(make_entity("Light", 157 * 16, 68 * 16, [
         make_field("radius", "Float", 220.0),
-        make_field("r", "Float", 0.5), make_field("g", "Float", 0.6),
-        make_field("b", "Float", 1.0), make_field("intensity", "Float", 0.5)]))
+        make_field("r", "Float", 1.0), make_field("g", "Float", 0.6),
+        make_field("b", "Float", 0.2), make_field("intensity", "Float", 0.5)]))
+    entities.append(make_entity("Light", 137 * 16, 56 * 16, [
+        make_field("radius", "Float", 140.0),
+        make_field("r", "Float", 0.9), make_field("g", "Float", 0.75),
+        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.35)]))
+    entities.append(make_entity("Light", 178 * 16, 67 * 16, [
+        make_field("radius", "Float", 160.0),
+        make_field("r", "Float", 1.0), make_field("g", "Float", 0.7),
+        make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.4)]))
+    entities.append(make_entity("Light", 157 * 16, 106 * 16, [
+        make_field("radius", "Float", 160.0),
+        make_field("r", "Float", 0.9), make_field("g", "Float", 0.75),
+        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.4)]))
+    entities.append(make_entity("Light", 171 * 16, 116 * 16, [
+        make_field("radius", "Float", 120.0),
+        make_field("r", "Float", 0.8), make_field("g", "Float", 0.7),
+        make_field("b", "Float", 0.5), make_field("intensity", "Float", 0.3)]))
+    entities.append(make_entity("Light", 146 * 16, 113 * 16, [
+        make_field("radius", "Float", 100.0),
+        make_field("r", "Float", 1.0), make_field("g", "Float", 0.8),
+        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.35)]))
+    entities.append(make_entity("Light", 225 * 16, 136 * 16, [
+        make_field("radius", "Float", 200.0),
+        make_field("r", "Float", 0.7), make_field("g", "Float", 0.7),
+        make_field("b", "Float", 0.8), make_field("intensity", "Float", 0.35)]))
+    entities.append(make_entity("Light", 242 * 16, 145 * 16, [
+        make_field("radius", "Float", 140.0),
+        make_field("r", "Float", 0.8), make_field("g", "Float", 0.6),
+        make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.4)]))
+    entities.append(make_entity("Light", 253 * 16, 148 * 16, [
+        make_field("radius", "Float", 240.0),
+        make_field("r", "Float", 0.5), make_field("g", "Float", 0.5),
+        make_field("b", "Float", 0.7), make_field("intensity", "Float", 0.5)]))
+    entities.append(make_entity("Light", 247 * 16, 142 * 16, [
+        make_field("radius", "Float", 120.0),
+        make_field("r", "Float", 0.7), make_field("g", "Float", 0.7),
+        make_field("b", "Float", 0.9), make_field("intensity", "Float", 0.3)]))
+    entities.append(make_entity("Light", 260 * 16, 155 * 16, [
+        make_field("radius", "Float", 120.0),
+        make_field("r", "Float", 0.7), make_field("g", "Float", 0.7),
+        make_field("b", "Float", 0.9), make_field("intensity", "Float", 0.3)]))
+    entities.append(make_entity("Light", 292 * 16, 137 * 16, [
+        make_field("radius", "Float", 160.0),
+        make_field("r", "Float", 0.9), make_field("g", "Float", 0.85),
+        make_field("b", "Float", 0.6), make_field("intensity", "Float", 0.4)]))
+    entities.append(make_entity("Light", 285 * 16, 130 * 16, [
+        make_field("radius", "Float", 100.0),
+        make_field("r", "Float", 1.0), make_field("g", "Float", 0.9),
+        make_field("b", "Float", 0.5), make_field("intensity", "Float", 0.3)]))
+    entities.append(make_entity("Light", 57 * 16, 112 * 16, [
+        make_field("radius", "Float", 120.0),
+        make_field("r", "Float", 0.4), make_field("g", "Float", 0.6),
+        make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.3)]))
     # SESSION 10 FIDELITY PASS — Lothric Castle
     # Additional DS3-faithful terrain: dragon courtyard scorch debris, knight barracks,
     # wyvern perch stones, Dancer cathedral pillars, Grand Archives approach
@@ -15807,40 +15884,20 @@ def make_kiln_of_the_first_flame():
     ]))
 
     # --- Lights ---
-    # Dim firelight at Flameless Shrine — dying embers
-    entities.append(make_entity("Light", 80 * 16, 150 * 16, [
+    # --- Lights (DS3 faithful positions from JSON) ---
+    entities.append(make_entity("Light", 38 * 16, 137 * 16, [
         make_field("radius", "Float", 160.0),
         make_field("r", "Float", 0.9), make_field("g", "Float", 0.6),
         make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.5)]))
-    # Flickering embers in collapsed chamber
-    entities.append(make_entity("Light", 80 * 16, 112 * 16, [
-        make_field("radius", "Float", 120.0),
-        make_field("r", "Float", 0.85), make_field("g", "Float", 0.45),
-        make_field("b", "Float", 0.15), make_field("intensity", "Float", 0.3)]))
-    # Dim glow through twisted girders
-    entities.append(make_entity("Light", 72 * 16, 90 * 16, [
-        make_field("radius", "Float", 100.0),
-        make_field("r", "Float", 0.8), make_field("g", "Float", 0.4),
-        make_field("b", "Float", 0.1), make_field("intensity", "Float", 0.25)]))
-    entities.append(make_entity("Light", 88 * 16, 90 * 16, [
-        make_field("radius", "Float", 100.0),
-        make_field("r", "Float", 0.8), make_field("g", "Float", 0.4),
-        make_field("b", "Float", 0.1), make_field("intensity", "Float", 0.25)]))
-    # Second corridor — dying ember light
-    entities.append(make_entity("Light", 80 * 16, 70 * 16, [
-        make_field("radius", "Float", 130.0),
-        make_field("r", "Float", 0.85), make_field("g", "Float", 0.5),
-        make_field("b", "Float", 0.2), make_field("intensity", "Float", 0.3)]))
-    # Brilliant golden at First Flame arena — the final light
-    entities.append(make_entity("Light", 80 * 16, 26 * 16, [
-        make_field("radius", "Float", 260.0),
+    entities.append(make_entity("Light", 97 * 16, 73 * 16, [
+        make_field("radius", "Float", 240.0),
         make_field("r", "Float", 1.0), make_field("g", "Float", 0.85),
         make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.8)]))
-    # Warm glow at arena perimeter
-    entities.append(make_entity("Light", 80 * 16, 50 * 16, [
+    entities.append(make_entity("Light", 87 * 16, 105 * 16, [
         make_field("radius", "Float", 140.0),
-        make_field("r", "Float", 0.9), make_field("g", "Float", 0.6),
-        make_field("b", "Float", 0.2), make_field("intensity", "Float", 0.35)]))
+        make_field("r", "Float", 0.8), make_field("g", "Float", 0.4),
+        make_field("b", "Float", 0.15), make_field("intensity", "Float", 0.3)]))
+    # Flickering embers in collapsed chamber
 
     # === ADDITIONAL INTERNAL STRUCTURES — Kiln DS3 fidelity ===
     # Flameless Shrine — ash dune detail and ruined pillar fragments
@@ -16802,21 +16859,65 @@ def make_consumed_kings_garden():
     ]))
 
     # --- Lights ---
-    # Entry — blue crystal glow
-    entities.append(make_entity("Light", 15 * 16, 15 * 16, [
+    # --- Lights (DS3 faithful positions from JSON) ---
+    entities.append(make_entity("Light", 38 * 16, 38 * 16, [
         make_field("radius", "Float", 140.0),
-        make_field("r", "Float", 0.5), make_field("g", "Float", 0.6),
-        make_field("b", "Float", 0.9), make_field("intensity", "Float", 0.35)]))
-    # Poison swamp — sickly green
-    entities.append(make_entity("Light", 52 * 16, 75 * 16, [
-        make_field("radius", "Float", 160.0),
-        make_field("r", "Float", 0.3), make_field("g", "Float", 0.6),
-        make_field("b", "Float", 0.2), make_field("intensity", "Float", 0.3)]))
-    # Oceiros arena — dark crystal
-    entities.append(make_entity("Light", 120 * 16, 88 * 16, [
+        make_field("r", "Float", 0.9), make_field("g", "Float", 0.8),
+        make_field("b", "Float", 0.5), make_field("intensity", "Float", 0.4)]))
+    entities.append(make_entity("Light", 32 * 16, 32 * 16, [
+        make_field("radius", "Float", 100.0),
+        make_field("r", "Float", 1.0), make_field("g", "Float", 0.85),
+        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.3)]))
+    entities.append(make_entity("Light", 75 * 16, 93 * 16, [
         make_field("radius", "Float", 200.0),
+        make_field("r", "Float", 0.3), make_field("g", "Float", 0.6),
+        make_field("b", "Float", 0.2), make_field("intensity", "Float", 0.35)]))
+    entities.append(make_entity("Light", 93 * 16, 102 * 16, [
+        make_field("radius", "Float", 160.0),
+        make_field("r", "Float", 0.4), make_field("g", "Float", 0.7),
+        make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.3)]))
+    entities.append(make_entity("Light", 62 * 16, 81 * 16, [
+        make_field("radius", "Float", 120.0),
+        make_field("r", "Float", 0.5), make_field("g", "Float", 0.7),
+        make_field("b", "Float", 0.2), make_field("intensity", "Float", 0.25)]))
+    entities.append(make_entity("Light", 112 * 16, 110 * 16, [
+        make_field("radius", "Float", 140.0),
+        make_field("r", "Float", 0.3), make_field("g", "Float", 0.5),
+        make_field("b", "Float", 0.2), make_field("intensity", "Float", 0.3)]))
+    entities.append(make_entity("Light", 136 * 16, 75 * 16, [
+        make_field("radius", "Float", 180.0),
+        make_field("r", "Float", 0.5), make_field("g", "Float", 0.6),
+        make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.35)]))
+    entities.append(make_entity("Light", 153 * 16, 81 * 16, [
+        make_field("radius", "Float", 140.0),
+        make_field("r", "Float", 0.6), make_field("g", "Float", 0.7),
+        make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.3)]))
+    entities.append(make_entity("Light", 161 * 16, 120 * 16, [
+        make_field("radius", "Float", 160.0),
+        make_field("r", "Float", 0.4), make_field("g", "Float", 0.5),
+        make_field("b", "Float", 0.7), make_field("intensity", "Float", 0.35)]))
+    entities.append(make_entity("Light", 176 * 16, 128 * 16, [
+        make_field("radius", "Float", 120.0),
+        make_field("r", "Float", 0.5), make_field("g", "Float", 0.4),
+        make_field("b", "Float", 0.6), make_field("intensity", "Float", 0.3)]))
+    entities.append(make_entity("Light", 191 * 16, 167 * 16, [
+        make_field("radius", "Float", 260.0),
         make_field("r", "Float", 0.3), make_field("g", "Float", 0.4),
-        make_field("b", "Float", 0.8), make_field("intensity", "Float", 0.4)]))
+        make_field("b", "Float", 0.7), make_field("intensity", "Float", 0.5)]))
+    entities.append(make_entity("Light", 183 * 16, 160 * 16, [
+        make_field("radius", "Float", 140.0),
+        make_field("r", "Float", 0.4), make_field("g", "Float", 0.5),
+        make_field("b", "Float", 0.8), make_field("intensity", "Float", 0.3)]))
+    entities.append(make_entity("Light", 198 * 16, 175 * 16, [
+        make_field("radius", "Float", 140.0),
+        make_field("r", "Float", 0.4), make_field("g", "Float", 0.5),
+        make_field("b", "Float", 0.8), make_field("intensity", "Float", 0.3)]))
+    entities.append(make_entity("Light", 212 * 16, 143 * 16, [
+        make_field("radius", "Float", 100.0),
+        make_field("r", "Float", 0.2), make_field("g", "Float", 0.2),
+        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.4)]))
+    # Poison swamp — sickly green
+    # Oceiros arena — dark crystal
     # SESSION 10 FIDELITY PASS — Consumed King's Garden
     # Additional DS3-faithful terrain: crystal shard debris, consumed throne stones,
     # garden pool edges, crystal growth formations, consumed knight patrol debris
