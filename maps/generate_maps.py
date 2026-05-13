@@ -6207,6 +6207,46 @@ def make_road_of_sacrifices():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+
+    # --- SESSION 87 DS3 terrain (Road of Sacrifices detail pass) ---
+    # DS3: Dense forest trees along the path edges
+    for tx in [8, 12, 16, 20, 24, 28, 32, 36, 40]:
+        for ty in [8, 10]:
+            chunk[tx][ty] = TILE_WALL
+            chunk[tx][ty-1] = TILE_WALLTOP
+    for tx in [44, 48, 52, 56, 60, 64, 68, 72, 76, 80]:
+        for ty in [108, 110]:
+            chunk[tx][ty] = TILE_WALL
+            chunk[tx][ty+1] = TILE_WALLTOP
+    # DS3: Corvian nests in the treetops (elevated platforms)
+    for tx in [35, 55, 75, 95]:
+        for ty in [15, 16]:
+            chunk[tx][ty] = TILE_WALL
+        chunk[tx][14] = TILE_WALLTOP
+    # DS3: Moss-covered ruins (the crumbling stone structures)
+    for tx in range(50, 58):
+        for ty in [40, 48]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [50, 58]:
+        for ty in range(40, 49):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Swampy pools with crabs (dark ground patches)
+    for tx in range(70, 80):
+        for ty in range(85, 92):
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Bridge supports over the ravine
+    for tx in [60, 65, 70]:
+        for ty in range(55, 65):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(58, 73):
+        chunk[tx][55] = TILE_WALL
+    # DS3: Crystal Sage arena (open clearing with crystal formations)
+    for tx in range(100, 112):
+        for ty in range(90, 100):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [100, 104, 108, 112]:
+        for ty in [90, 100]:
+            chunk[tx][ty] = TILE_WALL
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -7235,6 +7275,57 @@ def make_farron_keep():
         mapped = ENEMY_KIND_MAP.get("Ghru", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 87 DS3 terrain (Farron Keep detail pass) ---
+    # DS3: Poison swamp islands (elevated ground in the swamp)
+    for tx in range(15, 25):
+        for ty in range(30, 38):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in range(40, 52):
+        for ty in range(55, 65):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in range(65, 78):
+        for ty in range(80, 90):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in range(90, 102):
+        for ty in range(60, 70):
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Ghru camp fires on the islands (small wall clusters as camps)
+    for tx in [18, 20, 22]:
+        for ty in [32, 34]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [45, 47, 49]:
+        for ty in [57, 59]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Old Wolf tower (stone structure)
+    for tx in range(55, 62):
+        for ty in [20, 30]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [55, 62]:
+        for ty in range(20, 31):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(55, 63):
+        chunk[tx][19] = TILE_WALLTOP
+    # DS3: Abyss Watchers mausoleum entrance
+    for tx in range(110, 125):
+        for ty in [95, 105]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [110, 125]:
+        for ty in range(95, 106):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Three fire basin pedestals
+    for tx in [25, 55, 85]:
+        for ty in [45, 46, 47]:
+            chunk[tx][ty] = TILE_WALL
+        chunk[tx][44] = TILE_WALLTOP
+    # DS3: Darkwraith holes (dark passages)
+    for tx in range(35, 40):
+        for ty in range(70, 75):
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Broken bridge to the keep
+    for tx in range(100, 115):
+        chunk[tx][50] = TILE_WALL
+        chunk[tx][49] = TILE_WALLTOP
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -8584,6 +8675,55 @@ def make_cathedral_deep():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+
+    # --- SESSION 87 DS3 terrain (Cathedral of the Deep detail pass) ---
+    # DS3: Main cathedral buttresses (flying buttresses)
+    for tx in [20, 35, 50, 65, 80, 95]:
+        for ty in range(15, 30):
+            chunk[tx][ty] = TILE_WALL
+            chunk[tx][ty-1] = TILE_WALLTOP
+    # DS3: Cathedral nave (long hall with pillars)
+    for tx in [30, 40, 50, 60, 70, 80, 90, 100]:
+        for ty in [35, 36]:
+            chunk[tx][ty] = TILE_WALL
+            chunk[tx][34] = TILE_WALLTOP
+    # DS3: Pew rows in the nave
+    for tx in [32, 34, 36, 38, 42, 44, 46, 48, 52, 54, 56, 58, 62, 64, 66, 68]:
+        for ty in [40, 41]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Altar platform at the far end
+    for tx in range(45, 60):
+        for ty in [50, 51]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(45, 61):
+        chunk[tx][49] = TILE_WALLTOP
+    # DS3: Exterior graveyard tombstones
+    for tx in [15, 17, 19, 21, 23, 25, 27, 29]:
+        for ty in [55, 57, 59]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Rosaria's chamber alcove
+    for tx in range(85, 95):
+        for ty in [65, 72]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [85, 95]:
+        for ty in range(65, 73):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(85, 96):
+        chunk[tx][64] = TILE_WALLTOP
+    # DS3: Giant's room (large open chamber)
+    for tx in range(100, 120):
+        for ty in [75, 88]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [100, 120]:
+        for ty in range(75, 89):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Deep puddles throughout the exterior
+    for tx in range(25, 40):
+        for ty in range(60, 68):
+            chunk[tx][ty] = TILE_POISON
+    for tx in range(60, 75):
+        for ty in range(80, 88):
+            chunk[tx][ty] = TILE_POISON
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -9614,6 +9754,53 @@ def make_catacombs_of_carthus():
     # Wolnir's sword mount point
     chunk[65][90] = TILE_WALL  # sword mount
 
+
+    # --- SESSION 87 DS3 terrain (Catacombs of Carthus detail pass) ---
+    # DS3: Bone piles throughout the catacombs
+    for tx in [15, 22, 30, 38, 45, 52, 60, 68, 75, 82, 90, 98, 105]:
+        for ty in [20, 25, 30]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Skull alcoves in the walls
+    for tx in [18, 28, 38, 48, 58, 68, 78, 88, 98, 108]:
+        for ty in [12, 13]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Broken bridge (the iconic collapsing bridge)
+    for tx in range(30, 50):
+        chunk[tx][40] = TILE_WALL
+        chunk[tx][39] = TILE_WALLTOP
+    # DS3: Bridge gap (missing section)
+    for tx in range(40, 45):
+        chunk[tx][40] = TILE_GROUND
+        chunk[tx][39] = TILE_GROUND
+    # DS3: Chariot ruts in the corridor floor
+    for tx in range(55, 85):
+        for ty in [48, 49]:
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Urn clusters (breakable pots with loot)
+    for tx in [60, 62, 64, 70, 72, 74, 80, 82]:
+        for ty in [55, 56]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Wolnir's arena (large chamber)
+    for tx in range(90, 115):
+        for ty in range(35, 55):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [90, 115]:
+        for ty in range(35, 56):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(90, 116):
+        for ty in [35, 55]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Smouldering Lake drop shaft
+    for tx in range(100, 106):
+        for ty in range(60, 68):
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Black Knight alcove
+    for tx in range(110, 116):
+        for ty in [22, 28]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [110, 116]:
+        for ty in range(22, 29):
+            chunk[tx][ty] = TILE_WALL
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
