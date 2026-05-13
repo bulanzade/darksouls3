@@ -932,6 +932,7 @@ def make_cemetery_of_ash():
     spawn_px, spawn_py = 25 * 16, 152 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py,
         [make_field("heal", "Bool", True)]))
+    entities.append(make_entity("BossSpawn", 96 * 16, 80 * 16, [make_field("name", "String", "Iudex Gundyr")]))
 
     # --- Bonfires ---
     # Cemetery of Ash bonfire — dead tree clearing (midpoint)
@@ -2599,6 +2600,7 @@ def make_lothric_wall():
     spawn_px, spawn_py = 18 * 16, 12 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py,
         [make_field("heal", "Bool", True)]))
+    entities.append(make_entity("BossSpawn", 197 * 16, 221 * 16, [make_field("name", "String", "Vordt of the Boreal Valley")]))
 
     # --- Bonfires ---
     entities.append(make_entity("Bonfire", 35 * 16, 22 * 16))    # Wall Entrance
@@ -3786,7 +3788,7 @@ def make_undead_settlement():
     entities.append(make_entity("Bonfire", 90 * 16, 112 * 16))  # Pit of Hollows
 
     # --- Boss ---
-    entities.append(make_entity("BossSpawn", 90 * 16, 106 * 16))
+    entities.append(make_entity("BossSpawn", 187 * 16, 206 * 16))
 
     # --- Enemies (DS3 Undead Settlement: Peasant Hollows, Evangelists, Thralls) ---
     enemy_data = [
@@ -4954,7 +4956,7 @@ def make_road_of_sacrifices():
     entities.append(make_entity("Bonfire", 210 * 16, 148 * 16))  # Crystal Sage
 
     # Boss - Crystal Sage
-    entities.append(make_entity("BossSpawn", 130 * 16, 112 * 16))
+    entities.append(make_entity("BossSpawn", 210 * 16, 148 * 16))
 
     # Enemies - DS3 faithful: Corvians (many throughout forest), Lycanthropes,
     # Corvian Storytellers, Black Knight, Exiles, Crabs, Crystal Lizards
@@ -6153,7 +6155,7 @@ def make_farron_keep():
     entities.append(make_entity("Bonfire", 275 * 16, 215 * 16))   # Abyss Watchers
 
     # Boss - Abyss Watchers
-    entities.append(make_entity("BossSpawn", 140 * 16, 112 * 16))
+    entities.append(make_entity("BossSpawn", 275 * 16, 215 * 16))
 
     # Enemies - DS3 faithful: Ghru (swarm the swamp), Elder Ghru (elite horned beasts),
     # Darkwraiths (abyss knights), Basilisks (curse cave), Rotten Slugs (leeches everywhere),
@@ -7271,7 +7273,7 @@ def make_cathedral_deep():
     entities.append(make_entity("Bonfire", 190 * 16, 213 * 16))     # Rosaria's Bed Chamber
 
     # Boss - Deacons of the Deep
-    entities.append(make_entity("BossSpawn", 45 * 16, 114 * 16))
+    entities.append(make_entity("BossSpawn", 190 * 16, 213 * 16))
 
     # Enemies (DS3 Cathedral of the Deep: Cathedral Knights, Thralls/Hollow Slaves,
     # Evangelists, Deacons, Infested Corpses, Reanimated Corpses, Devout Hollows,
@@ -8319,7 +8321,7 @@ def make_catacombs_of_carthus():
     entities.append(make_entity("Bonfire", 102 * 16, 187 * 16))   # Wolnir
 
     # Boss - Wolnir
-    entities.append(make_entity("BossSpawn", 125 * 16, 100 * 16))
+    entities.append(make_entity("BossSpawn", 222 * 16, 187 * 16))
 
     # Enemies — DS3 Catacombs of Carthus: Skeleton Swordsmen, Skeleton Wheels,
     # Hound-Rats, Writhing Rotten Flesh, Black Knight (Tsorig invasion), Crystal Lizard
@@ -9369,7 +9371,7 @@ def make_smouldering_lake():
     entities.append(make_entity("Bonfire", 228 * 16, 173 * 16))   # Old Demon King
 
     # Boss - Old Demon King
-    entities.append(make_entity("BossSpawn", 135 * 16, 105 * 16))
+    entities.append(make_entity("BossSpawn", 228 * 16, 173 * 16))
 
     # Enemies — DS3 Smouldering Lake: Demon Clerics, Demon Statues, Basilisks,
     # Smouldering Rotten Flesh, Great Crab, Carthus Sandworm,
@@ -10359,7 +10361,7 @@ def make_irithyll():
     entities.append(make_entity("Bonfire", 123 * 16, 108 * 16))     # Pontiff Sulyvahn (boss)
 
     # Boss - Pontiff Sulyvahn
-    entities.append(make_entity("BossSpawn", 120 * 16, 76 * 16))
+    entities.append(make_entity("BossSpawn", 246 * 16, 118 * 16))
 
     # Enemies — DS3 Irithyll of the Boreal Valley (wiki-verified walkthrough):
     # Pontiff Knights (hags/dancers with fire swords), Fire Witches (ranged fire magic),
@@ -12813,7 +12815,7 @@ def make_profaned_capital():
     entities.append(make_entity("Bonfire", 187 * 16, 201 * 16))    # Yhorm the Giant
 
     # --- Boss ---
-    entities.append(make_entity("BossSpawn", 108 * 16, 14 * 16))
+    entities.append(make_entity("BossSpawn", 187 * 16, 201 * 16))
 
     # --- Enemies ---
     # DS3 Profaned Capital enemies: Handmaids (Jailer), Gargoyles (Headless),
@@ -13752,7 +13754,7 @@ def make_anor_londo():
     entities.append(make_entity("Bonfire", 168 * 16, 131 * 16))  # Aldrich boss bonfire
 
     # --- Boss ---
-    entities.append(make_entity("BossSpawn", 128 * 16, 78 * 16))
+    entities.append(make_entity("BossSpawn", 168 * 16, 131 * 16))
 
     # --- Enemies — DS3 Anor Londo: Silver Knights, Giant Slave (archer),
     # Deep Accursed, Deacons (pyromancers + 3 before fog), Rotten Flesh of Aldrich (slimes)
@@ -14859,6 +14861,7 @@ def make_lothric_castle():
     spawn_px, spawn_py = 10 * 16, 30 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py,
         [make_field("heal", "Bool", True)]))
+    entities.append(make_entity("BossSpawn", 257 * 16, 142 * 16, [make_field("name", "String", "Dragonslayer Armour")]))
 
     # --- Bonfires --- DS3: Dragon Barracks, Lothric Castle, Grand Archives, Dragonslayer Armour
     entities.append(make_entity("Bonfire", 38 * 16, 56 * 16))    # Dragon Barracks (entry)
@@ -15842,7 +15845,7 @@ def make_grand_archives():
     # ================================================================
     # BOSS SPAWN — Twin Princes (Lorian & Lothric)
     # ================================================================
-    entities.append(make_entity("BossSpawn", 110 * 16, 12 * 16))
+    entities.append(make_entity("BossSpawn", 181 * 16, 38 * 16))
 
     # ================================================================
     # ENEMIES — DS3 Grand Archives (wiki-complete)
@@ -17099,6 +17102,7 @@ def make_kiln_of_the_first_flame():
     # --- Player spawn at Flameless Shrine ---
     spawn_px, spawn_py = 80 * 16, 150 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
+    entities.append(make_entity("BossSpawn", 97 * 16, 73 * 16, [make_field("name", "String", "Soul of Cinder")]))
 
     # --- Bonfires ---
     entities.append(make_entity("Bonfire", 38 * 16, 137 * 16))   # Flameless Shrine
@@ -17999,7 +18003,7 @@ def make_consumed_kings_garden():
     entities.append(make_entity("Bonfire", 191 * 16, 167 * 16))   # Oceiros the Consumed King (boss)
 
     # --- Boss ---
-    entities.append(make_entity("BossSpawn", 120 * 16, 88 * 16))  # Oceiros
+    entities.append(make_entity("BossSpawn", 195 * 16, 161 * 16))  # Oceiros
 
     # --- Enemies — DS3 Consumed King's Garden (wiki-accurate):
     # Cathedral Knights patrol the garden. Hollow Slaves ambush from dark corners.
@@ -19105,7 +19109,7 @@ def make_untended_graves():
     entities.append(make_entity("Bonfire", 155 * 16, 133 * 16))   # Champion Gundyr
 
     # --- Boss ---
-    entities.append(make_entity("BossSpawn", 105 * 16, 78 * 16))  # Champion Gundyr
+    entities.append(make_entity("BossSpawn", 155 * 16, 133 * 16))  # Champion Gundyr
 
     # --- Enemies — DS3 Untended Graves (wiki-accurate):
     # Black Knights are the primary enemies — dark mirror of Cemetery of Ash.
@@ -19931,7 +19935,7 @@ def make_archdragon_peak():
     entities.append(make_entity("Bonfire", 262 * 16, 56 * 16))    # Nameless King
 
     # --- Boss ---
-    entities.append(make_entity("BossSpawn", 128 * 16, 85 * 16))  # Nameless King
+    entities.append(make_entity("BossSpawn", 262 * 16, 56 * 16))  # Nameless King
 
     # --- Enemies (DS3 Archdragon Peak: dense Serpent-Men, Summoners, Drakeblood Knights,
     # Havel Knight, Rock Lizards, Wyvern) ---
