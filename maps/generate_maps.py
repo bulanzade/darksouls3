@@ -10901,8 +10901,9 @@ def make_consumed_kings_garden():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # --- Bonfires ---
-    # DS3: only 1 bonfire — Oceiros the Consumed King (after defeating boss)
-    entities.append(make_entity("Bonfire", 120 * 16, 95 * 16))   # Oceiros boss bonfire
+    # DS3 Consumed King's Garden: 2 bonfires — entry (after lift down) and Oceiros boss
+    entities.append(make_entity("Bonfire", 15 * 16, 18 * 16))    # Consumed King's Garden (entry)
+    entities.append(make_entity("Bonfire", 120 * 16, 95 * 16))   # Oceiros the Consumed King (boss)
 
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 120 * 16, 88 * 16))  # Oceiros
