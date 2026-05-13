@@ -1633,6 +1633,36 @@ def make_firelink_shrine():
     fill_tiles(chunk, TILE_WALL, 96, 134, 97, 135)
     fill_tiles(chunk, TILE_WALL, 100, 138, 101, 139)
 
+
+    # ================================================================
+    # DS3 STRUCTURAL WALLS — Lothric Wall castle architecture
+    # DS3: high wall with ramparts, wyvern bridge, knight plaza, chapel
+    # ================================================================
+    # High wall ramparts — stone battlement walls (DS3: castle walls with Lothric Knights)
+    fill_tiles(chunk, TILE_WALL, 68, 108, 72, 114)  # Battlement wall left
+    fill_tiles(chunk, TILE_WALL, 84, 110, 88, 116)  # Battlement wall right
+    fill_tiles(chunk, TILE_WALL, 76, 104, 80, 108)  # Battlement divider
+    # Tower on the wall — spiral staircase walls (DS3: stone tower interior)
+    fill_tiles(chunk, TILE_WALL, 92, 96, 96, 102)   # Tower wall outer
+    fill_tiles(chunk, TILE_WALL, 100, 92, 104, 98)  # Tower wall inner
+    fill_tiles(chunk, TILE_WALL, 96, 88, 100, 92)   # Tower top wall
+    # Wyvern fire bridge — scorched bridge walls (DS3: dragon scorches bridge)
+    fill_tiles(chunk, TILE_WALL, 52, 80, 56, 86)    # Bridge parapet left
+    fill_tiles(chunk, TILE_WALL, 68, 78, 72, 84)    # Bridge parapet right
+    fill_tiles(chunk, TILE_WALL, 60, 82, 64, 86)    # Bridge center obstacle
+    # Knight plaza — courtyard walls (DS3: open area with fountain and knights)
+    fill_tiles(chunk, TILE_WALL, 72, 64, 76, 70)    # Courtyard wall NW
+    fill_tiles(chunk, TILE_WALL, 88, 62, 92, 68)    # Courtyard wall NE
+    fill_tiles(chunk, TILE_WALL, 76, 68, 80, 72)    # Fountain wall
+    # Chapel interior — church pews and altar (DS3: small chapel with fire keeper)
+    fill_tiles(chunk, TILE_WALL, 66, 50, 70, 54)    # Chapel pew left
+    fill_tiles(chunk, TILE_WALL, 82, 50, 86, 54)    # Chapel pew right
+    fill_tiles(chunk, TILE_WALL, 72, 46, 78, 48)    # Chapel altar wall
+    # Vordt arena — battlement platform (DS3: Vordt fights on ice-covered wall)
+    fill_tiles(chunk, TILE_WALL, 56, 22, 60, 28)    # Arena wall NW
+    fill_tiles(chunk, TILE_WALL, 96, 22, 100, 28)   # Arena wall NE
+    fill_tiles(chunk, TILE_WALL, 64, 18, 68, 22)    # Arena wall left
+    fill_tiles(chunk, TILE_WALL, 88, 18, 92, 22)    # Arena wall right
     # ================================================================
     # ENTITIES
     # ================================================================
@@ -3771,6 +3801,39 @@ def make_undead_settlement():
     fill_tiles(chunk, TILE_WALL, 106, 36, 107, 37)
     fill_tiles(chunk, TILE_WALL, 112, 42, 113, 43)
 
+
+    # ================================================================
+    # DS3 STRUCTURAL WALLS — Undead Settlement village architecture
+    # DS3: village with wooden houses, narrow alleys, hanging corpses,
+    # burning tree square, greatwood pit, and giant tower
+    # ================================================================
+    # Settlement entry — wooden house facades (DS3: houses line narrow streets)
+    fill_tiles(chunk, TILE_WALL, 24, 28, 28, 34)    # House wall left
+    fill_tiles(chunk, TILE_WALL, 40, 26, 44, 32)    # House wall right
+    fill_tiles(chunk, TILE_WALL, 32, 36, 36, 42)    # Back alley wall
+    # Burning tree square — building walls (DS3: open square with blazing tree)
+    fill_tiles(chunk, TILE_WALL, 50, 44, 54, 50)    # Square building left
+    fill_tiles(chunk, TILE_WALL, 66, 42, 70, 48)    # Square building right
+    fill_tiles(chunk, TILE_WALL, 56, 52, 60, 58)    # Square center wall
+    # Multi-story house interior (DS3: house shortcut through village)
+    fill_tiles(chunk, TILE_WALL, 28, 54, 32, 60)    # House interior wall 1
+    fill_tiles(chunk, TILE_WALL, 38, 56, 42, 62)    # House interior wall 2
+    fill_tiles(chunk, TILE_WALL, 32, 64, 36, 68)    # House floor divider
+    # Evangelist patrol area — church-like structure (DS3: Evangelists in building)
+    fill_tiles(chunk, TILE_WALL, 60, 60, 64, 66)    # Church wall left
+    fill_tiles(chunk, TILE_WALL, 74, 58, 78, 64)    # Church wall right
+    fill_tiles(chunk, TILE_WALL, 66, 66, 70, 72)    # Church rear wall
+    # Giant tower area — stone tower walls (DS3: giant with greatbow)
+    fill_tiles(chunk, TILE_WALL, 82, 44, 86, 50)    # Tower base wall
+    fill_tiles(chunk, TILE_WALL, 94, 46, 98, 52)    # Tower support wall
+    # Greatwood pit — arena walls (DS3: Curse-rotted Greatwood boss pit)
+    fill_tiles(chunk, TILE_WALL, 76, 86, 80, 92)    # Pit wall NW
+    fill_tiles(chunk, TILE_WALL, 96, 84, 100, 90)   # Pit wall NE
+    fill_tiles(chunk, TILE_WALL, 78, 100, 82, 106)   # Pit wall SW
+    fill_tiles(chunk, TILE_WALL, 94, 98, 98, 104)    # Pit wall SE
+    # Cliffside path — stone retaining walls (DS3: path along cliff edge)
+    fill_tiles(chunk, TILE_WALL, 90, 32, 94, 36)    # Retaining wall
+    fill_tiles(chunk, TILE_WALL, 104, 38, 108, 42)   # Cliff wall
         # ================================================================
     # ENTITIES
     # ================================================================
@@ -4944,6 +5007,31 @@ def make_road_of_sacrifices():
     fill_tiles(chunk, TILE_WALL, 128, 114, 129, 115)
     fill_tiles(chunk, TILE_WALL, 120, 118, 121, 119)
     fill_tiles(chunk, TILE_WALL, 132, 108, 133, 109)
+
+    # ================================================================
+    # DS3 STRUCTURAL WALLS — Road of Sacrifices forest and ruins
+    # DS3: dense forest with Corvian ambush, ruined fortress, crystal caves
+    # ================================================================
+    # Corvian woods — tree obstacle walls (DS3: dense forest with Corvian enemies)
+    fill_tiles(chunk, TILE_WALL, 30, 38, 34, 44)    # Tree cluster left
+    fill_tiles(chunk, TILE_WALL, 46, 36, 50, 42)    # Tree cluster right
+    fill_tiles(chunk, TILE_WALL, 38, 48, 42, 54)    # Tree cluster center
+    # Halfway Fortress — ruined stone walls (DS3: stone fortress with Anri/Horace)
+    fill_tiles(chunk, TILE_WALL, 54, 56, 58, 62)    # Fortress wall left
+    fill_tiles(chunk, TILE_WALL, 66, 54, 70, 60)    # Fortress wall right
+    fill_tiles(chunk, TILE_WALL, 60, 62, 64, 66)    # Fortress interior wall
+    # Crucifixion woods — wetland tree clusters (DS3: wide wetland with Exiles)
+    fill_tiles(chunk, TILE_WALL, 40, 68, 44, 74)    # Wetland tree cluster
+    fill_tiles(chunk, TILE_WALL, 56, 72, 60, 78)    # Wetland tree cluster 2
+    fill_tiles(chunk, TILE_WALL, 48, 82, 52, 88)    # Wetland tree cluster 3
+    # Crystal Sage arena — crystal formations (DS3: crystal growths everywhere)
+    fill_tiles(chunk, TILE_WALL, 120, 100, 124, 106) # Crystal wall left
+    fill_tiles(chunk, TILE_WALL, 136, 96, 140, 102)  # Crystal wall right
+    fill_tiles(chunk, TILE_WALL, 128, 108, 132, 114)  # Crystal wall center
+    fill_tiles(chunk, TILE_WALL, 142, 108, 146, 114)  # Crystal wall far
+    # Black Knight patrol area — stone ruins (DS3: Black Knight patrols forest)
+    fill_tiles(chunk, TILE_WALL, 86, 68, 90, 74)    # Ruin wall left
+    fill_tiles(chunk, TILE_WALL, 100, 72, 104, 78)   # Ruin wall right
 
         # --- ENTITIES ---
     spawn_px, spawn_py = 18 * 16, 16 * 16
@@ -20121,6 +20209,37 @@ def make_archdragon_peak():
     fill_tiles(chunk, TILE_WALL, 104, 96, 105, 97)
     fill_tiles(chunk, TILE_WALL, 112, 84, 113, 85)
 
+
+    # ================================================================
+    # DS3 STRUCTURAL WALLS — Archdragon Peak mountain architecture
+    # DS3: mountain peak with serpent-man camp, dragon bones, wyvern arena,
+    # ancient mausoleum, and Nameless King boss at the summit
+    # ================================================================
+    # Serpent-man camp — barracks walls (DS3: serpent-men train at camp)
+    fill_tiles(chunk, TILE_WALL, 60, 160, 64, 166)  # Barracks wall 1
+    fill_tiles(chunk, TILE_WALL, 76, 158, 80, 164)  # Barracks wall 2
+    fill_tiles(chunk, TILE_WALL, 68, 168, 72, 174)  # Barracks wall 3
+    fill_tiles(chunk, TILE_WALL, 84, 166, 88, 172)  # Training area wall
+    # Ancient Wyvern arena — dragon bone obstacles (DS3: massive dragon skeleton)
+    fill_tiles(chunk, TILE_WALL, 108, 150, 112, 158) # Dragon bone NW
+    fill_tiles(chunk, TILE_WALL, 124, 148, 128, 156) # Dragon bone NE
+    fill_tiles(chunk, TILE_WALL, 116, 162, 120, 170) # Dragon bone SW
+    fill_tiles(chunk, TILE_WALL, 132, 160, 136, 168) # Dragon bone SE
+    # Dragon-Kin Mausoleum — altar walls (DS3: dragon meditation altar)
+    fill_tiles(chunk, TILE_WALL, 100, 120, 104, 126) # Altar wall left
+    fill_tiles(chunk, TILE_WALL, 116, 118, 120, 124) # Altar wall right
+    fill_tiles(chunk, TILE_WALL, 108, 128, 112, 134) # Altar center wall
+    # Havel knight area — stone cliff walls (DS3: Havel Knight ambush)
+    fill_tiles(chunk, TILE_WALL, 140, 140, 144, 146) # Cliff wall 1
+    fill_tiles(chunk, TILE_WALL, 148, 136, 152, 142) # Cliff wall 2
+    # Nameless King arena — peak summit walls (DS3: open sky arena)
+    fill_tiles(chunk, TILE_WALL, 80, 40, 84, 46)    # Summit wall NW
+    fill_tiles(chunk, TILE_WALL, 96, 38, 100, 44)   # Summit wall NE
+    fill_tiles(chunk, TILE_WALL, 84, 50, 88, 56)    # Summit wall SW
+    fill_tiles(chunk, TILE_WALL, 92, 48, 96, 54)    # Summit wall SE
+    # Path corridors — mountain passage walls (DS3: narrow paths between areas)
+    fill_tiles(chunk, TILE_WALL, 44, 142, 48, 148)  # Passage wall left
+    fill_tiles(chunk, TILE_WALL, 56, 140, 60, 146)  # Passage wall right
         # --- Player spawn ---
     spawn_px, spawn_py = 18 * 16, 132 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
