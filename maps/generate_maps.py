@@ -980,6 +980,17 @@ def make_cemetery_of_ash():
     entities.append(make_entity("Enemy", 136 * 16, 108 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", "RavenousCrystalLizard")]))
 
+    # Upper cemetery Q(0,0) — Hollow Soldiers along the upper cemetery path (DS3: hollows throughout)
+    for tx, ty in [(79, 21), (71, 36), (67, 44), (65, 47), (58, 57)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    # Upper-east cemetery Q(1,0) — Hollow Soldiers and a Starved Hound (DS3: hollows on upper path)
+    for tx, ty in [(93, 35), (86, 43), (95, 51), (93, 54), (82, 62)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    entities.append(make_entity("Enemy", 99 * 16, 39 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "StarvedHound")]))
+
     # --- Items (accurate DS3 placements) ---
     # Ashen Estus Flask — corpse by broken fountain
     entities.append(make_entity("Item", 82 * 16, 134 * 16, [
@@ -8175,6 +8186,11 @@ def make_profaned_capital():
         # Giant room — Sewer Centipedes in toxic swamp (DS3: centipedes in poison pools)
         ("SewerCentipede", 70, 60), ("SewerCentipede", 74, 66), ("SewerCentipede", 80, 62),
         ("GiantSlave", 76, 60),
+        # Yhorm throne room Q(1,0) — Gargoyles and Sewer Centipedes in the boss area (DS3: enemies near Yhorm)
+        ("Gargoyle", 108, 2), ("Gargoyle", 129, 15),
+        ("SewerCentipede", 95, 11), ("SewerCentipede", 115, 26),
+        ("Jailer", 90, 7), ("Jailer", 128, 22),
+        ("Gargoyle", 124, 34), ("SewerCentipede", 94, 31),
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -10582,6 +10598,15 @@ def make_kiln_of_the_first_flame():
     entities.append(make_entity("Enemy", 120 * 16, 90 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", "CrystalLizard")]))
 
+    # Q(0,0) — Hollow Soldiers in the First Flame arena perimeter (DS3: hollows near the ash arena)
+    for tx, ty in [(72, 20), (66, 26), (73, 37), (74, 50), (62, 68)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    # Q(1,0) — Black Knights in the collapsed chamber and girder hall (DS3: knights along the path)
+    for tx, ty in [(113, 20), (105, 26), (93, 38), (87, 44), (105, 50)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", "BlackKnight")]))
+
     # --- NPCs ---
     # Fire Keeper — appears at Kiln for the final scene (DS3: summons Fire Keeper for ending)
     entities.append(make_entity("Npc", 78 * 16, 28 * 16, [
@@ -12235,6 +12260,11 @@ def make_archdragon_peak():
         ("DrakebloodKnight", 78, 52),                                     # Additional summoned knight
         # Havel Knight — appears at Great Belfry area (DS3: tough NPC near fallen wyvern)
         ("HavelKnight", 128, 70),
+        # Lower peak Q(1,1) — Serpent-Men guarding the altar descent (DS3: serpent-men in lower ruins)
+        ("SerpentMan", 146, 83), ("SerpentMan", 144, 87),
+        ("SerpentMan", 137, 91), ("SerpentMan", 132, 95),
+        ("SerpentMan", 149, 99), ("SerpentMan", 142, 111),
+        ("DarkMage", 153, 107), ("SerpentMan", 122, 115),
         # Ancient Wyvern — DS3: sleeps on bridge, must be sniped or dropped onto
         # Two wyverns in the dragon-path area; MiniBoss fits the "dragon" role
         ("MiniBoss", 55, 66),                                   # Ancient Wyvern (bridge)
