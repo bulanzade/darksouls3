@@ -9199,24 +9199,9 @@ def make_lothric_castle():
     ]))
 
     # --- NPCs - DS3 Lothric Castle ---
-    # Emma, High Priestess of Lothric — in the cathedral/church area
-    # DS3: gives Basin of Vows and Way of Blue covenant
-    entities.append(make_entity("Npc", 122 * 16, 62 * 16, [
-        make_field("name", "String", "Emma"),
-        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
-        make_field("color", "Color", "#D4AF37"),
-        make_field("dialogue", "String",
-            "The Prince has refused his duty as a Lord of Cinder|I am Emma, High Priestess of Lothric, and I beg of you|Save Prince Lothric, he must be made to see his duty through|Take this Basin of Vows"),
-    ]))
-    # Eygon of Carim — summon sign near Dragonslayer Armour arena approach
-    # DS3: can be summoned for Dragonslayer Armour if Irina quest is in correct state
-    entities.append(make_entity("Npc", 115 * 16, 56 * 16, [
-        make_field("name", "String", "Eygon of Carim"),
-        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
-        make_field("color", "Color", "#4A4A4A"),
-        make_field("dialogue", "String",
-            "Keep your hands off Irina|I am Eygon of Carim, bound by duty to protect her|She is under my protection, not yours|Do not forget that"),
-    ]))
+    # NOTE: Emma is only at High Wall of Lothric (LothricWall) — she dies after giving Basin of Vows
+    # NOTE: Eygon of Carim only appears near Irina (Undead Settlement) or Firelink Shrine, not here
+    # Lothric Castle NPCs in DS3: summon signs only (no dialogue NPCs roam the castle interior)
 
     # --- Fog Gates ---
     # Back to AnorLondo (west entry)
@@ -9616,14 +9601,9 @@ def make_grand_archives():
             "A corpse with the Grand Archives Key|"
             "Black Hand Gotthard's journey ends here|He was one of the King's Black Hands"),
     ]))
-    # Siegward of Catarina — in hidden room near lift (DS3: found in cell, helps vs Yhorm/Twin Princes)
-    entities.append(make_entity("Npc", 42 * 16, 132 * 16, [
-        make_field("name", "String", "Siegward of Catarina"),
-        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
-        make_field("color", "Color", "#C8A832"),
-        make_field("dialogue", "String",
-            "I shall join you on this final journey|To reach the Twin Princes at the top|Let us see this through together, my friend"),
-    ]))
+    # NOTE: Siegward does NOT appear in Grand Archives in DS3.
+    # His locations: Undead Settlement, Cathedral well, Irithyll kitchen, Irithyll Dungeon cell, Profaned Capital cell.
+    # Grand Archives has no Siegward NPC dialogue encounter.
 
     # ================================================================
     # FOG GATES — area transitions
