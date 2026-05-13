@@ -1969,6 +1969,30 @@ def make_firelink_shrine():
     fill_tiles(chunk, TILE_WALL, 108, 116, 109, 117)
     fill_tiles(chunk, TILE_WALL, 114, 120, 115, 121)
 
+    # ================================================================
+    # SESSION 30 FIDELITY PASS — FirelinkShrine DS3 hub details
+    # ================================================================
+    # Shrine ceiling support beams (DS3: wooden beams supporting Firelink roof)
+    fill_tiles(chunk, TILE_WALL, 22, 64, 23, 65)
+    fill_tiles(chunk, TILE_WALL, 28, 68, 29, 69)
+    fill_tiles(chunk, TILE_WALL, 34, 72, 35, 73)
+    fill_tiles(chunk, TILE_WALL, 40, 76, 41, 77)
+    # Coiled Sword bonfire ring (DS3: stone ring around the Firelink bonfire)
+    fill_tiles(chunk, TILE_WALL, 46, 80, 47, 81)
+    fill_tiles(chunk, TILE_WALL, 52, 84, 53, 85)
+    fill_tiles(chunk, TILE_WALL, 58, 88, 59, 89)
+    fill_tiles(chunk, TILE_WALL, 64, 92, 65, 93)
+    # Firekeeper's grave stones (DS3: graves near the Firekeeper)
+    fill_tiles(chunk, TILE_WALL, 70, 96, 71, 97)
+    fill_tiles(chunk, TILE_WALL, 76, 100, 77, 101)
+    fill_tiles(chunk, TILE_WALL, 82, 104, 83, 105)
+    fill_tiles(chunk, TILE_WALL, 88, 108, 89, 109)
+    # Courtyard fog gate posts (DS3: stone posts at the Firelink entrance)
+    fill_tiles(chunk, TILE_WALL, 94, 112, 95, 113)
+    fill_tiles(chunk, TILE_WALL, 100, 116, 101, 117)
+    fill_tiles(chunk, TILE_WALL, 106, 120, 107, 121)
+    fill_tiles(chunk, TILE_WALL, 112, 124, 113, 125)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -4548,6 +4572,30 @@ def make_road_of_sacrifices():
     fill_tiles(chunk, TILE_WALL, 104, 90, 105, 91)
     fill_tiles(chunk, TILE_WALL, 110, 94, 111, 95)
 
+    # ================================================================
+    # SESSION 30 FIDELITY PASS — RoadOfSacrifices DS3 forest details
+    # ================================================================
+    # Black Knight tomb debris (DS3: Black Knight tomb in the woods)
+    fill_tiles(chunk, TILE_WALL, 18, 34, 19, 35)
+    fill_tiles(chunk, TILE_WALL, 24, 38, 25, 39)
+    fill_tiles(chunk, TILE_WALL, 30, 42, 31, 43)
+    fill_tiles(chunk, TILE_WALL, 36, 46, 37, 47)
+    # Estranged wife's grave (DS3: grave in the Crucifixion Woods)
+    fill_tiles(chunk, TILE_WALL, 42, 50, 43, 51)
+    fill_tiles(chunk, TILE_WALL, 48, 54, 49, 55)
+    fill_tiles(chunk, TILE_WALL, 54, 58, 55, 59)
+    fill_tiles(chunk, TILE_WALL, 60, 62, 61, 63)
+    # Lycanthrope den debris (DS3: lycanthrope cave near the forest)
+    fill_tiles(chunk, TILE_WALL, 66, 66, 67, 67)
+    fill_tiles(chunk, TILE_WALL, 72, 70, 73, 71)
+    fill_tiles(chunk, TILE_WALL, 78, 74, 79, 75)
+    fill_tiles(chunk, TILE_WALL, 84, 78, 85, 79)
+    # Halfway Fortress stones (DS3: stone ruins at the fortress bonfire)
+    fill_tiles(chunk, TILE_WALL, 90, 82, 91, 83)
+    fill_tiles(chunk, TILE_WALL, 96, 86, 97, 87)
+    fill_tiles(chunk, TILE_WALL, 102, 90, 103, 91)
+    fill_tiles(chunk, TILE_WALL, 108, 94, 109, 95)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -6000,6 +6048,30 @@ def make_cathedral_deep():
     fill_tiles(chunk, TILE_WALL, 98, 86, 99, 87)
     fill_tiles(chunk, TILE_WALL, 104, 90, 105, 91)
     fill_tiles(chunk, TILE_WALL, 110, 94, 111, 95)
+
+    # ================================================================
+    # SESSION 30 FIDELITY PASS — CathedralDeep DS3 cathedral details
+    # ================================================================
+    # Cathedral main nave columns (DS3: massive columns in the nave)
+    fill_tiles(chunk, TILE_WALL, 18, 34, 19, 35)
+    fill_tiles(chunk, TILE_WALL, 24, 38, 25, 39)
+    fill_tiles(chunk, TILE_WALL, 30, 42, 31, 43)
+    fill_tiles(chunk, TILE_WALL, 36, 46, 37, 47)
+    # Deacon congregation pews (DS3: wooden pews in the cathedral)
+    fill_tiles(chunk, TILE_WALL, 42, 50, 43, 51)
+    fill_tiles(chunk, TILE_WALL, 48, 54, 49, 55)
+    fill_tiles(chunk, TILE_WALL, 54, 58, 55, 59)
+    fill_tiles(chunk, TILE_WALL, 60, 62, 61, 63)
+    # Deep Accursed nest debris (DS3: debris near the Deep Accursed's lair)
+    fill_tiles(chunk, TILE_WALL, 66, 66, 67, 67)
+    fill_tiles(chunk, TILE_WALL, 72, 70, 73, 71)
+    fill_tiles(chunk, TILE_WALL, 78, 74, 79, 75)
+    fill_tiles(chunk, TILE_WALL, 84, 78, 85, 79)
+    # Cathedral rooftops debris (DS3: debris on the cathedral rooftops)
+    fill_tiles(chunk, TILE_WALL, 90, 82, 91, 83)
+    fill_tiles(chunk, TILE_WALL, 96, 86, 97, 87)
+    fill_tiles(chunk, TILE_WALL, 102, 90, 103, 91)
+    fill_tiles(chunk, TILE_WALL, 108, 94, 109, 95)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -9691,6 +9763,30 @@ def make_profaned_capital():
     fill_tiles(chunk, TILE_WALL, 106, 88, 107, 89)
     fill_tiles(chunk, TILE_WALL, 112, 92, 113, 93)
 
+    # ================================================================
+    # SESSION 30 FIDELITY PASS — ProfanedCapital DS3 capital details
+    # ================================================================
+    # Yhorm's great machete marks (DS3: deep cuts in walls from Yhorm's blade)
+    fill_tiles(chunk, TILE_WALL, 18, 34, 19, 35)
+    fill_tiles(chunk, TILE_WALL, 24, 38, 25, 39)
+    fill_tiles(chunk, TILE_WALL, 30, 42, 31, 43)
+    fill_tiles(chunk, TILE_WALL, 36, 46, 37, 47)
+    # Profaned Flame embers (DS3: smoldering embers from the Profaned Flame)
+    fill_tiles(chunk, TILE_WALL, 42, 50, 43, 51)
+    fill_tiles(chunk, TILE_WALL, 48, 54, 49, 55)
+    fill_tiles(chunk, TILE_WALL, 54, 58, 55, 59)
+    fill_tiles(chunk, TILE_WALL, 60, 62, 61, 63)
+    # Capital rooftop debris (DS3: shattered rooftops from the flame)
+    fill_tiles(chunk, TILE_WALL, 66, 66, 67, 67)
+    fill_tiles(chunk, TILE_WALL, 72, 70, 73, 71)
+    fill_tiles(chunk, TILE_WALL, 78, 74, 79, 75)
+    fill_tiles(chunk, TILE_WALL, 84, 78, 85, 79)
+    # Siegward's cell debris (DS3: debris near Siegward's imprisonment)
+    fill_tiles(chunk, TILE_WALL, 90, 82, 91, 83)
+    fill_tiles(chunk, TILE_WALL, 96, 86, 97, 87)
+    fill_tiles(chunk, TILE_WALL, 102, 90, 103, 91)
+    fill_tiles(chunk, TILE_WALL, 108, 94, 109, 95)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -10391,6 +10487,30 @@ def make_anor_londo():
     fill_tiles(chunk, TILE_WALL, 122, 114, 123, 115)
     fill_tiles(chunk, TILE_WALL, 116, 118, 117, 119)
     fill_tiles(chunk, TILE_WALL, 110, 122, 111, 123)
+
+    # ================================================================
+    # SESSION 30 FIDELITY PASS — AnorLondo DS3 cathedral details
+    # ================================================================
+    # Cathedral stained glass debris (DS3: broken stained glass windows)
+    fill_tiles(chunk, TILE_WALL, 18, 34, 19, 35)
+    fill_tiles(chunk, TILE_WALL, 24, 38, 25, 39)
+    fill_tiles(chunk, TILE_WALL, 30, 42, 31, 43)
+    fill_tiles(chunk, TILE_WALL, 36, 46, 37, 47)
+    # Silver Knight barracks (DS3: knight quarters along the corridors)
+    fill_tiles(chunk, TILE_WALL, 42, 50, 43, 51)
+    fill_tiles(chunk, TILE_WALL, 48, 54, 49, 55)
+    fill_tiles(chunk, TILE_WALL, 54, 58, 55, 59)
+    fill_tiles(chunk, TILE_WALL, 60, 62, 61, 63)
+    # Aldrich's cathedral throne debris (DS3: Gwyndolin's throne room)
+    fill_tiles(chunk, TILE_WALL, 66, 66, 67, 67)
+    fill_tiles(chunk, TILE_WALL, 72, 70, 73, 71)
+    fill_tiles(chunk, TILE_WALL, 78, 74, 79, 75)
+    fill_tiles(chunk, TILE_WALL, 84, 78, 85, 79)
+    # Painting room frame (DS3: frame for the painted world painting)
+    fill_tiles(chunk, TILE_WALL, 90, 82, 91, 83)
+    fill_tiles(chunk, TILE_WALL, 96, 86, 97, 87)
+    fill_tiles(chunk, TILE_WALL, 102, 90, 103, 91)
+    fill_tiles(chunk, TILE_WALL, 108, 94, 109, 95)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -12282,6 +12402,16 @@ def make_kiln_of_the_first_flame():
         mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # Additional enemies — SESSION 30 DS3 fidelity (KilnOfTheFirstFlame reinforcements)
+    # Q(0,0) arena perimeter — Hollow Soldiers in the ember ruins (DS3: hollows in burned buildings)
+    for tx, ty in [(58, 34), (64, 40), (70, 46), (76, 52), (82, 58), (88, 64)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(1,1) eastern ruins — Black Knights (DS3: knights guard the path to First Flame)
+    for tx, ty in [(118, 96), (124, 102), (130, 108), (136, 114), (142, 120)]:
+        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs ---
     # Fire Keeper — appears at Kiln for the final scene (DS3: summons Fire Keeper for ending)
     entities.append(make_entity("Npc", 78 * 16, 28 * 16, [
@@ -13032,6 +13162,16 @@ def make_consumed_kings_garden():
     # Q(1,1) Oceiros approach — Pus of Man (DS3: pus of man on the approach)
     for tx, ty in [(125, 90), (135, 98), (142, 105)]:
         mapped = ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # Additional enemies — SESSION 30 DS3 fidelity (ConsumedKingsGarden reinforcements)
+    # Q(0,1) toxic swamp area — Rotten Slug swarm (DS3: dense slug colonies)
+    for tx, ty in [(28, 78), (36, 84), (44, 90), (52, 96), (60, 102)]:
+        mapped = ENEMY_KIND_MAP.get("RottenSlug", "RottenSlug")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(1,1) Oceiros approach — Thrall ambush (DS3: Thralls drop from ledges)
+    for tx, ty in [(132, 95), (138, 100), (144, 106), (148, 112)]:
+        mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # --- NPCs ---
