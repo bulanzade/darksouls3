@@ -1351,7 +1351,6 @@ def make_cemetery_of_ash():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
-
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -2345,7 +2344,6 @@ def make_firelink_shrine():
                 _fw = max(1, _feat["w"] // 16)
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
-
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -3546,7 +3544,6 @@ def make_lothric_wall():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
-
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -4719,7 +4716,6 @@ def make_undead_settlement():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
-
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -5822,7 +5818,6 @@ def make_road_of_sacrifices():
                 _fw = max(1, _feat["w"] // 16)
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
-
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -6957,7 +6952,6 @@ def make_farron_keep():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
-
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -8025,7 +8019,6 @@ def make_cathedral_deep():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
-
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -8425,7 +8418,8 @@ def make_catacombs_of_carthus():
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
 
-    entities.append(make_entity("Npc", 81 * 16, 75 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods silently)|(points toward the lake)")]))
+    entities.append(make_entity("Npc", 193 * 16, 156 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello, we meet again|Have you seen Horace anywhere?|I have been separated from him|I am worried... Please tell me if you find him")]))
+    entities.append(make_entity("Npc", 17 * 16, 19 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods slowly)|(points toward the deeper catacombs)|(holds shield tighter)")]))
 
     # Fog Gate back to Farron Keep (DS3: return path from Catacombs entrance)
     entities.append(make_entity("FogGate", 32 * 16, 32 * 16, [
@@ -9038,7 +9032,6 @@ def make_catacombs_of_carthus():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
-
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -9482,8 +9475,6 @@ def make_smouldering_lake():
         fields = [make_field("kind", "LocalEnum.ItemKind", kind), make_field("name", "String", name)]
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
-
-    entities.append(make_entity("Npc", 81 * 16, 75 * 16, [make_field("name", "String", "Knight Slayer Tsorig"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#804020"), make_field("dialogue", "String", "Forgive me, I was absorbed in my conquest|We meet again, Unkindled|I am Tsorig, the Knight Slayer|The arbitrary distinction between right and wrong is irrelevant")]))
 
     entities.append(make_entity("FogGate", 38 * 16, 33 * 16, [
         make_field("dest_area", "String", "CatacombsOfCarthus"),
@@ -10108,7 +10099,6 @@ def make_smouldering_lake():
                 _fw = max(1, _feat["w"] // 16)
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
-
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -11405,7 +11395,6 @@ def make_irithyll():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
-
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -12459,7 +12448,6 @@ def make_irithyll_dungeon():
                 _fw = max(1, _feat["w"] // 16)
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
-
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -13539,7 +13527,6 @@ def make_profaned_capital():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
-
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -14523,7 +14510,6 @@ def make_anor_londo():
                 _fw = max(1, _feat["w"] // 16)
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
-
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -15707,7 +15693,6 @@ def make_lothric_castle():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
-
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -16866,7 +16851,6 @@ def make_grand_archives():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
-
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -17709,7 +17693,6 @@ def make_kiln_of_the_first_flame():
                 _fw = max(1, _feat["w"] // 16)
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
-
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -18753,7 +18736,6 @@ def make_consumed_kings_garden():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
-
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -19679,7 +19661,6 @@ def make_untended_graves():
                 _fw = max(1, _feat["w"] // 16)
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
-
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -20803,7 +20784,6 @@ def make_archdragon_peak():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
-
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -20995,7 +20975,6 @@ def generate_map_from_doc(doc_path):
         ])
 
     snap_entities_to_walkable(chunk, entities)
-
 
     populate_entity_def_uids(entities)
     ground_count = sum(1 for row in chunk for tile in row if tile in (TILE_GROUND, TILE_POISON))
