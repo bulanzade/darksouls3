@@ -1362,7 +1362,7 @@ def make_firelink_shrine():
         make_field("name", "String", "Fire Keeper"),
         make_field("kind", "LocalEnum.NpcKind", "LevelUp"),
         make_field("color", "Color", "#FFFFFF"),
-        make_field("dialogue", "String", "Welcome to Firelink Shrine, Ashen One|May the flames guide thee|Touch the darkness within me, and take in the excess souls"),
+        make_field("dialogue", "String", "Welcome to Firelink Shrine, Ashen One|I am a Fire Keeper. I tend the flame, and tend to thee|May the flames guide thee|Touch the darkness within me, and take in the excess souls|Speak thy mind, Ashen One|Ashen One, my thanks for the eyes of a Fire Keeper"),
     ]))
 
     # Ludleth of Courland (dialogue) — sits on throne behind bonfire
@@ -1370,7 +1370,7 @@ def make_firelink_shrine():
         make_field("name", "String", "Ludleth of Courland"),
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#DAA520"),
-        make_field("dialogue", "String", "Peace. I am Ludleth of Courland|Let me ask you this: is it not the nature of a Lord to sacrifice himself for his people?|Ah, it singeth, to the bone"),
+        make_field("dialogue", "String", "Peace. I am Ludleth of Courland|Let me ask you this: is it not the nature of a Lord to sacrifice himself for his people?|Ah, it singeth, to the bone|Ahh, it singeth, to the very bone|I will not be moved. Not by you, not by anyone|The five Lords sit their thrones, and link the fire"),
     ]))
 
     # Blacksmith Andre — forge alcove, west wing
@@ -1378,7 +1378,7 @@ def make_firelink_shrine():
         make_field("name", "String", "Andre of Astora"),
         make_field("kind", "LocalEnum.NpcKind", "Blacksmith"),
         make_field("color", "Color", "#C0C0C0"),
-        make_field("dialogue", "String", "What do you need? Speak freely|I can reinforce your weapons with titanite|Undead, we are one and the same, we must persist"),
+        make_field("dialogue", "String", "What do you need? Speak freely|I can reinforce your weapons with titanite|Undead, we are one and the same, we must persist|The weapons of old are a wonder, are they not?|Keep your wits about you, Undead|This forge has been here since the beginning"),
     ]))
 
     # Shrine Handmaiden (merchant) — back-left corner of shrine
@@ -1394,7 +1394,7 @@ def make_firelink_shrine():
         make_field("name", "String", "Hawkwood"),
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#7F8C8D"),
-        make_field("dialogue", "String", "Oh, another Unkindled|The Legion of Farron is in the Keep below|They were Lords, once... but now they are Unkindled"),
+        make_field("dialogue", "String", "Oh, another Unkindled|The Legion of Farron is in the Keep below|They were Lords, once... but now they are Unkindled|Do you know what an Unkindled is? We are not Lords, we are nameless, sodden souls|When the Lords abandoned their thrones, we rose from our coffins to link the fire|The Abyss Watchers took the blood of the wolf, and with it, their duty"),
     ]))
 
     # Yuria of Londor — appears after Yoel dies (DS3: stands near east entrance)
@@ -1403,7 +1403,7 @@ def make_firelink_shrine():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#2A1A3A"),
         make_field("dialogue", "String",
-            "Very well. I am Yuria of Londor, a servant of the Lord of Hollows|Thou art the Lord of Hollows, the fire has bent to thy will|Let us embrace the age of hollows, together|Our battle must go on, for as long as we persist"),
+            "Very well. I am Yuria of Londor, a servant of the Lord of Hollows|Thou art the Lord of Hollows, the fire has bent to thy will|Let us embrace the age of hollows, together|Our battle must go on, for as long as we persist|The fire is linked by the Lord of Hollows|A world without fire, or a world with fire, the choice is thine|Hollows are the true stewards of this age"),
     ]))
 
     # Ringfinger Leonhard — gives Cracked Red Eye Orb (DS3: near lower stairway)
@@ -1412,7 +1412,7 @@ def make_firelink_shrine():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#8B0000"),
         make_field("dialogue", "String",
-            "Fingers crossed, you have a good look|I am Leonhard, a Ringfinger. I have a proposition for you|Take this Cracked Red Eye Orb, invade and pillage the souls of others|That is what we do, after all"),
+            "Fingers crossed, you have a good look|I am Leonhard, a Ringfinger. I have a proposition for you|Take this Cracked Red Eye Orb, invade and pillage the souls of others|That is what we do, after all|You have a good head for this work|No need to be shy, we are both of the same ilk|Rosaria is the mother of rebirth, she will welcome you"),
     ]))
 
     # Yoel of Londor — after recruitment (DS3: stands near lower shrine, eventually dies)
@@ -1421,7 +1421,7 @@ def make_firelink_shrine():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#3A3A4A"),
         make_field("dialogue", "String",
-            "Ahh, you're a kind soul. I am Yoel of Londor|I can draw out your true strength, the power that sleeps within thee|Accept this draw of true power|Come back when you need more"),
+            "Ahh, you're a kind soul. I am Yoel of Londor|I can draw out your true strength, the power that sleeps within thee|Accept this draw of true power|Come back when you need more|Death is a temporary affliction, nothing more|Ahh, the Abyss... I can feel it swelling within thee"),
     ]))
 
     # Greirat — after rescue from Lothric Wall (DS3: thief merchant near lower shrine)
@@ -1430,7 +1430,7 @@ def make_firelink_shrine():
         make_field("kind", "LocalEnum.NpcKind", "Merchant"),
         make_field("color", "Color", "#5A5A5A"),
         make_field("dialogue", "String",
-            "You saved me from that cell, I owe you everything|I am Greirat of the Undead Settlement|I can steal items for you, if you like|Just leave it to old Greirat"),
+            "You saved me from that cell, I owe you everything|I am Greirat of the Undead Settlement|I can steal items for you, if you like|Just leave it to old Greirat|Loretta, are you well? I brought you this bauble|I will go on a pillage, don't try to stop me"),
     ]))
 
     # Cornyx — after rescue from Undead Settlement (DS3: pyromancy teacher, sits near bonfire)
@@ -1439,7 +1439,7 @@ def make_firelink_shrine():
         make_field("kind", "LocalEnum.NpcKind", "Merchant"),
         make_field("color", "Color", "#8B6914"),
         make_field("dialogue", "String",
-            "You freed me from my cage. I am Cornyx, pyromancer of the Great Swamp|Bring me pyromancy tomes, and I shall teach you their arts|The flame is a wondrous thing, isn't it|Let it serve you well"),
+            "You freed me from my cage. I am Cornyx, pyromancer of the Great Swamp|Bring me pyromancy tomes, and I shall teach you their arts|The flame is a wondrous thing, isn't it|Let it serve you well|A pyromancer's flame is a fragment of the ancient fire|I wonder what the Great Swamp is like these days"),
     ]))
 
     # Orbeck of Vinheim — after recruitment (DS3: sorcery teacher, near upper shrine)
@@ -1448,7 +1448,7 @@ def make_firelink_shrine():
         make_field("kind", "LocalEnum.NpcKind", "Merchant"),
         make_field("color", "Color", "#7090B0"),
         make_field("dialogue", "String",
-            "Orbeck of Vinheim. A sorcerer, and an assassin|I shall teach you sorceries, as promised|Bring me scrolls, and I shall decipher them|But if you prove talentless, our arrangement ends"),
+            "Orbeck of Vinheim. A sorcerer, and an assassin|I shall teach you sorceries, as promised|Bring me scrolls, and I shall decipher them|But if you prove talentless, our arrangement ends|The Vinheim Dragon School produced many fine sorcerers|Sorcery is the art of the gods, wielded by mortal hands"),
     ]))
 
     # Sirris of the Sunless Realms — after oath (DS3: swears knighthood near shrine)
@@ -1457,7 +1457,7 @@ def make_firelink_shrine():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#A0B0C0"),
         make_field("dialogue", "String",
-            "I am Sirris of the Sunless Realms|I have sworn a knightly oath to serve you|I shall come to your aid whenever you need|Thank you, for accepting my knightly vows"),
+            "I am Sirris of the Sunless Realms|I have sworn a knightly oath to serve you|I shall come to your aid whenever you need|Thank you, for accepting my knightly vows|My grandfather was Holy Knight Hodrick|I wish only to fulfill my duty, as a knight|The Sunless Realms are my home, and my burden"),
     ]))
 
     # --- Items (DS3 Firelink Shrine) ---
@@ -3796,8 +3796,8 @@ def make_road_of_sacrifices():
         make_field("name", "String", "Titanite Shard")]))
 
     # NPCs - Anri and Horace at Halfway Fortress (DS3: they sit together at the bonfire)
-    entities.append(make_entity("Npc", 50 * 16, 30 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello. We meet again|I am Anri of Astora, and this is Horace the Hushed|We journey to find the Lords of Cinder|Won't you join us?")]))
-    entities.append(make_entity("Npc", 54 * 16, 30 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods silently)|(gestures toward Anri)")]))
+    entities.append(make_entity("Npc", 50 * 16, 30 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello. We meet again|I am Anri of Astora, and this is Horace the Hushed|We journey to find the Lords of Cinder|Won't you join us?|I have no love for the smaller roads, they are treacherous|The Cathedral of the Deep lies ahead, tread carefully|Horace and I have been together for a long time now")]))
+    entities.append(make_entity("Npc", 54 * 16, 30 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods silently)|(gestures toward Anri)|(adjusts helmet)")]))
 
     # Orbeck of Vinheim — sorcery teacher in the ruins (DS3: found in a side room of the Crucifixion Woods ruins)
     entities.append(make_entity("Npc", 82 * 16, 60 * 16, [make_field("name", "String", "Orbeck of Vinheim"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#7090B0"), make_field("dialogue", "String", "Orbeck of Vinheim. A sorcerer, and an assassin|I wish to repay my debt to you|Bring me scrolls, and I shall decipher their sorceries")]))
@@ -4485,10 +4485,10 @@ def make_farron_keep():
     entities.append(make_entity("Item", 68 * 16, 78 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Shriving Stone")]))
 
     # NPC - Old Wolf of Farron
-    entities.append(make_entity("Npc", 45 * 16, 103 * 16, [make_field("name", "String", "Old Wolf of Farron"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#8899AA"), make_field("dialogue", "String", "(The wolf gazes silently|Its eyes reflect distant flames)")]))
+    entities.append(make_entity("Npc", 45 * 16, 103 * 16, [make_field("name", "String", "Old Wolf of Farron"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#8899AA"), make_field("dialogue", "String", "(The wolf gazes silently|Its eyes reflect distant flames)|(The old wolf acknowledges your presence)|(It carries the scent of the Abyss Watchers)")]))
 
     # NPC - Hawkwood (event: he meditates at Farron Keep, relating to Abyss Watchers)
-    entities.append(make_entity("Npc", 68 * 16, 72 * 16, [make_field("name", "String", "Hawkwood"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#8B7355"), make_field("dialogue", "String", "The Undead Legion used to be around here|They were a fierce bunch|They linked the fire long ago")]))
+    entities.append(make_entity("Npc", 68 * 16, 72 * 16, [make_field("name", "String", "Hawkwood"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#8B7355"), make_field("dialogue", "String", "The Undead Legion used to be around here|They were a fierce bunch|They linked the fire long ago|The wolf blood runs through their veins|They kept watch over the Abyss, and its abominations|If you seek them, you must first prove your worth")]))
 
     # Fog Gate to CatacombsOfCarthus
     entities.append(make_entity("FogGate", 140 * 16, 130 * 16, [
@@ -5104,10 +5104,10 @@ def make_cathedral_deep():
     entities.append(make_entity("Item", 68 * 16, 78 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Twinkling Titanite")]))
 
     # NPCs - DS3 Cathedral of the Deep: Patches, Rosaria
-    entities.append(make_entity("Npc", 52 * 16, 78 * 16, [make_field("name", "String", "Patches"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#808080"), make_field("dialogue", "String", "You're a parasite, only thinking of yourself|I know your kind, you're nothing but trouble|What's wrong? Something the matter?|Heh heh heh")]))
-    entities.append(make_entity("Npc", 38 * 16, 148 * 16, [make_field("name", "String", "Rosaria"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D0A0B0"), make_field("dialogue", "String", "(No tongue, but her will is clear)|Offer me pale tongues, and I shall grant your desire|Rebirth, or fingers to invade others|I am Rosaria, Mother of Rebirth")]))
+    entities.append(make_entity("Npc", 52 * 16, 78 * 16, [make_field("name", "String", "Patches"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#808080"), make_field("dialogue", "String", "You're a parasite, only thinking of yourself|I know your kind, you're nothing but trouble|What's wrong? Something the matter?|Heh heh heh|I'm Patches, the one and only|You know what I'm talking about, don't you?")]))
+    entities.append(make_entity("Npc", 38 * 16, 148 * 16, [make_field("name", "String", "Rosaria"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D0A0B0"), make_field("dialogue", "String", "(No tongue, but her will is clear)|Offer me pale tongues, and I shall grant your desire|Rebirth, or fingers to invade others|I am Rosaria, Mother of Rebirth|The fingers of the gods stretch far and wide|Each rebirth costs a pale tongue")]))
     # Siegward of Catarina — stuck in the well outside Cathedral (DS3: freed via lift mechanism)
-    entities.append(make_entity("Npc", 24 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Aah, hello! Up here!|I seem to be stuck in this well|Could you find a way to get me out?")]))
+    entities.append(make_entity("Npc", 24 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Aah, hello! Up here!|I seem to be stuck in this well|Could you find a way to get me out?|Oh, very good! My thanks, friend|Let me repay you with a sip of Siegbräu")]))
 
     # Chests - DS3 Cathedral of the Deep: Mimic in rafters drops Lightning Stake
     entities.append(make_entity("Chest", 74 * 16, 60 * 16, [
