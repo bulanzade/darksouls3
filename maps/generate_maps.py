@@ -2017,6 +2017,23 @@ def make_firelink_shrine():
     fill_tiles(chunk, TILE_WALL, 106, 120, 107, 121)
     fill_tiles(chunk, TILE_WALL, 112, 124, 113, 125)
 
+    # SESSION 36 FIDELITY PASS — Firelink Shrine DS3 details
+    # DS3: Throne room seats (5 thrones), shrine interior pillars, courtyard grave markers
+    for tx in range(35, 55, 4):
+        fill_tiles(chunk, TILE_WALL, tx, 42, tx+1, 43)             # Throne seat markers
+        fill_tiles(chunk, TILE_WALL, tx, 44, tx+1, 45)
+    for tx in range(60, 80, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 35, tx+1, 36)             # Courtyard grave stones
+        fill_tiles(chunk, TILE_WALL, tx, 55, tx+1, 56)
+    fill_tiles(chunk, TILE_WALL, 45, 50, 47, 52)                    # Coiled sword pedestal base
+    fill_tiles(chunk, TILE_WALL, 90, 40, 92, 42)                    # Andre's anvil platform
+    fill_tiles(chunk, TILE_WALL, 95, 55, 97, 57)                    # Shrine entrance steps
+    for ty in range(30, 50, 8):
+        fill_tiles(chunk, TILE_WALL, 110, ty, 111, ty+1)            # Interior pillars
+    fill_tiles(chunk, TILE_WALL, 120, 45, 122, 47)                  # Shrine rear wall detail
+    for tx in range(50, 70, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 70, tx+1, 71)              # Pathway stones
+    fill_tiles(chunk, TILE_WALL, 75, 75, 77, 77)                    # Courtyard well
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -4683,6 +4700,22 @@ def make_road_of_sacrifices():
     fill_tiles(chunk, TILE_WALL, 102, 90, 103, 91)
     fill_tiles(chunk, TILE_WALL, 108, 94, 109, 95)
 
+    # SESSION 36 FIDELITY PASS — Road of Sacrifices DS3 details
+    # DS3: Fallen trees, corvian nests, bridge supports, swamp edge stones
+    for tx in range(25, 60, 7):
+        fill_tiles(chunk, TILE_WALL, tx, 35, tx+2, 36)             # Fallen tree trunks
+        fill_tiles(chunk, TILE_WALL, tx, 75, tx+2, 76)
+    for tx in range(70, 110, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 40, tx+1, 41)             # Corvian nest platforms
+        fill_tiles(chunk, TILE_WALL, tx, 85, tx+1, 86)
+    for ty in range(50, 80, 8):
+        fill_tiles(chunk, TILE_WALL, 55, ty, 56, ty+1)             # Path edge stones
+        fill_tiles(chunk, TILE_WALL, 100, ty, 101, ty+1)
+    fill_tiles(chunk, TILE_WALL, 80, 60, 82, 62)                    # Bridge support debris
+    fill_tiles(chunk, TILE_WALL, 40, 90, 42, 92)                    # Swamp edge marker
+    fill_tiles(chunk, TILE_WALL, 120, 50, 122, 52)                  # Crucifixion woods entry
+    for tx in range(30, 50, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 55, tx+1, 56)             # Moss-covered rocks
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -6204,6 +6237,23 @@ def make_cathedral_deep():
     fill_tiles(chunk, TILE_WALL, 102, 90, 103, 91)
     fill_tiles(chunk, TILE_WALL, 108, 94, 109, 95)
 
+    # SESSION 36 FIDELITY PASS — Cathedral of the Deep DS3 details
+    # DS3: Cathedral buttresses, tombstone rows, pew lines, altar debris
+    for tx in range(20, 50, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 40, tx+2, 42)             # Exterior buttresses
+        fill_tiles(chunk, TILE_WALL, tx, 80, tx+2, 82)
+    for tx in range(60, 100, 4):
+        fill_tiles(chunk, TILE_WALL, tx, 50, tx+1, 51)             # Pew row markers
+        fill_tiles(chunk, TILE_WALL, tx, 90, tx+1, 91)
+    for ty in range(30, 70, 8):
+        fill_tiles(chunk, TILE_WALL, 45, ty, 46, ty+1)             # Interior columns
+        fill_tiles(chunk, TILE_WALL, 85, ty, 86, ty+1)
+    fill_tiles(chunk, TILE_WALL, 65, 35, 67, 37)                    # Altar platform
+    fill_tiles(chunk, TILE_WALL, 110, 55, 112, 57)                  # Rosaria chamber entrance
+    fill_tiles(chunk, TILE_WALL, 120, 70, 122, 72)                  # Grave warden area
+    for tx in range(100, 130, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 45, tx+1, 46)             # Exterior tombstones
+    fill_tiles(chunk, TILE_WALL, 50, 95, 52, 97)                    # Cathedral entrance debris
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -13989,6 +14039,21 @@ def make_consumed_kings_garden():
     fill_tiles(chunk, TILE_WALL, 108, 96, 109, 97)
     fill_tiles(chunk, TILE_WALL, 114, 100, 115, 101)
 
+    # SESSION 36 FIDELITY PASS — Consumed King's Garden DS3 details
+    # DS3: Hedge maze walls, toxic pool edges, Oceiros crystal garden
+    for tx in range(30, 70, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 45, tx+1, 46)             # Hedge wall segments
+        fill_tiles(chunk, TILE_WALL, tx, 85, tx+1, 86)
+    for tx in range(80, 120, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 50, tx+1, 51)             # Crystal cluster bases
+        fill_tiles(chunk, TILE_WALL, tx, 90, tx+1, 91)
+    for ty in range(35, 70, 8):
+        fill_tiles(chunk, TILE_WALL, 40, ty, 41, ty+1)             # Garden path stones
+        fill_tiles(chunk, TILE_WALL, 90, ty, 91, ty+1)
+    fill_tiles(chunk, TILE_WALL, 55, 65, 58, 68)                    # Toxic pool edge
+    fill_tiles(chunk, TILE_WALL, 110, 75, 112, 77)                  # Crystal formation
+    fill_tiles(chunk, TILE_WALL, 70, 100, 72, 102)                  # Wyrm bone scatter
+    fill_tiles(chunk, TILE_WALL, 130, 55, 132, 57)                  # Oceiros arena debris
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -15464,6 +15529,20 @@ def make_archdragon_peak():
     fill_tiles(chunk, TILE_WALL, 104, 92, 105, 93)
     fill_tiles(chunk, TILE_WALL, 110, 96, 111, 97)
 
+    # SESSION 36 FIDELITY PASS — Archdragon Peak DS3 details
+    # DS3: Serpent totem poles, dragon bone piles, stone meditation circles
+    for tx in range(50, 90, 8):
+        fill_tiles(chunk, TILE_WALL, tx, 60, tx+2, 62)             # Serpent totem poles
+        fill_tiles(chunk, TILE_WALL, tx, 100, tx+2, 102)
+    for tx in range(100, 140, 8):
+        fill_tiles(chunk, TILE_WALL, tx, 55, tx+1, 56)             # Stone dragon teeth
+        fill_tiles(chunk, TILE_WALL, tx, 105, tx+1, 106)
+    fill_tiles(chunk, TILE_WALL, 40, 80, 43, 83)                    # Dragon skeleton skull
+    fill_tiles(chunk, TILE_WALL, 130, 70, 132, 72)                  # Ancient wyvern bones
+    fill_tiles(chunk, TILE_WALL, 60, 115, 62, 117)                  # Meditation platform
+    for ty in range(30, 60, 10):
+        fill_tiles(chunk, TILE_WALL, 75, ty, 76, ty+1)              # Cliff face detail
+    fill_tiles(chunk, TILE_WALL, 115, 90, 117, 92)                  # Storm damaged pillar
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
