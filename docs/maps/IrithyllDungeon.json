@@ -907,7 +907,7 @@
       "y": 420,
       "w": 96,
       "h": 96,
-      "dest_area": "IrithyllOfTheBorealValley",
+      "dest_area": "Irithyll",
       "dest_x": 3060,
       "dest_y": 2600,
       "kind": "area_transition",
