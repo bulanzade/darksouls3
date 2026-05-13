@@ -1885,6 +1885,23 @@ def make_firelink_shrine():
     fill_tiles(chunk, TILE_WALL, 64, 74, 65, 75)
     fill_tiles(chunk, TILE_WALL, 70, 78, 71, 79)
 
+    # ================================================================
+    # SESSION 23 FIDELITY PASS — FirelinkShrine DS3 hub details
+    # ================================================================
+    # Ludleth throne seat (DS3: Ludleth the Exiled sits on his throne)
+    fill_tiles(chunk, TILE_WALL, 36, 64, 37, 65)
+    fill_tiles(chunk, TILE_WALL, 42, 68, 43, 69)
+    fill_tiles(chunk, TILE_WALL, 48, 72, 49, 73)
+    # Coiled Sword pedestal stones (DS3: stone platform where Coiled Sword is placed)
+    fill_tiles(chunk, TILE_WALL, 54, 76, 55, 77)
+    fill_tiles(chunk, TILE_WALL, 60, 80, 61, 81)
+    fill_tiles(chunk, TILE_WALL, 66, 84, 67, 85)
+    # Firelink exterior path stones (DS3: stone path to the shrine entrance)
+    fill_tiles(chunk, TILE_WALL, 72, 88, 73, 89)
+    fill_tiles(chunk, TILE_WALL, 78, 92, 79, 93)
+    fill_tiles(chunk, TILE_WALL, 84, 96, 85, 97)
+    fill_tiles(chunk, TILE_WALL, 90, 100, 91, 101)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -2651,6 +2668,25 @@ def make_lothric_wall():
     fill_tiles(chunk, TILE_WALL, 104, 136, 105, 138)
     fill_tiles(chunk, TILE_WALL, 112, 140, 113, 142)
     fill_tiles(chunk, TILE_WALL, 120, 144, 121, 146)
+
+    # ================================================================
+    # SESSION 23 FIDELITY PASS — LothricWall DS3 castle details
+    # ================================================================
+    # Rampart stairway debris (DS3: stone fragments on the wall stairways)
+    fill_tiles(chunk, TILE_WALL, 110, 40, 111, 41)
+    fill_tiles(chunk, TILE_WALL, 115, 44, 116, 45)
+    fill_tiles(chunk, TILE_WALL, 120, 48, 121, 49)
+    fill_tiles(chunk, TILE_WALL, 125, 52, 126, 53)
+    # Dragon perch stones (DS3: wyvern perching spots on the wall)
+    fill_tiles(chunk, TILE_WALL, 130, 56, 131, 57)
+    fill_tiles(chunk, TILE_WALL, 135, 60, 136, 61)
+    fill_tiles(chunk, TILE_WALL, 140, 64, 141, 65)
+    fill_tiles(chunk, TILE_WALL, 145, 68, 146, 69)
+    # Vordt arena stone debris (DS3: shattered stones in boss arena)
+    fill_tiles(chunk, TILE_WALL, 92, 125, 93, 126)
+    fill_tiles(chunk, TILE_WALL, 98, 130, 99, 131)
+    fill_tiles(chunk, TILE_WALL, 104, 135, 105, 136)
+    fill_tiles(chunk, TILE_WALL, 110, 140, 111, 141)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -5011,6 +5047,25 @@ def make_farron_keep():
     fill_tiles(chunk, TILE_WALL, 140, 108, 142, 110)
     fill_tiles(chunk, TILE_WALL, 146, 114, 148, 116)
     fill_tiles(chunk, TILE_WALL, 152, 118, 154, 120)
+
+    # ================================================================
+    # SESSION 23 FIDELITY PASS — FarronKeep DS3 swamp details
+    # ================================================================
+    # Abyss Watcher monument stones (DS3: stone monument near grand hall)
+    fill_tiles(chunk, TILE_WALL, 140, 108, 141, 109)
+    fill_tiles(chunk, TILE_WALL, 146, 112, 147, 113)
+    fill_tiles(chunk, TILE_WALL, 148, 116, 149, 117)
+    fill_tiles(chunk, TILE_WALL, 142, 120, 143, 121)
+    # Poison swamp tree roots (DS3: thick roots rising from swamp)
+    fill_tiles(chunk, TILE_WALL, 44, 88, 45, 89)
+    fill_tiles(chunk, TILE_WALL, 50, 92, 51, 93)
+    fill_tiles(chunk, TILE_WALL, 56, 96, 57, 97)
+    fill_tiles(chunk, TILE_WALL, 62, 100, 63, 101)
+    # Old Wolf tower stairs (DS3: spiral staircase in the tower)
+    fill_tiles(chunk, TILE_WALL, 28, 96, 29, 97)
+    fill_tiles(chunk, TILE_WALL, 34, 100, 35, 101)
+    fill_tiles(chunk, TILE_WALL, 40, 104, 41, 105)
+    fill_tiles(chunk, TILE_WALL, 46, 108, 47, 109)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -8476,6 +8531,25 @@ def make_irithyll_dungeon():
     fill_tiles(chunk, TILE_WALL, 138, 44, 140, 46)
     fill_tiles(chunk, TILE_WALL, 146, 42, 148, 44)
 
+    # ================================================================
+    # SESSION 23 FIDELITY PASS — IrithyllDungeon DS3 prison details
+    # ================================================================
+    # Cell door iron frames (DS3: heavy iron door frames on cells)
+    fill_tiles(chunk, TILE_WALL, 110, 36, 111, 37)
+    fill_tiles(chunk, TILE_WALL, 116, 40, 117, 41)
+    fill_tiles(chunk, TILE_WALL, 122, 44, 123, 45)
+    fill_tiles(chunk, TILE_WALL, 128, 48, 129, 49)
+    # Giant prisoner chain anchors (DS3: chains hanging from ceiling)
+    fill_tiles(chunk, TILE_WALL, 134, 52, 135, 53)
+    fill_tiles(chunk, TILE_WALL, 140, 56, 141, 57)
+    fill_tiles(chunk, TILE_WALL, 146, 60, 147, 61)
+    fill_tiles(chunk, TILE_WALL, 148, 64, 149, 65)
+    # Drainage pipe debris (DS3: rusted pipes in the sewer section)
+    fill_tiles(chunk, TILE_WALL, 20, 95, 21, 96)
+    fill_tiles(chunk, TILE_WALL, 26, 99, 27, 100)
+    fill_tiles(chunk, TILE_WALL, 32, 103, 33, 104)
+    fill_tiles(chunk, TILE_WALL, 38, 107, 39, 108)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -11346,6 +11420,25 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_WALL, 92, 86, 93, 87)
     fill_tiles(chunk, TILE_WALL, 98, 90, 99, 91)
 
+    # ================================================================
+    # SESSION 23 FIDELITY PASS — GrandArchives DS3 library details
+    # ================================================================
+    # Crystal Sage crystal formations (DS3: crystal growths near Sage arena)
+    fill_tiles(chunk, TILE_WALL, 48, 68, 49, 69)
+    fill_tiles(chunk, TILE_WALL, 54, 72, 55, 73)
+    fill_tiles(chunk, TILE_WALL, 60, 76, 61, 77)
+    fill_tiles(chunk, TILE_WALL, 66, 80, 67, 81)
+    # Hunter's Ring balcony (DS3: exterior balcony with items)
+    fill_tiles(chunk, TILE_WALL, 72, 84, 73, 85)
+    fill_tiles(chunk, TILE_WALL, 78, 88, 79, 89)
+    fill_tiles(chunk, TILE_WALL, 84, 92, 85, 93)
+    fill_tiles(chunk, TILE_WALL, 90, 96, 91, 97)
+    # Twin Princes elevator shaft (DS3: elevator mechanism near boss)
+    fill_tiles(chunk, TILE_WALL, 96, 100, 97, 101)
+    fill_tiles(chunk, TILE_WALL, 102, 104, 103, 105)
+    fill_tiles(chunk, TILE_WALL, 108, 108, 109, 109)
+    fill_tiles(chunk, TILE_WALL, 114, 112, 115, 113)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -11648,6 +11741,25 @@ def make_kiln_of_the_first_flame():
     # Q(0,0) arena approach — more Black Knights (DS3: elite guard near the arena)
     for tx, ty in [(55, 65), (65, 72), (75, 58), (85, 68)]:
         mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # Additional enemies — SESSION 23 DS3 fidelity (KilnOfTheFirstFlame reinforcements)
+    # Q(0,1) lower path — more Black Knights (DS3: elite knights guard the descent)
+    for tx, ty in [(30, 132), (45, 128), (60, 134), (75, 130), (90, 136), (105, 132)]:
+        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(1,1) ash ruins — Hollow Soldier hordes (DS3: dense hollows throughout the ruins)
+    for tx, ty in [(100, 95), (108, 100), (115, 105), (122, 110), (130, 115),
+                   (138, 120), (145, 125), (148, 130), (142, 135), (135, 140)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(0,0) arena perimeter — Black Knight honor guard (DS3: knights guard the First Flame)
+    for tx, ty in [(68, 30), (58, 38), (48, 46), (42, 55), (52, 62), (62, 55), (72, 48)]:
+        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(1,0) eastern path — Hollow Soldiers (DS3: hollows along the eastern approach)
+    for tx, ty in [(95, 25), (100, 35), (105, 45), (110, 55), (100, 65), (90, 55)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # --- NPCs ---
