@@ -12609,6 +12609,44 @@ def make_irithyll():
     for tx in [100, 115]:
         for ty in range(30, 43):
             chunk[tx][ty] = TILE_WALL
+
+    # --- SESSION 92 DS3 terrain round 2 (Irithyll) ---
+    # DS3: Central canal (water channel through the city)
+    for tx in range(20, 50):
+        for ty in [30, 31]:
+            chunk[tx][ty] = TILE_GROUND
+    for tx in range(20, 50):
+        chunk[tx][29] = TILE_WALL
+        chunk[tx][32] = TILE_WALL
+    # DS3: Barricades across side streets
+    for tx in [35, 50, 65]:
+        for ty in [24, 25, 26]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Street lanterns (stone posts)
+    for tx in [18, 25, 32, 40, 48, 56, 64]:
+        for ty in [28, 29]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Manor interior (Siegward's prison)
+    for tx in range(70, 82):
+        for ty in [55, 62]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [70, 82]:
+        for ty in range(55, 63):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(70, 83):
+        chunk[tx][54] = TILE_WALLTOP
+    # DS3: Sewer entrance (grated opening)
+    for tx in range(55, 65):
+        for ty in [68, 69]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [55, 65]:
+        for ty in range(66, 70):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Pontiff's arena pillars (large stone columns)
+    for tx in [85, 92, 99]:
+        for ty in [55, 60]:
+            chunk[tx][ty] = TILE_WALL
+            chunk[tx][ty-1] = TILE_WALLTOP
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -13806,6 +13844,30 @@ def make_irithyll_dungeon():
     for tx in [100, 115]:
         for ty in range(60, 76):
             chunk[tx][ty] = TILE_WALL
+
+    # --- SESSION 92 DS3 terrain round 2 (Irithyll Dungeon) ---
+    # DS3: Cell block walls (individual cells)
+    for tx in [18, 25, 32, 39, 46, 53, 60, 67, 74, 81, 88, 95]:
+        for ty in range(12, 25):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Lower prison cells
+    for tx in [22, 30, 38, 46, 54, 62, 70]:
+        for ty in range(28, 40):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Sewer grate passages
+    for tx in range(15, 50):
+        for ty in [50, 51]:
+            chunk[tx][ty] = TILE_GROUND
+    for tx in range(15, 50):
+        chunk[tx][49] = TILE_WALL
+        chunk[tx][52] = TILE_WALL
+    # DS3: Dragon Slayer Armour approach
+    for tx in range(85, 105):
+        for ty in range(65, 80):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [85, 105]:
+        for ty in range(65, 81):
+            chunk[tx][ty] = TILE_WALL
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -14905,6 +14967,44 @@ def make_profaned_capital():
     for tx in [75, 82]:
         for ty in range(25, 46):
             chunk[tx][ty] = TILE_WALL
+
+    # --- SESSION 92 DS3 terrain round 2 (Profaned Capital) ---
+    # DS3: Yhorm's throne (stone seat in the arena)
+    for tx in range(42, 50):
+        for ty in [42, 43]:
+            chunk[tx][ty] = TILE_WALL
+        chunk[tx][41] = TILE_WALLTOP
+    # DS3: Upper walkway with Sewer Centipedes
+    for tx in range(60, 85):
+        chunk[tx][25] = TILE_WALL
+        chunk[tx][24] = TILE_WALLTOP
+    # DS3: Dungeon cells below the capital
+    for tx in [20, 28, 36, 44]:
+        for ty in range(60, 70):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Gargoyle perch platform
+    for tx in range(85, 100):
+        for ty in [15, 18]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [85, 100]:
+        for ty in range(15, 19):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(85, 101):
+        chunk[tx][14] = TILE_WALLTOP
+    # DS3: Monstrosity lair (dark chamber)
+    for tx in range(40, 60):
+        for ty in range(75, 88):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [40, 60]:
+        for ty in range(75, 89):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Entrance staircase from Irithyll Dungeon
+    for tx in range(10, 18):
+        for ty in range(30, 42):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [10, 18]:
+        for ty in range(30, 43):
+            chunk[tx][ty] = TILE_WALL
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -15935,6 +16035,53 @@ def make_anor_londo():
     for tx in range(18, 82):
         for ty in range(33, 38):
             chunk[tx][ty] = TILE_GROUND
+
+    # --- SESSION 92 DS3 terrain round 2 (Anor Londo) ---
+    # DS3: Grand staircase entrance
+    for tx in range(15, 30):
+        for ty in range(35, 42):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [15, 30]:
+        for ty in range(35, 43):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Silver Knight patrol alcoves
+    for tx in [22, 32, 42, 52, 62]:
+        for ty in [20, 21]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Man-Grub chambers (side rooms)
+    for tx in range(35, 45):
+        for ty in [42, 48]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [35, 45]:
+        for ty in range(42, 49):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(35, 46):
+        chunk[tx][41] = TILE_WALLTOP
+    # DS3: Giant Slave archer platform
+    for tx in range(75, 85):
+        for ty in [10, 15]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [75, 85]:
+        for ty in range(10, 16):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(75, 86):
+        chunk[tx][9] = TILE_WALLTOP
+    # DS3: Aldrich's chamber (cathedral interior)
+    for tx in range(50, 70):
+        for ty in [50, 58]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [50, 70]:
+        for ty in range(50, 59):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(50, 71):
+        chunk[tx][49] = TILE_WALLTOP
+    # DS3: Painting guardian room (above the painting)
+    for tx in range(80, 95):
+        for ty in [25, 30]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [80, 95]:
+        for ty in range(25, 31):
+            chunk[tx][ty] = TILE_WALL
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -17182,6 +17329,49 @@ def make_lothric_castle():
             chunk[tx][ty] = TILE_WALL
     for tx in range(20, 31):
         chunk[tx][54] = TILE_WALLTOP
+
+    # --- SESSION 92 DS3 terrain round 2 (Lothric Castle) ---
+    # DS3: Consumed King's Garden entrance
+    for tx in range(10, 20):
+        for ty in [60, 66]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [10, 20]:
+        for ty in range(60, 67):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(10, 21):
+        chunk[tx][59] = TILE_WALLTOP
+    # DS3: Lothric Wyvern perch (high tower)
+    for tx in range(50, 60):
+        for ty in [5, 10]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [50, 60]:
+        for ty in range(5, 11):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(50, 61):
+        chunk[tx][4] = TILE_WALLTOP
+    # DS3: Castle courtyard fountain
+    for tx in range(35, 45):
+        for ty in [45, 46]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [35, 45]:
+        for ty in [45, 46]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Dark Mage study room
+    for tx in range(75, 85):
+        for ty in [55, 60]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [75, 85]:
+        for ty in range(55, 61):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(75, 86):
+        chunk[tx][54] = TILE_WALLTOP
+    # DS3: Twin Princes tower staircase
+    for tx in range(85, 95):
+        for ty in range(20, 35):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [85, 95]:
+        for ty in range(20, 36):
+            chunk[tx][ty] = TILE_WALL
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
