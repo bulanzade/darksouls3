@@ -7199,6 +7199,39 @@ def make_catacombs_of_carthus():
         mapped = ENEMY_KIND_MAP.get("SkeletonBall", "Skeleton")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # --- SESSION 46 DS3 enemies (Catacombs of Carthus) ---
+    # DS3: Skeletons of all types fill the catacombs
+    # Skeleton Swordsmen - the curved-sword skeleton warriors
+    for tx, ty in [(18, 25), (28, 30), (38, 28), (48, 32)]:
+        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "Skeleton")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Skeleton Ball (DS3: the rolling skeleton ball trap in the corridor)
+    for tx, ty in [(55, 35)]:
+        mapped = ENEMY_KIND_MAP.get("SkeletonBall", "Skeleton")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # More regular Skeletons in the deeper chambers
+    for tx, ty in [(22, 45), (35, 48), (48, 45), (60, 50)]:
+        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Black Knight guarding the Smouldering Lake exit (DS3: one in catacombs)
+    for tx, ty in [(75, 55)]:
+        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Havel Knight (DS3: ambush in the catacombs side area)
+    for tx, ty in [(65, 40)]:
+        mapped = ENEMY_KIND_MAP.get("HavelKnight", "WingedKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Carthus Worm (DS3: the sandworm in the Wolnir arena approach)
+    for tx, ty in [(85, 60)]:
+        mapped = ENEMY_KIND_MAP.get("CarthusWorm", "MiniBoss")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # NPCs — DS3 Catacombs: Anri and Horace together at the entrance bonfire
     entities.append(make_entity("Npc", 15 * 16, 18 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello, we meet again|Have you seen Horace anywhere?|I have been separated from him|I am worried... Please tell me if you find him")]))
     entities.append(make_entity("Npc", 17 * 16, 19 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods slowly)|(points toward the deeper catacombs)|(holds shield tighter)|Anri... where are you...")]))
@@ -9678,6 +9711,28 @@ def make_irithyll_dungeon():
         mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # --- SESSION 46 DS3 enemies (Irithyll Dungeon) ---
+    # DS3: Jailers are the iconic enemy - they drain health with their gaze
+    for tx, ty in [(20, 22), (30, 28), (42, 25), (55, 30)]:
+        mapped = ENEMY_KIND_MAP.get("Jailer", "Jailer")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Wretches - the deformed prisoners in cells
+    for tx, ty in [(35, 35), (48, 38), (60, 35)]:
+        mapped = ENEMY_KIND_MAP.get("Wretch", "Wretch")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Giant Rats in the sewer section (DS3: the flooded lower level)
+    for tx, ty in [(25, 42), (38, 45), (52, 42), (65, 48)]:
+        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Basilisks in the deeper dungeon (DS3: curse frogs)
+    for tx, ty in [(45, 52), (58, 55), (70, 50)]:
+        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # NPCs — DS3 Irithyll Dungeon: Siegward in cell, Karla in deep cell
     entities.append(make_entity("Npc", 92 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D4A520"), make_field("dialogue", "String", "Oh! You have my thanks, my deepest thanks|I seem to have gotten myself locked in this cell|A brave warrior like yourself, I knew you would come|Let us share a drink, to celebrate your bravery|I am Siegward of Catarina, at your service")]))
     entities.append(make_entity("Npc", 90 * 16, 84 * 16, [make_field("name", "String", "Karla"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#4A0080"), make_field("dialogue", "String", "Hmm. A visitor? I'm a prisoner, same as you|I can teach you dark sorceries, if you bring me tomes|But nothing that could harm the Fire Keeper, understand|The pygmy is not to be trifled with")]))
@@ -11289,6 +11344,29 @@ def make_anor_londo():
         mapped = ENEMY_KIND_MAP.get("DeepAccursed", "DeepAccursed")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # --- SESSION 46 DS3 enemies (Anor Londo) ---
+    # DS3: Silver Knights dominate - archers on the famous ledge, swordsmen inside
+    # Silver Knight Archers on the buttress ledge (DS3: the iconic archer gauntlet)
+    for tx, ty in [(25, 18), (32, 22), (40, 20)]:
+        mapped = ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Man Grubs - the slug-like enemies near Rosaria's chamber (DS3: Irithyll connection)
+    for tx, ty in [(55, 30), (62, 35), (70, 32), (78, 28)]:
+        mapped = ENEMY_KIND_MAP.get("ManGrub", "ManGrub")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Deacons in the cathedral section (DS3: remnants of the Deep)
+    for tx, ty in [(45, 40), (52, 45), (60, 42)]:
+        mapped = ENEMY_KIND_MAP.get("Deacon", "Deacon")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Silver Knight Swordsmen inside the great hall
+    for tx, ty in [(35, 50), (48, 55), (65, 52)]:
+        mapped = ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs ---
     # Anri of Astora — summon sign near main doors (wiki: "purple sign on the floor")
     entities.append(make_entity("Npc", 128 * 16, 72 * 16, [
@@ -12370,6 +12448,23 @@ def make_lothric_castle():
     # Hollow Soldiers near the dancer arena
     for tx, ty in [(58, 55), (65, 60), (72, 58)]:
         mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 46 DS3 enemies (Lothric Castle additions) ---
+    # DS3: Consumed King's Guards near Oceiros entrance
+    for tx, ty in [(15, 55), (22, 60)]:
+        mapped = ENEMY_KIND_MAP.get("ConsumedKingKnight", "CathedralKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Lothric Wyvern - the dragon on the castle ramparts
+    for tx, ty in [(100, 35)]:
+        mapped = ENEMY_KIND_MAP.get("LothricWyvern", "MiniBoss")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Pus of Man on the dragon's wing (DS3: transforms from dragon)
+    for tx, ty in [(105, 38)]:
+        mapped = ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
@@ -13472,6 +13567,23 @@ def make_grand_archives():
     for tx, ty in [(20, 35), (35, 40), (50, 38), (65, 42)]:
         chunk[ty][tx] = TILE_WALLTOP  # candle stand
 
+    # --- SESSION 46 terrain (Grand Archives) ---
+    # DS3: Grand staircase with railing supports
+    for ty in range(15, 22):
+        chunk[ty][30] = TILE_WALL  # staircase pillar
+    # More bookshelf debris in the upper library
+    for tx in range(55, 65):
+        chunk[18][tx] = TILE_WALLTOP  # fallen scrolls
+    # Crystal growth patches (DS3: crystals invade the archives)
+    for tx, ty in [(70, 25), (80, 28), (90, 22)]:
+        chunk[ty][tx] = TILE_WALLTOP  # crystal shard
+    # Candle wax pool accumulation (DS3: scholars drip wax)
+    for tx in range(35, 42):
+        chunk[40][tx] = TILE_WALLTOP  # wax pool
+    # Scroll rack debris
+    for tx, ty in [(48, 35), (58, 38)]:
+        chunk[ty][tx] = TILE_WALL  # fallen rack
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -14283,6 +14395,23 @@ def make_kiln_of_the_first_flame():
     fill_tiles(chunk, TILE_WALL, 55, 55, 57, 57)                    # Flame crater rim
     fill_tiles(chunk, TILE_WALL, 120, 50, 122, 52)                  # Ash pile
     fill_tiles(chunk, TILE_WALL, 75, 90, 77, 92)                    # Collapsed archway
+    # --- SESSION 46 terrain (Kiln of the First Flame) ---
+    # DS3: Collapsed ceiling debris in the ruined corridors
+    for tx in range(20, 30):
+        chunk[25][tx] = TILE_WALLTOP  # ceiling rubble
+    # Ember glow patches (DS3: coals and embers everywhere)
+    for tx, ty in [(40, 30), (50, 35), (60, 28)]:
+        chunk[ty][tx] = TILE_WALLTOP  # ember mound
+    # Black Knight monument stones (DS3: the path is lined with them)
+    for ty in range(40, 48):
+        chunk[ty][55] = TILE_WALL  # monument stone
+    # Collapsed wall sections
+    for tx in range(70, 80):
+        chunk[32][tx] = TILE_WALLTOP  # wall debris
+    # Ash drifts near the final flame
+    for tx in range(85, 95):
+        chunk[38][tx] = TILE_WALLTOP  # ash pile
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
