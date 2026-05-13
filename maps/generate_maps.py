@@ -16175,6 +16175,49 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_WALL, 88, 66, 92, 72)    # Ruined pillar 5
         # ================================================================
     # PLAYER SPAWN & BONFIRES
+
+    # ================================================================
+    # DS3 BOOKSHELF MAZE — Grand Archives narrow library corridors
+    # DS3: towering bookshelves create a maze-like library with narrow
+    # passages, reading alcoves, and dead-end stacks
+    # ================================================================
+    # Entry hall — full bookshelf rows (DS3: tall bookshelves line entry hall)
+    fill_tiles(chunk, TILE_WALL, 18, 126, 22, 140)  # Left bookshelf row
+    fill_tiles(chunk, TILE_WALL, 38, 128, 42, 142)  # Right bookshelf row
+    fill_tiles(chunk, TILE_WALL, 28, 132, 34, 138)  # Center bookshelf divider
+    # First floor — long bookshelf rows creating maze corridors (DS3: labyrinthine library)
+    fill_tiles(chunk, TILE_WALL, 44, 86, 48, 100)   # Bookshelf row NW
+    fill_tiles(chunk, TILE_WALL, 56, 92, 60, 108)   # Bookshelf row N
+    fill_tiles(chunk, TILE_WALL, 68, 88, 72, 102)   # Bookshelf row NE
+    fill_tiles(chunk, TILE_WALL, 80, 94, 84, 110)   # Bookshelf row E
+    fill_tiles(chunk, TILE_WALL, 44, 108, 48, 120)  # Bookshelf row SW
+    fill_tiles(chunk, TILE_WALL, 64, 112, 68, 124)  # Bookshelf row S
+    fill_tiles(chunk, TILE_WALL, 82, 106, 86, 118)  # Bookshelf row SE
+    fill_tiles(chunk, TILE_WALL, 90, 90, 94, 104)   # Bookshelf row far E
+    # Wax pool hall — perimeter bookshelf walls (DS3: wax pool surrounded by shelves)
+    fill_tiles(chunk, TILE_WALL, 32, 58, 36, 72)    # Left bookshelf
+    fill_tiles(chunk, TILE_WALL, 72, 60, 76, 74)    # Right bookshelf
+    fill_tiles(chunk, TILE_WALL, 44, 82, 68, 86)    # South bookshelf row
+    fill_tiles(chunk, TILE_WALL, 44, 54, 68, 58)    # North bookshelf row
+    # Scholar tower — desk and book clusters (DS3: crystal sage study area)
+    fill_tiles(chunk, TILE_WALL, 68, 32, 72, 44)    # Tower bookshelf left
+    fill_tiles(chunk, TILE_WALL, 88, 34, 92, 46)    # Tower bookshelf right
+    fill_tiles(chunk, TILE_WALL, 78, 38, 84, 42)    # Tower center desk row
+    fill_tiles(chunk, TILE_WALL, 98, 38, 104, 44)   # Tower far bookshelf
+    # Winged Knight corridor — armor display walls (DS3: narrow hall with knights)
+    fill_tiles(chunk, TILE_WALL, 52, 20, 56, 32)    # Corridor wall left
+    fill_tiles(chunk, TILE_WALL, 68, 22, 72, 34)    # Corridor wall center
+    fill_tiles(chunk, TILE_WALL, 84, 20, 88, 32)    # Corridor wall right
+    # Gargoyle rooftop — chimney clusters (DS3: rooftop with chimney stacks)
+    fill_tiles(chunk, TILE_WALL, 62, 8, 66, 18)     # Chimney stack 1
+    fill_tiles(chunk, TILE_WALL, 78, 10, 82, 20)    # Chimney stack 2
+    fill_tiles(chunk, TILE_WALL, 94, 6, 98, 16)     # Chimney stack 3
+    fill_tiles(chunk, TILE_WALL, 106, 12, 110, 22)  # Chimney stack 4
+    # Twin Princes chamber — throne room pillars (DS3: grand throne room)
+    fill_tiles(chunk, TILE_WALL, 92, 8, 96, 18)     # Throne pillar left
+    fill_tiles(chunk, TILE_WALL, 108, 12, 112, 22)  # Throne pillar center
+    fill_tiles(chunk, TILE_WALL, 124, 8, 128, 18)   # Throne pillar right
+    fill_tiles(chunk, TILE_WALL, 136, 14, 140, 24)  # Throne pillar far right
     # ================================================================
     spawn_px, spawn_py = 25 * 16, 142 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
