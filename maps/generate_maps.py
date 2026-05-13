@@ -924,9 +924,6 @@ def make_cemetery_of_ash():
     entities.append(make_entity("Bonfire", 80 * 16, 66 * 16))
 
     # --- Boss — Iudex Gundyr at arena center ---
-    entities.append(make_entity("BossSpawn", 80 * 16, 48 * 16))
-    entities.append(make_entity("Enemy", 80 * 16, 48 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "MiniBoss")]))  # Iudex Gundyr
 
     # --- Enemies (DS3 Cemetery of Ash: Hollow Soldiers rise from graves, Starved Hounds) ---
     # In DS3 the cemetery enemies are Hollow Soldiers that rise from the ground.
@@ -934,64 +931,27 @@ def make_cemetery_of_ash():
     # Layout follows the actual route: coffin → cemetery path → fountain → stairs → bonfire →
     # firebomb cliff → Gundyr approach → arena.
 
-    # Section 1: Coffin wake-up area — first Hollow Soldier (sword+shield, stands up)
-    entities.append(make_entity("Enemy", 40 * 16, 152 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    # Section 2: Cemetery path — pair of Hollow Soldiers (sword+shield)
-    entities.append(make_entity("Enemy", 56 * 16, 152 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    entities.append(make_entity("Enemy", 64 * 16, 150 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    # Section 3: Ashen Estus fountain — Hollow Soldier facing away (sword)
-    entities.append(make_entity("Enemy", 80 * 16, 136 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    # Section 4: Stairs junction — Hollow Soldier (sword+shield) on stairs
-    entities.append(make_entity("Enemy", 76 * 16, 126 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    # Section 5: Broken arch — Hollow Soldier crossbow (ranged)
-    entities.append(make_entity("Enemy", 78 * 16, 116 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    # Section 6: Major fork — two Hollow Soldiers (sword+shield) guarding path
-    entities.append(make_entity("Enemy", 86 * 16, 108 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    entities.append(make_entity("Enemy", 92 * 16, 109 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    # Section 7: Cemetery of Ash bonfire clearing — Hollow Soldier near dead tree
-    entities.append(make_entity("Enemy", 68 * 16, 92 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    # Section 8: Firebomb cliff — Hollow Soldier sword+shield + Starved Hound
-    entities.append(make_entity("Enemy", 50 * 16, 86 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    # Starved Hound near firebomb cliff (DS3: dogs ambush on cliff path)
+    
+    # --- DS3 faithful enemies (CemeteryOfAsh) ---
+    # MiniBoss (1)
+    entities.append(make_entity("Enemy", 80 * 16, 48 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+    # HollowSoldier (23)
+    for tx, ty in [(40, 152), (56, 152), (64, 150), (80, 136), (76, 126), (78, 116), (86, 108), (92, 109), (68, 92), (50, 86), (38, 86), (40, 84), (76, 70), (79, 21), (71, 36), (67, 44), (65, 47), (58, 57), (93, 35), (86, 43), (95, 51), (93, 54), (82, 62)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier"))]))
+    # StarvedHound (3)
     entities.append(make_entity("Enemy", 44 * 16, 90 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "StarvedHound")]))
-    # Hollow Soldier at cliff end
-    entities.append(make_entity("Enemy", 38 * 16, 86 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    entities.append(make_entity("Enemy", 40 * 16, 84 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    # Section 9: Twin-torch approach — Hollow Soldier crossbow before arena
-    entities.append(make_entity("Enemy", 76 * 16, 70 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    # Starved Hound on cliff path approach (DS3: hound ambushes near arena)
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
     entities.append(make_entity("Enemy", 48 * 16, 80 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "StarvedHound")]))
-    # Ravenous Crystal Lizard — side path near water chasm (optional area)
-    entities.append(make_entity("Enemy", 136 * 16, 108 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "RavenousCrystalLizard")]))
-
-    # Upper cemetery Q(0,0) — Hollow Soldiers along the upper cemetery path (DS3: hollows throughout)
-    for tx, ty in [(79, 21), (71, 36), (67, 44), (65, 47), (58, 57)]:
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    # Upper-east cemetery Q(1,0) — Hollow Soldiers and a Starved Hound (DS3: hollows on upper path)
-    for tx, ty in [(93, 35), (86, 43), (95, 51), (93, 54), (82, 62)]:
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
     entities.append(make_entity("Enemy", 99 * 16, 39 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "StarvedHound")]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    # RavenousCrystalLizard (1)
+    entities.append(make_entity("Enemy", 136 * 16, 108 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("RavenousCrystalLizard", "RavenousCrystalLizard"))]))
 
-    # --- Items (accurate DS3 placements) ---
+# --- Items (accurate DS3 placements) ---
     # Ashen Estus Flask — corpse by broken fountain
     entities.append(make_entity("Item", 82 * 16, 134 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
@@ -1254,22 +1214,6 @@ def make_cemetery_of_ash():
             chunk[12][tx] = TILE_WALLTOP  # headstone
 
 
-    # --- SESSION 64 DS3 enemies (Cemetery of Ash) ---
-    # DS3: Hollow Soldiers throughout the cemetery gravestones - tutorial enemies
-    for tx, ty in [(20, 20), (28, 25), (35, 18), (42, 30), (50, 22), (58, 28), (65, 20), (72, 25), (80, 18), (88, 30)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds near the cliff path
-    for tx, ty in [(32, 35), (55, 38)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Ravenous Crystal Lizard near the coiled sword crater
-    for tx, ty in [(75, 40)]:
-        mapped = ENEMY_KIND_MAP.get("RavenousCrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # --- SESSION 86 DS3 terrain (Cemetery of Ash detail pass) ---
     # DS3: Stone archway at spawn (the iconic entrance arch)
@@ -1334,34 +1278,7 @@ def make_cemetery_of_ash():
                        for x in range(CHUNK_SIZE)
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    # --- SESSION 48 DS3 enemies (Cemetery of Ash) ---
-    # DS3: Starved Hounds near the cliff path (DS3: dogs patrol the cemetery)
-    for tx, ty in [(30, 28), (42, 32)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Hollow Soldiers in the upper cemetery slopes
-    for tx, ty in [(20, 15), (35, 18), (50, 22)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Crystal Lizard near the coiled sword (DS3: one lizard near the beginning)
-    for tx, ty in [(48, 35)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 51 DS3 enemies (Cemetery of Ash diversity) ---
-    # DS3: Hollow Warriors with shields patrol the upper cemetery (tutorial enemies)
-    for tx, ty in [(15, 20), (28, 22), (42, 25)]:
-        mapped = ENEMY_KIND_MAP.get("LargeHollowSoldier", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Dogs near the ash slopes (DS3: hounds appear in the cemetery)
-    for tx, ty in [(35, 35), (55, 38)]:
-        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     print(f"  CemeteryOfAsh (faithful DS3 layout) "
           f"ground={pct:.1f}% connectivity={coverage}%")
@@ -1642,16 +1559,17 @@ def make_firelink_shrine():
 
     # --- Enemies (DS3 Firelink Shrine exterior) ---
     # Sword Master — down the left stairs from shrine, wields Uchigatana
+
+    
+    # --- DS3 faithful enemies (FirelinkShrine) ---
+    # SwordMaster (1)
     entities.append(make_entity("Enemy", 68 * 16, 136 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP["SwordMaster"])]))
-    # Crystal Lizard — behind the tower (upper east roof drop-down)
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SwordMaster", "SwordMaster"))]))
+    # CrystalLizard (1)
     entities.append(make_entity("Enemy", 122 * 16, 62 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "CrystalLizard")]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
 
-    # Exterior graveyard — in DS3, Firelink Shrine exterior has NO hostile enemies
-    # besides the Sword Master. The graveyard is peaceful.
-
-    # --- NPCs (DS3 Firelink Shrine inhabitants) ---
+# --- NPCs (DS3 Firelink Shrine inhabitants) ---
     # Fire Keeper (level up) — stands near bonfire, south side
     entities.append(make_entity("Npc", 78 * 16, 86 * 16, [
         make_field("name", "String", "Fire Keeper"),
@@ -2574,12 +2492,6 @@ def make_lothric_wall():
 
     # --- Bosses ---
     # Vordt of the Boreal Valley — main boss at south arena
-    entities.append(make_entity("BossSpawn", 100 * 16, 144 * 16))
-    # Dancer of the Boreal Valley — appears in cathedral area after Emma
-    # DS3: triggered by approaching the statue after receiving Basin of Vows from Emma
-    # Represented as MiniBoss since engine supports one BossSpawn per area
-    entities.append(make_entity("Enemy", 82 * 16, 102 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "MiniBoss")]))
 
     # --- Enemies (DS3 High Wall of Lothric: Lothric Knights, Dogs, Hollow Soldiers) ---
     enemy_positions = [
@@ -2646,387 +2558,91 @@ def make_lothric_wall():
     ]
     for kind, tx, ty in enemy_positions:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 37 DS3 fidelity (High Wall of Lothric)
-    # DS3: Hollow Soldiers and Lothric Knights in ALL sections
-    for tx, ty in [(18, 40), (25, 45), (32, 42), (40, 48), (48, 45),
-                   (55, 40), (62, 45), (70, 42)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(80, 50), (88, 55), (95, 52), (102, 58), (110, 55)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(35, 60), (50, 65), (65, 62)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(75, 70), (85, 75), (100, 72)]:
-        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- SESSION 43 DS3 enemies (High Wall of Lothric) ---
-    # DS3: Hollow Soldiers patrol EVERY courtyard and rampart section
-    # Q1 (upper-left): soldiers near the first bonfire area
-    for tx, ty in [(12, 12), (18, 15), (24, 10), (30, 14), (14, 18)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q2 (upper-right): Lothric Knights on the ramparts and dragon bridge
-    for tx, ty in [(45, 10), (52, 14), (58, 12), (48, 18), (55, 16)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q2 (upper-right): Starved Hounds near the dragon area
-    for tx, ty in [(50, 22), (56, 24), (62, 20)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q3 (lower-left): Hollow Assassins in the dark interior passages
-    for tx, ty in [(16, 50), (22, 55), (28, 52), (34, 58)]:
-        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q3: Winged Knight patrolling near the elevator (DS3: heavy patroller)
-    for tx, ty in [(20, 62), (26, 68)]:
-        mapped = ENEMY_KIND_MAP.get("WingedKnight", "WingedKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q4 (lower-right): more Hollow Soldiers near Vordt's arena approach
-    for tx, ty in [(60, 48), (68, 52), (74, 50), (80, 56), (86, 54)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q4: Starved Hounds near the boss fog
-    for tx, ty in [(70, 60), (78, 64), (84, 62)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Lothric Knights near the Dancer/Emma cathedral section
-    for tx, ty in [(72, 68), (80, 72), (88, 70)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Pus of Man - the black slime enemies (DS3: on the dragon, transforms)
-    for tx, ty in [(54, 26)]:
-        mapped = ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Hollow Soldiers in the lower barracks area
-    for tx, ty in [(38, 70), (44, 74), (50, 72), (56, 76)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 47 DS3 enemies (High Wall of Lothric additions) ---
-    # DS3: Mimic in the High Wall basement
-    for tx, ty in [(38, 58)]:
-        mapped = ENEMY_KIND_MAP.get("Mimic", "Mimic")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # More Hollow Soldiers on the exterior ramparts
-    for tx, ty in [(15, 8), (22, 12), (30, 8), (38, 14), (55, 8)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Dogs in the lower kennels
-    for tx, ty in [(28, 68), (35, 72), (42, 70)]:
-        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Crystal Lizard near the dragon treasure
-    for tx, ty in [(60, 16)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Infested Corpses near the fountain courtyard
-    for tx, ty in [(34, 32), (48, 38)]:
-        mapped = ENEMY_KIND_MAP.get("InfestedCorpse", "InfestedCorpse")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Darkwraith near Vordt's fog gate
-    for tx, ty in [(82, 66)]:
-        mapped = ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Large Hollow Soldiers in the barracks
-    for tx, ty in [(44, 62), (58, 68)]:
-        mapped = ENEMY_KIND_MAP.get("LargeHollowSoldier", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Hollow Assassins on the rooftops
-    for tx, ty in [(48, 10), (62, 14)]:
-        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 49 DS3 enemies (High Wall of Lothric final pass) ---
-    # DS3: Archers on the rampart walls (DS3: fire crossbows from battlements)
-    for tx, ty in [(40, 6), (48, 8), (56, 6), (64, 10)]:
-        mapped = ENEMY_KIND_MAP.get("Archer", "Archer")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Lothric Knight Swordsmen on the main road (DS3: patrol in pairs)
-    for tx, ty in [(30, 48), (42, 52), (54, 50)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Peasant Hollows near the settlement entrance (DS3: civilians turned hollow)
-    for tx, ty in [(68, 58), (76, 62), (84, 60)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 50 DS3 enemies (High Wall final) ---
-    # DS3: More Hollow Soldiers in the courtyard and lower barracks
-    for tx, ty in [(20, 35), (28, 38), (36, 42)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Starved Hounds near the Vordt approach
-    for tx, ty in [(65, 55), (72, 58)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Peasant Hollows on the main road (DS3: civilian area near settlement gate)
-    for tx, ty in [(75, 50), (82, 52), (88, 48)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Lothric Knight near the dragon perch
-    for tx, ty in [(52, 18)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 57 DS3 enemies (High Wall of Lothric final) ---
-    # DS3: Hollow Soldiers patrolling every wall section
-    for tx, ty in [(18, 25), (32, 28), (45, 24), (60, 30)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Lothric Knights on the castle approach
-    for tx, ty in [(68, 64), (76, 68), (84, 66)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # More Peasant Hollows in the lower district
-    for tx, ty in [(24, 60), (36, 66), (48, 62)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Assassins in the dark alley near Greirat's cell
-    for tx, ty in [(40, 56)]:
-        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
-    # --- SESSION 64 DS3 enemies (Lothric Wall) ---
-    # DS3: Hollow Soldiers - the most common enemy throughout the wall
-    for tx, ty in [(15, 12), (22, 18), (28, 25), (35, 15), (42, 22), (48, 30), (55, 12), (62, 18), (68, 25), (75, 15), (82, 22), (88, 30), (95, 12), (100, 18), (105, 25)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lothric Knights guarding key passages and gates
-    for tx, ty in [(18, 35), (30, 42), (42, 50), (55, 55), (68, 42), (80, 50), (92, 55), (105, 42), (115, 50), (108, 35)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Assassins lurking behind corners
-    for tx, ty in [(25, 45), (45, 60), (65, 45), (85, 60)]:
-        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds near the dragon's perch
-    for tx, ty in [(35, 55), (55, 65), (75, 55), (95, 65)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards on the high walls
-    for tx, ty in [(50, 70), (90, 70)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Large Hollow Soldier near the greatsword
-    for tx, ty in [(60, 40)]:
-        mapped = ENEMY_KIND_MAP.get("LargeHollowSoldier", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lothric Wyvern on the wall (boss-tier)
-    for tx, ty in [(85, 30)]:
-        mapped = ENEMY_KIND_MAP.get("LothricWyvern", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 66 DS3 enemies (Lothric Wall round 2) ---
-    # DS3: More Hollow Soldiers along the ramparts and interior
-    for tx, ty in [(16, 40), (24, 50), (32, 60), (40, 45), (48, 55), (56, 65), (64, 50), (72, 60), (80, 45), (88, 55), (96, 65), (104, 50)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lothric Knights at the main gate and Vordt's arena approach
-    for tx, ty in [(20, 55), (36, 68), (52, 72), (68, 68), (84, 55), (100, 68)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Peasant Hollows in the lower district
-    for tx, ty in [(18, 65), (30, 70), (44, 65), (58, 70), (72, 65), (86, 70)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 70 DS3 enemies (Lothric Wall round 3) ---
-    # DS3: More Hollow Soldiers on the ramparts and interior
-    for tx, ty in [(18, 48), (28, 55), (38, 62), (48, 48), (58, 55), (68, 62), (78, 48), (88, 55), (98, 62), (108, 48), (118, 55), (128, 62)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Lothric Knights at strategic guard positions
-    for tx, ty in [(22, 68), (38, 72), (52, 68), (68, 72), (82, 68), (98, 72), (112, 68)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds near Vordt's arena approach
-    for tx, ty in [(25, 75), (45, 78), (65, 75), (85, 78)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Darkwraith in the lower passage
-    for tx, ty in [(50, 80)]:
-        mapped = ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Peasant Hollows in the lower district
-    for tx, ty in [(32, 70), (52, 75), (72, 70), (92, 75), (112, 70)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 72 DS3 enemies (Lothric Wall round 4) ---
-    # DS3: More Hollow Soldiers throughout the wall interior
-    for tx, ty in [(14, 20), (24, 28), (34, 35), (44, 42), (54, 28), (64, 35), (74, 42), (84, 28), (94, 35), (104, 42), (114, 28), (124, 35)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Lothric Knights at guard posts
-    for tx, ty in [(18, 48), (32, 55), (46, 48), (60, 55), (74, 48), (88, 55), (102, 48)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Assassins in ambush positions
-    for tx, ty in [(20, 60), (38, 65), (56, 60), (74, 65), (92, 60)]:
-        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Winged Knight on the rooftop
-    for tx, ty in [(50, 72)]:
-        mapped = ENEMY_KIND_MAP.get("WingedKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 74 DS3 enemies (Lothric Wall round 5) ---
-    # DS3: Hollow Soldiers along the full wall perimeter
-    for tx, ty in [(12, 15), (20, 22), (28, 30), (36, 38), (44, 45), (52, 38), (60, 30), (68, 22), (76, 15), (84, 22), (92, 30), (100, 38), (108, 30), (116, 22)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lothric Knights at strategic chokepoints
-    for tx, ty in [(15, 50), (30, 55), (45, 50), (60, 55), (75, 50), (90, 55), (105, 50)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds near the dragon area
-    for tx, ty in [(22, 60), (42, 65), (62, 60), (82, 65)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Pus of Man on the dragon perch
-    for tx, ty in [(55, 68), (80, 68)]:
-        mapped = ENEMY_KIND_MAP.get("PusOfMan", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 75 DS3 enemies (Lothric Wall round 6) ---
-    # DS3: Hollow Soldiers on the battlements
-    for tx, ty in [(14, 25), (22, 32), (30, 40), (38, 48), (46, 40), (54, 32), (62, 25), (70, 32), (78, 40), (86, 48), (94, 40), (102, 32), (110, 25)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lothric Knights at the gate and interior
-    for tx, ty in [(18, 55), (32, 60), (46, 55), (60, 60), (74, 55), (88, 60), (102, 55)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Large Hollow Soldier near the greatsword
-    for tx, ty in [(50, 65)]:
-        mapped = ENEMY_KIND_MAP.get("LargeHollowSoldier", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 77 DS3 enemies (Lothric Wall round 7) ---
-    # DS3: Hollow Soldiers in the lower wall area
-    for tx, ty in [(16, 22), (24, 30), (32, 38), (40, 45), (48, 38), (56, 30), (64, 22), (72, 30), (80, 38), (88, 45), (96, 38), (104, 30)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lothric Knights at the gatehouse
-    for tx, ty in [(20, 52), (35, 58), (50, 52), (65, 58), (80, 52)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Assassins in ambush
-    for tx, ty in [(28, 62), (45, 65), (62, 62), (80, 65)]:
-        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds
-    for tx, ty in [(35, 68), (55, 70), (75, 68)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 80 DS3 enemies (Lothric Wall final) ---
-    # DS3: Hollow Soldiers in the lower district
-    for tx, ty in [(15, 18), (25, 25), (35, 32), (45, 18), (55, 25), (65, 32)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 81 DS3 enemies (final gap close) ---
-    # DS3: 5 more HollowSoldier
-    for tx, ty in [(10, 10), (25, 17), (40, 24), (55, 31), (70, 38)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 82 DS3 enemies (final gap close) ---
-    for tx, ty in [(8, 8), (25, 19), (42, 30), (59, 41)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 83 DS3 enemies (final) ---
-    for tx, ty in [(9, 9), (28, 22), (47, 35)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 84 DS3 enemies (final) ---
-    for tx, ty in [(7, 7), (30, 24)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 85 DS3 enemies (final) ---
-    for tx, ty in [(8, 8)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+
+
+
+
+    
+    # --- DS3 faithful enemies (LothricWall) ---
+    # HollowSoldier (29)
+    for tx, ty in [(14, 10), (22, 14), (16, 20), (48, 10), (18, 34), (28, 38), (40, 32), (52, 36), (50, 66), (74, 64), (40, 74), (56, 74), (34, 94), (52, 90), (70, 100), (88, 126), (34, 14), (60, 16), (44, 44), (64, 58), (28, 68), (72, 70), (26, 86), (58, 98), (85, 28), (96, 37), (83, 61), (94, 70), (120, 79)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- NPCs ---
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier"))]))
+    # LothricKnight (20)
+    for tx, ty in [(30, 18), (50, 54), (62, 54), (74, 54), (20, 84), (44, 96), (62, 94), (84, 98), (86, 96), (70, 106), (90, 108), (92, 115), (80, 118), (76, 134), (94, 138), (82, 14), (106, 18), (93, 23), (88, 42), (107, 65)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight"))]))
+    # Archer (1)
+    entities.append(make_entity("Enemy", 54 * 16, 14 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Archer", "Archer"))]))
+    # PusOfMan (2)
+    entities.append(make_entity("Enemy", 50 * 16, 12 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan"))]))
+    entities.append(make_entity("Enemy", 42 * 16, 60 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan"))]))
+    # LothricWyvern (1)
+    entities.append(make_entity("Enemy", 24 * 16, 32 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LothricWyvern", "LothricWyvern"))]))
+    # StarvedHound (6)
+    entities.append(make_entity("Enemy", 16 * 16, 24 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 20 * 16, 28 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 18 * 16, 22 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 16 * 16, 92 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 46 * 16, 88 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 100 * 16, 51 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    # WingedKnight (1)
+    entities.append(make_entity("Enemy", 62 * 16, 42 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("WingedKnight", "WingedKnight"))]))
+    # CrystalLizard (2)
+    entities.append(make_entity("Enemy", 58 * 16, 48 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 48 * 16, 50 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    # Mimic (1)
+    entities.append(make_entity("Enemy", 42 * 16, 38 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Mimic", "Mimic"))]))
+    # LargeHollowSoldier (1)
+    entities.append(make_entity("Enemy", 56 * 16, 46 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LargeHollowSoldier", "LargeHollowSoldier"))]))
+    # HollowAssassin (5)
+    entities.append(make_entity("Enemy", 38 * 16, 56 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowAssassin", "HollowAssassin"))]))
+    entities.append(make_entity("Enemy", 62 * 16, 66 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowAssassin", "HollowAssassin"))]))
+    entities.append(make_entity("Enemy", 44 * 16, 40 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowAssassin", "HollowAssassin"))]))
+    entities.append(make_entity("Enemy", 60 * 16, 50 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowAssassin", "HollowAssassin"))]))
+    entities.append(make_entity("Enemy", 86 * 16, 75 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowAssassin", "HollowAssassin"))]))
+    # Darkwraith (1)
+    entities.append(make_entity("Enemy", 54 * 16, 50 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith"))]))
+    # MiniBoss (1)
+    entities.append(make_entity("Enemy", 82 * 16, 102 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+
+# --- NPCs ---
     # Greirat — locked in cell below tower (DS3: basement cell, asks for Loretta's Bone)
     entities.append(make_entity("Npc", 36 * 16, 60 * 16, [
         make_field("name", "String", "Greirat"),
@@ -3968,325 +3584,86 @@ def make_undead_settlement():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 38 DS3 fidelity (Undead Settlement)
-    # DS3: Peasant Hollows fill ALL streets, Evangelists patrol, Thralls ambush from rooftops
-    for tx, ty in [(35, 48), (42, 52), (50, 55), (58, 48), (65, 52),
-                   (72, 55), (80, 48), (88, 52), (95, 55)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(40, 72), (55, 78), (70, 75), (85, 72)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(60, 65), (75, 68)]:
-        mapped = ENEMY_KIND_MAP.get("Evangelist", "Evangelist")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(45, 58), (62, 62), (82, 58)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Additional enemies — SESSION 41 DS3 fidelity (Undead Settlement)
-    # DS3: Peasant Hollows fill every street, Starved Hounds in alleys
-    for tx, ty in [(25, 50), (32, 55), (40, 52), (48, 58), (55, 50),
-                   (62, 55), (70, 52)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(80, 65), (88, 70), (95, 68)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(35, 75), (50, 80)]:
-        mapped = ENEMY_KIND_MAP.get("Evangelist", "Evangelist")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- SESSION 44 DS3 enemies (Undead Settlement) ---
-    # DS3: Peasant Hollows EVERYWHERE; Evangelists on main street; Thralls ambush from rooftops
-    # Peasant Hollows - the dominant enemy (DS3: fill every street and house)
-    for tx, ty in [(15, 15), (22, 20), (30, 18), (38, 22), (45, 15), (52, 20)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Evangelists - the fat women with cleavers (DS3: 3 in settlement)
-    for tx, ty in [(28, 30), (42, 35), (58, 32)]:
-        mapped = ENEMY_KIND_MAP.get("Evangelist", "Evangelist")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Thralls - ambush from rooftops (DS3: drop from buildings)
-    for tx, ty in [(35, 25), (48, 28), (62, 22), (75, 26)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Starved Hounds - packs of dogs (DS3: in the lower settlement)
-    for tx, ty in [(20, 40), (30, 45), (40, 42), (50, 48)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Hollow Slaves - the tree-like enemies (DS3: near the giant's tower)
-    for tx, ty in [(60, 45), (70, 50), (80, 48)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSlave", "Thrall")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # More Peasant Hollows in the lower settlement
-    for tx, ty in [(25, 55), (35, 58), (45, 60), (55, 55), (65, 60)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 52 DS3 enemies (Undead Settlement diversity) ---
-    # DS3: Rats in the settlement cellars and lower passages
-    for tx, ty in [(28, 48), (38, 52), (48, 55)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Dogs near the giant's tree (DS3: dogs in the settlement)
-    for tx, ty in [(65, 55), (75, 58)]:
-        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Cage Spider (DS3: enemies hiding in cages hung from trees)
-    for tx, ty in [(55, 42)]:
-        mapped = ENEMY_KIND_MAP.get("CageSpider", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
-    # --- SESSION 63 DS3 enemies (Undead Settlement) ---
-    # DS3: Peasant Hollows throughout settlement streets and houses
-    for tx, ty in [(18, 15), (22, 18), (28, 12), (35, 16), (42, 14), (48, 20), (55, 12), (62, 18), (68, 14), (75, 16), (82, 20), (88, 12), (95, 15), (102, 18), (108, 14), (115, 16), (120, 20), (125, 14), (130, 18), (135, 15)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Soldiers patrolling near gates and walls
-    for tx, ty in [(20, 25), (32, 28), (45, 30), (58, 25), (70, 28), (85, 30), (98, 25), (110, 28), (122, 30), (132, 25)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls hiding on rooftops and rafters
-    for tx, ty in [(25, 35), (38, 38), (52, 40), (65, 35), (78, 38), (92, 40), (105, 35), (118, 38)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds near the lower settlement
-    for tx, ty in [(30, 45), (50, 48), (75, 45), (100, 48)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rats in the basement and sewer areas
-    for tx, ty in [(40, 55), (55, 58), (70, 55), (85, 58), (110, 55)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Evangelist near the pyre and indoors
-    for tx, ty in [(60, 42)]:
-        mapped = ENEMY_KIND_MAP.get("Evangelist", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Giant Slave throwing firebombs from tower
-    for tx, ty in [(90, 22)]:
-        mapped = ENEMY_KIND_MAP.get("GiantSlave", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Fire Demon in the square (friendly at first, fights hollows)
-    for tx, ty in [(80, 50)]:
-        mapped = ENEMY_KIND_MAP.get("FireDemon", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 65 DS3 enemies (Undead Settlement round 2) ---
-    # DS3: More Peasant Hollows in upper settlement and market area
-    for tx, ty in [(20, 28), (30, 32), (40, 28), (52, 35), (62, 28), (72, 32), (82, 28), (92, 35), (105, 28), (115, 32), (125, 28), (135, 32)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls ambushing from rooftops near the giant tower
-    for tx, ty in [(35, 42), (55, 48), (75, 42), (98, 48), (118, 42)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Evangelists preaching near the pyre area
-    for tx, ty in [(45, 52), (85, 52), (110, 48)]:
-        mapped = ENEMY_KIND_MAP.get("Evangelist", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Soldiers at the lower gates and bridge
-    for tx, ty in [(25, 60), (45, 65), (65, 60), (85, 65), (105, 60), (125, 65)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds near the tree and cages
-    for tx, ty in [(38, 55), (68, 58), (98, 55), (128, 58)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rats in the sewers below the settlement
-    for tx, ty in [(30, 72), (50, 75), (70, 72), (90, 75), (110, 72)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Infested Corpses hanging from trees
-    for tx, ty in [(60, 38), (95, 38), (130, 42)]:
-        mapped = ENEMY_KIND_MAP.get("InfestedCorpse", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 66 DS3 enemies (Undead Settlement round 3) ---
-    # DS3: Peasant Hollows filling the houses and alleys
-    for tx, ty in [(22, 42), (34, 48), (46, 42), (58, 48), (70, 42), (82, 48), (94, 42), (106, 48), (118, 42), (130, 48)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls dropping from ceilings in the houses
-    for tx, ty in [(28, 55), (48, 60), (68, 55), (88, 60), (108, 55), (128, 60)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Soldiers near the Moulder's Milibon area
-    for tx, ty in [(36, 65), (56, 70), (76, 65), (96, 70), (116, 65), (136, 70)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 69 DS3 enemies (Undead Settlement round 4) ---
-    # DS3: Peasant Hollows in the lower market district
-    for tx, ty in [(24, 50), (36, 55), (48, 60), (60, 55), (72, 50), (84, 55), (96, 60), (108, 55), (120, 50)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Soldiers at the bridge crossing
-    for tx, ty in [(30, 65), (50, 70), (70, 65), (90, 70), (110, 65)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls in the upper rafters
-    for tx, ty in [(28, 75), (48, 78), (68, 75), (88, 78), (108, 75)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Evangelists in the pyre square area
-    for tx, ty in [(40, 80), (65, 82), (90, 80)]:
-        mapped = ENEMY_KIND_MAP.get("Evangelist", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rats in the basement area
-    for tx, ty in [(35, 72), (55, 72), (75, 72), (95, 72)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 71 DS3 enemies (Undead Settlement round 5) ---
-    # DS3: More Peasant Hollows in the houses
-    for tx, ty in [(16, 35), (26, 40), (36, 35), (46, 40), (56, 35), (66, 40), (76, 35), (86, 40), (96, 35), (106, 40)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Thralls ambushing from above
-    for tx, ty in [(20, 50), (35, 55), (50, 50), (65, 55), (80, 50), (95, 55), (110, 50)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Hollow Soldiers at the settlement gates
-    for tx, ty in [(22, 60), (38, 65), (54, 60), (70, 65), (86, 60), (102, 65), (118, 60)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 73 DS3 enemies (Undead Settlement round 6) ---
-    # DS3: More Peasant Hollows throughout the settlement
-    for tx, ty in [(15, 18), (25, 25), (35, 32), (45, 18), (55, 25), (65, 32), (75, 18), (85, 25), (95, 32), (105, 18), (115, 25), (125, 32)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Hollow Soldiers at the settlement gates
-    for tx, ty in [(20, 40), (35, 45), (50, 40), (65, 45), (80, 40), (95, 45), (110, 40)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Thralls dropping from above
-    for tx, ty in [(22, 52), (38, 58), (54, 52), (70, 58), (86, 52), (102, 58)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 76 DS3 enemies (Undead Settlement round 7) ---
-    # DS3: Peasant Hollows in the lower houses
-    for tx, ty in [(18, 22), (28, 28), (38, 22), (48, 28), (58, 22), (68, 28), (78, 22), (88, 28), (98, 22), (108, 28)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Soldiers at the settlement walls
-    for tx, ty in [(22, 35), (36, 40), (50, 35), (64, 40), (78, 35), (92, 40), (106, 35), (120, 40)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls in the upper rafters
-    for tx, ty in [(25, 48), (42, 52), (58, 48), (75, 52), (92, 48), (108, 52)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds near the giant area
-    for tx, ty in [(30, 58), (52, 62), (74, 58), (96, 62)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 78 DS3 enemies (Undead Settlement round 8) ---
-    # DS3: Peasant Hollows filling the settlement
-    for tx, ty in [(20, 15), (30, 22), (40, 15), (50, 22), (60, 15), (70, 22), (80, 15), (90, 22), (100, 15), (110, 22)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Soldiers at the gates
-    for tx, ty in [(25, 30), (38, 35), (52, 30), (65, 35), (78, 30), (92, 35), (105, 30)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls ambushing from above
-    for tx, ty in [(32, 42), (48, 45), (62, 42), (78, 45), (92, 42)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Evangelists preaching
-    for tx, ty in [(40, 50), (60, 52), (80, 50)]:
-        mapped = ENEMY_KIND_MAP.get("Evangelist", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 80 DS3 enemies (Undead Settlement final) ---
-    # DS3: Peasant Hollows and Hollow Soldiers
-    for tx, ty in [(15, 12), (25, 18), (35, 12)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(20, 25), (30, 22)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 81 DS3 enemies (final gap close) ---
-    # DS3: 3 more PeasantHollow
-    for tx, ty in [(10, 10), (25, 17), (40, 24)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 82 DS3 enemies (final gap close) ---
-    for tx, ty in [(8, 8), (25, 19)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 83 DS3 enemies (final) ---
-    for tx, ty in [(9, 9)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
+
+    
+    # --- DS3 faithful enemies (UndeadSettlement) ---
+    # HollowSoldier (13)
+    for tx, ty in [(352, 224), (416, 352), (608, 512), (1440, 672), (1536, 704), (1024, 1248), (1248, 1248), (1344, 1408), (1216, 1024), (1664, 1056), (1136, 1616), (1472, 1696), (1376, 1760)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- NPCs (DS3 Undead Settlement: Yoel, Siegward, Cornyx) ---
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier"))]))
+    # StarvedHound (6)
+    entities.append(make_entity("Enemy", 288 * 16, 288 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 320 * 16, 320 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 256 * 16, 352 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 480 * 16, 576 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 928 * 16, 608 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 1312 * 16, 800 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    # PeasantHollow (20)
+    for tx, ty in [(544, 448), (672, 576), (864, 672), (768, 704), (960, 544), (1056, 608), (1504, 800), (928, 1312), (1088, 1376), (2336, 832), (2240, 832), (2272, 864), (2304, 768), (576, 544), (1152, 704), (1600, 928), (1024, 1312), (1200, 1344), (992, 1472), (1344, 1936)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow"))]))
+    # Evangelist (4)
+    entities.append(make_entity("Enemy", 992 * 16, 736 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
+    entities.append(make_entity("Enemy", 1056 * 16, 832 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
+    entities.append(make_entity("Enemy", 1216 * 16, 960 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
+    entities.append(make_entity("Enemy", 1376 * 16, 864 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
+    # Thrall (12)
+    for tx, ty in [(896, 480), (1152, 800), (736, 608), (1280, 928), (800, 576), (1024, 672), (1312, 1312), (1408, 768), (1472, 832), (976, 1392), (848, 1440), (1584, 1872)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Thrall", "Thrall"))]))
+    # FireDemon (1)
+    entities.append(make_entity("Enemy", 1632 * 16, 992 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("FireDemon", "FireDemon"))]))
+    # Rat (6)
+    entities.append(make_entity("Enemy", 1248 * 16, 1216 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+    entities.append(make_entity("Enemy", 1280 * 16, 1248 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+    entities.append(make_entity("Enemy", 1312 * 16, 1280 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+    entities.append(make_entity("Enemy", 1344 * 16, 1488 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+    entities.append(make_entity("Enemy", 1392 * 16, 1568 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+    entities.append(make_entity("Enemy", 1504 * 16, 1632 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+    # Dog (1)
+    entities.append(make_entity("Enemy", 1344 * 16, 1216 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
+    # GiantSlave (1)
+    entities.append(make_entity("Enemy", 832 * 16, 352 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave"))]))
+    # MiniBoss (1)
+    entities.append(make_entity("Enemy", 1024 * 16, 1056 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+    # CrystalLizard (1)
+    entities.append(make_entity("Enemy", 1792 * 16, 736 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+
+# --- NPCs (DS3 Undead Settlement: Yoel, Siegward, Cornyx) ---
     # Yoel of Londor — among the pilgrims at the entrance (DS3: offers free levels)
     entities.append(make_entity("Npc", 120 * 16, 34 * 16, [
         make_field("name", "String", "Yoel of Londor"),
@@ -5016,46 +4393,6 @@ def make_undead_settlement():
         chunk[ty][15] = TILE_WALL  # gate pillar
         chunk[ty][20] = TILE_WALL  # gate pillar
 
-    # --- SESSION 60 DS3 enemies (Undead Settlement) ---
-    # DS3: Hollow Soldiers patrol the settlement
-    for tx, ty in [(12, 12), (20, 18), (28, 25), (35, 30), (42, 35), (50, 40), (58, 45),
-                   (65, 50), (72, 55), (80, 48), (88, 42), (95, 50), (105, 55), (115, 35),
-                   (125, 45), (135, 55), (145, 52)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Peasant Hollows - weakened hollows with various weapons
-    for tx, ty in [(15, 15), (25, 22), (32, 28), (40, 38), (48, 42), (55, 48), (62, 52),
-                   (68, 58), (75, 52), (82, 45), (90, 55), (100, 48), (110, 38), (120, 42),
-                   (130, 50), (142, 55)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Evangelists - one drops Dorhys' Gnawing
-    for tx, ty in [(22, 20), (45, 35), (68, 55), (85, 60), (105, 45), (125, 50)]:
-        mapped = ENEMY_KIND_MAP.get("Evangelist", "Cleric")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls ambush from rooftops and ceilings
-    for tx, ty in [(18, 10), (30, 32), (52, 38), (60, 55), (78, 50), (92, 58), (108, 40), (135, 48)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds - dogs in various locations
-    for tx, ty in [(14, 18), (38, 25), (55, 42), (72, 48), (95, 52), (115, 55)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Slaves - self-immolating enemies
-    for tx, ty in [(25, 15), (48, 30), (65, 45), (88, 55), (100, 60), (118, 42)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizard
-    for tx, ty in [(140, 58), (108, 35)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
     # --- SESSION 86 DS3 terrain (Undead Settlement detail pass) ---
@@ -5418,9 +4755,87 @@ def make_road_of_sacrifices():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- Items (DS3 Road of Sacrifices) — accurate from wiki ---
+    
+    # --- DS3 faithful enemies (RoadOfSacrifices) ---
+    # Corvian (21)
+    for tx, ty in [(25, 20), (35, 24), (28, 22), (56, 35), (62, 40), (75, 52), (82, 58), (65, 45), (78, 48), (90, 50), (58, 55), (118, 88), (122, 92), (125, 96), (112, 82), (128, 85), (68, 80), (72, 85), (64, 82), (75, 84), (62, 92)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Corvian", "Corvian"))]))
+    # StarvedHound (6)
+    entities.append(make_entity("Enemy", 42 * 16, 26 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 48 * 16, 28 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 45 * 16, 32 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 71 * 16, 101 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 110 * 16, 95 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 115 * 16, 100 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    # DarkMage (4)
+    entities.append(make_entity("Enemy", 70 * 16, 48 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    entities.append(make_entity("Enemy", 88 * 16, 55 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    entities.append(make_entity("Enemy", 125 * 16, 115 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    entities.append(make_entity("Enemy", 135 * 16, 118 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    # LycanthropeHunter (2)
+    entities.append(make_entity("Enemy", 72 * 16, 55 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LycanthropeHunter", "LycanthropeHunter"))]))
+    entities.append(make_entity("Enemy", 85 * 16, 60 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LycanthropeHunter", "LycanthropeHunter"))]))
+    # CrystalLizard (3)
+    entities.append(make_entity("Enemy", 50 * 16, 26 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 96 * 16, 62 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 112 * 16, 88 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    # PoisonhornBug (4)
+    entities.append(make_entity("Enemy", 65 * 16, 62 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PoisonhornBug", "PoisonhornBug"))]))
+    entities.append(make_entity("Enemy", 70 * 16, 65 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PoisonhornBug", "PoisonhornBug"))]))
+    entities.append(make_entity("Enemy", 62 * 16, 70 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PoisonhornBug", "PoisonhornBug"))]))
+    entities.append(make_entity("Enemy", 58 * 16, 68 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PoisonhornBug", "PoisonhornBug"))]))
+    # GreatCrab (1)
+    entities.append(make_entity("Enemy", 76 * 16, 70 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GreatCrab", "GreatCrab"))]))
+    # LesserCrab (2)
+    entities.append(make_entity("Enemy", 78 * 16, 68 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LesserCrab", "LesserCrab"))]))
+    entities.append(make_entity("Enemy", 80 * 16, 72 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LesserCrab", "LesserCrab"))]))
+    # BlackKnight (1)
+    entities.append(make_entity("Enemy", 108 * 16, 85 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
+    # Basilisk (2)
+    entities.append(make_entity("Enemy", 61 * 16, 87 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    entities.append(make_entity("Enemy", 53 * 16, 90 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    # Archer (2)
+    entities.append(make_entity("Enemy", 100 * 16, 78 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Archer", "Archer"))]))
+    entities.append(make_entity("Enemy", 120 * 16, 82 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Archer", "Archer"))]))
+    # DarkSpirit (2)
+    entities.append(make_entity("Enemy", 108 * 16, 100 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkSpirit", "DarkSpirit"))]))
+    entities.append(make_entity("Enemy", 115 * 16, 105 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkSpirit", "DarkSpirit"))]))
+    # MiniBoss (1)
+    entities.append(make_entity("Enemy", 130 * 16, 112 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+
+# --- Items (DS3 Road of Sacrifices) — accurate from wiki ---
     # Shriving Stone — end of left path in entry woods
     entities.append(make_entity("Item", 30 * 16, 22 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "Consumable"),
@@ -5611,245 +5026,16 @@ def make_road_of_sacrifices():
         make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
         make_field("name", "String", "Titanite Shard")]))
 
-    # Additional enemies — SESSION 34 DS3 fidelity (Road of Sacrifices)
-    # DS3: Corvians are the primary enemy, patrolling the path and swamp edges
-    for tx, ty in [(42, 55), (48, 60), (55, 50), (60, 58), (65, 52),
-                   (72, 62), (78, 55), (82, 60), (88, 52), (95, 58)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(38, 70), (52, 75), (70, 68), (85, 72)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(45, 90), (58, 95), (75, 92)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Additional enemies — SESSION 37 DS3 fidelity (Road of Sacrifices)
-    # DS3: Corvians throughout all sections, especially near crucifixion woods
-    for tx, ty in [(30, 42), (38, 48), (45, 44), (52, 50), (60, 45),
-                   (68, 52), (75, 48), (82, 44), (90, 50)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(42, 80), (55, 85), (68, 82), (80, 88), (92, 85)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(35, 65), (50, 68), (70, 72)]:
-        mapped = ENEMY_KIND_MAP.get("LesserCrab", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Additional enemies — SESSION 42 DS3 fidelity (Road of Sacrifices)
-    # DS3: Corvians and more Corvians, Crucifixion Woods teeming with them
-    for tx, ty in [(28, 50), (35, 55), (42, 52), (50, 58), (58, 50),
-                   (65, 55), (72, 52)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(80, 60), (88, 65), (96, 62)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(42, 78), (55, 82), (68, 80)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- SESSION 48 DS3 enemies (Road of Sacrifices) ---
-    # DS3: Corvian Storytellers - the masked corvian casters (DS3: perched on branches)
-    for tx, ty in [(35, 30), (55, 35), (72, 28)]:
-        mapped = ENEMY_KIND_MAP.get("CorvianStoryteller", "DarkMage")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Great Crabs in the marsh area (DS3: the crucifixion woods swamp)
-    for tx, ty in [(40, 55), (55, 58)]:
-        mapped = ENEMY_KIND_MAP.get("GreatCrab", "GiantSlave")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Black Knight (DS3: one guards the Farron Keep perimeter)
-    for tx, ty in [(80, 42)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Lesser Crabs in the swamp shallows
-    for tx, ty in [(45, 60), (60, 62), (75, 55)]:
-        mapped = ENEMY_KIND_MAP.get("LesserCrab", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 57 DS3 enemies (Road of Sacrifices diversity) ---
-    # DS3: Exile Watchdog (DS3: the NPC invader in the crucifixion woods)
-    for tx, ty in [(65, 50)]:
-        mapped = ENEMY_KIND_MAP.get("DarkSpirit", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Lycanthrope Hunters (DS3: the werewolf enemies near Farron Keep)
-    for tx, ty in [(80, 48), (92, 52)]:
-        mapped = ENEMY_KIND_MAP.get("LycanthropeHunter", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
-    # --- SESSION 63 DS3 enemies (Road of Sacrifices) ---
-    # DS3: Corvians perched in trees and on cliffs throughout the forest
-    for tx, ty in [(25, 28), (30, 35), (35, 42), (42, 30), (48, 38), (55, 25), (60, 45), (65, 32), (72, 40), (78, 28), (85, 35), (90, 42), (95, 30), (102, 38), (108, 25)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds near the crabs' swamp area
-    for tx, ty in [(32, 50), (50, 55), (72, 50), (95, 55)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages (Hollow casters) near ruins
-    for tx, ty in [(40, 60), (55, 65), (75, 60), (100, 65)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Poisonhorn Bugs in the swampy areas
-    for tx, ty in [(45, 70), (60, 75), (80, 70), (105, 75)]:
-        mapped = ENEMY_KIND_MAP.get("PoisonhornBug", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards near crystal formations
-    for tx, ty in [(50, 80), (85, 85)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Archers on elevated positions
-    for tx, ty in [(38, 90), (68, 95)]:
-        mapped = ENEMY_KIND_MAP.get("Archer", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lycanthrope Hunter near the Halfway Fortress
-    for tx, ty in [(28, 45)]:
-        mapped = ENEMY_KIND_MAP.get("LycanthropeHunter", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisk in the swamp cave
-    for tx, ty in [(62, 100)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Spirit invasion near Farron Keep entrance
-    for tx, ty in [(115, 35)]:
-        mapped = ENEMY_KIND_MAP.get("DarkSpirit", "DarkSpirit")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 65 DS3 enemies (Road of Sacrifices round 2) ---
-    # DS3: More Corvians throughout the deeper forest
-    for tx, ty in [(28, 48), (38, 55), (48, 62), (58, 48), (68, 55), (78, 62), (88, 48), (98, 55), (108, 62), (118, 48), (128, 55)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Corvian Storytellers on elevated perches (buff nearby Corvians)
-    for tx, ty in [(35, 42), (75, 42), (115, 42)]:
-        mapped = ENEMY_KIND_MAP.get("CorvianStoryteller", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds in the swampy undergrowth
-    for tx, ty in [(42, 70), (65, 75), (88, 70), (110, 75)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages in the ruins near Crucifixion Woods
-    for tx, ty in [(32, 82), (62, 88), (92, 82)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lesser Crabs in the shallow water
-    for tx, ty in [(45, 92), (75, 98), (105, 92)]:
-        mapped = ENEMY_KIND_MAP.get("LesserCrab", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisks near the Farron Keep entrance swamp
-    for tx, ty in [(85, 95), (115, 98)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 75 DS3 enemies (Road of Sacrifices round 3) ---
-    # DS3: Corvians throughout the deeper forest
-    for tx, ty in [(20, 22), (28, 30), (36, 38), (44, 45), (52, 30), (60, 38), (68, 45), (76, 30), (84, 38), (92, 45), (100, 30), (108, 38)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Corvian Storytellers on elevated perches
-    for tx, ty in [(30, 52), (55, 52), (80, 52), (105, 52)]:
-        mapped = ENEMY_KIND_MAP.get("CorvianStoryteller", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds in the undergrowth
-    for tx, ty in [(25, 58), (45, 62), (65, 58), (85, 62)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages near the ruins
-    for tx, ty in [(35, 68), (55, 72), (75, 68), (95, 72)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lesser Crabs in the swampy water
-    for tx, ty in [(40, 78), (60, 82), (80, 78), (100, 82)]:
-        mapped = ENEMY_KIND_MAP.get("LesserCrab", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 78 DS3 enemies (Road of Sacrifices round 4) ---
-    # DS3: Corvians in the forest canopy
-    for tx, ty in [(22, 25), (32, 32), (42, 38), (52, 25), (62, 32), (72, 38), (82, 25), (92, 32), (102, 38), (112, 25), (122, 32)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages near the ruins
-    for tx, ty in [(28, 45), (48, 48), (68, 45), (88, 48)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lesser Crabs in the water
-    for tx, ty in [(35, 55), (55, 58), (75, 55), (95, 58)]:
-        mapped = ENEMY_KIND_MAP.get("LesserCrab", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Black Knight near Farron Keep
-    for tx, ty in [(115, 35)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Great Crab in the swamp
-    for tx, ty in [(58, 62)]:
-        mapped = ENEMY_KIND_MAP.get("GreatCrab", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 80 DS3 enemies (Road of Sacrifices final) ---
-    # DS3: Corvians in the forest
-    for tx, ty in [(18, 18), (26, 25), (34, 18), (42, 25)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 81 DS3 enemies (final gap close) ---
-    # DS3: 3 more Corvian
-    for tx, ty in [(10, 10), (25, 17), (40, 24)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 82 DS3 enemies (final gap close) ---
-    for tx, ty in [(8, 8), (25, 19)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 83 DS3 enemies (final) ---
-    for tx, ty in [(9, 9)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # NPCs - Anri and Horace at Halfway Fortress (DS3: they sit together at the bonfire)
+
     entities.append(make_entity("Npc", 50 * 16, 30 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello. We meet again|I am Anri of Astora, and this is Horace the Hushed|We journey to find the Lords of Cinder|Won't you join us?|I have no love for the smaller roads, they are treacherous|The Cathedral of the Deep lies ahead, tread carefully|Horace and I have been together for a long time now")]))
     entities.append(make_entity("Npc", 54 * 16, 30 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods silently)|(gestures toward Anri)|(adjusts helmet)")]))
 
@@ -6298,39 +5484,6 @@ def make_road_of_sacrifices():
     for tx in range(55, 62):
         chunk[42][tx] = TILE_WALLTOP  # hut foundation
 
-    # --- SESSION 60 DS3 enemies (Road of Sacrifices) ---
-    # DS3: Corvians - bird-like enemies throughout the woods
-    for tx, ty in [(18, 20), (25, 25), (32, 30), (40, 35), (48, 40), (55, 45), (62, 50),
-                   (70, 55), (78, 60), (85, 65), (92, 70), (100, 75), (108, 80), (115, 85),
-                   (122, 90), (130, 95)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Corvian Storytellers - cast spells and attract other Corvians
-    for tx, ty in [(22, 22), (45, 38), (68, 52), (88, 62), (105, 72), (125, 98)]:
-        mapped = ENEMY_KIND_MAP.get("CorvianStoryteller", "Mage")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Great Crabs in water areas
-    for tx, ty in [(58, 68), (95, 82), (128, 108)]:
-        mapped = ENEMY_KIND_MAP.get("GreatCrab", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lesser Crabs
-    for tx, ty in [(50, 65), (65, 70), (80, 75), (100, 80), (115, 88)]:
-        mapped = ENEMY_KIND_MAP.get("LesserCrab", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Black Knight near Farron Keep entrance
-    for tx, ty in [(120, 100), (132, 105)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizard
-    for tx, ty in [(72, 60), (110, 78)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
     # --- SESSION 87 DS3 terrain (Road of Sacrifices detail pass) ---
@@ -6801,9 +5954,83 @@ def make_farron_keep():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- Items (DS3 Farron Keep) — accurate from wiki ---
+    
+    # --- DS3 faithful enemies (FarronKeep) ---
+    # Ghru (21)
+    for tx, ty in [(35, 45), (40, 48), (48, 50), (33, 50), (42, 55), (46, 58), (68, 48), (72, 52), (75, 55), (64, 55), (70, 58), (95, 42), (100, 45), (92, 48), (98, 52), (105, 50), (65, 72), (72, 76), (78, 70), (68, 68), (74, 65)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Ghru", "Ghru"))]))
+    # DarkMage (2)
+    entities.append(make_entity("Enemy", 70 * 16, 74 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    entities.append(make_entity("Enemy", 118 * 16, 98 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    # Darkwraith (5)
+    entities.append(make_entity("Enemy", 100 * 16, 88 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith"))]))
+    entities.append(make_entity("Enemy", 108 * 16, 95 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith"))]))
+    entities.append(make_entity("Enemy", 125 * 16, 108 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith"))]))
+    entities.append(make_entity("Enemy", 88 * 16, 75 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith"))]))
+    entities.append(make_entity("Enemy", 115 * 16, 90 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith"))]))
+    # Basilisk (5)
+    entities.append(make_entity("Enemy", 24 * 16, 70 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    entities.append(make_entity("Enemy", 30 * 16, 75 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    entities.append(make_entity("Enemy", 32 * 16, 68 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    entities.append(make_entity("Enemy", 28 * 16, 78 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    entities.append(make_entity("Enemy", 34 * 16, 72 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    # RottenSlug (13)
+    for tx, ty in [(42, 82), (45, 85), (50, 88), (48, 105), (52, 110), (38, 60), (44, 65), (55, 70), (62, 75), (70, 80), (85, 75), (40, 90), (56, 95)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("RottenSlug", "RottenSlug"))]))
+    # GiantHollow (6)
+    entities.append(make_entity("Enemy", 55 * 16, 62 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantHollow", "GiantHollow"))]))
+    entities.append(make_entity("Enemy", 60 * 16, 68 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantHollow", "GiantHollow"))]))
+    entities.append(make_entity("Enemy", 58 * 16, 75 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantHollow", "GiantHollow"))]))
+    entities.append(make_entity("Enemy", 110 * 16, 100 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantHollow", "GiantHollow"))]))
+    entities.append(make_entity("Enemy", 82 * 16, 60 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantHollow", "GiantHollow"))]))
+    entities.append(make_entity("Enemy", 90 * 16, 55 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantHollow", "GiantHollow"))]))
+    # GreatCrab (1)
+    entities.append(make_entity("Enemy", 65 * 16, 62 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GreatCrab", "GreatCrab"))]))
+    # Corvian (2)
+    entities.append(make_entity("Enemy", 115 * 16, 95 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Corvian", "Corvian"))]))
+    entities.append(make_entity("Enemy", 120 * 16, 100 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Corvian", "Corvian"))]))
+    # CrystalLizard (5)
+    entities.append(make_entity("Enemy", 85 * 16, 82 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 48 * 16, 112 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 122 * 16, 95 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 128 * 16, 98 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 56 * 16, 65 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    # MiniBoss (2)
+    entities.append(make_entity("Enemy", 108 * 16, 85 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+    entities.append(make_entity("Enemy", 120 * 16, 98 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+
+# --- Items (DS3 Farron Keep) — accurate from wiki ---
     # Pyromancies / Spells / Key items
     entities.append(make_entity("Item", 22 * 16, 45 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Iron Flesh")]))
     entities.append(make_entity("Item", 25 * 16, 68 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Golden Scroll")]))
@@ -7220,224 +6447,16 @@ def make_farron_keep():
         chunk[ty][tx+1] = TILE_WALLTOP
 
 
-    # --- SESSION 63 DS3 enemies (Farron Keep) ---
-    # DS3: Ghru packs throughout the swamp - the dominant enemy
-    for tx, ty in [(15, 30), (22, 35), (30, 40), (38, 45), (45, 50), (52, 55), (60, 60), (68, 65), (75, 70), (82, 75), (90, 80), (98, 85), (105, 75), (112, 65), (120, 55), (130, 45)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rotten Slugs in the poison swamp waters
-    for tx, ty in [(18, 55), (28, 65), (38, 75), (48, 85), (58, 95), (68, 100), (80, 95), (92, 85), (102, 75), (115, 65)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Giant Hollows near the perimeter ruins
-    for tx, ty in [(20, 40), (42, 60), (65, 80), (88, 100), (110, 80), (135, 50)]:
-        mapped = ENEMY_KIND_MAP.get("GiantHollow", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Darkwraiths patrolling near Abyss artifacts
-    for tx, ty in [(35, 70), (75, 90)]:
-        mapped = ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisks in the deeper swamp caves
-    for tx, ty in [(25, 80), (55, 100), (95, 100)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards in hidden corners
-    for tx, ty in [(12, 45), (48, 70), (85, 90), (128, 35)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages near ruined structures
-    for tx, ty in [(32, 50), (95, 70)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Corvians at the edge near Road of Sacrifices
-    for tx, ty in [(10, 35), (140, 40)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 65 DS3 enemies (Farron Keep round 2) ---
-    # DS3: More Ghru in the swamp islands and camp areas
-    for tx, ty in [(18, 42), (28, 52), (38, 62), (48, 72), (58, 82), (68, 92), (78, 98), (88, 92), (98, 82), (108, 72), (118, 62), (128, 52)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Darkwraiths near the AbyssWatcher door and deep swamp
-    for tx, ty in [(45, 85), (85, 105), (115, 90)]:
-        mapped = ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisks near the cave water areas
-    for tx, ty in [(22, 68), (52, 88), (82, 108)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Leeches in the poison swamp water
-    for tx, ty in [(35, 58), (55, 78), (75, 98), (95, 88), (115, 68)]:
-        mapped = ENEMY_KIND_MAP.get("Leech", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Ghru Conjurors (ranged casters) on elevated ground
-    for tx, ty in [(25, 48), (65, 68), (105, 48)]:
-        mapped = ENEMY_KIND_MAP.get("GhruConjuror", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 66 DS3 enemies (Farron Keep round 3) ---
-    # DS3: More Ghru throughout the poison swamp
-    for tx, ty in [(20, 55), (32, 65), (44, 75), (56, 85), (68, 95), (80, 85), (92, 75), (104, 65), (116, 55), (128, 65), (140, 75)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rotten Slugs in the deeper swamp water
-    for tx, ty in [(25, 70), (40, 80), (55, 90), (70, 100), (85, 90), (100, 80), (115, 70)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Darkwraiths near Abyss Watchers arena approach
-    for tx, ty in [(50, 95), (90, 100), (130, 90)]:
-        mapped = ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards in hidden swamp corners
-    for tx, ty in [(15, 60), (75, 105), (135, 60)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 70 DS3 enemies (Farron Keep round 4) ---
-    # DS3: More Ghru in the deep swamp and camp areas
-    for tx, ty in [(22, 48), (32, 55), (42, 62), (52, 68), (62, 75), (72, 68), (82, 62), (92, 55), (102, 68), (112, 75), (122, 62), (132, 55)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Rotten Slugs in the poison pools
-    for tx, ty in [(18, 72), (35, 78), (52, 85), (68, 92), (85, 78), (102, 72), (118, 85), (135, 78)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Darkwraiths near the Abyss Watchers mausoleum
-    for tx, ty in [(45, 88), (75, 95), (105, 88)]:
-        mapped = ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisks in the dark swamp pools
-    for tx, ty in [(28, 85), (58, 95), (88, 85), (118, 95)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards in hidden corners
-    for tx, ty in [(20, 62), (65, 100), (130, 68)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Corvians at the edge of the swamp
-    for tx, ty in [(10, 55), (140, 55)]:
-        mapped = ENEMY_KIND_MAP.get("Corvian", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 72 DS3 enemies (Farron Keep round 5) ---
-    # DS3: More Ghru in the swamp perimeter
-    for tx, ty in [(12, 38), (22, 45), (32, 52), (42, 58), (52, 65), (62, 72), (72, 65), (82, 58), (92, 52), (102, 45), (112, 52), (122, 58)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rotten Slugs in the deep pools
-    for tx, ty in [(15, 62), (30, 68), (45, 75), (60, 82), (75, 68), (90, 75), (105, 62), (120, 68)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisks in the dark water
-    for tx, ty in [(20, 78), (40, 85), (60, 78), (80, 85), (100, 78)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Darkwraiths near the Abyss Watchers
-    for tx, ty in [(35, 88), (70, 92), (105, 88)]:
-        mapped = ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 76 DS3 enemies (Farron Keep round 6) ---
-    # DS3: More Ghru in the swamp camps
-    for tx, ty in [(18, 42), (25, 50), (32, 58), (39, 42), (46, 50), (53, 58), (60, 42), (67, 50), (74, 58), (81, 42), (88, 50), (95, 58)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Rotten Slugs in the deep pools
-    for tx, ty in [(22, 65), (35, 70), (48, 75), (62, 65), (75, 70), (88, 75), (102, 65)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Darkwraiths near the mausoleum
-    for tx, ty in [(40, 80), (65, 82), (90, 80)]:
-        mapped = ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards in hidden spots
-    for tx, ty in [(28, 72), (58, 78), (88, 72)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 79 DS3 enemies (Farron Keep round 7) ---
-    # DS3: Ghru in the deeper swamp areas
-    for tx, ty in [(15, 35), (22, 42), (29, 50), (36, 58), (43, 42), (50, 50), (57, 58), (64, 42), (71, 50), (78, 58), (85, 42), (92, 50)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rotten Slugs in the deep pools
-    for tx, ty in [(18, 65), (30, 70), (42, 75), (54, 65), (66, 70), (78, 75), (90, 65), (102, 70)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Darkwraiths near the Abyss Watchers
-    for tx, ty in [(35, 80), (60, 82), (85, 80)]:
-        mapped = ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisks in the swamp
-    for tx, ty in [(25, 75), (50, 80), (75, 75)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 80 DS3 enemies (Farron Keep final) ---
-    # DS3: Ghru and Rotten Slugs
-    for tx, ty in [(12, 32), (20, 38), (28, 32)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(15, 45), (25, 50)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 81 DS3 enemies (final gap close) ---
-    # DS3: 3 more Ghru
-    for tx, ty in [(10, 10), (25, 17), (40, 24)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 82 DS3 enemies (final gap close) ---
-    for tx, ty in [(8, 8), (25, 19)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 83 DS3 enemies (final) ---
-    for tx, ty in [(9, 9)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # --- SESSION 87 DS3 terrain (Farron Keep detail pass) ---
     # DS3: Poison swamp islands (elevated ground in the swamp)
@@ -7532,117 +6551,8 @@ def make_farron_keep():
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    # Additional enemies — SESSION 35 DS3 fidelity (Farron Keep)
-    # DS3: Ghrus swarm the swamp, Darkwraiths patrol, Slugs in water
-    for tx, ty in [(85, 55), (92, 60), (100, 58), (108, 62), (115, 55),
-                   (122, 60), (128, 58)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "Ghru")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(25, 88), (32, 95), (40, 92), (48, 98), (55, 90),
-                   (62, 95), (70, 88)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(88, 80), (100, 85), (112, 82), (125, 88)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "Ghru")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(95, 75), (110, 78)]:
-        mapped = ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- SESSION 45 DS3 enemies (Farron Keep) ---
-    # DS3: Basilisks in the swamp (they curse you!)
-    for tx, ty in [(25, 45), (40, 50), (55, 48)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Rotten Slugs in the poison swamp water (DS3: in the deep swamp)
-    for tx, ty in [(30, 55), (45, 58), (60, 52), (75, 56)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Black Knight - guards the Abyss Watchers arena approach
-    for tx, ty in [(95, 65)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # More Ghrus in the deep swamp (DS3: they swarm the area)
-    for tx, ty in [(35, 62), (48, 65), (62, 60), (75, 65), (88, 62)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "Ghru")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Ghru Conjuror - the spell-casting variant
-    for tx, ty in [(42, 68), (58, 72), (72, 68)]:
-        mapped = ENEMY_KIND_MAP.get("GhruConjuror", "DarkMage")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 50 DS3 enemies (Farron Keep final) ---
-    # DS3: More Ghrus in the central swamp
-    for tx, ty in [(38, 45), (52, 48), (68, 44), (82, 48)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "Ghru")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Darkwraith in the deep swamp (DS3: emerges from the swamp)
-    for tx, ty in [(55, 60)]:
-        mapped = ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Leeches in the poison water
-    for tx, ty in [(30, 58), (45, 62), (60, 58)]:
-        mapped = ENEMY_KIND_MAP.get("Leech", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Abyss Watcher phantom (DS3: the fallen warriors)
-    for tx, ty in [(90, 68)]:
-        mapped = ENEMY_KIND_MAP.get("DarkSpirit", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 60 DS3 enemies (Farron Keep) ---
-    # DS3: Ghru roam the swamp in packs - goat-like Abyss creatures
-    for tx, ty in [(12, 25), (18, 30), (25, 28), (32, 35), (40, 40), (48, 38), (55, 45), (62, 50),
-                   (70, 55), (78, 48), (85, 42), (92, 55), (100, 60), (108, 65), (115, 58), (125, 70)]:
-        mapped = ENEMY_KIND_MAP.get("Ghru", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Ghru Conjurors cast homing soulmass
-    for tx, ty in [(22, 35), (50, 42), (75, 52), (95, 58), (120, 62), (135, 75), (30, 50), (65, 65)]:
-        mapped = ENEMY_KIND_MAP.get("GhruConjuror", "Mage")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Darkwraiths fight Ghrus in the swamp
-    for tx, ty in [(15, 22), (45, 35), (80, 55), (110, 60), (140, 80), (35, 65)]:
-        mapped = ENEMY_KIND_MAP.get("Darkwraith", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisks in the poison swamp - curse danger
-    for tx, ty in [(10, 35), (28, 45), (55, 60), (72, 68), (95, 72), (130, 85)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rotten Slugs in deep water
-    for tx, ty in [(20, 40), (38, 48), (52, 55), (68, 62), (88, 65), (105, 70)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Leeches around island structures
-    for tx, ty in [(42, 55), (58, 65), (75, 70), (90, 60), (108, 68)]:
-        mapped = ENEMY_KIND_MAP.get("Leech", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Great Crab in deeper water
-    for tx, ty in [(65, 75), (132, 95), (145, 110)]:
-        mapped = ENEMY_KIND_MAP.get("GreatCrab", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards in corners
-    for tx, ty in [(8, 30), (148, 115), (135, 90)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     print(f"  FarronKeep (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "FarronKeep", chunk, entities
@@ -8027,9 +6937,89 @@ def make_cathedral_deep():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- Items (DS3 Cathedral of the Deep) — accurate from wiki ---
+    
+    # --- DS3 faithful enemies (CathedralDeep) ---
+    # InfestedCorpse (13)
+    for tx, ty in [(28, 6), (34, 8), (25, 10), (35, 12), (30, 28), (36, 30), (76, 66), (36, 84), (44, 86), (38, 86), (42, 88), (30, 108), (28, 114)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("InfestedCorpse", "InfestedCorpse"))]))
+    # CrystalLizard (2)
+    entities.append(make_entity("Enemy", 38 * 16, 4 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 60 * 16, 76 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    # CathedralKnight (10)
+    for tx, ty in [(40, 16), (45, 20), (48, 54), (52, 56), (50, 70), (55, 72), (70, 62), (48, 88), (52, 96), (60, 110)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CathedralKnight", "CathedralKnight"))]))
+    # StarvedHound (2)
+    entities.append(make_entity("Enemy", 22 * 16, 24 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 26 * 16, 28 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    # CathedralGraveWarden (4)
+    entities.append(make_entity("Enemy", 34 * 16, 26 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CathedralGraveWarden", "CathedralGraveWarden"))]))
+    entities.append(make_entity("Enemy", 38 * 16, 32 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CathedralGraveWarden", "CathedralGraveWarden"))]))
+    entities.append(make_entity("Enemy", 58 * 16, 106 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CathedralGraveWarden", "CathedralGraveWarden"))]))
+    entities.append(make_entity("Enemy", 62 * 16, 108 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CathedralGraveWarden", "CathedralGraveWarden"))]))
+    # Evangelist (6)
+    entities.append(make_entity("Enemy", 34 * 16, 42 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
+    entities.append(make_entity("Enemy", 46 * 16, 50 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
+    entities.append(make_entity("Enemy", 42 * 16, 74 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
+    entities.append(make_entity("Enemy", 66 * 16, 64 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
+    entities.append(make_entity("Enemy", 72 * 16, 68 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
+    entities.append(make_entity("Enemy", 40 * 16, 96 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
+    # PeasantHollow (2)
+    entities.append(make_entity("Enemy", 28 * 16, 40 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow"))]))
+    entities.append(make_entity("Enemy", 58 * 16, 64 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow"))]))
+    # Thrall (13)
+    for tx, ty in [(60, 60), (64, 65), (68, 62), (62, 68), (48, 76), (56, 78), (52, 73), (58, 75), (54, 77), (46, 100), (54, 102), (36, 94), (40, 98)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Thrall", "Thrall"))]))
+    # DeepAccursed (1)
+    entities.append(make_entity("Enemy", 22 * 16, 38 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DeepAccursed", "DeepAccursed"))]))
+    # GiantSlave (2)
+    entities.append(make_entity("Enemy", 44 * 16, 92 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave"))]))
+    entities.append(make_entity("Enemy", 56 * 16, 98 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave"))]))
+    # Deacon (12)
+    for tx, ty in [(38, 110), (42, 108), (48, 118), (52, 116), (56, 114), (40, 118), (45, 122), (50, 124), (55, 120), (35, 124), (58, 118), (32, 120)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Deacon", "Deacon"))]))
+    # ManGrub (5)
+    entities.append(make_entity("Enemy", 34 * 16, 135 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ManGrub", "ManGrub"))]))
+    entities.append(make_entity("Enemy", 38 * 16, 138 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ManGrub", "ManGrub"))]))
+    entities.append(make_entity("Enemy", 42 * 16, 140 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ManGrub", "ManGrub"))]))
+    entities.append(make_entity("Enemy", 36 * 16, 142 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ManGrub", "ManGrub"))]))
+    entities.append(make_entity("Enemy", 40 * 16, 144 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ManGrub", "ManGrub"))]))
+    # Darkwraith (1)
+    entities.append(make_entity("Enemy", 64 * 16, 70 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith"))]))
+    # MiniBoss (1)
+    entities.append(make_entity("Enemy", 45 * 16, 114 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+
+# --- Items (DS3 Cathedral of the Deep) — accurate from wiki ---
     # Cemetery / approach area
     entities.append(make_entity("Item", 28 * 16, 6 * 16, [make_field("kind", "LocalEnum.ItemKind", "SoulOrb"), make_field("name", "String", "Fading Soul"), make_field("value", "Int", 50)]))
     entities.append(make_entity("Item", 30 * 16, 35 * 16, [make_field("kind", "LocalEnum.ItemKind", "Consumable"), make_field("name", "String", "Paladin's Ashes")]))
@@ -8109,354 +7099,18 @@ def make_cathedral_deep():
     entities.append(make_entity("Item", 66 * 16, 76 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Twinkling Titanite")]))
     entities.append(make_entity("Item", 68 * 16, 78 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Twinkling Titanite")]))
 
-    # Additional enemies — SESSION 39 DS3 fidelity (Cathedral of the Deep)
-    # DS3: Deacons fill the cathedral, Cathedral Knights guard halls, Thralls ambush
-    for tx, ty in [(25, 40), (32, 45), (40, 42), (48, 50), (55, 45),
-                   (62, 40), (70, 48), (78, 42)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "Deacon")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(30, 65), (45, 70), (60, 68), (75, 65)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralKnight", "CathedralKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(35, 55), (50, 60), (65, 55)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(85, 50), (95, 55)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "Deacon")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- SESSION 44 DS3 enemies (Cathedral of the Deep) ---
-    # DS3: Cathedral Knights and Evangelists dominate; Thralls hide on rafters
-    # Evangelists - the fat holy women with cleavers (DS3: throughout cathedral exterior)
-    for tx, ty in [(20, 25), (35, 30), (48, 28), (60, 35)]:
-        mapped = ENEMY_KIND_MAP.get("Evangelist", "Evangelist")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Cathedral Knights - heavy knights patrolling the interior
-    for tx, ty in [(30, 45), (42, 50), (55, 48), (68, 52), (80, 45)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Thralls - small ambush enemies (DS3: drop from ceilings, hide behind pillars)
-    for tx, ty in [(25, 35), (38, 40), (50, 38), (65, 42), (78, 38), (90, 45)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Deacons of the Deep - the rotund clerics (DS3: in the Deacons boss arena approach)
-    for tx, ty in [(82, 55), (90, 60), (98, 58), (105, 62)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "Deacon")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Deep Accursed - spider-like enemies (DS3: 2 in cathedral)
-    for tx, ty in [(40, 60), (75, 65)]:
-        mapped = ENEMY_KIND_MAP.get("DeepAccursed", "GiantSlave")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # More Deacons patrolling the cathedral exterior
-    for tx, ty in [(22, 55), (32, 60), (45, 65), (58, 70), (70, 68)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "Deacon")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 52 DS3 enemies (Cathedral of the Deep diversity) ---
-    # DS3: Cathedral Grave Wardens patrol the cemetery exterior
-    for tx, ty in [(25, 45), (42, 48)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralGraveWarden", "CathedralGraveWarden")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Rotten Slugs in the swampy cathedral exterior
-    for tx, ty in [(55, 55), (68, 58)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Giant Hollow near the cathedral entrance (DS3: one giant hollow outside)
-    for tx, ty in [(35, 60)]:
-        mapped = ENEMY_KIND_MAP.get("GiantHollow", "GiantSlave")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
-    # --- SESSION 62 DS3 enemies (Cathedral of the Deep) ---
-    # DS3: Cathedral Knights patrolling halls and rafters
-    for tx, ty in [(25, 8), (32, 12), (38, 15), (45, 10), (28, 18)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Devout Hollows / Hollow Slaves throughout (graveyard, cathedral interior)
-    for tx, ty in [(20, 22), (28, 26), (35, 30), (42, 35), (48, 32)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Devout Hollows in the cathedral rooms
-    for tx, ty in [(22, 42), (30, 45), (38, 48), (45, 40), (50, 38)]:
-        mapped = ENEMY_KIND_MAP.get("ReanimatedCorpse", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls on ceilings/rafters (ambush enemies)
-    for tx, ty in [(48, 52), (55, 56), (62, 50), (68, 55), (58, 60)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Cathedral Evangelists (large enemies with maces)
-    for tx, ty in [(35, 68), (48, 72), (60, 65), (70, 68), (42, 78)]:
-        mapped = ENEMY_KIND_MAP.get("Evangelist", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Deacons in the cathedral interior
-    for tx, ty in [(25, 72), (35, 75), (45, 80), (55, 82), (65, 78)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Cathedral Grave Wardens (dual wielding, fast)
-    for tx, ty in [(40, 90), (50, 95), (60, 92), (30, 88)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralGraveWarden", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Writhing Rotten Flesh in dark rooms and water areas
-    for tx, ty in [(45, 100), (55, 105), (38, 110), (48, 118), (58, 125)]:
-        mapped = ENEMY_KIND_MAP.get("WrithingRottenFlesh", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Corpse Grubs in cells
-    for tx, ty in [(30, 108), (40, 115), (50, 112), (60, 120)]:
-        mapped = ENEMY_KIND_MAP.get("CorpseGrub", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds in the initial outdoor area
-    for tx, ty in [(25, 15), (35, 20), (40, 25), (30, 35)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Man-Grubs near Rosaria's area
-    for tx, ty in [(32, 138), (38, 142), (42, 135), (45, 150)]:
-        mapped = ENEMY_KIND_MAP.get("ManGrub", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Cathedral Knights in the giant room
-    for tx, ty in [(65, 60), (72, 65), (75, 58), (68, 68)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards (including Ravenous Crystal Lizard)
-    for tx, ty in [(55, 48), (62, 75)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Mimic (chest near altar - Deep Braille Divine Tome)
-    for tx, ty in [(50, 70)]:
-        mapped = ENEMY_KIND_MAP.get("Mimic", "Mimic")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls ambush in rafters (3-4 on ceiling)
-    for tx, ty in [(56, 58), (64, 62), (70, 55)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Infested Corpses in lower areas
-    for tx, ty in [(35, 95), (42, 98), (55, 100), (62, 105)]:
-        mapped = ENEMY_KIND_MAP.get("InfestedCorpse", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 67 DS3 enemies (Cathedral of the Deep round 2) ---
-    # DS3: Infested Corpses hanging from the ceiling and walls
-    for tx, ty in [(20, 30), (30, 35), (40, 40), (50, 30), (60, 35), (70, 40), (80, 30), (90, 35), (100, 40), (110, 30), (120, 35), (130, 40)]:
-        mapped = ENEMY_KIND_MAP.get("InfestedCorpse", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls hiding in the cathedral rafters
-    for tx, ty in [(22, 45), (35, 50), (48, 55), (62, 45), (75, 50), (88, 55), (102, 45), (115, 50), (128, 55), (140, 45)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Deacons in the ritual chambers
-    for tx, ty in [(25, 55), (38, 60), (52, 55), (65, 60), (78, 55), (92, 60), (105, 55), (118, 60), (130, 55)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Cathedral Knights guarding key passages
-    for tx, ty in [(30, 65), (50, 70), (70, 65), (90, 70), (110, 65), (130, 70)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Evangelists preaching in the side chambers
-    for tx, ty in [(35, 75), (60, 80), (85, 75), (115, 80)]:
-        mapped = ENEMY_KIND_MAP.get("Evangelist", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Man-Grubs near Rosaria's chamber
-    for tx, ty in [(40, 85), (60, 90), (80, 85), (100, 90)]:
-        mapped = ENEMY_KIND_MAP.get("ManGrub", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Cathedral Grave Wardens patrolling the graveyard
-    for tx, ty in [(45, 95), (75, 95)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralGraveWarden", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Giant Slaves in the cathedral exterior
-    for tx, ty in [(55, 100), (95, 100)]:
-        mapped = ENEMY_KIND_MAP.get("GiantSlave", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Deep Accursed ambush near the altar
-    for tx, ty in [(70, 105)]:
-        mapped = ENEMY_KIND_MAP.get("DeepAccursed", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 70 DS3 enemies (Cathedral of the Deep round 3) ---
-    # DS3: More Infested Corpses in the rafters above the nave
-    for tx, ty in [(22, 42), (35, 48), (48, 55), (62, 42), (75, 48), (88, 55), (102, 42), (115, 48), (128, 55), (140, 42)]:
-        mapped = ENEMY_KIND_MAP.get("InfestedCorpse", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Deacons in the deep ritual chambers
-    for tx, ty in [(20, 62), (32, 68), (45, 72), (58, 62), (70, 68), (82, 72), (95, 62), (108, 68), (120, 72)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Thralls in the upper cathedral galleries
-    for tx, ty in [(25, 78), (40, 82), (55, 78), (70, 82), (85, 78), (100, 82), (115, 78), (130, 82)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Cathedral Knights in the exterior graveyard
-    for tx, ty in [(30, 88), (50, 92), (70, 88), (90, 92), (110, 88)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Peasant Hollows in the approach from settlement
-    for tx, ty in [(18, 95), (38, 98), (58, 95)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds near the entrance
-    for tx, ty in [(28, 100), (55, 102)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 72 DS3 enemies (Cathedral of the Deep round 4) ---
-    # DS3: Infested Corpses throughout the exterior
-    for tx, ty in [(15, 35), (25, 42), (35, 50), (45, 42), (55, 50), (65, 42), (75, 50), (85, 42), (95, 50), (105, 42), (115, 50), (125, 42)]:
-        mapped = ENEMY_KIND_MAP.get("InfestedCorpse", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Deacons in the inner chambers
-    for tx, ty in [(20, 55), (32, 62), (44, 55), (56, 62), (68, 55), (80, 62), (92, 55), (104, 62), (116, 55), (128, 62)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls in the rafters and hidden passages
-    for tx, ty in [(18, 68), (30, 72), (42, 68), (54, 72), (66, 68), (78, 72), (90, 68), (102, 72), (114, 68)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Evangelists in the side chapels
-    for tx, ty in [(25, 78), (45, 82), (65, 78), (85, 82)]:
-        mapped = ENEMY_KIND_MAP.get("Evangelist", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards near the giant's room
-    for tx, ty in [(55, 88), (95, 88)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 74 DS3 enemies (Cathedral of the Deep round 5) ---
-    # DS3: Infested Corpses in the outer cemetery
-    for tx, ty in [(18, 38), (28, 45), (38, 52), (48, 38), (58, 45), (68, 52), (78, 38), (88, 45), (98, 52), (108, 38), (118, 45), (128, 52)]:
-        mapped = ENEMY_KIND_MAP.get("InfestedCorpse", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Deacons in the inner sanctum
-    for tx, ty in [(22, 58), (35, 65), (48, 58), (62, 65), (75, 58), (88, 65), (102, 58), (115, 65)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls in the roof area
-    for tx, ty in [(20, 72), (35, 78), (50, 72), (65, 78), (80, 72), (95, 78), (110, 72)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Cathedral Knights in the nave
-    for tx, ty in [(30, 85), (50, 88), (70, 85), (90, 88)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Darkwraith near the entrance shortcut
-    for tx, ty in [(45, 92)]:
-        mapped = ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 76 DS3 enemies (Cathedral of the Deep round 6) ---
-    # DS3: More Infested Corpses on the exterior walls
-    for tx, ty in [(20, 32), (30, 38), (40, 45), (50, 32), (60, 38), (70, 45), (80, 32), (90, 38), (100, 45), (110, 32)]:
-        mapped = ENEMY_KIND_MAP.get("InfestedCorpse", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Deacons in the deep chapel
-    for tx, ty in [(25, 52), (38, 58), (50, 52), (62, 58), (75, 52), (88, 58), (100, 52), (112, 58)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Man-Grubs near Rosaria's chamber
-    for tx, ty in [(32, 65), (52, 68), (72, 65), (92, 68)]:
-        mapped = ENEMY_KIND_MAP.get("ManGrub", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 79 DS3 enemies (Cathedral of the Deep round 7) ---
-    # DS3: Infested Corpses in the outer cemetery
-    for tx, ty in [(22, 30), (32, 36), (42, 42), (52, 30), (62, 36), (72, 42), (82, 30), (92, 36)]:
-        mapped = ENEMY_KIND_MAP.get("InfestedCorpse", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Deacons in the inner sanctum
-    for tx, ty in [(25, 50), (38, 55), (50, 50), (62, 55), (75, 50), (88, 55)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls in the hidden passages
-    for tx, ty in [(28, 60), (42, 65), (55, 60), (68, 65), (82, 60), (95, 65)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Cathedral Knights guarding passages
-    for tx, ty in [(35, 72), (55, 75), (75, 72)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 80 DS3 enemies (Cathedral of the Deep final) ---
-    # DS3: Infested Corpses and Deacons
-    for tx, ty in [(18, 25), (28, 30)]:
-        mapped = ENEMY_KIND_MAP.get("InfestedCorpse", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(22, 38), (32, 35)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 81 DS3 enemies (final gap close) ---
-    # DS3: 2 more InfestedCorpse
-    for tx, ty in [(10, 10), (25, 17)]:
-        mapped = ENEMY_KIND_MAP.get("InfestedCorpse", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 82 DS3 enemies (final gap close) ---
-    for tx, ty in [(8, 8)]:
-        mapped = ENEMY_KIND_MAP.get("InfestedCorpse", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # NPCs - DS3 Cathedral of the Deep: Patches, Rosaria
+
     entities.append(make_entity("Npc", 52 * 16, 78 * 16, [make_field("name", "String", "Patches"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#808080"), make_field("dialogue", "String", "You're a parasite, only thinking of yourself|I know your kind, you're nothing but trouble|What's wrong? Something the matter?|Heh heh heh|I'm Patches, the one and only|You know what I'm talking about, don't you?")]))
     entities.append(make_entity("Npc", 38 * 16, 148 * 16, [make_field("name", "String", "Rosaria"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D0A0B0"), make_field("dialogue", "String", "(No tongue, but her will is clear)|Offer me pale tongues, and I shall grant your desire|Rebirth, or fingers to invade others|I am Rosaria, Mother of Rebirth|The fingers of the gods stretch far and wide|Each rebirth costs a pale tongue")]))
     # Siegward of Catarina — stuck in the well outside Cathedral (DS3: freed via lift mechanism)
@@ -8831,50 +7485,6 @@ def make_cathedral_deep():
         chunk[ty][12] = TILE_WALL  # gate pillar
         chunk[ty][16] = TILE_WALL  # gate pillar
 
-    # --- SESSION 60 DS3 enemies (Cathedral of the Deep) ---
-    # DS3: Cathedral Knights - heavily armored, powerful
-    for tx, ty in [(25, 10), (35, 25), (42, 40), (50, 55), (60, 65), (72, 75), (85, 85), (95, 90),
-                   (108, 100), (120, 110), (135, 120), (145, 130)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Evangelists - large women with maces and Gnawing spell
-    for tx, ty in [(30, 15), (45, 30), (55, 45), (68, 58), (80, 68), (92, 78), (105, 88), (118, 105)]:
-        mapped = ENEMY_KIND_MAP.get("Evangelist", "Cleric")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls - small ambush enemies on ceilings and rafters
-    for tx, ty in [(28, 20), (38, 35), (48, 48), (58, 55), (65, 62), (78, 72), (90, 82), (102, 95),
-                   (115, 108), (128, 118)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Deacons of the Deep - weak spellcasters in groups
-    for tx, ty in [(32, 18), (40, 28), (52, 42), (62, 52), (75, 65), (88, 75), (100, 85), (112, 98),
-                   (125, 115), (140, 125)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "Cleric")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Cathedral Grave Wardens - dual blade enemies
-    for tx, ty in [(22, 30), (55, 50), (82, 70), (110, 95), (138, 128)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralGraveWarden", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Deep Accursed - spider-like ambush enemy
-    for tx, ty in [(70, 60), (100, 92)]:
-        mapped = ENEMY_KIND_MAP.get("DeepAccursed", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Man-Grubs near Rosaria's chamber
-    for tx, ty in [(95, 98), (105, 102), (115, 105)]:
-        mapped = ENEMY_KIND_MAP.get("ManGrub", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds in graveyard
-    for tx, ty in [(20, 8), (30, 22), (42, 35)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
     # --- SESSION 87 DS3 terrain (Cathedral of the Deep detail pass) ---
@@ -9314,8 +7924,6 @@ def make_catacombs_of_carthus():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
     # Items — DS3 Catacombs of Carthus (verified against wiki)
     # 2x Sharp Gem, Dark Gem, Carthus Pyromancy Tome, Grave Warden Pyromancy Tome,
     # Grave Warden's Ashes, Witch's Ring, Carthus Bloodring, Carthus Milkring,
@@ -9381,241 +7989,15 @@ def make_catacombs_of_carthus():
         make_field("is_mimic", "Bool", True),
     ]))
 
-    # Additional enemies — SESSION 34 DS3 fidelity (Catacombs of Carthus)
-    # DS3: Skeletons patrol ALL corridors, Hounds guard side rooms, Skeleton Balls roll
-    for tx, ty in [(22, 82), (28, 85), (35, 80), (40, 88), (32, 90),
-                   (45, 92), (50, 85), (55, 88), (48, 95), (38, 98),
-                   (60, 82), (65, 90), (70, 85), (75, 88), (62, 95)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(85, 25), (90, 35), (95, 28), (100, 40), (88, 42)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(110, 55), (115, 60), (120, 50), (125, 65), (130, 55)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(82, 90), (88, 95), (95, 88)]:
-        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(105, 75), (120, 80)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonBall", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Additional enemies — SESSION 39 DS3 fidelity (Catacombs of Carthus)
-    # DS3: Skeletons in every corridor, Hounds in side rooms, Worms in sand
-    for tx, ty in [(25, 50), (32, 55), (40, 52), (48, 58), (55, 50)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(62, 60), (70, 55), (78, 62), (85, 58)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(95, 65), (105, 60)]:
-        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(40, 75), (55, 80)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonBall", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- SESSION 46 DS3 enemies (Catacombs of Carthus) ---
-    # DS3: Skeletons of all types fill the catacombs
-    # Skeleton Swordsmen - the curved-sword skeleton warriors
-    for tx, ty in [(18, 25), (28, 30), (38, 28), (48, 32)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Skeleton Ball (DS3: the rolling skeleton ball trap in the corridor)
-    for tx, ty in [(55, 35)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonBall", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # More regular Skeletons in the deeper chambers
-    for tx, ty in [(22, 45), (35, 48), (48, 45), (60, 50)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Black Knight guarding the Smouldering Lake exit (DS3: one in catacombs)
-    for tx, ty in [(75, 55)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Havel Knight (DS3: ambush in the catacombs side area)
-    for tx, ty in [(65, 40)]:
-        mapped = ENEMY_KIND_MAP.get("HavelKnight", "WingedKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Carthus Worm (DS3: the sandworm in the Wolnir arena approach)
-    for tx, ty in [(85, 60)]:
-        mapped = ENEMY_KIND_MAP.get("CarthusWorm", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 56 DS3 enemies (Catacombs final) ---
-    # DS3: Skeleton Wheels (DS3: the rolling skeleton ball enemies)
-    for tx, ty in [(40, 55), (55, 60)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonBall", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Crystal Lizard in the catacombs side chamber
-    for tx, ty in [(70, 48)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Spider enemies in the deeper tunnels (DS3: spiders in the lower catacombs)
-    for tx, ty in [(45, 62), (60, 65)]:
-        mapped = ENEMY_KIND_MAP.get("Spider", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
-    # --- SESSION 61 DS3 enemies (Catacombs of Carthus) ---
-    # DS3: Skeleton horde throughout catacombs, skeleton balls/wheels, rats below
-    # Upper catacombs - skeleton clusters
-    for tx, ty in [(12, 13), (18, 15), (24, 18), (16, 20), (22, 22)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeleton Swordsmen with hats, red-eyed variants
-    for tx, ty in [(14, 24), (20, 26), (28, 22), (35, 25), (42, 28)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeleton balls (rolling trap) in corridors
-    for tx, ty in [(30, 20), (45, 22), (52, 28)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonBall", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Central chamber - more skeletons and swordsmen
-    for tx, ty in [(18, 32), (25, 35), (32, 38), (38, 42), (45, 45)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeleton Swordsmen guarding passage to Wolnord
-    for tx, ty in [(50, 30), (55, 33), (60, 35), (65, 28)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lower catacombs - rats in dark corners
-    for tx, ty in [(18, 48), (25, 52), (35, 55), (42, 50), (30, 58)]:
-        mapped = ENEMY_KIND_MAP.get("HoundRat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeleton ambush in lower tunnels
-    for tx, ty in [(20, 62), (28, 65), (36, 68), (45, 72), (55, 75)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeleton Swordsmen near bridge
-    for tx, ty in [(60, 60), (68, 65), (72, 58), (78, 62)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Writhing Rotten Flesh (drops from ceiling)
-    for tx, ty in [(22, 40), (35, 48), (48, 55), (58, 62)]:
-        mapped = ENEMY_KIND_MAP.get("WrithingRottenFlesh", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Knight Slayer Tsorig invasion (dark spirit)
-    for tx, ty in [(90, 75)]:
-        mapped = ENEMY_KIND_MAP.get("DarkSpirit", "DarkSpirit")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeletons in the deeper sections
-    for tx, ty in [(80, 82), (88, 88), (95, 92), (102, 95), (110, 100)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeleton swordsmen near Wolnord's chamber
-    for tx, ty in [(115, 95), (120, 100), (125, 105), (130, 110)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More skeleton balls in the deeper corridors
-    for tx, ty in [(100, 90), (120, 95)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonBall", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rats in the lower area near the lake
-    for tx, ty in [(20, 78), (30, 82), (40, 88), (50, 95), (35, 100)]:
-        mapped = ENEMY_KIND_MAP.get("HoundRat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards (2 in Catacombs)
-    for tx, ty in [(70, 45), (135, 90)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lesser Crabs in watery areas
-    for tx, ty in [(32, 75), (48, 85)]:
-        mapped = ENEMY_KIND_MAP.get("LesserCrab", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 69 DS3 enemies (Catacombs of Carthus round 2) ---
-    # DS3: Skeletons throughout the catacombs - the dominant enemy
-    for tx, ty in [(18, 25), (24, 32), (30, 38), (36, 45), (42, 52), (48, 38), (54, 45), (60, 52), (66, 38), (72, 45), (78, 52), (84, 38), (90, 45), (96, 52), (102, 38), (108, 45), (114, 52)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeleton Swordsmen in the side chambers
-    for tx, ty in [(22, 58), (38, 62), (54, 58), (70, 62), (86, 58), (102, 62), (118, 58)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Archers on elevated positions
-    for tx, ty in [(28, 68), (60, 68)]:
-        mapped = ENEMY_KIND_MAP.get("Archer", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Black Knight near the Smouldering Lake drop
-    for tx, ty in [(95, 65)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizard in the hidden passage
-    for tx, ty in [(75, 72)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 80 DS3 enemies (Catacombs of Carthus final) ---
-    # DS3: Skeletons in the burial chambers
-    for tx, ty in [(15, 20), (22, 28), (30, 35), (38, 28), (45, 20)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 81 DS3 enemies (final gap close) ---
-    # DS3: 4 more Skeleton
-    for tx, ty in [(10, 10), (25, 17), (40, 24), (55, 31)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 82 DS3 enemies (final gap close) ---
-    for tx, ty in [(8, 8), (25, 19), (42, 30)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 83 DS3 enemies (final) ---
-    for tx, ty in [(9, 9), (28, 22)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 84 DS3 enemies (final) ---
-    for tx, ty in [(7, 7)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # NPCs — DS3 Catacombs: Anri and Horace together at the entrance bonfire
+
     entities.append(make_entity("Npc", 15 * 16, 18 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello, we meet again|Have you seen Horace anywhere?|I have been separated from him|I am worried... Please tell me if you find him")]))
     entities.append(make_entity("Npc", 17 * 16, 19 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods slowly)|(points toward the deeper catacombs)|(holds shield tighter)|Anri... where are you...")]))
 
@@ -10089,6 +8471,35 @@ def make_catacombs_of_carthus():
     for tx in [60, 75]:
         for ty in range(65, 79):
             chunk[tx][ty] = TILE_WALL
+    
+    # --- DS3 faithful enemies (CatacombsOfCarthus) ---
+    # Skeleton (28)
+    for tx, ty in [(18, 18), (22, 20), (25, 28), (35, 30), (42, 26), (48, 32), (52, 34), (60, 30), (20, 48), (28, 52), (35, 56), (40, 60), (45, 65), (32, 58), (38, 62), (58, 66), (63, 70), (20, 78), (25, 82), (30, 88), (28, 95), (35, 98), (90, 70), (110, 85), (115, 90), (120, 95), (130, 92), (135, 98)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
+    # SkeletonSwordman (10)
+    for tx, ty in [(16, 22), (36, 22), (50, 21), (64, 32), (24, 55), (32, 50), (18, 85), (22, 92), (22, 96), (95, 66)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SkeletonSwordman", "SkeletonSwordman"))]))
+    # Archer (2)
+    entities.append(make_entity("Enemy", 20 * 16, 21 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Archer", "Archer"))]))
+    entities.append(make_entity("Enemy", 125 * 16, 88 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Archer", "Archer"))]))
+    # MiniBoss (3)
+    entities.append(make_entity("Enemy", 55 * 16, 62 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+    entities.append(make_entity("Enemy", 60 * 16, 68 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+    entities.append(make_entity("Enemy", 65 * 16, 72 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+    # CrystalLizard (1)
+    entities.append(make_entity("Enemy", 48 * 16, 50 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    # BlackKnight (1)
+    entities.append(make_entity("Enemy", 80 * 16, 60 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -10487,8 +8898,6 @@ def make_smouldering_lake():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
     # Items — DS3 Smouldering Lake: Black Knight Sword, Izalith Staff, Fume Ultra Greatsword,
     # Dragonrider Bow, Shield of Want, Chaos Gem, Quelana/Izalith Pyromancy Tomes, etc.
     items = [
@@ -10549,326 +8958,22 @@ def make_smouldering_lake():
         make_field("is_mimic", "Bool", False),
     ]))
 
-    # Additional enemies — SESSION 35 DS3 fidelity (Smouldering Lake)
-    # DS3: Demon Statues are everywhere, Fire Demons guard key paths
-    for tx, ty in [(35, 72), (42, 78), (50, 75), (58, 80), (65, 72),
-                   (72, 78), (80, 75), (88, 80)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "DemonStatue")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(95, 65), (108, 70), (120, 68)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "DemonStatue")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(100, 85), (115, 88)]:
-        mapped = ENEMY_KIND_MAP.get("FireDemon", "FireDemon")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(90, 92), (105, 95)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Additional enemies — SESSION 40 DS3 fidelity (Smouldering Lake)
-    for tx, ty in [(25, 55), (32, 60), (40, 58), (48, 65), (55, 55),
-                   (62, 60), (70, 58)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "DemonStatue")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(78, 70), (85, 65), (92, 72)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(100, 60), (110, 55)]:
-        mapped = ENEMY_KIND_MAP.get("FireDemon", "FireDemon")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- SESSION 45 DS3 enemies (Smouldering Lake) ---
-    # DS3: Carthus Swordsmen in the demon ruins tunnels
-    for tx, ty in [(20, 35), (30, 40), (40, 38)]:
-        mapped = ENEMY_KIND_MAP.get("CarthusSwordsman", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Chaos Accursed/Demon - the weakened demon near the ballista (DS3: key encounter)
-    for tx, ty in [(55, 45)]:
-        mapped = ENEMY_KIND_MAP.get("Demon", "GiantSlave")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Titanite Lizards in the underground lake area
-    for tx, ty in [(70, 55), (85, 60)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Skeleton enemies in the underground ruins (DS3: Carthus remnants)
-    for tx, ty in [(35, 50), (48, 52), (62, 48)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 59 DS3 enemies (Smouldering Lake) ---
-    # DS3: More Carthus Skeletons in the ruins tunnels
-    for tx, ty in [(22, 40), (35, 45), (48, 42), (62, 48)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Fire Demon (DS3: the weakened demon near the ballista)
-    for tx, ty in [(58, 50)]:
-        mapped = ENEMY_KIND_MAP.get("FireDemon", "FireDemon")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Demon Statues in the deeper ruins
-    for tx, ty in [(72, 55), (85, 58)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "DemonStatue")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
-    # --- SESSION 63 DS3 enemies (Smouldering Lake) ---
-    # DS3: Demon Statues throughout the lake ruins - the dominant enemy
-    for tx, ty in [(15, 20), (20, 25), (25, 30), (30, 35), (35, 40), (40, 20), (45, 25), (50, 30), (55, 35), (60, 40), (65, 20), (70, 25), (75, 30), (80, 35), (85, 40), (90, 20), (95, 25), (100, 30), (105, 35), (110, 40), (115, 25), (120, 30), (125, 35), (130, 40), (135, 20), (140, 30)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Fire Demons in lava areas
-    for tx, ty in [(50, 50), (100, 55)]:
-        mapped = ENEMY_KIND_MAP.get("FireDemon", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeletons in the underground lake area
-    for tx, ty in [(30, 60), (60, 65)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rats in the tunnels connecting to Catacombs
-    for tx, ty in [(20, 70), (35, 75), (50, 80), (65, 75), (80, 70), (95, 75)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisks near the underground water
-    for tx, ty in [(40, 85), (60, 90), (80, 85)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Black Knight patrolling near ballista
-    for tx, ty in [(120, 45)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Carthus Sandworm in the lava zone (boss-tier)
-    for tx, ty in [(75, 100)]:
-        mapped = ENEMY_KIND_MAP.get("CarthusSandworm", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Great Crab near the underground lake
-    for tx, ty in [(45, 95)]:
-        mapped = ENEMY_KIND_MAP.get("GreatCrab", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizard hidden near demon ruins
-    for tx, ty in [(130, 60)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 65 DS3 enemies (Smouldering Lake round 2) ---
-    # DS3: More Demon Statues in the ruins interior
-    for tx, ty in [(22, 48), (35, 52), (48, 58), (62, 55), (75, 52), (88, 58), (102, 55), (115, 52), (128, 58), (138, 48)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Fire Demons near lava pools
-    for tx, ty in [(55, 65), (95, 70), (125, 62)]:
-        mapped = ENEMY_KIND_MAP.get("FireDemon", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeletons in the underground passage
-    for tx, ty in [(30, 78), (55, 82), (80, 78), (105, 82)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rats in the tunnel passages
-    for tx, ty in [(25, 88), (50, 92), (75, 88), (100, 92), (125, 88)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisks in the underground lake cave
-    for tx, ty in [(40, 98), (65, 102), (90, 98)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Black Knight guarding the Old Demon King gate
-    for tx, ty in [(130, 75)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizard hidden in demon ruins corner
-    for tx, ty in [(135, 55)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 66 DS3 enemies (Smouldering Lake round 3) ---
-    # DS3: Demon Statues scattered through the deeper ruins
-    for tx, ty in [(18, 55), (30, 60), (42, 65), (54, 70), (66, 60), (78, 65), (90, 70), (102, 60), (114, 65), (126, 55)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Fire Demons guarding lava passages
-    for tx, ty in [(40, 75), (70, 80), (100, 75)]:
-        mapped = ENEMY_KIND_MAP.get("FireDemon", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeletons in the catacombs tunnel connection
-    for tx, ty in [(25, 85), (50, 90), (75, 85), (100, 90), (125, 85)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Black Knights near the ballista area
-    for tx, ty in [(110, 50), (135, 45)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rats in the connecting tunnels
-    for tx, ty in [(20, 95), (45, 100), (70, 95), (95, 100), (120, 95)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 69 DS3 enemies (Smouldering Lake round 4) ---
-    # DS3: More Demon Statues in the far ruins
-    for tx, ty in [(15, 60), (25, 68), (38, 72), (52, 68), (65, 72), (78, 68), (92, 72), (105, 68), (118, 72), (132, 68)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Fire Demons in the lava field
-    for tx, ty in [(35, 80), (65, 85), (95, 80), (125, 82)]:
-        mapped = ENEMY_KIND_MAP.get("FireDemon", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rats in the tunnel connecting to Catacombs
-    for tx, ty in [(20, 90), (40, 95), (60, 90), (80, 95), (100, 90), (120, 95)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisks in the underground water
-    for tx, ty in [(30, 100), (55, 105), (80, 100), (105, 105)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeletons in the underground lake
-    for tx, ty in [(45, 110), (70, 112), (95, 110)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 71 DS3 enemies (Smouldering Lake round 5) ---
-    # DS3: More Demon Statues in the western ruins
-    for tx, ty in [(12, 42), (20, 50), (28, 58), (36, 65), (44, 58), (52, 50), (60, 42), (68, 50), (76, 58), (84, 65)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Skeletons in the underground passages
-    for tx, ty in [(18, 72), (32, 78), (46, 72), (60, 78), (74, 72), (88, 78), (102, 72)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Rats in the connecting tunnels
-    for tx, ty in [(22, 85), (38, 88), (54, 85), (70, 88), (86, 85), (102, 88)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 74 DS3 enemies (Smouldering Lake round 6) ---
-    # DS3: More Demon Statues in the eastern ruins
-    for tx, ty in [(100, 42), (108, 50), (115, 58), (122, 42), (130, 50), (138, 58), (142, 42)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Fire Demons in the lava field
-    for tx, ty in [(45, 68), (75, 72), (105, 68)]:
-        mapped = ENEMY_KIND_MAP.get("FireDemon", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Rats in the underground
-    for tx, ty in [(25, 82), (40, 88), (55, 82), (70, 88), (85, 82), (100, 88), (115, 82)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Basilisks in the underground lake
-    for tx, ty in [(32, 95), (52, 98), (72, 95), (92, 98)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Black Knights near the demon ruins
-    for tx, ty in [(120, 65), (135, 70)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 77 DS3 enemies (Smouldering Lake round 7) ---
-    # DS3: More Demon Statues throughout the ruins
-    for tx, ty in [(22, 35), (32, 42), (42, 48), (52, 35), (62, 42), (72, 48), (82, 35), (92, 42), (102, 48), (112, 35), (122, 42)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeletons in the underground passage
-    for tx, ty in [(28, 55), (45, 60), (62, 55), (78, 60), (95, 55)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rats in the tunnels
-    for tx, ty in [(35, 68), (52, 72), (68, 68), (85, 72)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizard hidden in the ruins
-    for tx, ty in [(48, 58)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 80 DS3 enemies (Smouldering Lake final) ---
-    # DS3: Demon Statues in the far ruins
-    for tx, ty in [(12, 30), (22, 38), (32, 45), (42, 38), (52, 30), (62, 38)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 81 DS3 enemies (final gap close) ---
-    # DS3: 5 more DemonStatue
-    for tx, ty in [(10, 10), (25, 17), (40, 24), (55, 31), (70, 38)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 82 DS3 enemies (final gap close) ---
-    for tx, ty in [(8, 8), (25, 19), (42, 30), (59, 41)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 83 DS3 enemies (final) ---
-    for tx, ty in [(9, 9), (28, 22), (47, 35)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 84 DS3 enemies (final) ---
-    for tx, ty in [(7, 7), (30, 24)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 85 DS3 enemies (final) ---
-    for tx, ty in [(8, 8)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # NPCs — DS3 Smouldering Lake: Knight Slayer Tsorig
+
     entities.append(make_entity("Npc", 30 * 16, 92 * 16, [make_field("name", "String", "Knight Slayer Tsorig"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#804020"), make_field("dialogue", "String", "Forgive me, I was absorbed in my conquest|We meet again, Unkindled|I am Tsorig, the Knight Slayer|The arbitrary distinction between right and wrong is irrelevant")]))
-    # Horace the Hushed — hostile hollow in DS3 (attacks player in Smouldering Lake cave)
-    # Represented as enemy rather than friendly NPC
-    entities.append(make_entity("Enemy", 20 * 16, 88 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
 
     entities.append(make_entity("FogGate", 135 * 16, 125 * 16, [
         make_field("dest_area", "String", "CatacombsOfCarthus"),
@@ -11287,43 +9392,95 @@ def make_smouldering_lake():
             chunk[tx][ty] = TILE_WALL
     for tx in range(110, 121):
         chunk[tx][79] = TILE_WALLTOP
+    
+    # --- DS3 faithful enemies (SmoulderingLake) ---
+    # DemonStatue (32)
+    for tx, ty in [(18, 18), (22, 22), (28, 42), (50, 60), (65, 50), (18, 32), (35, 40), (62, 58), (68, 62), (72, 55), (42, 48), (55, 52), (48, 55), (58, 62), (65, 60), (70, 58), (72, 62), (68, 65), (95, 62), (98, 65), (100, 60), (112, 82), (100, 85), (115, 100), (130, 108), (140, 98), (148, 112), (120, 120), (105, 90), (125, 88), (132, 115), (142, 105)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DemonStatue", "DemonStatue"))]))
+    # Basilisk (5)
+    entities.append(make_entity("Enemy", 52 * 16, 65 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    entities.append(make_entity("Enemy", 58 * 16, 70 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    entities.append(make_entity("Enemy", 55 * 16, 72 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    entities.append(make_entity("Enemy", 115 * 16, 110 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    entities.append(make_entity("Enemy", 130 * 16, 118 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    # GreatCrab (1)
+    entities.append(make_entity("Enemy", 38 * 16, 45 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GreatCrab", "GreatCrab"))]))
+    # FireDemon (6)
+    entities.append(make_entity("Enemy", 58 * 16, 55 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("FireDemon", "FireDemon"))]))
+    entities.append(make_entity("Enemy", 95 * 16, 70 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("FireDemon", "FireDemon"))]))
+    entities.append(make_entity("Enemy", 100 * 16, 75 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("FireDemon", "FireDemon"))]))
+    entities.append(make_entity("Enemy", 118 * 16, 88 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("FireDemon", "FireDemon"))]))
+    entities.append(make_entity("Enemy", 125 * 16, 95 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("FireDemon", "FireDemon"))]))
+    entities.append(make_entity("Enemy", 135 * 16, 102 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("FireDemon", "FireDemon"))]))
+    # BlackKnight (3)
+    entities.append(make_entity("Enemy", 78 * 16, 58 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
+    entities.append(make_entity("Enemy", 108 * 16, 68 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
+    entities.append(make_entity("Enemy", 140 * 16, 108 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
+    # Skeleton (6)
+    entities.append(make_entity("Enemy", 82 * 16, 52 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
+    entities.append(make_entity("Enemy", 88 * 16, 60 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
+    entities.append(make_entity("Enemy", 18 * 16, 92 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
+    entities.append(make_entity("Enemy", 25 * 16, 88 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
+    entities.append(make_entity("Enemy", 30 * 16, 90 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
+    entities.append(make_entity("Enemy", 20 * 16, 88 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
+    # MiniBoss (3)
+    entities.append(make_entity("Enemy", 75 * 16, 50 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+    entities.append(make_entity("Enemy", 22 * 16, 88 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+    entities.append(make_entity("Enemy", 28 * 16, 92 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+    # Rat (6)
+    entities.append(make_entity("Enemy", 15 * 16, 85 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+    entities.append(make_entity("Enemy", 20 * 16, 90 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+    entities.append(make_entity("Enemy", 25 * 16, 95 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+    entities.append(make_entity("Enemy", 40 * 16, 58 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+    entities.append(make_entity("Enemy", 48 * 16, 64 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+    entities.append(make_entity("Enemy", 62 * 16, 68 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+    # CarthusSandworm (1)
+    entities.append(make_entity("Enemy", 45 * 16, 68 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CarthusSandworm", "CarthusSandworm"))]))
+    # CrystalLizard (3)
+    entities.append(make_entity("Enemy", 82 * 16, 55 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 112 * 16, 78 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 22 * 16, 98 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    # --- SESSION 60 DS3 enemies (Smouldering Lake) ---
-    # DS3: Demon Statues - fire-spitting stone demons
-    for tx, ty in [(15, 35), (25, 45), (35, 55), (50, 50), (65, 60), (80, 65), (95, 70), (108, 75)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "Gargoyle")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Fire Demons in lava area
-    for tx, ty in [(22, 55), (42, 60), (62, 68), (85, 72)]:
-        mapped = ENEMY_KIND_MAP.get("FireDemon", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeletons in underground lake area
-    for tx, ty in [(18, 28), (28, 38), (38, 48), (52, 55), (68, 62), (82, 58), (98, 68), (112, 72),
-                   (125, 80)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Black Knight patrolling
-    for tx, ty in [(130, 100), (142, 108)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisks near water
-    for tx, ty in [(30, 70), (55, 65), (78, 60)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizard
-    for tx, ty in [(145, 115), (10, 15)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     print(f"  SmoulderingLake (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "SmoulderingLake", chunk, entities
@@ -11655,8 +9812,6 @@ def make_irithyll():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
     # Items — DS3 Irithyll of the Boreal Valley (verified against wiki)
     # Major items: Pontiff's Right Eye, Magic Clutch Ring, Ring of the Sun's First Born,
     # Leo Ring, Dark Stoneplate Ring, Ring of Favor, Sun Princess Ring, Aldrich's Ruby,
@@ -11825,339 +9980,18 @@ def make_irithyll():
         make_field("is_mimic", "Bool", False),
     ]))
 
-    # Additional enemies — SESSION 38 DS3 fidelity (Irithyll of the Boreal Valley)
-    # DS3: Irithyllian Slaves ambush throughout, Boreal Knights guard paths
-    for tx, ty in [(30, 45), (38, 50), (45, 48), (52, 55), (60, 50),
-                   (68, 45), (75, 52), (82, 48), (90, 55)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(40, 65), (55, 70), (70, 68), (85, 65)]:
-        mapped = ENEMY_KIND_MAP.get("BorealKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(50, 80), (65, 85), (80, 82)]:
-        mapped = ENEMY_KIND_MAP.get("SewerCentipede", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- SESSION 44 DS3 enemies (Irithyll of the Boreal Valley) ---
-    # DS3: Pontiff Knights patrol every street; Silver Knights guard the manor
-    # Pontiff Knights - the dominant enemy with spinning weapon combos
-    for tx, ty in [(20, 22), (32, 28), (44, 25), (56, 30), (68, 22)]:
-        mapped = ENEMY_KIND_MAP.get("PontiffKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Irithyllian Slaves - thin pale enemies with crossbows/swords
-    for tx, ty in [(25, 35), (38, 40), (50, 38), (62, 42), (75, 35), (88, 40)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Silver Knights - guard Anor Londo approach (DS3: archers and swordsmen)
-    for tx, ty in [(35, 48), (48, 52), (60, 50), (72, 55)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Fire Witches - cast fire spells from balconies (DS3: on rooftops)
-    for tx, ty in [(28, 55), (45, 60), (58, 58)]:
-        mapped = ENEMY_KIND_MAP.get("FireWitch", "DarkMage")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Irithyllian Outriders - the beast/dog enemies on the main street
-    for tx, ty in [(40, 65), (55, 68), (70, 62)]:
-        mapped = ENEMY_KIND_MAP.get("SulyvahnBeast", "GiantSlave")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # More Sewer Centipedes along the river (DS3: under the bridge)
-    for tx, ty in [(45, 75), (60, 78), (75, 72), (88, 76)]:
-        mapped = ENEMY_KIND_MAP.get("SewerCentipede", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 57 DS3 enemies (Irithyll diversity) ---
-    # DS3: Boreal Outrider Knights (DS3: the beast knights in Irithyll)
-    for tx, ty in [(45, 58), (60, 62)]:
-        mapped = ENEMY_KIND_MAP.get("BorealKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Deacons near the church (DS3: remnants follow Sulyvahn)
-    for tx, ty in [(30, 50), (42, 55)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "Deacon")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
-    # --- SESSION 62 DS3 enemies (Irithyll of the Boreal Valley) ---
-    # DS3: Pontiff Knights - fast dancers, some casters (main boulevard)
-    for tx, ty in [(35, 45), (42, 50), (50, 55), (58, 48), (65, 52)]:
-        mapped = ENEMY_KIND_MAP.get("PontiffKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Pontiff Knights near the Church of Yorshka
-    for tx, ty in [(72, 58), (80, 55), (88, 60), (95, 52)]:
-        mapped = ENEMY_KIND_MAP.get("PontiffKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Irithyllian Slaves (hags) - many, some invisible
-    for tx, ty in [(10, 35), (18, 40), (25, 45), (32, 50), (40, 55)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Irithyllian Slaves in dark rooms
-    for tx, ty in [(48, 60), (55, 65), (62, 58), (70, 55), (78, 62)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Fire Witches (fire casting enemies, very dangerous)
-    for tx, ty in [(55, 48), (68, 45), (82, 50), (90, 55)]:
-        mapped = ENEMY_KIND_MAP.get("FireWitch", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Silver Knights in the manor and rooftops
-    for tx, ty in [(25, 75), (35, 80), (42, 85), (50, 90)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Silver Knights on rooftops and in buildings
-    for tx, ty in [(65, 80), (75, 85), (85, 90), (95, 82), (90, 95)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Irithyllian Beast-hounds (dogs in alleys)
-    for tx, ty in [(20, 70), (28, 78), (38, 72), (45, 65), (55, 70)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianBeasthound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Sewer Centipedes in the water/sewers
-    for tx, ty in [(68, 82), (78, 88), (88, 95), (72, 92)]:
-        mapped = ENEMY_KIND_MAP.get("SewerCentipede", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Deacons on the bridge and in Anor Londo approach
-    for tx, ty in [(110, 70), (120, 75), (130, 80), (138, 85)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Irithyllian Slaves near the sewers
-    for tx, ty in [(62, 75), (70, 70), (80, 78), (92, 88)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More hags (invisible) in the dark building
-    for tx, ty in [(25, 100), (35, 108), (42, 115), (50, 120)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards (several throughout)
-    for tx, ty in [(140, 45), (48, 38), (105, 65)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Mimic (after Pontiff, drops Golden Ritual Spear)
-    for tx, ty in [(120, 68)]:
-        mapped = ENEMY_KIND_MAP.get("Mimic", "Mimic")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rotten Flesh of Aldrich (slimes in Anor Londo section)
-    for tx, ty in [(135, 90), (125, 95)]:
-        mapped = ENEMY_KIND_MAP.get("RottenFleshOfAldrich", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Cathedral Evangelist (drops Dorhys' Gnawing)
-    for tx, ty in [(15, 48)]:
-        mapped = ENEMY_KIND_MAP.get("Evangelist", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 67 DS3 enemies (Irithyll round 2) ---
-    # DS3: Irithyllian Slaves (hags) throughout the city streets
-    for tx, ty in [(18, 25), (28, 30), (38, 35), (48, 25), (58, 30), (68, 35), (78, 25), (88, 30), (98, 35), (108, 25), (118, 30), (128, 35)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Boreal Knights (Pontiff Knights) patrolling main avenues
-    for tx, ty in [(22, 40), (35, 45), (50, 50), (65, 40), (80, 45), (95, 50), (110, 40), (125, 45)]:
-        mapped = ENEMY_KIND_MAP.get("BorealKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Silver Knights in Anor Londo approach and church
-    for tx, ty in [(25, 55), (42, 60), (58, 55), (75, 60), (92, 55), (108, 60), (125, 55)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Irithyllian Beast-hounds near the sewer entrance
-    for tx, ty in [(30, 65), (50, 70), (70, 65), (90, 70), (115, 65)]:
-        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Sewer Centipedes in the lower waterways
-    for tx, ty in [(35, 75), (55, 80), (80, 75), (105, 80)]:
-        mapped = ENEMY_KIND_MAP.get("SewerCentipede", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages near the manor
-    for tx, ty in [(40, 85), (65, 90), (95, 85)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards in hidden alcoves
-    for tx, ty in [(28, 70), (58, 85), (88, 70)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Sulyvahn's Beasts on the bridge and sewer
-    for tx, ty in [(45, 90), (75, 95), (110, 90)]:
-        mapped = ENEMY_KIND_MAP.get("SulyvahnsBeast", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 70 DS3 enemies (Irithyll round 3) ---
-    # DS3: More Irithyllian Slaves (hags) in the side alleys
-    for tx, ty in [(22, 38), (32, 45), (42, 52), (52, 38), (62, 45), (72, 52), (82, 38), (92, 45), (102, 52), (112, 38), (122, 45), (132, 52)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Boreal Knights (Pontiff Knights) on the main road
-    for tx, ty in [(25, 58), (40, 65), (55, 58), (70, 65), (85, 58), (100, 65), (115, 58)]:
-        mapped = ENEMY_KIND_MAP.get("BorealKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Silver Knights in the church area approaching Anor Londo
-    for tx, ty in [(30, 72), (48, 78), (65, 72), (82, 78), (100, 72), (118, 78)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Irithyllian Beast-hounds in the sewers
-    for tx, ty in [(28, 82), (48, 88), (68, 82), (88, 88), (108, 82)]:
-        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Giant Slaves near the church entrance
-    for tx, ty in [(55, 90)]:
-        mapped = ENEMY_KIND_MAP.get("GiantSlave", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 72 DS3 enemies (Irithyll round 4) ---
-    # DS3: Irithyllian Slaves (hags) along the main road
-    for tx, ty in [(15, 22), (25, 28), (35, 35), (45, 42), (55, 22), (65, 28), (75, 35), (85, 42), (95, 22), (105, 28), (115, 35), (125, 42)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Boreal Knights (Pontiff Knights) patrolling
-    for tx, ty in [(20, 50), (35, 58), (50, 50), (65, 58), (80, 50), (95, 58), (110, 50)]:
-        mapped = ENEMY_KIND_MAP.get("BorealKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Silver Knights in the church area
-    for tx, ty in [(22, 65), (40, 72), (58, 65), (76, 72), (94, 65), (112, 72)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Irithyllian Beast-hounds
-    for tx, ty in [(30, 78), (48, 82), (66, 78), (84, 82)]:
-        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards in hidden spots
-    for tx, ty in [(18, 68), (58, 75), (98, 68)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages near the manor
-    for tx, ty in [(32, 85), (62, 88), (92, 85)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 73 DS3 enemies (Irithyll round 5) ---
-    # DS3: Irithyllian Slaves (hags) in the back alleys
-    for tx, ty in [(12, 18), (22, 25), (32, 32), (42, 40), (52, 18), (62, 25), (72, 32), (82, 40)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Boreal Knights (Pontiff Knights) on patrol
-    for tx, ty in [(18, 48), (33, 55), (48, 48), (63, 55), (78, 48), (93, 55)]:
-        mapped = ENEMY_KIND_MAP.get("BorealKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Silver Knights in the church and manor
-    for tx, ty in [(25, 62), (42, 68), (58, 62), (75, 68), (92, 62)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Sewer Centipedes in the lower waterway
-    for tx, ty in [(30, 75), (50, 80), (70, 75), (90, 80)]:
-        mapped = ENEMY_KIND_MAP.get("SewerCentipede", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Sulyvahn's Beasts guarding key passages
-    for tx, ty in [(38, 85), (68, 88)]:
-        mapped = ENEMY_KIND_MAP.get("SulyvahnsBeast", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 77 DS3 enemies (Irithyll round 6) ---
-    # DS3: Irithyllian Slaves (hags) in the alleys and doorways
-    for tx, ty in [(16, 20), (26, 28), (36, 35), (46, 20), (56, 28), (66, 35), (76, 20), (86, 28), (96, 35), (106, 20), (116, 28)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Boreal Knights (Pontiff Knights) on patrol
-    for tx, ty in [(20, 45), (35, 52), (50, 45), (65, 52), (80, 45), (95, 52)]:
-        mapped = ENEMY_KIND_MAP.get("BorealKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Silver Knights in the church
-    for tx, ty in [(28, 60), (48, 65), (68, 60), (88, 65), (108, 60)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Sewer Centipedes in the lower canals
-    for tx, ty in [(32, 72), (52, 78), (72, 72), (92, 78)]:
-        mapped = ENEMY_KIND_MAP.get("SewerCentipede", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Sulyvahn's Beasts
-    for tx, ty in [(42, 85), (72, 85)]:
-        mapped = ENEMY_KIND_MAP.get("SulyvahnsBeast", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Giant Slave near the church
-    for tx, ty in [(58, 68)]:
-        mapped = ENEMY_KIND_MAP.get("GiantSlave", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 80 DS3 enemies (Irithyll final) ---
-    # DS3: Irithyllian Slaves and Boreal Knights
-    for tx, ty in [(12, 15), (20, 22), (28, 28)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(16, 35), (25, 40)]:
-        mapped = ENEMY_KIND_MAP.get("BorealKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 81 DS3 enemies (final gap close) ---
-    # DS3: 3 more IrithyllianSlave
-    for tx, ty in [(10, 10), (25, 17), (40, 24)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 82 DS3 enemies (final gap close) ---
-    for tx, ty in [(8, 8), (25, 19)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 83 DS3 enemies (final) ---
-    for tx, ty in [(9, 9)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # NPCs — DS3 Irithyll: Anri (Church of Yorshka), Siegward (Distant Manor kitchen), Sirris
+
     entities.append(make_entity("Npc", 62 * 16, 38 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Hello again. We seem destined to cross paths|Are you also headed for Anor Londo?|I must reach Aldrich of the Deep|To avenge my companions who fell to him")]))
     entities.append(make_entity("Npc", 28 * 16, 80 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Oh, hello there! Fancy meeting you here|I'm cooking up some estus soup, my specialty|Care to join me? It's quite good, you know|Oh, very good indeed, to see a friendly face")]))
     # Sirris — appears near Church of Yorshka after Rosaria covenant
@@ -12679,57 +10513,77 @@ def make_irithyll():
         for ty in [55, 60]:
             chunk[tx][ty] = TILE_WALL
             chunk[tx][ty-1] = TILE_WALLTOP
+    
+    # --- DS3 faithful enemies (Irithyll) ---
+    # SulyvahnsBeast (3)
+    entities.append(make_entity("Enemy", 12 * 16, 38 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SulyvahnsBeast", "SulyvahnsBeast"))]))
+    entities.append(make_entity("Enemy", 72 * 16, 90 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SulyvahnsBeast", "SulyvahnsBeast"))]))
+    entities.append(make_entity("Enemy", 78 * 16, 94 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SulyvahnsBeast", "SulyvahnsBeast"))]))
+    # BorealKnight (13)
+    for tx, ty in [(18, 42), (38, 50), (55, 55), (75, 60), (90, 58), (32, 72), (40, 82), (70, 45), (72, 42), (105, 65), (100, 62), (108, 68), (132, 88)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BorealKnight", "BorealKnight"))]))
+    # IrithyllianSlave (18)
+    for tx, ty in [(42, 48), (60, 52), (78, 56), (36, 44), (46, 46), (52, 50), (56, 48), (62, 56), (82, 52), (28, 70), (35, 75), (22, 68), (64, 44), (45, 55), (48, 54), (58, 60), (50, 58), (56, 60)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("IrithyllianSlave", "IrithyllianSlave"))]))
+    # DarkMage (4)
+    entities.append(make_entity("Enemy", 42 * 16, 52 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    entities.append(make_entity("Enemy", 95 * 16, 62 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    entities.append(make_entity("Enemy", 68 * 16, 58 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    entities.append(make_entity("Enemy", 110 * 16, 70 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    # Dog (8)
+    for tx, ty in [(50, 48), (80, 55), (65, 54), (48, 60), (52, 62), (76, 58), (38, 65), (42, 68)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
+    # CrystalLizard (4)
+    entities.append(make_entity("Enemy", 65 * 16, 42 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 128 * 16, 75 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 135 * 16, 80 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 140 * 16, 72 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    # SewerCentipede (5)
+    entities.append(make_entity("Enemy", 68 * 16, 80 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SewerCentipede", "SewerCentipede"))]))
+    entities.append(make_entity("Enemy", 78 * 16, 85 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SewerCentipede", "SewerCentipede"))]))
+    entities.append(make_entity("Enemy", 88 * 16, 90 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SewerCentipede", "SewerCentipede"))]))
+    entities.append(make_entity("Enemy", 72 * 16, 88 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SewerCentipede", "SewerCentipede"))]))
+    entities.append(make_entity("Enemy", 82 * 16, 82 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SewerCentipede", "SewerCentipede"))]))
+    # SilverKnight (13)
+    for tx, ty in [(30, 100), (42, 110), (48, 118), (36, 108), (44, 105), (32, 104), (138, 64), (146, 64), (140, 50), (142, 48), (144, 52), (146, 54), (148, 56)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight"))]))
+    # GiantSlave (2)
+    entities.append(make_entity("Enemy", 126 * 16, 78 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave"))]))
+    entities.append(make_entity("Enemy", 134 * 16, 82 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave"))]))
+    # Mimic (1)
+    entities.append(make_entity("Enemy", 58 * 16, 56 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Mimic", "Mimic"))]))
+    # MiniBoss (1)
+    entities.append(make_entity("Enemy", 120 * 16, 76 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    # --- SESSION 60 DS3 enemies (Irithyll) ---
-    # DS3: Pontiff Knights patrol the city streets - fast combo attackers
-    for tx, ty in [(35, 45), (42, 38), (55, 52), (68, 58), (82, 48), (95, 62), (110, 55), (125, 50)]:
-        mapped = ENEMY_KIND_MAP.get("PontiffKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Silver Knights guard important passages and rooftops
-    for tx, ty in [(48, 42), (65, 55), (88, 65), (105, 72), (120, 80), (135, 88), (75, 85), (92, 95)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Fire Witches cast fire spells from distance
-    for tx, ty in [(38, 50), (58, 60), (78, 70), (100, 68), (130, 55), (115, 90)]:
-        mapped = ENEMY_KIND_MAP.get("FireWitch", "Mage")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Irithyllian Slaves - invisible hag enemies in dark corners
-    for tx, ty in [(32, 65), (45, 75), (62, 68), (85, 80), (98, 88), (112, 95), (128, 98), (40, 85)]:
-        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Sewer Centipedes lurk in water channels
-    for tx, ty in [(25, 100), (35, 110), (48, 105), (58, 115), (70, 108)]:
-        mapped = ENEMY_KIND_MAP.get("SewerCentipede", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Sulyvahn's Beast on the bridge and in basement
-    for tx, ty in [(50, 35), (118, 95)]:
-        mapped = ENEMY_KIND_MAP.get("SulyvahnBeast", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Deacons near the Aldrich area
-    for tx, ty in [(122, 85), (128, 82), (135, 78), (140, 90), (145, 95)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "Cleric")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Evangelist near kitchen area
-    for tx, ty in [(30, 72), (42, 80)]:
-        mapped = ENEMY_KIND_MAP.get("Evangelist", "Cleric")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards in hidden areas
-    for tx, ty in [(72, 42), (140, 65)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     print(f"  Irithyll (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "Irithyll", chunk, entities
@@ -13014,8 +10868,6 @@ def make_irithyll_dungeon():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
     # Items — DS3 Irithyll Dungeon (verified against wiki)
     for kind, name, tx, ty, val in [
         # Upper prison cells
@@ -13101,322 +10953,19 @@ def make_irithyll_dungeon():
         make_field("is_mimic", "Bool", False),
     ]))
 
-    # Additional enemies — SESSION 35 DS3 fidelity (Irithyll Dungeon)
-    # DS3: Jailers patrol ALL corridors relentlessly, Wretches in cells, Rats in sewers
-    for tx, ty in [(85, 65), (92, 70), (100, 68), (108, 72), (115, 65),
-                   (122, 70), (130, 68), (135, 72)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Jailer")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(88, 85), (95, 90), (102, 88), (110, 92), (118, 85)]:
-        mapped = ENEMY_KIND_MAP.get("Wretch", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(82, 78), (90, 82), (98, 80), (106, 85), (115, 78)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(125, 82), (132, 88)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Additional enemies — SESSION 40 DS3 fidelity (Irithyll Dungeon)
-    for tx, ty in [(25, 42), (32, 48), (40, 45), (48, 50), (55, 42),
-                   (62, 48), (70, 45)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Jailer")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(30, 70), (42, 75), (55, 72), (68, 78)]:
-        mapped = ENEMY_KIND_MAP.get("Wretch", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(80, 65), (90, 70)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- SESSION 46 DS3 enemies (Irithyll Dungeon) ---
-    # DS3: Jailers are the iconic enemy - they drain health with their gaze
-    for tx, ty in [(20, 22), (30, 28), (42, 25), (55, 30)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Jailer")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Wretches - the deformed prisoners in cells
-    for tx, ty in [(35, 35), (48, 38), (60, 35)]:
-        mapped = ENEMY_KIND_MAP.get("Wretch", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Giant Rats in the sewer section (DS3: the flooded lower level)
-    for tx, ty in [(25, 42), (38, 45), (52, 42), (65, 48)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Basilisks in the deeper dungeon (DS3: curse frogs)
-    for tx, ty in [(45, 52), (58, 55), (70, 50)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 52 DS3 enemies (Irithyll Dungeon diversity) ---
-    # DS3: Cathedral Grave Wardens in the deeper prison levels
-    for tx, ty in [(38, 28), (52, 32)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralGraveWarden", "CathedralGraveWarden")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Monstrosity of Sin (DS3: the bloated creatures in the dungeon depths)
-    for tx, ty in [(65, 45)]:
-        mapped = ENEMY_KIND_MAP.get("MonstrosityOfSin", "GiantSlave")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Giant Slaves in the dungeon entrance (DS3: the giant outside)
-    for tx, ty in [(18, 35)]:
-        mapped = ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # More Jailers on the upper catwalks
-    for tx, ty in [(28, 42), (42, 48)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Jailer")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 57 DS3 enemies (Irithyll Dungeon diversity) ---
-    # DS3: Outrider Knight mini-boss in the dungeon lower level
-    for tx, ty in [(48, 55)]:
-        mapped = ENEMY_KIND_MAP.get("OutriderKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Spider enemies in the deep well (DS3: spiders near the Profaned Capital exit)
-    for tx, ty in [(70, 58), (82, 62)]:
-        mapped = ENEMY_KIND_MAP.get("Spider", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
-    # --- SESSION 61 DS3 enemies (Irithyll Dungeon) ---
-    # DS3: Jailers patrol the upper corridors - many throughout
-    for tx, ty in [(12, 14), (20, 18), (28, 22), (35, 28), (42, 32)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Jailers in the room with the vessel (central area)
-    for tx, ty in [(50, 38), (55, 42), (60, 35), (65, 40)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Reanimated Corpses (hollows) in cells
-    for tx, ty in [(18, 30), (25, 35), (32, 42), (40, 48), (48, 55)]:
-        mapped = ENEMY_KIND_MAP.get("ReanimatedCorpse", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Peasant Hollows in locked cells
-    for tx, ty in [(55, 50), (62, 55), (70, 48), (75, 55)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lycanthropes in gated cells (hostile)
-    for tx, ty in [(45, 45), (58, 62), (68, 70)]:
-        mapped = ENEMY_KIND_MAP.get("Lycanthrope", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Corpse Grubs in cells
-    for tx, ty in [(30, 50), (40, 60), (52, 68), (62, 72), (48, 75)]:
-        mapped = ENEMY_KIND_MAP.get("CorpseGrub", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Wretches on the floor below
-    for tx, ty in [(25, 75), (35, 80), (45, 78), (55, 82), (65, 85)]:
-        mapped = ENEMY_KIND_MAP.get("Wretch", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hound Rats in the sewer area (3 rats + giant rats)
-    for tx, ty in [(85, 55), (90, 60), (95, 65), (100, 58), (88, 62)]:
-        mapped = ENEMY_KIND_MAP.get("HoundRat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisks that spawn behind in sewer
-    for tx, ty in [(80, 48), (92, 52), (105, 45)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Mimics (3+ in dungeon)
-    for tx, ty in [(22, 38), (72, 65), (110, 35)]:
-        mapped = ENEMY_KIND_MAP.get("Mimic", "Mimic")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Cage Spiders in lower area
-    for tx, ty in [(30, 65), (42, 72), (58, 80)]:
-        mapped = ENEMY_KIND_MAP.get("CageSpider", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Jailers in the large room with many (lower level)
-    for tx, ty in [(80, 75), (88, 80), (95, 85), (100, 90)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Wretches in the lower cells
-    for tx, ty in [(28, 85), (40, 88), (55, 90), (65, 78), (75, 92)]:
-        mapped = ENEMY_KIND_MAP.get("Wretch", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Invisible Jailers (harder to spot, near key items)
-    for tx, ty in [(108, 30), (120, 38), (130, 32)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rats with the sleeping giant
-    for tx, ty in [(85, 82), (92, 88), (98, 85)]:
-        mapped = ENEMY_KIND_MAP.get("HoundRat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 67 DS3 enemies (Irithyll Dungeon round 2) ---
-    # DS3: Jailers patrolling the cell blocks with lanterns
-    for tx, ty in [(20, 28), (28, 35), (36, 42), (44, 50), (52, 55), (60, 42), (68, 50), (76, 55), (84, 42), (92, 50), (100, 55), (108, 42), (116, 50), (124, 55)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Wretches in the cells
-    for tx, ty in [(22, 60), (35, 65), (48, 70), (62, 60), (75, 65), (88, 70), (102, 60), (115, 65), (128, 70)]:
-        mapped = ENEMY_KIND_MAP.get("Wretch", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rats in the lower dungeon passages
-    for tx, ty in [(25, 75), (42, 80), (58, 75), (75, 80), (92, 75), (108, 80)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisks in the bottom level
-    for tx, ty in [(30, 85), (50, 90), (70, 85), (90, 90)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Mimics disguised as chests
-    for tx, ty in [(55, 65), (85, 75)]:
-        mapped = ENEMY_KIND_MAP.get("Mimic", "Mimic")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Cage Spider in the lower cells
-    for tx, ty in [(100, 85)]:
-        mapped = ENEMY_KIND_MAP.get("CageSpider", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 71 DS3 enemies (Irithyll Dungeon round 3) ---
-    # DS3: More Jailers in the cell block corridors
-    for tx, ty in [(15, 30), (22, 38), (29, 45), (36, 52), (43, 38), (50, 45), (57, 52), (64, 38), (71, 45), (78, 52), (85, 38), (92, 45), (99, 52), (106, 38), (113, 45)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Wretches in the cells and lower levels
-    for tx, ty in [(18, 58), (28, 65), (38, 72), (48, 58), (58, 65), (68, 72), (78, 58), (88, 65), (98, 72), (108, 58), (118, 65)]:
-        mapped = ENEMY_KIND_MAP.get("Wretch", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Rats in the sewer section
-    for tx, ty in [(20, 78), (35, 82), (50, 78), (65, 82), (80, 78), (95, 82), (110, 78)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Basilisks in the toxic lower level
-    for tx, ty in [(25, 88), (42, 92), (60, 88), (78, 92), (95, 88)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Mimic in the treasure room
-    for tx, ty in [(70, 85)]:
-        mapped = ENEMY_KIND_MAP.get("Mimic", "Mimic")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 74 DS3 enemies (Irithyll Dungeon round 4) ---
-    # DS3: More Jailers in the cell corridors
-    for tx, ty in [(16, 25), (24, 32), (32, 40), (40, 48), (48, 32), (56, 40), (64, 48), (72, 32), (80, 40), (88, 48), (96, 32)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Wretches in the cells
-    for tx, ty in [(18, 55), (28, 60), (38, 55), (48, 60), (58, 55), (68, 60), (78, 55), (88, 60)]:
-        mapped = ENEMY_KIND_MAP.get("Wretch", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Rats in the sewers
-    for tx, ty in [(22, 68), (35, 72), (48, 68), (62, 72), (75, 68), (88, 72)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisks in the bottom cells
-    for tx, ty in [(25, 78), (42, 82), (60, 78), (78, 82), (95, 78)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizard in the hidden room
-    for tx, ty in [(105, 65)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 77 DS3 enemies (Irithyll Dungeon round 5) ---
-    # DS3: More Jailers with lanterns in the corridors
-    for tx, ty in [(18, 22), (25, 30), (32, 38), (39, 45), (46, 30), (53, 38), (60, 45), (67, 30), (74, 38), (81, 45), (88, 30), (95, 38), (102, 45)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Wretches in the cells
-    for tx, ty in [(20, 52), (30, 58), (40, 52), (50, 58), (60, 52), (70, 58), (80, 52), (90, 58)]:
-        mapped = ENEMY_KIND_MAP.get("Wretch", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Rats in the sewers
-    for tx, ty in [(22, 65), (35, 70), (48, 65), (62, 70), (75, 65), (88, 70)]:
-        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Basilisks in the bottom level
-    for tx, ty in [(28, 78), (45, 82), (62, 78), (80, 82)]:
-        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Mimic disguised as a chest
-    for tx, ty in [(95, 62)]:
-        mapped = ENEMY_KIND_MAP.get("Mimic", "Mimic")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 80 DS3 enemies (Irithyll Dungeon final) ---
-    # DS3: Jailers and Wretches in the lower cells
-    for tx, ty in [(14, 20), (20, 28), (26, 35)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(18, 42), (24, 48), (30, 42)]:
-        mapped = ENEMY_KIND_MAP.get("Wretch", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 81 DS3 enemies (final gap close) ---
-    # DS3: 4 more Jailer
-    for tx, ty in [(10, 10), (25, 17), (40, 24), (55, 31)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 82 DS3 enemies (final gap close) ---
-    for tx, ty in [(8, 8), (25, 19), (42, 30)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 83 DS3 enemies (final) ---
-    for tx, ty in [(9, 9), (28, 22)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 84 DS3 enemies (final) ---
-    for tx, ty in [(7, 7)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # NPCs — DS3 Irithyll Dungeon: Siegward in cell, Karla in deep cell
+
+
     entities.append(make_entity("Npc", 92 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D4A520"), make_field("dialogue", "String", "Oh! You have my thanks, my deepest thanks|I seem to have gotten myself locked in this cell|A brave warrior like yourself, I knew you would come|Let us share a drink, to celebrate your bravery|I am Siegward of Catarina, at your service")]))
     entities.append(make_entity("Npc", 90 * 16, 84 * 16, [make_field("name", "String", "Karla"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#4A0080"), make_field("dialogue", "String", "Hmm. A visitor? I'm a prisoner, same as you|I can teach you dark sorceries, if you bring me tomes|But nothing that could harm the Fire Keeper, understand|The pygmy is not to be trifled with")]))
 
@@ -13900,6 +11449,50 @@ def make_irithyll_dungeon():
     for tx in [85, 105]:
         for ty in range(65, 81):
             chunk[tx][ty] = TILE_WALL
+    
+    # --- DS3 faithful enemies (IrithyllDungeon) ---
+    # Jailer (20)
+    for tx, ty in [(22, 20), (35, 30), (48, 38), (25, 25), (32, 32), (42, 28), (58, 42), (55, 55), (60, 60), (68, 52), (48, 58), (62, 65), (70, 58), (58, 70), (65, 68), (88, 55), (95, 62), (85, 85), (95, 90), (82, 90)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Jailer", "Jailer"))]))
+    # Wretch (19)
+    for tx, ty in [(20, 30), (28, 35), (38, 28), (45, 34), (50, 50), (62, 55), (78, 60), (82, 65), (85, 62), (92, 58), (38, 80), (45, 86), (60, 75), (50, 78), (42, 75), (95, 42), (125, 30), (88, 88), (92, 82)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Wretch", "Wretch"))]))
+    # CrystalLizard (1)
+    entities.append(make_entity("Enemy", 52 * 16, 52 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    # Rat (9)
+    for tx, ty in [(28, 78), (35, 82), (42, 88), (32, 85), (48, 90), (25, 90), (55, 92), (22, 82), (38, 85)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+    # Basilisk (6)
+    entities.append(make_entity("Enemy", 55 * 16, 80 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    entities.append(make_entity("Enemy", 62 * 16, 85 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    entities.append(make_entity("Enemy", 40 * 16, 88 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    entities.append(make_entity("Enemy", 65 * 16, 78 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    entities.append(make_entity("Enemy", 48 * 16, 82 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    entities.append(make_entity("Enemy", 58 * 16, 90 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    # CageSpider (1)
+    entities.append(make_entity("Enemy", 55 * 16, 88 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CageSpider", "CageSpider"))]))
+    # MiniBoss (1)
+    entities.append(make_entity("Enemy", 78 * 16, 82 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+    # Mimic (3)
+    entities.append(make_entity("Enemy", 118 * 16, 32 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Mimic", "Mimic"))]))
+    entities.append(make_entity("Enemy", 45 * 16, 82 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Mimic", "Mimic"))]))
+    entities.append(make_entity("Enemy", 62 * 16, 68 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Mimic", "Mimic"))]))
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -14312,251 +11905,57 @@ def make_profaned_capital():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 22 DS3 fidelity (ProfanedCapital reinforcements)
-    # Q(0,0) capital entrance — Jailer patrols (DS3: jailers from Irithyll Dungeon)
-    for tx, ty in [(18, 20), (24, 24), (30, 28), (36, 32)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Jailer")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,0) upper capital — Gargoyle patrols (DS3: gargoyles guard rooftops)
-    for tx, ty in [(85, 18), (92, 24), (98, 30), (105, 36), (112, 42)]:
-        mapped = ENEMY_KIND_MAP.get("Gargoyle", "Gargoyle")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(0,1) toxic swamp — Sewer Centipede clusters (DS3: centipedes in the toxic lower areas)
-    for tx, ty in [(28, 82), (35, 88), (42, 94), (50, 100), (58, 106)]:
-        mapped = ENEMY_KIND_MAP.get("SewerCentipede", "SewerCentipede")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,1) Yhorm arena approach — Monstrosity of Sin (DS3: monstrosities near Yhorm)
-    for tx, ty in [(95, 82), (102, 88), (108, 94), (115, 100)]:
-        mapped = ENEMY_KIND_MAP.get("MonstrosityOfSin", "MonstrosityOfSin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 25 DS3 fidelity (CatacombsOfCarthus reinforcements)
-    # Q(0,0) upper catacombs — Skeleton Swordsmen (DS3: skeletons throughout catacombs)
-    for tx, ty in [(18, 24), (24, 30), (30, 36), (36, 42), (42, 48)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "SkeletonSwordman")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,1) Wolnir approach — Skeletons guarding the path (DS3: skeleton guards)
-    for tx, ty in [(110, 95), (120, 100), (130, 105), (140, 110), (145, 118)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 27 DS3 fidelity (CatacombsOfCarthus reinforcements)
-    # Q(0,1) lower tombs — Skeletons in burial chambers (DS3: skeletons everywhere)
-    for tx, ty in [(20, 75), (28, 82), (36, 88), (44, 95), (52, 102)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,0) Wolnir path — Skeleton Swordsmen (DS3: swordsmen guard the path)
-    for tx, ty in [(85, 50), (92, 58), (100, 65), (108, 72), (115, 80)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "SkeletonSwordman")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 28 DS3 fidelity (ProfanedCapital reinforcements)
-    # Q(0,1) toxic lower area — Sewer Centipede (DS3: centipedes in the toxic sewers)
-    for tx, ty in [(22, 85), (32, 92), (42, 98), (52, 105), (62, 112)]:
-        mapped = ENEMY_KIND_MAP.get("SewerCentipede", "SewerCentipede")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,0) upper capital — Gargoyle reinforcements (DS3: gargoyles patrol rooftops)
-    for tx, ty in [(95, 28), (102, 35), (110, 42), (118, 48)]:
-        mapped = ENEMY_KIND_MAP.get("Gargoyle", "Gargoyle")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 29 DS3 fidelity (CatacombsOfCarthus reinforcements)
-    # Q(0,0) upper catacombs — more Skeletons (DS3: dense skeleton population)
-    for tx, ty in [(15, 18), (22, 22), (30, 28), (38, 34), (46, 40)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,0) bridge area — Skeleton Swordsmen (DS3: swordsmen near the rope bridge)
-    for tx, ty in [(60, 35), (68, 42), (76, 48), (84, 55)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "SkeletonSwordman")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 32 DS3 fidelity (CatacombsOfCarthus reinforcements)
-    # Q(0,0) upper catacombs — Skeleton Warriors (DS3: skeletons throughout the upper level)
-    for tx, ty in [(18, 16), (24, 20), (30, 24), (36, 30), (42, 36)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(0,1) lower tombs — Skeleton Swordsmen (DS3: swordsmen guard the deeper tombs)
-    for tx, ty in [(28, 78), (36, 84), (44, 90), (52, 96)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "SkeletonSwordman")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 53 DS3 enemies (Profaned Capital diversity) ---
-    # DS3: Hand Monsters (DS3: the severed hands that grab you in the capital)
-    for tx, ty in [(35, 45), (48, 50)]:
-        mapped = ENEMY_KIND_MAP.get("MonstrosityOfSin", "GiantSlave")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Rotten Slug in the sewer channels
-    for tx, ty in [(55, 60), (68, 65)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Crystal Lizard near the Yhorm arena
-    for tx, ty in [(85, 55)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
-    # --- SESSION 61 DS3 enemies (Profaned Capital) ---
-    # DS3: Monstrosity of Sin (3 in the building, tall hostile enemies)
-    for tx, ty in [(52, 50), (58, 55), (62, 48)]:
-        mapped = ENEMY_KIND_MAP.get("MonstrosityOfSin", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Jailers (many including 4 white-clothed near fire gargoyle room)
-    for tx, ty in [(15, 10), (22, 15), (30, 12), (38, 18), (45, 14)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Jailers in the Yhorm approach area
-    for tx, ty in [(70, 12), (78, 16), (85, 10), (92, 18), (100, 14)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Headless Gargoyles (bridge + Yhorm approach)
-    for tx, ty in [(35, 35), (50, 40), (65, 45), (80, 55), (90, 60)]:
-        mapped = ENEMY_KIND_MAP.get("HeadlessGargoyle", "Gargoyle")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Sewer Centipede (toxic pool area)
-    for tx, ty in [(25, 55), (35, 60), (45, 65), (55, 70)]:
-        mapped = ENEMY_KIND_MAP.get("SewerCentipede", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Mimics (2 in Yhorm approach, 1 for Court Sorcerer's Staff)
-    for tx, ty in [(110, 20), (120, 15), (48, 58)]:
-        mapped = ENEMY_KIND_MAP.get("Mimic", "Mimic")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Avaricious Being (snuggly/warm treasure crow)
-    for tx, ty in [(18, 68)]:
-        mapped = ENEMY_KIND_MAP.get("AvariciousBeing", "Mimic")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeletons in the lower ruins
-    for tx, ty in [(20, 50), (30, 55), (40, 62), (50, 68), (60, 72)]:
-        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Skeleton Swordsmen in ruined corridors
-    for tx, ty in [(28, 45), (38, 52), (48, 60), (58, 55), (68, 62)]:
-        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards (2-3 in Profaned Capital)
-    for tx, ty in [(95, 25), (125, 30), (55, 48)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rotten Slugs in wet areas
-    for tx, ty in [(32, 70), (42, 75), (52, 78)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More gargoyles near the roof
-    for tx, ty in [(105, 8), (115, 12), (125, 18)]:
-        mapped = ENEMY_KIND_MAP.get("HeadlessGargoyle", "Gargoyle")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Jailers in invisible rooms
-    for tx, ty in [(75, 65), (82, 60), (90, 68)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 68 DS3 enemies (Profaned Capital round 2) ---
-    # DS3: Jailers in the dungeon section
-    for tx, ty in [(20, 28), (28, 35), (36, 42), (44, 50), (52, 55), (60, 42), (68, 50), (76, 55), (84, 42), (92, 50), (100, 55), (108, 42), (116, 35)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Gargoyles on the rooftops and parapets
-    for tx, ty in [(22, 60), (38, 65), (54, 60), (70, 65), (86, 60), (102, 65), (118, 60)]:
-        mapped = ENEMY_KIND_MAP.get("Gargoyle", "Gargoyle")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Sewer Centipedes in the lower waterway
-    for tx, ty in [(25, 70), (42, 75), (58, 70), (75, 75), (92, 70), (108, 75), (125, 70)]:
-        mapped = ENEMY_KIND_MAP.get("SewerCentipede", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Monstrosities of Sin in the toxic pools
-    for tx, ty in [(30, 80), (50, 85), (70, 80), (90, 85), (115, 80)]:
-        mapped = ENEMY_KIND_MAP.get("MonstrosityOfSin", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards near the treasure room
-    for tx, ty in [(55, 75), (85, 75)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Giant Slave near Yhorm's arena entrance
-    for tx, ty in [(65, 90)]:
-        mapped = ENEMY_KIND_MAP.get("GiantSlave", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 78 DS3 enemies (Profaned Capital round 3) ---
-    # DS3: Jailers in the dungeon section below the capital
-    for tx, ty in [(18, 25), (25, 32), (32, 40), (39, 32), (46, 25), (53, 32), (60, 40), (67, 32), (74, 25), (81, 32), (88, 40), (95, 32), (102, 25)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Gargoyles on the rooftops
-    for tx, ty in [(22, 48), (38, 52), (54, 48), (70, 52), (86, 48), (102, 52), (118, 48)]:
-        mapped = ENEMY_KIND_MAP.get("Gargoyle", "Gargoyle")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Sewer Centipedes in the lower waterway
-    for tx, ty in [(28, 58), (42, 62), (56, 58), (70, 62), (84, 58), (98, 62)]:
-        mapped = ENEMY_KIND_MAP.get("SewerCentipede", "Wretch")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Monstrosities of Sin
-    for tx, ty in [(35, 68), (55, 72), (75, 68)]:
-        mapped = ENEMY_KIND_MAP.get("MonstrosityOfSin", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizard
-    for tx, ty in [(90, 55)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 80 DS3 enemies (Profaned Capital final) ---
-    # DS3: Jailers and Gargoyles
-    for tx, ty in [(15, 20), (22, 28), (28, 35)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(18, 42), (25, 48)]:
-        mapped = ENEMY_KIND_MAP.get("Gargoyle", "Gargoyle")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 81 DS3 enemies (final gap close) ---
-    # DS3: 3 more Jailer
-    for tx, ty in [(10, 10), (25, 17), (40, 24)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 82 DS3 enemies (final gap close) ---
-    for tx, ty in [(8, 8), (25, 19)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 83 DS3 enemies (final) ---
-    for tx, ty in [(9, 9)]:
-        mapped = ENEMY_KIND_MAP.get("Jailer", "HollowSoldier")
+
+    
+    # --- DS3 faithful enemies (ProfanedCapital) ---
+    # Gargoyle (10)
+    for tx, ty in [(10, 11), (44, 12), (48, 14), (64, 14), (88, 8), (34, 52), (50, 60), (108, 2), (129, 15), (124, 34)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- NPCs ---
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Gargoyle", "Gargoyle"))]))
+    # Jailer (17)
+    for tx, ty in [(52, 10), (54, 14), (60, 8), (62, 18), (72, 10), (74, 16), (80, 12), (20, 38), (30, 42), (38, 44), (26, 56), (24, 48), (40, 55), (32, 60), (62, 48), (90, 7), (128, 22)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Jailer", "Jailer"))]))
+    # SewerCentipede (9)
+    for tx, ty in [(52, 64), (60, 72), (66, 68), (70, 60), (74, 66), (80, 62), (95, 11), (115, 26), (94, 31)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SewerCentipede", "SewerCentipede"))]))
+    # CrystalLizard (3)
+    entities.append(make_entity("Enemy", 56 * 16, 68 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 62 * 16, 64 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 56 * 16, 44 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    # MonstrosityOfSin (6)
+    entities.append(make_entity("Enemy", 30 * 16, 72 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MonstrosityOfSin", "MonstrosityOfSin"))]))
+    entities.append(make_entity("Enemy", 36 * 16, 78 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MonstrosityOfSin", "MonstrosityOfSin"))]))
+    entities.append(make_entity("Enemy", 42 * 16, 74 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MonstrosityOfSin", "MonstrosityOfSin"))]))
+    entities.append(make_entity("Enemy", 48 * 16, 46 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MonstrosityOfSin", "MonstrosityOfSin"))]))
+    entities.append(make_entity("Enemy", 58 * 16, 70 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MonstrosityOfSin", "MonstrosityOfSin"))]))
+    entities.append(make_entity("Enemy", 64 * 16, 74 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MonstrosityOfSin", "MonstrosityOfSin"))]))
+    # MiniBoss (1)
+    entities.append(make_entity("Enemy", 48 * 16, 42 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+    # GiantSlave (1)
+    entities.append(make_entity("Enemy", 76 * 16, 60 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave"))]))
+
+# --- NPCs ---
     # Siegward — in cell
     entities.append(make_entity("Npc", 60 * 16, 50 * 16, [
         make_field("name", "String", "Siegward"),
@@ -15311,7 +12710,6 @@ def make_anor_londo():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # --- Items — DS3 Anor Londo (wiki-verified) ---
     items = [
@@ -15353,225 +12751,39 @@ def make_anor_londo():
         make_field("is_mimic", "Bool", False),
     ]))
 
-    # Additional enemies — SESSION 22 DS3 fidelity (AnorLondo reinforcements)
-    # Q(0,0) cathedral approach — Silver Knights guarding main hall (DS3: silver knight patrols)
-    for tx, ty in [(22, 18), (28, 22), (34, 26), (40, 30)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,0) upper cathedral — Man Grub clusters (DS3: grub infestations on upper floors)
-    for tx, ty in [(85, 28), (92, 34), (98, 40), (105, 46), (112, 52)]:
-        mapped = ENEMY_KIND_MAP.get("ManGrub", "ManGrub")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(0,1) lower hall — Silver Knights in the dark corridors (DS3: knights in darkened halls)
-    for tx, ty in [(25, 85), (32, 90), (40, 95), (48, 100)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,1) Aldrich chamber — Man Grub guardians (DS3: grubs near Aldrich's chamber)
-    for tx, ty in [(95, 85), (102, 90), (108, 95), (115, 100), (120, 105)]:
-        mapped = ENEMY_KIND_MAP.get("ManGrub", "ManGrub")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 27 DS3 fidelity (AnorLondo reinforcements)
-    # Q(0,1) lower cathedral — Silver Knight patrol (DS3: knights guard every corridor)
-    for tx, ty in [(18, 82), (24, 88), (30, 94), (36, 100), (42, 106), (48, 112)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,1) Aldrich approach — Man Grub swarm (DS3: grubs infest the cathedral depths)
-    for tx, ty in [(90, 85), (98, 92), (106, 98), (114, 105), (122, 112)]:
-        mapped = ENEMY_KIND_MAP.get("ManGrub", "ManGrub")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 39 DS3 fidelity (Anor Londo)
-    # DS3: Silver Knights patrol halls, Man Grubs in dark corners
-    for tx, ty in [(30, 45), (38, 50), (45, 48), (52, 55), (60, 50),
-                   (68, 45), (75, 52), (82, 48)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(35, 70), (50, 75), (65, 72), (80, 70)]:
-        mapped = ENEMY_KIND_MAP.get("ManGrub", "ManGrub")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(90, 55), (100, 60)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(42, 80), (58, 85)]:
-        mapped = ENEMY_KIND_MAP.get("DeepAccursed", "DeepAccursed")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- SESSION 46 DS3 enemies (Anor Londo) ---
-    # DS3: Silver Knights dominate - archers on the famous ledge, swordsmen inside
-    # Silver Knight Archers on the buttress ledge (DS3: the iconic archer gauntlet)
-    for tx, ty in [(25, 18), (32, 22), (40, 20)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Man Grubs - the slug-like enemies near Rosaria's chamber (DS3: Irithyll connection)
-    for tx, ty in [(55, 30), (62, 35), (70, 32), (78, 28)]:
-        mapped = ENEMY_KIND_MAP.get("ManGrub", "ManGrub")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Deacons in the cathedral section (DS3: remnants of the Deep)
-    for tx, ty in [(45, 40), (52, 45), (60, 42)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "Deacon")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Silver Knight Swordsmen inside the great hall
-    for tx, ty in [(35, 50), (48, 55), (65, 52)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 49 DS3 enemies (Anor Londo) ---
-    # DS3: Silver Knight Archers on the famous buttress ledge (more archers!)
-    for tx, ty in [(48, 22), (58, 18), (68, 25)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Cathedral Grave Wardens (DS3: patrol the Anor Londo graveyard)
-    for tx, ty in [(25, 42), (38, 48), (50, 45)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralGraveWarden", "CathedralGraveWarden")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Giant Slave (DS3: the giant outside Anor Londo who shoots arrows)
-    for tx, ty in [(72, 35)]:
-        mapped = ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 54 DS3 enemies (Anor Londo diversity) ---
-    # DS3: Mimic in the Gwyndolin chamber (DS3: one mimic in Anor Londo)
-    for tx, ty in [(72, 48)]:
-        mapped = ENEMY_KIND_MAP.get("Mimic", "Mimic")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Gargoyle on the roof (DS3: gargoyles patrol the Anor Londo rooftops)
-    for tx, ty in [(42, 35), (58, 38)]:
-        mapped = ENEMY_KIND_MAP.get("Gargoyle", "Gargoyle")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Crystal Lizard near the boss room
-    for tx, ty in [(80, 55)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # More Man Grubs near Rosaria's chamber
-    for tx, ty in [(48, 45), (55, 50)]:
-        mapped = ENEMY_KIND_MAP.get("ManGrub", "ManGrub")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
-    # --- SESSION 62 DS3 enemies (Anor Londo) ---
-    # DS3: Silver Knights - many throughout the hallways and corridors
-    for tx, ty in [(12, 30), (20, 35), (28, 40), (35, 45), (42, 50)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Silver Knights in the main hall
-    for tx, ty in [(50, 55), (60, 60), (70, 52), (80, 48), (90, 55)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Silver Knight archers on balconies
-    for tx, ty in [(100, 40), (110, 35), (120, 42), (130, 38)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Man-Grubs in the cathedral area
-    for tx, ty in [(58, 65), (65, 70), (55, 75), (62, 80), (60, 85)]:
-        mapped = ENEMY_KIND_MAP.get("ManGrub", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Deacons in the Aldrich chamber approach
-    for tx, ty in [(105, 62), (115, 68), (125, 75), (135, 80)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Deacons (pyromancers in main chamber)
-    for tx, ty in [(110, 75), (120, 82), (130, 88), (140, 95)]:
-        mapped = ENEMY_KIND_MAP.get("Deacon", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Cathedral Grave Wardens
-    for tx, ty in [(45, 58), (72, 48), (85, 52)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralGraveWarden", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Silver Knights guarding the castle stairs
-    for tx, ty in [(140, 50), (148, 55), (145, 65), (150, 80)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Silver Knights in the large main chamber
-    for tx, ty in [(108, 85), (118, 90), (128, 95), (135, 100)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizard
-    for tx, ty in [(92, 60), (138, 45)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 69 DS3 enemies (Anor Londo round 2) ---
-    # DS3: Silver Knights throughout the great hall and corridors
-    for tx, ty in [(18, 30), (28, 38), (38, 45), (48, 38), (58, 30), (68, 38), (78, 45), (88, 38), (98, 30)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Man-Grubs in the chambers and near the painting
-    for tx, ty in [(22, 48), (35, 55), (48, 48), (62, 55), (75, 48), (88, 55), (102, 48), (115, 55)]:
-        mapped = ENEMY_KIND_MAP.get("ManGrub", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Giant Slave at the cathedral entrance
-    for tx, ty in [(55, 42)]:
-        mapped = ENEMY_KIND_MAP.get("GiantSlave", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Deep Accursed ambush
-    for tx, ty in [(42, 58)]:
-        mapped = ENEMY_KIND_MAP.get("DeepAccursed", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizard hidden near the darkmoon tomb
-    for tx, ty in [(105, 50)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 80 DS3 enemies (Anor Londo final) ---
-    # DS3: Silver Knights and Man-Grubs
-    for tx, ty in [(15, 22), (22, 30), (30, 22)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(18, 38), (28, 35)]:
-        mapped = ENEMY_KIND_MAP.get("ManGrub", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 81 DS3 enemies (final gap close) ---
-    # DS3: 3 more SilverKnight
-    for tx, ty in [(10, 10), (25, 17), (40, 24)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 82 DS3 enemies (final gap close) ---
-    for tx, ty in [(8, 8), (25, 19)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 83 DS3 enemies (final) ---
-    for tx, ty in [(9, 9)]:
-        mapped = ENEMY_KIND_MAP.get("SilverKnight", "HollowSoldier")
+
+
+    
+    # --- DS3 faithful enemies (AnorLondo) ---
+    # SilverKnight (20)
+    for tx, ty in [(20, 35), (34, 42), (42, 38), (52, 42), (64, 48), (48, 50), (70, 44), (82, 38), (90, 42), (108, 34), (118, 36), (55, 45), (68, 40), (70, 46), (125, 38), (135, 44), (138, 50), (28, 48), (58, 54), (65, 55)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- NPCs ---
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight"))]))
+    # GiantSlave (1)
+    entities.append(make_entity("Enemy", 38 * 16, 52 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave"))]))
+    # ManGrub (18)
+    for tx, ty in [(72, 52), (76, 48), (142, 75), (148, 82), (136, 68), (124, 88), (132, 92), (130, 65), (115, 72), (140, 95), (112, 80), (55, 85), (64, 91), (69, 93), (61, 101), (78, 52), (82, 58), (145, 88)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ManGrub", "ManGrub"))]))
+    # DeepAccursed (1)
+    entities.append(make_entity("Enemy", 100 * 16, 40 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DeepAccursed", "DeepAccursed"))]))
+    # CrystalLizard (1)
+    entities.append(make_entity("Enemy", 56 * 16, 84 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    # MiniBoss (1)
+    entities.append(make_entity("Enemy", 128 * 16, 78 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+
+# --- NPCs ---
     # Anri of Astora — summon sign near main doors (wiki: "purple sign on the floor")
     entities.append(make_entity("Npc", 128 * 16, 72 * 16, [
         make_field("name", "String", "Anri of Astora"),
@@ -16470,9 +13682,6 @@ def make_lothric_castle():
     entities.append(make_entity("Bonfire", 146 * 16, 85 * 16))   # Grand Archives
 
     # --- Boss ---
-    entities.append(make_entity("BossSpawn", 132 * 16, 62 * 16))  # Dragonslayer Armour
-    entities.append(make_entity("Enemy", 132 * 16, 62 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "MiniBoss")]))  # Dragonslayer Armour
 
     # --- Enemies ---
     # DS3 Lothric Castle enemies: Lothric Knights, Hollow Soldiers, Hollow Assassins,
@@ -16527,8 +13736,6 @@ def make_lothric_castle():
     ]
     for kind, tx, ty in enemy_positions:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # --- Items - DS3 Lothric Castle (wiki-verified) ---
     items = [
@@ -16676,346 +13883,98 @@ def make_lothric_castle():
         make_field("is_mimic", "Bool", True),
     ]))
 
-    # Additional enemies — SESSION 35 DS3 fidelity (Lothric Castle)
-    # DS3: Lothric Knights guard ALL halls, Hollow Soldiers in courtyards
-    # Q3 (lower-left) and Q4 (lower-right) are severely underpopulated
-    for tx, ty in [(20, 95), (28, 100), (35, 98), (42, 105), (50, 95),
-                   (58, 100), (65, 98), (72, 105)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(22, 110), (30, 115), (38, 112), (46, 118), (54, 110),
-                   (62, 115), (70, 112)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(82, 95), (90, 100), (98, 98), (106, 105), (114, 95),
-                   (122, 100), (130, 98)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(85, 110), (95, 115), (105, 112), (115, 118)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(88, 105), (102, 108)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- SESSION 43 DS3 enemies (Lothric Castle) ---
-    # DS3: Lothric Knights are the dominant enemy, patrolling EVERY hall and rampart
-    # Q1 (upper-left): Lothric Knights guarding the main halls
-    for tx, ty in [(12, 22), (18, 28), (24, 25), (30, 30), (15, 35)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q1: Hollow Soldiers in the side passages
-    for tx, ty in [(20, 32), (26, 38), (32, 35)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q2 (upper-right): Winged Knights on the castle ramparts (DS3: 3 total)
-    for tx, ty in [(85, 22), (95, 28), (105, 25)]:
-        mapped = ENEMY_KIND_MAP.get("WingedKnight", "WingedKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q2: Lothric Knights on the dragon barracks roof
-    for tx, ty in [(110, 20), (120, 25), (128, 22), (135, 28)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q2: Gargoyle on the castle roof (DS3: 2 gargoyles near Grand Archives entrance)
-    for tx, ty in [(115, 30), (125, 35)]:
-        mapped = ENEMY_KIND_MAP.get("Gargoyle", "Gargoyle")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q1/Q2 mid: Starved Hounds in the castle interior
-    for tx, ty in [(40, 40), (48, 45), (56, 42), (65, 48)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q3 (lower-left): Hollow Soldiers and Knights in the Oceiros approach
-    for tx, ty in [(10, 60), (16, 65), (22, 62), (28, 68), (35, 65)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q3: Lothric Knight patrol deeper in
-    for tx, ty in [(18, 72), (30, 75), (42, 78)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q4 (lower-right): Lothric Knights near the Grand Archives approach
-    for tx, ty in [(90, 70), (100, 75), (110, 72), (120, 78), (130, 75)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q4: Hollow Soldiers in the lower castle wards
-    for tx, ty in [(95, 82), (105, 85), (115, 82), (125, 88)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q4: Starved Hounds in the castle cellars
-    for tx, ty in [(98, 90), (108, 92), (118, 88)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 45 DS3 enemies (Lothric Castle additions) ---
-    # DS3: Gertrude's Knights in the upper castle chambers
-    for tx, ty in [(40, 48), (52, 52)]:
-        mapped = ENEMY_KIND_MAP.get("GertrudesKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # More Lothric Knights in the Grand Archives approach
-    for tx, ty in [(100, 60), (112, 55), (125, 58)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Hollow Soldiers near the dancer arena
-    for tx, ty in [(58, 55), (65, 60), (72, 58)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 46 DS3 enemies (Lothric Castle additions) ---
-    # DS3: Consumed King's Guards near Oceiros entrance
-    for tx, ty in [(15, 55), (22, 60)]:
-        mapped = ENEMY_KIND_MAP.get("ConsumedKingKnight", "CathedralKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Lothric Wyvern - the dragon on the castle ramparts
-    for tx, ty in [(100, 35)]:
-        mapped = ENEMY_KIND_MAP.get("LothricWyvern", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Pus of Man on the dragon's wing (DS3: transforms from dragon)
-    for tx, ty in [(105, 38)]:
-        mapped = ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 47 DS3 enemies (Lothric Castle additions) ---
-    # DS3: Hollow Warriors in the castle lower halls
-    for tx, ty in [(22, 42), (35, 45), (48, 42)]:
-        mapped = ENEMY_KIND_MAP.get("LargeHollowSoldier", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Lothric Knights on the garden path
-    for tx, ty in [(68, 55), (78, 58), (88, 52)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Assassin in the dark passage to Grand Archives
-    for tx, ty in [(130, 62)]:
-        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 49 DS3 enemies (Lothric Castle final pass) ---
-    # DS3: Cathedral Knights in the castle chapel area
-    for tx, ty in [(40, 35), (55, 40)]:
-        mapped = ENEMY_KIND_MAP.get("CathedralKnight", "CathedralKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Thralls hiding near the Grand Archives approach (DS3: ambush enemies)
-    for tx, ty in [(120, 48), (128, 52), (135, 50)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Crystal Lizard in the castle upper chambers
-    for tx, ty in [(95, 32)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # More Starved Hounds near the Consumed King's Garden entrance
-    for tx, ty in [(15, 68), (25, 72)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 50 DS3 enemies (Lothric Castle final) ---
-    # DS3: More Lothric Knights throughout the castle halls
-    for tx, ty in [(25, 35), (38, 40), (52, 38)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Hollow Soldiers in the lower courtyard
-    for tx, ty in [(60, 62), (68, 65), (76, 60)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Peasant Hollows near the dragon bridge
-    for tx, ty in [(108, 40), (118, 45)]:
-        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 59 DS3 enemies (Lothric Castle) ---
-    # DS3: More Hollow Soldiers on the castle walls
-    for tx, ty in [(45, 35), (58, 40), (72, 38)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Lothric Knights on the rampart walkways
-    for tx, ty in [(85, 65), (98, 68)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Starved Hounds in the castle kennels
-    for tx, ty in [(30, 60), (42, 65)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
-    # --- SESSION 67 DS3 enemies (Lothric Castle round 2) ---
-    # DS3: Lothric Knights throughout the castle halls
-    for tx, ty in [(20, 30), (32, 38), (44, 45), (56, 52), (68, 38), (80, 45), (92, 52), (104, 38), (116, 45), (128, 30)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Soldiers in the castle courtyard and ramparts
-    for tx, ty in [(22, 55), (35, 60), (48, 65), (62, 55), (75, 60), (88, 65), (102, 55), (115, 60), (130, 65)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dogs in the kennel area
-    for tx, ty in [(28, 70), (48, 75), (68, 70), (88, 75), (108, 70)]:
-        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Assassins in the dark passages
-    for tx, ty in [(30, 80), (50, 85), (70, 80), (90, 85)]:
-        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages in the study rooms
-    for tx, ty in [(35, 90), (60, 95), (85, 90)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Winged Knights on the rooftops
-    for tx, ty in [(40, 100), (70, 100), (100, 100)]:
-        mapped = ENEMY_KIND_MAP.get("WingedKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Pus of Man on hollows in the garden area
-    for tx, ty in [(50, 105), (75, 110), (100, 105)]:
-        mapped = ENEMY_KIND_MAP.get("PusOfMan", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards in the castle hidden rooms
-    for tx, ty in [(55, 80), (95, 80)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 71 DS3 enemies (Lothric Castle round 3) ---
-    # DS3: More Lothric Knights in the great hall
-    for tx, ty in [(22, 42), (32, 50), (42, 58), (52, 42), (62, 50), (72, 58), (82, 42), (92, 50), (102, 58), (112, 42)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Hollow Soldiers in the courtyard
-    for tx, ty in [(18, 62), (30, 68), (42, 72), (54, 62), (66, 68), (78, 72), (90, 62), (102, 68), (114, 72)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Dogs in the kennels
-    for tx, ty in [(25, 78), (42, 82), (60, 78), (78, 82), (96, 78)]:
-        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Assassins lurking in the shadows
-    for tx, ty in [(35, 85), (55, 88), (75, 85), (95, 88)]:
-        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages near the archive entrance
-    for tx, ty in [(40, 92), (65, 95), (90, 92)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 75 DS3 enemies (Lothric Castle round 4) ---
-    # DS3: Lothric Knights in the great hall and passages
-    for tx, ty in [(15, 25), (25, 32), (35, 40), (45, 32), (55, 25), (65, 32), (75, 40), (85, 32), (95, 25), (105, 32), (115, 40), (125, 32)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Soldiers throughout the castle
-    for tx, ty in [(18, 45), (28, 52), (38, 58), (48, 45), (58, 52), (68, 58), (78, 45), (88, 52), (98, 58), (108, 45)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dogs in the lower castle area
-    for tx, ty in [(22, 62), (42, 66), (62, 62), (82, 66), (102, 62)]:
-        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Assassins in the dark passages
-    for tx, ty in [(32, 70), (52, 74), (72, 70), (92, 74)]:
-        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 78 DS3 enemies (Lothric Castle round 5) ---
-    # DS3: Lothric Knights in the interior halls
-    for tx, ty in [(18, 22), (28, 30), (38, 38), (48, 22), (58, 30), (68, 38), (78, 22), (88, 30), (98, 38), (108, 22)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Soldiers on the ramparts
-    for tx, ty in [(22, 45), (32, 52), (42, 58), (52, 45), (62, 52), (72, 58), (82, 45), (92, 52)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dogs in the kennel
-    for tx, ty in [(25, 62), (45, 66), (65, 62), (85, 66)]:
-        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages near the Grand Archives entrance
-    for tx, ty in [(30, 70), (50, 72), (70, 70)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Winged Knights on the roof
-    for tx, ty in [(40, 75), (65, 75)]:
-        mapped = ENEMY_KIND_MAP.get("WingedKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 80 DS3 enemies (Lothric Castle final) ---
-    # DS3: Lothric Knights and Hollow Soldiers
-    for tx, ty in [(15, 18), (22, 25), (30, 18)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(18, 32), (28, 28)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 81 DS3 enemies (final gap close) ---
-    # DS3: 3 more LothricKnight
-    for tx, ty in [(10, 10), (25, 17), (40, 24)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 82 DS3 enemies (final gap close) ---
-    for tx, ty in [(8, 8), (25, 19)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 83 DS3 enemies (final) ---
-    for tx, ty in [(9, 9)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "HollowSoldier")
+
+
+
+
+
+
+    
+    # --- DS3 faithful enemies (LothricCastle) ---
+    # LothricKnight (18)
+    for tx, ty in [(18, 28), (35, 32), (55, 38), (58, 44), (62, 34), (88, 34), (112, 52), (100, 42), (132, 58), (22, 32), (42, 38), (75, 30), (82, 26), (95, 36), (108, 44), (128, 60), (136, 68), (142, 90)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- NPCs - DS3 Lothric Castle ---
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight"))]))
+    # DarkMage (4)
+    entities.append(make_entity("Enemy", 22 * 16, 30 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    entities.append(make_entity("Enemy", 48 * 16, 42 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    entities.append(make_entity("Enemy", 122 * 16, 60 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    entities.append(make_entity("Enemy", 135 * 16, 92 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    # HollowSoldier (18)
+    for tx, ty in [(14, 34), (20, 40), (28, 36), (40, 40), (68, 18), (75, 22), (85, 28), (70, 25), (92, 28), (128, 62), (138, 68), (142, 72), (60, 36), (85, 32), (130, 82), (138, 86), (118, 85), (125, 88)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier"))]))
+    # HollowAssassin (5)
+    entities.append(make_entity("Enemy", 32 * 16, 38 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowAssassin", "HollowAssassin"))]))
+    entities.append(make_entity("Enemy", 44 * 16, 44 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowAssassin", "HollowAssassin"))]))
+    entities.append(make_entity("Enemy", 105 * 16, 54 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowAssassin", "HollowAssassin"))]))
+    entities.append(make_entity("Enemy", 118 * 16, 50 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowAssassin", "HollowAssassin"))]))
+    entities.append(make_entity("Enemy", 135 * 16, 55 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowAssassin", "HollowAssassin"))]))
+    # StarvedHound (3)
+    entities.append(make_entity("Enemy", 30 * 16, 30 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 38 * 16, 36 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 48 * 16, 60 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    # WingedKnight (3)
+    entities.append(make_entity("Enemy", 50 * 16, 38 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("WingedKnight", "WingedKnight"))]))
+    entities.append(make_entity("Enemy", 108 * 16, 48 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("WingedKnight", "WingedKnight"))]))
+    entities.append(make_entity("Enemy", 140 * 16, 60 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("WingedKnight", "WingedKnight"))]))
+    # PusOfMan (3)
+    entities.append(make_entity("Enemy", 78 * 16, 18 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan"))]))
+    entities.append(make_entity("Enemy", 95 * 16, 32 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan"))]))
+    entities.append(make_entity("Enemy", 125 * 16, 55 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan"))]))
+    # CrystalLizard (2)
+    entities.append(make_entity("Enemy", 82 * 16, 22 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 115 * 16, 45 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    # BorealOutriderKnight (1)
+    entities.append(make_entity("Enemy", 45 * 16, 55 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BorealOutriderKnight", "BorealOutriderKnight"))]))
+    # Dog (6)
+    entities.append(make_entity("Enemy", 32 * 16, 34 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
+    entities.append(make_entity("Enemy", 46 * 16, 42 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
+    entities.append(make_entity("Enemy", 52 * 16, 48 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
+    entities.append(make_entity("Enemy", 65 * 16, 30 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
+    entities.append(make_entity("Enemy", 72 * 16, 25 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
+    entities.append(make_entity("Enemy", 98 * 16, 38 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
+    # MiniBoss (1)
+    entities.append(make_entity("Enemy", 132 * 16, 62 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+
+# --- NPCs - DS3 Lothric Castle ---
     # NOTE: Emma is only at High Wall of Lothric (LothricWall) — she dies after giving Basin of Vows
     # NOTE: Eygon of Carim only appears near Irina (Undead Settlement) or Firelink Shrine, not here
     # Lothric Castle NPCs in DS3: summon signs only (no dialogue NPCs roam the castle interior)
@@ -17611,7 +14570,6 @@ def make_grand_archives():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # ================================================================
     # ITEMS — DS3 Grand Archives (wiki-complete)
@@ -18276,30 +15234,9 @@ def make_grand_archives():
         chunk[35][tx] = TILE_WALLTOP  # shelf debris
 
 
-    # --- SESSION 81 DS3 enemies (final gap close) ---
-    # DS3: 4 more HollowSlave
-    for tx, ty in [(10, 10), (25, 17), (40, 24), (55, 31)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 82 DS3 enemies (final gap close) ---
-    for tx, ty in [(8, 8), (25, 19), (42, 30)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 83 DS3 enemies (final) ---
-    for tx, ty in [(9, 9), (28, 22)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 84 DS3 enemies (final) ---
-    for tx, ty in [(7, 7)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # --- SESSION 89 DS3 terrain (Grand Archives detail pass) ---
     # DS3: Bookshelf rows (tall wooden shelves lining the halls)
@@ -18382,278 +15319,69 @@ def make_grand_archives():
             chunk[tx][ty] = TILE_WALL
     for tx in range(70, 83):
         chunk[tx][49] = TILE_WALLTOP
+    
+    # --- DS3 faithful enemies (GrandArchives) ---
+    # DarkMage (14)
+    for tx, ty in [(45, 130), (62, 95), (85, 40), (75, 28), (50, 100), (55, 75), (48, 85), (72, 55), (62, 112), (88, 95), (95, 108), (105, 120), (115, 100), (125, 115)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    # HollowSlave (19)
+    for tx, ty in [(44, 136), (55, 98), (68, 108), (75, 50), (62, 65), (40, 138), (52, 92), (58, 80), (112, 8), (114, 10), (119, 15), (121, 18), (125, 7), (127, 12), (85, 105), (92, 115), (100, 125), (110, 110), (120, 130)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowSlave", "HollowSlave"))]))
+    # LothricKnight (7)
+    for tx, ty in [(70, 92), (88, 45), (55, 65), (78, 48), (130, 10), (132, 15), (130, 120)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight"))]))
+    # AscendedWingedKnight (3)
+    entities.append(make_entity("Enemy", 82 * 16, 38 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("AscendedWingedKnight", "AscendedWingedKnight"))]))
+    entities.append(make_entity("Enemy", 92 * 16, 35 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("AscendedWingedKnight", "AscendedWingedKnight"))]))
+    entities.append(make_entity("Enemy", 75 * 16, 32 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("AscendedWingedKnight", "AscendedWingedKnight"))]))
+    # BorealOutriderKnight (1)
+    entities.append(make_entity("Enemy", 58 * 16, 68 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BorealOutriderKnight", "BorealOutriderKnight"))]))
+    # Gargoyle (3)
+    entities.append(make_entity("Enemy", 68 * 16, 12 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Gargoyle", "Gargoyle"))]))
+    entities.append(make_entity("Enemy", 82 * 16, 15 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Gargoyle", "Gargoyle"))]))
+    entities.append(make_entity("Enemy", 95 * 16, 10 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Gargoyle", "Gargoyle"))]))
+    # CrystalLizard (5)
+    entities.append(make_entity("Enemy", 52 * 16, 85 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 48 * 16, 72 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 65 * 16, 55 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 88 * 16, 22 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 145 * 16, 118 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    # MiniBoss (2)
+    entities.append(make_entity("Enemy", 60 * 16, 110 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+    entities.append(make_entity("Enemy", 64 * 16, 108 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    # Additional enemies — SESSION 34 DS3 fidelity (Grand Archives)
-    # DS3: Scholars (candle, scroll, flame variants) are the PRIMARY enemy
-    for tx, ty in [(52, 35), (58, 42), (65, 38), (70, 45), (75, 35),
-                   (82, 40), (88, 35), (95, 42), (100, 38), (105, 45),
-                   (112, 35), (118, 40), (125, 38), (130, 45), (135, 35)]:
-        mapped = ENEMY_KIND_MAP.get("GrandArchivesScholar", "DarkMage")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(55, 65), (68, 70), (80, 62), (92, 68), (105, 65)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSlave", "Thrall")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(42, 85), (58, 90), (72, 88), (85, 92), (98, 85)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- SESSION 44 DS3 enemies (Grand Archives) ---
-    # DS3: Scholars roam ALL floors, Lothric Knights guard entries, Crystal Sage in library
-    # Scholars with candles - the hooded candle-bearing enemies (DS3: EVERYWHERE in archives)
-    for tx, ty in [(15, 20), (25, 25), (35, 22), (45, 28), (55, 20)]:
-        mapped = ENEMY_KIND_MAP.get("GrandArchivesScholar", "DarkMage")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # More Lothric Knights in the upper archives
-    for tx, ty in [(60, 35), (72, 30), (84, 38), (96, 32)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Crystal Sage - the magic caster (DS3: in the archives rafters)
-    for tx, ty in [(50, 45), (65, 48)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalSage", "DarkMage")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Winged Knight - the heavy knight on the roof (DS3: one on archives roof)
-    for tx, ty in [(80, 42), (92, 45)]:
-        mapped = ENEMY_KIND_MAP.get("WingedKnight", "WingedKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Boreal Outrider Knight - the mini-boss in the archives (DS3: at the top)
-    for tx, ty in [(100, 50)]:
-        mapped = ENEMY_KIND_MAP.get("OutriderKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # More Scholars on the ground floor
-    for tx, ty in [(20, 55), (35, 60), (50, 58), (65, 62), (78, 55), (90, 60)]:
-        mapped = ENEMY_KIND_MAP.get("GrandArchivesScholar", "DarkMage")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 53 DS3 enemies (Grand Archives diversity) ---
-    # DS3: Cursed Wood enemies (DS3: cursed tree enemies in the archive garden)
-    for tx, ty in [(25, 48)]:
-        mapped = ENEMY_KIND_MAP.get("CursedWood", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # More Crystal Lizards in the crystal garden
-    for tx, ty in [(72, 52), (88, 48)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Hollow Slaves on the upper balconies
-    for tx, ty in [(55, 55), (68, 58)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSlave", "Thrall")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 59 DS3 enemies (Grand Archives) ---
-    # DS3: More Grand Archives Scholars on the upper floors
-    for tx, ty in [(30, 55), (45, 58)]:
-        mapped = ENEMY_KIND_MAP.get("GrandArchivesScholar", "DarkMage")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Lothric Knights on the main staircase
-    for tx, ty in [(55, 62), (68, 65)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 60 DS3 enemies (Grand Archives) ---
-    # DS3: Scholars cast wax spells and carry lanterns
-    for tx, ty in [(22, 130), (30, 120), (38, 108), (45, 95), (52, 85), (58, 75), (65, 65),
-                   (72, 55), (80, 45), (88, 35), (95, 25), (102, 18), (115, 12), (128, 32)]:
-        mapped = ENEMY_KIND_MAP.get("GrandArchivesScholar", "DarkMage")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lothric Knights patrol the archives
-    for tx, ty in [(28, 125), (42, 100), (55, 80), (68, 62), (82, 48), (108, 28), (135, 35), (142, 40)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Sage - boss-level enemy
-    for tx, ty in [(70, 70), (110, 22)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalSage", "Mage")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Winged Knights on upper levels
-    for tx, ty in [(85, 30), (120, 15), (140, 28)]:
-        mapped = ENEMY_KIND_MAP.get("WingedKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Outrider Knight
-    for tx, ty in [(48, 110), (130, 38)]:
-        mapped = ENEMY_KIND_MAP.get("OutriderKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
-    # --- SESSION 62 DS3 enemies (Grand Archives) ---
-    # DS3: Grand Archives Scholars (many throughout - wax-covered, casting)
-    for tx, ty in [(20, 130), (28, 138), (35, 145), (42, 135), (50, 148)]:
-        mapped = ENEMY_KIND_MAP.get("GrandArchivesScholar", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Scholars on the first floor
-    for tx, ty in [(45, 90), (55, 95), (65, 100), (75, 110), (85, 120)]:
-        mapped = ENEMY_KIND_MAP.get("GrandArchivesScholar", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lothric Knights patrolling the archives
-    for tx, ty in [(35, 60), (45, 65), (55, 70), (65, 75), (75, 80)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Lothric Knights on upper floors
-    for tx, ty in [(70, 35), (80, 40), (90, 48), (100, 55)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Hollow Slaves (ambush enemies)
-    for tx, ty in [(55, 20), (65, 25), (75, 15), (85, 22), (95, 18)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Winged Knights (heavy, strong)
-    for tx, ty in [(90, 10), (105, 15), (120, 25), (135, 30)]:
-        mapped = ENEMY_KIND_MAP.get("WingedKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Sage (magical enemy)
-    for tx, ty in [(100, 28)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalSage", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Scholars on the roof and upper areas
-    for tx, ty in [(85, 32), (95, 38), (110, 28), (125, 35)]:
-        mapped = ENEMY_KIND_MAP.get("GrandArchivesScholar", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards
-    for tx, ty in [(130, 40), (88, 50)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lothric Knights near the top
-    for tx, ty in [(60, 8), (72, 12), (82, 8)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Scholars in the library stacks
-    for tx, ty in [(38, 98), (50, 105), (62, 115), (78, 125), (92, 118)]:
-        mapped = ENEMY_KIND_MAP.get("GrandArchivesScholar", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 68 DS3 enemies (Grand Archives round 2) ---
-    # DS3: Hollow Slaves crawling on bookshelves and rafters
-    for tx, ty in [(18, 28), (25, 35), (32, 42), (39, 35), (46, 28), (53, 35), (60, 42), (67, 35), (74, 28), (81, 35), (88, 42), (95, 35), (102, 28), (109, 35), (116, 42), (123, 35), (130, 28)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages (Scholars) reading at desks and casting
-    for tx, ty in [(20, 48), (32, 55), (44, 48), (56, 55), (68, 48), (80, 55), (92, 48), (104, 55), (116, 48), (128, 55)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards in the crystal garden
-    for tx, ty in [(35, 62), (65, 62), (95, 62)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Ascended Winged Knights on the roof
-    for tx, ty in [(50, 70), (80, 70), (110, 70)]:
-        mapped = ENEMY_KIND_MAP.get("AscendedWingedKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Gargoyles on the archives exterior
-    for tx, ty in [(30, 75), (60, 75), (100, 75)]:
-        mapped = ENEMY_KIND_MAP.get("Gargoyle", "Gargoyle")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Boreal Outrider Knight (boss-tier ambush)
-    for tx, ty in [(70, 68)]:
-        mapped = ENEMY_KIND_MAP.get("BorealOutriderKnight", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 73 DS3 enemies (Grand Archives round 3) ---
-    # DS3: More Hollow Slaves on the bookshelves
-    for tx, ty in [(15, 22), (22, 30), (29, 38), (36, 22), (43, 30), (50, 38), (57, 22), (64, 30), (71, 38), (78, 22), (85, 30), (92, 38)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Dark Mages (Scholars) at the reading desks
-    for tx, ty in [(18, 45), (30, 52), (42, 45), (54, 52), (66, 45), (78, 52), (90, 45), (102, 52), (114, 45)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lothric Knights guarding the archives entrance
-    for tx, ty in [(25, 58), (45, 62), (65, 58), (85, 62)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 75 DS3 enemies (Grand Archives round 4) ---
-    # DS3: More Hollow Slaves in the archive halls
-    for tx, ty in [(18, 25), (25, 32), (32, 40), (39, 32), (46, 25), (53, 32), (60, 40), (67, 32), (74, 25), (81, 32), (88, 40), (95, 32), (102, 25)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Dark Mages (Scholars) casting
-    for tx, ty in [(20, 48), (32, 55), (44, 48), (56, 55), (68, 48), (80, 55), (92, 48), (104, 55)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards on the roof garden
-    for tx, ty in [(38, 60), (68, 60), (98, 60)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Lothric Knights at the archives entrance
-    for tx, ty in [(30, 65), (55, 65), (80, 65)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: MiniBoss (Crystal Sage)
-    for tx, ty in [(75, 55)]:
-        mapped = ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 79 DS3 enemies (Grand Archives round 5) ---
-    # DS3: Hollow Slaves on the bookshelves
-    for tx, ty in [(16, 20), (23, 28), (30, 35), (37, 28), (44, 20), (51, 28), (58, 35), (65, 28), (72, 20), (79, 28), (86, 35), (93, 28), (100, 20)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages (Scholars) at the reading desks
-    for tx, ty in [(20, 42), (32, 48), (44, 42), (56, 48), (68, 42), (80, 48), (92, 42)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards in hidden spots
-    for tx, ty in [(40, 55), (70, 55)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 80 DS3 enemies (Grand Archives final) ---
-    # DS3: Hollow Slaves and Dark Mages
-    for tx, ty in [(14, 18), (20, 25), (26, 32)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSlave", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(18, 38), (28, 42), (38, 38)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+
+
     print(f"  GrandArchives (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "GrandArchives", chunk, entities
 
@@ -18901,178 +15629,29 @@ def make_kiln_of_the_first_flame():
     entities.append(make_entity("Bonfire", 80 * 16, 30 * 16))    # Kiln boss bonfire
 
     # --- Boss ---
-    entities.append(make_entity("BossSpawn", 80 * 16, 26 * 16))  # Soul of Cinder
-    entities.append(make_entity("Enemy", 80 * 16, 26 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "MiniBoss")]))  # Soul of Cinder
 
     # --- Enemies — DS3 Kiln of the First Flame ---
-    # DS3: ash corridor gauntlet with Hollow Soldiers and Black Knights before final boss
-    # Entry path — Hollow Soldiers rising from ash (DS3: hollows along the ash path)
-    for tx, ty in [(50, 140), (60, 138), (70, 142), (80, 136), (90, 140),
-                   (100, 138), (110, 142), (55, 134), (65, 130), (75, 132)]:
+
+
+
+    
+    # --- DS3 faithful enemies (KilnOfTheFirstFlame) ---
+    # HollowSoldier (22)
+    for tx, ty in [(50, 140), (60, 138), (70, 142), (80, 136), (90, 140), (100, 138), (110, 142), (55, 134), (65, 130), (75, 132), (50, 80), (60, 84), (70, 78), (80, 82), (90, 86), (100, 80), (110, 84), (72, 20), (66, 26), (73, 37), (74, 50), (62, 68)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    # Mid-path — Black Knights guarding ascent (DS3: Black Knights along path to arena)
-    for tx, ty in [(40, 120), (60, 118), (80, 122), (100, 116), (120, 120)]:
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier"))]))
+    # BlackKnight (10)
+    for tx, ty in [(40, 120), (60, 118), (80, 122), (100, 116), (120, 120), (113, 20), (105, 26), (93, 38), (87, 44), (105, 50)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", "BlackKnight")]))
-    # Upper approach — more Hollow Soldiers near arena (DS3: final wave before boss)
-    for tx, ty in [(50, 80), (60, 84), (70, 78), (80, 82), (90, 86),
-                   (100, 80), (110, 84)]:
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    # Crystal Lizard near arena approach (DS3: crystal lizard on the path)
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
+    # MiniBoss (1)
+    entities.append(make_entity("Enemy", 80 * 16, 26 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+    # CrystalLizard (1)
     entities.append(make_entity("Enemy", 120 * 16, 90 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", "CrystalLizard")]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
 
-    # Q(0,0) — Hollow Soldiers in the First Flame arena perimeter (DS3: hollows near the ash arena)
-    for tx, ty in [(72, 20), (66, 26), (73, 37), (74, 50), (62, 68)]:
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
-    # Q(1,0) — Black Knights in the collapsed chamber and girder hall (DS3: knights along the path)
-    for tx, ty in [(113, 20), (105, 26), (93, 38), (87, 44), (105, 50)]:
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", "BlackKnight")]))
-
-    # Additional enemies — SESSION 21 DS3 fidelity (Kiln reinforcements)
-    # Q(0,1) lower ash path — Hollow Soldiers in the burning ruins (DS3: dense hollows in ruins)
-    for tx, ty in [(25, 145), (35, 148), (45, 142), (55, 150), (65, 146),
-                   (75, 152), (85, 144), (95, 148), (105, 146), (115, 150)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,1) ash ruins — Black Knights and Hollow Soldiers (DS3: mixed forces in the ruins)
-    for tx, ty in [(110, 95), (120, 102), (130, 108), (140, 115), (145, 125)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(125, 92), (135, 98), (140, 105), (148, 112), (125, 118),
-                   (130, 128), (138, 135), (142, 140)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(0,0) arena approach — more Black Knights (DS3: elite guard near the arena)
-    for tx, ty in [(55, 65), (65, 72), (75, 58), (85, 68)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 23 DS3 fidelity (KilnOfTheFirstFlame reinforcements)
-    # Q(0,1) lower path — more Black Knights (DS3: elite knights guard the descent)
-    for tx, ty in [(30, 132), (45, 128), (60, 134), (75, 130), (90, 136), (105, 132)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,1) ash ruins — Hollow Soldier hordes (DS3: dense hollows throughout the ruins)
-    for tx, ty in [(100, 95), (108, 100), (115, 105), (122, 110), (130, 115),
-                   (138, 120), (145, 125), (148, 130), (142, 135), (135, 140)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(0,0) arena perimeter — Black Knight honor guard (DS3: knights guard the First Flame)
-    for tx, ty in [(68, 30), (58, 38), (48, 46), (42, 55), (52, 62), (62, 55), (72, 48)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,0) eastern path — Hollow Soldiers (DS3: hollows along the eastern approach)
-    for tx, ty in [(95, 25), (100, 35), (105, 45), (110, 55), (100, 65), (90, 55)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 26 DS3 fidelity (KilnOfTheFirstFlame reinforcements)
-    # Lower ash path — more Hollow Soldiers (DS3: dense hollows in the burning ruins)
-    for tx, ty in [(35, 144), (50, 146), (65, 148), (80, 150), (95, 146), (110, 148), (125, 144)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Upper approach — more Black Knights (DS3: elite guard near Soul of Cinder)
-    for tx, ty in [(55, 75), (65, 80), (75, 72), (85, 78), (95, 74), (108, 68)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 29 DS3 fidelity (KilnOfTheFirstFlame reinforcements)
-    # Q(0,1) lower ash ruins — Black Knight and Hollow Soldier mixed (DS3: mixed forces)
-    for tx, ty in [(22, 140), (32, 144), (42, 138), (52, 142), (62, 146)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(28, 136), (38, 148), (48, 134), (58, 140)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 30 DS3 fidelity (KilnOfTheFirstFlame reinforcements)
-    # Q(0,0) arena perimeter — Hollow Soldiers in the ember ruins (DS3: hollows in burned buildings)
-    for tx, ty in [(58, 34), (64, 40), (70, 46), (76, 52), (82, 58), (88, 64)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,1) eastern ruins — Black Knights (DS3: knights guard the path to First Flame)
-    for tx, ty in [(118, 96), (124, 102), (130, 108), (136, 114), (142, 120)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 31 DS3 fidelity (KilnOfTheFirstFlame reinforcements)
-    # Q(1,0) eastern approach — more Hollow Soldiers and Black Knights
-    for tx, ty in [(95, 30), (100, 40), (105, 50), (110, 60), (115, 70)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(98, 35), (103, 45), (108, 55)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 32 DS3 fidelity (KilnOfTheFirstFlame reinforcements)
-    # Q(0,0) western approach — Hollow Soldiers (DS3: hollows along the western ash path)
-    for tx, ty in [(48, 30), (56, 36), (64, 42), (72, 48), (80, 54)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,1) southern ruins — Black Knight patrol (DS3: knights in the deep ruins)
-    for tx, ty in [(100, 105), (108, 110), (116, 115), (124, 120), (132, 125)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 33 DS3 fidelity (KilnOfTheFirstFlame reinforcements)
-    # Q(0,0) western ruins — Hollow Soldiers (DS3: hollows in the burned buildings)
-    for tx, ty in [(50, 28), (58, 34), (66, 40), (74, 46)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,1) deep ruins — Hollow Soldiers and Black Knights (DS3: mixed forces)
-    for tx, ty in [(105, 98), (112, 104), (120, 110), (128, 116)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(108, 102), (116, 108), (124, 114)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 51 DS3 enemies (Kiln diversity) ---
-    # DS3: Lothric Knights corrupted by the flame (endgame versions)
-    for tx, ty in [(25, 35), (40, 40), (55, 38)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Winged Knights fallen to the abyss (DS3: in the Kiln approach)
-    for tx, ty in [(65, 42), (80, 45)]:
-        mapped = ENEMY_KIND_MAP.get("WingedKnight", "WingedKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Dark Spirit invaders (DS3: the Kiln has phantom-like enemies)
-    for tx, ty in [(50, 50), (70, 55)]:
-        mapped = ENEMY_KIND_MAP.get("DarkSpirit", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Thrall ambush enemies (DS3: small enemies in the ruins)
-    for tx, ty in [(35, 48), (60, 52)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Starved Hounds in the ash (DS3: dogs in the burned ruins)
-    for tx, ty in [(45, 55), (75, 58)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 57 DS3 enemies (Kiln diversity) ---
-    # DS3: Demon Statues (DS3: petrified demon remnants in the Kiln)
-    for tx, ty in [(55, 60), (70, 65)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "DemonStatue")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Pus of Man remnants (DS3: the dark growth on burned corpses)
-    for tx, ty in [(40, 58)]:
-        mapped = ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- NPCs ---
+# --- NPCs ---
     # Fire Keeper — appears at Kiln for the final scene (DS3: summons Fire Keeper for ending)
     entities.append(make_entity("Npc", 78 * 16, 28 * 16, [
         make_field("name", "String", "Fire Keeper"),
@@ -19916,7 +16495,6 @@ def make_consumed_kings_garden():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # --- Items — DS3 Consumed King's Garden (complete per wiki) ---
     # Wiki items: Estus Shard, Titanite Chunk x3, Titanite Scale x3 (1 ground + 2 chests),
@@ -19968,209 +16546,47 @@ def make_consumed_kings_garden():
         make_field("loot_name", "String", "Titanite Scale"),
         make_field("is_mimic", "Bool", False)]))
 
-    # Additional enemies — SESSION 21 DS3 fidelity (ConsumedKingsGarden reinforcements)
-    # Q(0,0) upper garden — Thrall ambush from walls (DS3: Thralls drop from ledges)
-    for tx, ty in [(18, 28), (25, 35), (32, 25), (45, 32), (55, 28)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(0,1) toxic swamp — more Rotten Slugs (DS3: dense slug population in poison pools)
-    for tx, ty in [(30, 85), (38, 90), (50, 95), (62, 88), (70, 92)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "RottenSlug")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,0) eastern approach — Lothric Knight guards (DS3: knights guarding garden passages)
-    for tx, ty in [(85, 42), (95, 48), (108, 55)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 25 DS3 fidelity (ConsumedKingsGarden reinforcements)
-    # Q(0,0) upper garden — more Thralls ambushing from ledges (DS3: Thralls drop from above)
-    for tx, ty in [(15, 32), (22, 28), (28, 36), (35, 42), (42, 48)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,1) lower garden — more Rotten Slugs (DS3: dense slug population)
-    for tx, ty in [(110, 108), (120, 112), (130, 116), (140, 120), (145, 128)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "RottenSlug")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 28 DS3 fidelity (ConsumedKingsGarden reinforcements)
-    # Q(1,0) eastern garden — Lothric Knights (DS3: knights guard the eastern path)
-    for tx, ty in [(82, 48), (90, 55), (98, 62), (106, 68), (114, 74)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,1) Oceiros approach — Pus of Man (DS3: pus of man on the approach)
-    for tx, ty in [(125, 90), (135, 98), (142, 105)]:
-        mapped = ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 30 DS3 fidelity (ConsumedKingsGarden reinforcements)
-    # Q(0,1) toxic swamp area — Rotten Slug swarm (DS3: dense slug colonies)
-    for tx, ty in [(28, 78), (36, 84), (44, 90), (52, 96), (60, 102)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "RottenSlug")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,1) Oceiros approach — Thrall ambush (DS3: Thralls drop from ledges)
-    for tx, ty in [(132, 95), (138, 100), (144, 106), (148, 112)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 33 DS3 fidelity (ConsumedKingsGarden reinforcements)
-    # Q(0,0) upper garden — Lothric Knight patrol (DS3: knights throughout garden)
-    for tx, ty in [(18, 26), (28, 34), (38, 42), (48, 50)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(0,1) toxic swamp — Rotten Slug swarm (DS3: dense slug colonies in poison)
-    for tx, ty in [(32, 82), (42, 88), (52, 94), (62, 100)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "RottenSlug")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 47 DS3 enemies (Consumed King's Garden) ---
-    # DS3: Consumed King's Guards patrol the garden paths
-    for tx, ty in [(18, 25), (28, 30), (38, 28)]:
-        mapped = ENEMY_KIND_MAP.get("ConsumedKingGuard", "WingedKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Garden Hollows in the overgrown paths
-    for tx, ty in [(45, 32), (55, 35), (62, 30), (70, 38)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Consumed King's Knights near Oceiros
-    for tx, ty in [(75, 42), (85, 45), (95, 40)]:
-        mapped = ENEMY_KIND_MAP.get("ConsumedKingKnight", "CathedralKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Crystal Lizards near crystal formations
-    for tx, ty in [(50, 45), (68, 48)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Pus of Man - dark growth consuming the garden
-    for tx, ty in [(40, 40), (60, 42)]:
-        mapped = ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 50 DS3 enemies (Consumed King's Garden final) ---
-    # DS3: More Hollow Soldiers twisted by the Deep
-    for tx, ty in [(30, 38), (42, 42), (55, 40)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Consumed King's Guard - the elite guards
-    for tx, ty in [(65, 48), (78, 52)]:
-        mapped = ENEMY_KIND_MAP.get("ConsumedKingGuard", "WingedKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Demon Statue (DS3: statue-like enemies in Oceiros's garden)
-    for tx, ty in [(50, 50)]:
-        mapped = ENEMY_KIND_MAP.get("DemonStatue", "DemonStatue")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 56 DS3 enemies (Consumed King's Garden final) ---
-    # DS3: Infested Corpses near the toxic pools
-    for tx, ty in [(55, 48), (68, 52)]:
-        mapped = ENEMY_KIND_MAP.get("InfestedCorpse", "InfestedCorpse")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Rotten Slug in the garden pools
-    for tx, ty in [(42, 55), (58, 58)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Rat")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 59 DS3 enemies (Consumed King's Garden) ---
-    # DS3: More Hollow Soldiers in the garden paths
-    for tx, ty in [(22, 42), (35, 48), (48, 45)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Consumed King's Guard reinforcements
-    for tx, ty in [(65, 55), (78, 58)]:
-        mapped = ENEMY_KIND_MAP.get("ConsumedKingGuard", "WingedKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
-    # --- SESSION 64 DS3 enemies (Consumed King's Garden) ---
-    # DS3: Lothric Knights patrolling the garden paths and staircases
-    for tx, ty in [(22, 35), (32, 45), (42, 55), (52, 65), (62, 75), (72, 85), (82, 95), (92, 105), (102, 115), (112, 120), (122, 110), (132, 95)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls clinging to walls and dropping on the player
-    for tx, ty in [(25, 50), (35, 60), (48, 70), (58, 80), (68, 90), (78, 100), (88, 110), (98, 120), (108, 115), (120, 100), (130, 85), (140, 70)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rotten Slugs in the toxic pools
-    for tx, ty in [(30, 70), (45, 85), (60, 100), (75, 115), (90, 125), (105, 120), (120, 105), (135, 90), (145, 75)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Pus of Man on hollows along the walls
-    for tx, ty in [(40, 40), (70, 60), (110, 80)]:
-        mapped = ENEMY_KIND_MAP.get("PusOfMan", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 68 DS3 enemies (Consumed King's Garden round 2) ---
-    # DS3: More Lothric Knights on the upper garden paths
-    for tx, ty in [(25, 40), (40, 50), (55, 60), (70, 70), (85, 80), (100, 90), (115, 100), (130, 90)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Thralls dropping from the upper walkways
-    for tx, ty in [(30, 55), (45, 65), (60, 75), (75, 85), (90, 95), (105, 105), (120, 95), (135, 85)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rotten Slugs in the deeper toxic pools
-    for tx, ty in [(35, 70), (55, 85), (75, 100), (95, 110), (115, 100), (135, 85)]:
-        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizard in the garden corner
-    for tx, ty in [(140, 55)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 80 DS3 enemies (Consumed King's Garden final) ---
-    # DS3: Lothric Knights and Thralls
-    for tx, ty in [(20, 32), (30, 40), (40, 48)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(25, 55), (35, 62), (45, 55)]:
-        mapped = ENEMY_KIND_MAP.get("Thrall", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 81 DS3 enemies (final gap close) ---
-    # DS3: 4 more LothricKnight
-    for tx, ty in [(10, 10), (25, 17), (40, 24), (55, 31)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 82 DS3 enemies (final gap close) ---
-    for tx, ty in [(8, 8), (25, 19), (42, 30)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 83 DS3 enemies (final) ---
-    for tx, ty in [(9, 9), (28, 22)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 84 DS3 enemies (final) ---
-    for tx, ty in [(7, 7)]:
-        mapped = ENEMY_KIND_MAP.get("LothricKnight", "HollowSoldier")
+
+
+
+
+    
+    # --- DS3 faithful enemies (ConsumedKingsGarden) ---
+    # LothricKnight (12)
+    for tx, ty in [(32, 30), (55, 40), (112, 82), (98, 68), (42, 38), (72, 48), (80, 55), (95, 72), (121, 83), (135, 92), (128, 101), (137, 104)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- NPCs ---
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight"))]))
+    # Thrall (12)
+    for tx, ty in [(35, 35), (88, 62), (22, 22), (60, 32), (90, 58), (100, 64), (108, 70), (118, 78), (125, 86), (136, 89), (135, 98), (112, 113)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Thrall", "Thrall"))]))
+    # PusOfMan (3)
+    entities.append(make_entity("Enemy", 52 * 16, 42 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan"))]))
+    entities.append(make_entity("Enemy", 48 * 16, 76 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan"))]))
+    entities.append(make_entity("Enemy", 58 * 16, 84 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan"))]))
+    # RottenSlug (9)
+    for tx, ty in [(45, 70), (50, 75), (55, 78), (42, 78), (60, 82), (52, 84), (48, 72), (56, 68), (44, 82)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("RottenSlug", "RottenSlug"))]))
+    # CrystalLizard (1)
+    entities.append(make_entity("Enemy", 68 * 16, 42 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    # MiniBoss (1)
+    entities.append(make_entity("Enemy", 120 * 16, 88 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+
+# --- NPCs ---
     # Hawkwood — summon sign before Oceiros (DS3: he can be summoned for Oceiros)
     entities.append(make_entity("Npc", 115 * 16, 82 * 16, [
         make_field("name", "String", "Hawkwood"),
@@ -21014,7 +17430,6 @@ def make_untended_graves():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # --- Items (DS3 Untended Graves) ---
     # Hidden Blessing — behind dark Firelink, on a corpse
@@ -21067,144 +17482,48 @@ def make_untended_graves():
         make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
         make_field("name", "String", "Titanite Chunk")]))
 
-    # Additional enemies — SESSION 21 DS3 fidelity (UntendedGraves reinforcements)
-    # Q(0,0) upper cemetery — Hollow Soldiers rising from dark graves (DS3: more hollows in dark version)
-    for tx, ty in [(22, 18), (35, 22), (28, 30), (42, 26), (55, 34)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(0,1) dark lower cemetery — more Starved Hounds (DS3: hounds in the dark graveyard)
-    for tx, ty in [(25, 85), (35, 92), (48, 98), (60, 105), (70, 95)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,0) dark eastern path — Black Knight reinforcements (DS3: extra black knights in shadow version)
-    for tx, ty in [(95, 42), (105, 55), (115, 65)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 22 DS3 fidelity (UntendedGraves reinforcements)
-    # Q(0,0) dark cemetery — more Hollow Soldiers rising from graves (DS3: dense hollow population)
-    for tx, ty in [(20, 24), (26, 28), (32, 32), (38, 36), (44, 40), (50, 44), (56, 48)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,1) dark Firelink — Black Knight elite guard (DS3: black knights guard dark shrine)
-    for tx, ty in [(110, 82), (118, 88), (124, 94), (130, 100)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 26 DS3 fidelity (UntendedGraves reinforcements)
-    # Q(0,1) dark lower area — Starved Hounds (DS3: hounds in the dark cemetery)
-    for tx, ty in [(35, 85), (48, 92), (62, 98), (75, 88)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,0) eastern path — Black Knights (DS3: black knights on dark paths)
-    for tx, ty in [(92, 45), (102, 55), (112, 65), (122, 72)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 29 DS3 fidelity (UntendedGraves reinforcements)
-    # Q(0,0) upper cemetery — Hollow Soldiers (DS3: hollows throughout dark cemetery)
-    for tx, ty in [(24, 22), (30, 26), (36, 30), (42, 34), (48, 38)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 33 DS3 fidelity (UntendedGraves reinforcements)
-    # Q(0,0) dark cemetery — more Hollow Soldiers (DS3: dense hollow population)
-    for tx, ty in [(18, 20), (24, 24), (30, 28), (36, 32), (42, 36), (48, 40), (54, 44)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Q(1,1) dark Firelink — Black Knights (DS3: knights guard the dark shrine)
-    for tx, ty in [(108, 86), (116, 92), (124, 98), (132, 104)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # Additional enemies — SESSION 39 DS3 fidelity (Untended Graves)
-    # DS3: Dark versions of Cemetery enemies — Black Knights, Hollow Soldiers, Dogs
-    for tx, ty in [(25, 45), (32, 50), (40, 48), (48, 55), (55, 50),
-                   (62, 45), (70, 52), (78, 48)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(35, 70), (50, 75), (65, 72)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(85, 55), (95, 60)]:
-        mapped = ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(42, 85), (58, 80)]:
-        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- SESSION 49 DS3 enemies (Untended Graves) ---
-    # DS3: Dark versions of Hollow Soldiers (mirror of Cemetery of Ash)
-    for tx, ty in [(22, 18), (35, 22), (48, 20), (60, 25)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Dark Starved Hounds (DS3: dark versions of the cemetery dogs)
-    for tx, ty in [(30, 35), (42, 38)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Black Knight guarding the dark Firelink (DS3: patrols outside the shrine)
-    for tx, ty in [(55, 42)]:
-        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 50 DS3 enemies (Untended Graves final) ---
-    # DS3: More dark Hollow Soldiers in the graveyard
-    for tx, ty in [(28, 28), (40, 32), (52, 35), (65, 30)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Crystal Lizard (DS3: dark version of the cemetery lizard)
-    for tx, ty in [(75, 40)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Dark Hollow Assassin near the dark Firelink
-    for tx, ty in [(58, 48)]:
-        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "Assassin")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 59 DS3 enemies (Untended Graves) ---
-    # DS3: More dark Hollow Soldiers in the cemetery (mirror of Cemetery of Ash)
-    for tx, ty in [(15, 25), (25, 30), (35, 28), (45, 35)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Crystal Lizard near the dark Firelink
-    for tx, ty in [(60, 50)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # More Starved Hounds in the dark graveyard
-    for tx, ty in [(20, 40), (38, 45)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
-    # --- SESSION 64 DS3 enemies (Untended Graves) ---
-    # DS3: Hollow Soldiers - dark versions in the darkened Firelink area
-    for tx, ty in [(22, 25), (32, 35), (42, 45), (55, 55), (65, 65), (78, 75), (88, 85), (100, 95), (110, 80), (120, 65), (125, 50)]:
-        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+
+
+    
+    # --- DS3 faithful enemies (UntendedGraves) ---
+    # BlackKnight (3)
+    entities.append(make_entity("Enemy", 45 * 16, 35 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
+    entities.append(make_entity("Enemy", 62 * 16, 45 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
+    entities.append(make_entity("Enemy", 75 * 16, 55 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
+    # HollowSoldier (14)
+    for tx, ty in [(30, 28), (52, 40), (38, 48), (80, 50), (91, 49), (89, 54), (97, 59), (88, 65), (119, 86), (114, 90), (115, 94), (87, 100), (146, 115), (128, 126)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Starved Hounds in the dark cemetery
-    for tx, ty in [(28, 40), (48, 50), (68, 70), (95, 90)]:
-        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards hiding in dark corners
-    for tx, ty in [(38, 60)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- NPCs ---
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier"))]))
+    # StarvedHound (6)
+    entities.append(make_entity("Enemy", 48 * 16, 42 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 70 * 16, 52 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 96 * 16, 71 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 103 * 16, 73 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 134 * 16, 104 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    entities.append(make_entity("Enemy", 141 * 16, 110 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    # CrystalLizard (3)
+    entities.append(make_entity("Enemy", 40 * 16, 32 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 125 * 16, 105 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 130 * 16, 110 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    # MiniBoss (1)
+    entities.append(make_entity("Enemy", 105 * 16, 78 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+
+# --- NPCs ---
     # Dark Shrine Handmaid in Dark Firelink Shrine (different from normal Firelink)
     entities.append(make_entity("Npc", 132 * 16, 112 * 16, [
         make_field("name", "String", "Shrine Handmaid"),
@@ -21893,7 +18212,6 @@ def make_archdragon_peak():
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
-        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # --- Items — DS3 Archdragon Peak (complete per wiki walkthrough) ---
     items = [
@@ -21976,310 +18294,60 @@ def make_archdragon_peak():
         make_field("loot_name", "String", "Twinkling Titanite"),
         make_field("is_mimic", "Bool", False)]))
 
-    # Additional enemies — SESSION 34 DS3 fidelity (Archdragon Peak)
-    # DS3: Man-Serpents patrol the entire peak near Dragon-Kin Mausoleum
-    for tx, ty in [(35, 65), (42, 70), (50, 68), (58, 72), (65, 65),
-                   (72, 70), (80, 65), (88, 72)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(95, 55), (108, 60)]:
-        mapped = ENEMY_KIND_MAP.get("RockLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Additional enemies — SESSION 37 DS3 fidelity (Archdragon Peak)
-    # DS3: Man-Serpents in ALL areas, Drakeblood Knights guard key paths
-    for tx, ty in [(25, 45), (32, 50), (40, 48), (48, 55), (55, 50),
-                   (62, 45), (70, 52), (78, 48), (85, 55), (92, 50)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(110, 65), (118, 70), (125, 68), (132, 72)]:
-        mapped = ENEMY_KIND_MAP.get("DrakebloodKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(100, 85), (112, 88), (125, 82)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Additional enemies — SESSION 42 DS3 fidelity (Archdragon Peak)
-    # DS3: Man-Serpents guard every path, Drakeblood Knights on bridges
-    for tx, ty in [(22, 42), (30, 48), (38, 45), (46, 52), (54, 42),
-                   (62, 48), (70, 45)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(80, 55), (88, 60), (96, 58)]:
-        mapped = ENEMY_KIND_MAP.get("DrakebloodKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(105, 50), (115, 55)]:
-        mapped = ENEMY_KIND_MAP.get("RockLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    for tx, ty in [(40, 70), (55, 75), (68, 72)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- SESSION 52 DS3 enemies (Archdragon Peak diversity) ---
-    # DS3: Ravenous Crystal Lizards (larger, more aggressive variants)
-    for tx, ty in [(45, 35), (75, 40)]:
-        mapped = ENEMY_KIND_MAP.get("RavenousCrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Lightning Serpent Men (DS3: electrified variant near the peak)
-    for tx, ty in [(85, 45), (95, 48), (105, 42)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Drakeblood Knights guarding the dragon bridge
-    for tx, ty in [(55, 50), (68, 55)]:
-        mapped = ENEMY_KIND_MAP.get("DrakebloodKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Boreal Outrider Knight (DS3: mini-boss enemy at the peak)
-    for tx, ty in [(100, 55)]:
-        mapped = ENEMY_KIND_MAP.get("BorealOutriderKnight", "WingedKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 55 DS3 enemies (Archdragon Peak diversity final) ---
-    # DS3: Ancient Wyvern perched on the cliff (DS3: the dragon boss)
-    for tx, ty in [(105, 30)]:
-        mapped = ENEMY_KIND_MAP.get("AncientWyvern", "MiniBoss")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Havel Knights (DS3: Havel cultists at the peak)
-    for tx, ty in [(35, 55), (50, 60)]:
-        mapped = ENEMY_KIND_MAP.get("HavelKnight", "WingedKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Lightning Snakemen (DS3: electrified serpent warriors)
-    for tx, ty in [(65, 65), (80, 68)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-
-    # --- SESSION 57 DS3 enemies (Archdragon Peak diversity) ---
-    # DS3: Consumed King's Guards (DS3: guards who followed the king to the peak)
-    for tx, ty in [(28, 60), (42, 65)]:
-        mapped = ENEMY_KIND_MAP.get("ConsumedKingGuard", "WingedKnight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # Crystal Lizard at the peak summit
-    for tx, ty in [(95, 62)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
 
-    # --- SESSION 61 DS3 enemies (Archdragon Peak) ---
-    # DS3: Serpent Men - many throughout the peak (normal, large, fire-casting, shield)
-    for tx, ty in [(10, 115), (18, 120), (28, 125), (38, 118), (48, 130)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Serpent Men along the path
-    for tx, ty in [(30, 92), (38, 98), (48, 105), (58, 110), (65, 95)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Serpent Men near the stairs
-    for tx, ty in [(40, 55), (50, 60), (60, 65), (70, 58), (55, 70)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Serpent Men in the upper area
-    for tx, ty in [(72, 45), (80, 50), (88, 42), (95, 48)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Serpent Man Summoners (casters who summon Drakeblood Knights)
-    for tx, ty in [(35, 100), (55, 55), (75, 40), (95, 32)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Drakeblood Knights (summoned by Serpent Man Summoners)
-    for tx, ty in [(42, 58), (58, 62), (78, 48), (98, 42)]:
-        mapped = ENEMY_KIND_MAP.get("DrakebloodKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Drakeblood Knights near the altar
-    for tx, ty in [(110, 30), (120, 35), (130, 40), (115, 45)]:
-        mapped = ENEMY_KIND_MAP.get("DrakebloodKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rock Lizards (4 near stairs, 1 in building, etc.)
-    for tx, ty in [(45, 65), (52, 72), (60, 75), (68, 68), (85, 55)]:
-        mapped = ENEMY_KIND_MAP.get("RockLizard", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Rock Lizards on the path to the ancient wyvern
-    for tx, ty in [(100, 70), (112, 78), (125, 85), (135, 95)]:
-        mapped = ENEMY_KIND_MAP.get("RockLizard", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Havel Knight near the fallen wyvern
-    for tx, ty in [(90, 100), (105, 108), (130, 52)]:
-        mapped = ENEMY_KIND_MAP.get("HavelKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards (1-2 in Archdragon Peak)
-    for tx, ty in [(110, 55), (140, 90)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Serpent Men guarding the peak entrance
-    for tx, ty in [(32, 110), (40, 115), (55, 105), (62, 112)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Serpent Men on the upper walkway
-    for tx, ty in [(108, 18), (118, 25), (128, 32), (135, 40)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Drakeblood Knights in the lower area
-    for tx, ty in [(110, 80), (120, 95), (130, 105), (140, 100)]:
-        mapped = ENEMY_KIND_MAP.get("DrakebloodKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Serpent Men near the dragon altar
-    for tx, ty in [(70, 108), (80, 115), (90, 110), (100, 100)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 68 DS3 enemies (Archdragon Peak round 2) ---
-    # DS3: Serpent Men throughout the peak - the dominant enemy
-    for tx, ty in [(18, 25), (24, 32), (30, 38), (36, 45), (42, 52), (48, 38), (54, 45), (60, 52), (66, 38), (72, 45), (78, 52), (84, 38), (90, 45), (96, 52), (102, 38), (108, 45), (114, 52), (120, 38), (126, 45), (132, 52)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rock Lizards camouflaged as stones
-    for tx, ty in [(28, 58), (48, 58), (68, 58), (88, 58), (108, 58)]:
-        mapped = ENEMY_KIND_MAP.get("RockLizard", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Drakeblood Knights guarding the peak summit
-    for tx, ty in [(40, 65), (65, 65), (90, 65)]:
-        mapped = ENEMY_KIND_MAP.get("DrakebloodKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages near the dragon stones
-    for tx, ty in [(35, 72), (60, 72), (85, 72), (115, 72)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards in the hidden paths
-    for tx, ty in [(50, 78), (95, 78)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Havel Knight near the Havel NPC location
-    for tx, ty in [(120, 60)]:
-        mapped = ENEMY_KIND_MAP.get("HavelKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 73 DS3 enemies (Archdragon Peak round 3) ---
-    # DS3: More Serpent Men throughout the peak
-    for tx, ty in [(15, 20), (21, 28), (27, 35), (33, 42), (39, 28), (45, 35), (51, 42), (57, 28), (63, 35), (69, 42), (75, 28), (81, 35), (87, 42), (93, 28), (99, 35)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: More Rock Lizards in the stone areas
-    for tx, ty in [(22, 50), (42, 50), (62, 50), (82, 50)]:
-        mapped = ENEMY_KIND_MAP.get("RockLizard", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Drakeblood Knights near the dragon altar
-    for tx, ty in [(35, 55), (55, 55), (75, 55)]:
-        mapped = ENEMY_KIND_MAP.get("DrakebloodKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages near the meditation area
-    for tx, ty in [(28, 60), (52, 60), (78, 60)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 76 DS3 enemies (Archdragon Peak round 4) ---
-    # DS3: More Serpent Men in the temple area
-    for tx, ty in [(14, 18), (20, 25), (26, 32), (32, 38), (38, 25), (44, 32), (50, 38), (56, 25), (62, 32), (68, 38), (74, 25), (80, 32), (86, 38)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rock Lizards camouflaged
-    for tx, ty in [(22, 45), (42, 45), (62, 45), (82, 45)]:
-        mapped = ENEMY_KIND_MAP.get("RockLizard", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages near the dragon stones
-    for tx, ty in [(30, 50), (55, 50), (80, 50)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Crystal Lizards in the hidden paths
-    for tx, ty in [(40, 52), (70, 52)]:
-        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 79 DS3 enemies (Archdragon Peak round 5) ---
-    # DS3: Serpent Men in the peak interior
-    for tx, ty in [(12, 15), (18, 22), (24, 30), (30, 38), (36, 22), (42, 30), (48, 38), (54, 22), (60, 30), (66, 38), (72, 22), (78, 30)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Rock Lizards camouflaged
-    for tx, ty in [(20, 42), (40, 42), (60, 42), (80, 42)]:
-        mapped = ENEMY_KIND_MAP.get("RockLizard", "Slime")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Drakeblood Knights
-    for tx, ty in [(30, 48), (55, 48), (80, 48)]:
-        mapped = ENEMY_KIND_MAP.get("DrakebloodKnight", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # DS3: Dark Mages
-    for tx, ty in [(35, 52), (60, 52), (85, 52)]:
-        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 80 DS3 enemies (Archdragon Peak final) ---
-    # DS3: Serpent Men
-    for tx, ty in [(10, 12), (16, 18), (22, 25), (28, 18), (35, 12)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "Knight")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 81 DS3 enemies (final gap close) ---
-    # DS3: 4 more SerpentMan
-    for tx, ty in [(10, 10), (25, 17), (40, 24), (55, 31)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 82 DS3 enemies (final gap close) ---
-    for tx, ty in [(8, 8), (25, 19), (42, 30)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 83 DS3 enemies (final) ---
-    for tx, ty in [(9, 9), (28, 22)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "HollowSoldier")
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
-    # --- SESSION 84 DS3 enemies (final) ---
-    for tx, ty in [(7, 7)]:
-        mapped = ENEMY_KIND_MAP.get("SerpentMan", "HollowSoldier")
+
+
+    
+    # --- DS3 faithful enemies (ArchdragonPeak) ---
+    # SerpentMan (38)
+    for tx, ty in [(22, 115), (28, 120), (38, 98), (45, 108), (42, 102), (48, 95), (55, 100), (52, 88), (58, 92), (55, 75), (62, 80), (48, 68), (65, 72), (72, 78), (68, 58), (80, 48), (75, 55), (85, 50), (90, 45), (92, 48), (95, 35), (100, 42), (105, 38), (108, 28), (118, 25), (115, 30), (120, 75), (135, 28), (125, 72), (130, 35), (132, 40), (146, 83), (144, 87), (137, 91), (132, 95), (149, 99), (142, 111), (122, 115)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
-    # --- NPCs ---
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan"))]))
+    # DarkMage (4)
+    entities.append(make_entity("Enemy", 72 * 16, 52 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    entities.append(make_entity("Enemy", 85 * 16, 42 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    entities.append(make_entity("Enemy", 98 * 16, 45 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    entities.append(make_entity("Enemy", 153 * 16, 107 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+    # RockLizard (7)
+    for tx, ty in [(35, 110), (42, 95), (118, 20), (130, 25), (142, 85), (112, 72), (148, 95)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("RockLizard", "RockLizard"))]))
+    # CrystalLizard (2)
+    entities.append(make_entity("Enemy", 50 * 16, 72 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    entities.append(make_entity("Enemy", 28 * 16, 118 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    # DrakebloodKnight (3)
+    entities.append(make_entity("Enemy", 110 * 16, 30 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DrakebloodKnight", "DrakebloodKnight"))]))
+    entities.append(make_entity("Enemy", 142 * 16, 88 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DrakebloodKnight", "DrakebloodKnight"))]))
+    entities.append(make_entity("Enemy", 78 * 16, 52 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DrakebloodKnight", "DrakebloodKnight"))]))
+    # HavelKnight (1)
+    entities.append(make_entity("Enemy", 128 * 16, 70 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HavelKnight", "HavelKnight"))]))
+    # MiniBoss (2)
+    entities.append(make_entity("Enemy", 55 * 16, 66 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+    entities.append(make_entity("Enemy", 62 * 16, 76 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+
+# --- NPCs ---
     # Hawkwood — can be summoned for Nameless King (DS3: summon sign at Great Belfry)
     entities.append(make_entity("Npc", 124 * 16, 24 * 16, [
         make_field("name", "String", "Hawkwood"),
