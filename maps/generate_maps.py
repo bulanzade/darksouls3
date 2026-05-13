@@ -2567,6 +2567,34 @@ def make_lothric_wall():
     fill_tiles(chunk, TILE_WALL, 74, 112, 75, 114)
     fill_tiles(chunk, TILE_WALL, 82, 114, 83, 116)
 
+    # ================================================================
+    # SESSION 19 FIDELITY PASS — LothricWall DS3 high wall depth
+    # ================================================================
+    # High wall battlements — parapet stone debris (DS3: long wall with hollow soldiers)
+    fill_tiles(chunk, TILE_WALL, 14, 16, 15, 18)
+    fill_tiles(chunk, TILE_WALL, 22, 20, 23, 22)
+    fill_tiles(chunk, TILE_WALL, 30, 24, 31, 26)
+    fill_tiles(chunk, TILE_WALL, 38, 28, 39, 30)
+    fill_tiles(chunk, TILE_WALL, 46, 32, 47, 34)
+    # Tower interior — spiral stair stones (DS3: tower rooms with Lothric Knights)
+    fill_tiles(chunk, TILE_WALL, 52, 36, 53, 38)
+    fill_tiles(chunk, TILE_WALL, 58, 40, 59, 42)
+    fill_tiles(chunk, TILE_WALL, 64, 44, 65, 46)
+    fill_tiles(chunk, TILE_WALL, 70, 48, 71, 50)
+    fill_tiles(chunk, TILE_WALL, 76, 52, 77, 54)
+    # Greirat's cell — prison cell walls (DS3: cell below the high wall)
+    fill_tiles(chunk, TILE_WALL, 18, 56, 19, 58)
+    fill_tiles(chunk, TILE_WALL, 24, 60, 25, 62)
+    fill_tiles(chunk, TILE_WALL, 30, 64, 31, 66)
+    fill_tiles(chunk, TILE_WALL, 36, 68, 37, 70)
+    fill_tiles(chunk, TILE_WALL, 42, 72, 43, 74)
+    # Vordt approach — frozen flagstones (DS3: cold stone path to Vordt)
+    fill_tiles(chunk, TILE_WALL, 88, 128, 89, 130)
+    fill_tiles(chunk, TILE_WALL, 96, 132, 97, 134)
+    fill_tiles(chunk, TILE_WALL, 104, 136, 105, 138)
+    fill_tiles(chunk, TILE_WALL, 112, 140, 113, 142)
+    fill_tiles(chunk, TILE_WALL, 120, 144, 121, 146)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
