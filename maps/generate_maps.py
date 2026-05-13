@@ -983,7 +983,7 @@ def make_cemetery_of_ash():
         make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
         make_field("name", "String", "Soul of the Origin")]))
 # --- Fog Gate to Firelink Shrine (arena exit) ---
-    entities.append(make_entity("FogGate", 80 * 16, 22 * 16, [
+    entities.append(make_entity("FogGate", 96 * 16, 43 * 16, [
         make_field("dest_area", "String", "FirelinkShrine"),
         make_field("dest_x", "Float", 1280.0),
         make_field("dest_y", "Float", 1856.0),
@@ -1717,7 +1717,7 @@ def make_firelink_shrine():
         make_field("name", "String", "Unknown")]))
 # --- Fog Gates ---
     # Back to CemeteryOfAsh (south)
-    entities.append(make_entity("FogGate", 80 * 16, 140 * 16, [
+    entities.append(make_entity("FogGate", 80 * 16, 111 * 16, [
         make_field("dest_area", "String", "CemeteryOfAsh"),
         make_field("dest_x", "Float", 580.0),
         make_field("dest_y", "Float", 320.0),
@@ -1726,7 +1726,7 @@ def make_firelink_shrine():
     ]))
 
     # To LothricWall (north exit through throne room)
-    entities.append(make_entity("FogGate", 80 * 16, 52 * 16, [
+    entities.append(make_entity("FogGate", 80 * 16, 7 * 16, [
         make_field("dest_area", "String", "LothricWall"),
         make_field("dest_x", "Float", 200.0),
         make_field("dest_y", "Float", 200.0),
@@ -2784,7 +2784,7 @@ def make_lothric_wall():
         make_field("name", "String", "Unknown")]))
 # --- Fog Gates ---
     # Back to CemeteryOfAsh (NW entry point)
-    entities.append(make_entity("FogGate", 12 * 16, 8 * 16, [
+    entities.append(make_entity("FogGate", 35 * 16, 18 * 16, [
         make_field("dest_area", "String", "CemeteryOfAsh"),
         make_field("dest_x", "Float", 1280.0),
         make_field("dest_y", "Float", 288.0),
@@ -2792,7 +2792,7 @@ def make_lothric_wall():
         make_field("height", "Float", 64.0),
     ]))
     # To Undead Settlement (south of Vordt arena)
-    entities.append(make_entity("FogGate", 100 * 16, 154 * 16, [
+    entities.append(make_entity("FogGate", 197 * 16, 233 * 16, [
         make_field("dest_area", "String", "UndeadSettlement"),
         make_field("dest_x", "Float", 100.0),
         make_field("dest_y", "Float", 100.0),
@@ -2800,7 +2800,7 @@ def make_lothric_wall():
         make_field("height", "Float", 80.0),
     ]))
     # To Lothric Castle (Dancer lift — post-Dancer area NE)
-    entities.append(make_entity("FogGate", 107 * 16, 95 * 16, [
+    entities.append(make_entity("FogGate", 191 * 16, 138 * 16, [
         make_field("dest_area", "String", "LothricCastle"),
         make_field("dest_x", "Float", 200.0),
         make_field("dest_y", "Float", 500.0),
@@ -2808,7 +2808,7 @@ def make_lothric_wall():
         make_field("height", "Float", 80.0),
     ]))
     # To Lothric Castle (post-Dancer path — DS3: Dancer defeat opens castle)
-    entities.append(make_entity("FogGate", 120 * 16, 115 * 16, [
+    entities.append(make_entity("FogGate", 182 * 16, 147 * 16, [
         make_field("dest_area", "String", "LothricCastle"),
         make_field("dest_x", "Float", 200.0),
         make_field("dest_y", "Float", 400.0),
@@ -3885,14 +3885,14 @@ def make_undead_settlement():
     entities.append(make_entity("Chest", 207 * 16, 95 * 16, [
         make_field("name", "String", "Unknown")]))
 # --- Fog Gates ---
-    entities.append(make_entity("FogGate", 148 * 16, 55 * 16, [
+    entities.append(make_entity("FogGate", 26 * 16, 16 * 16, [
         make_field("dest_area", "String", "RoadOfSacrifices"),
         make_field("dest_x", "Float", 100.0),
         make_field("dest_y", "Float", 100.0),
         make_field("width", "Float", 64.0),
         make_field("height", "Float", 80.0),
     ]))
-    entities.append(make_entity("FogGate", 10 * 16, 12 * 16, [
+    entities.append(make_entity("FogGate", 270 * 16, 156 * 16, [
         make_field("dest_area", "String", "LothricWall"),
         make_field("dest_x", "Float", 2080.0),
         make_field("dest_y", "Float", 1600.0),
@@ -4783,7 +4783,7 @@ def make_road_of_sacrifices():
     entities.append(make_entity("Npc", 157 * 16, 115 * 16, [make_field("name", "String", "Orbeck of Vinheim"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#7090B0"), make_field("dialogue", "String", "Orbeck of Vinheim. A sorcerer, and an assassin|I wish to repay my debt to you|Bring me scrolls, and I shall decipher their sorceries|The Vinheim scholars would be proud|Sorcery requires dedication and talent|Show me you have both, and we shall prosper")]))
 
     # Fog Gate back to UndeadSettlement (entrance from settlement)
-    entities.append(make_entity("FogGate", 8 * 16, 8 * 16, [
+    entities.append(make_entity("FogGate", 32 * 16, 26 * 16, [
         make_field("dest_area", "String", "UndeadSettlement"),
         make_field("dest_x", "Float", 2368.0),
         make_field("dest_y", "Float", 880.0),
@@ -4792,7 +4792,7 @@ def make_road_of_sacrifices():
     ]))
 
     # Fog Gate to FarronKeep
-    entities.append(make_entity("FogGate", 68 * 16, 134 * 16, [
+    entities.append(make_entity("FogGate", 145 * 16, 156 * 16, [
         make_field("dest_area", "String", "FarronKeep"),
         make_field("dest_x", "Float", 100.0),
         make_field("dest_y", "Float", 100.0),
@@ -4801,7 +4801,7 @@ def make_road_of_sacrifices():
     ]))
 
     # Fog Gate to CathedralDeep
-    entities.append(make_entity("FogGate", 120 * 16, 65 * 16, [
+    entities.append(make_entity("FogGate", 243 * 16, 93 * 16, [
         make_field("dest_area", "String", "CathedralDeep"),
         make_field("dest_x", "Float", 100.0),
         make_field("dest_y", "Float", 100.0),
@@ -7898,17 +7898,17 @@ def make_catacombs_of_carthus():
     entities.append(make_entity("Npc", 17 * 16, 19 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods slowly)|(points toward the deeper catacombs)|(holds shield tighter)|Anri... where are you...")]))
 
     # Fog Gate back to Farron Keep (DS3: return path from Catacombs entrance)
-    entities.append(make_entity("FogGate", 8 * 16, 8 * 16, [
+    entities.append(make_entity("FogGate", 32 * 16, 32 * 16, [
         make_field("dest_area", "String", "FarronKeep"),
         make_field("dest_x", "Float", 4400.0), make_field("dest_y", "Float", 3440.0),
         make_field("width", "Float", 64.0), make_field("height", "Float", 80.0),
     ]))
-    entities.append(make_entity("FogGate", 25 * 16, 112 * 16, [
+    entities.append(make_entity("FogGate", 102 * 16, 200 * 16, [
         make_field("dest_area", "String", "SmoulderingLake"),
         make_field("dest_x", "Float", 100.0), make_field("dest_y", "Float", 100.0),
         make_field("width", "Float", 64.0), make_field("height", "Float", 80.0),
     ]))
-    entities.append(make_entity("FogGate", 145 * 16, 92 * 16, [
+    entities.append(make_entity("FogGate", 237 * 16, 193 * 16, [
         make_field("dest_area", "String", "Irithyll"),
         make_field("dest_x", "Float", 100.0), make_field("dest_y", "Float", 100.0),
         make_field("width", "Float", 64.0), make_field("height", "Float", 80.0),
@@ -8888,7 +8888,7 @@ def make_smouldering_lake():
 
     entities.append(make_entity("Npc", 81 * 16, 75 * 16, [make_field("name", "String", "Knight Slayer Tsorig"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#804020"), make_field("dialogue", "String", "Forgive me, I was absorbed in my conquest|We meet again, Unkindled|I am Tsorig, the Knight Slayer|The arbitrary distinction between right and wrong is irrelevant")]))
 
-    entities.append(make_entity("FogGate", 135 * 16, 125 * 16, [
+    entities.append(make_entity("FogGate", 38 * 16, 33 * 16, [
         make_field("dest_area", "String", "CatacombsOfCarthus"),
         make_field("dest_x", "Float", 100.0), make_field("dest_y", "Float", 100.0),
         make_field("width", "Float", 64.0), make_field("height", "Float", 80.0),
@@ -9917,18 +9917,18 @@ def make_irithyll():
     entities.append(make_entity("Npc", 98 * 16, 48 * 16, [make_field("name", "String", "Sirris of the Sunless Realms"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#A0B0C0"), make_field("dialogue", "String", "Forgive me. I am Sirris of the Sunless Realms|I was once a knight, but no longer|Let me swear to you my knightly vows|I shall serve you faithfully, until death"), make_field("appear_condition", "String", "rosaria_covenant")]))
 
     # Return to Cathedral of the Deep (DS3: shortcut back via bonfire warp path)
-    entities.append(make_entity("FogGate", 6 * 16, 30 * 16, [
+    entities.append(make_entity("FogGate", 32 * 16, 33 * 16, [
         make_field("dest_area", "String", "CathedralDeep"),
         make_field("dest_x", "Float", 2400.0), make_field("dest_y", "Float", 2200.0),
         make_field("width", "Float", 64.0), make_field("height", "Float", 80.0),
     ]))
-    entities.append(make_entity("FogGate", 144 * 16, 45 * 16, [
+    entities.append(make_entity("FogGate", 191 * 16, 162 * 16, [
         make_field("dest_area", "String", "IrithyllDungeon"),
         make_field("dest_x", "Float", 100.0), make_field("dest_y", "Float", 100.0),
         make_field("width", "Float", 64.0), make_field("height", "Float", 80.0),
     ]))
     # To Anor Londo (rotating staircase, after defeating Pontiff)
-    entities.append(make_entity("FogGate", 148 * 16, 25 * 16, [
+    entities.append(make_entity("FogGate", 268 * 16, 62 * 16, [
         make_field("dest_area", "String", "AnorLondo"),
         make_field("dest_x", "Float", 160.0),
         make_field("dest_y", "Float", 608.0),
@@ -11017,18 +11017,18 @@ def make_irithyll_dungeon():
     entities.append(make_entity("Npc", 111 * 16, 160 * 16, [make_field("name", "String", "Karla"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#4A0080"), make_field("dialogue", "String", "Hmm. A visitor? I'm a prisoner, same as you|I can teach you dark sorceries, if you bring me tomes|But nothing that could harm the Fire Keeper, understand|The pygmy is not to be trifled with")]))
 
     # Fog Gate back to Irithyll (DS3: return from dungeon entrance)
-    entities.append(make_entity("FogGate", 8 * 16, 8 * 16, [
+    entities.append(make_entity("FogGate", 32 * 16, 26 * 16, [
         make_field("dest_area", "String", "Irithyll"),
         make_field("dest_x", "Float", 2500.0), make_field("dest_y", "Float", 500.0),
         make_field("width", "Float", 64.0), make_field("height", "Float", 80.0),
     ]))
-    entities.append(make_entity("FogGate", 142 * 16, 32 * 16, [
+    entities.append(make_entity("FogGate", 201 * 16, 250 * 16, [
         make_field("dest_area", "String", "ProfanedCapital"),
         make_field("dest_x", "Float", 100.0), make_field("dest_y", "Float", 100.0),
         make_field("width", "Float", 64.0), make_field("height", "Float", 80.0),
     ]))
     # To Archdragon Peak (dragon gesture path)
-    entities.append(make_entity("FogGate", 135 * 16, 8 * 16, [
+    entities.append(make_entity("FogGate", 191 * 16, 87 * 16, [
         make_field("dest_area", "String", "ArchdragonPeak"),
         make_field("dest_x", "Float", 280.0),
         make_field("dest_y", "Float", 2160.0),
@@ -12277,7 +12277,7 @@ def make_profaned_capital():
         make_field("name", "String", "Unknown")]))
 # --- Fog Gates ---
     # Back to Irithyll Dungeon (NW entry)
-    entities.append(make_entity("FogGate", 6 * 16, 10 * 16, [
+    entities.append(make_entity("FogGate", 56 * 16, 45 * 16, [
         make_field("dest_area", "String", "IrithyllDungeon"),
         make_field("dest_x", "Float", 2500.0),
         make_field("dest_y", "Float", 2300.0),
@@ -14247,7 +14247,7 @@ def make_lothric_castle():
         make_field("name", "String", "Unknown")]))
 # --- Fog Gates ---
     # Back to LothricWall (return to High Wall, DS3: castle connects back to high wall)
-    entities.append(make_entity("FogGate", 6 * 16, 30 * 16, [
+    entities.append(make_entity("FogGate", 38 * 16, 50 * 16, [
         make_field("dest_area", "String", "LothricWall"),
         make_field("dest_x", "Float", 1600.0),
         make_field("dest_y", "Float", 1600.0),
@@ -14255,7 +14255,7 @@ def make_lothric_castle():
         make_field("height", "Float", 80.0),
     ]))
     # To Grand Archives (NE exit)
-    entities.append(make_entity("FogGate", 156 * 16, 62 * 16, [
+    entities.append(make_entity("FogGate", 292 * 16, 137 * 16, [
         make_field("dest_area", "String", "GrandArchives"),
         make_field("dest_x", "Float", 100.0),
         make_field("dest_y", "Float", 2300.0),
@@ -14263,7 +14263,7 @@ def make_lothric_castle():
         make_field("height", "Float", 80.0),
     ]))
     # To Consumed King's Garden (south side path)
-    entities.append(make_entity("FogGate", 42 * 16, 66 * 16, [
+    entities.append(make_entity("FogGate", 57 * 16, 110 * 16, [
         make_field("dest_area", "String", "ConsumedKingsGarden"),
         make_field("dest_x", "Float", 200.0),
         make_field("dest_y", "Float", 400.0),
@@ -16026,7 +16026,7 @@ def make_kiln_of_the_first_flame():
         make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
         make_field("name", "String", "Soul of the Lords")]))
 # --- Fog Gate back to Grand Archives (south) ---
-    entities.append(make_entity("FogGate", 80 * 16, 156 * 16, [
+    entities.append(make_entity("FogGate", 38 * 16, 143 * 16, [
         make_field("dest_area", "String", "GrandArchives"),
         make_field("dest_x", "Float", 300.0),
         make_field("dest_y", "Float", 2500.0),
@@ -17949,7 +17949,7 @@ def make_untended_graves():
         make_field("name", "String", "Soul of Champion Gundyr")]))
 # --- Fog Gate ---
     # To Firelink Shrine (DS3: dark Firelink connects back to normal Firelink)
-    entities.append(make_entity("FogGate", 148 * 16, 115 * 16, [
+    entities.append(make_entity("FogGate", 43 * 16, 38 * 16, [
         make_field("dest_area", "String", "FirelinkShrine"),
         make_field("dest_x", "Float", 1280.0),
         make_field("dest_y", "Float", 1280.0),
@@ -17957,7 +17957,7 @@ def make_untended_graves():
         make_field("height", "Float", 80.0),
     ]))
     # Fog Gate back to Consumed King's Garden (DS3: return path)
-    entities.append(make_entity("FogGate", 8 * 16, 12 * 16, [
+    entities.append(make_entity("FogGate", 191 * 16, 191 * 16, [
         make_field("dest_area", "String", "ConsumedKingsGarden"),
         make_field("dest_x", "Float", 2200.0), make_field("dest_y", "Float", 1500.0),
         make_field("width", "Float", 64.0), make_field("height", "Float", 80.0),
@@ -18875,7 +18875,7 @@ def make_archdragon_peak():
         make_field("name", "String", "Unknown")]))
 # --- Fog Gate ---
     # Back to Irithyll Dungeon (NW)
-    entities.append(make_entity("FogGate", 6 * 16, 120 * 16, [
+    entities.append(make_entity("FogGate", 38 * 16, 231 * 16, [
         make_field("dest_area", "String", "IrithyllDungeon"),
         make_field("dest_x", "Float", 2160.0),
         make_field("dest_y", "Float", 128.0),
