@@ -2917,6 +2917,19 @@ def make_lothric_wall():
     for tx in range(80, 120, 7):
         fill_tiles(chunk, TILE_WALL, tx, 80, tx+1, 81)             # Courtyard cobblestones
     fill_tiles(chunk, TILE_WALL, 70, 90, 72, 92)                    # Tower rubble
+    # SESSION 40 FIDELITY PASS — High Wall of Lothric DS3 details
+    for tx in range(25, 65, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 38, tx+1, 39)
+        fill_tiles(chunk, TILE_WALL, tx, 78, tx+1, 79)
+    for tx in range(70, 110, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 42, tx+1, 43)
+        fill_tiles(chunk, TILE_WALL, tx, 82, tx+1, 83)
+    for ty in range(35, 65, 7):
+        fill_tiles(chunk, TILE_WALL, 25, ty, 26, ty+1)
+        fill_tiles(chunk, TILE_WALL, 105, ty, 106, ty+1)
+    fill_tiles(chunk, TILE_WALL, 45, 58, 47, 60)
+    fill_tiles(chunk, TILE_WALL, 90, 65, 92, 67)
+    fill_tiles(chunk, TILE_WALL, 120, 50, 122, 52)
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -4815,6 +4828,19 @@ def make_road_of_sacrifices():
     fill_tiles(chunk, TILE_WALL, 120, 50, 122, 52)                  # Crucifixion woods entry
     for tx in range(30, 50, 5):
         fill_tiles(chunk, TILE_WALL, tx, 55, tx+1, 56)             # Moss-covered rocks
+    # SESSION 40 FIDELITY PASS — Road of Sacrifices DS3 details
+    for tx in range(30, 70, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 32, tx+1, 33)
+        fill_tiles(chunk, TILE_WALL, tx, 72, tx+1, 73)
+    for tx in range(75, 120, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 38, tx+1, 39)
+        fill_tiles(chunk, TILE_WALL, tx, 78, tx+1, 79)
+    for ty in range(40, 70, 7):
+        fill_tiles(chunk, TILE_WALL, 35, ty, 36, ty+1)
+        fill_tiles(chunk, TILE_WALL, 95, ty, 96, ty+1)
+    fill_tiles(chunk, TILE_WALL, 50, 60, 52, 62)
+    fill_tiles(chunk, TILE_WALL, 110, 55, 112, 57)
+    fill_tiles(chunk, TILE_WALL, 70, 85, 72, 87)
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -7642,6 +7668,20 @@ def make_smouldering_lake():
         mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Additional enemies — SESSION 40 DS3 fidelity (Smouldering Lake)
+    for tx, ty in [(25, 55), (32, 60), (40, 58), (48, 65), (55, 55),
+                   (62, 60), (70, 58)]:
+        mapped = ENEMY_KIND_MAP.get("DemonStatue", "DemonStatue")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(78, 70), (85, 65), (92, 72)]:
+        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(100, 60), (110, 55)]:
+        mapped = ENEMY_KIND_MAP.get("FireDemon", "FireDemon")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # NPCs — DS3 Smouldering Lake: Knight Slayer Tsorig
     entities.append(make_entity("Npc", 30 * 16, 92 * 16, [make_field("name", "String", "Knight Slayer Tsorig"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#804020"), make_field("dialogue", "String", "Forgive me, I was absorbed in my conquest|We meet again, Unkindled|I am Tsorig, the Knight Slayer|The arbitrary distinction between right and wrong is irrelevant")]))
     # Horace the Hushed — hostile hollow in DS3 (attacks player in Smouldering Lake cave)
@@ -9171,6 +9211,20 @@ def make_irithyll_dungeon():
         mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Additional enemies — SESSION 40 DS3 fidelity (Irithyll Dungeon)
+    for tx, ty in [(25, 42), (32, 48), (40, 45), (48, 50), (55, 42),
+                   (62, 48), (70, 45)]:
+        mapped = ENEMY_KIND_MAP.get("Jailer", "Jailer")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(30, 70), (42, 75), (55, 72), (68, 78)]:
+        mapped = ENEMY_KIND_MAP.get("Wretch", "Wretch")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(80, 65), (90, 70)]:
+        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # NPCs — DS3 Irithyll Dungeon: Siegward in cell, Karla in deep cell
     entities.append(make_entity("Npc", 92 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D4A520"), make_field("dialogue", "String", "Oh! You have my thanks, my deepest thanks|I seem to have gotten myself locked in this cell|A brave warrior like yourself, I knew you would come|Let us share a drink, to celebrate your bravery|I am Siegward of Catarina, at your service")]))
     entities.append(make_entity("Npc", 90 * 16, 84 * 16, [make_field("name", "String", "Karla"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#4A0080"), make_field("dialogue", "String", "Hmm. A visitor? I'm a prisoner, same as you|I can teach you dark sorceries, if you bring me tomes|But nothing that could harm the Fire Keeper, understand|The pygmy is not to be trifled with")]))
@@ -10374,6 +10428,19 @@ def make_profaned_capital():
     fill_tiles(chunk, TILE_WALL, 100, 90, 101, 91)
     fill_tiles(chunk, TILE_WALL, 106, 94, 107, 95)
 
+    # SESSION 40 FIDELITY PASS — Profaned Capital DS3 details
+    for tx in range(25, 65, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 35, tx+2, 37)
+        fill_tiles(chunk, TILE_WALL, tx, 75, tx+2, 77)
+    for tx in range(70, 110, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 40, tx+1, 41)
+        fill_tiles(chunk, TILE_WALL, tx, 80, tx+1, 81)
+    for ty in range(30, 70, 8):
+        fill_tiles(chunk, TILE_WALL, 40, ty, 41, ty+1)
+        fill_tiles(chunk, TILE_WALL, 100, ty, 101, ty+1)
+    fill_tiles(chunk, TILE_WALL, 55, 55, 57, 57)
+    fill_tiles(chunk, TILE_WALL, 120, 50, 122, 52)
+    fill_tiles(chunk, TILE_WALL, 80, 90, 82, 92)
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -14319,6 +14386,19 @@ def make_consumed_kings_garden():
     fill_tiles(chunk, TILE_WALL, 110, 75, 112, 77)                  # Crystal formation
     fill_tiles(chunk, TILE_WALL, 70, 100, 72, 102)                  # Wyrm bone scatter
     fill_tiles(chunk, TILE_WALL, 130, 55, 132, 57)                  # Oceiros arena debris
+    # SESSION 40 FIDELITY PASS — Consumed King's Garden DS3 details
+    for tx in range(35, 75, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 40, tx+1, 41)
+        fill_tiles(chunk, TILE_WALL, tx, 80, tx+1, 81)
+    for tx in range(80, 120, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 45, tx+1, 46)
+        fill_tiles(chunk, TILE_WALL, tx, 85, tx+1, 86)
+    for ty in range(35, 75, 7):
+        fill_tiles(chunk, TILE_WALL, 30, ty, 31, ty+1)
+        fill_tiles(chunk, TILE_WALL, 130, ty, 131, ty+1)
+    fill_tiles(chunk, TILE_WALL, 55, 55, 57, 57)
+    fill_tiles(chunk, TILE_WALL, 100, 70, 102, 72)
+    fill_tiles(chunk, TILE_WALL, 75, 90, 77, 92)
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
