@@ -2677,6 +2677,28 @@ def make_lothric_wall():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # --- SESSION 57 DS3 enemies (High Wall of Lothric final) ---
+    # DS3: Hollow Soldiers patrolling every wall section
+    for tx, ty in [(18, 25), (32, 28), (45, 24), (60, 30)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Lothric Knights on the castle approach
+    for tx, ty in [(68, 64), (76, 68), (84, 66)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # More Peasant Hollows in the lower district
+    for tx, ty in [(24, 60), (36, 66), (48, 62)]:
+        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Assassins in the dark alley near Greirat's cell
+    for tx, ty in [(40, 56)]:
+        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "Assassin")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs ---
     # Greirat — locked in cell below tower (DS3: basement cell, asks for Loretta's Bone)
     entities.append(make_entity("Npc", 36 * 16, 60 * 16, [
@@ -4886,6 +4908,18 @@ def make_road_of_sacrifices():
     # Lesser Crabs in the swamp shallows
     for tx, ty in [(45, 60), (60, 62), (75, 55)]:
         mapped = ENEMY_KIND_MAP.get("LesserCrab", "Dog")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 57 DS3 enemies (Road of Sacrifices diversity) ---
+    # DS3: Exile Watchdog (DS3: the NPC invader in the crucifixion woods)
+    for tx, ty in [(65, 50)]:
+        mapped = ENEMY_KIND_MAP.get("DarkSpirit", "Knight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Lycanthrope Hunters (DS3: the werewolf enemies near Farron Keep)
+    for tx, ty in [(80, 48), (92, 52)]:
+        mapped = ENEMY_KIND_MAP.get("LycanthropeHunter", "Knight")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
@@ -9393,6 +9427,18 @@ def make_irithyll():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # --- SESSION 57 DS3 enemies (Irithyll diversity) ---
+    # DS3: Boreal Outrider Knights (DS3: the beast knights in Irithyll)
+    for tx, ty in [(45, 58), (60, 62)]:
+        mapped = ENEMY_KIND_MAP.get("BorealKnight", "Knight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Deacons near the church (DS3: remnants follow Sulyvahn)
+    for tx, ty in [(30, 50), (42, 55)]:
+        mapped = ENEMY_KIND_MAP.get("Deacon", "Deacon")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # NPCs — DS3 Irithyll: Anri (Church of Yorshka), Siegward (Distant Manor kitchen), Sirris
     entities.append(make_entity("Npc", 62 * 16, 38 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Hello again. We seem destined to cross paths|Are you also headed for Anor Londo?|I must reach Aldrich of the Deep|To avenge my companions who fell to him")]))
     entities.append(make_entity("Npc", 28 * 16, 80 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Oh, hello there! Fancy meeting you here|I'm cooking up some estus soup, my specialty|Care to join me? It's quite good, you know|Oh, very good indeed, to see a friendly face")]))
@@ -10262,6 +10308,18 @@ def make_irithyll_dungeon():
     # More Jailers on the upper catwalks
     for tx, ty in [(28, 42), (42, 48)]:
         mapped = ENEMY_KIND_MAP.get("Jailer", "Jailer")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 57 DS3 enemies (Irithyll Dungeon diversity) ---
+    # DS3: Outrider Knight mini-boss in the dungeon lower level
+    for tx, ty in [(48, 55)]:
+        mapped = ENEMY_KIND_MAP.get("OutriderKnight", "Knight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Spider enemies in the deep well (DS3: spiders near the Profaned Capital exit)
+    for tx, ty in [(70, 58), (82, 62)]:
+        mapped = ENEMY_KIND_MAP.get("Spider", "Basilisk")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
@@ -14847,6 +14905,18 @@ def make_kiln_of_the_first_flame():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # --- SESSION 57 DS3 enemies (Kiln diversity) ---
+    # DS3: Demon Statues (DS3: petrified demon remnants in the Kiln)
+    for tx, ty in [(55, 60), (70, 65)]:
+        mapped = ENEMY_KIND_MAP.get("DemonStatue", "DemonStatue")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Pus of Man remnants (DS3: the dark growth on burned corpses)
+    for tx, ty in [(40, 58)]:
+        mapped = ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs ---
     # Fire Keeper — appears at Kiln for the final scene (DS3: summons Fire Keeper for ending)
     entities.append(make_entity("Npc", 78 * 16, 28 * 16, [
@@ -17470,6 +17540,18 @@ def make_archdragon_peak():
     # Lightning Snakemen (DS3: electrified serpent warriors)
     for tx, ty in [(65, 65), (80, 68)]:
         mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 57 DS3 enemies (Archdragon Peak diversity) ---
+    # DS3: Consumed King's Guards (DS3: guards who followed the king to the peak)
+    for tx, ty in [(28, 60), (42, 65)]:
+        mapped = ENEMY_KIND_MAP.get("ConsumedKingGuard", "WingedKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Crystal Lizard at the peak summit
+    for tx, ty in [(95, 62)]:
+        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
