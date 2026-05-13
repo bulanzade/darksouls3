@@ -2766,7 +2766,7 @@ def make_undead_settlement():
         ("HollowSoldier", 64, 78),
         # Sewers — rats (DS3: 3 small rats + 1 big rat in sewers, drops Bloodbite Ring)
         ("Rat", 78, 76), ("Rat", 80, 78), ("Rat", 82, 80),          # DS3: small rats in sewers
-        ("Dog", 84, 76),                                              # DS3: big rat (Dog for larger enemy)
+        ("Rat", 84, 76),                                               # DS3: big rat in sewers (larger than others)
         # Path to pit / Curse-Rotted Greatwood area
         ("HollowSoldier", 78, 78), ("HollowSoldier", 84, 88),
         ("Thrall", 82, 82),
@@ -9510,8 +9510,8 @@ def make_lothric_castle():
         ("HollowSoldier", 138, 68), ("HollowSoldier", 142, 72),     # Hollows at arena entrance
         # Additional DS3 Lothric Castle enemies — more knights, dogs, hollows (DS3: dense with enemies)
         ("LothricKnight", 22, 32), ("LothricKnight", 42, 38),       # Knights at gate courtyard
-        ("Dog", 32, 34), ("Dog", 46, 42), ("Dog", 52, 48),         # DS3: dogs in castle corridors
-        ("Dog", 65, 30), ("Dog", 72, 25), ("Dog", 98, 38),         # DS3: 8 dogs total
+        ("StarvedHound", 32, 34), ("StarvedHound", 46, 42), ("StarvedHound", 52, 48),  # DS3: hounds in castle corridors
+        ("StarvedHound", 65, 30), ("StarvedHound", 72, 25), ("StarvedHound", 98, 38),  # DS3: 8 hounds total
         ("LothricKnight", 75, 30), ("LothricKnight", 82, 26),      # Knights patrolling wyvern area
         ("LothricKnight", 95, 36), ("LothricKnight", 108, 44),     # Knights on inner stairs
         ("HollowSoldier", 60, 36), ("HollowSoldier", 85, 32),      # More hollows in barracks
