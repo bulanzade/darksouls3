@@ -2449,6 +2449,30 @@ def make_lothric_wall():
     fill_tiles(chunk, TILE_WALL, 108, 92, 109, 93)
     fill_tiles(chunk, TILE_WALL, 100, 90, 101, 91)
 
+    # ================================================================
+    # SESSION 15 FIDELITY PASS — LothricWall additional DS3 details
+    # ================================================================
+    # High Wall ramparts — battlement merlons (DS3: crenellated stone walls)
+    fill_tiles(chunk, TILE_WALL, 22, 20, 23, 21)
+    fill_tiles(chunk, TILE_WALL, 28, 24, 29, 25)
+    fill_tiles(chunk, TILE_WALL, 34, 22, 35, 23)
+    fill_tiles(chunk, TILE_WALL, 40, 26, 41, 27)
+    # Dragon bridge — scorched masonry (DS3: wyvern-scorched stone bridge)
+    fill_tiles(chunk, TILE_WALL, 62, 34, 63, 35)
+    fill_tiles(chunk, TILE_WALL, 68, 38, 69, 39)
+    fill_tiles(chunk, TILE_WALL, 56, 36, 57, 37)
+    # Greirat's cell — iron bar debris (DS3: locked cell below tower)
+    fill_tiles(chunk, TILE_WALL, 38, 56, 39, 57)
+    fill_tiles(chunk, TILE_WALL, 42, 58, 43, 59)
+    fill_tiles(chunk, TILE_WALL, 34, 54, 35, 55)
+    # Lower plaza — market stall debris (DS3: market area with hollows)
+    fill_tiles(chunk, TILE_WALL, 48, 70, 49, 71)
+    fill_tiles(chunk, TILE_WALL, 54, 74, 55, 75)
+    fill_tiles(chunk, TILE_WALL, 44, 72, 45, 73)
+    # Winged Knight courtyard — tower base stones (DS3: courtyard with patrolling knight)
+    fill_tiles(chunk, TILE_WALL, 62, 80, 63, 81)
+    fill_tiles(chunk, TILE_WALL, 66, 84, 67, 85)
+    fill_tiles(chunk, TILE_WALL, 58, 82, 59, 83)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
