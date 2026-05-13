@@ -2809,7 +2809,7 @@ def make_undead_settlement():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#4A4A5A"),
         make_field("dialogue", "String",
-            "Ahh, a kind soul. I am Yoel of Londor, a pilgrim|Let me grant you true strength|Come. Touch the darkness within me"),
+            "Ahh, a kind soul. I am Yoel of Londor, a pilgrim|Let me grant you true strength|Come. Touch the darkness within me|We are pilgrims, drawn to the fire|When the time comes, I shall die peacefully|The Abyss beckons, do you feel it?"),
     ]))
     # Siegward of Catarina — at Fire Demon square (DS3: helps fight the demon)
     entities.append(make_entity("Npc", 96 * 16, 60 * 16, [
@@ -2817,7 +2817,7 @@ def make_undead_settlement():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#C0A060"),
         make_field("dialogue", "String",
-            "Aah, hello again|Let us fight this demon together!|Oh, very good. Very good indeed"),
+            "Aah, hello again|Let us fight this demon together!|Oh, very good. Very good indeed|I am Siegward of Catarina, a knight|This demon has been giving me trouble|Care for some Estus soup after the battle?"),
     ]))
     # Cornyx — pyromancy trainer in cage on rooftop (DS3: freed from cage, offers pyromancies)
     entities.append(make_entity("Npc", 44 * 16, 28 * 16, [
@@ -2825,7 +2825,7 @@ def make_undead_settlement():
         make_field("kind", "LocalEnum.NpcKind", "Merchant"),
         make_field("color", "Color", "#B8860B"),
         make_field("dialogue", "String",
-            "A pyromancy student? Very well|I can teach you the flame arts|Ah, the flame is a fickle thing, as unpredictable as a woman"),
+            "A pyromancy student? Very well|I can teach you the flame arts|Ah, the flame is a fickle thing, as unpredictable as a woman|I am Cornyx, pyromancer of the Great Swamp|Thank you for freeing me from this cage|Bring me tomes, and I shall share my knowledge"),
     ]))
     # Irina of Carim — miracle teacher in cell (DS3: found through locked door in sewers, near skeletons)
     entities.append(make_entity("Npc", 146 * 16, 54 * 16, [
@@ -2833,7 +2833,7 @@ def make_undead_settlement():
         make_field("kind", "LocalEnum.NpcKind", "Merchant"),
         make_field("color", "Color", "#8B7D9B"),
         make_field("dialogue", "String",
-            "Oh, hello there. I am Irina of Carim|I can teach you miracles, if you bring me braille divine tomes|Please, take me to the shrine, I beg of you"),
+            "Oh, hello there. I am Irina of Carim|I can teach you miracles, if you bring me braille divine tomes|Please, take me to the shrine, I beg of you|I cannot see, but I can feel the light|The tales of the gods bring me comfort|Eygon has been my protector, but I worry for him"),
     ]))
     # Eygon of Carim — guards Irina (DS3: found outside near Irina, warns about the champion)
     entities.append(make_entity("Npc", 148 * 16, 50 * 16, [
@@ -2841,7 +2841,7 @@ def make_undead_settlement():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#4A3A2A"),
         make_field("dialogue", "String",
-            "Keep your hands off the woman|I am Eygon of Carim, of the Morne bloodline|She is my responsibility, not yours|You would do well to remember that"),
+            "Keep your hands off the woman|I am Eygon of Carim, of the Morne bloodline|She is my responsibility, not yours|You would do well to remember that|I made a promise, and I intend to keep it|The blind woman is under my protection"),
     ]))
 
     # --- Items (DS3 Undead Settlement) ---
