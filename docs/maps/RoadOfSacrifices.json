@@ -182,358 +182,358 @@
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 25,
-      "y": 20,
+      "x": 400,
+      "y": 320,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 35,
-      "y": 24,
+      "x": 560,
+      "y": 384,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 28,
-      "y": 22,
+      "x": 448,
+      "y": 352,
       "count": 1
     },
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
-      "x": 42,
-      "y": 26,
+      "x": 672,
+      "y": 416,
       "count": 1
     },
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
-      "x": 48,
-      "y": 28,
+      "x": 768,
+      "y": 448,
       "count": 1
     },
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
-      "x": 45,
-      "y": 32,
+      "x": 720,
+      "y": 512,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 56,
-      "y": 35,
+      "x": 896,
+      "y": 560,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 62,
-      "y": 40,
+      "x": 992,
+      "y": 640,
       "count": 1
     },
     {
       "kind": "DarkMage",
       "name_en": "DarkMage",
-      "x": 70,
-      "y": 48,
+      "x": 1120,
+      "y": 768,
       "count": 1
     },
     {
       "kind": "DarkMage",
       "name_en": "DarkMage",
-      "x": 88,
-      "y": 55,
+      "x": 1408,
+      "y": 880,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 75,
-      "y": 52,
+      "x": 1200,
+      "y": 832,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 82,
-      "y": 58,
+      "x": 1312,
+      "y": 928,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 65,
-      "y": 45,
+      "x": 1040,
+      "y": 720,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 78,
-      "y": 48,
+      "x": 1248,
+      "y": 768,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 90,
-      "y": 50,
+      "x": 1440,
+      "y": 800,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 58,
-      "y": 55,
+      "x": 928,
+      "y": 880,
       "count": 1
     },
     {
       "kind": "LycanthropeHunter",
       "name_en": "LycanthropeHunter",
-      "x": 72,
-      "y": 55,
+      "x": 1152,
+      "y": 880,
       "count": 1
     },
     {
       "kind": "LycanthropeHunter",
       "name_en": "LycanthropeHunter",
-      "x": 85,
-      "y": 60,
+      "x": 1360,
+      "y": 960,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
-      "x": 50,
-      "y": 26,
+      "x": 800,
+      "y": 416,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
-      "x": 96,
-      "y": 62,
+      "x": 1536,
+      "y": 992,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
-      "x": 112,
-      "y": 88,
+      "x": 1792,
+      "y": 1408,
       "count": 1
     },
     {
       "kind": "PoisonhornBug",
       "name_en": "PoisonhornBug",
-      "x": 65,
-      "y": 62,
+      "x": 1040,
+      "y": 992,
       "count": 1
     },
     {
       "kind": "PoisonhornBug",
       "name_en": "PoisonhornBug",
-      "x": 70,
-      "y": 65,
+      "x": 1120,
+      "y": 1040,
       "count": 1
     },
     {
       "kind": "PoisonhornBug",
       "name_en": "PoisonhornBug",
-      "x": 62,
-      "y": 70,
+      "x": 992,
+      "y": 1120,
       "count": 1
     },
     {
       "kind": "PoisonhornBug",
       "name_en": "PoisonhornBug",
-      "x": 58,
-      "y": 68,
+      "x": 928,
+      "y": 1088,
       "count": 1
     },
     {
       "kind": "GreatCrab",
       "name_en": "GreatCrab",
-      "x": 76,
-      "y": 70,
+      "x": 1216,
+      "y": 1120,
       "count": 1
     },
     {
       "kind": "LesserCrab",
       "name_en": "LesserCrab",
-      "x": 78,
-      "y": 68,
+      "x": 1248,
+      "y": 1088,
       "count": 1
     },
     {
       "kind": "LesserCrab",
       "name_en": "LesserCrab",
-      "x": 80,
-      "y": 72,
+      "x": 1280,
+      "y": 1152,
       "count": 1
     },
     {
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
-      "x": 108,
-      "y": 85,
+      "x": 1728,
+      "y": 1360,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 118,
-      "y": 88,
+      "x": 1888,
+      "y": 1408,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 122,
-      "y": 92,
+      "x": 1952,
+      "y": 1472,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 125,
-      "y": 96,
+      "x": 2000,
+      "y": 1536,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 112,
-      "y": 82,
+      "x": 1792,
+      "y": 1312,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 128,
-      "y": 85,
+      "x": 2048,
+      "y": 1360,
       "count": 1
     },
     {
       "kind": "DarkMage",
       "name_en": "DarkMage",
-      "x": 125,
-      "y": 115,
+      "x": 2000,
+      "y": 1840,
       "count": 1
     },
     {
       "kind": "DarkMage",
       "name_en": "DarkMage",
-      "x": 135,
-      "y": 118,
+      "x": 2160,
+      "y": 1888,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 68,
-      "y": 80,
+      "x": 1088,
+      "y": 1280,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 72,
-      "y": 85,
+      "x": 1152,
+      "y": 1360,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 64,
-      "y": 82,
+      "x": 1024,
+      "y": 1312,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 75,
-      "y": 84,
+      "x": 1200,
+      "y": 1344,
       "count": 1
     },
     {
       "kind": "Basilisk",
       "name_en": "Basilisk",
-      "x": 61,
-      "y": 87,
+      "x": 976,
+      "y": 1392,
       "count": 1
     },
     {
       "kind": "Basilisk",
       "name_en": "Basilisk",
-      "x": 53,
-      "y": 90,
+      "x": 848,
+      "y": 1440,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 62,
-      "y": 92,
+      "x": 992,
+      "y": 1472,
       "count": 1
     },
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
-      "x": 71,
-      "y": 101,
+      "x": 1136,
+      "y": 1616,
       "count": 1
     },
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
-      "x": 110,
-      "y": 95,
+      "x": 1760,
+      "y": 1520,
       "count": 1
     },
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
-      "x": 115,
-      "y": 100,
+      "x": 1840,
+      "y": 1600,
       "count": 1
     },
     {
       "kind": "Archer",
       "name_en": "Archer",
-      "x": 100,
-      "y": 78,
+      "x": 1600,
+      "y": 1248,
       "count": 1
     },
     {
       "kind": "Archer",
       "name_en": "Archer",
-      "x": 120,
-      "y": 82,
+      "x": 1920,
+      "y": 1312,
       "count": 1
     },
     {
       "kind": "DarkSpirit",
       "name_en": "DarkSpirit",
-      "x": 108,
-      "y": 100,
+      "x": 1728,
+      "y": 1600,
       "count": 1
     },
     {
       "kind": "DarkSpirit",
       "name_en": "DarkSpirit",
-      "x": 115,
-      "y": 105,
+      "x": 1840,
+      "y": 1680,
       "count": 1
     },
     {
       "kind": "MiniBoss",
       "name_en": "MiniBoss",
-      "x": 130,
-      "y": 112,
+      "x": 2080,
+      "y": 1792,
       "count": 1
     }
   ],

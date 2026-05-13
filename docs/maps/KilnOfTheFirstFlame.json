@@ -181,239 +181,239 @@
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 50,
-      "y": 140,
+      "x": 800,
+      "y": 2240,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 60,
-      "y": 138,
+      "x": 960,
+      "y": 2208,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 70,
-      "y": 142,
+      "x": 1120,
+      "y": 2272,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 80,
-      "y": 136,
+      "x": 1280,
+      "y": 2176,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 90,
-      "y": 140,
+      "x": 1440,
+      "y": 2240,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 100,
-      "y": 138,
+      "x": 1600,
+      "y": 2208,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 110,
-      "y": 142,
+      "x": 1760,
+      "y": 2272,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 55,
-      "y": 134,
+      "x": 880,
+      "y": 2144,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 65,
-      "y": 130,
+      "x": 1040,
+      "y": 2080,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 75,
-      "y": 132,
+      "x": 1200,
+      "y": 2112,
       "count": 1
     },
     {
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
-      "x": 40,
-      "y": 120,
+      "x": 640,
+      "y": 1920,
       "count": 1
     },
     {
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
-      "x": 60,
-      "y": 118,
+      "x": 960,
+      "y": 1888,
       "count": 1
     },
     {
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
-      "x": 80,
-      "y": 122,
+      "x": 1280,
+      "y": 1952,
       "count": 1
     },
     {
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
-      "x": 100,
-      "y": 116,
+      "x": 1600,
+      "y": 1856,
       "count": 1
     },
     {
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
-      "x": 120,
-      "y": 120,
+      "x": 1920,
+      "y": 1920,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 50,
-      "y": 80,
+      "x": 800,
+      "y": 1280,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 60,
-      "y": 84,
+      "x": 960,
+      "y": 1344,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 70,
-      "y": 78,
+      "x": 1120,
+      "y": 1248,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 80,
-      "y": 82,
+      "x": 1280,
+      "y": 1312,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 90,
-      "y": 86,
+      "x": 1440,
+      "y": 1376,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 100,
-      "y": 80,
+      "x": 1600,
+      "y": 1280,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 110,
-      "y": 84,
+      "x": 1760,
+      "y": 1344,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 72,
-      "y": 20,
+      "x": 1152,
+      "y": 320,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 66,
-      "y": 26,
+      "x": 1056,
+      "y": 416,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 73,
-      "y": 37,
+      "x": 1168,
+      "y": 592,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 74,
-      "y": 50,
+      "x": 1184,
+      "y": 800,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 62,
-      "y": 68,
+      "x": 992,
+      "y": 1088,
       "count": 1
     },
     {
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
-      "x": 113,
-      "y": 20,
+      "x": 1808,
+      "y": 320,
       "count": 1
     },
     {
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
-      "x": 105,
-      "y": 26,
+      "x": 1680,
+      "y": 416,
       "count": 1
     },
     {
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
-      "x": 93,
-      "y": 38,
+      "x": 1488,
+      "y": 608,
       "count": 1
     },
     {
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
-      "x": 87,
-      "y": 44,
+      "x": 1392,
+      "y": 704,
       "count": 1
     },
     {
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
-      "x": 105,
-      "y": 50,
+      "x": 1680,
+      "y": 800,
       "count": 1
     },
     {
       "kind": "MiniBoss",
       "name_en": "MiniBoss",
-      "x": 80,
-      "y": 26,
+      "x": 1280,
+      "y": 416,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
-      "x": 120,
-      "y": 90,
+      "x": 1920,
+      "y": 1440,
       "count": 1
     }
   ],

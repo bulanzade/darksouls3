@@ -1052,449 +1052,449 @@
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 18,
-      "y": 28,
+      "x": 288,
+      "y": 448,
       "count": 1
     },
     {
       "kind": "DarkMage",
       "name_en": "DarkMage",
-      "x": 22,
-      "y": 30,
+      "x": 352,
+      "y": 480,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 14,
-      "y": 34,
+      "x": 224,
+      "y": 544,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 20,
-      "y": 40,
+      "x": 320,
+      "y": 640,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 35,
-      "y": 32,
+      "x": 560,
+      "y": 512,
       "count": 1
     },
     {
       "kind": "HollowAssassin",
       "name_en": "HollowAssassin",
-      "x": 32,
-      "y": 38,
+      "x": 512,
+      "y": 608,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 28,
-      "y": 36,
+      "x": 448,
+      "y": 576,
       "count": 1
     },
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
-      "x": 30,
-      "y": 30,
+      "x": 480,
+      "y": 480,
       "count": 1
     },
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
-      "x": 38,
-      "y": 36,
+      "x": 608,
+      "y": 576,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 40,
-      "y": 40,
+      "x": 640,
+      "y": 640,
       "count": 1
     },
     {
       "kind": "HollowAssassin",
       "name_en": "HollowAssassin",
-      "x": 44,
-      "y": 44,
+      "x": 704,
+      "y": 704,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 55,
-      "y": 38,
+      "x": 880,
+      "y": 608,
       "count": 1
     },
     {
       "kind": "WingedKnight",
       "name_en": "WingedKnight",
-      "x": 50,
-      "y": 38,
+      "x": 800,
+      "y": 608,
       "count": 1
     },
     {
       "kind": "DarkMage",
       "name_en": "DarkMage",
-      "x": 48,
-      "y": 42,
+      "x": 768,
+      "y": 672,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 58,
-      "y": 44,
+      "x": 928,
+      "y": 704,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 62,
-      "y": 34,
+      "x": 992,
+      "y": 544,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 68,
-      "y": 18,
+      "x": 1088,
+      "y": 288,
       "count": 1
     },
     {
       "kind": "PusOfMan",
       "name_en": "PusOfMan",
-      "x": 78,
-      "y": 18,
+      "x": 1248,
+      "y": 288,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 75,
-      "y": 22,
+      "x": 1200,
+      "y": 352,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
-      "x": 82,
-      "y": 22,
+      "x": 1312,
+      "y": 352,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 85,
-      "y": 28,
+      "x": 1360,
+      "y": 448,
       "count": 1
     },
     {
       "kind": "PusOfMan",
       "name_en": "PusOfMan",
-      "x": 95,
-      "y": 32,
+      "x": 1520,
+      "y": 512,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 70,
-      "y": 25,
+      "x": 1120,
+      "y": 400,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 92,
-      "y": 28,
+      "x": 1472,
+      "y": 448,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 88,
-      "y": 34,
+      "x": 1408,
+      "y": 544,
       "count": 1
     },
     {
       "kind": "BorealOutriderKnight",
       "name_en": "BorealOutriderKnight",
-      "x": 45,
-      "y": 55,
+      "x": 720,
+      "y": 880,
       "count": 1
     },
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
-      "x": 48,
-      "y": 60,
+      "x": 768,
+      "y": 960,
       "count": 1
     },
     {
       "kind": "WingedKnight",
       "name_en": "WingedKnight",
-      "x": 108,
-      "y": 48,
+      "x": 1728,
+      "y": 768,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
-      "x": 115,
-      "y": 45,
+      "x": 1840,
+      "y": 720,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 112,
-      "y": 52,
+      "x": 1792,
+      "y": 832,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 100,
-      "y": 42,
+      "x": 1600,
+      "y": 672,
       "count": 1
     },
     {
       "kind": "HollowAssassin",
       "name_en": "HollowAssassin",
-      "x": 105,
-      "y": 54,
+      "x": 1680,
+      "y": 864,
       "count": 1
     },
     {
       "kind": "HollowAssassin",
       "name_en": "HollowAssassin",
-      "x": 118,
-      "y": 50,
+      "x": 1888,
+      "y": 800,
       "count": 1
     },
     {
       "kind": "PusOfMan",
       "name_en": "PusOfMan",
-      "x": 125,
-      "y": 55,
+      "x": 2000,
+      "y": 880,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 132,
-      "y": 58,
+      "x": 2112,
+      "y": 928,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 128,
-      "y": 62,
+      "x": 2048,
+      "y": 992,
       "count": 1
     },
     {
       "kind": "HollowAssassin",
       "name_en": "HollowAssassin",
-      "x": 135,
-      "y": 55,
+      "x": 2160,
+      "y": 880,
       "count": 1
     },
     {
       "kind": "WingedKnight",
       "name_en": "WingedKnight",
-      "x": 140,
-      "y": 60,
+      "x": 2240,
+      "y": 960,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 138,
-      "y": 68,
+      "x": 2208,
+      "y": 1088,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 142,
-      "y": 72,
+      "x": 2272,
+      "y": 1152,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 22,
-      "y": 32,
+      "x": 352,
+      "y": 512,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 42,
-      "y": 38,
+      "x": 672,
+      "y": 608,
       "count": 1
     },
     {
       "kind": "Dog",
       "name_en": "Dog",
-      "x": 32,
-      "y": 34,
+      "x": 512,
+      "y": 544,
       "count": 1
     },
     {
       "kind": "Dog",
       "name_en": "Dog",
-      "x": 46,
-      "y": 42,
+      "x": 736,
+      "y": 672,
       "count": 1
     },
     {
       "kind": "Dog",
       "name_en": "Dog",
-      "x": 52,
-      "y": 48,
+      "x": 832,
+      "y": 768,
       "count": 1
     },
     {
       "kind": "Dog",
       "name_en": "Dog",
-      "x": 65,
-      "y": 30,
+      "x": 1040,
+      "y": 480,
       "count": 1
     },
     {
       "kind": "Dog",
       "name_en": "Dog",
-      "x": 72,
-      "y": 25,
+      "x": 1152,
+      "y": 400,
       "count": 1
     },
     {
       "kind": "Dog",
       "name_en": "Dog",
-      "x": 98,
-      "y": 38,
+      "x": 1568,
+      "y": 608,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 75,
-      "y": 30,
+      "x": 1200,
+      "y": 480,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 82,
-      "y": 26,
+      "x": 1312,
+      "y": 416,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 95,
-      "y": 36,
+      "x": 1520,
+      "y": 576,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 108,
-      "y": 44,
+      "x": 1728,
+      "y": 704,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 60,
-      "y": 36,
+      "x": 960,
+      "y": 576,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 85,
-      "y": 32,
+      "x": 1360,
+      "y": 512,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 128,
-      "y": 60,
+      "x": 2048,
+      "y": 960,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 136,
-      "y": 68,
+      "x": 2176,
+      "y": 1088,
       "count": 1
     },
     {
       "kind": "DarkMage",
       "name_en": "DarkMage",
-      "x": 122,
-      "y": 60,
+      "x": 1952,
+      "y": 960,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 130,
-      "y": 82,
+      "x": 2080,
+      "y": 1312,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 138,
-      "y": 86,
+      "x": 2208,
+      "y": 1376,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 142,
-      "y": 90,
+      "x": 2272,
+      "y": 1440,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 118,
-      "y": 85,
+      "x": 1888,
+      "y": 1360,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 125,
-      "y": 88,
+      "x": 2000,
+      "y": 1408,
       "count": 1
     },
     {
       "kind": "DarkMage",
       "name_en": "DarkMage",
-      "x": 135,
-      "y": 92,
+      "x": 2160,
+      "y": 1472,
       "count": 1
     },
     {
       "kind": "MiniBoss",
       "name_en": "MiniBoss",
-      "x": 132,
-      "y": 62,
+      "x": 2112,
+      "y": 992,
       "count": 1
     }
   ],

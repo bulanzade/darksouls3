@@ -233,505 +233,505 @@
     {
       "kind": "SulyvahnsBeast",
       "name_en": "SulyvahnsBeast",
-      "x": 12,
-      "y": 38,
+      "x": 192,
+      "y": 608,
       "count": 1
     },
     {
       "kind": "BorealKnight",
       "name_en": "BorealKnight",
-      "x": 18,
-      "y": 42,
+      "x": 288,
+      "y": 672,
       "count": 1
     },
     {
       "kind": "BorealKnight",
       "name_en": "BorealKnight",
-      "x": 38,
-      "y": 50,
+      "x": 608,
+      "y": 800,
       "count": 1
     },
     {
       "kind": "BorealKnight",
       "name_en": "BorealKnight",
-      "x": 55,
-      "y": 55,
+      "x": 880,
+      "y": 880,
       "count": 1
     },
     {
       "kind": "BorealKnight",
       "name_en": "BorealKnight",
-      "x": 75,
-      "y": 60,
+      "x": 1200,
+      "y": 960,
       "count": 1
     },
     {
       "kind": "BorealKnight",
       "name_en": "BorealKnight",
-      "x": 90,
-      "y": 58,
+      "x": 1440,
+      "y": 928,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 42,
-      "y": 48,
+      "x": 672,
+      "y": 768,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 60,
-      "y": 52,
+      "x": 960,
+      "y": 832,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 78,
-      "y": 56,
+      "x": 1248,
+      "y": 896,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 36,
-      "y": 44,
+      "x": 576,
+      "y": 704,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 46,
-      "y": 46,
+      "x": 736,
+      "y": 736,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 52,
-      "y": 50,
+      "x": 832,
+      "y": 800,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 56,
-      "y": 48,
+      "x": 896,
+      "y": 768,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 62,
-      "y": 56,
+      "x": 992,
+      "y": 896,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 82,
-      "y": 52,
+      "x": 1312,
+      "y": 832,
       "count": 1
     },
     {
       "kind": "DarkMage",
       "name_en": "DarkMage",
-      "x": 42,
-      "y": 52,
+      "x": 672,
+      "y": 832,
       "count": 1
     },
     {
       "kind": "DarkMage",
       "name_en": "DarkMage",
-      "x": 95,
-      "y": 62,
+      "x": 1520,
+      "y": 992,
       "count": 1
     },
     {
       "kind": "DarkMage",
       "name_en": "DarkMage",
-      "x": 68,
-      "y": 58,
+      "x": 1088,
+      "y": 928,
       "count": 1
     },
     {
       "kind": "Dog",
       "name_en": "Dog",
-      "x": 50,
-      "y": 48,
+      "x": 800,
+      "y": 768,
       "count": 1
     },
     {
       "kind": "Dog",
       "name_en": "Dog",
-      "x": 80,
-      "y": 55,
+      "x": 1280,
+      "y": 880,
       "count": 1
     },
     {
       "kind": "Dog",
       "name_en": "Dog",
-      "x": 65,
-      "y": 54,
+      "x": 1040,
+      "y": 864,
       "count": 1
     },
     {
       "kind": "Dog",
       "name_en": "Dog",
-      "x": 48,
-      "y": 60,
+      "x": 768,
+      "y": 960,
       "count": 1
     },
     {
       "kind": "Dog",
       "name_en": "Dog",
-      "x": 52,
-      "y": 62,
+      "x": 832,
+      "y": 992,
       "count": 1
     },
     {
       "kind": "Dog",
       "name_en": "Dog",
-      "x": 76,
-      "y": 58,
+      "x": 1216,
+      "y": 928,
       "count": 1
     },
     {
       "kind": "Dog",
       "name_en": "Dog",
-      "x": 38,
-      "y": 65,
+      "x": 608,
+      "y": 1040,
       "count": 1
     },
     {
       "kind": "Dog",
       "name_en": "Dog",
-      "x": 42,
-      "y": 68,
+      "x": 672,
+      "y": 1088,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
-      "x": 65,
-      "y": 42,
+      "x": 1040,
+      "y": 672,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
-      "x": 128,
-      "y": 75,
+      "x": 2048,
+      "y": 1200,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
-      "x": 135,
-      "y": 80,
+      "x": 2160,
+      "y": 1280,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
-      "x": 140,
-      "y": 72,
+      "x": 2240,
+      "y": 1152,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 28,
-      "y": 70,
+      "x": 448,
+      "y": 1120,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 35,
-      "y": 75,
+      "x": 560,
+      "y": 1200,
       "count": 1
     },
     {
       "kind": "BorealKnight",
       "name_en": "BorealKnight",
-      "x": 32,
-      "y": 72,
+      "x": 512,
+      "y": 1152,
       "count": 1
     },
     {
       "kind": "BorealKnight",
       "name_en": "BorealKnight",
-      "x": 40,
-      "y": 82,
+      "x": 640,
+      "y": 1312,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 22,
-      "y": 68,
+      "x": 352,
+      "y": 1088,
       "count": 1
     },
     {
       "kind": "BorealKnight",
       "name_en": "BorealKnight",
-      "x": 70,
-      "y": 45,
+      "x": 1120,
+      "y": 720,
       "count": 1
     },
     {
       "kind": "BorealKnight",
       "name_en": "BorealKnight",
-      "x": 72,
-      "y": 42,
+      "x": 1152,
+      "y": 672,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 64,
-      "y": 44,
+      "x": 1024,
+      "y": 704,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 45,
-      "y": 55,
+      "x": 720,
+      "y": 880,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 48,
-      "y": 54,
+      "x": 768,
+      "y": 864,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 58,
-      "y": 60,
+      "x": 928,
+      "y": 960,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 50,
-      "y": 58,
+      "x": 800,
+      "y": 928,
       "count": 1
     },
     {
       "kind": "IrithyllianSlave",
       "name_en": "IrithyllianSlave",
-      "x": 56,
-      "y": 60,
+      "x": 896,
+      "y": 960,
       "count": 1
     },
     {
       "kind": "SewerCentipede",
       "name_en": "SewerCentipede",
-      "x": 68,
-      "y": 80,
+      "x": 1088,
+      "y": 1280,
       "count": 1
     },
     {
       "kind": "SewerCentipede",
       "name_en": "SewerCentipede",
-      "x": 78,
-      "y": 85,
+      "x": 1248,
+      "y": 1360,
       "count": 1
     },
     {
       "kind": "SewerCentipede",
       "name_en": "SewerCentipede",
-      "x": 88,
-      "y": 90,
+      "x": 1408,
+      "y": 1440,
       "count": 1
     },
     {
       "kind": "SewerCentipede",
       "name_en": "SewerCentipede",
-      "x": 72,
-      "y": 88,
+      "x": 1152,
+      "y": 1408,
       "count": 1
     },
     {
       "kind": "SewerCentipede",
       "name_en": "SewerCentipede",
-      "x": 82,
-      "y": 82,
+      "x": 1312,
+      "y": 1312,
       "count": 1
     },
     {
       "kind": "SulyvahnsBeast",
       "name_en": "SulyvahnsBeast",
-      "x": 72,
-      "y": 90,
+      "x": 1152,
+      "y": 1440,
       "count": 1
     },
     {
       "kind": "SulyvahnsBeast",
       "name_en": "SulyvahnsBeast",
-      "x": 78,
-      "y": 94,
+      "x": 1248,
+      "y": 1504,
       "count": 1
     },
     {
       "kind": "SilverKnight",
       "name_en": "SilverKnight",
-      "x": 30,
-      "y": 100,
+      "x": 480,
+      "y": 1600,
       "count": 1
     },
     {
       "kind": "SilverKnight",
       "name_en": "SilverKnight",
-      "x": 42,
-      "y": 110,
+      "x": 672,
+      "y": 1760,
       "count": 1
     },
     {
       "kind": "SilverKnight",
       "name_en": "SilverKnight",
-      "x": 48,
-      "y": 118,
+      "x": 768,
+      "y": 1888,
       "count": 1
     },
     {
       "kind": "SilverKnight",
       "name_en": "SilverKnight",
-      "x": 36,
-      "y": 108,
+      "x": 576,
+      "y": 1728,
       "count": 1
     },
     {
       "kind": "SilverKnight",
       "name_en": "SilverKnight",
-      "x": 44,
-      "y": 105,
+      "x": 704,
+      "y": 1680,
       "count": 1
     },
     {
       "kind": "SilverKnight",
       "name_en": "SilverKnight",
-      "x": 32,
-      "y": 104,
+      "x": 512,
+      "y": 1664,
       "count": 1
     },
     {
       "kind": "SilverKnight",
       "name_en": "SilverKnight",
-      "x": 138,
-      "y": 64,
+      "x": 2208,
+      "y": 1024,
       "count": 1
     },
     {
       "kind": "SilverKnight",
       "name_en": "SilverKnight",
-      "x": 146,
-      "y": 64,
+      "x": 2336,
+      "y": 1024,
       "count": 1
     },
     {
       "kind": "GiantSlave",
       "name_en": "GiantSlave",
-      "x": 126,
-      "y": 78,
+      "x": 2016,
+      "y": 1248,
       "count": 1
     },
     {
       "kind": "GiantSlave",
       "name_en": "GiantSlave",
-      "x": 134,
-      "y": 82,
+      "x": 2144,
+      "y": 1312,
       "count": 1
     },
     {
       "kind": "BorealKnight",
       "name_en": "BorealKnight",
-      "x": 105,
-      "y": 65,
+      "x": 1680,
+      "y": 1040,
       "count": 1
     },
     {
       "kind": "DarkMage",
       "name_en": "DarkMage",
-      "x": 110,
-      "y": 70,
+      "x": 1760,
+      "y": 1120,
       "count": 1
     },
     {
       "kind": "BorealKnight",
       "name_en": "BorealKnight",
-      "x": 100,
-      "y": 62,
+      "x": 1600,
+      "y": 992,
       "count": 1
     },
     {
       "kind": "BorealKnight",
       "name_en": "BorealKnight",
-      "x": 108,
-      "y": 68,
+      "x": 1728,
+      "y": 1088,
       "count": 1
     },
     {
       "kind": "SilverKnight",
       "name_en": "SilverKnight",
-      "x": 140,
-      "y": 50,
+      "x": 2240,
+      "y": 800,
       "count": 1
     },
     {
       "kind": "SilverKnight",
       "name_en": "SilverKnight",
-      "x": 142,
-      "y": 48,
+      "x": 2272,
+      "y": 768,
       "count": 1
     },
     {
       "kind": "SilverKnight",
       "name_en": "SilverKnight",
-      "x": 144,
-      "y": 52,
+      "x": 2304,
+      "y": 832,
       "count": 1
     },
     {
       "kind": "SilverKnight",
       "name_en": "SilverKnight",
-      "x": 146,
-      "y": 54,
+      "x": 2336,
+      "y": 864,
       "count": 1
     },
     {
       "kind": "SilverKnight",
       "name_en": "SilverKnight",
-      "x": 148,
-      "y": 56,
+      "x": 2368,
+      "y": 896,
       "count": 1
     },
     {
       "kind": "BorealKnight",
       "name_en": "BorealKnight",
-      "x": 132,
-      "y": 88,
+      "x": 2112,
+      "y": 1408,
       "count": 1
     },
     {
       "kind": "Mimic",
       "name_en": "Mimic",
-      "x": 58,
-      "y": 56,
+      "x": 928,
+      "y": 896,
       "count": 1
     },
     {
       "kind": "MiniBoss",
       "name_en": "MiniBoss",
-      "x": 120,
-      "y": 76,
+      "x": 1920,
+      "y": 1216,
       "count": 1
     }
   ],

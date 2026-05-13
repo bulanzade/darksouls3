@@ -128,15 +128,15 @@
     {
       "kind": "SwordMaster",
       "name_en": "Sword Master",
-      "x": 68,
-      "y": 136,
+      "x": 1088,
+      "y": 2176,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
-      "x": 122,
-      "y": 62,
+      "x": 1952,
+      "y": 992,
       "count": 1
     }
   ],
