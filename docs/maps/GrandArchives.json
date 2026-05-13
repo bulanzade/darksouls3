@@ -404,13 +404,6 @@
       "count": 1
     },
     {
-      "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 2768,
-      "y": 3088,
-      "count": 1
-    },
-    {
       "kind": "HollowSlave",
       "name_en": "HollowSlave",
       "x": 2704,
@@ -600,34 +593,6 @@
       "count": 1
     },
     {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 3152,
-      "y": 432,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2768,
-      "y": 784,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2960,
-      "y": 656,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2704,
-      "y": 656,
-      "count": 1
-    },
-    {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
       "x": 3232,
@@ -639,90 +604,6 @@
       "name_en": "LothricKnight",
       "x": 2736,
       "y": 912,
-      "count": 1
-    },
-    {
-      "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 2976,
-      "y": 1680,
-      "count": 1
-    },
-    {
-      "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 2928,
-      "y": 1728,
-      "count": 1
-    },
-    {
-      "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 2148,
-      "y": 1920,
-      "count": 1
-    },
-    {
-      "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 2272,
-      "y": 2096,
-      "count": 1
-    },
-    {
-      "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 2148,
-      "y": 1840,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2148,
-      "y": 1680,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2704,
-      "y": 1776,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2148,
-      "y": 2000,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2148,
-      "y": 1760,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2148,
-      "y": 2080,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "LothricKnight",
-      "x": 2416,
-      "y": 2048,
-      "count": 1
-    },
-    {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 2320,
-      "y": 1888,
       "count": 1
     }
   ],

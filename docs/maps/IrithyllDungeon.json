@@ -211,13 +211,6 @@
       "count": 1
     },
     {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 928,
-      "y": 672,
-      "count": 1
-    },
-    {
       "kind": "Wretch",
       "name_en": "Wretch",
       "x": 416,
@@ -246,122 +239,10 @@
       "count": 1
     },
     {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 880,
-      "y": 880,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 960,
-      "y": 892,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 1088,
-      "y": 832,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 768,
-      "y": 928,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 992,
-      "y": 1040,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 1120,
-      "y": 928,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 1028,
-      "y": 1120,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 1040,
-      "y": 1088,
-      "count": 1
-    },
-    {
       "kind": "Wretch",
       "name_en": "Wretch",
       "x": 800,
       "y": 800,
-      "count": 1
-    },
-    {
-      "kind": "Wretch",
-      "name_en": "Wretch",
-      "x": 992,
-      "y": 880,
-      "count": 1
-    },
-    {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 832,
-      "y": 832,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 1408,
-      "y": 880,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 1520,
-      "y": 992,
-      "count": 1
-    },
-    {
-      "kind": "Wretch",
-      "name_en": "Wretch",
-      "x": 1248,
-      "y": 960,
-      "count": 1
-    },
-    {
-      "kind": "Wretch",
-      "name_en": "Wretch",
-      "x": 1312,
-      "y": 1040,
-      "count": 1
-    },
-    {
-      "kind": "Wretch",
-      "name_en": "Wretch",
-      "x": 1360,
-      "y": 992,
-      "count": 1
-    },
-    {
-      "kind": "Wretch",
-      "name_en": "Wretch",
-      "x": 1472,
-      "y": 928,
       "count": 1
     },
     {
@@ -442,48 +323,6 @@
       "count": 1
     },
     {
-      "kind": "Basilisk",
-      "name_en": "Basilisk",
-      "x": 1028,
-      "y": 1312,
-      "count": 1
-    },
-    {
-      "kind": "Basilisk",
-      "name_en": "Basilisk",
-      "x": 1312,
-      "y": 1264,
-      "count": 1
-    },
-    {
-      "kind": "Wretch",
-      "name_en": "Wretch",
-      "x": 608,
-      "y": 892,
-      "count": 1
-    },
-    {
-      "kind": "Wretch",
-      "name_en": "Wretch",
-      "x": 1028,
-      "y": 1376,
-      "count": 1
-    },
-    {
-      "kind": "Wretch",
-      "name_en": "Wretch",
-      "x": 1028,
-      "y": 1200,
-      "count": 1
-    },
-    {
-      "kind": "Wretch",
-      "name_en": "Wretch",
-      "x": 1168,
-      "y": 1344,
-      "count": 1
-    },
-    {
       "kind": "CageSpider",
       "name_en": "CageSpider",
       "x": 1616,
@@ -491,80 +330,10 @@
       "count": 1
     },
     {
-      "kind": "Wretch",
-      "name_en": "Wretch",
-      "x": 672,
-      "y": 892,
-      "count": 1
-    },
-    {
       "kind": "Rat",
       "name_en": "Rat",
       "x": 656,
       "y": 848,
-      "count": 1
-    },
-    {
-      "kind": "Rat",
-      "name_en": "Rat",
-      "x": 1440,
-      "y": 960,
-      "count": 1
-    },
-    {
-      "kind": "Wretch",
-      "name_en": "Wretch",
-      "x": 1520,
-      "y": 768,
-      "count": 1
-    },
-    {
-      "kind": "Wretch",
-      "name_en": "Wretch",
-      "x": 2000,
-      "y": 480,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 1360,
-      "y": 1360,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 1520,
-      "y": 1440,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 1312,
-      "y": 1440,
-      "count": 1
-    },
-    {
-      "kind": "Wretch",
-      "name_en": "Wretch",
-      "x": 1408,
-      "y": 1408,
-      "count": 1
-    },
-    {
-      "kind": "Wretch",
-      "name_en": "Wretch",
-      "x": 1472,
-      "y": 1312,
-      "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "MiniBoss",
-      "x": 1248,
-      "y": 1312,
       "count": 1
     },
     {
@@ -579,13 +348,6 @@
       "name_en": "Mimic",
       "x": 1120,
       "y": 864,
-      "count": 1
-    },
-    {
-      "kind": "Mimic",
-      "name_en": "Mimic",
-      "x": 992,
-      "y": 1088,
       "count": 1
     }
   ],

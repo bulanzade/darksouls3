@@ -267,13 +267,6 @@
       "count": 1
     },
     {
-      "kind": "PeasantHollow",
-      "name_en": "PeasantHollow",
-      "x": 448,
-      "y": 640,
-      "count": 1
-    },
-    {
       "kind": "Thrall",
       "name_en": "Thrall",
       "x": 960,
@@ -299,13 +292,6 @@
       "name_en": "Thrall",
       "x": 992,
       "y": 1088,
-      "count": 1
-    },
-    {
-      "kind": "PeasantHollow",
-      "name_en": "PeasantHollow",
-      "x": 928,
-      "y": 1024,
       "count": 1
     },
     {
@@ -344,13 +330,6 @@
       "count": 1
     },
     {
-      "kind": "Evangelist",
-      "name_en": "Evangelist",
-      "x": 672,
-      "y": 1112,
-      "count": 1
-    },
-    {
       "kind": "Thrall",
       "name_en": "Thrall",
       "x": 768,
@@ -379,34 +358,6 @@
       "count": 1
     },
     {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 864,
-      "y": 1112,
-      "count": 1
-    },
-    {
-      "kind": "Evangelist",
-      "name_en": "Evangelist",
-      "x": 1056,
-      "y": 1024,
-      "count": 1
-    },
-    {
-      "kind": "Evangelist",
-      "name_en": "Evangelist",
-      "x": 1152,
-      "y": 1088,
-      "count": 1
-    },
-    {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
-      "x": 1120,
-      "y": 992,
-      "count": 1
-    },
-    {
       "kind": "InfestedCorpse",
       "name_en": "InfestedCorpse",
       "x": 1216,
@@ -428,27 +379,6 @@
       "count": 1
     },
     {
-      "kind": "InfestedCorpse",
-      "name_en": "InfestedCorpse",
-      "x": 704,
-      "y": 1112,
-      "count": 1
-    },
-    {
-      "kind": "InfestedCorpse",
-      "name_en": "InfestedCorpse",
-      "x": 608,
-      "y": 1112,
-      "count": 1
-    },
-    {
-      "kind": "InfestedCorpse",
-      "name_en": "InfestedCorpse",
-      "x": 800,
-      "y": 560,
-      "count": 1
-    },
-    {
       "kind": "GiantSlave",
       "name_en": "GiantSlave",
       "x": 768,
@@ -460,55 +390,6 @@
       "name_en": "GiantSlave",
       "x": 1312,
       "y": 1568,
-      "count": 1
-    },
-    {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
-      "x": 1024,
-      "y": 736,
-      "count": 1
-    },
-    {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
-      "x": 1232,
-      "y": 512,
-      "count": 1
-    },
-    {
-      "kind": "Evangelist",
-      "name_en": "Evangelist",
-      "x": 640,
-      "y": 1112,
-      "count": 1
-    },
-    {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 736,
-      "y": 1112,
-      "count": 1
-    },
-    {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 1312,
-      "y": 1632,
-      "count": 1
-    },
-    {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 1152,
-      "y": 944,
-      "count": 1
-    },
-    {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 960,
-      "y": 592,
       "count": 1
     },
     {
@@ -582,38 +463,10 @@
       "count": 1
     },
     {
-      "kind": "Deacon",
-      "name_en": "Deacon",
-      "x": 1520,
-      "y": 2144,
-      "count": 1
-    },
-    {
-      "kind": "Deacon",
-      "name_en": "Deacon",
-      "x": 1472,
-      "y": 2160,
-      "count": 1
-    },
-    {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
-      "x": 1312,
-      "y": 1760,
-      "count": 1
-    },
-    {
       "kind": "CathedralGraveWarden",
       "name_en": "CathedralGraveWarden",
       "x": 1312,
       "y": 1696,
-      "count": 1
-    },
-    {
-      "kind": "CathedralGraveWarden",
-      "name_en": "CathedralGraveWarden",
-      "x": 1312,
-      "y": 1728,
       "count": 1
     },
     {
@@ -649,27 +502,6 @@
       "name_en": "ManGrub",
       "x": 1232,
       "y": 2304,
-      "count": 1
-    },
-    {
-      "kind": "Darkwraith",
-      "name_en": "Darkwraith",
-      "x": 1024,
-      "y": 1120,
-      "count": 1
-    },
-    {
-      "kind": "InfestedCorpse",
-      "name_en": "InfestedCorpse",
-      "x": 480,
-      "y": 1112,
-      "count": 1
-    },
-    {
-      "kind": "InfestedCorpse",
-      "name_en": "InfestedCorpse",
-      "x": 448,
-      "y": 1112,
       "count": 1
     },
     {

@@ -177,125 +177,6 @@
       "count": 1
     },
     {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 1040,
-      "y": 800,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 468,
-      "y": 512,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 560,
-      "y": 640,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 992,
-      "y": 928,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 1088,
-      "y": 992,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 1152,
-      "y": 880,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 672,
-      "y": 768,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 880,
-      "y": 832,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 768,
-      "y": 880,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 928,
-      "y": 928,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 1040,
-      "y": 960,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 1120,
-      "y": 928,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 1152,
-      "y": 992,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 1088,
-      "y": 1040,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 1520,
-      "y": 992,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 1568,
-      "y": 1040,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 1600,
-      "y": 960,
-      "count": 1
-    },
-    {
       "kind": "Basilisk",
       "name_en": "Basilisk",
       "x": 832,
@@ -314,55 +195,6 @@
       "name_en": "Basilisk",
       "x": 1088,
       "y": 1152,
-      "count": 1
-    },
-    {
-      "kind": "GreatCrab",
-      "name_en": "GreatCrab",
-      "x": 608,
-      "y": 720,
-      "count": 1
-    },
-    {
-      "kind": "FireDemon",
-      "name_en": "FireDemon",
-      "x": 928,
-      "y": 880,
-      "count": 1
-    },
-    {
-      "kind": "FireDemon",
-      "name_en": "FireDemon",
-      "x": 1520,
-      "y": 1120,
-      "count": 1
-    },
-    {
-      "kind": "FireDemon",
-      "name_en": "FireDemon",
-      "x": 1600,
-      "y": 1200,
-      "count": 1
-    },
-    {
-      "kind": "FireDemon",
-      "name_en": "FireDemon",
-      "x": 1888,
-      "y": 1408,
-      "count": 1
-    },
-    {
-      "kind": "BlackKnight",
-      "name_en": "BlackKnight",
-      "x": 1248,
-      "y": 928,
-      "count": 1
-    },
-    {
-      "kind": "BlackKnight",
-      "name_en": "BlackKnight",
-      "x": 1728,
-      "y": 1088,
       "count": 1
     },
     {
@@ -415,13 +247,6 @@
       "count": 1
     },
     {
-      "kind": "MiniBoss",
-      "name_en": "MiniBoss",
-      "x": 448,
-      "y": 1472,
-      "count": 1
-    },
-    {
       "kind": "Rat",
       "name_en": "Rat",
       "x": 240,
@@ -457,13 +282,6 @@
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
-      "x": 1088,
-      "y": 1088,
-      "count": 1
-    },
-    {
       "kind": "CarthusSandworm",
       "name_en": "CarthusSandworm",
       "x": 720,
@@ -483,133 +301,6 @@
       "x": 1792,
       "y": 1248,
       "count": 1
-    },
-    {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 352,
-      "y": 1568,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 1792,
-      "y": 1312,
-      "count": 1
-    },
-    {
-      "kind": "FireDemon",
-      "name_en": "FireDemon",
-      "x": 2000,
-      "y": 1520,
-      "count": 1
-    },
-    {
-      "kind": "FireDemon",
-      "name_en": "FireDemon",
-      "x": 2160,
-      "y": 1632,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 1600,
-      "y": 1360,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 1840,
-      "y": 1600,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 2080,
-      "y": 1728,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 2240,
-      "y": 1568,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 2368,
-      "y": 1792,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 1920,
-      "y": 1920,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 1680,
-      "y": 1440,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 2000,
-      "y": 1408,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 2112,
-      "y": 1840,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 2272,
-      "y": 1680,
-      "count": 1
-    },
-    {
-      "kind": "Basilisk",
-      "name_en": "Basilisk",
-      "x": 1840,
-      "y": 1760,
-      "count": 1
-    },
-    {
-      "kind": "Basilisk",
-      "name_en": "Basilisk",
-      "x": 2080,
-      "y": 1888,
-      "count": 1
-    },
-    {
-      "kind": "BlackKnight",
-      "name_en": "BlackKnight",
-      "x": 2240,
-      "y": 1728,
-      "count": 1
-    },
-    {
-      "kind": "Skeleton",
-      "name_en": "Skeleton",
-      "x": 320,
-      "y": 1408,
-      "count": 1,
-      "note": "Horace the Hushed (hostile)"
     }
   ],
   "items": [

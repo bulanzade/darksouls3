@@ -257,59 +257,10 @@
       "count": 1
     },
     {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 708,
-      "y": 672,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 708,
-      "y": 704,
-      "count": 1
-    },
-    {
       "kind": "Gargoyle",
       "name_en": "Gargoyle",
       "x": 708,
       "y": 832,
-      "count": 1
-    },
-    {
-      "kind": "Gargoyle",
-      "name_en": "Gargoyle",
-      "x": 800,
-      "y": 960,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 708,
-      "y": 896,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 708,
-      "y": 768,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 1024,
-      "y": 688,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 708,
-      "y": 960,
       "count": 1
     },
     {
@@ -331,27 +282,6 @@
       "name_en": "SewerCentipede",
       "x": 1056,
       "y": 1088,
-      "count": 1
-    },
-    {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 896,
-      "y": 1088,
-      "count": 1
-    },
-    {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 992,
-      "y": 1024,
-      "count": 1
-    },
-    {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 896,
-      "y": 704,
       "count": 1
     },
     {
@@ -380,118 +310,6 @@
       "name_en": "MonstrosityOfSin",
       "x": 768,
       "y": 736,
-      "count": 1
-    },
-    {
-      "kind": "MonstrosityOfSin",
-      "name_en": "MonstrosityOfSin",
-      "x": 928,
-      "y": 1120,
-      "count": 1
-    },
-    {
-      "kind": "MonstrosityOfSin",
-      "name_en": "MonstrosityOfSin",
-      "x": 1024,
-      "y": 1132,
-      "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "MiniBoss",
-      "x": 768,
-      "y": 672,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 992,
-      "y": 768,
-      "count": 1
-    },
-    {
-      "kind": "SewerCentipede",
-      "name_en": "SewerCentipede",
-      "x": 1120,
-      "y": 960,
-      "count": 1
-    },
-    {
-      "kind": "SewerCentipede",
-      "name_en": "SewerCentipede",
-      "x": 1184,
-      "y": 1056,
-      "count": 1
-    },
-    {
-      "kind": "SewerCentipede",
-      "name_en": "SewerCentipede",
-      "x": 1280,
-      "y": 992,
-      "count": 1
-    },
-    {
-      "kind": "GiantSlave",
-      "name_en": "GiantSlave",
-      "x": 1216,
-      "y": 960,
-      "count": 1
-    },
-    {
-      "kind": "Gargoyle",
-      "name_en": "Gargoyle",
-      "x": 784,
-      "y": 832,
-      "count": 1
-    },
-    {
-      "kind": "Gargoyle",
-      "name_en": "Gargoyle",
-      "x": 1232,
-      "y": 880,
-      "count": 1
-    },
-    {
-      "kind": "SewerCentipede",
-      "name_en": "SewerCentipede",
-      "x": 848,
-      "y": 960,
-      "count": 1
-    },
-    {
-      "kind": "SewerCentipede",
-      "name_en": "SewerCentipede",
-      "x": 1088,
-      "y": 896,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 864,
-      "y": 1056,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 1264,
-      "y": 912,
-      "count": 1
-    },
-    {
-      "kind": "Gargoyle",
-      "name_en": "Gargoyle",
-      "x": 816,
-      "y": 752,
-      "count": 1
-    },
-    {
-      "kind": "SewerCentipede",
-      "name_en": "SewerCentipede",
-      "x": 976,
-      "y": 720,
       "count": 1
     }
   ],

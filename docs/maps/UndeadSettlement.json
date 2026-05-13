@@ -349,20 +349,6 @@
       "count": 1
     },
     {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 912,
-      "y": 544,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 1312,
-      "y": 800,
-      "count": 1
-    },
-    {
       "kind": "Evangelist",
       "name_en": "Evangelist",
       "x": 992,
@@ -381,13 +367,6 @@
       "name_en": "Evangelist",
       "x": 1216,
       "y": 960,
-      "count": 1
-    },
-    {
-      "kind": "Evangelist",
-      "name_en": "Evangelist",
-      "x": 1376,
-      "y": 864,
       "count": 1
     },
     {
@@ -454,13 +433,6 @@
       "count": 1
     },
     {
-      "kind": "FireDemon",
-      "name_en": "FireDemon",
-      "x": 1632,
-      "y": 992,
-      "count": 1
-    },
-    {
       "kind": "PeasantHollow",
       "name_en": "PeasantHollow",
       "x": 928,
@@ -503,13 +475,6 @@
       "count": 1
     },
     {
-      "kind": "Dog",
-      "name_en": "Dog",
-      "x": 1344,
-      "y": 1216,
-      "count": 1
-    },
-    {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
       "x": 1248,
@@ -524,31 +489,10 @@
       "count": 1
     },
     {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 1312,
-      "y": 1232,
-      "count": 1
-    },
-    {
-      "kind": "GiantSlave",
-      "name_en": "GiantSlave",
-      "x": 832,
-      "y": 352,
-      "count": 1
-    },
-    {
       "kind": "PeasantHollow",
       "name_en": "PeasantHollow",
       "x": 2336,
       "y": 832,
-      "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "Hodrick",
-      "x": 1024,
-      "y": 1056,
       "count": 1
     },
     {
@@ -566,13 +510,6 @@
       "count": 1
     },
     {
-      "kind": "PeasantHollow",
-      "name_en": "PeasantHollow",
-      "x": 2304,
-      "y": 768,
-      "count": 1
-    },
-    {
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
       "x": 1792,
@@ -580,143 +517,15 @@
       "count": 1
     },
     {
-      "kind": "PeasantHollow",
-      "name_en": "PeasantHollow",
-      "x": 576,
-      "y": 544,
+      "kind": "HollowAssassin",
+      "x": 2256,
+      "y": 752,
       "count": 1
     },
     {
-      "kind": "PeasantHollow",
-      "name_en": "PeasantHollow",
-      "x": 1152,
-      "y": 704,
-      "count": 1
-    },
-    {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 1408,
-      "y": 768,
-      "count": 1
-    },
-    {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 1472,
-      "y": 832,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 1216,
-      "y": 1024,
-      "count": 1
-    },
-    {
-      "kind": "PeasantHollow",
-      "name_en": "PeasantHollow",
-      "x": 1600,
-      "y": 1008,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 1664,
-      "y": 1056,
-      "count": 1
-    },
-    {
-      "kind": "PeasantHollow",
-      "name_en": "PeasantHollow",
-      "x": 1088,
-      "y": 768,
-      "count": 1
-    },
-    {
-      "kind": "PeasantHollow",
-      "name_en": "PeasantHollow",
-      "x": 1200,
-      "y": 1232,
-      "count": 1
-    },
-    {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 976,
-      "y": 1232,
-      "count": 1
-    },
-    {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 848,
-      "y": 1232,
-      "count": 1
-    },
-    {
-      "kind": "PeasantHollow",
-      "name_en": "PeasantHollow",
-      "x": 816,
-      "y": 912,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 1428,
-      "y": 1532,
-      "count": 1
-    },
-    {
-      "kind": "Rat",
-      "name_en": "Rat",
-      "x": 1428,
-      "y": 1488,
-      "count": 1
-    },
-    {
-      "kind": "Rat",
-      "name_en": "Rat",
-      "x": 1392,
-      "y": 1568,
-      "count": 1
-    },
-    {
-      "kind": "Rat",
-      "name_en": "Rat",
-      "x": 1504,
-      "y": 1532,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 1472,
-      "y": 1532,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 1568,
-      "y": 1280,
-      "count": 1
-    },
-    {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 1584,
-      "y": 1532,
-      "count": 1
-    },
-    {
-      "kind": "PeasantHollow",
-      "name_en": "PeasantHollow",
-      "x": 1600,
-      "y": 1456,
+      "kind": "HollowAssassin",
+      "x": 3104,
+      "y": 1120,
       "count": 1
     }
   ],

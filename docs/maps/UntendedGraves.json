@@ -329,27 +329,6 @@
   },
   "enemies": [
     {
-      "kind": "BlackKnight",
-      "name_en": "BlackKnight",
-      "x": 720,
-      "y": 560,
-      "count": 1
-    },
-    {
-      "kind": "BlackKnight",
-      "name_en": "BlackKnight",
-      "x": 992,
-      "y": 720,
-      "count": 1
-    },
-    {
-      "kind": "BlackKnight",
-      "name_en": "BlackKnight",
-      "x": 1200,
-      "y": 880,
-      "count": 1
-    },
-    {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
       "x": 528,
@@ -378,143 +357,10 @@
       "count": 1
     },
     {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 768,
-      "y": 672,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 1120,
-      "y": 832,
-      "count": 1
-    },
-    {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 640,
-      "y": 512,
-      "count": 1
-    },
-    {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 2000,
-      "y": 1680,
-      "count": 1
-    },
-    {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 2080,
-      "y": 1760,
-      "count": 1
-    },
-    {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
       "x": 1456,
       "y": 948,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 1424,
-      "y": 948,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 1552,
-      "y": 944,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 1408,
-      "y": 1040,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 1536,
-      "y": 1136,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 1648,
-      "y": 1168,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 1904,
-      "y": 1376,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 1824,
-      "y": 1440,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 1840,
-      "y": 1504,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 1392,
-      "y": 1488,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 2144,
-      "y": 1664,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 2256,
-      "y": 1760,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 2336,
-      "y": 1840,
-      "count": 1
-    },
-    {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 2048,
-      "y": 2016,
-      "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "MiniBoss",
-      "x": 1680,
-      "y": 1248,
       "count": 1
     }
   ],

@@ -271,62 +271,6 @@
       "count": 1
     },
     {
-      "kind": "Corvian",
-      "name_en": "Corvian",
-      "x": 1248,
-      "y": 768,
-      "count": 1
-    },
-    {
-      "kind": "Corvian",
-      "name_en": "Corvian",
-      "x": 1440,
-      "y": 948,
-      "count": 1
-    },
-    {
-      "kind": "Corvian",
-      "name_en": "Corvian",
-      "x": 928,
-      "y": 880,
-      "count": 1
-    },
-    {
-      "kind": "LycanthropeHunter",
-      "name_en": "LycanthropeHunter",
-      "x": 1152,
-      "y": 880,
-      "count": 1
-    },
-    {
-      "kind": "LycanthropeHunter",
-      "name_en": "LycanthropeHunter",
-      "x": 1360,
-      "y": 960,
-      "count": 1
-    },
-    {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 800,
-      "y": 416,
-      "count": 1
-    },
-    {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 1536,
-      "y": 992,
-      "count": 1
-    },
-    {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 1792,
-      "y": 1408,
-      "count": 1
-    },
-    {
       "kind": "PoisonhornBug",
       "name_en": "PoisonhornBug",
       "x": 1040,
@@ -362,104 +306,6 @@
       "count": 1
     },
     {
-      "kind": "LesserCrab",
-      "name_en": "LesserCrab",
-      "x": 1248,
-      "y": 1088,
-      "count": 1
-    },
-    {
-      "kind": "LesserCrab",
-      "name_en": "LesserCrab",
-      "x": 1280,
-      "y": 1152,
-      "count": 1
-    },
-    {
-      "kind": "BlackKnight",
-      "name_en": "BlackKnight",
-      "x": 1728,
-      "y": 1360,
-      "count": 1
-    },
-    {
-      "kind": "Corvian",
-      "name_en": "Corvian",
-      "x": 1888,
-      "y": 1408,
-      "count": 1
-    },
-    {
-      "kind": "Corvian",
-      "name_en": "Corvian",
-      "x": 1952,
-      "y": 1472,
-      "count": 1
-    },
-    {
-      "kind": "Corvian",
-      "name_en": "Corvian",
-      "x": 2000,
-      "y": 1536,
-      "count": 1
-    },
-    {
-      "kind": "Corvian",
-      "name_en": "Corvian",
-      "x": 1792,
-      "y": 1312,
-      "count": 1
-    },
-    {
-      "kind": "Corvian",
-      "name_en": "Corvian",
-      "x": 2048,
-      "y": 1360,
-      "count": 1
-    },
-    {
-      "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 2000,
-      "y": 1840,
-      "count": 1
-    },
-    {
-      "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 2160,
-      "y": 1888,
-      "count": 1
-    },
-    {
-      "kind": "Corvian",
-      "name_en": "Corvian",
-      "x": 1268,
-      "y": 1280,
-      "count": 1
-    },
-    {
-      "kind": "Corvian",
-      "name_en": "Corvian",
-      "x": 1268,
-      "y": 1360,
-      "count": 1
-    },
-    {
-      "kind": "Corvian",
-      "name_en": "Corvian",
-      "x": 1268,
-      "y": 1312,
-      "count": 1
-    },
-    {
-      "kind": "Corvian",
-      "name_en": "Corvian",
-      "x": 1376,
-      "y": 1328,
-      "count": 1
-    },
-    {
       "kind": "Basilisk",
       "name_en": "Basilisk",
       "x": 1840,
@@ -474,48 +320,6 @@
       "count": 1
     },
     {
-      "kind": "Corvian",
-      "name_en": "Corvian",
-      "x": 1888,
-      "y": 1056,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 1616,
-      "y": 1056,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 1760,
-      "y": 1372,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 1928,
-      "y": 1600,
-      "count": 1
-    },
-    {
-      "kind": "Archer",
-      "name_en": "Archer",
-      "x": 1600,
-      "y": 1248,
-      "count": 1
-    },
-    {
-      "kind": "Archer",
-      "name_en": "Archer",
-      "x": 1920,
-      "y": 1312,
-      "count": 1
-    },
-    {
       "kind": "DarkSpirit",
       "name_en": "DarkSpirit",
       "x": 2464,
@@ -527,13 +331,6 @@
       "name_en": "DarkSpirit",
       "x": 1928,
       "y": 1680,
-      "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "MiniBoss",
-      "x": 2080,
-      "y": 1792,
       "count": 1
     }
   ],
