@@ -933,19 +933,6 @@
         "A corpse with the Grand Archives Key",
         "Gotthard's journey ends here"
       ]
-    },
-    {
-      "name": "卡塔利纳的杰克巴尔多",
-      "name_en": "Siegward of Catarina",
-      "kind": "Dialogue",
-      "x": 448,
-      "y": 2240,
-      "color": "#D4A520",
-      "dialogue": [
-        "Oh, it's you again",
-        "I've been exploring these archives",
-        "Fascinating place, really"
-      ]
     }
   ],
   "lights": [

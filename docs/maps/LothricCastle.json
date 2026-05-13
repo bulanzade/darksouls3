@@ -1647,35 +1647,7 @@
       "is_mimic": false
     }
   ],
-  "npcs": [
-    {
-      "name": "Emma",
-      "name_en": "Emma, High Priestess",
-      "kind": "Dialogue",
-      "x": 1560,
-      "y": 1280,
-      "color": "#C0B0A0",
-      "dialogue": [
-        "I am Emma",
-        "High Priestess of Lothric",
-        "The Prince has hidden himself away",
-        "Please, seek the Grand Archives"
-      ]
-    },
-    {
-      "name": "卡里姆的伊贡",
-      "name_en": "Eygon of Carim",
-      "kind": "Dialogue",
-      "x": 1840,
-      "y": 896,
-      "color": "#606060",
-      "dialogue": [
-        "What do you want?",
-        "Keep your hands off Irina",
-        "She is a gentle soul, not fit for this world"
-      ]
-    }
-  ],
+  "npcs": [],
   "lights": [
     {
       "x": 620,
