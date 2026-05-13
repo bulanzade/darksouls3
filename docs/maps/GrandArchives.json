@@ -626,6 +626,90 @@
       "x": 132,
       "y": 15,
       "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "Grand Archives Scholar",
+      "x": 88,
+      "y": 95,
+      "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "Grand Archives Scholar",
+      "x": 95,
+      "y": 108,
+      "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "Grand Archives Scholar",
+      "x": 105,
+      "y": 120,
+      "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "Grand Archives Scholar",
+      "x": 115,
+      "y": 100,
+      "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "Grand Archives Scholar",
+      "x": 125,
+      "y": 115,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "Hollow Slave",
+      "x": 85,
+      "y": 105,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "Hollow Slave",
+      "x": 92,
+      "y": 115,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "Hollow Slave",
+      "x": 100,
+      "y": 125,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "Hollow Slave",
+      "x": 110,
+      "y": 110,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "Hollow Slave",
+      "x": 120,
+      "y": 130,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "Lothric Knight",
+      "x": 130,
+      "y": 120,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "Crystal Lizard",
+      "x": 145,
+      "y": 118,
+      "count": 1
     }
   ],
   "items": [

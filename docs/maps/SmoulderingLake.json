@@ -468,6 +468,111 @@
       "x": 112,
       "y": 82,
       "count": 1
+    },
+    {
+      "kind": "FireDemon",
+      "name_en": "Demon Cleric",
+      "x": 125,
+      "y": 95,
+      "count": 1
+    },
+    {
+      "kind": "FireDemon",
+      "name_en": "Demon Cleric",
+      "x": 135,
+      "y": 102,
+      "count": 1
+    },
+    {
+      "kind": "DemonStatue",
+      "name_en": "Demon Statue",
+      "x": 100,
+      "y": 85,
+      "count": 1
+    },
+    {
+      "kind": "DemonStatue",
+      "name_en": "Demon Statue",
+      "x": 115,
+      "y": 100,
+      "count": 1
+    },
+    {
+      "kind": "DemonStatue",
+      "name_en": "Demon Statue",
+      "x": 130,
+      "y": 108,
+      "count": 1
+    },
+    {
+      "kind": "DemonStatue",
+      "name_en": "Demon Statue",
+      "x": 140,
+      "y": 98,
+      "count": 1
+    },
+    {
+      "kind": "DemonStatue",
+      "name_en": "Demon Statue",
+      "x": 148,
+      "y": 112,
+      "count": 1
+    },
+    {
+      "kind": "DemonStatue",
+      "name_en": "Demon Statue",
+      "x": 120,
+      "y": 120,
+      "count": 1
+    },
+    {
+      "kind": "InfestedCorpse",
+      "name_en": "Smouldering Rotten Flesh",
+      "x": 105,
+      "y": 90,
+      "count": 1
+    },
+    {
+      "kind": "InfestedCorpse",
+      "name_en": "Smouldering Rotten Flesh",
+      "x": 125,
+      "y": 88,
+      "count": 1
+    },
+    {
+      "kind": "InfestedCorpse",
+      "name_en": "Smouldering Rotten Flesh",
+      "x": 132,
+      "y": 115,
+      "count": 1
+    },
+    {
+      "kind": "InfestedCorpse",
+      "name_en": "Smouldering Rotten Flesh",
+      "x": 142,
+      "y": 105,
+      "count": 1
+    },
+    {
+      "kind": "Basilisk",
+      "name_en": "Basilisk",
+      "x": 115,
+      "y": 110,
+      "count": 1
+    },
+    {
+      "kind": "Basilisk",
+      "name_en": "Basilisk",
+      "x": 130,
+      "y": 118,
+      "count": 1
+    },
+    {
+      "kind": "BlackKnight",
+      "name_en": "Black Knight",
+      "x": 140,
+      "y": 108,
+      "count": 1
     }
   ],
   "items": [
