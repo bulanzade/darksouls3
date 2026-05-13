@@ -1270,6 +1270,70 @@ def make_cemetery_of_ash():
     for tx in [72, 74, 76, 78, 82, 84]:
         for ty in [45, 46]:
             chunk[tx][ty] = TILE_WALL
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/CemeteryOfAsh.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -2183,6 +2247,70 @@ def make_firelink_shrine():
             chunk[tx][ty] = TILE_WALL
     for tx in range(48, 53):
         chunk[tx][34] = TILE_WALLTOP
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/FirelinkShrine.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -3301,6 +3429,70 @@ def make_lothric_wall():
             chunk[tx][ty] = TILE_WALL
     for tx in range(80, 93):
         chunk[tx][31] = TILE_WALLTOP
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/LothricWall.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -4392,6 +4584,70 @@ def make_undead_settlement():
     for tx in [120, 128]:
         for ty in range(75, 81):
             chunk[tx][ty] = TILE_WALL
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/UndeadSettlement.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -5414,6 +5670,70 @@ def make_road_of_sacrifices():
     entities.append(make_entity("Item", 210 * 16, 150 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
         make_field("name", "String", "Soul of the Crystal Sage")]))
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/RoadOfSacrifices.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -6466,6 +6786,70 @@ def make_farron_keep():
     entities.append(make_entity("Item", 275 * 16, 216 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
         make_field("name", "String", "Soul of the Blood of the Wolf")]))
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/FarronKeep.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -7452,6 +7836,70 @@ def make_cathedral_deep():
     # --- DS3 faithful chests ---
     entities.append(make_entity("Chest", 225 * 16, 53 * 16, [
         make_field("name", "String", "Unknown")]))
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/CathedralDeep.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -8384,6 +8832,70 @@ def make_catacombs_of_carthus():
     entities.append(make_entity("Item", 222 * 16, 188 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
         make_field("name", "String", "Soul of High Lord Wolnir")]))
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/CatacombsOfCarthus.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -9373,6 +9885,70 @@ def make_smouldering_lake():
     entities.append(make_entity("Item", 228 * 16, 175 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
         make_field("name", "String", "Soul of the Old Demon King")]))
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/SmoulderingLake.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -10587,6 +11163,70 @@ def make_irithyll():
         make_field("name", "String", "Unknown")]))
     entities.append(make_entity("Chest", 235 * 16, 102 * 16, [
         make_field("name", "String", "Unknown")]))
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/Irithyll.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -11560,6 +12200,70 @@ def make_irithyll_dungeon():
         make_field("name", "String", "Unknown")]))
     entities.append(make_entity("Chest", 97 * 16, 165 * 16, [
         make_field("name", "String", "Unknown")]))
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/IrithyllDungeon.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -12557,6 +13261,70 @@ def make_profaned_capital():
     for tx in [10, 18]:
         for ty in range(30, 43):
             chunk[tx][ty] = TILE_WALL
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/ProfanedCapital.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -13460,6 +14228,70 @@ def make_anor_londo():
     for tx in [80, 95]:
         for ty in range(25, 31):
             chunk[tx][ty] = TILE_WALL
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/AnorLondo.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -14561,6 +15393,70 @@ def make_lothric_castle():
     for tx in [85, 95]:
         for ty in range(20, 36):
             chunk[tx][ty] = TILE_WALL
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/LothricCastle.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -15638,6 +16534,70 @@ def make_grand_archives():
         make_field("name", "String", "Unknown")]))
     entities.append(make_entity("Chest", 118 * 16, 218 * 16, [
         make_field("name", "String", "Unknown")]))
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/GrandArchives.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -16400,6 +17360,70 @@ def make_kiln_of_the_first_flame():
     for tx in range(42, 69):
         for ty in [60, 78]:
             chunk[tx][ty] = TILE_WALL
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/KilnOfTheFirstFlame.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -17361,6 +18385,70 @@ def make_consumed_kings_garden():
     for tx in range(60, 75):
         for ty in range(65, 72):
             chunk[tx][ty] = TILE_POISON
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/ConsumedKingsGarden.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -18206,6 +19294,70 @@ def make_untended_graves():
     for tx in range(5, 95):
         chunk[tx][8] = TILE_WALL
         chunk[tx][7] = TILE_WALLTOP
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/UntendedGraves.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -19247,6 +20399,70 @@ def make_archdragon_peak():
     for tx in [90, 91, 92]:
         for ty in [55, 56, 57]:
             chunk[tx][ty] = TILE_WALL
+    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
+
+    import json as _json
+
+    with open("docs/maps/ArchdragonPeak.json") as _f:
+
+        _doc = _json.load(_f)
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
+
+        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
+
+        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
+
+        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水")) else TILE_GROUND
+
+        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
+
+    # Connect sections with corridors
+
+    _centers = []
+
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+
+        _cx = (_sec["x"] + _sec["w"] // 2) // 16
+
+        _cy = (_sec["y"] + _sec["h"] // 2) // 16
+
+        _centers.append((_cx, _cy))
+
+    for _i in range(len(_centers) - 1):
+
+        _cx1, _cy1 = _centers[_i]
+
+        _cx2, _cy2 = _centers[_i + 1]
+
+        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
+
+    # Ensure bonfire/boss positions have ground
+
+    for _bf in _doc.get("bonfires", []):
+
+        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
+
+    _boss = _doc.get("boss")
+
+    if _boss:
+
+        for _b in (_boss if isinstance(_boss, list) else [_boss]):
+
+            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
+
+            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
+
+    for _fg in _doc.get("fog_gates", []):
+
+        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
+
+        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
