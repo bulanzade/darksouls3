@@ -2168,6 +2168,25 @@ def make_firelink_shrine():
     for ty in range(42, 48):
         chunk[ty][45] = TILE_WALL  # support pillar
 
+    # --- SESSION 56 terrain (Firelink Shrine final) ---
+    # DS3: Shrine entrance stone steps (the iconic stairway)
+    for tx in range(35, 42):
+        chunk[30][tx] = TILE_WALLTOP  # step debris
+    # Fire keeper's chamber alcove (DS3: where she tends the flames)
+    for ty in range(48, 54):
+        chunk[ty][55] = TILE_WALL  # alcove wall
+    # Courtyard tree stump (DS3: the dead tree near the entrance)
+    chunk[22][40] = TILE_WALL  # stump
+    # Ludleth's throne base (DS3: Ludleth sits on a small throne)
+    for tx in range(58, 62):
+        chunk[58][tx] = TILE_WALLTOP  # throne base
+    # Shrine exterior stone wall
+    for ty in range(35, 40):
+        chunk[ty][20] = TILE_WALL  # exterior wall
+    # Candle cluster near the coiled sword
+    for tx, ty in [(50, 42), (52, 44)]:
+        chunk[ty][tx] = TILE_WALLTOP  # candle debris
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -7580,6 +7599,23 @@ def make_catacombs_of_carthus():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # --- SESSION 56 DS3 enemies (Catacombs final) ---
+    # DS3: Skeleton Wheels (DS3: the rolling skeleton ball enemies)
+    for tx, ty in [(40, 55), (55, 60)]:
+        mapped = ENEMY_KIND_MAP.get("SkeletonBall", "Skeleton")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Crystal Lizard in the catacombs side chamber
+    for tx, ty in [(70, 48)]:
+        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Spider enemies in the deeper tunnels (DS3: spiders in the lower catacombs)
+    for tx, ty in [(45, 62), (60, 65)]:
+        mapped = ENEMY_KIND_MAP.get("Spider", "Basilisk")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # NPCs — DS3 Catacombs: Anri and Horace together at the entrance bonfire
     entities.append(make_entity("Npc", 15 * 16, 18 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello, we meet again|Have you seen Horace anywhere?|I have been separated from him|I am worried... Please tell me if you find him")]))
     entities.append(make_entity("Npc", 17 * 16, 19 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods slowly)|(points toward the deeper catacombs)|(holds shield tighter)|Anri... where are you...")]))
@@ -8792,6 +8828,18 @@ def make_smouldering_lake():
     chunk[42][75] = TILE_WALL  # bolt shaft
     chunk[43][75] = TILE_WALLTOP  # impact crater
 
+    # --- SESSION 56 terrain (Smouldering Lake final) ---
+    # DS3: Carthus catacombs entrance arch (DS3: the entrance from Catacombs)
+    for ty in range(15, 22):
+        chunk[ty][10] = TILE_WALL  # entrance arch
+        chunk[ty][14] = TILE_WALL  # entrance arch
+    # Underground lake rock formations (DS3: the hidden lake cavern)
+    for tx, ty in [(75, 60), (82, 58), (90, 62)]:
+        chunk[ty][tx] = TILE_WALL  # rock formation
+    # Lava channel banks (DS3: lava flows in channels between ruins)
+    for tx in range(35, 45):
+        chunk[55][tx] = TILE_WALLTOP  # lava bank
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -9750,6 +9798,20 @@ def make_irithyll():
     # Boreal frost heave (DS3: ground pushed up by frost)
     for tx, ty in [(30, 45), (45, 48), (58, 45)]:
         chunk[ty][tx] = TILE_WALLTOP  # frost heave
+
+    # --- SESSION 56 terrain (Irithyll final) ---
+    # DS3: Central square fountain basin (DS3: the main square has a frozen fountain)
+    for tx in range(38, 44):
+        chunk[42][tx] = TILE_WALLTOP  # fountain rim
+    # Siegward's kitchen debris (DS3: distant manor kitchen where Siegward cooks)
+    for tx in range(25, 32):
+        chunk[78][tx] = TILE_WALLTOP  # kitchen debris
+    # Irithyllian street lamp row (DS3: magical blue lamps line the streets)
+    for tx, ty in [(32, 32), (48, 35), (62, 38)]:
+        chunk[ty][tx] = TILE_WALL  # lamp post base
+    # Church of Yorshka bell tower base
+    for ty in range(32, 38):
+        chunk[ty][50] = TILE_WALL  # bell tower base
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -15684,6 +15746,18 @@ def make_consumed_kings_garden():
     # Demon Statue (DS3: statue-like enemies in Oceiros's garden)
     for tx, ty in [(50, 50)]:
         mapped = ENEMY_KIND_MAP.get("DemonStatue", "DemonStatue")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 56 DS3 enemies (Consumed King's Garden final) ---
+    # DS3: Infested Corpses near the toxic pools
+    for tx, ty in [(55, 48), (68, 52)]:
+        mapped = ENEMY_KIND_MAP.get("InfestedCorpse", "InfestedCorpse")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Rotten Slug in the garden pools
+    for tx, ty in [(42, 55), (58, 58)]:
+        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Rat")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
