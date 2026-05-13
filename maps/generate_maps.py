@@ -3203,6 +3203,34 @@ def make_undead_settlement():
     fill_tiles(chunk, TILE_WALL, 80, 68, 81, 69)
     fill_tiles(chunk, TILE_WALL, 98, 72, 99, 73)
 
+    # ================================================================
+    # SESSION 15 FIDELITY PASS — UndeadSettlement additional DS3 details
+    # ================================================================
+    # Burning tree square — scorched cobblestones (DS3: burning tree with hollows gathered)
+    fill_tiles(chunk, TILE_WALL, 42, 46, 43, 47)
+    fill_tiles(chunk, TILE_WALL, 46, 48, 47, 49)
+    fill_tiles(chunk, TILE_WALL, 38, 44, 39, 45)
+    fill_tiles(chunk, TILE_WALL, 50, 50, 51, 51)
+    # Giant tower — arrow-scarred masonry (DS3: Giant shoots arrows from tower)
+    fill_tiles(chunk, TILE_WALL, 108, 78, 109, 80)
+    fill_tiles(chunk, TILE_WALL, 112, 82, 113, 84)
+    fill_tiles(chunk, TILE_WALL, 104, 80, 105, 82)
+    fill_tiles(chunk, TILE_WALL, 116, 76, 117, 78)
+    # Fire Demon plaza — scorched ground debris (DS3: Fire Demon battle area)
+    fill_tiles(chunk, TILE_WALL, 86, 56, 87, 58)
+    fill_tiles(chunk, TILE_WALL, 90, 60, 91, 62)
+    fill_tiles(chunk, TILE_WALL, 82, 54, 83, 56)
+    fill_tiles(chunk, TILE_WALL, 94, 58, 95, 60)
+    # Dilapidated bridge — broken railing stones (DS3: wooden bridge with gaps)
+    fill_tiles(chunk, TILE_WALL, 56, 66, 57, 68)
+    fill_tiles(chunk, TILE_WALL, 62, 70, 63, 72)
+    fill_tiles(chunk, TILE_WALL, 52, 68, 53, 70)
+    fill_tiles(chunk, TILE_WALL, 68, 72, 69, 74)
+    # Cliff underside — root-tangled debris (DS3: area beneath the settlement)
+    fill_tiles(chunk, TILE_WALL, 22, 80, 23, 82)
+    fill_tiles(chunk, TILE_WALL, 28, 84, 29, 86)
+    fill_tiles(chunk, TILE_WALL, 34, 88, 35, 90)
+    fill_tiles(chunk, TILE_WALL, 18, 86, 19, 88)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
