@@ -4457,6 +4457,35 @@ def make_farron_keep():
     fill_tiles(chunk, TILE_WALL, 46, 92, 47, 93)
     fill_tiles(chunk, TILE_WALL, 52, 96, 53, 97)
 
+    # ================================================================
+    # SESSION 14 FIDELITY PASS — FarronKeep DS3 terrain details
+    # ================================================================
+    # Swamp edge — sunken wagon debris (DS3: abandoned wagons in swamp)
+    fill_tiles(chunk, TILE_WALL, 28, 46, 29, 47)
+    fill_tiles(chunk, TILE_WALL, 34, 50, 35, 51)
+    fill_tiles(chunk, TILE_WALL, 44, 48, 45, 49)
+    fill_tiles(chunk, TILE_WALL, 54, 52, 55, 53)
+    # Ghru camp — ritual bone piles (DS3: Ghru gather around bone fires)
+    fill_tiles(chunk, TILE_WALL, 62, 42, 63, 43)
+    fill_tiles(chunk, TILE_WALL, 70, 48, 71, 49)
+    fill_tiles(chunk, TILE_WALL, 82, 44, 83, 45)
+    fill_tiles(chunk, TILE_WALL, 92, 50, 93, 51)
+    # Darkwraith emergence pools (DS3: dark wraiths rise from black pools)
+    fill_tiles(chunk, TILE_WALL, 96, 86, 97, 87)
+    fill_tiles(chunk, TILE_WALL, 104, 92, 105, 93)
+    fill_tiles(chunk, TILE_WALL, 112, 96, 113, 97)
+    fill_tiles(chunk, TILE_WALL, 120, 90, 121, 91)
+    # Abyss Watcher memorial stones (DS3: swords embedded in ground near arena)
+    fill_tiles(chunk, TILE_WALL, 124, 106, 125, 107)
+    fill_tiles(chunk, TILE_WALL, 132, 110, 133, 111)
+    fill_tiles(chunk, TILE_WALL, 140, 104, 141, 105)
+    fill_tiles(chunk, TILE_WALL, 148, 112, 149, 113)
+    # Wolf-crested grave markers (DS3: wolf insignia gravestones)
+    fill_tiles(chunk, TILE_WALL, 38, 62, 39, 63)
+    fill_tiles(chunk, TILE_WALL, 48, 66, 49, 67)
+    fill_tiles(chunk, TILE_WALL, 58, 70, 59, 71)
+    fill_tiles(chunk, TILE_WALL, 68, 74, 69, 75)
+
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
