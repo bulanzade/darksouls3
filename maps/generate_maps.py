@@ -7378,6 +7378,32 @@ def make_cathedral_deep():
     fill_tiles(chunk, TILE_POISON, 55, 90, 65, 100)
     # Slug corridor water (DS3: damp corridor with Man Grubs)
     fill_tiles(chunk, TILE_POISON, 32, 136, 42, 142)
+
+    # ================================================================
+    # DS3 CATHEDRAL NAVE — Cathedral of the Deep interior architecture
+    # DS3: massive gothic cathedral with long nave, side aisles,
+    # flying buttresses, grand altar, and deep water pools
+    # ================================================================
+    # Cathedral nave — long central aisle walls (DS3: grand cathedral nave)
+    fill_tiles(chunk, TILE_WALL, 38, 55, 42, 65)    # Nave pillar row left
+    fill_tiles(chunk, TILE_WALL, 58, 55, 62, 65)    # Nave pillar row right
+    fill_tiles(chunk, TILE_WALL, 48, 62, 52, 72)    # Nave center column
+    # Side aisle walls (DS3: narrow aisles along cathedral sides)
+    fill_tiles(chunk, TILE_WALL, 34, 70, 38, 80)    # Left aisle wall
+    fill_tiles(chunk, TILE_WALL, 62, 70, 66, 80)    # Right aisle wall
+    # Deacon altar hall — altar architecture (DS3: dark altar hall with deep fire)
+    fill_tiles(chunk, TILE_WALL, 34, 108, 38, 118)  # Altar wall left
+    fill_tiles(chunk, TILE_WALL, 56, 108, 60, 118)  # Altar wall right
+    fill_tiles(chunk, TILE_WALL, 44, 118, 50, 128)  # Altar front wall
+    fill_tiles(chunk, TILE_WALL, 64, 115, 68, 125)  # Altar side wall
+    # Giant room — massive stone pillars (DS3: room where giant shoots arrows)
+    fill_tiles(chunk, TILE_WALL, 38, 88, 42, 98)    # Giant room pillar 1
+    fill_tiles(chunk, TILE_WALL, 50, 92, 54, 102)   # Giant room pillar 2
+    fill_tiles(chunk, TILE_WALL, 60, 88, 64, 98)    # Giant room pillar 3
+    # Upper gallery — overlook walls (DS3: gallery overlooking nave)
+    fill_tiles(chunk, TILE_WALL, 64, 60, 68, 68)    # Gallery wall left
+    fill_tiles(chunk, TILE_WALL, 76, 64, 80, 72)    # Gallery wall right
+    fill_tiles(chunk, TILE_WALL, 70, 56, 74, 62)    # Gallery divider
         # --- ENTITIES ---
     spawn_px, spawn_py = 30 * 16, 8 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
