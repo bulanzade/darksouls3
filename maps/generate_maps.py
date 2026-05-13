@@ -227,7 +227,7 @@ def section_center_tile(section):
 def is_walkable_tile(tile):
     return tile in (TILE_GROUND, TILE_POISON)
 
-def find_walkable_tile(chunk, tx, ty, max_radius=64):
+def find_walkable_tile(chunk, tx, ty, max_radius=256):
     width = chunk_width(chunk)
     height = chunk_height(chunk)
     if width == 0 or height == 0:
@@ -242,6 +242,42 @@ def find_walkable_tile(chunk, tx, ty, max_radius=64):
                 if is_walkable_tile(chunk[y][x]):
                     return x, y
     return None
+
+def snap_entities_to_walkable(chunk, entities, skip_types=("FogGate", "PlayerSpawn", "TilePatch")):
+    """Pre-compute walkable tiles then snap all entities to nearest one."""
+    h = len(chunk)
+    w = len(chunk[0]) if h else 0
+    # Collect all walkable tile positions
+    walkable = []
+    for y in range(h):
+        row = chunk[y]
+        for x in range(w):
+            if row[x] in (TILE_GROUND, TILE_POISON):
+                walkable.append((x, y))
+    if not walkable:
+        return
+    # For each entity, find nearest walkable tile by Manhattan distance
+    import math
+    for ent in entities:
+        if ent["__identifier"] in skip_types:
+            continue
+        px = ent.get("px", [0, 0])
+        if not isinstance(px, list) or len(px) < 2:
+            continue
+        tx, ty = int(px[0]) // TILE_SIZE, int(px[1]) // TILE_SIZE
+        best = None
+        best_d = float('inf')
+        for wx, wy in walkable:
+            d = abs(wx - tx) + abs(wy - ty)
+            if d < best_d:
+                best_d = d
+                best = (wx, wy)
+                if d == 0:
+                    break
+        if best:
+            x, y = best
+            ent["px"] = [x * TILE_SIZE + TILE_SIZE // 2, y * TILE_SIZE + TILE_SIZE // 2]
+            ent["__grid"] = [x, y]
 
 def snap_entity_to_walkable(chunk, entity):
     px = entity.get("px", [0, 0])
@@ -300,7 +336,9 @@ def generate_official_terrain(doc):
 
 def bfs_reachable(chunk, sx, sy):
     """BFS from tile (sx,sy), return set of reachable ground tile positions."""
-    if not (0 <= sx < CHUNK_SIZE and 0 <= sy < CHUNK_SIZE):
+    h = len(chunk)
+    w = len(chunk[0]) if h else 0
+    if not (0 <= sx < w and 0 <= sy < h):
         return set()
     if chunk[sy][sx] not in (TILE_GROUND, TILE_POISON):
         return set()
@@ -311,7 +349,7 @@ def bfs_reachable(chunk, sx, sy):
         x, y = q.popleft()
         for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
             nx, ny = x + dx, y + dy
-            if 0 <= nx < CHUNK_SIZE and 0 <= ny < CHUNK_SIZE and (nx, ny) not in visited:
+            if 0 <= nx < w and 0 <= ny < h and (nx, ny) not in visited:
                 if chunk[ny][nx] in (TILE_GROUND, TILE_POISON):
                     visited.add((nx, ny))
                     q.append((nx, ny))
@@ -383,7 +421,7 @@ def make_cemetery_of_ash():
 
     Arena exit at tiles (77-83, 29-30) matches combat.rs fill_tiles.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(192, 256)
 
     # ================================================================
     # 1. COFFIN START (SW corner, x=19-31, y=148-156)
@@ -1232,10 +1270,7 @@ def make_cemetery_of_ash():
     for tx in [72, 74, 76, 78, 82, 84]:
         for ty in [45, 46]:
             chunk[tx][ty] = TILE_WALL
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
 
@@ -1247,8 +1282,7 @@ def make_cemetery_of_ash():
     # Added AFTER connectivity check so ensure_connected doesn't carve through
     fill_tiles(chunk, TILE_WALL, 78, 29, 82, 30)
 
-    ground_count = sum(1 for y in range(CHUNK_SIZE)
-                       for x in range(CHUNK_SIZE)
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
 
@@ -1264,7 +1298,7 @@ def make_firelink_shrine():
     Tower (locked door, Fire Keeper Soul at top), exterior graveyard
     with Sword Master, Shrine Handmaiden at back corner.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(160, 128)
     entities = []
 
     # ================================================================
@@ -2149,16 +2183,13 @@ def make_firelink_shrine():
             chunk[tx][ty] = TILE_WALL
     for tx in range(48, 53):
         chunk[tx][34] = TILE_WALLTOP
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
 
-    ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  FirelinkShrine (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "FirelinkShrine", chunk, entities
@@ -2180,7 +2211,7 @@ def make_lothric_wall():
     Design doc reference: docs/maps/LothricWall.json (3600x2800)
     Grid: 160x160, progression NW→SE
     """
-    chunk = new_chunk()
+    chunk = new_chunk(256, 256)
 
     # 1. WALL ENTRANCE RAMPART — NW corner, arrive from CemeteryOfAsh
     fill_tiles(chunk, TILE_GROUND, 8, 6, 36, 22)
@@ -3270,17 +3301,13 @@ def make_lothric_wall():
             chunk[tx][ty] = TILE_WALL
     for tx in range(80, 93):
         chunk[tx][31] = TILE_WALLTOP
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
 
-    ground_count = sum(1 for y in range(CHUNK_SIZE)
-                       for x in range(CHUNK_SIZE)
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  LothricWall (faithful DS3 layout) "
@@ -3297,7 +3324,7 @@ def make_undead_settlement():
     Real DS3 features: narrow alleys between wooden houses, Giant throwing spears,
     Siegward assisting vs Fire Demon, Evangelists with maces, hanging corpses.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(320, 256)
 
     # 1. SETTLEMENT ENTRANCE (top-left) — from High Wall
     fill_tiles(chunk, TILE_GROUND, 8, 8, 35, 28)
@@ -4365,16 +4392,12 @@ def make_undead_settlement():
     for tx in [120, 128]:
         for ty in range(75, 81):
             chunk[tx][ty] = TILE_WALL
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(CHUNK_SIZE)
-                       for x in range(CHUNK_SIZE)
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  UndeadSettlement (faithful DS3 layout) "
@@ -4387,7 +4410,7 @@ def make_road_of_sacrifices():
     -> Corvian forest -> Crystal Sage cave. Branches to Farron Keep and Cathedral.
     Design doc: 3200x2400, sections define the progression west-to-east.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(288, 224)
     entities = []
 
     # ================================================================
@@ -5391,15 +5414,12 @@ def make_road_of_sacrifices():
     entities.append(make_entity("Item", 210 * 16, 150 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
         make_field("name", "String", "Soul of the Crystal Sage")]))
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  RoadOfSacrifices (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "RoadOfSacrifices", chunk, entities
@@ -5410,7 +5430,7 @@ def make_farron_keep():
     Keep Ruins center -> Old Wolf tower -> Abyss Watchers grand hall.
     Design doc: 4000x3600, swamp dominates center with torch islands.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(320, 288)
 
     # ================================================================
     # SECTION 1: Keep entry highland (top-left) - doc: x=0,y=0,w=600,h=600
@@ -6446,15 +6466,12 @@ def make_farron_keep():
     entities.append(make_entity("Item", 275 * 16, 216 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
         make_field("name", "String", "Soul of the Blood of the Wolf")]))
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
 
     print(f"  FarronKeep (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
@@ -6467,7 +6484,7 @@ def make_cathedral_deep():
     slug corridor -> Rosaria's bedchamber. Connected by spine corridor along x=80.
     Design doc: 4000x3600, 11 sections forming a vertical descent.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(320, 288)
     entities = []
 
     # ================================================================
@@ -7435,15 +7452,12 @@ def make_cathedral_deep():
     # --- DS3 faithful chests ---
     entities.append(make_entity("Chest", 225 * 16, 53 * 16, [
         make_field("name", "String", "Unknown")]))
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  CathedralDeep (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "CathedralDeep", chunk, entities
@@ -7454,7 +7468,7 @@ def make_catacombs_of_carthus():
     lower tombs -> abandoned tomb -> Wolnir arena. Side path to Smouldering Lake.
     Design doc: 3600x3200, tight underground corridors with multiple levels.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(288, 256)
     entities = []
 
     # ================================================================
@@ -8370,15 +8384,12 @@ def make_catacombs_of_carthus():
     entities.append(make_entity("Item", 222 * 16, 188 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
         make_field("name", "String", "Soul of High Lord Wolnir")]))
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  CatacombsOfCarthus (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "CatacombsOfCarthus", chunk, entities
@@ -8390,7 +8401,7 @@ def make_smouldering_lake():
     DS3: vast underground cavern with ballista firing across the lake, demon ruins
     below, and the Old Demon King boss at the deepest point.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(288, 256)
     entities = []
 
     # ================================================================
@@ -9362,15 +9373,12 @@ def make_smouldering_lake():
     entities.append(make_entity("Item", 228 * 16, 175 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
         make_field("name", "String", "Soul of the Old Demon King")]))
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
 
     print(f"  SmoulderingLake (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
@@ -9382,7 +9390,7 @@ def make_irithyll():
     Distant Manor -> sewers -> Pontiff cathedral -> exit to dungeon.
     Design doc: 3200x2400, gothic city with icy blue moonlight.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(320, 256)
     entities = []
 
     # ================================================================
@@ -10579,15 +10587,12 @@ def make_irithyll():
         make_field("name", "String", "Unknown")]))
     entities.append(make_entity("Chest", 235 * 16, 102 * 16, [
         make_field("name", "String", "Unknown")]))
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
 
     print(f"  Irithyll (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
@@ -10598,7 +10603,7 @@ def make_irithyll_dungeon():
     No boss. Tight corridors with cell walls creating a maze-like layout.
     Design doc: 3200x2800, spiral prison descending underground.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(256, 288)
     entities = []
 
     # ================================================================
@@ -11555,15 +11560,12 @@ def make_irithyll_dungeon():
         make_field("name", "String", "Unknown")]))
     entities.append(make_entity("Chest", 97 * 16, 165 * 16, [
         make_field("name", "String", "Unknown")]))
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  IrithyllDungeon (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "IrithyllDungeon", chunk, entities
@@ -11581,7 +11583,7 @@ def make_profaned_capital():
     Design doc reference: docs/maps/ProfanedCapital.json (3400x3200)
     Grid: 160x160, entry NW, Yhorm arena NE
     """
-    chunk = new_chunk()
+    chunk = new_chunk(256, 256)
 
     # 1. ENTRY BRIDGE from Irithyll Dungeon — NW narrow corridor
     fill_tiles(chunk, TILE_GROUND, 4, 8, 14, 14)
@@ -12555,17 +12557,13 @@ def make_profaned_capital():
     for tx in [10, 18]:
         for ty in range(30, 43):
             chunk[tx][ty] = TILE_WALL
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
 
-    ground_count = sum(1 for y in range(CHUNK_SIZE)
-                       for x in range(CHUNK_SIZE)
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  ProfanedCapital (faithful DS3 layout) "
@@ -12579,7 +12577,7 @@ def make_anor_londo():
     Darkmoon Temple (Aldrich arena with abyss swamp). Side path to Yorshka's
     church via invisible platforms. DS1 nostalgia with faded golden grandeur.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(224, 192)
     entities = []
 
     # === Cathedral entrance hall (west, from Irithyll rotating staircase) ===
@@ -13462,16 +13460,12 @@ def make_anor_londo():
     for tx in [80, 95]:
         for ty in range(25, 31):
             chunk[tx][ty] = TILE_WALL
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(CHUNK_SIZE)
-                       for x in range(CHUNK_SIZE)
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  AnorLondo (faithful DS3 layout) "
@@ -13487,7 +13481,7 @@ def make_lothric_castle():
     (Dragonslayer Armour arena, large open area) -> Grand Archives exit (NE).
     Side path south to ConsumedKingsGarden.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(320, 256)
     entities = []
 
     # ================================================================
@@ -14567,17 +14561,13 @@ def make_lothric_castle():
     for tx in [85, 95]:
         for ty in range(20, 36):
             chunk[tx][ty] = TILE_WALL
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
 
-    ground_count = sum(1 for y in range(CHUNK_SIZE)
-                       for x in range(CHUNK_SIZE)
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  LothricCastle (faithful DS3 layout) "
@@ -14602,7 +14592,7 @@ def make_grand_archives():
       6. Gargoyle rooftop — open-air encounter
       7. Twin Princes chamber (north) — Lorian & Lothric boss fight
     """
-    chunk = new_chunk()
+    chunk = new_chunk(256, 384)
     entities = []
 
     # ================================================================
@@ -15648,15 +15638,12 @@ def make_grand_archives():
         make_field("name", "String", "Unknown")]))
     entities.append(make_entity("Chest", 118 * 16, 218 * 16, [
         make_field("name", "String", "Unknown")]))
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
 
     print(f"  GrandArchives (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
@@ -15668,7 +15655,7 @@ def make_kiln_of_the_first_flame():
     collapsed ruins -> twisted girder hall (middle) -> First Flame arena (north).
     No regular enemies. The end of all things.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(192, 192)
     entities = []
 
     # ================================================================
@@ -16413,16 +16400,12 @@ def make_kiln_of_the_first_flame():
     for tx in range(42, 69):
         for ty in [60, 78]:
             chunk[tx][ty] = TILE_WALL
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(CHUNK_SIZE)
-                       for x in range(CHUNK_SIZE)
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  KilnOfTheFirstFlame (faithful DS3 layout) "
@@ -16434,7 +16417,7 @@ def make_consumed_kings_garden():
     Faithful DS3 layout: entry (NW) -> crystal courtyard -> poison swamp ->
     serpent corridor -> Oceiros throne room (SE). Crystal growths throughout.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(256, 224)
     entities = []
 
     # === Garden entry (NW) ===
@@ -17378,16 +17361,12 @@ def make_consumed_kings_garden():
     for tx in range(60, 75):
         for ty in range(65, 72):
             chunk[tx][ty] = TILE_POISON
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(CHUNK_SIZE)
-                       for x in range(CHUNK_SIZE)
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  ConsumedKingsGarden (faithful DS3 layout) "
@@ -17400,7 +17379,7 @@ def make_untended_graves():
     dark courtyard -> Black Knight cemetery -> Champion Gundyr arena ->
     Dark Firelink Shrine (SE). Extremely dim lighting throughout.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(256, 256)
     entities = []
 
     # === Dark coffin entry (NW) ===
@@ -18227,16 +18206,12 @@ def make_untended_graves():
     for tx in range(5, 95):
         chunk[tx][8] = TILE_WALL
         chunk[tx][7] = TILE_WALLTOP
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(CHUNK_SIZE)
-                       for x in range(CHUNK_SIZE)
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  UntendedGraves (faithful DS3 layout) "
@@ -18249,7 +18224,7 @@ def make_archdragon_peak():
     Dragon-Kin Mausoleum -> storm path -> Great Belfry -> Nameless King arena (SE).
     Lightning storms and dragon ruins throughout.
     """
-    chunk = new_chunk()
+    chunk = new_chunk(320, 288)
     entities = []
 
     # === Mountain entry (NW) ===
@@ -19272,16 +19247,12 @@ def make_archdragon_peak():
     for tx in [90, 91, 92]:
         for ty in [55, 56, 57]:
             chunk[tx][ty] = TILE_WALL
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(CHUNK_SIZE)
-                       for x in range(CHUNK_SIZE)
+    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
     print(f"  ArchdragonPeak (faithful DS3 layout) "
@@ -19466,10 +19437,7 @@ def generate_map_from_doc(doc_path):
             make_field("height", "Float", max(TILE_SIZE, gate.get("h", 64))),
         ])
 
-    # Snap entities to walkable tiles
-    for ent in entities:
-        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
-            snap_entity_to_walkable(chunk, ent)
+    snap_entities_to_walkable(chunk, entities)
 
 
     populate_entity_def_uids(entities)
