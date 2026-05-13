@@ -5418,6 +5418,26 @@ def make_farron_keep():
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    # Additional enemies — SESSION 35 DS3 fidelity (Farron Keep)
+    # DS3: Ghrus swarm the swamp, Darkwraiths patrol, Slugs in water
+    for tx, ty in [(85, 55), (92, 60), (100, 58), (108, 62), (115, 55),
+                   (122, 60), (128, 58)]:
+        mapped = ENEMY_KIND_MAP.get("Ghru", "Ghru")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(25, 88), (32, 95), (40, 92), (48, 98), (55, 90),
+                   (62, 95), (70, 88)]:
+        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Rat")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(88, 80), (100, 85), (112, 82), (125, 88)]:
+        mapped = ENEMY_KIND_MAP.get("Ghru", "Ghru")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(95, 75), (110, 78)]:
+        mapped = ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     print(f"  FarronKeep (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "FarronKeep", chunk, entities
 
@@ -7385,6 +7405,25 @@ def make_smouldering_lake():
         make_field("is_mimic", "Bool", False),
     ]))
 
+    # Additional enemies — SESSION 35 DS3 fidelity (Smouldering Lake)
+    # DS3: Demon Statues are everywhere, Fire Demons guard key paths
+    for tx, ty in [(35, 72), (42, 78), (50, 75), (58, 80), (65, 72),
+                   (72, 78), (80, 75), (88, 80)]:
+        mapped = ENEMY_KIND_MAP.get("DemonStatue", "DemonStatue")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(95, 65), (108, 70), (120, 68)]:
+        mapped = ENEMY_KIND_MAP.get("DemonStatue", "DemonStatue")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(100, 85), (115, 88)]:
+        mapped = ENEMY_KIND_MAP.get("FireDemon", "FireDemon")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(90, 92), (105, 95)]:
+        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # NPCs — DS3 Smouldering Lake: Knight Slayer Tsorig
     entities.append(make_entity("Npc", 30 * 16, 92 * 16, [make_field("name", "String", "Knight Slayer Tsorig"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#804020"), make_field("dialogue", "String", "Forgive me, I was absorbed in my conquest|We meet again, Unkindled|I am Tsorig, the Knight Slayer|The arbitrary distinction between right and wrong is irrelevant")]))
     # Horace the Hushed — hostile hollow in DS3 (attacks player in Smouldering Lake cave)
@@ -8864,6 +8903,25 @@ def make_irithyll_dungeon():
         make_field("is_mimic", "Bool", False),
     ]))
 
+    # Additional enemies — SESSION 35 DS3 fidelity (Irithyll Dungeon)
+    # DS3: Jailers patrol ALL corridors relentlessly, Wretches in cells, Rats in sewers
+    for tx, ty in [(85, 65), (92, 70), (100, 68), (108, 72), (115, 65),
+                   (122, 70), (130, 68), (135, 72)]:
+        mapped = ENEMY_KIND_MAP.get("Jailer", "Jailer")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(88, 85), (95, 90), (102, 88), (110, 92), (118, 85)]:
+        mapped = ENEMY_KIND_MAP.get("Wretch", "Wretch")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(82, 78), (90, 82), (98, 80), (106, 85), (115, 78)]:
+        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(125, 82), (132, 88)]:
+        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # NPCs — DS3 Irithyll Dungeon: Siegward in cell, Karla in deep cell
     entities.append(make_entity("Npc", 92 * 16, 56 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D4A520"), make_field("dialogue", "String", "Oh! You have my thanks, my deepest thanks|I seem to have gotten myself locked in this cell|A brave warrior like yourself, I knew you would come|Let us share a drink, to celebrate your bravery|I am Siegward of Catarina, at your service")]))
     entities.append(make_entity("Npc", 90 * 16, 84 * 16, [make_field("name", "String", "Karla"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#4A0080"), make_field("dialogue", "String", "Hmm. A visitor? I'm a prisoner, same as you|I can teach you dark sorceries, if you bring me tomes|But nothing that could harm the Fire Keeper, understand|The pygmy is not to be trifled with")]))
@@ -11363,6 +11421,32 @@ def make_lothric_castle():
         make_field("is_mimic", "Bool", True),
     ]))
 
+    # Additional enemies — SESSION 35 DS3 fidelity (Lothric Castle)
+    # DS3: Lothric Knights guard ALL halls, Hollow Soldiers in courtyards
+    # Q3 (lower-left) and Q4 (lower-right) are severely underpopulated
+    for tx, ty in [(20, 95), (28, 100), (35, 98), (42, 105), (50, 95),
+                   (58, 100), (65, 98), (72, 105)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(22, 110), (30, 115), (38, 112), (46, 118), (54, 110),
+                   (62, 115), (70, 112)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(82, 95), (90, 100), (98, 98), (106, 105), (114, 95),
+                   (122, 100), (130, 98)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(85, 110), (95, 115), (105, 112), (115, 118)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(88, 105), (102, 108)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # --- NPCs - DS3 Lothric Castle ---
     # NOTE: Emma is only at High Wall of Lothric (LothricWall) — she dies after giving Basin of Vows
     # NOTE: Eygon of Carim only appears near Irina (Undead Settlement) or Firelink Shrine, not here
