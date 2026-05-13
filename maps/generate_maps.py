@@ -8425,8 +8425,7 @@ def make_catacombs_of_carthus():
         if kind == "SoulOrb":
             fields.append(make_field("value", "Int", val))
 
-    entities.append(make_entity("Npc", 193 * 16, 156 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello, we meet again|Have you seen Horace anywhere?|I have been separated from him|I am worried... Please tell me if you find him")]))
-    entities.append(make_entity("Npc", 17 * 16, 19 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods slowly)|(points toward the deeper catacombs)|(holds shield tighter)|Anri... where are you...")]))
+    entities.append(make_entity("Npc", 81 * 16, 75 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods silently)|(points toward the lake)")]))
 
     # Fog Gate back to Farron Keep (DS3: return path from Catacombs entrance)
     entities.append(make_entity("FogGate", 32 * 16, 32 * 16, [
