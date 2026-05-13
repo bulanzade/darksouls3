@@ -4104,6 +4104,30 @@ def make_undead_settlement():
     fill_tiles(chunk, TILE_WALL, 120, 60, 122, 62)                  # Cliff debris
     for tx in range(100, 135, 7):
         fill_tiles(chunk, TILE_WALL, tx, 50, tx+1, 51)             # Street cobblestones
+    # --- SESSION 45 terrain (Undead Settlement) ---
+    # DS3: Market stalls along the main street
+    for tx in range(20, 28):
+        chunk[25][tx] = TILE_WALLTOP  # stall canopy debris
+    for tx in range(35, 42):
+        chunk[30][tx] = TILE_WALLTOP  # wooden stall frame
+    # Bridge support pillars (DS3: the main bridge over the cliff)
+    for ty in range(40, 46):
+        chunk[ty][50] = TILE_WALL  # bridge pillar
+    for ty in range(42, 48):
+        chunk[ty][60] = TILE_WALL  # bridge pillar
+    # Giant's tree roots (DS3: massive roots near the giant's tower)
+    for tx in range(70, 78):
+        chunk[35][tx] = TILE_WALLTOP  # root debris
+    # Wooden scaffolding around buildings (DS3: hollow construction)
+    for ty in range(20, 26):
+        chunk[ty][45] = TILE_WALLTOP  # scaffold plank
+    # Hanging cage frames (DS3: cages hang from trees/buildings)
+    chunk[32][55] = TILE_WALLTOP  # cage frame
+    chunk[32][58] = TILE_WALLTOP  # cage frame
+    # Hollow dwelling interior walls (DS3: makeshift homes)
+    for tx in range(15, 20):
+        chunk[50][tx] = TILE_WALLTOP  # debris pile
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -5026,6 +5050,27 @@ def make_road_of_sacrifices():
     fill_tiles(chunk, TILE_WALL, 50, 60, 52, 62)
     fill_tiles(chunk, TILE_WALL, 110, 55, 112, 57)
     fill_tiles(chunk, TILE_WALL, 70, 85, 72, 87)
+    # --- SESSION 45 terrain (Road of Sacrifices) ---
+    # DS3: Fallen trees blocking paths (the forest is full of them)
+    for tx in range(20, 30):
+        chunk[35][tx] = TILE_WALLTOP  # fallen log
+    for tx in range(50, 60):
+        chunk[40][tx] = TILE_WALLTOP  # fallen tree
+    # Corvian nest platforms (DS3: corvians perch in trees)
+    for tx, ty in [(35, 25), (55, 28), (75, 22)]:
+        chunk[ty][tx] = TILE_WALLTOP  # nest debris
+    # Moss-covered rock formations
+    for tx, ty in [(40, 45), (60, 50), (80, 42)]:
+        chunk[ty][tx] = TILE_WALL  # moss rock
+    # Bridge support stonework (DS3: crucifixion woods bridge)
+    for ty in range(55, 60):
+        chunk[ty][70] = TILE_WALL  # bridge pillar
+    # Marshy ground patches (DS3: swampy areas in the forest)
+    for tx in range(30, 40):
+        for ty in range(60, 65):
+            if chunk[ty][tx] == TILE_GROUND:
+                chunk[ty][tx] = TILE_POISON
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -5826,6 +5871,33 @@ def make_farron_keep():
         mapped = ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # --- SESSION 45 DS3 enemies (Farron Keep) ---
+    # DS3: Basilisks in the swamp (they curse you!)
+    for tx, ty in [(25, 45), (40, 50), (55, 48)]:
+        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Rotten Slugs in the poison swamp water (DS3: in the deep swamp)
+    for tx, ty in [(30, 55), (45, 58), (60, 52), (75, 56)]:
+        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Slime")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Black Knight - guards the Abyss Watchers arena approach
+    for tx, ty in [(95, 65)]:
+        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # More Ghrus in the deep swamp (DS3: they swarm the area)
+    for tx, ty in [(35, 62), (48, 65), (62, 60), (75, 65), (88, 62)]:
+        mapped = ENEMY_KIND_MAP.get("Ghru", "Ghru")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Ghru Conjuror - the spell-casting variant
+    for tx, ty in [(42, 68), (58, 72), (72, 68)]:
+        mapped = ENEMY_KIND_MAP.get("GhruConjuror", "DarkMage")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     print(f"  FarronKeep (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "FarronKeep", chunk, entities
 
@@ -7963,6 +8035,28 @@ def make_smouldering_lake():
         mapped = ENEMY_KIND_MAP.get("FireDemon", "FireDemon")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # --- SESSION 45 DS3 enemies (Smouldering Lake) ---
+    # DS3: Carthus Swordsmen in the demon ruins tunnels
+    for tx, ty in [(20, 35), (30, 40), (40, 38)]:
+        mapped = ENEMY_KIND_MAP.get("CarthusSwordsman", "Skeleton")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Chaos Accursed/Demon - the weakened demon near the ballista (DS3: key encounter)
+    for tx, ty in [(55, 45)]:
+        mapped = ENEMY_KIND_MAP.get("Demon", "GiantSlave")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Titanite Lizards in the underground lake area
+    for tx, ty in [(70, 55), (85, 60)]:
+        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Skeleton enemies in the underground ruins (DS3: Carthus remnants)
+    for tx, ty in [(35, 50), (48, 52), (62, 48)]:
+        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # NPCs — DS3 Smouldering Lake: Knight Slayer Tsorig
     entities.append(make_entity("Npc", 30 * 16, 92 * 16, [make_field("name", "String", "Knight Slayer Tsorig"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#804020"), make_field("dialogue", "String", "Forgive me, I was absorbed in my conquest|We meet again, Unkindled|I am Tsorig, the Knight Slayer|The arbitrary distinction between right and wrong is irrelevant")]))
     # Horace the Hushed — hostile hollow in DS3 (attacks player in Smouldering Lake cave)
@@ -12262,6 +12356,23 @@ def make_lothric_castle():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # --- SESSION 45 DS3 enemies (Lothric Castle additions) ---
+    # DS3: Gertrude's Knights in the upper castle chambers
+    for tx, ty in [(40, 48), (52, 52)]:
+        mapped = ENEMY_KIND_MAP.get("GertrudesKnight", "Knight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # More Lothric Knights in the Grand Archives approach
+    for tx, ty in [(100, 60), (112, 55), (125, 58)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Hollow Soldiers near the dancer arena
+    for tx, ty in [(58, 55), (65, 60), (72, 58)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs - DS3 Lothric Castle ---
     # NOTE: Emma is only at High Wall of Lothric (LothricWall) — she dies after giving Basin of Vows
     # NOTE: Eygon of Carim only appears near Irina (Undead Settlement) or Firelink Shrine, not here
@@ -14944,6 +15055,29 @@ def make_consumed_kings_garden():
     fill_tiles(chunk, TILE_WALL, 55, 55, 57, 57)
     fill_tiles(chunk, TILE_WALL, 100, 70, 102, 72)
     fill_tiles(chunk, TILE_WALL, 75, 90, 77, 92)
+    # --- SESSION 45 terrain (Consumed King's Garden) ---
+    # DS3: Overgrown hedge walls forming maze-like paths
+    for tx in range(15, 25):
+        chunk[30][tx] = TILE_WALLTOP  # hedge debris
+    for tx in range(40, 50):
+        chunk[25][tx] = TILE_WALLTOP  # overgrown hedge
+    # Crystal formations from Oceiros's magic
+    for tx, ty in [(55, 35), (60, 38), (65, 32)]:
+        chunk[ty][tx] = TILE_WALL  # crystal growth
+    # Toxic pool stones (DS3: poison swamp in the garden)
+    for tx in range(70, 80):
+        for ty in range(40, 44):
+            if chunk[ty][tx] == TILE_GROUND:
+                chunk[ty][tx] = TILE_POISON
+    # Oceiros throne room crystal pillars (DS3: crystals everywhere in boss room)
+    for ty in range(50, 56):
+        chunk[ty][85] = TILE_WALL  # crystal pillar
+    for ty in range(48, 54):
+        chunk[ty][90] = TILE_WALL  # crystal pillar
+    # Garden pathway stones
+    for tx in range(30, 38):
+        chunk[45][tx] = TILE_WALLTOP  # cracked paving
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -15714,6 +15848,33 @@ def make_untended_graves():
     for ty in range(45, 70, 7):
         fill_tiles(chunk, TILE_WALL, 100, ty, 101, ty+1)            # Dark path markers
     fill_tiles(chunk, TILE_WALL, 70, 90, 72, 92)                    # Collapsed wall
+    # --- SESSION 45 terrain (Untended Graves) ---
+    # DS3: Dark tombstones (mirror of Cemetery of Ash but corrupted)
+    for tx in range(10, 20):
+        if tx % 2 == 0:
+            chunk[20][tx] = TILE_WALLTOP  # dark headstone
+            chunk[22][tx] = TILE_WALLTOP
+    # Collapsed Firelink Shrine rubble (DS3: destroyed version)
+    for tx in range(30, 42):
+        chunk[35][tx] = TILE_WALLTOP  # building debris
+    for ty in range(32, 38):
+        chunk[ty][36] = TILE_WALL  # collapsed wall
+    # Gundyr arena ash piles (DS3: Champion Gundyr's arena)
+    for tx in range(80, 95):
+        chunk[70][tx] = TILE_WALLTOP  # ash drift
+    for tx in range(85, 92):
+        chunk[75][tx] = TILE_WALLTOP  # deep ash
+    # Dark version coiled sword crater
+    chunk[15][40] = TILE_WALLTOP
+    chunk[15][41] = TILE_WALLTOP
+    # Dead tree stumps (DS3: barren version of cemetery trees)
+    for tx, ty in [(25, 45), (45, 50), (60, 48)]:
+        chunk[ty][tx] = TILE_WALL  # stump
+    # Dark cliff face
+    for ty in range(5, 15):
+        chunk[ty][5] = TILE_WALL
+        chunk[ty][6] = TILE_WALL
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
