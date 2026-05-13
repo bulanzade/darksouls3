@@ -1219,6 +1219,25 @@ def make_cemetery_of_ash():
         chunk[ty][5] = TILE_WALL
         chunk[ty][6] = TILE_WALL
 
+    # --- SESSION 51 terrain (Cemetery of Ash) ---
+    # DS3: Cemetery entrance arch (the stone archway where you spawn)
+    for ty in range(8, 14):
+        chunk[ty][10] = TILE_WALL  # arch pillar left
+        chunk[ty][15] = TILE_WALL  # arch pillar right
+    # Gravestone clusters in the mid-section
+    for tx in range(30, 40):
+        if tx % 2 == 1:
+            chunk[25][tx] = TILE_WALLTOP  # headstone
+    # Ash drift slopes (DS3: ash forms drifts on the paths)
+    for tx in range(50, 60):
+        chunk[40][tx] = TILE_WALLTOP  # ash slope
+    # Cliff edge broken walls
+    for ty in range(30, 36):
+        chunk[ty][75] = TILE_WALL  # broken wall
+    # Gundyr arena rock formations
+    for tx in range(60, 70):
+        chunk[50][tx] = TILE_WALLTOP  # arena stone
+
     populate_entity_def_uids(entities)
 
     # Ensure connectivity from spawn to all entities
@@ -1247,6 +1266,18 @@ def make_cemetery_of_ash():
     # Crystal Lizard near the coiled sword (DS3: one lizard near the beginning)
     for tx, ty in [(48, 35)]:
         mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 51 DS3 enemies (Cemetery of Ash diversity) ---
+    # DS3: Hollow Warriors with shields patrol the upper cemetery (tutorial enemies)
+    for tx, ty in [(15, 20), (28, 22), (42, 25)]:
+        mapped = ENEMY_KIND_MAP.get("LargeHollowSoldier", "Knight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Dogs near the ash slopes (DS3: hounds appear in the cemetery)
+    for tx, ty in [(35, 35), (55, 38)]:
+        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
@@ -5999,6 +6030,23 @@ def make_farron_keep():
         for ty in range(50, 55):
             if chunk[ty][tx] == TILE_GROUND:
                 chunk[ty][tx] = TILE_POISON
+
+    # --- SESSION 51 terrain (Farron Keep) ---
+    # DS3: Broken sword grave markers (DS3: swords stuck in the swamp)
+    for tx, ty in [(25, 30), (40, 35), (55, 32)]:
+        chunk[ty][tx] = TILE_WALLTOP  # sword marker
+    # Abyss Watcher tomb stones (DS3: the Watchers' graves in the keep)
+    for tx in range(80, 88):
+        chunk[45][tx] = TILE_WALLTOP  # tomb stone
+    # Collapsed bridge supports (DS3: the bridge to the boss)
+    for ty in range(55, 60):
+        chunk[ty][95] = TILE_WALL  # bridge pillar
+    # Swamp gas vent (DS3: gas erupts from the swamp)
+    for tx in range(45, 52):
+        chunk[65][tx] = TILE_WALLTOP  # vent debris
+    # Ghru totem poles (DS3: ghru-built structures)
+    for tx, ty in [(60, 38), (75, 42)]:
+        chunk[ty][tx] = TILE_WALL  # totem pole
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -14407,6 +14455,33 @@ def make_kiln_of_the_first_flame():
         mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # --- SESSION 51 DS3 enemies (Kiln diversity) ---
+    # DS3: Lothric Knights corrupted by the flame (endgame versions)
+    for tx, ty in [(25, 35), (40, 40), (55, 38)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Winged Knights fallen to the abyss (DS3: in the Kiln approach)
+    for tx, ty in [(65, 42), (80, 45)]:
+        mapped = ENEMY_KIND_MAP.get("WingedKnight", "WingedKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Dark Spirit invaders (DS3: the Kiln has phantom-like enemies)
+    for tx, ty in [(50, 50), (70, 55)]:
+        mapped = ENEMY_KIND_MAP.get("DarkSpirit", "Knight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Thrall ambush enemies (DS3: small enemies in the ruins)
+    for tx, ty in [(35, 48), (60, 52)]:
+        mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Starved Hounds in the ash (DS3: dogs in the burned ruins)
+    for tx, ty in [(45, 55), (75, 58)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs ---
     # Fire Keeper — appears at Kiln for the final scene (DS3: summons Fire Keeper for ending)
     entities.append(make_entity("Npc", 78 * 16, 28 * 16, [
@@ -14801,6 +14876,24 @@ def make_kiln_of_the_first_flame():
     # Ash drifts near the final flame
     for tx in range(85, 95):
         chunk[38][tx] = TILE_WALLTOP  # ash pile
+
+    # --- SESSION 51 terrain (Kiln of the First Flame) ---
+    # DS3: Collapsed archways (the ruined Lordran architecture)
+    for ty in range(18, 24):
+        chunk[ty][45] = TILE_WALL  # broken arch
+        chunk[ty][55] = TILE_WALL  # broken arch
+    # Ember glow craters (DS3: fire pits dot the landscape)
+    for tx, ty in [(30, 28), (48, 32), (65, 30)]:
+        chunk[ty][tx] = TILE_WALLTOP  # ember crater
+    # Black Knight monument columns (DS3: solemn stone markers)
+    for ty in range(35, 42):
+        chunk[ty][70] = TILE_WALL  # monument
+    # Collapsed staircase (DS3: the ruined stairway to the final boss)
+    for ty in range(45, 52):
+        chunk[ty][80] = TILE_WALLTOP  # stair debris
+    # First Flame altar stones (DS3: the stone ring around the flame)
+    for tx in range(85, 92):
+        chunk[55][tx] = TILE_WALLTOP  # altar stone
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
