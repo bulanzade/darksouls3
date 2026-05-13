@@ -242,7 +242,7 @@
     },
     {
       "kind": "GiantSlave",
-      "name_en": "Giant Slave",
+      "name_en": "GiantSlave",
       "x": 38,
       "y": 52,
       "count": 1
@@ -346,6 +346,34 @@
       "count": 1
     },
     {
+      "kind": "ManGrub",
+      "name_en": "ManGrub",
+      "x": 55,
+      "y": 85,
+      "count": 1
+    },
+    {
+      "kind": "ManGrub",
+      "name_en": "ManGrub",
+      "x": 64,
+      "y": 91,
+      "count": 1
+    },
+    {
+      "kind": "ManGrub",
+      "name_en": "ManGrub",
+      "x": 69,
+      "y": 93,
+      "count": 1
+    },
+    {
+      "kind": "ManGrub",
+      "name_en": "ManGrub",
+      "x": 61,
+      "y": 101,
+      "count": 1
+    },
+    {
       "kind": "DeepAccursed",
       "name_en": "DeepAccursed",
       "x": 100,
@@ -378,6 +406,13 @@
       "name_en": "CrystalLizard",
       "x": 56,
       "y": 84,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 128,
+      "y": 78,
       "count": 1
     },
     {

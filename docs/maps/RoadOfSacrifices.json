@@ -180,14 +180,14 @@
   },
   "enemies": [
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 25,
       "y": 20,
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 35,
       "y": 24,
@@ -222,14 +222,14 @@
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 56,
       "y": 35,
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 62,
       "y": 40,
@@ -250,56 +250,56 @@
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 75,
       "y": 52,
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 82,
       "y": 58,
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 65,
       "y": 45,
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 78,
       "y": 48,
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 90,
       "y": 50,
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 58,
       "y": 55,
       "count": 1
     },
     {
-      "kind": "Knight",
+      "kind": "LycanthropeHunter",
       "name_en": "LycanthropeHunter",
       "x": 72,
       "y": 55,
       "count": 1
     },
     {
-      "kind": "Knight",
+      "kind": "LycanthropeHunter",
       "name_en": "LycanthropeHunter",
       "x": 85,
       "y": 60,
@@ -327,28 +327,28 @@
       "count": 1
     },
     {
-      "kind": "Basilisk",
+      "kind": "PoisonhornBug",
       "name_en": "PoisonhornBug",
       "x": 65,
       "y": 62,
       "count": 1
     },
     {
-      "kind": "Basilisk",
+      "kind": "PoisonhornBug",
       "name_en": "PoisonhornBug",
       "x": 70,
       "y": 65,
       "count": 1
     },
     {
-      "kind": "Basilisk",
+      "kind": "PoisonhornBug",
       "name_en": "PoisonhornBug",
       "x": 62,
       "y": 70,
       "count": 1
     },
     {
-      "kind": "Basilisk",
+      "kind": "PoisonhornBug",
       "name_en": "PoisonhornBug",
       "x": 58,
       "y": 68,
@@ -356,7 +356,7 @@
     },
     {
       "kind": "GreatCrab",
-      "name_en": "Great Crab",
+      "name_en": "GreatCrab",
       "x": 76,
       "y": 70,
       "count": 1
@@ -383,35 +383,35 @@
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 118,
       "y": 88,
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 122,
       "y": 92,
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 125,
       "y": 96,
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 112,
       "y": 82,
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 128,
       "y": 85,
@@ -432,17 +432,59 @@
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 68,
       "y": 80,
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 72,
       "y": 85,
+      "count": 1
+    },
+    {
+      "kind": "Corvian",
+      "name_en": "Corvian",
+      "x": 64,
+      "y": 82,
+      "count": 1
+    },
+    {
+      "kind": "Corvian",
+      "name_en": "Corvian",
+      "x": 75,
+      "y": 84,
+      "count": 1
+    },
+    {
+      "kind": "Basilisk",
+      "name_en": "Basilisk",
+      "x": 61,
+      "y": 87,
+      "count": 1
+    },
+    {
+      "kind": "Basilisk",
+      "name_en": "Basilisk",
+      "x": 53,
+      "y": 90,
+      "count": 1
+    },
+    {
+      "kind": "Corvian",
+      "name_en": "Corvian",
+      "x": 62,
+      "y": 92,
+      "count": 1
+    },
+    {
+      "kind": "StarvedHound",
+      "name_en": "StarvedHound",
+      "x": 71,
+      "y": 101,
       "count": 1
     },
     {
@@ -474,17 +516,24 @@
       "count": 1
     },
     {
-      "kind": "Knight",
+      "kind": "DarkSpirit",
       "name_en": "DarkSpirit",
       "x": 108,
       "y": 100,
       "count": 1
     },
     {
-      "kind": "Knight",
+      "kind": "DarkSpirit",
       "name_en": "DarkSpirit",
       "x": 115,
       "y": 105,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 130,
+      "y": 112,
       "count": 1
     }
   ],

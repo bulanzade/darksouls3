@@ -163,7 +163,7 @@
       "count": 1
     },
     {
-      "kind": "Skeleton",
+      "kind": "SkeletonSwordman",
       "name_en": "SkeletonSwordman",
       "x": 16,
       "y": 22,
@@ -198,14 +198,14 @@
       "count": 1
     },
     {
-      "kind": "Skeleton",
+      "kind": "SkeletonSwordman",
       "name_en": "SkeletonSwordman",
       "x": 36,
       "y": 22,
       "count": 1
     },
     {
-      "kind": "Skeleton",
+      "kind": "SkeletonSwordman",
       "name_en": "SkeletonSwordman",
       "x": 50,
       "y": 21,
@@ -233,7 +233,7 @@
       "count": 1
     },
     {
-      "kind": "Skeleton",
+      "kind": "SkeletonSwordman",
       "name_en": "SkeletonSwordman",
       "x": 64,
       "y": 32,
@@ -254,14 +254,14 @@
       "count": 1
     },
     {
-      "kind": "Skeleton",
+      "kind": "SkeletonSwordman",
       "name_en": "SkeletonSwordman",
       "x": 24,
       "y": 55,
       "count": 1
     },
     {
-      "kind": "Skeleton",
+      "kind": "SkeletonSwordman",
       "name_en": "SkeletonSwordman",
       "x": 32,
       "y": 50,
@@ -303,6 +303,27 @@
       "count": 1
     },
     {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 55,
+      "y": 62,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 60,
+      "y": 68,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 65,
+      "y": 72,
+      "count": 1
+    },
+    {
       "kind": "Skeleton",
       "name_en": "Skeleton",
       "x": 58,
@@ -339,14 +360,14 @@
     },
     {
       "kind": "SkeletonSwordman",
-      "name_en": "Skeleton Swordsman",
+      "name_en": "SkeletonSwordman",
       "x": 18,
       "y": 85,
       "count": 1
     },
     {
       "kind": "SkeletonSwordman",
-      "name_en": "Skeleton Swordsman",
+      "name_en": "SkeletonSwordman",
       "x": 22,
       "y": 92,
       "count": 1
@@ -366,7 +387,7 @@
       "count": 1
     },
     {
-      "kind": "Skeleton",
+      "kind": "SkeletonSwordman",
       "name_en": "SkeletonSwordman",
       "x": 22,
       "y": 96,
@@ -394,7 +415,7 @@
       "count": 1
     },
     {
-      "kind": "Skeleton",
+      "kind": "SkeletonSwordman",
       "name_en": "SkeletonSwordman",
       "x": 95,
       "y": 66,

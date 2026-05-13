@@ -474,154 +474,154 @@
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 42,
       "y": 82,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 45,
       "y": 85,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 50,
       "y": 88,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 48,
       "y": 105,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 52,
       "y": 110,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 38,
       "y": 60,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 44,
       "y": 65,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 55,
       "y": 70,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 62,
       "y": 75,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 70,
       "y": 80,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 85,
       "y": 75,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 40,
       "y": 90,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 56,
       "y": 95,
       "count": 1
     },
     {
       "kind": "GiantHollow",
-      "name_en": "Elder Ghru",
+      "name_en": "GiantHollow",
       "x": 55,
       "y": 62,
       "count": 1
     },
     {
       "kind": "GiantHollow",
-      "name_en": "Elder Ghru",
+      "name_en": "GiantHollow",
       "x": 60,
       "y": 68,
       "count": 1
     },
     {
       "kind": "GiantHollow",
-      "name_en": "Elder Ghru",
+      "name_en": "GiantHollow",
       "x": 58,
       "y": 75,
       "count": 1
     },
     {
       "kind": "GiantHollow",
-      "name_en": "Elder Ghru",
+      "name_en": "GiantHollow",
       "x": 110,
       "y": 100,
       "count": 1
     },
     {
       "kind": "GiantHollow",
-      "name_en": "Elder Ghru",
+      "name_en": "GiantHollow",
       "x": 82,
       "y": 60,
       "count": 1
     },
     {
       "kind": "GiantHollow",
-      "name_en": "Elder Ghru",
+      "name_en": "GiantHollow",
       "x": 90,
       "y": 55,
       "count": 1
     },
     {
       "kind": "GreatCrab",
-      "name_en": "Great Crab",
+      "name_en": "GreatCrab",
       "x": 65,
       "y": 62,
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 115,
       "y": 95,
       "count": 1
     },
     {
-      "kind": "Assassin",
+      "kind": "Corvian",
       "name_en": "Corvian",
       "x": 120,
       "y": 100,
@@ -667,6 +667,20 @@
       "name_en": "CrystalLizard",
       "x": 56,
       "y": 65,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 108,
+      "y": 85,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 120,
+      "y": 98,
       "count": 1
     }
   ],

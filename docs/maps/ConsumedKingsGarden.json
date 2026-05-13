@@ -740,64 +740,64 @@
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 45,
       "y": 70,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 50,
       "y": 75,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 55,
       "y": 78,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 42,
       "y": 78,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 60,
       "y": 82,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 52,
       "y": 84,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 48,
       "y": 72,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 56,
       "y": 68,
       "count": 1
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
+      "kind": "RottenSlug",
+      "name_en": "RottenSlug",
       "x": 44,
       "y": 82,
       "count": 1
@@ -807,6 +807,69 @@
       "name_en": "CrystalLizard",
       "x": 68,
       "y": 42,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "CathedralKnight",
+      "x": 121,
+      "y": 83,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "CathedralKnight",
+      "x": 135,
+      "y": 92,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "CathedralKnight",
+      "x": 128,
+      "y": 101,
+      "count": 1
+    },
+    {
+      "kind": "CathedralKnight",
+      "name_en": "CathedralKnight",
+      "x": 137,
+      "y": 104,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "Thrall",
+      "x": 125,
+      "y": 86,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "Thrall",
+      "x": 136,
+      "y": 89,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "Thrall",
+      "x": 135,
+      "y": 98,
+      "count": 1
+    },
+    {
+      "kind": "Thrall",
+      "name_en": "Thrall",
+      "x": 112,
+      "y": 113,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 120,
+      "y": 88,
       "count": 1
     }
   ],

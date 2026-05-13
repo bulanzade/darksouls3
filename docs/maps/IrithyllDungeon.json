@@ -476,8 +476,8 @@
       "count": 1
     },
     {
-      "kind": "Basilisk",
-      "name_en": "Spider",
+      "kind": "CageSpider",
+      "name_en": "CageSpider",
       "x": 55,
       "y": 88,
       "count": 1
@@ -549,6 +549,13 @@
       "kind": "Wretch",
       "name_en": "Wretch",
       "x": 92,
+      "y": 82,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 78,
       "y": 82,
       "count": 1
     },

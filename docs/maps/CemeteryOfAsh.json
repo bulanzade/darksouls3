@@ -171,6 +171,13 @@
   },
   "enemies": [
     {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 80,
+      "y": 48,
+      "count": 1
+    },
+    {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
       "x": 40,
@@ -280,6 +287,83 @@
       "name_en": "RavenousCrystalLizard",
       "x": 136,
       "y": 108,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 79,
+      "y": 21,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 71,
+      "y": 36,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 67,
+      "y": 44,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 65,
+      "y": 47,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 58,
+      "y": 57,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 93,
+      "y": 35,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 86,
+      "y": 43,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 95,
+      "y": 51,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 93,
+      "y": 54,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 82,
+      "y": 62,
+      "count": 1
+    },
+    {
+      "kind": "StarvedHound",
+      "name_en": "StarvedHound",
+      "x": 99,
+      "y": 39,
       "count": 1
     }
   ],

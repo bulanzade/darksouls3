@@ -310,7 +310,7 @@
     },
     {
       "kind": "GreatCrab",
-      "name_en": "Great Crab",
+      "name_en": "GreatCrab",
       "x": 38,
       "y": 45,
       "count": 1
@@ -393,6 +393,27 @@
       "count": 1
     },
     {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 75,
+      "y": 50,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 22,
+      "y": 88,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 28,
+      "y": 92,
+      "count": 1
+    },
+    {
       "kind": "Rat",
       "name_en": "Rat",
       "x": 15,
@@ -436,7 +457,7 @@
     },
     {
       "kind": "CarthusSandworm",
-      "name_en": "Carthus Sandworm",
+      "name_en": "CarthusSandworm",
       "x": 45,
       "y": 68,
       "count": 1
@@ -471,84 +492,84 @@
     },
     {
       "kind": "FireDemon",
-      "name_en": "Demon Cleric",
+      "name_en": "FireDemon",
       "x": 125,
       "y": 95,
       "count": 1
     },
     {
       "kind": "FireDemon",
-      "name_en": "Demon Cleric",
+      "name_en": "FireDemon",
       "x": 135,
       "y": 102,
       "count": 1
     },
     {
       "kind": "DemonStatue",
-      "name_en": "Demon Statue",
+      "name_en": "DemonStatue",
       "x": 100,
       "y": 85,
       "count": 1
     },
     {
       "kind": "DemonStatue",
-      "name_en": "Demon Statue",
+      "name_en": "DemonStatue",
       "x": 115,
       "y": 100,
       "count": 1
     },
     {
       "kind": "DemonStatue",
-      "name_en": "Demon Statue",
+      "name_en": "DemonStatue",
       "x": 130,
       "y": 108,
       "count": 1
     },
     {
       "kind": "DemonStatue",
-      "name_en": "Demon Statue",
+      "name_en": "DemonStatue",
       "x": 140,
       "y": 98,
       "count": 1
     },
     {
       "kind": "DemonStatue",
-      "name_en": "Demon Statue",
+      "name_en": "DemonStatue",
       "x": 148,
       "y": 112,
       "count": 1
     },
     {
       "kind": "DemonStatue",
-      "name_en": "Demon Statue",
+      "name_en": "DemonStatue",
       "x": 120,
       "y": 120,
       "count": 1
     },
     {
       "kind": "InfestedCorpse",
-      "name_en": "Smouldering Rotten Flesh",
+      "name_en": "InfestedCorpse",
       "x": 105,
       "y": 90,
       "count": 1
     },
     {
       "kind": "InfestedCorpse",
-      "name_en": "Smouldering Rotten Flesh",
+      "name_en": "InfestedCorpse",
       "x": 125,
       "y": 88,
       "count": 1
     },
     {
       "kind": "InfestedCorpse",
-      "name_en": "Smouldering Rotten Flesh",
+      "name_en": "InfestedCorpse",
       "x": 132,
       "y": 115,
       "count": 1
     },
     {
       "kind": "InfestedCorpse",
-      "name_en": "Smouldering Rotten Flesh",
+      "name_en": "InfestedCorpse",
       "x": 142,
       "y": 105,
       "count": 1
@@ -569,10 +590,18 @@
     },
     {
       "kind": "BlackKnight",
-      "name_en": "Black Knight",
+      "name_en": "BlackKnight",
       "x": 140,
       "y": 108,
       "count": 1
+    },
+    {
+      "kind": "Skeleton",
+      "name_en": "Skeleton",
+      "x": 20,
+      "y": 88,
+      "count": 1,
+      "note": "Horace the Hushed (hostile)"
     }
   ],
   "items": [

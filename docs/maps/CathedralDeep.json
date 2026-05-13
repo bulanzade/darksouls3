@@ -450,14 +450,14 @@
     },
     {
       "kind": "GiantSlave",
-      "name_en": "Giant Slave",
+      "name_en": "GiantSlave",
       "x": 44,
       "y": 92,
       "count": 1
     },
     {
       "kind": "GiantSlave",
-      "name_en": "Giant Slave",
+      "name_en": "GiantSlave",
       "x": 56,
       "y": 98,
       "count": 1
@@ -529,7 +529,7 @@
       "kind": "Deacon",
       "name_en": "Deacon",
       "x": 48,
-      "y": 112,
+      "y": 118,
       "count": 1
     },
     {
@@ -677,6 +677,13 @@
       "name_en": "CrystalLizard",
       "x": 60,
       "y": 76,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 45,
+      "y": 114,
       "count": 1
     }
   ],

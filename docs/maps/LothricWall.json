@@ -276,6 +276,13 @@
       "count": 1
     },
     {
+      "kind": "LothricWyvern",
+      "name_en": "LothricWyvern",
+      "x": 24,
+      "y": 32,
+      "count": 1
+    },
+    {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
       "x": 16,
@@ -353,7 +360,7 @@
       "count": 1
     },
     {
-      "kind": "Knight",
+      "kind": "LargeHollowSoldier",
       "name_en": "LargeHollowSoldier",
       "x": 56,
       "y": 46,
@@ -488,8 +495,8 @@
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 82,
-      "y": 102,
+      "x": 84,
+      "y": 98,
       "count": 1
     },
     {
@@ -623,6 +630,97 @@
       "name_en": "HollowSoldier",
       "x": 58,
       "y": 98,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 82,
+      "y": 14,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 106,
+      "y": 18,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 93,
+      "y": 23,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 85,
+      "y": 28,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 96,
+      "y": 37,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 88,
+      "y": 42,
+      "count": 1
+    },
+    {
+      "kind": "StarvedHound",
+      "name_en": "StarvedHound",
+      "x": 100,
+      "y": 51,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 83,
+      "y": 61,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 107,
+      "y": 65,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 94,
+      "y": 70,
+      "count": 1
+    },
+    {
+      "kind": "HollowAssassin",
+      "name_en": "HollowAssassin",
+      "x": 86,
+      "y": 75,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 120,
+      "y": 79,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 82,
+      "y": 102,
       "count": 1
     }
   ],

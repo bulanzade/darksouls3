@@ -608,7 +608,7 @@
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
       "x": 125,
-      "y": 82,
+      "y": 72,
       "count": 1
     },
     {
@@ -647,49 +647,49 @@
       "count": 1
     },
     {
-      "kind": "CrystalLizard",
+      "kind": "RockLizard",
       "name_en": "RockLizard",
       "x": 35,
       "y": 110,
       "count": 1
     },
     {
-      "kind": "CrystalLizard",
+      "kind": "RockLizard",
       "name_en": "RockLizard",
       "x": 42,
       "y": 95,
       "count": 1
     },
     {
-      "kind": "CrystalLizard",
+      "kind": "RockLizard",
       "name_en": "RockLizard",
       "x": 118,
       "y": 20,
       "count": 1
     },
     {
-      "kind": "CrystalLizard",
+      "kind": "RockLizard",
       "name_en": "RockLizard",
       "x": 130,
       "y": 25,
       "count": 1
     },
     {
-      "kind": "CrystalLizard",
+      "kind": "RockLizard",
       "name_en": "RockLizard",
       "x": 142,
       "y": 85,
       "count": 1
     },
     {
-      "kind": "CrystalLizard",
+      "kind": "RockLizard",
       "name_en": "RockLizard",
       "x": 112,
       "y": 72,
       "count": 1
     },
     {
-      "kind": "CrystalLizard",
+      "kind": "RockLizard",
       "name_en": "RockLizard",
       "x": 148,
       "y": 95,
@@ -710,31 +710,101 @@
       "count": 1
     },
     {
-      "kind": "Knight",
+      "kind": "DrakebloodKnight",
       "name_en": "DrakebloodKnight",
       "x": 110,
       "y": 30,
       "count": 1
     },
     {
-      "kind": "Knight",
+      "kind": "DrakebloodKnight",
       "name_en": "DrakebloodKnight",
       "x": 142,
       "y": 88,
       "count": 1
     },
     {
-      "kind": "Knight",
+      "kind": "DrakebloodKnight",
       "name_en": "DrakebloodKnight",
       "x": 78,
       "y": 52,
       "count": 1
     },
     {
-      "kind": "WingedKnight",
+      "kind": "HavelKnight",
       "name_en": "HavelKnight",
       "x": 128,
       "y": 70,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 146,
+      "y": 83,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 144,
+      "y": 87,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 137,
+      "y": 91,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 132,
+      "y": 95,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 149,
+      "y": 99,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 142,
+      "y": 111,
+      "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "DarkMage",
+      "x": 153,
+      "y": 107,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 122,
+      "y": 115,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 55,
+      "y": 66,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 62,
+      "y": 76,
       "count": 1
     }
   ],

@@ -411,56 +411,56 @@
       "count": 1
     },
     {
-      "kind": "Thrall",
+      "kind": "HollowSlave",
       "name_en": "HollowSlave",
-      "x": 42,
-      "y": 132,
+      "x": 44,
+      "y": 136,
       "count": 1
     },
     {
-      "kind": "Thrall",
+      "kind": "HollowSlave",
       "name_en": "HollowSlave",
       "x": 55,
       "y": 98,
       "count": 1
     },
     {
-      "kind": "Thrall",
+      "kind": "HollowSlave",
       "name_en": "HollowSlave",
       "x": 68,
       "y": 108,
       "count": 1
     },
     {
-      "kind": "Thrall",
+      "kind": "HollowSlave",
       "name_en": "HollowSlave",
       "x": 75,
       "y": 50,
       "count": 1
     },
     {
-      "kind": "Thrall",
+      "kind": "HollowSlave",
       "name_en": "HollowSlave",
       "x": 62,
       "y": 65,
       "count": 1
     },
     {
-      "kind": "Thrall",
+      "kind": "HollowSlave",
       "name_en": "HollowSlave",
       "x": 40,
       "y": 138,
       "count": 1
     },
     {
-      "kind": "Thrall",
+      "kind": "HollowSlave",
       "name_en": "HollowSlave",
       "x": 52,
       "y": 92,
       "count": 1
     },
     {
-      "kind": "Thrall",
+      "kind": "HollowSlave",
       "name_en": "HollowSlave",
       "x": 58,
       "y": 80,
@@ -495,28 +495,28 @@
       "count": 1
     },
     {
-      "kind": "WingedKnight",
+      "kind": "AscendedWingedKnight",
       "name_en": "AscendedWingedKnight",
       "x": 82,
       "y": 38,
       "count": 1
     },
     {
-      "kind": "WingedKnight",
+      "kind": "AscendedWingedKnight",
       "name_en": "AscendedWingedKnight",
       "x": 92,
       "y": 35,
       "count": 1
     },
     {
-      "kind": "WingedKnight",
+      "kind": "AscendedWingedKnight",
       "name_en": "AscendedWingedKnight",
       "x": 75,
       "y": 32,
       "count": 1
     },
     {
-      "kind": "WingedKnight",
+      "kind": "BorealOutriderKnight",
       "name_en": "BorealOutriderKnight",
       "x": 58,
       "y": 68,
@@ -572,42 +572,56 @@
       "count": 1
     },
     {
-      "kind": "Thrall",
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 60,
+      "y": 110,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 64,
+      "y": 108,
+      "count": 1
+    },
+    {
+      "kind": "HollowSlave",
       "name_en": "HollowSlave",
       "x": 112,
       "y": 8,
       "count": 1
     },
     {
-      "kind": "Thrall",
+      "kind": "HollowSlave",
       "name_en": "HollowSlave",
       "x": 114,
       "y": 10,
       "count": 1
     },
     {
-      "kind": "Thrall",
+      "kind": "HollowSlave",
       "name_en": "HollowSlave",
       "x": 119,
       "y": 15,
       "count": 1
     },
     {
-      "kind": "Thrall",
+      "kind": "HollowSlave",
       "name_en": "HollowSlave",
       "x": 121,
       "y": 18,
       "count": 1
     },
     {
-      "kind": "Thrall",
+      "kind": "HollowSlave",
       "name_en": "HollowSlave",
       "x": 125,
       "y": 7,
       "count": 1
     },
     {
-      "kind": "Thrall",
+      "kind": "HollowSlave",
       "name_en": "HollowSlave",
       "x": 127,
       "y": 12,
@@ -629,84 +643,84 @@
     },
     {
       "kind": "DarkMage",
-      "name_en": "Grand Archives Scholar",
+      "name_en": "DarkMage",
       "x": 88,
       "y": 95,
       "count": 1
     },
     {
       "kind": "DarkMage",
-      "name_en": "Grand Archives Scholar",
+      "name_en": "DarkMage",
       "x": 95,
       "y": 108,
       "count": 1
     },
     {
       "kind": "DarkMage",
-      "name_en": "Grand Archives Scholar",
+      "name_en": "DarkMage",
       "x": 105,
       "y": 120,
       "count": 1
     },
     {
       "kind": "DarkMage",
-      "name_en": "Grand Archives Scholar",
+      "name_en": "DarkMage",
       "x": 115,
       "y": 100,
       "count": 1
     },
     {
       "kind": "DarkMage",
-      "name_en": "Grand Archives Scholar",
+      "name_en": "DarkMage",
       "x": 125,
       "y": 115,
       "count": 1
     },
     {
-      "kind": "Thrall",
-      "name_en": "Hollow Slave",
+      "kind": "HollowSlave",
+      "name_en": "HollowSlave",
       "x": 85,
       "y": 105,
       "count": 1
     },
     {
-      "kind": "Thrall",
-      "name_en": "Hollow Slave",
+      "kind": "HollowSlave",
+      "name_en": "HollowSlave",
       "x": 92,
       "y": 115,
       "count": 1
     },
     {
-      "kind": "Thrall",
-      "name_en": "Hollow Slave",
+      "kind": "HollowSlave",
+      "name_en": "HollowSlave",
       "x": 100,
       "y": 125,
       "count": 1
     },
     {
-      "kind": "Thrall",
-      "name_en": "Hollow Slave",
+      "kind": "HollowSlave",
+      "name_en": "HollowSlave",
       "x": 110,
       "y": 110,
       "count": 1
     },
     {
-      "kind": "Thrall",
-      "name_en": "Hollow Slave",
+      "kind": "HollowSlave",
+      "name_en": "HollowSlave",
       "x": 120,
       "y": 130,
       "count": 1
     },
     {
       "kind": "LothricKnight",
-      "name_en": "Lothric Knight",
+      "name_en": "LothricKnight",
       "x": 130,
       "y": 120,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "Crystal Lizard",
+      "name_en": "CrystalLizard",
       "x": 145,
       "y": 118,
       "count": 1

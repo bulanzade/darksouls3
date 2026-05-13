@@ -1225,7 +1225,7 @@
       "count": 1
     },
     {
-      "kind": "WingedKnight",
+      "kind": "BorealOutriderKnight",
       "name_en": "BorealOutriderKnight",
       "x": 45,
       "y": 55,
@@ -1305,7 +1305,7 @@
       "kind": "HollowAssassin",
       "name_en": "HollowAssassin",
       "x": 135,
-      "y": 65,
+      "y": 55,
       "count": 1
     },
     {
@@ -1430,8 +1430,8 @@
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 130,
-      "y": 64,
+      "x": 128,
+      "y": 60,
       "count": 1
     },
     {
@@ -1446,6 +1446,55 @@
       "name_en": "DarkMage",
       "x": 122,
       "y": 60,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 130,
+      "y": 82,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 138,
+      "y": 86,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 142,
+      "y": 90,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 118,
+      "y": 85,
+      "count": 1
+    },
+    {
+      "kind": "HollowSoldier",
+      "name_en": "HollowSoldier",
+      "x": 125,
+      "y": 88,
+      "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "DarkMage",
+      "x": 135,
+      "y": 92,
+      "count": 1
+    },
+    {
+      "kind": "MiniBoss",
+      "name_en": "MiniBoss",
+      "x": 132,
+      "y": 62,
       "count": 1
     }
   ],

@@ -6460,6 +6460,45 @@ def make_smouldering_lake():
     fill_tiles(chunk, TILE_WALL, 36, 46, 37, 48)
     fill_tiles(chunk, TILE_WALL, 42, 50, 43, 52)
 
+    # ================================================================
+    # SESSION 17 FIDELITY PASS — SmoulderingLake DS3 lava cavern details
+    # ================================================================
+    # Lava channel rock walls — narrow stone channels guide lava flow (DS3: lava rivers)
+    fill_tiles(chunk, TILE_WALL, 24, 34, 25, 36)
+    fill_tiles(chunk, TILE_WALL, 32, 38, 33, 40)
+    fill_tiles(chunk, TILE_WALL, 40, 36, 41, 38)
+    fill_tiles(chunk, TILE_WALL, 48, 42, 49, 44)
+    fill_tiles(chunk, TILE_WALL, 56, 46, 57, 48)
+    # Demon bone pile debris — massive demon skeletons in ruins (DS3: dead demons everywhere)
+    fill_tiles(chunk, TILE_WALL, 60, 56, 62, 57)
+    fill_tiles(chunk, TILE_WALL, 72, 62, 74, 63)
+    fill_tiles(chunk, TILE_WALL, 84, 68, 86, 69)
+    fill_tiles(chunk, TILE_WALL, 96, 64, 98, 65)
+    fill_tiles(chunk, TILE_WALL, 108, 70, 110, 71)
+    # Volcanic vent stones — steam vent rock formations (DS3: volcanic activity)
+    fill_tiles(chunk, TILE_WALL, 14, 40, 16, 41)
+    fill_tiles(chunk, TILE_WALL, 26, 48, 28, 49)
+    fill_tiles(chunk, TILE_WALL, 38, 56, 40, 57)
+    fill_tiles(chunk, TILE_WALL, 50, 62, 52, 63)
+    fill_tiles(chunk, TILE_WALL, 62, 66, 64, 67)
+    # Demon cleric altar pedestals — ritual stones in corridors (DS3: demon worship)
+    fill_tiles(chunk, TILE_WALL, 92, 74, 93, 76)
+    fill_tiles(chunk, TILE_WALL, 100, 78, 101, 80)
+    fill_tiles(chunk, TILE_WALL, 108, 76, 109, 78)
+    fill_tiles(chunk, TILE_WALL, 116, 72, 117, 74)
+    # Old Demon King arena — throne room pillars (DS3: massive demon throne room)
+    fill_tiles(chunk, TILE_WALL, 120, 96, 121, 98)
+    fill_tiles(chunk, TILE_WALL, 134, 100, 135, 102)
+    fill_tiles(chunk, TILE_WALL, 148, 96, 149, 98)
+    fill_tiles(chunk, TILE_WALL, 126, 116, 127, 118)
+    fill_tiles(chunk, TILE_WALL, 140, 112, 141, 114)
+    fill_tiles(chunk, TILE_WALL, 152, 108, 153, 110)
+    # Ballista tunnel — cave ceiling debris (DS3: stalactites in ballista cave)
+    fill_tiles(chunk, TILE_WALL, 10, 84, 11, 86)
+    fill_tiles(chunk, TILE_WALL, 18, 88, 19, 90)
+    fill_tiles(chunk, TILE_WALL, 26, 82, 27, 84)
+    fill_tiles(chunk, TILE_WALL, 32, 90, 33, 92)
+    fill_tiles(chunk, TILE_WALL, 14, 96, 15, 98)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -9408,6 +9447,11 @@ def make_lothric_castle():
         ("HollowSoldier", 60, 36), ("HollowSoldier", 85, 32),      # More hollows in barracks
         ("LothricKnight", 128, 60), ("LothricKnight", 136, 68),    # Knights near arena approach
         ("DarkMage", 122, 60),                                        # Priest healing knights near arena
+        # Q(1,1) lower arena / throne room — DS3: hollows and knight near Lothric's empty throne
+        ("HollowSoldier", 130, 82), ("HollowSoldier", 138, 86),     # Hollows in lower arena
+        ("LothricKnight", 142, 90),                                   # Knight patrolling throne room approach
+        ("HollowSoldier", 118, 85), ("HollowSoldier", 125, 88),     # Hollows at arena south edge
+        ("DarkMage", 135, 92),                                        # Priest in lower castle chambers
     ]
     for kind, tx, ty in enemy_positions:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -11976,6 +12020,43 @@ def make_untended_graves():
     fill_tiles(chunk, TILE_WALL, 140, 138, 141, 139)
     fill_tiles(chunk, TILE_WALL, 146, 142, 147, 143)
 
+    # ================================================================
+    # SESSION 17 FIDELITY PASS — UntendedGraves DS3 dark cemetery depth
+    # ================================================================
+    # Dark cemetery — tilted headstone clusters (DS3: packed dark cemetery with fallen graves)
+    fill_tiles(chunk, TILE_WALL, 28, 20, 29, 21)
+    fill_tiles(chunk, TILE_WALL, 36, 24, 37, 25)
+    fill_tiles(chunk, TILE_WALL, 44, 28, 45, 29)
+    fill_tiles(chunk, TILE_WALL, 52, 32, 53, 33)
+    fill_tiles(chunk, TILE_WALL, 60, 36, 61, 37)
+    # Black Knight patrol path — broken stone path (DS3: dark stone path where Black Knights patrol)
+    fill_tiles(chunk, TILE_WALL, 48, 48, 49, 50)
+    fill_tiles(chunk, TILE_WALL, 56, 52, 57, 54)
+    fill_tiles(chunk, TILE_WALL, 64, 56, 65, 58)
+    fill_tiles(chunk, TILE_WALL, 72, 60, 73, 62)
+    fill_tiles(chunk, TILE_WALL, 42, 64, 43, 66)
+    # Gundyr arena perimeter — darkened arch fragments (DS3: mirror of Iudex arena)
+    fill_tiles(chunk, TILE_WALL, 94, 80, 95, 82)
+    fill_tiles(chunk, TILE_WALL, 102, 84, 103, 86)
+    fill_tiles(chunk, TILE_WALL, 110, 80, 111, 82)
+    fill_tiles(chunk, TILE_WALL, 118, 76, 119, 78)
+    fill_tiles(chunk, TILE_WALL, 126, 82, 127, 84)
+    fill_tiles(chunk, TILE_WALL, 114, 90, 115, 92)
+    # Dark Firelink — throne alcove walls (DS3: 5 empty lord thrones in dark shrine)
+    fill_tiles(chunk, TILE_WALL, 120, 108, 121, 110)
+    fill_tiles(chunk, TILE_WALL, 136, 106, 137, 108)
+    fill_tiles(chunk, TILE_WALL, 144, 112, 145, 114)
+    fill_tiles(chunk, TILE_WALL, 132, 116, 133, 118)
+    fill_tiles(chunk, TILE_WALL, 140, 120, 141, 122)
+    # Dark path edges — collapsed stone borders (DS3: crumbling path in total darkness)
+    fill_tiles(chunk, TILE_WALL, 20, 26, 21, 28)
+    fill_tiles(chunk, TILE_WALL, 32, 34, 33, 36)
+    fill_tiles(chunk, TILE_WALL, 40, 40, 41, 42)
+    fill_tiles(chunk, TILE_WALL, 66, 50, 67, 52)
+    fill_tiles(chunk, TILE_WALL, 76, 58, 77, 60)
+    # Dark well debris — broken well near Dark Firelink (DS3: dark version of Firelink well)
+    fill_tiles(chunk, TILE_WALL, 124, 118, 126, 120)
+    fill_tiles(chunk, TILE_WALL, 138, 114, 140, 116)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
