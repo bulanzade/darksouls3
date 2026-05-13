@@ -8891,6 +8891,24 @@ def make_profaned_capital():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # Additional enemies — SESSION 22 DS3 fidelity (ProfanedCapital reinforcements)
+    # Q(0,0) capital entrance — Jailer patrols (DS3: jailers from Irithyll Dungeon)
+    for tx, ty in [(18, 20), (24, 24), (30, 28), (36, 32)]:
+        mapped = ENEMY_KIND_MAP.get("Jailer", "Jailer")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(1,0) upper capital — Gargoyle patrols (DS3: gargoyles guard rooftops)
+    for tx, ty in [(85, 18), (92, 24), (98, 30), (105, 36), (112, 42)]:
+        mapped = ENEMY_KIND_MAP.get("Gargoyle", "Gargoyle")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(0,1) toxic swamp — Sewer Centipede clusters (DS3: centipedes in the toxic lower areas)
+    for tx, ty in [(28, 82), (35, 88), (42, 94), (50, 100), (58, 106)]:
+        mapped = ENEMY_KIND_MAP.get("SewerCentipede", "SewerCentipede")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(1,1) Yhorm arena approach — Monstrosity of Sin (DS3: monstrosities near Yhorm)
+    for tx, ty in [(95, 82), (102, 88), (108, 94), (115, 100)]:
+        mapped = ENEMY_KIND_MAP.get("MonstrosityOfSin", "MonstrosityOfSin")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs ---
     # Siegward — in cell
     entities.append(make_entity("Npc", 60 * 16, 50 * 16, [
@@ -9490,6 +9508,24 @@ def make_anor_londo():
         make_field("loot_name", "String", "Estus Shard"),
         make_field("is_mimic", "Bool", False),
     ]))
+
+    # Additional enemies — SESSION 22 DS3 fidelity (AnorLondo reinforcements)
+    # Q(0,0) cathedral approach — Silver Knights guarding main hall (DS3: silver knight patrols)
+    for tx, ty in [(22, 18), (28, 22), (34, 26), (40, 30)]:
+        mapped = ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(1,0) upper cathedral — Man Grub clusters (DS3: grub infestations on upper floors)
+    for tx, ty in [(85, 28), (92, 34), (98, 40), (105, 46), (112, 52)]:
+        mapped = ENEMY_KIND_MAP.get("ManGrub", "ManGrub")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(0,1) lower hall — Silver Knights in the dark corridors (DS3: knights in darkened halls)
+    for tx, ty in [(25, 85), (32, 90), (40, 95), (48, 100)]:
+        mapped = ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(1,1) Aldrich chamber — Man Grub guardians (DS3: grubs near Aldrich's chamber)
+    for tx, ty in [(95, 85), (102, 90), (108, 95), (115, 100), (120, 105)]:
+        mapped = ENEMY_KIND_MAP.get("ManGrub", "ManGrub")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # --- NPCs ---
     # Anri of Astora — summon sign near main doors (wiki: "purple sign on the floor")
@@ -13041,6 +13077,16 @@ def make_untended_graves():
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # Q(1,0) dark eastern path — Black Knight reinforcements (DS3: extra black knights in shadow version)
     for tx, ty in [(95, 42), (105, 55), (115, 65)]:
+        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # Additional enemies — SESSION 22 DS3 fidelity (UntendedGraves reinforcements)
+    # Q(0,0) dark cemetery — more Hollow Soldiers rising from graves (DS3: dense hollow population)
+    for tx, ty in [(20, 24), (26, 28), (32, 32), (38, 36), (44, 40), (50, 44), (56, 48)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(1,1) dark Firelink — Black Knight elite guard (DS3: black knights guard dark shrine)
+    for tx, ty in [(110, 82), (118, 88), (124, 94), (130, 100)]:
         mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
