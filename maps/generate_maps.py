@@ -3576,6 +3576,23 @@ def make_undead_settlement():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # --- SESSION 52 DS3 enemies (Undead Settlement diversity) ---
+    # DS3: Rats in the settlement cellars and lower passages
+    for tx, ty in [(28, 48), (38, 52), (48, 55)]:
+        mapped = ENEMY_KIND_MAP.get("Rat", "Rat")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Dogs near the giant's tree (DS3: dogs in the settlement)
+    for tx, ty in [(65, 55), (75, 58)]:
+        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Cage Spider (DS3: enemies hiding in cages hung from trees)
+    for tx, ty in [(55, 42)]:
+        mapped = ENEMY_KIND_MAP.get("CageSpider", "Basilisk")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs (DS3 Undead Settlement: Yoel, Siegward, Cornyx) ---
     # Yoel of Londor — among the pilgrims at the entrance (DS3: offers free levels)
     entities.append(make_entity("Npc", 120 * 16, 34 * 16, [
@@ -6639,6 +6656,23 @@ def make_cathedral_deep():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # --- SESSION 52 DS3 enemies (Cathedral of the Deep diversity) ---
+    # DS3: Cathedral Grave Wardens patrol the cemetery exterior
+    for tx, ty in [(25, 45), (42, 48)]:
+        mapped = ENEMY_KIND_MAP.get("CathedralGraveWarden", "CathedralGraveWarden")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Rotten Slugs in the swampy cathedral exterior
+    for tx, ty in [(55, 55), (68, 58)]:
+        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Rat")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Giant Hollow near the cathedral entrance (DS3: one giant hollow outside)
+    for tx, ty in [(35, 60)]:
+        mapped = ENEMY_KIND_MAP.get("GiantHollow", "GiantSlave")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # NPCs - DS3 Cathedral of the Deep: Patches, Rosaria
     entities.append(make_entity("Npc", 52 * 16, 78 * 16, [make_field("name", "String", "Patches"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#808080"), make_field("dialogue", "String", "You're a parasite, only thinking of yourself|I know your kind, you're nothing but trouble|What's wrong? Something the matter?|Heh heh heh|I'm Patches, the one and only|You know what I'm talking about, don't you?")]))
     entities.append(make_entity("Npc", 38 * 16, 148 * 16, [make_field("name", "String", "Rosaria"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D0A0B0"), make_field("dialogue", "String", "(No tongue, but her will is clear)|Offer me pale tongues, and I shall grant your desire|Rebirth, or fingers to invade others|I am Rosaria, Mother of Rebirth|The fingers of the gods stretch far and wide|Each rebirth costs a pale tongue")]))
@@ -8661,6 +8695,22 @@ def make_smouldering_lake():
     for tx, ty in [(45, 40), (55, 45), (70, 42)]:
         chunk[ty][tx] = TILE_WALLTOP  # demon bone
 
+    # --- SESSION 52 terrain (Smouldering Lake) ---
+    # DS3: Demon ruins pillar fragments
+    for ty in range(25, 32):
+        chunk[ty][35] = TILE_WALL  # pillar stump
+    # Lava flow channels (DS3: rivers of lava through the ruins)
+    for tx in range(55, 65):
+        for ty in [58, 59]:
+            if chunk[ty][tx] == TILE_GROUND:
+                chunk[ty][tx] = TILE_POISON
+    # Carthus skeleton debris on the lake bed
+    for tx, ty in [(30, 48), (45, 52)]:
+        chunk[ty][tx] = TILE_WALLTOP  # bone scatter
+    # Ballista bolt embedded in ground
+    chunk[42][75] = TILE_WALL  # bolt shaft
+    chunk[43][75] = TILE_WALLTOP  # impact crater
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -10028,6 +10078,28 @@ def make_irithyll_dungeon():
     # Basilisks in the deeper dungeon (DS3: curse frogs)
     for tx, ty in [(45, 52), (58, 55), (70, 50)]:
         mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 52 DS3 enemies (Irithyll Dungeon diversity) ---
+    # DS3: Cathedral Grave Wardens in the deeper prison levels
+    for tx, ty in [(38, 28), (52, 32)]:
+        mapped = ENEMY_KIND_MAP.get("CathedralGraveWarden", "CathedralGraveWarden")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Monstrosity of Sin (DS3: the bloated creatures in the dungeon depths)
+    for tx, ty in [(65, 45)]:
+        mapped = ENEMY_KIND_MAP.get("MonstrosityOfSin", "GiantSlave")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Giant Slaves in the dungeon entrance (DS3: the giant outside)
+    for tx, ty in [(18, 35)]:
+        mapped = ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # More Jailers on the upper catwalks
+    for tx, ty in [(28, 42), (42, 48)]:
+        mapped = ENEMY_KIND_MAP.get("Jailer", "Jailer")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
@@ -15734,6 +15806,24 @@ def make_consumed_kings_garden():
     for tx in range(30, 38):
         chunk[45][tx] = TILE_WALLTOP  # cracked paving
 
+    # --- SESSION 52 terrain (Consumed King's Garden) ---
+    # DS3: Consumed garden overgrown paths
+    for tx in range(25, 35):
+        chunk[55][tx] = TILE_WALLTOP  # overgrown debris
+    # Oceiros crystal throne room floor
+    for tx in range(80, 92):
+        chunk[58][tx] = TILE_WALLTOP  # crystal floor debris
+    # Consumed King's treasure pile
+    for tx in range(60, 65):
+        chunk[48][tx] = TILE_WALLTOP  # treasure debris
+    # Toxic fountain (DS3: the poisoned garden fountain)
+    chunk[42][45] = TILE_WALL  # fountain edge
+    chunk[42][46] = TILE_WALL
+    for tx in range(46, 50):
+        for ty in [42, 43]:
+            if chunk[ty][tx] == TILE_GROUND:
+                chunk[ty][tx] = TILE_POISON
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -17021,6 +17111,28 @@ def make_archdragon_peak():
         mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # --- SESSION 52 DS3 enemies (Archdragon Peak diversity) ---
+    # DS3: Ravenous Crystal Lizards (larger, more aggressive variants)
+    for tx, ty in [(45, 35), (75, 40)]:
+        mapped = ENEMY_KIND_MAP.get("RavenousCrystalLizard", "CrystalLizard")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Lightning Serpent Men (DS3: electrified variant near the peak)
+    for tx, ty in [(85, 45), (95, 48), (105, 42)]:
+        mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Drakeblood Knights guarding the dragon bridge
+    for tx, ty in [(55, 50), (68, 55)]:
+        mapped = ENEMY_KIND_MAP.get("DrakebloodKnight", "Knight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Boreal Outrider Knight (DS3: mini-boss enemy at the peak)
+    for tx, ty in [(100, 55)]:
+        mapped = ENEMY_KIND_MAP.get("BorealOutriderKnight", "WingedKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs ---
     # Hawkwood — can be summoned for Nameless King (DS3: summon sign at Great Belfry)
     entities.append(make_entity("Npc", 124 * 16, 24 * 16, [
@@ -17381,6 +17493,21 @@ def make_archdragon_peak():
     # Stone staircase to Nameless King arena
     for ty in range(50, 58):
         chunk[ty][110] = TILE_WALL
+
+    # --- SESSION 52 terrain (Archdragon Peak) ---
+    # DS3: Ancient Wyvern skeleton in the courtyard
+    for tx in range(40, 52):
+        chunk[60][tx] = TILE_WALLTOP  # rib bones
+    # Serpent statue altar (DS3: snake worship altar)
+    for tx in range(55, 60):
+        chunk[65][tx] = TILE_WALLTOP  # altar stone
+    chunk[66][57] = TILE_WALL  # altar pillar
+    # Dragon egg nests (DS3: eggs in the peak)
+    for tx, ty in [(70, 50), (82, 55)]:
+        chunk[ty][tx] = TILE_WALLTOP  # egg nest
+    # Bell tower structure (DS3: the great bell)
+    for ty in range(35, 42):
+        chunk[ty][95] = TILE_WALL  # tower wall
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
