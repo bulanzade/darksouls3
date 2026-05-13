@@ -1302,6 +1302,24 @@ def make_cemetery_of_ash():
         chunk[tx][4] = TILE_WALLTOP
     for tx in range(5, 95):
         chunk[tx][62] = TILE_WALL
+
+    # --- SESSION 90 DS3 terrain round 2 (Cemetery of Ash) ---
+    # DS3: Dense gravestone rows along the cemetery slope
+    for tx in [15, 17, 19, 21, 23, 33, 35, 37, 39, 41, 55, 57, 59, 61, 63, 65]:
+        for ty in [24, 26, 28]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Ash pile mounds along the path edges
+    for tx in range(40, 55):
+        for ty in [35, 36]:
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Broken fencing posts
+    for tx in [12, 16, 20, 45, 50, 55, 70, 75]:
+        for ty in [15, 16]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Coffin debris near Gundyr arena
+    for tx in [72, 74, 76, 78, 82, 84]:
+        for ty in [45, 46]:
+            chunk[tx][ty] = TILE_WALL
     populate_entity_def_uids(entities)
 
     # Ensure connectivity from spawn to all entities
@@ -3578,6 +3596,39 @@ def make_lothric_wall():
     for tx in [10, 16]:
         for ty in range(45, 53):
             chunk[tx][ty] = TILE_WALL
+
+    # --- SESSION 90 DS3 terrain round 2 (Lothric Wall) ---
+    # DS3: Castle battlement crenellations
+    for tx in range(10, 110):
+        if tx % 4 < 2:
+            chunk[tx][5] = TILE_WALL
+            chunk[tx][4] = TILE_WALLTOP
+    # DS3: Dragon scorch marks on bridge (burned ground)
+    for tx in range(48, 62):
+        for ty in range(15, 20):
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Burial alcoves in the wall interior
+    for tx in [25, 30, 35, 40, 55, 60, 65]:
+        for ty in [40, 41]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Tower framework at the corner
+    for tx in range(95, 105):
+        for ty in [15, 25]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [95, 105]:
+        for ty in range(15, 26):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(95, 106):
+        chunk[tx][14] = TILE_WALLTOP
+    # DS3: Emma's chapel interior
+    for tx in range(80, 92):
+        for ty in [32, 40]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [80, 92]:
+        for ty in range(32, 41):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(80, 93):
+        chunk[tx][31] = TILE_WALLTOP
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -5006,6 +5057,48 @@ def make_undead_settlement():
     for tx in range(90, 96):
         for ty in range(55, 60):
             chunk[tx][ty] = TILE_GROUND
+
+    # --- SESSION 90 DS3 terrain round 2 (Undead Settlement) ---
+    # DS3: House structures along the street
+    for tx in range(30, 38):
+        for ty in [20, 26]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [30, 38]:
+        for ty in range(20, 27):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(30, 39):
+        chunk[tx][19] = TILE_WALLTOP
+    # DS3: Scaffolding platforms (elevated walkways)
+    for tx in [45, 47, 49, 51, 53]:
+        for ty in [30, 31]:
+            chunk[tx][ty] = TILE_WALL
+        chunk[tx][29] = TILE_WALLTOP
+    # DS3: Hanging cages from the tree
+    for tx in [68, 72, 76]:
+        for ty in [35, 36]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Carts and wagons in the street
+    for tx in range(55, 60):
+        for ty in [42, 43]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Tree branches (the massive hollow tree)
+    for tx in [80, 82, 84, 86, 88, 90]:
+        for ty in [55, 56]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Curse-rotted Greatwood arena debris
+    for tx in range(95, 115):
+        for ty in range(70, 82):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [95, 115]:
+        for ty in range(70, 83):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Elevator shaft to Road of Sacrifices
+    for tx in range(120, 128):
+        for ty in [75, 80]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [120, 128]:
+        for ty in range(75, 81):
+            chunk[tx][ty] = TILE_WALL
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -7326,6 +7419,44 @@ def make_farron_keep():
     for tx in range(100, 115):
         chunk[tx][50] = TILE_WALL
         chunk[tx][49] = TILE_WALLTOP
+
+    # --- SESSION 90 DS3 terrain round 2 (Farron Keep) ---
+    # DS3: More swamp islands connected by tree bridges
+    for tx in range(55, 65):
+        for ty in range(40, 48):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in range(110, 120):
+        for ty in range(50, 58):
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Tree bridges between islands (log walkways)
+    for tx in range(30, 40):
+        for ty in [52, 53]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(70, 80):
+        for ty in [62, 63]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Memorial stones (ancient gravestones in the swamp)
+    for tx in [28, 32, 38]:
+        for ty in [68, 69]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Ghru camp fire rings
+    for tx in range(45, 50):
+        for ty in [70, 71]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [45, 50]:
+        for ty in range(70, 72):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Abyss Watchers mausoleum interior
+    for tx in range(112, 122):
+        for ty in range(98, 106):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [112, 122]:
+        for ty in range(98, 107):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Farron perimeter legion sign (stone markers)
+    for tx in [12, 14, 16]:
+        for ty in [30, 31]:
+            chunk[tx][ty] = TILE_WALL
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
