@@ -3255,6 +3255,24 @@ def make_lothric_wall():
     for ty in range(60, 68):
         chunk[ty][68] = TILE_WALL
 
+    # --- SESSION 58 terrain (High Wall of Lothric) ---
+    # DS3: Vordt arena perimeter stones
+    for tx in range(70, 82):
+        if tx % 3 == 0:
+            chunk[62][tx] = TILE_WALL  # arena boundary
+    # Distant castle view balcony (DS3: you can see Lothric Castle from the wall)
+    for ty in range(8, 12):
+        chunk[ty][60] = TILE_WALL  # balcony rail
+    # Courtyard fountain basin
+    chunk[32][28] = TILE_WALL
+    chunk[32][29] = TILE_WALLTOP
+    # Prison cell bars near Greirat's cell
+    for ty in range(58, 64):
+        chunk[ty][34] = TILE_WALL  # cell bar
+    # Tower staircase interior
+    for ty in range(22, 28):
+        chunk[ty][44] = TILE_WALL  # staircase wall
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -4364,6 +4382,21 @@ def make_undead_settlement():
     for tx in range(25, 30):
         chunk[55][tx] = TILE_WALLTOP  # cart pieces
 
+    # --- SESSION 58 terrain (Undead Settlement) ---
+    # DS3: Settlement bell tower base
+    for ty in range(30, 36):
+        chunk[ty][58] = TILE_WALL  # tower wall
+    # Wooden bridge planks between buildings
+    for tx in range(40, 50):
+        chunk[38][tx] = TILE_WALLTOP  # bridge plank
+    # Giant's chain anchors (DS3: chains that hold the giant)
+    for tx, ty in [(72, 32), (76, 36)]:
+        chunk[ty][tx] = TILE_WALL  # chain anchor
+    # Settlement gate arch
+    for ty in range(18, 24):
+        chunk[ty][15] = TILE_WALL  # gate pillar
+        chunk[ty][20] = TILE_WALL  # gate pillar
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -5357,6 +5390,20 @@ def make_road_of_sacrifices():
     # Mushroom patches (DS3: giant mushrooms in the forest)
     for tx, ty in [(35, 48), (50, 52)]:
         chunk[ty][tx] = TILE_WALLTOP  # mushroom debris
+
+    # --- SESSION 58 terrain (Road of Sacrifices) ---
+    # DS3: Farron Keep perimeter wall (DS3: the wall separating Road from Farron)
+    for ty in range(62, 68):
+        chunk[ty][88] = TILE_WALL  # perimeter wall
+    # Crucifixion Woods bridge supports
+    for ty in range(45, 50):
+        chunk[ty][72] = TILE_WALL  # bridge support
+    # Corvian village tree house platforms
+    for tx in range(20, 28):
+        chunk[32][tx] = TILE_WALLTOP  # platform debris
+    # Witch's hut foundation (DS3: the witch in the woods)
+    for tx in range(55, 62):
+        chunk[42][tx] = TILE_WALLTOP  # hut foundation
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -8024,6 +8071,19 @@ def make_catacombs_of_carthus():
     # Torch sconce positions (DS3: torches light the catacombs)
     for tx, ty in [(20, 30), (50, 35), (80, 40)]:
         chunk[ty][tx] = TILE_WALLTOP  # sconce debris
+
+    # --- SESSION 58 terrain (Catacombs of Carthus) ---
+    # DS3: Abyss Watcher bridge arches (DS3: the bridge to Farron Keep)
+    for ty in range(70, 76):
+        chunk[ty][85] = TILE_WALL  # bridge arch
+    # Carthus war banner alcoves
+    for tx, ty in [(25, 52), (40, 58)]:
+        chunk[ty][tx] = TILE_WALL  # banner alcove
+    # Skeleton pile pyramids (DS3: massive bone piles)
+    for tx in range(55, 62):
+        chunk[48][tx] = TILE_WALLTOP  # bone pyramid
+    # Wolnir's sword mount point
+    chunk[65][90] = TILE_WALL  # sword mount
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -15330,6 +15390,19 @@ def make_kiln_of_the_first_flame():
     for tx in range(85, 92):
         chunk[55][tx] = TILE_WALLTOP  # altar stone
 
+    # --- SESSION 58 terrain (Kiln of the First Flame) ---
+    # DS3: Lord of Cinder thrones (DS3: the thrones of the Lords of Cinder)
+    for tx in range(30, 36):
+        chunk[60][tx] = TILE_WALLTOP  # throne base
+    for tx in range(50, 56):
+        chunk[62][tx] = TILE_WALLTOP  # throne base
+    # Firelink Shrine ruins (DS3: the ruined shrine in the Kiln)
+    for ty in range(40, 46):
+        chunk[ty][35] = TILE_WALL  # shrine wall
+    # Collapsed Lordran archway
+    for ty in range(28, 34):
+        chunk[ty][65] = TILE_WALL  # archway pillar
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -17930,6 +18003,21 @@ def make_archdragon_peak():
     # Bell tower structure (DS3: the great bell)
     for ty in range(35, 42):
         chunk[ty][95] = TILE_WALL  # tower wall
+
+    # --- SESSION 58 terrain (Archdragon Peak) ---
+    # DS3: Nameless King arena storm clouds (stone markers for the arena)
+    for tx in range(100, 112):
+        if tx % 2 == 0:
+            chunk[68][tx] = TILE_WALLTOP  # storm marker
+    # Ancient dragon bone ridge
+    for tx in range(30, 40):
+        chunk[55][tx] = TILE_WALLTOP  # bone ridge
+    # Serpent man altar
+    for ty in range(40, 45):
+        chunk[ty][20] = TILE_WALL  # altar wall
+    # Dragon egg cluster
+    for tx, ty in [(60, 48), (68, 52)]:
+        chunk[ty][tx] = TILE_WALL  # egg stone
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
