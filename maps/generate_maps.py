@@ -1197,6 +1197,28 @@ def make_cemetery_of_ash():
     for ty in range(45, 70, 8):
         fill_tiles(chunk, TILE_WALL, 110, ty, 111, ty+1)            # Ash pile markers
     fill_tiles(chunk, TILE_WALL, 120, 65, 122, 67)                  # Coiled sword ash
+    # --- SESSION 43 terrain (Cemetery of Ash) ---
+    # DS3: Dense gravestones throughout the cemetery slopes
+    for tx in range(10, 18):
+        if tx % 2 == 0:
+            chunk[20][tx] = TILE_WALLTOP
+            chunk[22][tx] = TILE_WALLTOP
+    # Ash drifts near the cliff edges
+    for tx in range(25, 35):
+        chunk[15][tx] = TILE_WALLTOP
+    # Gundyr arena stone blocks
+    for tx in range(45, 55):
+        chunk[35][tx] = TILE_WALLTOP
+    for ty in range(32, 38):
+        chunk[ty][48] = TILE_WALL
+    # Coiled sword crater debris
+    chunk[12][40] = TILE_WALLTOP
+    chunk[12][41] = TILE_WALLTOP
+    # Cliff face rock formations
+    for ty in range(5, 12):
+        chunk[ty][5] = TILE_WALL
+        chunk[ty][6] = TILE_WALL
+
     populate_entity_def_uids(entities)
 
     # Ensure connectivity from spawn to all entities
@@ -2421,6 +2443,59 @@ def make_lothric_wall():
         mapped = ENEMY_KIND_MAP.get("HollowAssassin", "Assassin")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # --- SESSION 43 DS3 enemies (High Wall of Lothric) ---
+    # DS3: Hollow Soldiers patrol EVERY courtyard and rampart section
+    # Q1 (upper-left): soldiers near the first bonfire area
+    for tx, ty in [(12, 12), (18, 15), (24, 10), (30, 14), (14, 18)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q2 (upper-right): Lothric Knights on the ramparts and dragon bridge
+    for tx, ty in [(45, 10), (52, 14), (58, 12), (48, 18), (55, 16)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q2 (upper-right): Starved Hounds near the dragon area
+    for tx, ty in [(50, 22), (56, 24), (62, 20)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q3 (lower-left): Hollow Assassins in the dark interior passages
+    for tx, ty in [(16, 50), (22, 55), (28, 52), (34, 58)]:
+        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "Assassin")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q3: Winged Knight patrolling near the elevator (DS3: heavy patroller)
+    for tx, ty in [(20, 62), (26, 68)]:
+        mapped = ENEMY_KIND_MAP.get("WingedKnight", "WingedKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q4 (lower-right): more Hollow Soldiers near Vordt's arena approach
+    for tx, ty in [(60, 48), (68, 52), (74, 50), (80, 56), (86, 54)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q4: Starved Hounds near the boss fog
+    for tx, ty in [(70, 60), (78, 64), (84, 62)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Lothric Knights near the Dancer/Emma cathedral section
+    for tx, ty in [(72, 68), (80, 72), (88, 70)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Pus of Man - the black slime enemies (DS3: on the dragon, transforms)
+    for tx, ty in [(54, 26)]:
+        mapped = ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Hollow Soldiers in the lower barracks area
+    for tx, ty in [(38, 70), (44, 74), (50, 72), (56, 76)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs ---
     # Greirat — locked in cell below tower (DS3: basement cell, asks for Loretta's Bone)
     entities.append(make_entity("Npc", 36 * 16, 60 * 16, [
@@ -2947,6 +3022,36 @@ def make_lothric_wall():
     fill_tiles(chunk, TILE_WALL, 45, 58, 47, 60)
     fill_tiles(chunk, TILE_WALL, 90, 65, 92, 67)
     fill_tiles(chunk, TILE_WALL, 120, 50, 122, 52)
+    # --- SESSION 43 terrain (High Wall of Lothric) ---
+    # DS3: Dragon scorch marks on the bridge section
+    for tx in range(46, 54):
+        for ty in [14, 15]:
+            chunk[ty][tx] = TILE_WALLTOP
+    # Portcullis gate frame at castle entrance
+    for ty in range(18, 22):
+        chunk[ty][42] = TILE_WALL
+    # Hollow burial alcoves in the lower passage walls
+    for tx in range(20, 30):
+        chunk[40][tx] = TILE_WALLTOP
+        chunk[48][tx] = TILE_WALLTOP
+    # Tower interior stone framework
+    for ty in range(8, 14):
+        chunk[ty][38] = TILE_WALL
+        chunk[ty][40] = TILE_WALL
+    # Rampart battlements (crenellations)
+    for tx in range(30, 44):
+        if tx % 2 == 0:
+            chunk[6][tx] = TILE_WALLTOP
+    # Vordt arena pillars
+    for tx, ty in [(70, 58), (75, 62), (80, 58)]:
+        chunk[ty][tx] = TILE_WALL
+    # Courtyard well and cart debris
+    chunk[34][22] = TILE_WALL
+    chunk[34][23] = TILE_WALLTOP
+    # Dancer cathedral approach columns
+    for ty in range(60, 68):
+        chunk[ty][68] = TILE_WALL
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -5634,6 +5739,35 @@ def make_farron_keep():
     fill_tiles(chunk, TILE_WALL, 70, 95, 72, 97)                    # Swamp edge ruin
     for tx in range(115, 140, 6):
         fill_tiles(chunk, TILE_WALL, tx, 55, tx+1, 56)             # Rotting wood piles
+    # --- SESSION 43 terrain (Farron Keep) ---
+    # DS3: Swamp mud islands (higher ground in the poison swamp)
+    for tx in range(30, 40):
+        chunk[50][tx] = TILE_GROUND
+    for tx in range(60, 70):
+        chunk[45][tx] = TILE_GROUND
+    # Fallen tree bridge debris
+    for tx in range(80, 90):
+        chunk[40][tx] = TILE_WALLTOP
+    # Ghru camp fire pits
+    for tx, ty in [(35, 35), (55, 40), (75, 38)]:
+        chunk[ty][tx] = TILE_WALLTOP
+        chunk[ty][tx+1] = TILE_WALLTOP
+    # Abyss Watcher memorial stones near the boss arena
+    for tx in range(90, 96):
+        chunk[60][tx] = TILE_WALLTOP
+    # Darkwraith emergence holes
+    for tx, ty in [(50, 55), (65, 50), (80, 52)]:
+        chunk[ty][tx] = TILE_WALLTOP
+    # Poison swamp deep patches
+    for tx in range(20, 30):
+        for ty in range(55, 60):
+            if chunk[ty][tx] == TILE_GROUND:
+                chunk[ty][tx] = TILE_POISON
+    for tx in range(70, 80):
+        for ty in range(50, 55):
+            if chunk[ty][tx] == TILE_GROUND:
+                chunk[ty][tx] = TILE_POISON
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -8012,6 +8146,28 @@ def make_smouldering_lake():
     fill_tiles(chunk, TILE_WALL, 92, 82, 93, 83)
     fill_tiles(chunk, TILE_WALL, 98, 86, 99, 87)
     fill_tiles(chunk, TILE_WALL, 104, 90, 105, 91)
+
+    # --- SESSION 43 terrain (Smouldering Lake) ---
+    # DS3: Lava crust formations (solidified lava flows)
+    for tx in range(20, 30):
+        for ty in [50, 51]:
+            if chunk[ty][tx] == TILE_GROUND:
+                chunk[ty][tx] = TILE_POISON
+    for tx in range(40, 50):
+        for ty in [45, 46]:
+            if chunk[ty][tx] == TILE_GROUND:
+                chunk[ty][tx] = TILE_POISON
+    # Ballista bolt impact craters (DS3: giant ballista shoots the lake)
+    for tx, ty in [(35, 35), (55, 40), (70, 38), (85, 42)]:
+        chunk[ty][tx] = TILE_WALLTOP
+        chunk[ty+1][tx] = TILE_WALLTOP
+    # Demon skeleton ribcages
+    for tx in range(60, 68):
+        chunk[55][tx] = TILE_WALLTOP
+    # Scorched earth patches
+    for tx in range(80, 90):
+        for ty in range(50, 54):
+            chunk[ty][tx] = TILE_WALLTOP
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -11908,6 +12064,64 @@ def make_lothric_castle():
         mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # --- SESSION 43 DS3 enemies (Lothric Castle) ---
+    # DS3: Lothric Knights are the dominant enemy, patrolling EVERY hall and rampart
+    # Q1 (upper-left): Lothric Knights guarding the main halls
+    for tx, ty in [(12, 22), (18, 28), (24, 25), (30, 30), (15, 35)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q1: Hollow Soldiers in the side passages
+    for tx, ty in [(20, 32), (26, 38), (32, 35)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q2 (upper-right): Winged Knights on the castle ramparts (DS3: 3 total)
+    for tx, ty in [(85, 22), (95, 28), (105, 25)]:
+        mapped = ENEMY_KIND_MAP.get("WingedKnight", "WingedKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q2: Lothric Knights on the dragon barracks roof
+    for tx, ty in [(110, 20), (120, 25), (128, 22), (135, 28)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q2: Gargoyle on the castle roof (DS3: 2 gargoyles near Grand Archives entrance)
+    for tx, ty in [(115, 30), (125, 35)]:
+        mapped = ENEMY_KIND_MAP.get("Gargoyle", "Gargoyle")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q1/Q2 mid: Starved Hounds in the castle interior
+    for tx, ty in [(40, 40), (48, 45), (56, 42), (65, 48)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q3 (lower-left): Hollow Soldiers and Knights in the Oceiros approach
+    for tx, ty in [(10, 60), (16, 65), (22, 62), (28, 68), (35, 65)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q3: Lothric Knight patrol deeper in
+    for tx, ty in [(18, 72), (30, 75), (42, 78)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q4 (lower-right): Lothric Knights near the Grand Archives approach
+    for tx, ty in [(90, 70), (100, 75), (110, 72), (120, 78), (130, 75)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q4: Hollow Soldiers in the lower castle wards
+    for tx, ty in [(95, 82), (105, 85), (115, 82), (125, 88)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q4: Starved Hounds in the castle cellars
+    for tx, ty in [(98, 90), (108, 92), (118, 88)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs - DS3 Lothric Castle ---
     # NOTE: Emma is only at High Wall of Lothric (LothricWall) — she dies after giving Basin of Vows
     # NOTE: Eygon of Carim only appears near Irina (Undead Settlement) or Firelink Shrine, not here
