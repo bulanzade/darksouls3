@@ -6097,6 +6097,23 @@ def make_farron_keep():
     for tx, ty in [(60, 38), (75, 42)]:
         chunk[ty][tx] = TILE_WALL  # totem pole
 
+    # --- SESSION 55 terrain (Farron Keep final) ---
+    # DS3: Abyss Watcher grave stone rows (the Watchers' cemetery)
+    for tx in range(15, 25):
+        chunk[25][tx] = TILE_WALLTOP  # grave marker
+    # Old Wolf of Farron tower base (DS3: the wolf sits atop a tower)
+    for ty in range(30, 36):
+        chunk[ty][85] = TILE_WALL  # tower base
+    # Swamp water channels (DS3: narrow waterways through the swamp)
+    for tx in range(40, 50):
+        for ty in [38, 39]:
+            if chunk[ty][tx] == TILE_GROUND:
+                chunk[ty][tx] = TILE_POISON
+    # Ghru bonfire ring stones (DS3: ritual circles in ghru camps)
+    for tx, ty in [(60, 32), (75, 35)]:
+        chunk[ty][tx] = TILE_WALLTOP  # fire ring stone
+        chunk[ty][tx+1] = TILE_WALLTOP
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -7061,6 +7078,24 @@ def make_cathedral_deep():
         for ty in range(45, 48):
             if chunk[ty][tx] == TILE_GROUND:
                 chunk[ty][tx] = TILE_POISON
+
+    # --- SESSION 55 terrain (Cathedral of the Deep final) ---
+    # DS3: Cathedral exterior ravine bridge (DS3: the bridge over the ravine)
+    for tx in range(20, 30):
+        chunk[55][tx] = TILE_WALLTOP  # bridge planks
+    # Rosaria's chamber alcove (DS3: the candlelit chamber)
+    for ty in range(65, 72):
+        chunk[ty][38] = TILE_WALL  # alcove wall
+    # Cathedral ceiling arch supports
+    for ty in range(25, 30):
+        chunk[ty][48] = TILE_WALL  # arch support
+    # Deacon prayer candles (DS3: candles in the Deacons' chamber)
+    for tx, ty in [(82, 48), (88, 52), (94, 48)]:
+        chunk[ty][tx] = TILE_WALLTOP  # candle debris
+    # Cemetery gate pillars (DS3: the gate to the graveyard)
+    for ty in range(32, 38):
+        chunk[ty][12] = TILE_WALL  # gate pillar
+        chunk[ty][16] = TILE_WALL  # gate pillar
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -16851,6 +16886,24 @@ def make_untended_graves():
         chunk[ty][5] = TILE_WALL
         chunk[ty][6] = TILE_WALL
 
+    # --- SESSION 55 terrain (Untended Graves final) ---
+    # DS3: Dark Firelink Shrine collapsed ceiling
+    for tx in range(30, 42):
+        chunk[40][tx] = TILE_WALLTOP  # ceiling debris
+    # Champion Gundyr arena stone circle
+    for tx in range(80, 92):
+        if tx % 3 == 0:
+            chunk[75][tx] = TILE_WALL  # arena stone
+    # Dark tree stump cluster
+    for tx, ty in [(50, 55), (65, 58), (78, 52)]:
+        chunk[ty][tx] = TILE_WALL  # stump
+    # Ash drift over the dark bonfire area
+    for tx in range(20, 28):
+        chunk[45][tx] = TILE_WALLTOP  # ash pile
+    # Broken fence line (DS3: the cemetery fence in ruins)
+    for tx in range(55, 65):
+        chunk[35][tx] = TILE_WALLTOP  # fence debris
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -17326,6 +17379,23 @@ def make_archdragon_peak():
     # Boreal Outrider Knight (DS3: mini-boss enemy at the peak)
     for tx, ty in [(100, 55)]:
         mapped = ENEMY_KIND_MAP.get("BorealOutriderKnight", "WingedKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 55 DS3 enemies (Archdragon Peak diversity final) ---
+    # DS3: Ancient Wyvern perched on the cliff (DS3: the dragon boss)
+    for tx, ty in [(105, 30)]:
+        mapped = ENEMY_KIND_MAP.get("AncientWyvern", "MiniBoss")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Havel Knights (DS3: Havel cultists at the peak)
+    for tx, ty in [(35, 55), (50, 60)]:
+        mapped = ENEMY_KIND_MAP.get("HavelKnight", "WingedKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Lightning Snakemen (DS3: electrified serpent warriors)
+    for tx, ty in [(65, 65), (80, 68)]:
+        mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
