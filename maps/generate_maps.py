@@ -7044,8 +7044,8 @@ def make_irithyll():
         # Silver Knights on bridge to Anor Londo (DS3: knights guard the path to cathedral)
         ("SilverKnight", 140, 50), ("SilverKnight", 142, 48), ("SilverKnight", 144, 52),
         ("SilverKnight", 146, 54), ("SilverKnight", 148, 56),              # More knights on bridge
-        # Pontiff arena entrance — Deep Accursed (DS3: near revolving switch)
-        ("DeepAccursed", 132, 88),
+        # Pontiff Knight patrol near church (DS3: Pontiff Knights guard the city streets)
+        ("BorealKnight", 132, 88),
         # Mimic near boulevard (DS3: drops Golden Ritual Spear)
         ("Mimic", 58, 56),
         # Boss — Pontiff Sulyvahn
@@ -7729,8 +7729,8 @@ def make_irithyll_dungeon():
         ("CageSpider", 55, 88),                                       # DS3: Cage Spider in drain area (→ Basilisk)
         # Wretch — DS3: bloated prisoner in lower drain (no Monstrosity in Irithyll Dungeon)
         ("Wretch", 42, 75),
-        # Lycanthrope (Dog) in rat tunnels
-        ("Dog", 22, 82), ("Dog", 38, 85),
+        # Rats in dungeon tunnels (DS3: rats in the lower prison passages)
+        ("Rat", 22, 82), ("Rat", 38, 85),
         # Exit corridor — DS3: Wretches (bloated prisoners) guard the upper exit path
         ("Wretch", 95, 42), ("Wretch", 125, 30),
         # Karla's cell area — DS3: jailers guard the lower cells
@@ -11625,10 +11625,10 @@ def make_consumed_kings_garden():
     # Pus of Man on wyvern-like creatures. Rotten Slugs in toxic water.
     # No Serpent Men here (those are only in Archdragon Peak).
     enemy_data = [
-        # Cathedral Knights — heavy armor guards throughout the garden (DS3: 8+ knights)
-        ("CathedralKnight", 32, 30), ("CathedralKnight", 55, 40), ("CathedralKnight", 112, 82),
-        ("CathedralKnight", 98, 68), ("CathedralKnight", 42, 38), ("CathedralKnight", 72, 48),
-        ("CathedralKnight", 80, 55), ("CathedralKnight", 95, 72),
+        # Lothric Knights — castle guards throughout the garden (DS3: Lothric Knights patrol Garden)
+        ("LothricKnight", 32, 30), ("LothricKnight", 55, 40), ("LothricKnight", 112, 82),
+        ("LothricKnight", 98, 68), ("LothricKnight", 42, 38), ("LothricKnight", 72, 48),
+        ("LothricKnight", 80, 55), ("LothricKnight", 95, 72),
         # Hollow Slaves (Thrall) — ambush throughout the garden
         ("Thrall", 35, 35), ("Thrall", 88, 62),
         ("Thrall", 22, 22), ("Thrall", 60, 32),
@@ -11642,9 +11642,9 @@ def make_consumed_kings_garden():
         ("RottenSlug", 48, 72), ("RottenSlug", 56, 68), ("RottenSlug", 44, 82),
         # Crystal Lizard
         ("CrystalLizard", 68, 42),
-        # Lower garden Q(1,1) — Cathedral Knights and Thralls in Oceiros approach (DS3: guards near boss)
-        ("CathedralKnight", 121, 83), ("CathedralKnight", 135, 92),
-        ("CathedralKnight", 128, 101), ("CathedralKnight", 137, 104),
+        # Lower garden Q(1,1) — Lothric Knights and Thralls in Oceiros approach (DS3: guards near boss)
+        ("LothricKnight", 121, 83), ("LothricKnight", 135, 92),
+        ("LothricKnight", 128, 101), ("LothricKnight", 137, 104),
         ("Thrall", 125, 86), ("Thrall", 136, 89),
         ("Thrall", 135, 98), ("Thrall", 112, 113),
         # Boss — Oceiros, the Consumed King
