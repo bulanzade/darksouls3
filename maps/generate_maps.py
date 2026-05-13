@@ -6096,6 +6096,32 @@ def make_catacombs_of_carthus():
     fill_tiles(chunk, TILE_WALL, 20, 72, 21, 73)
     fill_tiles(chunk, TILE_WALL, 30, 70, 31, 71)
 
+    # ================================================================
+    # SESSION 18 FIDELITY PASS — CatacombsOfCarthus DS3 catacomb depth
+    # ================================================================
+    # Entry staircase — skull niche alcoves (DS3: skull-lined walls at entrance)
+    fill_tiles(chunk, TILE_WALL, 12, 22, 13, 23)
+    fill_tiles(chunk, TILE_WALL, 16, 26, 17, 27)
+    fill_tiles(chunk, TILE_WALL, 10, 28, 11, 29)
+    fill_tiles(chunk, TILE_WALL, 14, 30, 15, 31)
+    # Skeleton ball corridor — track grooves (DS3: rolling skeleton ball mechanism)
+    fill_tiles(chunk, TILE_WALL, 38, 34, 39, 35)
+    fill_tiles(chunk, TILE_WALL, 42, 38, 43, 39)
+    fill_tiles(chunk, TILE_WALL, 46, 42, 47, 43)
+    fill_tiles(chunk, TILE_WALL, 52, 36, 53, 37)
+    fill_tiles(chunk, TILE_WALL, 58, 40, 59, 41)
+    # Lower tombs — sarcophagus lids (DS3: burial chambers with sealed tombs)
+    fill_tiles(chunk, TILE_WALL, 96, 42, 97, 43)
+    fill_tiles(chunk, TILE_WALL, 102, 48, 103, 49)
+    fill_tiles(chunk, TILE_WALL, 108, 44, 109, 45)
+    fill_tiles(chunk, TILE_WALL, 114, 50, 115, 51)
+    # Smouldering Lake descent — ash-covered steps (DS3: path down to lava area)
+    fill_tiles(chunk, TILE_WALL, 34, 74, 35, 75)
+    fill_tiles(chunk, TILE_WALL, 28, 78, 29, 79)
+    fill_tiles(chunk, TILE_WALL, 38, 82, 39, 83)
+    fill_tiles(chunk, TILE_WALL, 26, 84, 27, 85)
+    fill_tiles(chunk, TILE_WALL, 32, 86, 33, 87)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
