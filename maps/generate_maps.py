@@ -919,9 +919,9 @@ def make_cemetery_of_ash():
 
     # --- Bonfires ---
     # Cemetery of Ash bonfire — dead tree clearing (midpoint)
-    entities.append(make_entity("Bonfire", 72 * 16, 95 * 16))
+    entities.append(make_entity("Bonfire", 81 * 16, 153 * 16))
     # Iudex Gundyr bonfire — arena entrance
-    entities.append(make_entity("Bonfire", 80 * 16, 66 * 16))
+    entities.append(make_entity("Bonfire", 96 * 16, 80 * 16))
 
     # --- Boss — Iudex Gundyr at arena center ---
 
@@ -1554,7 +1554,7 @@ def make_firelink_shrine():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # --- Bonfire in center ---
-    entities.append(make_entity("Bonfire", 80 * 16, 80 * 16))
+    entities.append(make_entity("Bonfire", 80 * 16, 64 * 16))
 
     # --- Enemies (DS3 Firelink Shrine exterior) ---
     # Sword Master — down the left stairs from shrine, wields Uchigatana
@@ -2443,10 +2443,10 @@ def make_lothric_wall():
         [make_field("heal", "Bool", True)]))
 
     # --- Bonfires ---
-    entities.append(make_entity("Bonfire", 18 * 16, 12 * 16))    # Wall Entrance
-    entities.append(make_entity("Bonfire", 62 * 16, 40 * 16))    # Tower on the Wall
-    entities.append(make_entity("Bonfire", 107 * 16, 100 * 16))  # Dancer of the Boreal Valley
-    entities.append(make_entity("Bonfire", 100 * 16, 146 * 16))  # Vordt of the Boreal Valley
+    entities.append(make_entity("Bonfire", 35 * 16, 22 * 16))    # Wall Entrance
+    entities.append(make_entity("Bonfire", 96 * 16, 56 * 16))    # Tower on the Wall
+    entities.append(make_entity("Bonfire", 197 * 16, 221 * 16))  # Dancer of the Boreal Valley
+    entities.append(make_entity("Bonfire", 172 * 16, 161 * 16))  # Vordt of the Boreal Valley
 
     # --- Bosses ---
     # Vordt of the Boreal Valley — main boss at south arena
@@ -3526,10 +3526,10 @@ def make_undead_settlement():
         [make_field("heal", "Bool", True)]))
 
     # --- Bonfires ---
-    entities.append(make_entity("Bonfire", 18 * 16, 16 * 16))   # Foot of the High Wall
-    entities.append(make_entity("Bonfire", 46 * 16, 36 * 16))   # Undead Settlement
-    entities.append(make_entity("Bonfire", 64 * 16, 84 * 16))   # Cliff Underside
-    entities.append(make_entity("Bonfire", 58 * 16, 36 * 16))   # Dilapidated Bridge
+    entities.append(make_entity("Bonfire", 26 * 16, 22 * 16))   # Foot of the High Wall
+    entities.append(make_entity("Bonfire", 156 * 16, 106 * 16))   # Undead Settlement
+    entities.append(make_entity("Bonfire", 205 * 16, 136 * 16))   # Cliff Underside
+    entities.append(make_entity("Bonfire", 187 * 16, 206 * 16))   # Dilapidated Bridge
     entities.append(make_entity("Bonfire", 90 * 16, 112 * 16))  # Pit of Hollows
 
     # --- Boss ---
@@ -4629,10 +4629,10 @@ def make_road_of_sacrifices():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # Bonfires
-    entities.append(make_entity("Bonfire", 18 * 16, 18 * 16))    # Road of Sacrifices entry
-    entities.append(make_entity("Bonfire", 52 * 16, 30 * 16))    # Halfway Fortress
-    entities.append(make_entity("Bonfire", 80 * 16, 45 * 16))    # Crucifixion Woods
-    entities.append(make_entity("Bonfire", 130 * 16, 115 * 16))  # Crystal Sage
+    entities.append(make_entity("Bonfire", 32 * 16, 32 * 16))    # Road of Sacrifices entry
+    entities.append(make_entity("Bonfire", 91 * 16, 71 * 16))    # Halfway Fortress
+    entities.append(make_entity("Bonfire", 157 * 16, 96 * 16))    # Crucifixion Woods
+    entities.append(make_entity("Bonfire", 210 * 16, 148 * 16))  # Crystal Sage
 
     # Boss - Crystal Sage
     entities.append(make_entity("BossSpawn", 130 * 16, 112 * 16))
@@ -5757,11 +5757,11 @@ def make_farron_keep():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # Bonfires
-    entities.append(make_entity("Bonfire", 15 * 16, 18 * 16))     # Keep entry
-    entities.append(make_entity("Bonfire", 72 * 16, 68 * 16))     # Keep Ruins
-    entities.append(make_entity("Bonfire", 120 * 16, 94 * 16))    # Keep Perimeter
-    entities.append(make_entity("Bonfire", 45 * 16, 105 * 16))    # Old Wolf
-    entities.append(make_entity("Bonfire", 140 * 16, 118 * 16))   # Abyss Watchers
+    entities.append(make_entity("Bonfire", 38 * 16, 47 * 16))     # Keep entry
+    entities.append(make_entity("Bonfire", 150 * 16, 133 * 16))     # Keep Ruins
+    entities.append(make_entity("Bonfire", 241 * 16, 170 * 16))    # Keep Perimeter
+    entities.append(make_entity("Bonfire", 105 * 16, 73 * 16))    # Old Wolf
+    entities.append(make_entity("Bonfire", 275 * 16, 215 * 16))   # Abyss Watchers
 
     # Boss - Abyss Watchers
     entities.append(make_entity("BossSpawn", 140 * 16, 112 * 16))
@@ -6799,10 +6799,10 @@ def make_cathedral_deep():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # Bonfires — DS3: Cathedral of the Deep, Cleansing Chapel, Deacons of the Deep, Rosaria's Bed Chamber
-    entities.append(make_entity("Bonfire", 30 * 16, 8 * 16))       # Cathedral of the Deep (entry)
-    entities.append(make_entity("Bonfire", 32 * 16, 44 * 16))      # Cleansing Chapel
-    entities.append(make_entity("Bonfire", 45 * 16, 124 * 16))     # Deacons of the Deep (boss arena)
-    entities.append(make_entity("Bonfire", 38 * 16, 150 * 16))     # Rosaria's Bed Chamber
+    entities.append(make_entity("Bonfire", 35 * 16, 38 * 16))       # Cathedral of the Deep (entry)
+    entities.append(make_entity("Bonfire", 97 * 16, 94 * 16))      # Cleansing Chapel
+    entities.append(make_entity("Bonfire", 255 * 16, 91 * 16))     # Deacons of the Deep (boss arena)
+    entities.append(make_entity("Bonfire", 190 * 16, 213 * 16))     # Rosaria's Bed Chamber
 
     # Boss - Deacons of the Deep
     entities.append(make_entity("BossSpawn", 45 * 16, 114 * 16))
@@ -7781,9 +7781,9 @@ def make_catacombs_of_carthus():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # Bonfires
-    entities.append(make_entity("Bonfire", 15 * 16, 15 * 16))     # Entry
-    entities.append(make_entity("Bonfire", 25 * 16, 85 * 16))     # Abandoned Tomb
-    entities.append(make_entity("Bonfire", 125 * 16, 108 * 16))   # Wolnir
+    entities.append(make_entity("Bonfire", 32 * 16, 38 * 16))     # Entry
+    entities.append(make_entity("Bonfire", 222 * 16, 187 * 16))     # Abandoned Tomb
+    entities.append(make_entity("Bonfire", 102 * 16, 187 * 16))   # Wolnir
 
     # Boss - Wolnir
     entities.append(make_entity("BossSpawn", 125 * 16, 100 * 16))
@@ -8758,10 +8758,10 @@ def make_smouldering_lake():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # Bonfires
-    entities.append(make_entity("Bonfire", 15 * 16, 15 * 16))     # Abandoned Tomb
-    entities.append(make_entity("Bonfire", 72 * 16, 58 * 16))     # Old King's Antechamber
-    entities.append(make_entity("Bonfire", 100 * 16, 72 * 16))    # Demon Ruins
-    entities.append(make_entity("Bonfire", 135 * 16, 110 * 16))   # Old Demon King
+    entities.append(make_entity("Bonfire", 38 * 16, 40 * 16))     # Abandoned Tomb
+    entities.append(make_entity("Bonfire", 145 * 16, 155 * 16))     # Old King's Antechamber
+    entities.append(make_entity("Bonfire", 172 * 16, 126 * 16))    # Demon Ruins
+    entities.append(make_entity("Bonfire", 228 * 16, 173 * 16))   # Old Demon King
 
     # Boss - Old Demon King
     entities.append(make_entity("BossSpawn", 135 * 16, 105 * 16))
@@ -10889,7 +10889,7 @@ def make_irithyll_dungeon():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # Bonfires — DS3: only Irithyll Dungeon bonfire
-    entities.append(make_entity("Bonfire", 15 * 16, 15 * 16))     # Irithyll Dungeon
+    entities.append(make_entity("Bonfire", 32 * 16, 32 * 16))     # Irithyll Dungeon
 
     # Enemies — DS3 Irithyll Dungeon (wiki-verified walkthrough):
     # Jailers (branding iron wardens — many throughout), Reanimated Corpses in cells,
@@ -12005,8 +12005,8 @@ def make_profaned_capital():
         [make_field("heal", "Bool", True)]))
 
     # --- Bonfires ---
-    entities.append(make_entity("Bonfire", 18 * 16, 12 * 16))     # Profaned Capital
-    entities.append(make_entity("Bonfire", 108 * 16, 18 * 16))    # Yhorm the Giant
+    entities.append(make_entity("Bonfire", 56 * 16, 51 * 16))     # Profaned Capital
+    entities.append(make_entity("Bonfire", 187 * 16, 201 * 16))    # Yhorm the Giant
 
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 108 * 16, 14 * 16))
@@ -12878,9 +12878,9 @@ def make_anor_londo():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # --- Bonfires --- DS3: Anor Londo, Prison Tower, Aldrich Devourer of Gods
-    entities.append(make_entity("Bonfire", 10 * 16, 38 * 16))
-    entities.append(make_entity("Bonfire", 62 * 16, 90 * 16))   # Prison Tower (invisible bridge area)
-    entities.append(make_entity("Bonfire", 128 * 16, 85 * 16))  # Aldrich boss bonfire
+    entities.append(make_entity("Bonfire", 61 * 16, 56 * 16))
+    entities.append(make_entity("Bonfire", 33 * 16, 97 * 16))   # Prison Tower (invisible bridge area)
+    entities.append(make_entity("Bonfire", 168 * 16, 131 * 16))  # Aldrich boss bonfire
 
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 128 * 16, 78 * 16))
@@ -14772,8 +14772,8 @@ def make_grand_archives():
     spawn_px, spawn_py = 25 * 16, 142 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
-    entities.append(make_entity("Bonfire", 25 * 16, 142 * 16))     # Entry bonfire
-    entities.append(make_entity("Bonfire", 110 * 16, 18 * 16))     # Twin Princes bonfire
+    entities.append(make_entity("Bonfire", 45 * 16, 342 * 16))     # Entry bonfire
+    entities.append(make_entity("Bonfire", 181 * 16, 38 * 16))     # Twin Princes bonfire
 
     # ================================================================
     # BOSS SPAWN — Twin Princes (Lorian & Lothric)
@@ -15975,8 +15975,8 @@ def make_kiln_of_the_first_flame():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # --- Bonfires ---
-    entities.append(make_entity("Bonfire", 80 * 16, 150 * 16))   # Flameless Shrine
-    entities.append(make_entity("Bonfire", 80 * 16, 30 * 16))    # Kiln boss bonfire
+    entities.append(make_entity("Bonfire", 38 * 16, 137 * 16))   # Flameless Shrine
+    entities.append(make_entity("Bonfire", 97 * 16, 73 * 16))    # Kiln boss bonfire
 
     # --- Boss ---
 
@@ -16811,8 +16811,8 @@ def make_consumed_kings_garden():
 
     # --- Bonfires ---
     # DS3 Consumed King's Garden: 2 bonfires — entry (after lift down) and Oceiros boss
-    entities.append(make_entity("Bonfire", 15 * 16, 18 * 16))    # Consumed King's Garden (entry)
-    entities.append(make_entity("Bonfire", 120 * 16, 95 * 16))   # Oceiros the Consumed King (boss)
+    entities.append(make_entity("Bonfire", 38 * 16, 38 * 16))    # Consumed King's Garden (entry)
+    entities.append(make_entity("Bonfire", 191 * 16, 167 * 16))   # Oceiros the Consumed King (boss)
 
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 120 * 16, 88 * 16))  # Oceiros
@@ -17813,8 +17813,8 @@ def make_untended_graves():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # --- Bonfires ---
-    entities.append(make_entity("Bonfire", 15 * 16, 15 * 16))    # Entry
-    entities.append(make_entity("Bonfire", 105 * 16, 82 * 16))   # Champion Gundyr
+    entities.append(make_entity("Bonfire", 43 * 16, 45 * 16))    # Entry
+    entities.append(make_entity("Bonfire", 155 * 16, 133 * 16))   # Champion Gundyr
 
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 105 * 16, 78 * 16))  # Champion Gundyr
@@ -18561,10 +18561,10 @@ def make_archdragon_peak():
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
     # --- Bonfires ---
-    entities.append(make_entity("Bonfire", 18 * 16, 132 * 16))    # Entry: Archdragon Peak
-    entities.append(make_entity("Bonfire", 80 * 16, 50 * 16))     # Dragonkin Mausoleum
-    entities.append(make_entity("Bonfire", 122 * 16, 22 * 16))    # Great Belfry
-    entities.append(make_entity("Bonfire", 128 * 16, 92 * 16))    # Nameless King
+    entities.append(make_entity("Bonfire", 38 * 16, 225 * 16))    # Entry: Archdragon Peak
+    entities.append(make_entity("Bonfire", 137 * 16, 143 * 16))     # Dragonkin Mausoleum
+    entities.append(make_entity("Bonfire", 210 * 16, 78 * 16))    # Great Belfry
+    entities.append(make_entity("Bonfire", 262 * 16, 56 * 16))    # Nameless King
 
     # --- Boss ---
     entities.append(make_entity("BossSpawn", 128 * 16, 85 * 16))  # Nameless King
