@@ -883,6 +883,31 @@ def make_cemetery_of_ash():
     fill_tiles(chunk, TILE_WALL, 70, 68, 71, 69)
 
     # ================================================================
+    # SESSION 15 FIDELITY PASS — CemeteryOfAsh additional DS3 details
+    # ================================================================
+    # Coffin area — scattered ash mounds (DS3: thick ash covers the ground)
+    fill_tiles(chunk, TILE_WALL, 30, 144, 31, 145)
+    fill_tiles(chunk, TILE_WALL, 38, 150, 39, 151)
+    fill_tiles(chunk, TILE_WALL, 48, 146, 49, 147)
+    # Cemetery fork — fallen headstones (DS3: tilted gravestones along path)
+    fill_tiles(chunk, TILE_WALL, 58, 138, 59, 139)
+    fill_tiles(chunk, TILE_WALL, 64, 142, 65, 143)
+    fill_tiles(chunk, TILE_WALL, 72, 140, 73, 141)
+    # Estus fountain — broken basin stones (DS3: ash-covered estus fountain)
+    fill_tiles(chunk, TILE_WALL, 78, 104, 79, 105)
+    fill_tiles(chunk, TILE_WALL, 82, 100, 83, 101)
+    fill_tiles(chunk, TILE_WALL, 74, 108, 75, 109)
+    # Crystal Lizard ravine — craggy rock debris (DS3: narrow ravine with lizard)
+    fill_tiles(chunk, TILE_WALL, 128, 108, 129, 109)
+    fill_tiles(chunk, TILE_WALL, 132, 112, 133, 113)
+    fill_tiles(chunk, TILE_WALL, 136, 106, 137, 107)
+    # Gundyr arena perimeter — collapsed arch stones (DS3: circular arena with ruins)
+    fill_tiles(chunk, TILE_WALL, 68, 58, 69, 59)
+    fill_tiles(chunk, TILE_WALL, 92, 62, 93, 63)
+    fill_tiles(chunk, TILE_WALL, 76, 64, 77, 65)
+    fill_tiles(chunk, TILE_WALL, 86, 60, 87, 61)
+
+    # ================================================================
     # ENTITIES
     # ================================================================
     entities = []
