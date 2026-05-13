@@ -1828,6 +1828,22 @@ def make_firelink_shrine():
     fill_tiles(chunk, TILE_WALL, 126, 90, 127, 92)
     fill_tiles(chunk, TILE_WALL, 114, 86, 115, 88)
 
+    # ================================================================
+    # SESSION 20 FIDELITY PASS — FirelinkShrine DS3 shrine details
+    # ================================================================
+    # Coiled sword pedestal — stone base debris (DS3: coiled sword in center)
+    fill_tiles(chunk, TILE_WALL, 78, 80, 79, 82)
+    fill_tiles(chunk, TILE_WALL, 84, 84, 85, 86)
+    fill_tiles(chunk, TILE_WALL, 72, 86, 73, 88)
+    fill_tiles(chunk, TILE_WALL, 90, 82, 91, 84)
+    fill_tiles(chunk, TILE_WALL, 76, 90, 77, 92)
+    # Ludleth's throne — throne base stones (DS3: Ludleth sits on a small throne)
+    fill_tiles(chunk, TILE_WALL, 80, 56, 81, 58)
+    fill_tiles(chunk, TILE_WALL, 74, 60, 75, 62)
+    fill_tiles(chunk, TILE_WALL, 86, 54, 87, 56)
+    fill_tiles(chunk, TILE_WALL, 68, 64, 69, 66)
+    fill_tiles(chunk, TILE_WALL, 92, 58, 93, 60)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
