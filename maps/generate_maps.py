@@ -10324,6 +10324,37 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_WALL, 84, 30, 85, 31)
 
     # ================================================================
+    # SESSION 16 FIDELITY PASS — GrandArchives DS3 architectural details
+    # ================================================================
+    # Main library — bookshelf alcove walls (DS3: towering bookshelves in library halls)
+    fill_tiles(chunk, TILE_WALL, 22, 62, 23, 64)
+    fill_tiles(chunk, TILE_WALL, 32, 66, 33, 68)
+    fill_tiles(chunk, TILE_WALL, 42, 70, 43, 72)
+    fill_tiles(chunk, TILE_WALL, 52, 74, 53, 76)
+    fill_tiles(chunk, TILE_WALL, 62, 78, 63, 80)
+    # Wax puddle debris (DS3: wax-covered scholars leave puddles everywhere)
+    fill_tiles(chunk, TILE_WALL, 26, 68, 27, 69)
+    fill_tiles(chunk, TILE_WALL, 36, 72, 37, 73)
+    fill_tiles(chunk, TILE_WALL, 46, 76, 47, 77)
+    fill_tiles(chunk, TILE_WALL, 56, 80, 57, 81)
+    # Candle sconce pillars (DS3: candles line the archive corridors)
+    fill_tiles(chunk, TILE_WALL, 18, 66, 19, 67)
+    fill_tiles(chunk, TILE_WALL, 28, 70, 29, 71)
+    fill_tiles(chunk, TILE_WALL, 38, 74, 39, 75)
+    fill_tiles(chunk, TILE_WALL, 48, 78, 49, 79)
+    fill_tiles(chunk, TILE_WALL, 58, 82, 59, 83)
+    # Bridge railings — iron balustrade (DS3: ornate bridges between archive wings)
+    fill_tiles(chunk, TILE_WALL, 102, 40, 103, 41)
+    fill_tiles(chunk, TILE_WALL, 108, 44, 109, 45)
+    fill_tiles(chunk, TILE_WALL, 114, 48, 115, 49)
+    fill_tiles(chunk, TILE_WALL, 120, 52, 121, 53)
+    fill_tiles(chunk, TILE_WALL, 126, 56, 127, 57)
+    # Dragon corpse debris (DS3: dead wyvern on archive roof)
+    fill_tiles(chunk, TILE_WALL, 14, 28, 15, 30)
+    fill_tiles(chunk, TILE_WALL, 10, 32, 11, 34)
+    fill_tiles(chunk, TILE_WALL, 16, 36, 17, 38)
+
+    # ================================================================
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
