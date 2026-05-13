@@ -7079,8 +7079,8 @@ def make_irithyll():
         # Sewers — Sewer Centipedes (DS3: "few Sewer Centipedes in the water")
         ("SewerCentipede", 68, 80), ("SewerCentipede", 78, 85), ("SewerCentipede", 88, 90),
         ("SewerCentipede", 72, 88), ("SewerCentipede", 82, 82),
-        # Sulyvahn's Beasts at sewer reservoir — DS3 wiki: 2 beasts in flooded chamber
-        ("SulyvahnsBeast", 72, 90), ("SulyvahnsBeast", 78, 94),
+        # Sulyvahn's Beast at sewer reservoir — DS3 wiki: 1 beast in flooded waterway
+        ("SulyvahnsBeast", 72, 90),
         # Silver Knight hall / rooftops — DS3: "several Silver Knights",
         # "Silver Knight straight ahead and another to the left",
         # "two archer Silver Knights"
