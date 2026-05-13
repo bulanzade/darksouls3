@@ -5483,6 +5483,28 @@ def make_cathedral_deep():
     fill_tiles(chunk, TILE_WALL, 78, 106, 79, 108)
     fill_tiles(chunk, TILE_WALL, 86, 110, 87, 112)
 
+    # SESSION 18 FIDELITY PASS — CatacombsOfCarthus DS3 catacomb details
+    # Entry bridge — rope bridge anchor stones (DS3: rope bridge over abyss)
+    fill_tiles(chunk, TILE_WALL, 14, 22, 15, 24)
+    fill_tiles(chunk, TILE_WALL, 20, 26, 21, 28)
+    fill_tiles(chunk, TILE_WALL, 26, 24, 27, 26)
+    fill_tiles(chunk, TILE_WALL, 32, 28, 33, 30)
+    # Skeleton arena — bone pile debris (DS3: skeleton groups in open chambers)
+    fill_tiles(chunk, TILE_WALL, 38, 32, 39, 34)
+    fill_tiles(chunk, TILE_WALL, 44, 36, 45, 38)
+    fill_tiles(chunk, TILE_WALL, 50, 30, 51, 32)
+    fill_tiles(chunk, TILE_WALL, 56, 34, 57, 36)
+    # Carthus worm tunnel — sand drift stones (DS3: underground sand passages)
+    fill_tiles(chunk, TILE_WALL, 62, 38, 63, 40)
+    fill_tiles(chunk, TILE_WALL, 68, 42, 69, 44)
+    fill_tiles(chunk, TILE_WALL, 74, 36, 75, 38)
+    fill_tiles(chunk, TILE_WALL, 80, 40, 81, 42)
+    # Skull room — skeleton mound debris (DS3: massive skeleton piles)
+    fill_tiles(chunk, TILE_WALL, 86, 44, 87, 46)
+    fill_tiles(chunk, TILE_WALL, 92, 48, 93, 50)
+    fill_tiles(chunk, TILE_WALL, 98, 42, 99, 44)
+    fill_tiles(chunk, TILE_WALL, 104, 46, 105, 48)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
