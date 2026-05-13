@@ -2803,6 +2803,30 @@ def make_lothric_wall():
     fill_tiles(chunk, TILE_WALL, 102, 88, 103, 89)
     fill_tiles(chunk, TILE_WALL, 108, 92, 109, 93)
 
+    # ================================================================
+    # SESSION 31 FIDELITY PASS — LothricWall DS3 castle details
+    # ================================================================
+    # Castle armory debris (DS3: weapon racks in the castle armory)
+    fill_tiles(chunk, TILE_WALL, 115, 42, 116, 43)
+    fill_tiles(chunk, TILE_WALL, 120, 46, 121, 47)
+    fill_tiles(chunk, TILE_WALL, 125, 50, 126, 51)
+    fill_tiles(chunk, TILE_WALL, 130, 54, 131, 55)
+    # Dragon roost ledges (DS3: ledges where dragons perch on the wall)
+    fill_tiles(chunk, TILE_WALL, 135, 58, 136, 59)
+    fill_tiles(chunk, TILE_WALL, 140, 62, 141, 63)
+    fill_tiles(chunk, TILE_WALL, 145, 66, 146, 67)
+    fill_tiles(chunk, TILE_WALL, 148, 70, 149, 71)
+    # Dancer's chamber pillars (DS3: pillars in the Dancer boss room)
+    fill_tiles(chunk, TILE_WALL, 95, 130, 96, 131)
+    fill_tiles(chunk, TILE_WALL, 100, 135, 101, 136)
+    fill_tiles(chunk, TILE_WALL, 105, 140, 106, 141)
+    fill_tiles(chunk, TILE_WALL, 110, 145, 111, 146)
+    # Oceiros path stones (DS3: stones along the path to Consumed King's Garden)
+    fill_tiles(chunk, TILE_WALL, 120, 130, 121, 131)
+    fill_tiles(chunk, TILE_WALL, 125, 135, 126, 136)
+    fill_tiles(chunk, TILE_WALL, 130, 140, 131, 141)
+    fill_tiles(chunk, TILE_WALL, 135, 145, 136, 146)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -5301,6 +5325,30 @@ def make_farron_keep():
     fill_tiles(chunk, TILE_WALL, 94, 94, 95, 95)
     fill_tiles(chunk, TILE_WALL, 100, 98, 101, 99)
     fill_tiles(chunk, TILE_WALL, 106, 102, 107, 103)
+
+    # ================================================================
+    # SESSION 31 FIDELITY PASS — FarronKeep DS3 swamp details
+    # ================================================================
+    # Old Wolf tower steps (DS3: spiral steps in the Old Wolf's tower)
+    fill_tiles(chunk, TILE_WALL, 38, 95, 39, 96)
+    fill_tiles(chunk, TILE_WALL, 44, 99, 45, 100)
+    fill_tiles(chunk, TILE_WALL, 50, 103, 51, 104)
+    fill_tiles(chunk, TILE_WALL, 56, 107, 57, 108)
+    # Abyss Watcher throne debris (DS3: watcher thrones in the grand hall)
+    fill_tiles(chunk, TILE_WALL, 62, 111, 63, 112)
+    fill_tiles(chunk, TILE_WALL, 68, 115, 69, 116)
+    fill_tiles(chunk, TILE_WALL, 74, 119, 75, 120)
+    fill_tiles(chunk, TILE_WALL, 80, 123, 81, 124)
+    # Darkwraith ambush stones (DS3: stones where Darkwraiths emerge)
+    fill_tiles(chunk, TILE_WALL, 100, 85, 101, 86)
+    fill_tiles(chunk, TILE_WALL, 106, 89, 107, 90)
+    fill_tiles(chunk, TILE_WALL, 112, 93, 113, 94)
+    fill_tiles(chunk, TILE_WALL, 118, 97, 119, 98)
+    # Swamp crossing stones (DS3: stepping stones through the poison swamp)
+    fill_tiles(chunk, TILE_WALL, 86, 102, 87, 103)
+    fill_tiles(chunk, TILE_WALL, 92, 106, 93, 107)
+    fill_tiles(chunk, TILE_WALL, 98, 110, 99, 111)
+    fill_tiles(chunk, TILE_WALL, 104, 114, 105, 115)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -8282,6 +8330,30 @@ def make_irithyll():
     fill_tiles(chunk, TILE_WALL, 108, 92, 109, 93)
     fill_tiles(chunk, TILE_WALL, 114, 96, 115, 97)
 
+    # ================================================================
+    # SESSION 31 FIDELITY PASS — Irithyll DS3 frozen city details
+    # ================================================================
+    # Central boulevard lamp posts (DS3: lamps along the main street)
+    fill_tiles(chunk, TILE_WALL, 20, 40, 21, 41)
+    fill_tiles(chunk, TILE_WALL, 26, 44, 27, 45)
+    fill_tiles(chunk, TILE_WALL, 32, 48, 33, 49)
+    fill_tiles(chunk, TILE_WALL, 38, 52, 39, 53)
+    # Church of Yorshka entrance stones (DS3: stone arches at church entrance)
+    fill_tiles(chunk, TILE_WALL, 44, 56, 45, 57)
+    fill_tiles(chunk, TILE_WALL, 50, 60, 51, 61)
+    fill_tiles(chunk, TILE_WALL, 56, 64, 57, 65)
+    fill_tiles(chunk, TILE_WALL, 62, 68, 63, 69)
+    # Pontiff Sulyvahn arena columns (DS3: columns in the boss arena)
+    fill_tiles(chunk, TILE_WALL, 68, 72, 69, 73)
+    fill_tiles(chunk, TILE_WALL, 74, 76, 75, 77)
+    fill_tiles(chunk, TILE_WALL, 80, 80, 81, 81)
+    fill_tiles(chunk, TILE_WALL, 86, 84, 87, 85)
+    # Sewer centipede tunnel (DS3: tunnel where Sewer Centipedes lurk)
+    fill_tiles(chunk, TILE_WALL, 92, 88, 93, 89)
+    fill_tiles(chunk, TILE_WALL, 98, 92, 99, 93)
+    fill_tiles(chunk, TILE_WALL, 104, 96, 105, 97)
+    fill_tiles(chunk, TILE_WALL, 110, 100, 111, 101)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -8981,6 +9053,30 @@ def make_irithyll_dungeon():
     fill_tiles(chunk, TILE_WALL, 122, 132, 123, 133)
     fill_tiles(chunk, TILE_WALL, 128, 136, 129, 137)
     fill_tiles(chunk, TILE_WALL, 134, 140, 135, 141)
+
+    # ================================================================
+    # SESSION 31 FIDELITY PASS — IrithyllDungeon DS3 prison details
+    # ================================================================
+    # Jailer torture chamber debris (DS3: torture implements in jailer rooms)
+    fill_tiles(chunk, TILE_WALL, 14, 32, 15, 33)
+    fill_tiles(chunk, TILE_WALL, 20, 36, 21, 37)
+    fill_tiles(chunk, TILE_WALL, 26, 40, 27, 41)
+    fill_tiles(chunk, TILE_WALL, 32, 44, 33, 45)
+    # Prison cell iron bars (DS3: rusted iron bars on cell doors)
+    fill_tiles(chunk, TILE_WALL, 38, 48, 39, 49)
+    fill_tiles(chunk, TILE_WALL, 44, 52, 45, 53)
+    fill_tiles(chunk, TILE_WALL, 50, 56, 51, 57)
+    fill_tiles(chunk, TILE_WALL, 56, 60, 57, 61)
+    # Siegward's cell debris (DS3: debris in Siegward's imprisonment cell)
+    fill_tiles(chunk, TILE_WALL, 62, 64, 63, 65)
+    fill_tiles(chunk, TILE_WALL, 68, 68, 69, 69)
+    fill_tiles(chunk, TILE_WALL, 74, 72, 75, 73)
+    fill_tiles(chunk, TILE_WALL, 80, 76, 81, 77)
+    # Profaned Capital exit corridor (DS3: long corridor to the capital)
+    fill_tiles(chunk, TILE_WALL, 120, 40, 121, 41)
+    fill_tiles(chunk, TILE_WALL, 126, 44, 127, 45)
+    fill_tiles(chunk, TILE_WALL, 132, 48, 133, 49)
+    fill_tiles(chunk, TILE_WALL, 138, 52, 139, 53)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -12060,6 +12156,30 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_WALL, 104, 94, 105, 95)
     fill_tiles(chunk, TILE_WALL, 110, 98, 111, 99)
 
+    # ================================================================
+    # SESSION 31 FIDELITY PASS — GrandArchives DS3 library details
+    # ================================================================
+    # Archives main hall bookshelves (DS3: towering bookshelves in the main hall)
+    fill_tiles(chunk, TILE_WALL, 18, 40, 19, 41)
+    fill_tiles(chunk, TILE_WALL, 24, 44, 25, 45)
+    fill_tiles(chunk, TILE_WALL, 30, 48, 31, 49)
+    fill_tiles(chunk, TILE_WALL, 36, 52, 37, 53)
+    # Crystal Sage crystal growth (DS3: crystal formations throughout archives)
+    fill_tiles(chunk, TILE_WALL, 42, 56, 43, 57)
+    fill_tiles(chunk, TILE_WALL, 48, 60, 49, 61)
+    fill_tiles(chunk, TILE_WALL, 54, 64, 55, 65)
+    fill_tiles(chunk, TILE_WALL, 60, 68, 61, 69)
+    # Twin Princes elevator debris (DS3: elevator shaft to Lothric's chamber)
+    fill_tiles(chunk, TILE_WALL, 66, 72, 67, 73)
+    fill_tiles(chunk, TILE_WALL, 72, 76, 73, 77)
+    fill_tiles(chunk, TILE_WALL, 78, 80, 79, 81)
+    fill_tiles(chunk, TILE_WALL, 84, 84, 85, 85)
+    # Archives roof debris (DS3: debris on the archives rooftop)
+    fill_tiles(chunk, TILE_WALL, 90, 88, 91, 89)
+    fill_tiles(chunk, TILE_WALL, 96, 92, 97, 93)
+    fill_tiles(chunk, TILE_WALL, 102, 96, 103, 97)
+    fill_tiles(chunk, TILE_WALL, 108, 100, 109, 101)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -12409,6 +12529,15 @@ def make_kiln_of_the_first_flame():
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # Q(1,1) eastern ruins — Black Knights (DS3: knights guard the path to First Flame)
     for tx, ty in [(118, 96), (124, 102), (130, 108), (136, 114), (142, 120)]:
+        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # Additional enemies — SESSION 31 DS3 fidelity (KilnOfTheFirstFlame reinforcements)
+    # Q(1,0) eastern approach — more Hollow Soldiers and Black Knights
+    for tx, ty in [(95, 30), (100, 40), (105, 50), (110, 60), (115, 70)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(98, 35), (103, 45), (108, 55)]:
         mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
@@ -14164,6 +14293,30 @@ def make_untended_graves():
     fill_tiles(chunk, TILE_WALL, 94, 82, 95, 83)
     fill_tiles(chunk, TILE_WALL, 100, 86, 101, 87)
     fill_tiles(chunk, TILE_WALL, 106, 90, 107, 91)
+
+    # ================================================================
+    # SESSION 31 FIDELITY PASS — UntendedGraves DS3 dark cemetery details
+    # ================================================================
+    # Dark cemetery entrance debris (DS3: debris at the dark cemetery entrance)
+    fill_tiles(chunk, TILE_WALL, 12, 22, 13, 23)
+    fill_tiles(chunk, TILE_WALL, 18, 26, 19, 27)
+    fill_tiles(chunk, TILE_WALL, 24, 30, 25, 31)
+    fill_tiles(chunk, TILE_WALL, 30, 34, 31, 35)
+    # Dark hollow burial mounds (DS3: burial mounds in the shadow version)
+    fill_tiles(chunk, TILE_WALL, 36, 38, 37, 39)
+    fill_tiles(chunk, TILE_WALL, 42, 42, 43, 43)
+    fill_tiles(chunk, TILE_WALL, 48, 46, 49, 47)
+    fill_tiles(chunk, TILE_WALL, 54, 50, 55, 51)
+    # Champion Gundyr arena ash (DS3: thick ash in Gundyr's arena)
+    fill_tiles(chunk, TILE_WALL, 60, 54, 61, 55)
+    fill_tiles(chunk, TILE_WALL, 66, 58, 67, 59)
+    fill_tiles(chunk, TILE_WALL, 72, 62, 73, 63)
+    fill_tiles(chunk, TILE_WALL, 78, 66, 79, 67)
+    # Dark Firelink shrine path (DS3: overgrown path to dark shrine)
+    fill_tiles(chunk, TILE_WALL, 84, 70, 85, 71)
+    fill_tiles(chunk, TILE_WALL, 90, 74, 91, 75)
+    fill_tiles(chunk, TILE_WALL, 96, 78, 97, 79)
+    fill_tiles(chunk, TILE_WALL, 102, 82, 103, 83)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
