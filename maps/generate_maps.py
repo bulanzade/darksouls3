@@ -1991,7 +1991,7 @@ def make_lothric_wall():
         # Second Pus of Man — rooftop praying hollow (DS3: rooftop area)
         ("PusOfMan", 42, 60),                             # Rooftop pus of man
         # Knight path — heavy Lothric Knight presence
-        ("LothricKnight", 62, 94), ("LothricKnight", 82, 102),
+        ("LothricKnight", 62, 94), ("LothricKnight", 84, 98),
         ("HollowSoldier", 70, 100), ("LothricKnight", 86, 96),
         # Cathedral area
         ("LothricKnight", 70, 106), ("LothricKnight", 90, 108),
@@ -8937,7 +8937,7 @@ def make_lothric_castle():
         ("HollowAssassin", 105, 54), ("HollowAssassin", 118, 50),   # Assassin ambush on stairs
         # Arena approaches
         ("PusOfMan", 125, 55), ("LothricKnight", 132, 58),
-        ("HollowSoldier", 128, 62), ("HollowAssassin", 135, 65),      # Hollow gauntlet to boss
+        ("HollowSoldier", 128, 62), ("HollowAssassin", 135, 55),      # Hollow gauntlet to boss
         ("WingedKnight", 140, 60),                                    # Ascended Winged Knight near arena
         ("HollowSoldier", 138, 68), ("HollowSoldier", 142, 72),     # Hollows at arena entrance
         # Additional DS3 Lothric Castle enemies — more knights, dogs, hollows (DS3: dense with enemies)
@@ -9370,7 +9370,7 @@ def make_grand_archives():
         ("DarkMage", 62, 112),  # Mage Kriemhild (hostile NPC, DarkMage type)
         # Hollow Slaves (Thrall — drop from ceilings, walls)
         # DS3: ambush enemies throughout the library, NOT Hollow Soldiers
-        ("HollowSlave", 42, 132), ("HollowSlave", 55, 98),
+        ("HollowSlave", 44, 136), ("HollowSlave", 55, 98),
         ("HollowSlave", 68, 108), ("HollowSlave", 75, 50),
         ("HollowSlave", 62, 65), ("HollowSlave", 40, 138),
         ("HollowSlave", 52, 92), ("HollowSlave", 58, 80),
@@ -11723,7 +11723,7 @@ def make_archdragon_peak():
 
     # --- NPCs ---
     # Hawkwood — can be summoned for Nameless King (DS3: summon sign at Great Belfry)
-    entities.append(make_entity("Npc", 122 * 16, 22 * 16, [
+    entities.append(make_entity("Npc", 124 * 16, 24 * 16, [
         make_field("name", "String", "Hawkwood"),
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#7F8C8D"),
