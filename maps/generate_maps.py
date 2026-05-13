@@ -8730,6 +8730,34 @@ def make_profaned_capital():
     fill_tiles(chunk, TILE_WALL, 130, 16, 132, 20)
     fill_tiles(chunk, TILE_WALL, 128, 26, 130, 30)
 
+    # ================================================================
+    # SESSION 18 FIDELITY PASS — ProfanedCapital DS3 throne and prison details
+    # ================================================================
+    # Yhorm's throne room — fallen columns and debris (DS3: crumbling massive throne room)
+    fill_tiles(chunk, TILE_WALL, 96, 12, 98, 14)
+    fill_tiles(chunk, TILE_WALL, 104, 18, 106, 20)
+    fill_tiles(chunk, TILE_WALL, 116, 14, 118, 16)
+    fill_tiles(chunk, TILE_WALL, 124, 22, 126, 24)
+    fill_tiles(chunk, TILE_WALL, 134, 10, 136, 12)
+    # Jailer patrol corridors — cell dividers (DS3: narrow prison corridors with cells)
+    fill_tiles(chunk, TILE_WALL, 34, 50, 36, 52)
+    fill_tiles(chunk, TILE_WALL, 42, 54, 44, 56)
+    fill_tiles(chunk, TILE_WALL, 50, 50, 52, 52)
+    fill_tiles(chunk, TILE_WALL, 58, 56, 60, 58)
+    fill_tiles(chunk, TILE_WALL, 38, 58, 40, 60)
+    # Gargoyle roosts — perch pillars (DS3: gargoyles perch on high ledges)
+    fill_tiles(chunk, TILE_WALL, 72, 52, 74, 54)
+    fill_tiles(chunk, TILE_WALL, 82, 56, 84, 58)
+    fill_tiles(chunk, TILE_WALL, 76, 60, 78, 62)
+    # Monstrosity church — broken pews (DS3: ruined church with monstrosities of sin)
+    fill_tiles(chunk, TILE_WALL, 28, 74, 30, 76)
+    fill_tiles(chunk, TILE_WALL, 36, 78, 38, 80)
+    fill_tiles(chunk, TILE_WALL, 44, 74, 46, 76)
+    # Sewer centipede pools — slime edges (DS3: sewer centipedes lurk in pools)
+    fill_tiles(chunk, TILE_WALL, 54, 70, 56, 72)
+    fill_tiles(chunk, TILE_WALL, 64, 74, 66, 76)
+    fill_tiles(chunk, TILE_WALL, 60, 80, 62, 82)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -10722,6 +10750,30 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_WALL, 14, 28, 15, 30)
     fill_tiles(chunk, TILE_WALL, 10, 32, 11, 34)
     fill_tiles(chunk, TILE_WALL, 16, 36, 17, 38)
+
+    # ================================================================
+    # SESSION 18 FIDELITY PASS — GrandArchives DS3 library and roof details
+    # ================================================================
+    # Twin Princes arena — battlement debris (DS3: Lothric's chamber at the very top)
+    fill_tiles(chunk, TILE_WALL, 136, 18, 138, 20)
+    fill_tiles(chunk, TILE_WALL, 140, 24, 142, 26)
+    fill_tiles(chunk, TILE_WALL, 134, 28, 136, 30)
+    fill_tiles(chunk, TILE_WALL, 144, 20, 146, 22)
+    # Crystal Sage study — crystal formations (DS3: crystal sage's private study)
+    fill_tiles(chunk, TILE_WALL, 66, 68, 68, 70)
+    fill_tiles(chunk, TILE_WALL, 74, 72, 76, 74)
+    fill_tiles(chunk, TILE_WALL, 70, 76, 72, 78)
+    fill_tiles(chunk, TILE_WALL, 82, 70, 84, 72)
+    # Lower archives — reading desk walls (DS3: desks and book piles in archive halls)
+    fill_tiles(chunk, TILE_WALL, 20, 82, 22, 84)
+    fill_tiles(chunk, TILE_WALL, 30, 86, 32, 88)
+    fill_tiles(chunk, TILE_WALL, 40, 84, 42, 86)
+    fill_tiles(chunk, TILE_WALL, 50, 88, 52, 90)
+    fill_tiles(chunk, TILE_WALL, 60, 86, 62, 88)
+    # Grand Archives roof — railing and wyvern bones (DS3: extensive roof area)
+    fill_tiles(chunk, TILE_WALL, 130, 34, 132, 36)
+    fill_tiles(chunk, TILE_WALL, 138, 38, 140, 40)
+    fill_tiles(chunk, TILE_WALL, 126, 42, 128, 44)
 
     # ================================================================
     populate_entity_def_uids(entities)
