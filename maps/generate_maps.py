@@ -7126,6 +7126,30 @@ def make_irithyll():
     fill_tiles(chunk, TILE_WALL, 38, 70, 39, 71)
     fill_tiles(chunk, TILE_WALL, 24, 74, 25, 75)
 
+    # ================================================================
+    # SESSION 15 FIDELITY PASS — Irithyll additional DS3 details
+    # ================================================================
+    # Entry bridge — frozen railing posts (DS3: iconic snow bridge with lampposts)
+    fill_tiles(chunk, TILE_WALL, 10, 30, 11, 31)
+    fill_tiles(chunk, TILE_WALL, 14, 32, 15, 33)
+    fill_tiles(chunk, TILE_WALL, 8, 34, 9, 35)
+    # Central square — ice fountain debris (DS3: frozen fountain in town center)
+    fill_tiles(chunk, TILE_WALL, 40, 44, 41, 45)
+    fill_tiles(chunk, TILE_WALL, 44, 48, 45, 49)
+    fill_tiles(chunk, TILE_WALL, 38, 46, 39, 47)
+    # Dark room staircase — collapsed stair stones (DS3: dark room with invisible hags)
+    fill_tiles(chunk, TILE_WALL, 50, 60, 51, 61)
+    fill_tiles(chunk, TILE_WALL, 54, 64, 55, 65)
+    fill_tiles(chunk, TILE_WALL, 48, 62, 49, 63)
+    # Post-Pontiff courtyard — giant footprint stones (DS3: giants patrol courtyard)
+    fill_tiles(chunk, TILE_WALL, 120, 76, 121, 77)
+    fill_tiles(chunk, TILE_WALL, 126, 80, 127, 81)
+    fill_tiles(chunk, TILE_WALL, 132, 78, 133, 79)
+    fill_tiles(chunk, TILE_WALL, 118, 82, 119, 83)
+    # Anor Londo bridge — silver knight barricade (DS3: knights guard bridge to cathedral)
+    fill_tiles(chunk, TILE_WALL, 140, 44, 141, 45)
+    fill_tiles(chunk, TILE_WALL, 146, 48, 147, 49)
+    fill_tiles(chunk, TILE_WALL, 136, 46, 137, 47)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
