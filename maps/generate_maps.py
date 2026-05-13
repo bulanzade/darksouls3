@@ -2119,7 +2119,7 @@ def make_lothric_wall():
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#A0A0A0"),
         make_field("dialogue", "String",
-            "...Who are you?|Will you let me out of here?|I can show you a thing or two in return"),
+            "...Who are you?|Will you let me out of here?|I can show you a thing or two in return|I am Greirat of the Undead Settlement|If you could find Loretta... I owe her so much|Please, take this Blue Tearstone Ring as a token of my gratitude"),
     ]))
     # Emma — High Priestess in the cathedral (DS3: gives Small Lothric Banner, triggers Dancer)
     entities.append(make_entity("Npc", 80 * 16, 108 * 16, [
@@ -9999,7 +9999,9 @@ def make_grand_archives():
         make_field("color", "Color", "#606060"),
         make_field("dialogue", "String",
             "A corpse with the Grand Archives Key|"
-            "Black Hand Gotthard's journey ends here|He was one of the King's Black Hands"),
+            "Black Hand Gotthard's journey ends here|He was one of the King's Black Hands|"
+            "The Black Hands serve the kingdom's darkest secrets|"
+            "Gotthard must have come seeking the Prince"),
     ]))
     # NOTE: Siegward does NOT appear in Grand Archives in DS3.
     # His locations: Undead Settlement, Cathedral well, Irithyll kitchen, Irithyll Dungeon cell, Profaned Capital cell.
