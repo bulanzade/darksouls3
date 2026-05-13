@@ -6780,6 +6780,12 @@ def make_irithyll():
     # Sirris — appears near Church of Yorshka after Rosaria covenant
     entities.append(make_entity("Npc", 58 * 16, 44 * 16, [make_field("name", "String", "Sirris of the Sunless Realms"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#A0B0C0"), make_field("dialogue", "String", "Forgive me. I am Sirris of the Sunless Realms|I was once a knight, but no longer|Let me swear to you my knightly vows|I shall serve you faithfully, until death"), make_field("appear_condition", "String", "rosaria_covenant")]))
 
+    # Return to Cathedral of the Deep (DS3: shortcut back via bonfire warp path)
+    entities.append(make_entity("FogGate", 6 * 16, 30 * 16, [
+        make_field("dest_area", "String", "CathedralDeep"),
+        make_field("dest_x", "Float", 2400.0), make_field("dest_y", "Float", 2200.0),
+        make_field("width", "Float", 64.0), make_field("height", "Float", 80.0),
+    ]))
     entities.append(make_entity("FogGate", 144 * 16, 45 * 16, [
         make_field("dest_area", "String", "IrithyllDungeon"),
         make_field("dest_x", "Float", 100.0), make_field("dest_y", "Float", 100.0),
