@@ -5273,6 +5273,23 @@ def make_road_of_sacrifices():
             if chunk[ty][tx] == TILE_GROUND:
                 chunk[ty][tx] = TILE_POISON
 
+    # --- SESSION 53 terrain (Road of Sacrifices final) ---
+    # DS3: Crucifixion Woods swamp boundary stones
+    for tx, ty in [(55, 60), (65, 62), (75, 58)]:
+        chunk[ty][tx] = TILE_WALL  # boundary stone
+    # Corvian perch platforms (DS3: wooden platforms in trees)
+    for tx, ty in [(30, 28), (45, 25)]:
+        chunk[ty][tx] = TILE_WALLTOP  # perch debris
+    # Farron Keep perimeter wall (DS3: stone wall separating areas)
+    for ty in range(50, 55):
+        chunk[ty][90] = TILE_WALL  # perimeter wall
+    # Abandoned campsite debris
+    for tx in range(60, 68):
+        chunk[38][tx] = TILE_WALLTOP  # camp debris
+    # Mushroom patches (DS3: giant mushrooms in the forest)
+    for tx, ty in [(35, 48), (50, 52)]:
+        chunk[ty][tx] = TILE_WALLTOP  # mushroom debris
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -9651,6 +9668,25 @@ def make_irithyll():
     for tx in range(25, 35):
         chunk[28][tx] = TILE_WALLTOP
 
+    # --- SESSION 53 terrain (Irithyll final) ---
+    # DS3: Pontiff Sulyvahn's cathedral exterior pillars
+    for ty in range(10, 18):
+        chunk[ty][65] = TILE_WALL  # cathedral pillar
+        chunk[ty][70] = TILE_WALL  # cathedral pillar
+    # Frozen waterfall (DS3: ice formation near the distant manor)
+    for ty in range(30, 36):
+        chunk[ty][85] = TILE_WALL  # ice cliff
+    # Sewer grate openings along the canal
+    for tx in range(40, 55):
+        if tx % 3 == 0:
+            chunk[68][tx] = TILE_WALLTOP  # grate debris
+    # Silver Knight memorial arch (DS3: memorial near Anor Londo approach)
+    for ty in range(50, 56):
+        chunk[ty][75] = TILE_WALL  # memorial pillar
+    # Boreal frost heave (DS3: ground pushed up by frost)
+    for tx, ty in [(30, 45), (45, 48), (58, 45)]:
+        chunk[ty][tx] = TILE_WALLTOP  # frost heave
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -10984,6 +11020,23 @@ def make_profaned_capital():
         mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "SkeletonSwordman")
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # --- SESSION 53 DS3 enemies (Profaned Capital diversity) ---
+    # DS3: Hand Monsters (DS3: the severed hands that grab you in the capital)
+    for tx, ty in [(35, 45), (48, 50)]:
+        mapped = ENEMY_KIND_MAP.get("MonstrosityOfSin", "GiantSlave")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Rotten Slug in the sewer channels
+    for tx, ty in [(55, 60), (68, 65)]:
+        mapped = ENEMY_KIND_MAP.get("RottenSlug", "Rat")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Crystal Lizard near the Yhorm arena
+    for tx, ty in [(85, 55)]:
+        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs ---
     # Siegward — in cell
     entities.append(make_entity("Npc", 60 * 16, 50 * 16, [
@@ -11369,6 +11422,23 @@ def make_profaned_capital():
     fill_tiles(chunk, TILE_WALL, 80, 95, 82, 97)                    # Collapsed tower
     for tx in range(110, 140, 6):
         fill_tiles(chunk, TILE_WALL, tx, 50, tx+1, 51)             # Capital wall debris
+    # --- SESSION 53 terrain (Profaned Capital final) ---
+    # DS3: Yhorm's throne room debris (the giant's throne area)
+    for tx in range(80, 90):
+        chunk[60][tx] = TILE_WALLTOP  # throne debris
+    # Profaned flame pools (DS3: fire pools that burn eternally)
+    for tx, ty in [(45, 50), (60, 55)]:
+        chunk[ty][tx] = TILE_WALLTOP  # flame pool edge
+    # Sewer channel grating (DS3: the sewers beneath the capital)
+    for tx in range(30, 40):
+        chunk[65][tx] = TILE_WALLTOP  # grate
+    # Gargoyle perch ledges (DS3: gargoyles sit on building edges)
+    for tx, ty in [(70, 45), (85, 50)]:
+        chunk[ty][tx] = TILE_WALL  # ledge
+    # Capital wall buttress
+    for ty in range(35, 42):
+        chunk[ty][55] = TILE_WALL  # buttress
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -12211,6 +12281,20 @@ def make_anor_londo():
     # Gwyndolin's fog corridor pillars (DS3: the corridor to the boss)
     for ty in range(45, 52):
         chunk[ty][80] = TILE_WALL  # corridor pillar
+
+    # --- SESSION 53 terrain (Anor Londo final) ---
+    # DS3: Ornstein's throne alcove (DS3: empty throne where Ornstein sat)
+    for ty in range(55, 60):
+        chunk[ty][85] = TILE_WALL  # throne alcove wall
+    # Great Hall chandelier debris (DS3: fallen chandeliers)
+    for tx in range(35, 42):
+        chunk[30][tx] = TILE_WALLTOP  # chandelier debris
+    # Man Grub slime trails (DS3: trails near Rosaria's chamber)
+    for tx in range(58, 65):
+        chunk[42][tx] = TILE_WALLTOP  # slime trail
+    # Silver Knight training dummy (DS3: dummies in the practice hall)
+    chunk[48][60] = TILE_WALLTOP  # training debris
+    chunk[48][62] = TILE_WALLTOP  # training debris
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -14094,6 +14178,21 @@ def make_grand_archives():
     for tx, ty in [(30, 45), (45, 50)]:
         chunk[ty][tx] = TILE_WALL  # fallen shelf
 
+    # --- SESSION 53 terrain (Grand Archives final) ---
+    # DS3: Grand reading hall pillars (the massive circular library)
+    for ty in range(25, 32):
+        chunk[ty][25] = TILE_WALL  # pillar
+        chunk[ty][40] = TILE_WALL  # pillar
+    # Candle wax accumulation (DS3: wax drips from chandeliers)
+    for tx in range(50, 58):
+        chunk[55][tx] = TILE_WALLTOP  # wax pool
+    # Crystal Sage's laboratory crystals
+    for tx, ty in [(65, 45), (72, 48)]:
+        chunk[ty][tx] = TILE_WALL  # crystal formation
+    # Scroll archive broken shelf
+    for tx in range(80, 88):
+        chunk[35][tx] = TILE_WALLTOP  # shelf debris
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -14145,6 +14244,23 @@ def make_grand_archives():
     # More Scholars on the ground floor
     for tx, ty in [(20, 55), (35, 60), (50, 58), (65, 62), (78, 55), (90, 60)]:
         mapped = ENEMY_KIND_MAP.get("GrandArchivesScholar", "DarkMage")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 53 DS3 enemies (Grand Archives diversity) ---
+    # DS3: Cursed Wood enemies (DS3: cursed tree enemies in the archive garden)
+    for tx, ty in [(25, 48)]:
+        mapped = ENEMY_KIND_MAP.get("CursedWood", "MiniBoss")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # More Crystal Lizards in the crystal garden
+    for tx, ty in [(72, 52), (88, 48)]:
+        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Hollow Slaves on the upper balconies
+    for tx, ty in [(55, 55), (68, 58)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSlave", "Thrall")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
