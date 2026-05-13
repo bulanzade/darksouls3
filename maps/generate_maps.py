@@ -3401,6 +3401,23 @@ def make_undead_settlement():
     fill_tiles(chunk, TILE_WALL, 34, 88, 35, 90)
     fill_tiles(chunk, TILE_WALL, 18, 86, 19, 88)
 
+    # SESSION 18 FIDELITY PASS — UndeadSettlement DS3 village details
+    # Tree sentinel area — hollow tree stumps (DS3: dead trees around settlement)
+    fill_tiles(chunk, TILE_WALL, 40, 92, 41, 94)
+    fill_tiles(chunk, TILE_WALL, 46, 96, 47, 98)
+    fill_tiles(chunk, TILE_WALL, 52, 90, 53, 92)
+    fill_tiles(chunk, TILE_WALL, 58, 94, 59, 96)
+    # Pit area — rope net debris (DS3: pit with hollows and rats)
+    fill_tiles(chunk, TILE_WALL, 64, 98, 65, 100)
+    fill_tiles(chunk, TILE_WALL, 70, 102, 71, 104)
+    fill_tiles(chunk, TILE_WALL, 76, 96, 77, 98)
+    fill_tiles(chunk, TILE_WALL, 82, 100, 83, 102)
+    # Mound maker cage — cage debris (DS3: cage elevator to giant)
+    fill_tiles(chunk, TILE_WALL, 88, 104, 89, 106)
+    fill_tiles(chunk, TILE_WALL, 94, 108, 95, 110)
+    fill_tiles(chunk, TILE_WALL, 100, 102, 101, 104)
+    fill_tiles(chunk, TILE_WALL, 106, 106, 107, 108)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
