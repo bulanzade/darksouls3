@@ -3687,6 +3687,15 @@ def make_road_of_sacrifices():
     # Orbeck of Vinheim — sorcery teacher in the ruins (DS3: found in a side room of the Crucifixion Woods ruins)
     entities.append(make_entity("Npc", 82 * 16, 60 * 16, [make_field("name", "String", "Orbeck of Vinheim"), make_field("kind", "LocalEnum.NpcKind", "Merchant"), make_field("color", "Color", "#7090B0"), make_field("dialogue", "String", "Orbeck of Vinheim. A sorcerer, and an assassin|I wish to repay my debt to you|Bring me scrolls, and I shall decipher their sorceries")]))
 
+    # Fog Gate back to UndeadSettlement (entrance from settlement)
+    entities.append(make_entity("FogGate", 8 * 16, 8 * 16, [
+        make_field("dest_area", "String", "UndeadSettlement"),
+        make_field("dest_x", "Float", 2368.0),
+        make_field("dest_y", "Float", 880.0),
+        make_field("width", "Float", 64.0),
+        make_field("height", "Float", 80.0),
+    ]))
+
     # Fog Gate to FarronKeep
     entities.append(make_entity("FogGate", 68 * 16, 134 * 16, [
         make_field("dest_area", "String", "FarronKeep"),
