@@ -2104,6 +2104,24 @@ def make_firelink_shrine():
     fill_tiles(chunk, TILE_WALL, 85, 80, 87, 82)                    # Training dummy area
     for tx in range(30, 55, 6):
         fill_tiles(chunk, TILE_WALL, tx, 85, tx+1, 86)             # Exterior wall details
+    # --- SESSION 49 terrain (Firelink Shrine) ---
+    # DS3: Throne seat rows along the back wall (the 5 lords' thrones)
+    for tx in range(30, 45):
+        chunk[55][tx] = TILE_WALLTOP  # throne base
+    # Coiled sword pedestal in the center fire pit
+    chunk[40][50] = TILE_WALL  # pedestal stone
+    chunk[40][51] = TILE_WALL  # pedestal stone
+    # Andre's anvil area (DS3: Andre works at his anvil near the entrance)
+    chunk[35][25] = TILE_WALLTOP  # anvil base
+    chunk[35][26] = TILE_WALLTOP  # anvil base
+    # Courtyard grave markers (DS3: graves outside the shrine entrance)
+    for tx in range(35, 42):
+        if tx % 2 == 0:
+            chunk[25][tx] = TILE_WALLTOP  # headstone
+    # Shrine interior stone floor supports
+    for ty in range(42, 48):
+        chunk[ty][45] = TILE_WALL  # support pillar
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -2552,6 +2570,23 @@ def make_lothric_wall():
     # Hollow Assassins on the rooftops
     for tx, ty in [(48, 10), (62, 14)]:
         mapped = ENEMY_KIND_MAP.get("HollowAssassin", "Assassin")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 49 DS3 enemies (High Wall of Lothric final pass) ---
+    # DS3: Archers on the rampart walls (DS3: fire crossbows from battlements)
+    for tx, ty in [(40, 6), (48, 8), (56, 6), (64, 10)]:
+        mapped = ENEMY_KIND_MAP.get("Archer", "Archer")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Lothric Knight Swordsmen on the main road (DS3: patrol in pairs)
+    for tx, ty in [(30, 48), (42, 52), (54, 50)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Peasant Hollows near the settlement entrance (DS3: civilians turned hollow)
+    for tx, ty in [(68, 58), (76, 62), (84, 60)]:
+        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
@@ -11540,6 +11575,23 @@ def make_anor_londo():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # --- SESSION 49 DS3 enemies (Anor Londo) ---
+    # DS3: Silver Knight Archers on the famous buttress ledge (more archers!)
+    for tx, ty in [(48, 22), (58, 18), (68, 25)]:
+        mapped = ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Cathedral Grave Wardens (DS3: patrol the Anor Londo graveyard)
+    for tx, ty in [(25, 42), (38, 48), (50, 45)]:
+        mapped = ENEMY_KIND_MAP.get("CathedralGraveWarden", "CathedralGraveWarden")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Giant Slave (DS3: the giant outside Anor Londo who shoots arrows)
+    for tx, ty in [(72, 35)]:
+        mapped = ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs ---
     # Anri of Astora — summon sign near main doors (wiki: "purple sign on the floor")
     entities.append(make_entity("Npc", 128 * 16, 72 * 16, [
@@ -12677,6 +12729,28 @@ def make_lothric_castle():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # --- SESSION 49 DS3 enemies (Lothric Castle final pass) ---
+    # DS3: Cathedral Knights in the castle chapel area
+    for tx, ty in [(40, 35), (55, 40)]:
+        mapped = ENEMY_KIND_MAP.get("CathedralKnight", "CathedralKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Thralls hiding near the Grand Archives approach (DS3: ambush enemies)
+    for tx, ty in [(120, 48), (128, 52), (135, 50)]:
+        mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Crystal Lizard in the castle upper chambers
+    for tx, ty in [(95, 32)]:
+        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # More Starved Hounds near the Consumed King's Garden entrance
+    for tx, ty in [(15, 68), (25, 72)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs - DS3 Lothric Castle ---
     # NOTE: Emma is only at High Wall of Lothric (LothricWall) — she dies after giving Basin of Vows
     # NOTE: Eygon of Carim only appears near Irina (Undead Settlement) or Firelink Shrine, not here
@@ -12951,6 +13025,22 @@ def make_lothric_castle():
     fill_tiles(chunk, TILE_WALL, 55, 65, 57, 67)                    # Dragon Slayer Armor arena
     fill_tiles(chunk, TILE_WALL, 120, 55, 122, 57)                  # Throne room approach
     fill_tiles(chunk, TILE_WALL, 80, 95, 82, 97)                    # Lothric prince chamber
+    # --- SESSION 49 terrain (Lothric Castle) ---
+    # DS3: Great hall pillars supporting the massive ceiling
+    for ty in range(30, 38):
+        chunk[ty][35] = TILE_WALL  # hall pillar
+        chunk[ty][50] = TILE_WALL  # hall pillar
+    # Dragon perch stones (DS3: where the dragon rests on the roof)
+    for tx in range(95, 102):
+        chunk[28][tx] = TILE_WALLTOP  # perch debris
+    # Dancer arena columns (DS3: the circular arena has pillars)
+    for ty in range(60, 68):
+        chunk[ty][72] = TILE_WALL  # arena column
+        chunk[ty][82] = TILE_WALL  # arena column
+    # Throne room debris (DS3: Lothric's throne room is in ruins)
+    for tx in range(100, 108):
+        chunk[42][tx] = TILE_WALLTOP  # throne debris
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -15969,6 +16059,23 @@ def make_untended_graves():
         mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # --- SESSION 49 DS3 enemies (Untended Graves) ---
+    # DS3: Dark versions of Hollow Soldiers (mirror of Cemetery of Ash)
+    for tx, ty in [(22, 18), (35, 22), (48, 20), (60, 25)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Dark Starved Hounds (DS3: dark versions of the cemetery dogs)
+    for tx, ty in [(30, 35), (42, 38)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Black Knight guarding the dark Firelink (DS3: patrols outside the shrine)
+    for tx, ty in [(55, 42)]:
+        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs ---
     # Dark Shrine Handmaid in Dark Firelink Shrine (different from normal Firelink)
     entities.append(make_entity("Npc", 132 * 16, 112 * 16, [
