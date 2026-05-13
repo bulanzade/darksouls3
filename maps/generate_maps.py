@@ -8894,6 +8894,31 @@ def make_anor_londo():
     fill_tiles(chunk, TILE_WALL, 134, 88, 135, 89)
     fill_tiles(chunk, TILE_WALL, 130, 86, 131, 87)
 
+    # ================================================================
+    # SESSION 15 FIDELITY PASS — AnorLondo additional DS3 details
+    # ================================================================
+    # Cathedral main hall — golden throne pillars (DS3: grand golden cathedral)
+    fill_tiles(chunk, TILE_WALL, 22, 36, 23, 37)
+    fill_tiles(chunk, TILE_WALL, 28, 40, 29, 41)
+    fill_tiles(chunk, TILE_WALL, 16, 38, 17, 39)
+    fill_tiles(chunk, TILE_WALL, 34, 34, 35, 35)
+    # Silver Knight gauntlet — hall pillar bases (DS3: ornate hall with knights)
+    fill_tiles(chunk, TILE_WALL, 86, 30, 87, 31)
+    fill_tiles(chunk, TILE_WALL, 92, 34, 93, 35)
+    fill_tiles(chunk, TILE_WALL, 80, 32, 81, 33)
+    fill_tiles(chunk, TILE_WALL, 98, 28, 99, 29)
+    # Yorshka tower — invisible bridge supports (DS3: invisible bridge to tower)
+    fill_tiles(chunk, TILE_WALL, 50, 66, 51, 67)
+    fill_tiles(chunk, TILE_WALL, 56, 70, 57, 71)
+    fill_tiles(chunk, TILE_WALL, 44, 68, 45, 69)
+    # Darkmoon Tomb — candle alcove stones (DS3: covenant area below cathedral)
+    fill_tiles(chunk, TILE_WALL, 62, 78, 63, 79)
+    fill_tiles(chunk, TILE_WALL, 68, 82, 69, 83)
+    fill_tiles(chunk, TILE_WALL, 58, 80, 59, 81)
+    # Aldrich arena approach — Gwyndolin's throne debris (DS3: throne room of Anor Londo)
+    fill_tiles(chunk, TILE_WALL, 132, 74, 133, 75)
+    fill_tiles(chunk, TILE_WALL, 138, 78, 139, 79)
+    fill_tiles(chunk, TILE_WALL, 126, 76, 127, 77)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
