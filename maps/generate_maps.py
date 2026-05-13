@@ -4300,6 +4300,21 @@ def make_road_of_sacrifices():
         make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
         make_field("name", "String", "Titanite Shard")]))
 
+    # Additional enemies — SESSION 34 DS3 fidelity (Road of Sacrifices)
+    # DS3: Corvians are the primary enemy, patrolling the path and swamp edges
+    for tx, ty in [(42, 55), (48, 60), (55, 50), (60, 58), (65, 52),
+                   (72, 62), (78, 55), (82, 60), (88, 52), (95, 58)]:
+        mapped = ENEMY_KIND_MAP.get("Corvian", "Assassin")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(38, 70), (52, 75), (70, 68), (85, 72)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(45, 90), (58, 95), (75, 92)]:
+        mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # NPCs - Anri and Horace at Halfway Fortress (DS3: they sit together at the bonfire)
     entities.append(make_entity("Npc", 50 * 16, 30 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello. We meet again|I am Anri of Astora, and this is Horace the Hushed|We journey to find the Lords of Cinder|Won't you join us?|I have no love for the smaller roads, they are treacherous|The Cathedral of the Deep lies ahead, tread carefully|Horace and I have been together for a long time now")]))
     entities.append(make_entity("Npc", 54 * 16, 30 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods silently)|(gestures toward Anri)|(adjusts helmet)")]))
@@ -6577,6 +6592,30 @@ def make_catacombs_of_carthus():
         make_field("is_mimic", "Bool", True),
     ]))
 
+    # Additional enemies — SESSION 34 DS3 fidelity (Catacombs of Carthus)
+    # DS3: Skeletons patrol ALL corridors, Hounds guard side rooms, Skeleton Balls roll
+    for tx, ty in [(22, 82), (28, 85), (35, 80), (40, 88), (32, 90),
+                   (45, 92), (50, 85), (55, 88), (48, 95), (38, 98),
+                   (60, 82), (65, 90), (70, 85), (75, 88), (62, 95)]:
+        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(85, 25), (90, 35), (95, 28), (100, 40), (88, 42)]:
+        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "Skeleton")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(110, 55), (115, 60), (120, 50), (125, 65), (130, 55)]:
+        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(82, 90), (88, 95), (95, 88)]:
+        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(105, 75), (120, 80)]:
+        mapped = ENEMY_KIND_MAP.get("SkeletonBall", "Skeleton")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # NPCs — DS3 Catacombs: Anri and Horace together at the entrance bonfire
     entities.append(make_entity("Npc", 15 * 16, 18 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello, we meet again|Have you seen Horace anywhere?|I have been separated from him|I am worried... Please tell me if you find him")]))
     entities.append(make_entity("Npc", 17 * 16, 19 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods slowly)|(points toward the deeper catacombs)|(holds shield tighter)|Anri... where are you...")]))
@@ -12363,6 +12402,22 @@ def make_grand_archives():
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(CHUNK_SIZE) for x in range(CHUNK_SIZE) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    # Additional enemies — SESSION 34 DS3 fidelity (Grand Archives)
+    # DS3: Scholars (candle, scroll, flame variants) are the PRIMARY enemy
+    for tx, ty in [(52, 35), (58, 42), (65, 38), (70, 45), (75, 35),
+                   (82, 40), (88, 35), (95, 42), (100, 38), (105, 45),
+                   (112, 35), (118, 40), (125, 38), (130, 45), (135, 35)]:
+        mapped = ENEMY_KIND_MAP.get("GrandArchivesScholar", "DarkMage")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(55, 65), (68, 70), (80, 62), (92, 68), (105, 65)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSlave", "Thrall")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(42, 85), (58, 90), (72, 88), (85, 92), (98, 85)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     print(f"  GrandArchives (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "GrandArchives", chunk, entities
 
@@ -13093,6 +13148,19 @@ def make_kiln_of_the_first_flame():
     fill_tiles(chunk, TILE_WALL, 106, 90, 107, 91)
     fill_tiles(chunk, TILE_WALL, 112, 94, 113, 95)
 
+    # SESSION 34 FIDELITY PASS — Consumed King's Garden DS3 details
+    # DS3: Oceiros crystal formations along walls, toxic pool edge stones
+    for tx in range(20, 60, 8):
+        fill_tiles(chunk, TILE_WALL, tx, 30, tx+1, 31)
+        fill_tiles(chunk, TILE_WALL, tx, 70, tx+1, 71)
+    for tx in range(80, 120, 8):
+        fill_tiles(chunk, TILE_WALL, tx, 35, tx+1, 36)
+        fill_tiles(chunk, TILE_WALL, tx, 75, tx+1, 76)
+    for ty in range(40, 80, 10):
+        fill_tiles(chunk, TILE_WALL, 25, ty, 26, ty+1)
+        fill_tiles(chunk, TILE_WALL, 135, ty, 136, ty+1)
+    fill_tiles(chunk, TILE_WALL, 60, 50, 62, 52)
+    fill_tiles(chunk, TILE_WALL, 100, 60, 102, 62)
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -14563,6 +14631,17 @@ def make_untended_graves():
     fill_tiles(chunk, TILE_WALL, 96, 78, 97, 79)
     fill_tiles(chunk, TILE_WALL, 102, 82, 103, 83)
 
+    # SESSION 34 FIDELITY PASS — Archdragon Peak DS3 details
+    # DS3: Dragon skeleton debris along the paths, meditation stone circles
+    for tx in range(30, 70, 10):
+        fill_tiles(chunk, TILE_WALL, tx, 40, tx+2, 41)
+        fill_tiles(chunk, TILE_WALL, tx, 90, tx+2, 91)
+    for tx in range(90, 140, 10):
+        fill_tiles(chunk, TILE_WALL, tx, 45, tx+2, 46)
+        fill_tiles(chunk, TILE_WALL, tx, 95, tx+2, 96)
+    fill_tiles(chunk, TILE_WALL, 50, 55, 52, 56)
+    fill_tiles(chunk, TILE_WALL, 110, 75, 112, 76)
+    fill_tiles(chunk, TILE_WALL, 70, 110, 72, 111)
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -14974,6 +15053,17 @@ def make_archdragon_peak():
         make_field("loot_name", "String", "Twinkling Titanite"),
         make_field("is_mimic", "Bool", False)]))
 
+    # Additional enemies — SESSION 34 DS3 fidelity (Archdragon Peak)
+    # DS3: Man-Serpents patrol the entire peak near Dragon-Kin Mausoleum
+    for tx, ty in [(35, 65), (42, 70), (50, 68), (58, 72), (65, 65),
+                   (72, 70), (80, 65), (88, 72)]:
+        mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(95, 55), (108, 60)]:
+        mapped = ENEMY_KIND_MAP.get("RockLizard", "CrystalLizard")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # --- NPCs ---
     # Hawkwood — can be summoned for Nameless King (DS3: summon sign at Great Belfry)
     entities.append(make_entity("Npc", 124 * 16, 24 * 16, [
