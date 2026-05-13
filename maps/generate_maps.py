@@ -2316,11 +2316,11 @@ def make_lothric_wall():
         make_field("width", "Float", 64.0),
         make_field("height", "Float", 80.0),
     ]))
-    # To Consumed King's Garden (post-Dancer, SE path)
+    # To Lothric Castle (post-Dancer path — DS3: Dancer defeat opens castle)
     entities.append(make_entity("FogGate", 120 * 16, 115 * 16, [
-        make_field("dest_area", "String", "ConsumedKingsGarden"),
+        make_field("dest_area", "String", "LothricCastle"),
         make_field("dest_x", "Float", 200.0),
-        make_field("dest_y", "Float", 200.0),
+        make_field("dest_y", "Float", 400.0),
         make_field("width", "Float", 64.0),
         make_field("height", "Float", 80.0),
     ]))
@@ -5352,9 +5352,9 @@ def make_cathedral_deep():
         make_field("width", "Float", 64.0),
         make_field("height", "Float", 80.0),
     ]))
-    # Fog Gate to Irithyll
+    # Fog Gate to Farron Keep perimeter (DS3: Cathedral exits back to Farron Keep area)
     entities.append(make_entity("FogGate", 38 * 16, 154 * 16, [
-        make_field("dest_area", "String", "Irithyll"),
+        make_field("dest_area", "String", "FarronKeep"),
         make_field("dest_x", "Float", 100.0),
         make_field("dest_y", "Float", 100.0),
         make_field("width", "Float", 64.0),
@@ -9182,9 +9182,9 @@ def make_anor_londo():
         make_field("width", "Float", 48.0),
         make_field("height", "Float", 80.0),
     ]))
-    # To Lothric Castle (after defeating Aldrich, east)
+    # To Irithyll (return path after Aldrich, DS3: return through Irithyll)
     entities.append(make_entity("FogGate", 152 * 16, 88 * 16, [
-        make_field("dest_area", "String", "LothricCastle"),
+        make_field("dest_area", "String", "Irithyll"),
         make_field("dest_x", "Float", 200.0),
         make_field("dest_y", "Float", 400.0),
         make_field("width", "Float", 48.0),
@@ -10037,11 +10037,11 @@ def make_lothric_castle():
     # Lothric Castle NPCs in DS3: summon signs only (no dialogue NPCs roam the castle interior)
 
     # --- Fog Gates ---
-    # Back to AnorLondo (west entry)
+    # Back to LothricWall (return to High Wall, DS3: castle connects back to high wall)
     entities.append(make_entity("FogGate", 6 * 16, 30 * 16, [
-        make_field("dest_area", "String", "AnorLondo"),
-        make_field("dest_x", "Float", 160.0),
-        make_field("dest_y", "Float", 608.0),
+        make_field("dest_area", "String", "LothricWall"),
+        make_field("dest_x", "Float", 1600.0),
+        make_field("dest_y", "Float", 1600.0),
         make_field("width", "Float", 64.0),
         make_field("height", "Float", 80.0),
     ]))
