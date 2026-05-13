@@ -4325,6 +4325,30 @@ def make_road_of_sacrifices():
     fill_tiles(chunk, TILE_WALL, 96, 86, 97, 88)
     fill_tiles(chunk, TILE_WALL, 118, 86, 119, 88)
 
+    # ================================================================
+    # SESSION 22 FIDELITY PASS — RoadOfSacrifices DS3 forest details
+    # ================================================================
+    # Fallen tree obstacles (DS3: fallen trees blocking forest paths)
+    fill_tiles(chunk, TILE_WALL, 22, 36, 23, 37)
+    fill_tiles(chunk, TILE_WALL, 28, 40, 29, 41)
+    fill_tiles(chunk, TILE_WALL, 34, 44, 35, 45)
+    fill_tiles(chunk, TILE_WALL, 40, 48, 41, 49)
+    # Corvian nest debris (DS3: corvian nests in the trees)
+    fill_tiles(chunk, TILE_WALL, 46, 52, 47, 53)
+    fill_tiles(chunk, TILE_WALL, 52, 56, 53, 57)
+    fill_tiles(chunk, TILE_WALL, 58, 60, 59, 61)
+    fill_tiles(chunk, TILE_WALL, 64, 64, 65, 65)
+    # Swamp edge stones (DS3: stones along the poison swamp border)
+    fill_tiles(chunk, TILE_WALL, 70, 68, 71, 69)
+    fill_tiles(chunk, TILE_WALL, 76, 72, 77, 73)
+    fill_tiles(chunk, TILE_WALL, 82, 76, 83, 77)
+    fill_tiles(chunk, TILE_WALL, 88, 80, 89, 81)
+    # Crucifixion Woods bridge debris (DS3: broken bridge supports)
+    fill_tiles(chunk, TILE_WALL, 94, 84, 95, 85)
+    fill_tiles(chunk, TILE_WALL, 100, 88, 101, 89)
+    fill_tiles(chunk, TILE_WALL, 106, 92, 107, 93)
+    fill_tiles(chunk, TILE_WALL, 112, 96, 113, 97)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -5686,6 +5710,30 @@ def make_cathedral_deep():
     fill_tiles(chunk, TILE_WALL, 92, 48, 93, 50)
     fill_tiles(chunk, TILE_WALL, 98, 42, 99, 44)
     fill_tiles(chunk, TILE_WALL, 104, 46, 105, 48)
+
+    # ================================================================
+    # SESSION 22 FIDELITY PASS — CathedralDeep DS3 cathedral details
+    # ================================================================
+    # Cathedral column bases (DS3: stone column foundations in the cathedral)
+    fill_tiles(chunk, TILE_WALL, 22, 32, 23, 33)
+    fill_tiles(chunk, TILE_WALL, 28, 36, 29, 37)
+    fill_tiles(chunk, TILE_WALL, 34, 40, 35, 41)
+    fill_tiles(chunk, TILE_WALL, 40, 44, 41, 45)
+    # Graveyard tombstone debris (DS3: tombstones in the cathedral graveyard)
+    fill_tiles(chunk, TILE_WALL, 46, 48, 47, 49)
+    fill_tiles(chunk, TILE_WALL, 52, 52, 53, 53)
+    fill_tiles(chunk, TILE_WALL, 58, 56, 59, 57)
+    fill_tiles(chunk, TILE_WALL, 64, 60, 65, 61)
+    # Deacon prayer bench debris (DS3: pews and benches in the cathedral)
+    fill_tiles(chunk, TILE_WALL, 70, 64, 71, 65)
+    fill_tiles(chunk, TILE_WALL, 76, 68, 77, 69)
+    fill_tiles(chunk, TILE_WALL, 82, 72, 83, 73)
+    fill_tiles(chunk, TILE_WALL, 88, 76, 89, 77)
+    # Rosaria's chamber debris (DS3: broken glass and debris in Rosaria's chamber)
+    fill_tiles(chunk, TILE_WALL, 94, 80, 95, 81)
+    fill_tiles(chunk, TILE_WALL, 100, 84, 101, 85)
+    fill_tiles(chunk, TILE_WALL, 106, 88, 107, 89)
+    fill_tiles(chunk, TILE_WALL, 112, 92, 113, 93)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -9733,6 +9781,30 @@ def make_anor_londo():
     fill_tiles(chunk, TILE_WALL, 96, 72, 97, 74)
     fill_tiles(chunk, TILE_WALL, 104, 68, 105, 70)
 
+    # ================================================================
+    # SESSION 22 FIDELITY PASS — AnorLondo DS3 cathedral details
+    # ================================================================
+    # Silver Knight statue bases (DS3: ornate statues lining the cathedral hall)
+    fill_tiles(chunk, TILE_WALL, 22, 28, 23, 29)
+    fill_tiles(chunk, TILE_WALL, 28, 32, 29, 33)
+    fill_tiles(chunk, TILE_WALL, 34, 36, 35, 37)
+    fill_tiles(chunk, TILE_WALL, 40, 40, 41, 41)
+    # Painting frame debris (DS3: paintings along the cathedral walls)
+    fill_tiles(chunk, TILE_WALL, 46, 44, 47, 45)
+    fill_tiles(chunk, TILE_WALL, 52, 48, 53, 49)
+    fill_tiles(chunk, TILE_WALL, 58, 52, 59, 53)
+    fill_tiles(chunk, TILE_WALL, 64, 56, 65, 57)
+    # Aldrich cathedral debris (DS3: debris from Aldrich's chamber)
+    fill_tiles(chunk, TILE_WALL, 70, 60, 71, 61)
+    fill_tiles(chunk, TILE_WALL, 76, 64, 77, 65)
+    fill_tiles(chunk, TILE_WALL, 82, 68, 83, 69)
+    fill_tiles(chunk, TILE_WALL, 88, 72, 89, 73)
+    # Man Grub slime pools (DS3: grub trails on the cathedral floor)
+    fill_tiles(chunk, TILE_WALL, 30, 68, 31, 69)
+    fill_tiles(chunk, TILE_WALL, 36, 72, 37, 73)
+    fill_tiles(chunk, TILE_WALL, 42, 76, 43, 77)
+    fill_tiles(chunk, TILE_WALL, 48, 80, 49, 81)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -12405,6 +12477,30 @@ def make_consumed_kings_garden():
     fill_tiles(chunk, TILE_WALL, 134, 102, 135, 104)
 
 
+    # ================================================================
+    # SESSION 22 FIDELITY PASS — ConsumedKingsGarden DS3 garden details
+    # ================================================================
+    # Hedge maze walls (DS3: garden hedges forming maze paths)
+    fill_tiles(chunk, TILE_WALL, 22, 30, 23, 31)
+    fill_tiles(chunk, TILE_WALL, 28, 34, 29, 35)
+    fill_tiles(chunk, TILE_WALL, 34, 38, 35, 39)
+    fill_tiles(chunk, TILE_WALL, 40, 42, 41, 43)
+    # Toxic pool edge stones (DS3: stone borders around poison pools)
+    fill_tiles(chunk, TILE_WALL, 46, 46, 47, 47)
+    fill_tiles(chunk, TILE_WALL, 52, 50, 53, 51)
+    fill_tiles(chunk, TILE_WALL, 58, 54, 59, 55)
+    fill_tiles(chunk, TILE_WALL, 64, 58, 65, 59)
+    # Oceiros throne debris (DS3: shattered throne near Oceiros arena)
+    fill_tiles(chunk, TILE_WALL, 70, 62, 71, 63)
+    fill_tiles(chunk, TILE_WALL, 76, 66, 77, 67)
+    fill_tiles(chunk, TILE_WALL, 82, 70, 83, 71)
+    fill_tiles(chunk, TILE_WALL, 88, 74, 89, 75)
+    # Wyvern skeleton debris (DS3: dragon remains in the garden)
+    fill_tiles(chunk, TILE_WALL, 94, 78, 95, 79)
+    fill_tiles(chunk, TILE_WALL, 100, 82, 101, 83)
+    fill_tiles(chunk, TILE_WALL, 106, 86, 107, 87)
+    fill_tiles(chunk, TILE_WALL, 112, 90, 113, 91)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -13677,6 +13773,30 @@ def make_archdragon_peak():
     fill_tiles(chunk, TILE_WALL, 138, 118, 139, 120)
     fill_tiles(chunk, TILE_WALL, 146, 122, 147, 124)
     fill_tiles(chunk, TILE_WALL, 154, 120, 155, 122)
+
+    # ================================================================
+    # SESSION 22 FIDELITY PASS — ArchdragonPeak DS3 dragon ruins details
+    # ================================================================
+    # Dragon skeleton debris (DS3: massive dragon bones scattered around peak)
+    fill_tiles(chunk, TILE_WALL, 22, 34, 23, 35)
+    fill_tiles(chunk, TILE_WALL, 28, 38, 29, 39)
+    fill_tiles(chunk, TILE_WALL, 34, 42, 35, 43)
+    fill_tiles(chunk, TILE_WALL, 40, 46, 41, 47)
+    # Serpent Man totem bases (DS3: stone serpent totems)
+    fill_tiles(chunk, TILE_WALL, 46, 50, 47, 51)
+    fill_tiles(chunk, TILE_WALL, 52, 54, 53, 55)
+    fill_tiles(chunk, TILE_WALL, 58, 58, 59, 59)
+    fill_tiles(chunk, TILE_WALL, 64, 62, 65, 63)
+    # Ancient dragon altar stones (DS3: dragon stones for meditation)
+    fill_tiles(chunk, TILE_WALL, 70, 66, 71, 67)
+    fill_tiles(chunk, TILE_WALL, 76, 70, 77, 71)
+    fill_tiles(chunk, TILE_WALL, 82, 74, 83, 75)
+    fill_tiles(chunk, TILE_WALL, 88, 78, 89, 79)
+    # Nameless King perch debris (DS3: storm cloud debris near boss arena)
+    fill_tiles(chunk, TILE_WALL, 94, 82, 95, 83)
+    fill_tiles(chunk, TILE_WALL, 100, 86, 101, 87)
+    fill_tiles(chunk, TILE_WALL, 106, 90, 107, 91)
+    fill_tiles(chunk, TILE_WALL, 112, 94, 113, 95)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
