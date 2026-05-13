@@ -5,8 +5,8 @@
   "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
   "theme": "endgame ash",
   "map_size": {
-    "width": 3072,
-    "height": 3072
+    "width": 4096,
+    "height": 3584
   },
   "connections": {
     "from": [

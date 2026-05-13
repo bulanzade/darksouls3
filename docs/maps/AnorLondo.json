@@ -5,8 +5,8 @@
   "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
   "theme": "dark cathedral",
   "map_size": {
-    "width": 3584,
-    "height": 3072
+    "width": 5120,
+    "height": 4096
   },
   "connections": {
     "from": [

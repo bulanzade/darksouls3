@@ -5,7 +5,7 @@
   "description": "Volcanic lake area beneath the Catacombs. Features a ballista firing across the lake, demon ruins below, and the Old Demon King boss.",
   "theme": "demon ruins lake",
   "map_size": {
-    "width": 4608,
+    "width": 5120,
     "height": 4096
   },
   "connections": {

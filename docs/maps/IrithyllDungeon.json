@@ -6,7 +6,7 @@
   "theme": "dungeon",
   "map_size": {
     "width": 4096,
-    "height": 4608
+    "height": 4096
   },
   "connections": {
     "from": [

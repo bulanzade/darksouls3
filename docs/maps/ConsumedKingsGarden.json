@@ -6,7 +6,7 @@
   "theme": "poison garden",
   "map_size": {
     "width": 4096,
-    "height": 3584
+    "height": 4096
   },
   "connections": {
     "from": [

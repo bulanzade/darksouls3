@@ -5,8 +5,8 @@
   "description": "Clean DS3 map topology record rebuilt from scratch. Coordinates are project 2D projection landmarks, not official game-space coordinates.",
   "theme": "royal castle",
   "map_size": {
-    "width": 5120,
-    "height": 4096
+    "width": 4096,
+    "height": 6144
   },
   "connections": {
     "from": [

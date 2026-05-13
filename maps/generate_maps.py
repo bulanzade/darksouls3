@@ -1368,8 +1368,8 @@ def make_cemetery_of_ash():
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
 
-    print(f"  CemeteryOfAsh (faithful DS3 layout) "
-          f"ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  CemeteryOfAsh (faithful DS3 layout) "
+    # f"ground={pct:.1f}% connectivity={coverage}%")
 
     return "CemeteryOfAsh", chunk, entities
 
@@ -2384,7 +2384,7 @@ def make_firelink_shrine():
 
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    print(f"  FirelinkShrine (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  FirelinkShrine (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "FirelinkShrine", chunk, entities
 
 def make_lothric_wall():
@@ -3583,8 +3583,8 @@ def make_lothric_wall():
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    print(f"  LothricWall (faithful DS3 layout) "
-          f"ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  LothricWall (faithful DS3 layout) "
+    # f"ground={pct:.1f}% connectivity={coverage}%")
     return "LothricWall", chunk, entities
 
 def make_undead_settlement():
@@ -4785,8 +4785,8 @@ def make_undead_settlement():
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    print(f"  UndeadSettlement (faithful DS3 layout) "
-          f"ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  UndeadSettlement (faithful DS3 layout) "
+    # f"ground={pct:.1f}% connectivity={coverage}%")
     return "UndeadSettlement", chunk, entities
 
 def make_road_of_sacrifices():
@@ -5910,7 +5910,7 @@ def make_road_of_sacrifices():
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    print(f"  RoadOfSacrifices (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  RoadOfSacrifices (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "RoadOfSacrifices", chunk, entities
 
 def make_farron_keep():
@@ -7058,7 +7058,7 @@ def make_farron_keep():
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
 
-    print(f"  FarronKeep (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  FarronKeep (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "FarronKeep", chunk, entities
 
 def make_cathedral_deep():
@@ -8160,7 +8160,7 @@ def make_cathedral_deep():
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    print(f"  CathedralDeep (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  CathedralDeep (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "CathedralDeep", chunk, entities
 
 def make_catacombs_of_carthus():
@@ -9201,7 +9201,7 @@ def make_catacombs_of_carthus():
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    print(f"  CatacombsOfCarthus (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  CatacombsOfCarthus (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "CatacombsOfCarthus", chunk, entities
 
 def make_smouldering_lake():
@@ -10285,7 +10285,7 @@ def make_smouldering_lake():
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
 
-    print(f"  SmoulderingLake (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  SmoulderingLake (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "SmoulderingLake", chunk, entities
 
 def make_irithyll():
@@ -11621,7 +11621,7 @@ def make_irithyll():
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
 
-    print(f"  Irithyll (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  Irithyll (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "Irithyll", chunk, entities
 
 def make_irithyll_dungeon():
@@ -12698,7 +12698,7 @@ def make_irithyll_dungeon():
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    print(f"  IrithyllDungeon (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  IrithyllDungeon (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "IrithyllDungeon", chunk, entities
 
 def make_profaned_capital():
@@ -13789,8 +13789,8 @@ def make_profaned_capital():
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    print(f"  ProfanedCapital (faithful DS3 layout) "
-          f"ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  ProfanedCapital (faithful DS3 layout) "
+    # f"ground={pct:.1f}% connectivity={coverage}%")
     return "ProfanedCapital", chunk, entities
 
 def make_anor_londo():
@@ -14806,8 +14806,8 @@ def make_anor_londo():
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    print(f"  AnorLondo (faithful DS3 layout) "
-          f"ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  AnorLondo (faithful DS3 layout) "
+    # f"ground={pct:.1f}% connectivity={coverage}%")
     return "AnorLondo", chunk, entities
 
 def make_lothric_castle():
@@ -16022,8 +16022,8 @@ def make_lothric_castle():
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    print(f"  LothricCastle (faithful DS3 layout) "
-          f"ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  LothricCastle (faithful DS3 layout) "
+    # f"ground={pct:.1f}% connectivity={coverage}%")
     return "LothricCastle", chunk, entities
 
 def make_grand_archives():
@@ -17245,7 +17245,7 @@ def make_grand_archives():
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
 
-    print(f"  GrandArchives (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  GrandArchives (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "GrandArchives", chunk, entities
 
 def make_kiln_of_the_first_flame():
@@ -18115,8 +18115,8 @@ def make_kiln_of_the_first_flame():
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    print(f"  KilnOfTheFirstFlame (faithful DS3 layout) "
-          f"ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  KilnOfTheFirstFlame (faithful DS3 layout) "
+    # f"ground={pct:.1f}% connectivity={coverage}%")
     return "KilnOfTheFirstFlame", chunk, entities
 
 def make_consumed_kings_garden():
@@ -19180,8 +19180,8 @@ def make_consumed_kings_garden():
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    print(f"  ConsumedKingsGarden (faithful DS3 layout) "
-          f"ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  ConsumedKingsGarden (faithful DS3 layout) "
+    # f"ground={pct:.1f}% connectivity={coverage}%")
     return "ConsumedKingsGarden", chunk, entities
 
 def make_untended_graves():
@@ -20104,8 +20104,8 @@ def make_untended_graves():
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    print(f"  UntendedGraves (faithful DS3 layout) "
-          f"ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  UntendedGraves (faithful DS3 layout) "
+    # f"ground={pct:.1f}% connectivity={coverage}%")
     return "UntendedGraves", chunk, entities
 
 def make_archdragon_peak():
@@ -21290,8 +21290,8 @@ def make_archdragon_peak():
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
     pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
-    print(f"  ArchdragonPeak (faithful DS3 layout) "
-          f"ground={pct:.1f}% connectivity={coverage}%")
+    # print(f"  ArchdragonPeak (faithful DS3 layout) "
+    # f"ground={pct:.1f}% connectivity={coverage}%")
     return "ArchdragonPeak", chunk, entities
 
 # Map ID -> terrain override function (returns (map_id, chunk, entities))
@@ -21370,16 +21370,9 @@ def map_chest_kind(loot):
 
 # --- Main map generation ---
 
-def generate_map_from_doc(doc_path):
-    with open(doc_path, encoding="utf-8") as f:
-        doc = json.load(f)
-
-    map_id = map_id_from_doc(doc)
-    if map_id not in LEVEL_UIDS:
-        print(f"  SKIP {map_id} (not in LEVEL_UIDS)")
-        return None
-
-    chunk = generate_official_terrain(doc)
+def create_entities_from_doc(chunk, doc):
+    """Create all entities (enemies, NPCs, items, etc.) from a JSON design doc,
+    snap them to walkable terrain in the given chunk, and return the entity list."""
     entities = []
 
     def add_entity(identifier, x, y, fields=None):
@@ -21412,8 +21405,6 @@ def generate_map_from_doc(doc_path):
             continue
         add_entity("BossSpawn", boss_def.get("x", 0), boss_def.get("y", 0))
 
-    # Only include explicit entities if a map doc intentionally provides them.
-    # Clean DS3 topology docs leave these empty until sourced encounter data is added.
     for enemy in doc.get("enemies", []):
         kind = ENEMY_KIND_MAP.get(enemy.get("kind", ""), enemy.get("kind", "HollowSoldier"))
         count = max(1, int(enemy.get("count", 1)))
@@ -21473,8 +21464,21 @@ def generate_map_from_doc(doc_path):
         ])
 
     snap_entities_to_walkable(chunk, entities)
-
     populate_entity_def_uids(entities)
+    return entities
+
+def generate_map_from_doc(doc_path):
+    with open(doc_path, encoding="utf-8") as f:
+        doc = json.load(f)
+
+    map_id = map_id_from_doc(doc)
+    if map_id not in LEVEL_UIDS:
+        print(f"  SKIP {map_id} (not in LEVEL_UIDS)")
+        return None
+
+    chunk = generate_official_terrain(doc)
+    entities = create_entities_from_doc(chunk, doc)
+
     ground_count = sum(1 for row in chunk for tile in row if tile in (TILE_GROUND, TILE_POISON))
     total = max(1, chunk_width(chunk) * chunk_height(chunk))
     pct = ground_count / total * 100
@@ -21587,6 +21591,16 @@ def build_enum_defs():
          ]]},
     ]
 
+def _load_doc_for_area(docs_dir, map_id):
+    """Find and load the JSON design doc for a given map_id."""
+    aliases = {}  # doc filenames match map_id names directly
+    doc_name = aliases.get(map_id, map_id)
+    doc_path = os.path.join(docs_dir, f"{doc_name}.json")
+    if os.path.exists(doc_path):
+        with open(doc_path, encoding="utf-8") as f:
+            return json.load(f)
+    return None
+
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     docs_dir = os.path.join(os.path.dirname(script_dir), "docs", "maps")
@@ -21595,18 +21609,32 @@ def main():
 
     level_summaries = []
 
-    # First pass: generate maps with hand-authored terrain overrides (detailed enemies/items)
+    # First pass: generate maps with hand-authored terrain overrides.
+    # Terrain comes from override functions; entity data comes from JSON docs.
     for map_id, override_fn in sorted(TERRAIN_OVERRIDES.items()):
         result = override_fn()
         if result is None:
             continue
-        mid, chunk, entities = result
+        mid, chunk, _override_entities = result
+
+        # Replace hardcoded entities with JSON doc entities
+        doc = _load_doc_for_area(docs_dir, mid)
+        if doc:
+            entities = create_entities_from_doc(chunk, doc)
+        else:
+            entities = _override_entities
+
         uid = LEVEL_UIDS[mid]
         level = make_level(mid, chunk, entities, uid)
         level_path = os.path.join(levels_dir, f"{mid}.ldtkl")
         with open(level_path, "w") as f:
             json.dump(level, f, indent=2)
-        print(f"  wrote {level_path}")
+
+        ground_count = sum(1 for row in chunk for tile in row if tile in (TILE_GROUND, TILE_POISON))
+        total = max(1, chunk_width(chunk) * chunk_height(chunk))
+        pct = ground_count / total * 100
+        label = f"{mid} (faithful DS3 layout)" if doc else f"{mid} (override, no doc)"
+        print(f"  {label} ground={pct:.1f}% entities={len(entities)}")
         level_summaries.append({
             "__bgColor": level["__bgColor"],
             "__neighbours": [], "__smartColor": level["__smartColor"],

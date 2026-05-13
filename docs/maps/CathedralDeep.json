@@ -5,8 +5,8 @@
   "description": "Massive cathedral complex with cemetery approach, cleansing chapel, giant's graveyard, main hall, rooftops, and Rosaria's bedchamber.",
   "theme": "cathedral",
   "map_size": {
-    "width": 5120,
-    "height": 4608
+    "width": 4608,
+    "height": 4096
   },
   "connections": {
     "from": [
