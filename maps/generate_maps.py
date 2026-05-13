@@ -4227,6 +4227,28 @@ def make_road_of_sacrifices():
     fill_tiles(chunk, TILE_WALL, 116, 126, 117, 128)
     fill_tiles(chunk, TILE_WALL, 128, 134, 129, 136)
 
+    # ================================================================
+    # SESSION 19 FIDELITY PASS — RoadOfSacrifices DS3 forest depth
+    # ================================================================
+    # Corvian nesting trees — branch debris (DS3: Corvians nest in dead trees)
+    fill_tiles(chunk, TILE_WALL, 44, 34, 45, 36)
+    fill_tiles(chunk, TILE_WALL, 50, 38, 51, 40)
+    fill_tiles(chunk, TILE_WALL, 56, 34, 57, 36)
+    fill_tiles(chunk, TILE_WALL, 62, 40, 63, 42)
+    fill_tiles(chunk, TILE_WALL, 48, 44, 49, 46)
+    # Halfway Fortress interior — stone bench debris (DS3: ruined fortress interior)
+    fill_tiles(chunk, TILE_WALL, 34, 26, 35, 28)
+    fill_tiles(chunk, TILE_WALL, 40, 30, 41, 32)
+    fill_tiles(chunk, TILE_WALL, 46, 28, 47, 30)
+    fill_tiles(chunk, TILE_WALL, 52, 34, 53, 36)
+    fill_tiles(chunk, TILE_WALL, 38, 36, 39, 38)
+    # Black Knight clearing — scorched earth (DS3: Black Knight patrols near keep entrance)
+    fill_tiles(chunk, TILE_WALL, 100, 80, 101, 82)
+    fill_tiles(chunk, TILE_WALL, 106, 84, 107, 86)
+    fill_tiles(chunk, TILE_WALL, 112, 82, 113, 84)
+    fill_tiles(chunk, TILE_WALL, 96, 86, 97, 88)
+    fill_tiles(chunk, TILE_WALL, 118, 86, 119, 88)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
