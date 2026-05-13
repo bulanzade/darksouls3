@@ -6090,6 +6090,20 @@ def make_smouldering_lake():
         ("CrystalLizard", 82, 55), ("CrystalLizard", 112, 78), ("CrystalLizard", 22, 98),
         # Demon Statues at arena approach
         ("DemonStatue", 112, 82),
+        # Inner Demon Ruins — Q(1,1) expanded coverage (DS3: demon ruins deep area)
+        # Demon Clerics (FireDemon) guard the inner demon ruins passages
+        ("FireDemon", 125, 95), ("FireDemon", 135, 102),
+        # Demon Statues in deep ruins corridors
+        ("DemonStatue", 100, 85), ("DemonStatue", 115, 100),
+        ("DemonStatue", 130, 108), ("DemonStatue", 140, 98),
+        ("DemonStatue", 148, 112), ("DemonStatue", 120, 120),
+        # Smouldering Rotten Flesh in deep ruins chambers
+        ("InfestedCorpse", 105, 90), ("InfestedCorpse", 125, 88),
+        ("InfestedCorpse", 132, 115), ("InfestedCorpse", 142, 105),
+        # Basilisks near deep lava pools
+        ("Basilisk", 115, 110), ("Basilisk", 130, 118),
+        # Black Knight in deep ruins (DS3: Black Knight patrols demon ruins)
+        ("BlackKnight", 140, 108),
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -9572,6 +9586,19 @@ def make_grand_archives():
         ("HollowSlave", 119, 15), ("HollowSlave", 121, 18),
         ("HollowSlave", 125, 7), ("HollowSlave", 127, 12),
         ("LothricKnight", 130, 10), ("LothricKnight", 132, 15),
+        # Lower library stacks — Q(1,1) expanded coverage (DS3: scholars and thralls in lower archives)
+        # Scholars patrol the lower wax-pool library sections
+        ("DarkMage", 88, 95), ("DarkMage", 95, 108),
+        ("DarkMage", 105, 120), ("DarkMage", 115, 100),
+        ("DarkMage", 125, 115),
+        # Hollow Slaves ambush from lower bookshelves
+        ("HollowSlave", 85, 105), ("HollowSlave", 92, 115),
+        ("HollowSlave", 100, 125), ("HollowSlave", 110, 110),
+        ("HollowSlave", 120, 130),
+        # Lothric Knight guard in lower archives corridor
+        ("LothricKnight", 130, 120),
+        # Crystal Lizard in lower stacks
+        ("CrystalLizard", 145, 118),
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
