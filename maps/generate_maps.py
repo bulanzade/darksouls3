@@ -1270,6 +1270,38 @@ def make_cemetery_of_ash():
         mapped = ENEMY_KIND_MAP.get("RavenousCrystalLizard", "CrystalLizard")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 86 DS3 terrain (Cemetery of Ash detail pass) ---
+    # DS3: Stone archway at spawn (the iconic entrance arch)
+    for tx in range(12, 18):
+        for ty in [8, 14]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(12, 18):
+        chunk[tx][7] = TILE_WALLTOP
+    # DS3: Gundyr's arena stone circle
+    for tx in range(80, 90):
+        for ty in [48, 56]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [80, 90]:
+        for ty in range(48, 57):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Coiled sword crater in center of arena
+    for tx in range(83, 88):
+        for ty in range(50, 55):
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Cemetery gravestones (dense clusters along the path)
+    for tx in [20, 22, 24, 26, 28, 30, 32, 34, 36, 38]:
+        for ty in [18, 20, 22]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [42, 44, 46, 48, 50, 52, 54, 56, 58, 60]:
+        for ty in [28, 30, 32]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Cliff faces along the edges
+    for tx in range(5, 95):
+        chunk[tx][5] = TILE_WALL
+        chunk[tx][4] = TILE_WALLTOP
+    for tx in range(5, 95):
+        chunk[tx][62] = TILE_WALL
     populate_entity_def_uids(entities)
 
     # Ensure connectivity from spawn to all entities
@@ -2204,6 +2236,32 @@ def make_firelink_shrine():
     for tx, ty in [(50, 42), (52, 44)]:
         chunk[ty][tx] = TILE_WALLTOP  # candle debris
 
+
+    # --- SESSION 86 DS3 terrain (Firelink Shrine detail pass) ---
+    # DS3: Five lord thrones along the back wall (semicircle)
+    for tx in [25, 30, 35, 40, 45]:
+        for ty in range(15, 18):
+            chunk[tx][ty] = TILE_WALL
+        chunk[tx][14] = TILE_WALLTOP
+    # DS3: Stone pillars supporting the shrine roof
+    for tx in [20, 28, 36, 44, 52]:
+        for ty in [22, 28, 34]:
+            chunk[tx][ty] = TILE_WALL
+            chunk[tx][ty-1] = TILE_WALLTOP
+    # DS3: Andre's anvil alcove (left side)
+    for tx in range(15, 20):
+        for ty in [30, 34]:
+            chunk[tx][ty] = TILE_WALL
+    chunk[15][29] = TILE_WALLTOP
+    chunk[19][29] = TILE_WALLTOP
+    # DS3: Courtyard graveyard outside the entrance
+    for tx in [30, 32, 34, 36, 38, 40, 42, 44]:
+        for ty in [40, 42, 44]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Shrine entrance steps
+    for tx in range(22, 48):
+        for ty in [36, 37, 38]:
+            chunk[tx][ty] = TILE_GROUND
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -3492,6 +3550,34 @@ def make_lothric_wall():
     for ty in range(22, 28):
         chunk[ty][44] = TILE_WALL  # staircase wall
 
+
+    # --- SESSION 86 DS3 terrain (Lothric Wall detail pass) ---
+    # DS3: Dragon perch platform (the dead dragon spot)
+    for tx in range(65, 78):
+        for ty in range(8, 12):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(65, 78):
+        chunk[tx][7] = TILE_WALLTOP
+    # DS3: Scorch marks from dragon fire on the bridge
+    for tx in range(45, 65):
+        for ty in range(14, 18):
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Vordt's arena - open area with pillars
+    for tx in [85, 90, 95]:
+        for ty in range(58, 68):
+            chunk[tx][ty] = TILE_WALL
+            chunk[tx][ty-1] = TILE_WALLTOP
+    # DS3: Portcullis gates at key passages
+    for ty in range(20, 30):
+        chunk[18][ty] = TILE_WALL
+        chunk[48][ty] = TILE_WALL
+    # DS3: Greirat's cell (basement area)
+    for tx in range(10, 16):
+        for ty in [45, 52]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [10, 16]:
+        for ty in range(45, 53):
+            chunk[tx][ty] = TILE_WALL
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -4888,6 +4974,38 @@ def make_undead_settlement():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+
+    # --- SESSION 86 DS3 terrain (Undead Settlement detail pass) ---
+    # DS3: Giant's tower (tall structure with archer)
+    for tx in range(50, 58):
+        for ty in [10, 22]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [50, 58]:
+        for ty in range(10, 23):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(50, 59):
+        chunk[tx][9] = TILE_WALLTOP
+    # DS3: Market stalls (wooden structures with hollows)
+    for tx in [25, 28, 31]:
+        for ty in range(35, 38):
+            chunk[tx][ty] = TILE_WALL
+            chunk[tx][ty-1] = TILE_WALLTOP
+    for tx in [35, 38, 41]:
+        for ty in range(35, 38):
+            chunk[tx][ty] = TILE_WALL
+            chunk[tx][ty-1] = TILE_WALLTOP
+    # DS3: Bridge with cages hanging from it
+    for tx in range(60, 75):
+        chunk[tx][42] = TILE_WALL
+        chunk[tx][41] = TILE_WALLTOP
+    # DS3: Tree branch platforms (the descent path)
+    for tx in [80, 82, 84, 86, 88]:
+        for ty in [50, 52]:
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Pyre square central fire pit
+    for tx in range(90, 96):
+        for ty in range(55, 60):
+            chunk[tx][ty] = TILE_GROUND
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
