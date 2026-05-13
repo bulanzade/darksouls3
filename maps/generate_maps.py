@@ -5598,6 +5598,35 @@ def make_catacombs_of_carthus():
     fill_tiles(chunk, TILE_WALL, 128, 66, 130, 68)
     fill_tiles(chunk, TILE_WALL, 142, 70, 144, 72)
 
+    # ================================================================
+    # SESSION 13 FIDELITY PASS — CatacombsOfCarthus DS3 architecture
+    # ================================================================
+    # Entry stairs — skull-lined walls (DS3: skulls embedded in catacomb walls)
+    fill_tiles(chunk, TILE_WALL, 8, 12, 9, 13)
+    fill_tiles(chunk, TILE_WALL, 14, 16, 15, 17)
+    fill_tiles(chunk, TILE_WALL, 10, 20, 11, 21)
+    # Rolling ball corridor — alcove debris (DS3: skeleton ball trap corridor)
+    fill_tiles(chunk, TILE_WALL, 18, 24, 19, 25)
+    fill_tiles(chunk, TILE_WALL, 22, 28, 23, 29)
+    fill_tiles(chunk, TILE_WALL, 26, 26, 27, 27)
+    # Upper catacombs — bone pile walls (DS3: reanimating skeletons in bone piles)
+    fill_tiles(chunk, TILE_WALL, 30, 32, 31, 33)
+    fill_tiles(chunk, TILE_WALL, 36, 36, 37, 37)
+    fill_tiles(chunk, TILE_WALL, 42, 34, 43, 35)
+    fill_tiles(chunk, TILE_WALL, 48, 38, 49, 39)
+    # Second ball corridor — narrow passage walls (DS3: second skeleton ball area)
+    fill_tiles(chunk, TILE_WALL, 54, 42, 55, 43)
+    fill_tiles(chunk, TILE_WALL, 58, 46, 59, 47)
+    fill_tiles(chunk, TILE_WALL, 62, 44, 63, 45)
+    # Rope bridge — frayed rope posts (DS3: collapsing rope bridge)
+    fill_tiles(chunk, TILE_WALL, 66, 50, 67, 51)
+    fill_tiles(chunk, TILE_WALL, 72, 54, 73, 55)
+    fill_tiles(chunk, TILE_WALL, 78, 52, 79, 53)
+    # Bridge descent — ladder rung stones (DS3: ladder down to Smouldering Lake)
+    fill_tiles(chunk, TILE_WALL, 32, 58, 33, 59)
+    fill_tiles(chunk, TILE_WALL, 28, 62, 29, 63)
+    fill_tiles(chunk, TILE_WALL, 36, 66, 37, 67)
+
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
