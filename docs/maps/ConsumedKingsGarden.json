@@ -1175,6 +1175,16 @@
       "dest_x": 700,
       "dest_y": 720,
       "kind": "area_transition"
+    },
+    {
+      "x": 160,
+      "y": 1440,
+      "w": 64,
+      "h": 80,
+      "dest_area": "LothricWall",
+      "dest_x": 2200,
+      "dest_y": 2300,
+      "kind": "area_transition"
     }
   ]
 }
