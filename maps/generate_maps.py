@@ -7965,7 +7965,7 @@ def make_profaned_capital():
     # Back to Irithyll Dungeon (NW entry)
     entities.append(make_entity("FogGate", 6 * 16, 10 * 16, [
         make_field("dest_area", "String", "IrithyllDungeon"),
-        make_field("dest_x", "Float", 2700.0),
+        make_field("dest_x", "Float", 2500.0),
         make_field("dest_y", "Float", 2300.0),
         make_field("width", "Float", 64.0),
         make_field("height", "Float", 80.0),
@@ -9631,7 +9631,7 @@ def make_grand_archives():
     # South: back to Lothric Castle
     entities.append(make_entity("FogGate", 25 * 16, 152 * 16, [
         make_field("dest_area", "String", "LothricCastle"),
-        make_field("dest_x", "Float", 3200.0), make_field("dest_y", "Float", 1500.0),
+        make_field("dest_x", "Float", 2400.0), make_field("dest_y", "Float", 1500.0),
         make_field("width", "Float", 64.0), make_field("height", "Float", 80.0),
     ]))
     # North: to Kiln of the First Flame
@@ -9643,7 +9643,7 @@ def make_grand_archives():
     # Lift shortcut to Lothric Castle (from bridge area near Twin Princes)
     entities.append(make_entity("FogGate", 138 * 16, 32 * 16, [
         make_field("dest_area", "String", "LothricCastle"),
-        make_field("dest_x", "Float", 3500.0), make_field("dest_y", "Float", 800.0),
+        make_field("dest_x", "Float", 2400.0), make_field("dest_y", "Float", 800.0),
         make_field("width", "Float", 48.0), make_field("height", "Float", 80.0),
     ]))
 
@@ -10222,7 +10222,7 @@ def make_kiln_of_the_first_flame():
     entities.append(make_entity("FogGate", 80 * 16, 156 * 16, [
         make_field("dest_area", "String", "GrandArchives"),
         make_field("dest_x", "Float", 300.0),
-        make_field("dest_y", "Float", 3800.0),
+        make_field("dest_y", "Float", 2500.0),
         make_field("width", "Float", 48.0),
         make_field("height", "Float", 80.0),
     ]))
