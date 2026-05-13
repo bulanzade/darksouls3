@@ -1116,6 +1116,25 @@ def make_cemetery_of_ash():
     fill_tiles(chunk, TILE_WALL, 90, 48, 91, 49)
     fill_tiles(chunk, TILE_WALL, 78, 56, 79, 57)
 
+    # ================================================================
+    # SESSION 24 FIDELITY PASS — CemeteryOfAsh DS3 tutorial details
+    # ================================================================
+    # Coffin lid debris (DS3: broken coffin lids scattered in cemetery)
+    fill_tiles(chunk, TILE_WALL, 38, 152, 39, 153)
+    fill_tiles(chunk, TILE_WALL, 44, 148, 45, 149)
+    fill_tiles(chunk, TILE_WALL, 50, 144, 51, 145)
+    fill_tiles(chunk, TILE_WALL, 56, 140, 57, 141)
+    # Tutorial message stones (DS3: orange soapstone messages along path)
+    fill_tiles(chunk, TILE_WALL, 62, 136, 63, 137)
+    fill_tiles(chunk, TILE_WALL, 68, 132, 69, 133)
+    fill_tiles(chunk, TILE_WALL, 74, 128, 75, 129)
+    fill_tiles(chunk, TILE_WALL, 80, 124, 81, 125)
+    # Gundyr arena column fragments (DS3: broken columns in the boss arena)
+    fill_tiles(chunk, TILE_WALL, 86, 56, 87, 57)
+    fill_tiles(chunk, TILE_WALL, 92, 60, 93, 61)
+    fill_tiles(chunk, TILE_WALL, 98, 64, 99, 65)
+    fill_tiles(chunk, TILE_WALL, 104, 68, 105, 69)
+
     populate_entity_def_uids(entities)
 
     # Ensure connectivity from spawn to all entities
@@ -3584,6 +3603,30 @@ def make_undead_settlement():
     fill_tiles(chunk, TILE_WALL, 28, 62, 29, 63)
     fill_tiles(chunk, TILE_WALL, 34, 66, 35, 67)
     fill_tiles(chunk, TILE_WALL, 40, 70, 41, 71)
+
+    # ================================================================
+    # SESSION 24 FIDELITY PASS — UndeadSettlement DS3 settlement details
+    # ================================================================
+    # House foundation debris (DS3: collapsed house foundations)
+    fill_tiles(chunk, TILE_WALL, 22, 36, 23, 37)
+    fill_tiles(chunk, TILE_WALL, 28, 40, 29, 41)
+    fill_tiles(chunk, TILE_WALL, 34, 44, 35, 45)
+    fill_tiles(chunk, TILE_WALL, 40, 48, 41, 49)
+    # Wooden cart debris (DS3: broken carts along the settlement paths)
+    fill_tiles(chunk, TILE_WALL, 46, 52, 47, 53)
+    fill_tiles(chunk, TILE_WALL, 52, 56, 53, 57)
+    fill_tiles(chunk, TILE_WALL, 58, 60, 59, 61)
+    fill_tiles(chunk, TILE_WALL, 64, 64, 65, 65)
+    # Cliff edge stones (DS3: stones at the cliff edges of the settlement)
+    fill_tiles(chunk, TILE_WALL, 70, 68, 71, 69)
+    fill_tiles(chunk, TILE_WALL, 76, 72, 77, 73)
+    fill_tiles(chunk, TILE_WALL, 82, 76, 83, 77)
+    fill_tiles(chunk, TILE_WALL, 88, 80, 89, 81)
+    # Tree hollow positions (DS3: hollows hanging from settlement trees)
+    fill_tiles(chunk, TILE_WALL, 94, 84, 95, 85)
+    fill_tiles(chunk, TILE_WALL, 100, 88, 101, 89)
+    fill_tiles(chunk, TILE_WALL, 106, 92, 107, 93)
+    fill_tiles(chunk, TILE_WALL, 112, 96, 113, 97)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -6435,6 +6478,30 @@ def make_catacombs_of_carthus():
     fill_tiles(chunk, TILE_WALL, 60, 36, 62, 38)
     fill_tiles(chunk, TILE_WALL, 66, 40, 68, 42)
 
+    # ================================================================
+    # SESSION 24 FIDELITY PASS — CatacombsOfCarthus DS3 catacomb details
+    # ================================================================
+    # Chariot track groove debris (DS3: skeleton chariot groove marks)
+    fill_tiles(chunk, TILE_WALL, 18, 34, 19, 35)
+    fill_tiles(chunk, TILE_WALL, 24, 38, 25, 39)
+    fill_tiles(chunk, TILE_WALL, 30, 42, 31, 43)
+    fill_tiles(chunk, TILE_WALL, 36, 46, 37, 47)
+    # Burial chamber pillars (DS3: stone pillars supporting catacomb ceiling)
+    fill_tiles(chunk, TILE_WALL, 42, 50, 43, 51)
+    fill_tiles(chunk, TILE_WALL, 48, 54, 49, 55)
+    fill_tiles(chunk, TILE_WALL, 54, 58, 55, 59)
+    fill_tiles(chunk, TILE_WALL, 60, 62, 61, 63)
+    # Wolnir bracelet debris (DS3: Wolnir's golden bracelets scattered in arena)
+    fill_tiles(chunk, TILE_WALL, 66, 66, 67, 67)
+    fill_tiles(chunk, TILE_WALL, 72, 70, 73, 71)
+    fill_tiles(chunk, TILE_WALL, 78, 74, 79, 75)
+    fill_tiles(chunk, TILE_WALL, 84, 78, 85, 79)
+    # Smouldering Lake descent steps (DS3: steps down to the lava area)
+    fill_tiles(chunk, TILE_WALL, 90, 82, 91, 83)
+    fill_tiles(chunk, TILE_WALL, 96, 86, 97, 87)
+    fill_tiles(chunk, TILE_WALL, 102, 90, 103, 91)
+    fill_tiles(chunk, TILE_WALL, 108, 94, 109, 95)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -9266,6 +9333,30 @@ def make_profaned_capital():
     fill_tiles(chunk, TILE_WALL, 52, 68, 54, 70)
     fill_tiles(chunk, TILE_WALL, 58, 72, 60, 74)
     fill_tiles(chunk, TILE_WALL, 64, 76, 66, 78)
+
+    # ================================================================
+    # SESSION 24 FIDELITY PASS — ProfanedCapital DS3 capital details
+    # ================================================================
+    # Yhorm's machete marks (DS3: Yhorm's giant blade marks on walls)
+    fill_tiles(chunk, TILE_WALL, 22, 32, 23, 33)
+    fill_tiles(chunk, TILE_WALL, 28, 36, 29, 37)
+    fill_tiles(chunk, TILE_WALL, 34, 40, 35, 41)
+    fill_tiles(chunk, TILE_WALL, 40, 44, 41, 45)
+    # Profaned Flame scorch marks (DS3: burned areas from the Profaned Flame)
+    fill_tiles(chunk, TILE_WALL, 46, 48, 47, 49)
+    fill_tiles(chunk, TILE_WALL, 52, 52, 53, 53)
+    fill_tiles(chunk, TILE_WALL, 58, 56, 59, 57)
+    fill_tiles(chunk, TILE_WALL, 64, 60, 65, 61)
+    # Sewer grate debris (DS3: rusted grates in the lower passages)
+    fill_tiles(chunk, TILE_WALL, 70, 64, 71, 65)
+    fill_tiles(chunk, TILE_WALL, 76, 68, 77, 69)
+    fill_tiles(chunk, TILE_WALL, 82, 72, 83, 73)
+    fill_tiles(chunk, TILE_WALL, 88, 76, 89, 77)
+    # Gargoyle perch ledges (DS3: stone ledges where gargoyles land)
+    fill_tiles(chunk, TILE_WALL, 94, 80, 95, 81)
+    fill_tiles(chunk, TILE_WALL, 100, 84, 101, 85)
+    fill_tiles(chunk, TILE_WALL, 106, 88, 107, 89)
+    fill_tiles(chunk, TILE_WALL, 112, 92, 113, 93)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
