@@ -2280,6 +2280,38 @@ def make_firelink_shrine():
     for tx in range(22, 48):
         for ty in [36, 37, 38]:
             chunk[tx][ty] = TILE_GROUND
+
+    # --- SESSION 93 DS3 terrain round 2 (Firelink Shrine) ---
+    # DS3: Shrine handmaiden's corner (back-left alcove)
+    for tx in range(12, 18):
+        for ty in [28, 34]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [12, 18]:
+        for ty in range(28, 35):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(12, 19):
+        chunk[tx][27] = TILE_WALLTOP
+    # DS3: Tower bridge (connecting shrine to tower)
+    for tx in range(55, 65):
+        chunk[tx][30] = TILE_WALL
+        chunk[tx][29] = TILE_WALLTOP
+    # DS3: Rafter access area (interior beams)
+    for tx in [25, 30, 35, 40, 45]:
+        for ty in [20, 21]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Courtyard path stones
+    for tx in range(28, 50):
+        for ty in [38, 39]:
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Well structure (outside the shrine)
+    for tx in range(48, 52):
+        for ty in [35, 38]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [48, 52]:
+        for ty in range(35, 39):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(48, 53):
+        chunk[tx][34] = TILE_WALLTOP
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -18311,6 +18343,45 @@ def make_grand_archives():
             chunk[tx][ty] = TILE_WALL
     for tx in range(50, 59):
         chunk[tx][54] = TILE_WALLTOP
+
+    # --- SESSION 93 DS3 terrain round 2 (Grand Archives) ---
+    # DS3: Main reading hall with long tables
+    for tx in [20, 24, 28, 32, 36, 40, 44, 48]:
+        for ty in [20, 21]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Candle clusters on shelves
+    for tx in [17, 23, 29, 35, 41, 47]:
+        for ty in [25, 26]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Crystal Sage arena (open courtyard)
+    for tx in range(50, 65):
+        for ty in range(30, 42):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [50, 65]:
+        for ty in range(30, 43):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Wax-coated corridors
+    for tx in range(30, 50):
+        for ty in [45, 46]:
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Winged Knight rooftop perch
+    for tx in range(60, 70):
+        for ty in [12, 18]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [60, 70]:
+        for ty in range(12, 19):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(60, 71):
+        chunk[tx][11] = TILE_WALLTOP
+    # DS3: Gertrude's room (elevated chamber)
+    for tx in range(70, 82):
+        for ty in [50, 58]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [70, 82]:
+        for ty in range(50, 59):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(70, 83):
+        chunk[tx][49] = TILE_WALLTOP
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -19467,6 +19538,45 @@ def make_kiln_of_the_first_flame():
     for tx in range(40, 71):
         for ty in [50, 70]:
             chunk[tx][ty] = TILE_WALL
+
+    # --- SESSION 93 DS3 terrain round 2 (Kiln of the First Flame) ---
+    # DS3: Collapsed archways along the path
+    for tx in [20, 30, 40, 50, 60, 70]:
+        for ty in [10, 11, 12]:
+            chunk[tx][ty] = TILE_WALL
+        chunk[tx][9] = TILE_WALLTOP
+    # DS3: Ember glows on the ground (bright patches)
+    for tx in range(25, 35):
+        for ty in range(30, 38):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in range(55, 65):
+        for ty in range(40, 48):
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: SoC arena debris (scattered stone blocks)
+    for tx in [45, 50, 55, 60]:
+        for ty in [55, 56]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Ash drifts along the path edges
+    for tx in range(15, 80):
+        for ty in [20, 21]:
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Firelink Shrine door at the end
+    for tx in range(40, 48):
+        for ty in [58, 59]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [40, 48]:
+        for ty in range(55, 60):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Soul of Cinder arena (final boss chamber)
+    for tx in range(42, 68):
+        for ty in range(60, 78):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [42, 68]:
+        for ty in range(60, 79):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(42, 69):
+        for ty in [60, 78]:
+            chunk[tx][ty] = TILE_WALL
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -20465,6 +20575,41 @@ def make_consumed_kings_garden():
     for tx in [85, 90, 95, 100, 105]:
         for ty in [75, 80, 85]:
             chunk[tx][ty] = TILE_WALL
+
+    # --- SESSION 93 DS3 terrain round 2 (Consumed King's Garden) ---
+    # DS3: Crystal growth along the walls
+    for tx in [20, 28, 36, 44, 52, 60, 68, 76]:
+        for ty in [32, 33, 34]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Consumed King's chamber (Oceiros arena)
+    for tx in range(80, 100):
+        for ty in range(60, 78):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [80, 100]:
+        for ty in range(60, 79):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(80, 101):
+        for ty in [60, 78]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Crystal waterfall (wall of crystal growths)
+    for tx in range(85, 95):
+        for ty in [50, 51, 52]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Garden path stones (winding path)
+    for tx in range(25, 80):
+        for ty in [38, 39]:
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Hidden wall (illusionary wall to Oceiros)
+    for tx in range(75, 82):
+        for ty in [55, 56]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Toxic water pools
+    for tx in range(35, 50):
+        for ty in range(45, 52):
+            chunk[tx][ty] = TILE_POISON
+    for tx in range(60, 75):
+        for ty in range(65, 72):
+            chunk[tx][ty] = TILE_POISON
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -21387,6 +21532,39 @@ def make_untended_graves():
     for tx in [65, 75]:
         for ty in range(42, 53):
             chunk[tx][ty] = TILE_WALL
+
+    # --- SESSION 93 DS3 terrain round 2 (Untended Graves) ---
+    # DS3: Dark Firelink interior (collapsed shrine)
+    for tx in range(30, 55):
+        for ty in [28, 29]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Collapsed throne area
+    for tx in [35, 38, 41, 44, 47]:
+        for ty in [25, 26]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Champion Gundyr's stone arena
+    for tx in range(60, 80):
+        for ty in range(38, 55):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [60, 80]:
+        for ty in range(38, 56):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Dark tombstone clusters
+    for tx in [12, 14, 16, 18, 20, 82, 84, 86, 88, 90]:
+        for ty in [18, 20, 22]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Shrine Handmaid's spot
+    for tx in range(32, 38):
+        for ty in [30, 31]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Coiled sword fragment crater
+    for tx in range(42, 48):
+        for ty in range(32, 36):
+            chunk[tx][ty] = TILE_GROUND
+    # DS3: Dark cliff faces
+    for tx in range(5, 95):
+        chunk[tx][8] = TILE_WALL
+        chunk[tx][7] = TILE_WALLTOP
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -22546,6 +22724,51 @@ def make_archdragon_peak():
             chunk[tx][ty] = TILE_WALL
     for tx in range(100, 113):
         chunk[tx][54] = TILE_WALLTOP
+
+    # --- SESSION 93 DS3 terrain round 2 (Archdragon Peak) ---
+    # DS3: Ancient dragon skeleton (massive bone structure)
+    for tx in range(30, 50):
+        for ty in [22, 23]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [30, 35, 40, 45, 50]:
+        for ty in [20, 21]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Serpent man ritual circle
+    for tx in range(55, 65):
+        for ty in range(35, 42):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [55, 65]:
+        for ty in range(35, 43):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(55, 66):
+        for ty in [35, 42]:
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Path of the Dragon meditation spot
+    for tx in range(45, 52):
+        for ty in range(43, 48):
+            chunk[tx][ty] = TILE_GROUND
+    for tx in [45, 52]:
+        for ty in range(43, 49):
+            chunk[tx][ty] = TILE_WALL
+    # DS3: Drakeblood Knight altar
+    for tx in range(70, 78):
+        for ty in [55, 56]:
+            chunk[tx][ty] = TILE_WALL
+    for tx in [70, 78]:
+        for ty in range(55, 57):
+            chunk[tx][ty] = TILE_WALL
+    for tx in range(70, 79):
+        chunk[tx][54] = TILE_WALLTOP
+    # DS3: Nameless King arena detail (storm clouds = wall top)
+    for tx in range(82, 108):
+        chunk[tx][25] = TILE_WALL
+        chunk[tx][24] = TILE_WALLTOP
+    for tx in range(82, 108):
+        chunk[tx][48] = TILE_WALL
+    # DS3: Twisted dragon head stone
+    for tx in [90, 91, 92]:
+        for ty in [55, 56, 57]:
+            chunk[tx][ty] = TILE_WALL
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
