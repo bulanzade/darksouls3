@@ -9476,6 +9476,14 @@ def make_smouldering_lake():
     entities.append(make_entity("Enemy", 22 * 16, 98 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
 
+        # Horace the Hushed — hostile NPC in Smouldering Lake cave (DS3: found after Catacombs)
+    entities.append(make_entity("Npc", 81 * 16, 75 * 16, [
+        make_field("name", "String", "Horace the Hushed"),
+        make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
+        make_field("color", "Color", "#4A4A4A"),
+        make_field("dialogue", "String", "...|...(groans)|...(shrieks)"),
+    ]))
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
