@@ -11396,6 +11396,25 @@ def make_kiln_of_the_first_flame():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", "BlackKnight")]))
 
+    # Additional enemies — SESSION 21 DS3 fidelity (Kiln reinforcements)
+    # Q(0,1) lower ash path — Hollow Soldiers in the burning ruins (DS3: dense hollows in ruins)
+    for tx, ty in [(25, 145), (35, 148), (45, 142), (55, 150), (65, 146),
+                   (75, 152), (85, 144), (95, 148), (105, 146), (115, 150)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(1,1) ash ruins — Black Knights and Hollow Soldiers (DS3: mixed forces in the ruins)
+    for tx, ty in [(110, 95), (120, 102), (130, 108), (140, 115), (145, 125)]:
+        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(125, 92), (135, 98), (140, 105), (148, 112), (125, 118),
+                   (130, 128), (138, 135), (142, 140)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(0,0) arena approach — more Black Knights (DS3: elite guard near the arena)
+    for tx, ty in [(55, 65), (65, 72), (75, 58), (85, 68)]:
+        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs ---
     # Fire Keeper — appears at Kiln for the final scene (DS3: summons Fire Keeper for ending)
     entities.append(make_entity("Npc", 78 * 16, 28 * 16, [
@@ -12065,6 +12084,20 @@ def make_consumed_kings_garden():
         make_field("loot_value", "Int", 0),
         make_field("loot_name", "String", "Titanite Scale"),
         make_field("is_mimic", "Bool", False)]))
+
+    # Additional enemies — SESSION 21 DS3 fidelity (ConsumedKingsGarden reinforcements)
+    # Q(0,0) upper garden — Thrall ambush from walls (DS3: Thralls drop from ledges)
+    for tx, ty in [(18, 28), (25, 35), (32, 25), (45, 32), (55, 28)]:
+        mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(0,1) toxic swamp — more Rotten Slugs (DS3: dense slug population in poison pools)
+    for tx, ty in [(30, 85), (38, 90), (50, 95), (62, 88), (70, 92)]:
+        mapped = ENEMY_KIND_MAP.get("RottenSlug", "RottenSlug")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(1,0) eastern approach — Lothric Knight guards (DS3: knights guarding garden passages)
+    for tx, ty in [(85, 42), (95, 48), (108, 55)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # --- NPCs ---
     # Hawkwood — summon sign before Oceiros (DS3: he can be summoned for Oceiros)
@@ -12749,6 +12782,20 @@ def make_untended_graves():
     entities.append(make_entity("Item", 110 * 16, 80 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
         make_field("name", "String", "Titanite Chunk")]))
+
+    # Additional enemies — SESSION 21 DS3 fidelity (UntendedGraves reinforcements)
+    # Q(0,0) upper cemetery — Hollow Soldiers rising from dark graves (DS3: more hollows in dark version)
+    for tx, ty in [(22, 18), (35, 22), (28, 30), (42, 26), (55, 34)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(0,1) dark lower cemetery — more Starved Hounds (DS3: hounds in the dark graveyard)
+    for tx, ty in [(25, 85), (35, 92), (48, 98), (60, 105), (70, 95)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(1,0) dark eastern path — Black Knight reinforcements (DS3: extra black knights in shadow version)
+    for tx, ty in [(95, 42), (105, 55), (115, 65)]:
+        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
     # --- NPCs ---
     # Dark Shrine Handmaid in Dark Firelink Shrine (different from normal Firelink)
