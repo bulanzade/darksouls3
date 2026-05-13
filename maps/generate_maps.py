@@ -2704,8 +2704,6 @@ def make_lothric_wall():
         ("LothricKnight", 107, 65), ("HollowSoldier", 94, 70),      # Lower eastern walls
         ("HollowAssassin", 86, 75), ("HollowSoldier", 120, 79),     # Eastern alleys
     ]
-    for kind, tx, ty in enemy_positions:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
 
     
     # --- DS3 faithful enemies (LothricWall) ---
@@ -3914,8 +3912,6 @@ def make_undead_settlement():
         ("HollowSoldier", 92, 106), ("HollowSoldier", 86, 110),     # Hollows in lower depths
         ("Thrall", 99, 117), ("PeasantHollow", 84, 121),            # Thrall ambushes in pit area
     ]
-    for kind, tx, ty in enemy_data:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
 
     
     # --- DS3 faithful enemies (UndeadSettlement) ---
@@ -5091,8 +5087,6 @@ def make_road_of_sacrifices():
         # Boss — Crystal Sage
         ("MiniBoss", 130, 112),                                     # Crystal Sage boss entity
     ]
-    for kind, tx, ty in enemy_data:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
 
     
     # --- DS3 faithful enemies (RoadOfSacrifices) ---
@@ -6315,8 +6309,6 @@ def make_farron_keep():
         # Stray Demon — DS3: optional mini-boss accessed via lift, drops Soul of a Stray Demon
         ("MiniBoss", 120, 98),                                       # Stray Demon
     ]
-    for kind, tx, ty in enemy_data:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
 
     
     # --- DS3 faithful enemies (FarronKeep) ---
@@ -7484,8 +7476,6 @@ def make_cathedral_deep():
         # Boss — Deacons of the Deep
         ("MiniBoss", 45, 114),                                      # Deacons of the Deep boss entity
     ]
-    for kind, tx, ty in enemy_data:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
 
     
     # --- DS3 faithful enemies (CathedralDeep) ---
@@ -8533,8 +8523,6 @@ def make_catacombs_of_carthus():
         ("Skeleton", 130, 92), ("Skeleton", 135, 98),
         ("Archer", 125, 88),                                   # Skeleton archer at arena entry
     ]
-    for kind, tx, ty in enemy_data:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
     # Items — DS3 Catacombs of Carthus (verified against wiki)
     # 2x Sharp Gem, Dark Gem, Carthus Pyromancy Tome, Grave Warden Pyromancy Tome,
     # Grave Warden's Ashes, Witch's Ring, Carthus Bloodring, Carthus Milkring,
@@ -9620,8 +9608,6 @@ def make_smouldering_lake():
         # Black Knight in deep ruins (DS3: Black Knight patrols demon ruins)
         ("BlackKnight", 140, 108),
     ]
-    for kind, tx, ty in enemy_data:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
     # Items — DS3 Smouldering Lake: Black Knight Sword, Izalith Staff, Fume Ultra Greatsword,
     # Dragonrider Bow, Shield of Want, Chaos Gem, Quelana/Izalith Pyromancy Tomes, etc.
     items = [
@@ -10668,8 +10654,6 @@ def make_irithyll():
         # Boss — Pontiff Sulyvahn
         ("MiniBoss", 120, 76),                                      # Pontiff Sulyvahn boss entity
     ]
-    for kind, tx, ty in enemy_data:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
     # Items — DS3 Irithyll of the Boreal Valley (verified against wiki)
     # Major items: Pontiff's Right Eye, Magic Clutch Ring, Ring of the Sun's First Born,
     # Leo Ring, Dark Stoneplate Ring, Ring of Favor, Sun Princess Ring, Aldrich's Ruby,
@@ -11943,8 +11927,6 @@ def make_irithyll_dungeon():
         # Mimic near hooded enemies (DS3 wiki: drops Estus Shard)
         ("Mimic", 62, 68),
     ]
-    for kind, tx, ty in enemy_data:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
     # Items — DS3 Irithyll Dungeon (verified against wiki)
     for kind, name, tx, ty, val in [
         # Upper prison cells
@@ -13133,8 +13115,6 @@ def make_profaned_capital():
         ("Jailer", 90, 7), ("Jailer", 128, 22),
         ("Gargoyle", 124, 34), ("SewerCentipede", 94, 31),
     ]
-    for kind, tx, ty in enemy_data:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
 
     
     # --- DS3 faithful enemies (ProfanedCapital) ---
@@ -14108,8 +14088,6 @@ def make_anor_londo():
         ("ManGrub", 82, 58),                                        # DS3: slime in dark corners
         ("ManGrub", 145, 88),                                       # DS3: slime near Aldrich arena
     ]
-    for kind, tx, ty in enemy_data:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
 
     # --- Items — DS3 Anor Londo (wiki-verified) ---
     items = [
@@ -15268,8 +15246,6 @@ def make_lothric_castle():
         ("HollowSoldier", 118, 85), ("HollowSoldier", 125, 88),     # Hollows at arena south edge
         ("DarkMage", 135, 92),                                        # Priest in lower castle chambers
     ]
-    for kind, tx, ty in enemy_positions:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
 
     # --- Items - DS3 Lothric Castle (wiki-verified) ---
     items = [
@@ -16310,8 +16286,6 @@ def make_grand_archives():
         # Crystal Lizard in lower stacks
         ("CrystalLizard", 145, 118),
     ]
-    for kind, tx, ty in enemy_data:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
 
     # ================================================================
     # ITEMS — DS3 Grand Archives (wiki-complete)
@@ -18495,8 +18469,6 @@ def make_consumed_kings_garden():
         # Boss — Oceiros, the Consumed King
         ("MiniBoss", 120, 88),                                      # Oceiros boss entity
     ]
-    for kind, tx, ty in enemy_data:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
 
     # --- Items — DS3 Consumed King's Garden (complete per wiki) ---
     # Wiki items: Estus Shard, Titanite Chunk x3, Titanite Scale x3 (1 ground + 2 chests),
@@ -19602,8 +19574,6 @@ def make_untended_graves():
         # Boss — Champion Gundyr
         ("MiniBoss", 105, 78),                                      # Champion Gundyr boss entity
     ]
-    for kind, tx, ty in enemy_data:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
 
     # --- Items (DS3 Untended Graves) ---
 
@@ -20518,8 +20488,6 @@ def make_archdragon_peak():
         ("MiniBoss", 55, 66),                                   # Ancient Wyvern (bridge)
         ("MiniBoss", 62, 76),                                   # Wyvern (path approach)
     ]
-    for kind, tx, ty in enemy_data:
-        mapped = ENEMY_KIND_MAP.get(kind, kind)
 
     # --- Items — DS3 Archdragon Peak (complete per wiki walkthrough) ---
     items = [
