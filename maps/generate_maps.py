@@ -2371,6 +2371,25 @@ def make_lothric_wall():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # Additional enemies — SESSION 37 DS3 fidelity (High Wall of Lothric)
+    # DS3: Hollow Soldiers and Lothric Knights in ALL sections
+    for tx, ty in [(18, 40), (25, 45), (32, 42), (40, 48), (48, 45),
+                   (55, 40), (62, 45), (70, 42)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(80, 50), (88, 55), (95, 52), (102, 58), (110, 55)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(35, 60), (50, 65), (65, 62)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(75, 70), (85, 75), (100, 72)]:
+        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "Assassin")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # --- NPCs ---
     # Greirat — locked in cell below tower (DS3: basement cell, asks for Loretta's Bone)
     entities.append(make_entity("Npc", 36 * 16, 60 * 16, [
@@ -4330,6 +4349,21 @@ def make_road_of_sacrifices():
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     for tx, ty in [(45, 90), (58, 95), (75, 92)]:
         mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Additional enemies — SESSION 37 DS3 fidelity (Road of Sacrifices)
+    # DS3: Corvians throughout all sections, especially near crucifixion woods
+    for tx, ty in [(30, 42), (38, 48), (45, 44), (52, 50), (60, 45),
+                   (68, 52), (75, 48), (82, 44), (90, 50)]:
+        mapped = ENEMY_KIND_MAP.get("Corvian", "Assassin")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(42, 80), (55, 85), (68, 82), (80, 88), (92, 85)]:
+        mapped = ENEMY_KIND_MAP.get("Corvian", "Assassin")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(35, 65), (50, 68), (70, 72)]:
+        mapped = ENEMY_KIND_MAP.get("LesserCrab", "Dog")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # NPCs - Anri and Horace at Halfway Fortress (DS3: they sit together at the bonfire)
@@ -15211,6 +15245,21 @@ def make_archdragon_peak():
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     for tx, ty in [(95, 55), (108, 60)]:
         mapped = ENEMY_KIND_MAP.get("RockLizard", "CrystalLizard")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Additional enemies — SESSION 37 DS3 fidelity (Archdragon Peak)
+    # DS3: Man-Serpents in ALL areas, Drakeblood Knights guard key paths
+    for tx, ty in [(25, 45), (32, 50), (40, 48), (48, 55), (55, 50),
+                   (62, 45), (70, 52), (78, 48), (85, 55), (92, 50)]:
+        mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(110, 65), (118, 70), (125, 68), (132, 72)]:
+        mapped = ENEMY_KIND_MAP.get("DrakebloodKnight", "Knight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(100, 85), (112, 88), (125, 82)]:
+        mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # --- NPCs ---
