@@ -9419,6 +9419,28 @@ def make_anor_londo():
     fill_tiles(chunk, TILE_WALL, 148, 70, 149, 72)
     fill_tiles(chunk, TILE_WALL, 144, 80, 145, 82)
 
+    # ================================================================
+    # SESSION 19 FIDELITY PASS — AnorLondo DS3 cathedral depth
+    # ================================================================
+    # Main hall — additional column debris (DS3: massive gothic cathedral interior)
+    fill_tiles(chunk, TILE_WALL, 32, 56, 33, 58)
+    fill_tiles(chunk, TILE_WALL, 40, 62, 41, 64)
+    fill_tiles(chunk, TILE_WALL, 48, 58, 49, 60)
+    fill_tiles(chunk, TILE_WALL, 56, 64, 57, 66)
+    fill_tiles(chunk, TILE_WALL, 64, 60, 65, 62)
+    # Silver Knight archer posts — parapet stones (DS3: archers on cathedral ledges)
+    fill_tiles(chunk, TILE_WALL, 108, 48, 109, 50)
+    fill_tiles(chunk, TILE_WALL, 116, 52, 117, 54)
+    fill_tiles(chunk, TILE_WALL, 124, 48, 125, 50)
+    fill_tiles(chunk, TILE_WALL, 132, 54, 133, 56)
+    fill_tiles(chunk, TILE_WALL, 140, 50, 141, 52)
+    # Giant's chamber — chain and anchor debris (DS3: giants in the cathedral)
+    fill_tiles(chunk, TILE_WALL, 72, 66, 73, 68)
+    fill_tiles(chunk, TILE_WALL, 80, 70, 81, 72)
+    fill_tiles(chunk, TILE_WALL, 88, 66, 89, 68)
+    fill_tiles(chunk, TILE_WALL, 96, 72, 97, 74)
+    fill_tiles(chunk, TILE_WALL, 104, 68, 105, 70)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
