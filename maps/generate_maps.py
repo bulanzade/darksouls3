@@ -4476,6 +4476,21 @@ def make_road_of_sacrifices():
         mapped = ENEMY_KIND_MAP.get("LesserCrab", "Dog")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Additional enemies — SESSION 42 DS3 fidelity (Road of Sacrifices)
+    # DS3: Corvians and more Corvians, Crucifixion Woods teeming with them
+    for tx, ty in [(28, 50), (35, 55), (42, 52), (50, 58), (58, 50),
+                   (65, 55), (72, 52)]:
+        mapped = ENEMY_KIND_MAP.get("Corvian", "Assassin")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(80, 60), (88, 65), (96, 62)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(42, 78), (55, 82), (68, 80)]:
+        mapped = ENEMY_KIND_MAP.get("Corvian", "Assassin")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # NPCs - Anri and Horace at Halfway Fortress (DS3: they sit together at the bonfire)
     entities.append(make_entity("Npc", 50 * 16, 30 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello. We meet again|I am Anri of Astora, and this is Horace the Hushed|We journey to find the Lords of Cinder|Won't you join us?|I have no love for the smaller roads, they are treacherous|The Cathedral of the Deep lies ahead, tread carefully|Horace and I have been together for a long time now")]))
     entities.append(make_entity("Npc", 54 * 16, 30 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods silently)|(gestures toward Anri)|(adjusts helmet)")]))
@@ -9637,6 +9652,22 @@ def make_irithyll_dungeon():
     fill_tiles(chunk, TILE_WALL, 100, 60, 102, 62)                  # Jailor key rack
     for tx in range(110, 140, 5):
         fill_tiles(chunk, TILE_WALL, tx, 45, tx+1, 46)             # Sewer grates
+    # SESSION 42 FIDELITY PASS — Irithyll Dungeon DS3 details
+    # DS3: Cell blocks, sewer channels, jailor key racks, Sleight messaging
+    for tx in range(20, 55, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 32, tx+1, 33)             # Cell block walls
+        fill_tiles(chunk, TILE_WALL, tx, 72, tx+1, 73)
+    for tx in range(60, 95, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 37, tx+1, 38)             # Sewer channel markers
+        fill_tiles(chunk, TILE_WALL, tx, 77, tx+1, 78)
+    for ty in range(35, 65, 7):
+        fill_tiles(chunk, TILE_WALL, 35, ty, 36, ty+1)             # Pipe fragments
+        fill_tiles(chunk, TILE_WALL, 90, ty, 91, ty+1)
+    fill_tiles(chunk, TILE_WALL, 50, 52, 52, 54)                    # Jailor key rack
+    fill_tiles(chunk, TILE_WALL, 100, 48, 102, 50)                  # Cell door cluster
+    fill_tiles(chunk, TILE_WALL, 75, 85, 77, 87)                    # Prison grate
+    for tx in range(105, 135, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 42, tx+1, 43)             # Dark corridor stones
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -10489,6 +10520,22 @@ def make_profaned_capital():
     fill_tiles(chunk, TILE_WALL, 55, 55, 57, 57)
     fill_tiles(chunk, TILE_WALL, 120, 50, 122, 52)
     fill_tiles(chunk, TILE_WALL, 80, 90, 82, 92)
+    # SESSION 42 FIDELITY PASS — Profaned Capital DS3 details
+    # DS3: Yhorm arena details, sewer tunnels, gargoyle roosts, earthen peak ruins
+    for tx in range(25, 60, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 42, tx+1, 43)             # Sewer tunnel markers
+        fill_tiles(chunk, TILE_WALL, tx, 82, tx+1, 83)
+    for tx in range(65, 100, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 47, tx+1, 48)             # Gargoyle roost posts
+        fill_tiles(chunk, TILE_WALL, tx, 87, tx+1, 88)
+    for ty in range(35, 70, 7):
+        fill_tiles(chunk, TILE_WALL, 45, ty, 46, ty+1)             # Capital column bases
+        fill_tiles(chunk, TILE_WALL, 105, ty, 106, ty+1)
+    fill_tiles(chunk, TILE_WALL, 55, 60, 57, 62)                    # Earthen peak ruin
+    fill_tiles(chunk, TILE_WALL, 120, 55, 122, 57)                  # Toxic pool edge
+    fill_tiles(chunk, TILE_WALL, 80, 95, 82, 97)                    # Collapsed tower
+    for tx in range(110, 140, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 50, tx+1, 51)             # Capital wall debris
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -15695,6 +15742,25 @@ def make_archdragon_peak():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     for tx, ty in [(100, 85), (112, 88), (125, 82)]:
+        mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Additional enemies — SESSION 42 DS3 fidelity (Archdragon Peak)
+    # DS3: Man-Serpents guard every path, Drakeblood Knights on bridges
+    for tx, ty in [(22, 42), (30, 48), (38, 45), (46, 52), (54, 42),
+                   (62, 48), (70, 45)]:
+        mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(80, 55), (88, 60), (96, 58)]:
+        mapped = ENEMY_KIND_MAP.get("DrakebloodKnight", "Knight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(105, 50), (115, 55)]:
+        mapped = ENEMY_KIND_MAP.get("RockLizard", "CrystalLizard")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(40, 70), (55, 75), (68, 72)]:
         mapped = ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
