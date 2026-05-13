@@ -7557,6 +7557,35 @@ def make_irithyll_dungeon():
     # Profaned Capital exit — corridor stones (DS3: path to Profaned Capital)
     fill_tiles(chunk, TILE_WALL, 110, 82, 111, 83)
     fill_tiles(chunk, TILE_WALL, 114, 86, 115, 87)
+
+    # ================================================================
+    # SESSION 15 FIDELITY PASS — IrithyllDungeon additional DS3 details
+    # ================================================================
+    # Jailer torch alcoves along corridors (DS3: jailers carry lanterns, alcoves line halls)
+    fill_tiles(chunk, TILE_WALL, 8, 22, 9, 23)
+    fill_tiles(chunk, TILE_WALL, 14, 26, 15, 27)
+    fill_tiles(chunk, TILE_WALL, 24, 30, 25, 31)
+    fill_tiles(chunk, TILE_WALL, 36, 38, 37, 39)
+    fill_tiles(chunk, TILE_WALL, 48, 40, 49, 41)
+    # Giant's cell — chain anchor stones (DS3: massive giant held in cell by chains)
+    fill_tiles(chunk, TILE_WALL, 102, 40, 103, 42)
+    fill_tiles(chunk, TILE_WALL, 108, 44, 109, 46)
+    fill_tiles(chunk, TILE_WALL, 112, 48, 113, 50)
+    fill_tiles(chunk, TILE_WALL, 106, 52, 107, 54)
+    # Drain grate debris (DS3: water drains with grates, rats lurk below)
+    fill_tiles(chunk, TILE_WALL, 22, 86, 23, 87)
+    fill_tiles(chunk, TILE_WALL, 32, 90, 33, 91)
+    fill_tiles(chunk, TILE_WALL, 42, 94, 43, 95)
+    fill_tiles(chunk, TILE_WALL, 52, 88, 53, 89)
+    # Dragon gesture room — meditation alcove stones (DS3: Path of the Dragon gesture room)
+    fill_tiles(chunk, TILE_WALL, 122, 18, 123, 20)
+    fill_tiles(chunk, TILE_WALL, 128, 22, 129, 24)
+    fill_tiles(chunk, TILE_WALL, 134, 16, 135, 18)
+    # Spiral staircase stones (DS3: tight spiral stair connecting levels)
+    fill_tiles(chunk, TILE_WALL, 72, 68, 73, 70)
+    fill_tiles(chunk, TILE_WALL, 78, 72, 79, 74)
+    fill_tiles(chunk, TILE_WALL, 84, 76, 85, 78)
+    fill_tiles(chunk, TILE_WALL, 76, 80, 77, 82)
     fill_tiles(chunk, TILE_WALL, 118, 84, 119, 85)
 
 
