@@ -12693,6 +12693,28 @@ def make_untended_graves():
     fill_tiles(chunk, TILE_WALL, 124, 118, 126, 120)
     fill_tiles(chunk, TILE_WALL, 138, 114, 140, 116)
 
+    # ================================================================
+    # SESSION 19 FIDELITY PASS — UntendedGraves DS3 dark cemetery depth
+    # ================================================================
+    # Champion Gundyr arena — dark crater debris (DS3: dark arena with dead Fire Keeper)
+    fill_tiles(chunk, TILE_WALL, 98, 78, 99, 80)
+    fill_tiles(chunk, TILE_WALL, 106, 82, 107, 84)
+    fill_tiles(chunk, TILE_WALL, 114, 86, 115, 88)
+    fill_tiles(chunk, TILE_WALL, 122, 90, 123, 92)
+    fill_tiles(chunk, TILE_WALL, 130, 86, 131, 88)
+    # Dark tombstones — additional graves (DS3: cemetery mirrors Cemetery of Ash)
+    fill_tiles(chunk, TILE_WALL, 24, 30, 25, 32)
+    fill_tiles(chunk, TILE_WALL, 36, 38, 37, 40)
+    fill_tiles(chunk, TILE_WALL, 48, 44, 49, 46)
+    fill_tiles(chunk, TILE_WALL, 60, 52, 61, 54)
+    fill_tiles(chunk, TILE_WALL, 72, 60, 73, 62)
+    # Dark Firelink interior — more shrine debris (DS3: completely dark Firelink copy)
+    fill_tiles(chunk, TILE_WALL, 116, 122, 117, 124)
+    fill_tiles(chunk, TILE_WALL, 128, 126, 129, 128)
+    fill_tiles(chunk, TILE_WALL, 148, 124, 149, 126)
+    fill_tiles(chunk, TILE_WALL, 152, 128, 153, 130)
+    fill_tiles(chunk, TILE_WALL, 112, 130, 113, 132)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -13325,6 +13347,28 @@ def make_archdragon_peak():
     fill_tiles(chunk, TILE_WALL, 148, 100, 149, 102)
     fill_tiles(chunk, TILE_WALL, 136, 104, 137, 106)
     fill_tiles(chunk, TILE_WALL, 144, 108, 145, 110)
+
+    # ================================================================
+    # SESSION 19 FIDELITY PASS — ArchdragonPeak DS3 mountain depth
+    # ================================================================
+    # Serpent Man temple — stone altar debris (DS3: ancient dragon temple)
+    fill_tiles(chunk, TILE_WALL, 28, 44, 29, 46)
+    fill_tiles(chunk, TILE_WALL, 36, 48, 37, 50)
+    fill_tiles(chunk, TILE_WALL, 44, 44, 45, 46)
+    fill_tiles(chunk, TILE_WALL, 52, 52, 53, 54)
+    fill_tiles(chunk, TILE_WALL, 60, 48, 61, 50)
+    # Dragonkin Mausoleum — dragon skeleton debris (DS3: dragon remains in mausoleum)
+    fill_tiles(chunk, TILE_WALL, 72, 56, 73, 58)
+    fill_tiles(chunk, TILE_WALL, 80, 60, 81, 62)
+    fill_tiles(chunk, TILE_WALL, 88, 58, 89, 60)
+    fill_tiles(chunk, TILE_WALL, 96, 64, 97, 66)
+    fill_tiles(chunk, TILE_WALL, 104, 62, 105, 64)
+    # Nameless King peak — storm-worn pillars (DS3: wind-battered peak arena)
+    fill_tiles(chunk, TILE_WALL, 142, 112, 143, 114)
+    fill_tiles(chunk, TILE_WALL, 150, 116, 151, 118)
+    fill_tiles(chunk, TILE_WALL, 138, 118, 139, 120)
+    fill_tiles(chunk, TILE_WALL, 146, 122, 147, 124)
+    fill_tiles(chunk, TILE_WALL, 154, 120, 155, 122)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
