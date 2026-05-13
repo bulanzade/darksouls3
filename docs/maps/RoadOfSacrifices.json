@@ -857,9 +857,9 @@
       "y": 1140,
       "color": "#606060",
       "dialogue": [
-        "... Anri and I journey together.",
-        "We seek the Lords of Cinder.",
-        "I will protect Anri, no matter what."
+        "......",
+        "Anri and I journey together.",
+        "We seek the Lords of Cinder."
       ]
     },
     {
@@ -870,8 +870,8 @@
       "y": 1840,
       "color": "#7090B0",
       "dialogue": [
-        "I am Orbeck of Vinheim",
-        "Bring me scrolls and I shall teach you sorceries"
+        "I am Orbeck of Vinheim. A sorcerer, and an assassin.",
+        "Bring me scrolls, and I shall teach you sorceries."
       ]
     }
   ],

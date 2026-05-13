@@ -967,9 +967,9 @@
       "y": 1900,
       "color": "#A0C0E0",
       "dialogue": [
-        "You're an Undead, like me?",
-        "Please, I must see Loretta",
-        "I owe her so much"
+        "I am Greirat of the Undead Settlement.",
+        "Please, I must see Loretta. I owe her so much.",
+        "I ask you, as a fellow Undead. Please, find Loretta."
       ],
       "note": "Locked in cell, requires Cell Key. Becomes a thief merchant after freeing."
     },
@@ -981,9 +981,9 @@
       "y": 2660,
       "color": "#F0E0C0",
       "dialogue": [
-        "Welcome to the High Wall of Lothric",
-        "I am Emma, High Priestess of Lothric",
-        "The Prince has refused his duty"
+        "Welcome to the High Wall of Lothric.",
+        "I am Emma, High Priestess of Lothric.",
+        "The Prince has refused his duty. The Lords have left their thrones."
       ],
       "note": "Gives Small Lothric Banner. Triggers Dancer boss fight if killed or after placing basin."
     }

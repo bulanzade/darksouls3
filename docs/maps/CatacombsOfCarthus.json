@@ -547,9 +547,9 @@
       "y": 2500,
       "color": "#C0C0C0",
       "dialogue": [
-        "Oh, hello, we meet again",
-        "I am looking for my companion Horace",
-        "Have you seen him?"
+        "Oh, hello, we meet again.",
+        "I am looking for my companion Horace. Have you seen him?",
+        "He disappeared suddenly. I am worried."
       ]
     },
     {
@@ -560,7 +560,7 @@
       "y": 304,
       "color": "#606060",
       "dialogue": [
-        "...",
+        "......",
         "(nods slowly)"
       ]
     }

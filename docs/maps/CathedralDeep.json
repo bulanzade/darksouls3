@@ -816,9 +816,10 @@
       "y": 2150,
       "color": "#C0A060",
       "dialogue": [
-        "Hello, hello! Up here!",
-        "I seem to be stuck in this well",
-        "Could you find a way to get me out?"
+        "Hello! Hello! Anyone there? Anyone at all?",
+        "Oh! I know that voice. Just how long has it been?",
+        "It's me, Siegward of Catarina.",
+        "I'm loathe to admit it, but I've been had. Someone's swiped my armour."
       ]
     },
     {
@@ -830,8 +831,8 @@
       "color": "#8B7355",
       "dialogue": [
         "Heh heh, what have we here?",
-        "You seem quite uninitiated",
-        "That is a fine way to greet someone"
+        "You seem quite uninitiated.",
+        "That is a fine way to greet someone."
       ]
     },
     {
@@ -842,9 +843,8 @@
       "y": 1460,
       "color": "#D0B0D0",
       "dialogue": [
-        "I am Rosaria, Mother of Rebirth",
-        "Offer me pale tongues",
-        "I shall grant you your desire"
+        "(Rosaria gazes upon you in silence.)",
+        "(Offer pale tongues to receive her blessing.)"
       ]
     }
   ],

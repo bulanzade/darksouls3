@@ -1140,8 +1140,8 @@
       "color": "#C0C0C0",
       "dialogue": [
         "We meet again. Have you found Horace?",
-        "I am searching for Aldrich with a companion",
-        "If you would, help me defeat Aldrich, Devourer of Gods"
+        "I am searching for Aldrich, Devourer of Gods.",
+        "If you would, help me defeat Aldrich."
       ]
     },
     {
@@ -1152,9 +1152,10 @@
       "y": 2580,
       "color": "#C0A060",
       "dialogue": [
-        "Oh! Hello again",
-        "I seem to have gotten lost",
-        "But I found some estus soup!"
+        "Well, well, hasn't it been all too long! It's good to see you.",
+        "I know. Won't you join me for dinner? I make a fine estus soup.",
+        "To your valour, my sword, and our sworn duties! Long may the sun shine!",
+        "Have you heard? Somewhere, hidden right here in Irithyll, is a deep dungeon."
       ]
     },
     {
@@ -1165,9 +1166,9 @@
       "y": 780,
       "color": "#A0B0C0",
       "dialogue": [
-        "I am Sirris",
-        "I offer my services as a knight",
-        "I will not forget this debt"
+        "I am Sirris of the Sunless Realms.",
+        "I offer my services as a knight.",
+        "I will not forget this debt."
       ]
     }
   ],

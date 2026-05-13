@@ -1100,9 +1100,9 @@
       "y": 1020,
       "color": "#4A4A5A",
       "dialogue": [
-        "I am Yoel of Londor",
-        "Let me grant you true strength",
-        "Come. Touch the darkness within me"
+        "I am Yoel of Londor. A pilgrim, as they call me.",
+        "Let me grant thee true strength.",
+        "Come. Touch the darkness within me."
       ]
     },
     {
@@ -1113,9 +1113,10 @@
       "y": 1540,
       "color": "#C0A060",
       "dialogue": [
-        "Aah, hello again",
-        "Let us fight this demon together!",
-        "Oh, very good. Very good indeed"
+        "Hmm... Mmm... Oh! Pardon me, I was absorbed in thought.",
+        "I am Siegward of Catarina.",
+        "I, Siegward of the Knights of Catarina, fight by your side!",
+        "To your valour, my sword, and our victory together. Long may the Sun shine!"
       ]
     },
     {
@@ -1126,9 +1127,9 @@
       "y": 960,
       "color": "#B8860B",
       "dialogue": [
-        "You are a Pyromancy student?",
-        "I can teach you the flame arts",
-        "The flame is both a blessing and a curse"
+        "Oh, hello. You are a student of pyromancy?",
+        "I am Cornyx of the Great Swamp. A pyromancer.",
+        "Bring me pyromancy tomes, and I shall teach you their arts."
       ]
     },
     {
@@ -1139,9 +1140,9 @@
       "y": 2260,
       "color": "#8B7D9B",
       "dialogue": [
-        "I am Irina of Carim",
-        "I can teach you miracles",
-        "Please, take me to Firelink Shrine"
+        "I am Irina of Carim, a servant of the gods.",
+        "I can teach you miracles.",
+        "Please, take me to Firelink Shrine."
       ]
     },
     {
@@ -1152,9 +1153,9 @@
       "y": 2180,
       "color": "#4A3A2A",
       "dialogue": [
-        "I am Eygon of Carim",
-        "Keep your hands off the woman",
-        "She is under my protection"
+        "I am Eygon of Carim.",
+        "Keep your hands off the woman.",
+        "She is under my protection."
       ]
     }
   ],

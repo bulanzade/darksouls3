@@ -236,9 +236,10 @@
       "y": 960,
       "color": "#FFFFFF",
       "dialogue": [
-        "Welcome to Firelink Shrine",
-        "I am a Fire Keeper",
-        "I tend the flame and tend to thee"
+        "Welcome to the bonfire, Unkindled One.",
+        "I am a Fire Keeper.",
+        "I tend to the flame, and tend to thee.",
+        "The Lords have left their thrones, and must be deliver'd to them. To this end, I am at thy side."
       ]
     },
     {
@@ -249,9 +250,9 @@
       "y": 1024,
       "color": "#DAA520",
       "dialogue": [
-        "Peace. I am Ludleth of Courland",
-        "Let me ask you this: is it not the nature of a Lord to sacrifice himself for his people?",
-        "Ah, it singeth to the bone"
+        "Peace. I am Ludleth of Courland.",
+        "Let me ask you this. Is it not the nature of a Lord, to sacrifice himself for his people?",
+        "Ah, it singeth, to the bone."
       ]
     },
     {
@@ -262,9 +263,9 @@
       "y": 1080,
       "color": "#C0C0C0",
       "dialogue": [
-        "What do you need?",
-        "I'm Andre, a blacksmith",
-        "Let me smith your weapons"
+        "What do you need? A weapon? I'll smith it.",
+        "Name's Andre, and I smith weapons.",
+        "I can smith most anything. Blades, shields, armour. The whole lot."
       ]
     },
     {
@@ -288,9 +289,9 @@
       "y": 1100,
       "color": "#7F8C8D",
       "dialogue": [
-        "Oh, another Unkindled",
-        "What do you want? I have nothing for you",
-        "The Farron Keep is where the Undead Legion once stood"
+        "Oh, another Unkindled.",
+        "What do you want? I have nothing for you.",
+        "The Undead Legion of Farron. They were a fierce bunch."
       ]
     },
     {
@@ -301,10 +302,10 @@
       "y": 1216,
       "color": "#2A1A3A",
       "dialogue": [
-        "I am Yuria of Londor, a servant of the Lord of Hollows",
-        "Thou art the Lord of Hollows",
-        "The fire has bent to thy will",
-        "Let us embrace the age of hollows, together"
+        "I am Yuria of Londor, a servant of the Lord of Hollows.",
+        "Thou art the Lord of Hollows.",
+        "The fire bendeth to thy will.",
+        "Let us embrace the age of hollows, together."
       ]
     },
     {
@@ -315,10 +316,10 @@
       "y": 1504,
       "color": "#8B0000",
       "dialogue": [
-        "You have a good look",
-        "I am Leonhard, I have a proposition for you",
-        "Take this Cracked Red Eye Orb",
-        "Invade and pillage the souls of others"
+        "You have a good look.",
+        "I am Leonhard. I have a proposition for you.",
+        "Take this Cracked Red Eye Orb.",
+        "Invade and pillage the souls of others."
       ]
     },
     {
@@ -329,10 +330,10 @@
       "y": 1408,
       "color": "#3A3A4A",
       "dialogue": [
-        "I am Yoel of Londor, a pilgrim as they call me",
-        "I can draw out your true strength",
-        "Let me level you up",
-        "Come back when you need more"
+        "I am Yoel of Londor. A pilgrim, as they call me.",
+        "I can draw out your true strength.",
+        "Come. Touch the darkness within me.",
+        "Take nourishment from these sovereignless souls."
       ]
     },
     {
@@ -343,10 +344,10 @@
       "y": 1472,
       "color": "#5A5A5A",
       "dialogue": [
-        "I am Greirat of the Undead Settlement",
-        "You saved me from that cell, I owe you everything",
-        "I can steal items for you, if you like",
-        "Just leave it to old Greirat"
+        "I am Greirat of the Undead Settlement.",
+        "You saved me from that cell. I owe you everything.",
+        "I can steal items for you, if you like.",
+        "Just leave it to old Greirat."
       ]
     },
     {
@@ -357,10 +358,10 @@
       "y": 1280,
       "color": "#8B6914",
       "dialogue": [
-        "I am Cornyx, a pyromancer of the Great Swamp",
-        "You freed me from my cage, and for that I am grateful",
-        "Bring me pyromancy tomes, and I shall teach you their arts",
-        "The flame is a wondrous thing"
+        "I am Cornyx, a pyromancer of the Great Swamp.",
+        "You freed me from my cage, and for that I am grateful.",
+        "Bring me pyromancy tomes, and I shall teach you their arts.",
+        "The flame is a wondrous thing."
       ]
     },
     {
@@ -371,10 +372,10 @@
       "y": 1184,
       "color": "#7090B0",
       "dialogue": [
-        "I am Orbeck of Vinheim. A sorcerer, and an assassin",
-        "I shall teach you sorceries, as promised",
-        "Bring me scrolls, and I shall decipher them",
-        "But if you prove talentless, our arrangement ends"
+        "I am Orbeck of Vinheim. A sorcerer, and an assassin.",
+        "I shall teach you sorceries, as promised.",
+        "Bring me scrolls, and I shall decipher them.",
+        "But if you prove talentless, our arrangement ends."
       ]
     },
     {
@@ -385,10 +386,10 @@
       "y": 1408,
       "color": "#A0B0C0",
       "dialogue": [
-        "I am Sirris of the Sunless Realms",
-        "I have sworn an oath to serve you",
-        "I shall come to your aid whenever you need",
-        "Thank you, for accepting my knightly vows"
+        "I am Sirris of the Sunless Realms.",
+        "I have sworn an oath to serve you.",
+        "I shall come to your aid whenever you need.",
+        "Thank you, for accepting my knightly vows."
       ]
     }
   ],

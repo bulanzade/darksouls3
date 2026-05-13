@@ -559,10 +559,9 @@
       "y": 2040,
       "color": "#d0d0ff",
       "dialogue": [
-        "Good day",
-        "I am Anri of Astora",
-        "Would you help me",
-        "defeat Aldrich together?"
+        "Good day.",
+        "I am Anri of Astora.",
+        "Would you help me defeat Aldrich, together?"
       ]
     },
     {
@@ -573,9 +572,9 @@
       "y": 1560,
       "color": "#E0E8F0",
       "dialogue": [
-        "I am Yorshka",
-        "Captain of the Darkmoon Knights",
-        "The Darkmoon remains true to its duty"
+        "I am Yorshka, Captain of the Darkmoon Knights.",
+        "The Darkmoon remains true to its duty.",
+        "I am here to carry on the legacy of the Darkmoon."
       ]
     }
   ],

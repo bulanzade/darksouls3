@@ -984,8 +984,8 @@
       "y": 2470,
       "color": "#8899AA",
       "dialogue": [
-        "(The wolf gazes silently)",
-        "Its eyes reflect distant flames"
+        "(The wolf gazes silently upon you.)",
+        "(Its eyes reflect distant flames.)"
       ]
     },
     {
@@ -996,9 +996,9 @@
       "y": 1840,
       "color": "#8B7355",
       "dialogue": [
-        "The Undead Legion used to be around here",
-        "They were a fierce bunch",
-        "They linked the fire long ago"
+        "The Undead Legion used to be around here.",
+        "They were a fierce bunch. The Abyss Watchers.",
+        "They linked the fire long ago."
       ]
     }
   ],
