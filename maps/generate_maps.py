@@ -2537,6 +2537,63 @@ def make_undead_settlement():
     fill_tiles(chunk, TILE_WALL, 106, 86, 107, 87)
     fill_tiles(chunk, TILE_WALL, 118, 76, 119, 77)
 
+    # ================================================================
+    # SESSION 13 FIDELITY PASS — Undead Settlement DS3 architecture
+    # ================================================================
+    # Pilgrim camp — body wrappings and prayer stones (DS3: pilgrims in rows)
+    fill_tiles(chunk, TILE_WALL, 116, 28, 117, 29)
+    fill_tiles(chunk, TILE_WALL, 122, 34, 123, 35)
+    fill_tiles(chunk, TILE_WALL, 130, 32, 131, 33)
+    fill_tiles(chunk, TILE_WALL, 126, 38, 127, 39)
+    fill_tiles(chunk, TILE_WALL, 134, 34, 135, 35)
+    fill_tiles(chunk, TILE_WALL, 120, 40, 121, 41)
+    fill_tiles(chunk, TILE_WALL, 138, 30, 139, 31)
+    # Irina's graveyard — scattered tombstones (DS3: small graveyard outside cell)
+    fill_tiles(chunk, TILE_WALL, 142, 52, 143, 53)
+    fill_tiles(chunk, TILE_WALL, 148, 56, 149, 57)
+    fill_tiles(chunk, TILE_WALL, 144, 48, 145, 49)
+    fill_tiles(chunk, TILE_WALL, 150, 54, 151, 55)
+    fill_tiles(chunk, TILE_WALL, 142, 58, 143, 59)
+    fill_tiles(chunk, TILE_WALL, 146, 46, 147, 47)
+    # Cliff underside — hanging cages (DS3: cages hanging from cliff underside)
+    fill_tiles(chunk, TILE_WALL, 54, 78, 55, 79)
+    fill_tiles(chunk, TILE_WALL, 62, 82, 63, 83)
+    fill_tiles(chunk, TILE_WALL, 70, 80, 71, 81)
+    fill_tiles(chunk, TILE_WALL, 58, 88, 59, 89)
+    fill_tiles(chunk, TILE_WALL, 66, 90, 67, 91)
+    fill_tiles(chunk, TILE_WALL, 74, 86, 75, 87)
+    # Sewer grate area — drainage stones (DS3: sewer grates near rats)
+    fill_tiles(chunk, TILE_WALL, 76, 78, 77, 79)
+    fill_tiles(chunk, TILE_WALL, 80, 82, 81, 83)
+    fill_tiles(chunk, TILE_WALL, 84, 80, 85, 81)
+    fill_tiles(chunk, TILE_WALL, 78, 84, 79, 85)
+    fill_tiles(chunk, TILE_WALL, 82, 76, 83, 77)
+    # House street — second floor balconies (DS3: houses have upper floors)
+    fill_tiles(chunk, TILE_WALL, 40, 22, 41, 23)
+    fill_tiles(chunk, TILE_WALL, 46, 28, 47, 29)
+    fill_tiles(chunk, TILE_WALL, 54, 30, 55, 31)
+    fill_tiles(chunk, TILE_WALL, 60, 38, 61, 39)
+    fill_tiles(chunk, TILE_WALL, 42, 36, 43, 37)
+    fill_tiles(chunk, TILE_WALL, 52, 44, 53, 45)
+    fill_tiles(chunk, TILE_WALL, 36, 42, 37, 43)
+    # Giant tower — arrow slits (DS3: tower with arrow slits)
+    fill_tiles(chunk, TILE_WALL, 48, 20, 49, 21)
+    fill_tiles(chunk, TILE_WALL, 52, 22, 53, 23)
+    fill_tiles(chunk, TILE_WALL, 46, 28, 47, 29)
+    # Greatwood pit — hanging bodies and roots (DS3: pit has bodies hanging from ceiling)
+    fill_tiles(chunk, TILE_WALL, 86, 96, 87, 97)
+    fill_tiles(chunk, TILE_WALL, 94, 94, 95, 95)
+    fill_tiles(chunk, TILE_WALL, 90, 112, 91, 113)
+    fill_tiles(chunk, TILE_WALL, 102, 106, 103, 107)
+    fill_tiles(chunk, TILE_WALL, 88, 108, 89, 109)
+    fill_tiles(chunk, TILE_WALL, 96, 102, 97, 103)
+    # Cliffside path — hanging corpse posts (DS3: corpses hang from posts)
+    fill_tiles(chunk, TILE_WALL, 88, 36, 89, 37)
+    fill_tiles(chunk, TILE_WALL, 96, 40, 97, 41)
+    fill_tiles(chunk, TILE_WALL, 100, 44, 101, 45)
+    fill_tiles(chunk, TILE_WALL, 106, 36, 107, 37)
+    fill_tiles(chunk, TILE_WALL, 112, 42, 113, 43)
+
         # ================================================================
     # ENTITIES
     # ================================================================
@@ -5256,7 +5313,7 @@ def make_catacombs_of_carthus():
         ("SkeletonSwordman", 18, 85), ("SkeletonSwordman", 22, 92),         # DS3: skeleton swordsmen
         ("Skeleton", 28, 95),                                        # Skeleton in abandoned tomb passage
         ("Skeleton", 35, 98),                                        # Skeleton patrol near lake entrance
-        ("LesserCrab", 22, 96),                                 # Lesser Crab (Smouldering Lake passage, wiki-confirmed)
+        ("SkeletonSwordman", 22, 96),                           # Skeleton Swordsman (DS3: no crabs in Catacombs)
         # Crystal Lizard
         ("CrystalLizard", 48, 50),
         # Path to Wolnir — Knight Slayer Tsorig invasion
@@ -6191,6 +6248,62 @@ def make_irithyll():
     fill_tiles(chunk, TILE_WALL, 28, 88, 29, 89)
     fill_tiles(chunk, TILE_WALL, 40, 78, 41, 79)
 
+    # ================================================================
+    # SESSION 13 FIDELITY PASS — Irithyll DS3 architecture
+    # ================================================================
+    # Entry bridge — frost-covered railing posts (DS3: iconic moonlit bridge)
+    fill_tiles(chunk, TILE_WALL, 12, 33, 13, 34)
+    fill_tiles(chunk, TILE_WALL, 16, 37, 17, 38)
+    fill_tiles(chunk, TILE_WALL, 20, 41, 21, 42)
+    fill_tiles(chunk, TILE_WALL, 8, 43, 9, 44)
+    fill_tiles(chunk, TILE_WALL, 24, 39, 25, 40)
+    # Main boulevard — storefront walls (DS3: shops and houses line the street)
+    fill_tiles(chunk, TILE_WALL, 38, 54, 39, 55)
+    fill_tiles(chunk, TILE_WALL, 42, 58, 43, 59)
+    fill_tiles(chunk, TILE_WALL, 46, 52, 47, 53)
+    fill_tiles(chunk, TILE_WALL, 52, 60, 53, 61)
+    fill_tiles(chunk, TILE_WALL, 56, 54, 57, 55)
+    fill_tiles(chunk, TILE_WALL, 60, 48, 61, 49)
+    # Church of Yorshka — altar stone fragments (DS3: small church with bonfire inside)
+    fill_tiles(chunk, TILE_WALL, 64, 40, 65, 41)
+    fill_tiles(chunk, TILE_WALL, 68, 44, 69, 45)
+    fill_tiles(chunk, TILE_WALL, 72, 38, 73, 39)
+    fill_tiles(chunk, TILE_WALL, 56, 42, 57, 43)
+    fill_tiles(chunk, TILE_WALL, 52, 46, 53, 47)
+    # Distant Manor — kitchen debris (DS3: Siegward cooks soup in kitchen)
+    fill_tiles(chunk, TILE_WALL, 24, 74, 25, 75)
+    fill_tiles(chunk, TILE_WALL, 28, 78, 29, 79)
+    fill_tiles(chunk, TILE_WALL, 34, 82, 35, 83)
+    fill_tiles(chunk, TILE_WALL, 38, 76, 39, 77)
+    fill_tiles(chunk, TILE_WALL, 42, 86, 43, 87)
+    fill_tiles(chunk, TILE_WALL, 22, 82, 23, 83)
+    # Sewer area — bridge supports (DS3: stone bridges over sewers)
+    fill_tiles(chunk, TILE_WALL, 74, 82, 75, 83)
+    fill_tiles(chunk, TILE_WALL, 80, 86, 81, 87)
+    fill_tiles(chunk, TILE_WALL, 86, 90, 87, 91)
+    fill_tiles(chunk, TILE_WALL, 92, 84, 93, 85)
+    fill_tiles(chunk, TILE_WALL, 76, 88, 77, 89)
+    fill_tiles(chunk, TILE_WALL, 84, 92, 85, 93)
+    # Silver Knight hall — chandelier chain stones (DS3: great hall with chandeliers)
+    fill_tiles(chunk, TILE_WALL, 22, 100, 23, 101)
+    fill_tiles(chunk, TILE_WALL, 26, 104, 27, 105)
+    fill_tiles(chunk, TILE_WALL, 30, 108, 31, 109)
+    fill_tiles(chunk, TILE_WALL, 34, 102, 35, 103)
+    fill_tiles(chunk, TILE_WALL, 38, 106, 39, 107)
+    fill_tiles(chunk, TILE_WALL, 42, 110, 43, 111)
+    # Pontiff cathedral — ritual circle stones (DS3: dark ritual area)
+    fill_tiles(chunk, TILE_WALL, 112, 72, 113, 73)
+    fill_tiles(chunk, TILE_WALL, 120, 76, 121, 77)
+    fill_tiles(chunk, TILE_WALL, 128, 82, 129, 83)
+    fill_tiles(chunk, TILE_WALL, 136, 78, 137, 79)
+    fill_tiles(chunk, TILE_WALL, 116, 86, 117, 87)
+    fill_tiles(chunk, TILE_WALL, 124, 90, 125, 91)
+    # Post-Pontiff courtyard — knight memorial stones (DS3: courtyard after boss)
+    fill_tiles(chunk, TILE_WALL, 140, 68, 141, 69)
+    fill_tiles(chunk, TILE_WALL, 144, 72, 145, 73)
+    fill_tiles(chunk, TILE_WALL, 148, 66, 149, 67)
+    fill_tiles(chunk, TILE_WALL, 142, 76, 143, 77)
+
     spawn_px, spawn_py = 10 * 16, 35 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
@@ -6239,8 +6352,8 @@ def make_irithyll():
         # Distant Manor area — Irithyllian Slaves and Pontiff Knights
         ("IrithyllianSlave", 28, 70), ("IrithyllianSlave", 35, 75),            # Slaves near manor
         ("BorealKnight", 32, 72), ("BorealKnight", 40, 82),
-        # Corvian near the manor gardens
-        ("Corvian", 22, 68),
+        # Irithyllian Slave near the manor gardens (DS3: no Corvians in Irithyll)
+        ("IrithyllianSlave", 22, 68),
         # Church of Yorshka area — Pontiff Knights guarding church
         ("BorealKnight", 70, 45), ("BorealKnight", 72, 42),
         ("IrithyllianSlave", 64, 44),                                   # Invisible hag near church entrance
@@ -6898,12 +7011,12 @@ def make_irithyll_dungeon():
         ("Basilisk", 40, 88), ("Basilisk", 65, 78),             # More basilisks in drains
         ("Basilisk", 48, 82), ("Basilisk", 58, 90),             # Additional curse-spawners
         ("Wretch", 38, 80), ("Wretch", 45, 86), # DS3: bloated prisoners in drain cells
-        # Sewer Centipede in drain area (DS3: Sewer Centipedes in Irithyll Dungeon drains)
-        ("SewerCentipede", 60, 75), ("SewerCentipede", 50, 78),
+        # Wretches in drain area (DS3: centipedes belong in Profaned Capital, not Dungeon)
+        ("Wretch", 60, 75), ("Wretch", 50, 78),
         # Cage Spider in drain area
         ("CageSpider", 55, 88),                                       # DS3: Cage Spider in drain area (→ Basilisk)
-        # Monstrosity of Sin — DS3: sleeping giant near lower level
-        ("MonstrosityOfSin", 42, 75),
+        # Wretch — DS3: bloated prisoner in lower drain (no Monstrosity in Irithyll Dungeon)
+        ("Wretch", 42, 75),
         # Lycanthrope (Dog) in rat tunnels
         ("Dog", 22, 82), ("Dog", 38, 85),
         # Exit corridor — DS3: Wretches (bloated prisoners) guard the upper exit path
@@ -8006,6 +8119,52 @@ def make_anor_londo():
     fill_tiles(chunk, TILE_WALL, 72, 68, 73, 69)
     fill_tiles(chunk, TILE_WALL, 84, 58, 85, 59)
     fill_tiles(chunk, TILE_WALL, 78, 70, 79, 71)
+
+    # ================================================================
+    # SESSION 13 FIDELITY PASS — AnorLondo DS3 architecture
+    # ================================================================
+    # Rotating staircase mechanism — gear stones (DS3: mechanical staircase at entrance)
+    fill_tiles(chunk, TILE_WALL, 8, 34, 9, 35)
+    fill_tiles(chunk, TILE_WALL, 12, 36, 13, 37)
+    fill_tiles(chunk, TILE_WALL, 6, 44, 7, 45)
+    fill_tiles(chunk, TILE_WALL, 16, 38, 17, 39)
+    fill_tiles(chunk, TILE_WALL, 24, 40, 25, 41)
+    fill_tiles(chunk, TILE_WALL, 4, 48, 5, 49)
+    # Silver Knight hall — banquet table remnants (DS3: long hall with knight statues)
+    fill_tiles(chunk, TILE_WALL, 84, 40, 85, 41)
+    fill_tiles(chunk, TILE_WALL, 88, 44, 89, 45)
+    fill_tiles(chunk, TILE_WALL, 92, 38, 93, 39)
+    fill_tiles(chunk, TILE_WALL, 96, 46, 97, 47)
+    fill_tiles(chunk, TILE_WALL, 100, 36, 101, 37)
+    fill_tiles(chunk, TILE_WALL, 108, 40, 109, 41)
+    # Aldrich arena — half-sunken pillars (DS3: Gwyndolin's chamber sinking into abyss)
+    fill_tiles(chunk, TILE_WALL, 110, 72, 111, 73)
+    fill_tiles(chunk, TILE_WALL, 118, 76, 119, 77)
+    fill_tiles(chunk, TILE_WALL, 124, 80, 125, 81)
+    fill_tiles(chunk, TILE_WALL, 132, 74, 133, 75)
+    fill_tiles(chunk, TILE_WALL, 138, 82, 139, 83)
+    fill_tiles(chunk, TILE_WALL, 134, 90, 135, 91)
+    fill_tiles(chunk, TILE_WALL, 140, 86, 141, 87)
+    fill_tiles(chunk, TILE_WALL, 146, 80, 147, 81)
+    # Yorshka's tower — bell tower stones (DS3: Darkmoon Tomb bell tower)
+    fill_tiles(chunk, TILE_WALL, 58, 84, 59, 85)
+    fill_tiles(chunk, TILE_WALL, 62, 88, 63, 89)
+    fill_tiles(chunk, TILE_WALL, 66, 92, 67, 93)
+    fill_tiles(chunk, TILE_WALL, 60, 96, 61, 97)
+    fill_tiles(chunk, TILE_WALL, 64, 100, 65, 101)
+    fill_tiles(chunk, TILE_WALL, 56, 98, 57, 99)
+    # Deacon procession path — melted candle wax (DS3: Deacons of the Deep)
+    fill_tiles(chunk, TILE_WALL, 74, 56, 75, 57)
+    fill_tiles(chunk, TILE_WALL, 82, 62, 83, 63)
+    fill_tiles(chunk, TILE_WALL, 90, 58, 91, 59)
+    fill_tiles(chunk, TILE_WALL, 98, 64, 99, 65)
+    fill_tiles(chunk, TILE_WALL, 106, 60, 107, 61)
+    fill_tiles(chunk, TILE_WALL, 114, 66, 115, 67)
+    # Prison tower — cage bars and chains (DS3: prison tower bonfire area)
+    fill_tiles(chunk, TILE_WALL, 52, 70, 53, 71)
+    fill_tiles(chunk, TILE_WALL, 56, 74, 57, 75)
+    fill_tiles(chunk, TILE_WALL, 48, 78, 49, 79)
+    fill_tiles(chunk, TILE_WALL, 64, 72, 65, 73)
 
         # --- Spawn from Irithyll rotating staircase ---
     spawn_px, spawn_py = 10 * 16, 38 * 16

@@ -463,14 +463,14 @@
     },
     {
       "kind": "Wretch",
-      "name_en": "SewerCentipede",
+      "name_en": "Wretch",
       "x": 60,
       "y": 75,
       "count": 1
     },
     {
       "kind": "Wretch",
-      "name_en": "SewerCentipede",
+      "name_en": "Wretch",
       "x": 50,
       "y": 78,
       "count": 1
@@ -483,8 +483,8 @@
       "count": 1
     },
     {
-      "kind": "MonstrosityOfSin",
-      "name_en": "Monstrosity of Sin",
+      "kind": "Wretch",
+      "name_en": "Wretch",
       "x": 42,
       "y": 75,
       "count": 1
