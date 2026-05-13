@@ -1092,6 +1092,30 @@ def make_cemetery_of_ash():
     fill_tiles(chunk, TILE_WALL, 122, 48, 123, 50)
     fill_tiles(chunk, TILE_WALL, 128, 52, 129, 54)
 
+    # ================================================================
+    # SESSION 22 FIDELITY PASS — CemeteryOfAsh DS3 cemetery details
+    # ================================================================
+    # Gravestone debris (DS3: headstones along the cemetery path)
+    fill_tiles(chunk, TILE_WALL, 36, 148, 37, 149)
+    fill_tiles(chunk, TILE_WALL, 42, 146, 43, 147)
+    fill_tiles(chunk, TILE_WALL, 48, 144, 49, 145)
+    fill_tiles(chunk, TILE_WALL, 56, 142, 57, 143)
+    # Ash pile mounds (DS3: ash accumulations along the tutorial path)
+    fill_tiles(chunk, TILE_WALL, 62, 136, 63, 137)
+    fill_tiles(chunk, TILE_WALL, 68, 128, 69, 129)
+    fill_tiles(chunk, TILE_WALL, 76, 118, 77, 119)
+    fill_tiles(chunk, TILE_WALL, 82, 112, 83, 113)
+    # Broken fence posts (DS3: cemetery fence remnants)
+    fill_tiles(chunk, TILE_WALL, 30, 130, 31, 131)
+    fill_tiles(chunk, TILE_WALL, 38, 124, 39, 125)
+    fill_tiles(chunk, TILE_WALL, 46, 118, 47, 119)
+    fill_tiles(chunk, TILE_WALL, 54, 112, 55, 113)
+    # Gundyr arena stone debris (DS3: shattered stone near boss arena)
+    fill_tiles(chunk, TILE_WALL, 72, 48, 73, 49)
+    fill_tiles(chunk, TILE_WALL, 84, 44, 85, 45)
+    fill_tiles(chunk, TILE_WALL, 90, 48, 91, 49)
+    fill_tiles(chunk, TILE_WALL, 78, 56, 79, 57)
+
     populate_entity_def_uids(entities)
 
     # Ensure connectivity from spawn to all entities
@@ -1843,6 +1867,23 @@ def make_firelink_shrine():
     fill_tiles(chunk, TILE_WALL, 86, 54, 87, 56)
     fill_tiles(chunk, TILE_WALL, 68, 64, 69, 66)
     fill_tiles(chunk, TILE_WALL, 92, 58, 93, 60)
+
+    # ================================================================
+    # SESSION 22 FIDELITY PASS — FirelinkShrine DS3 interior details
+    # ================================================================
+    # Throne seat wall fragments (DS3: stone thrones around Firelink)
+    fill_tiles(chunk, TILE_WALL, 48, 62, 49, 63)
+    fill_tiles(chunk, TILE_WALL, 54, 58, 55, 59)
+    fill_tiles(chunk, TILE_WALL, 60, 62, 61, 63)
+    fill_tiles(chunk, TILE_WALL, 66, 58, 67, 59)
+    # Well stone debris (DS3: stone well near entrance)
+    fill_tiles(chunk, TILE_WALL, 42, 68, 43, 69)
+    fill_tiles(chunk, TILE_WALL, 38, 72, 39, 73)
+    # Shrine interior pillar bases (DS3: stone pillars inside Firelink)
+    fill_tiles(chunk, TILE_WALL, 52, 74, 53, 75)
+    fill_tiles(chunk, TILE_WALL, 58, 78, 59, 79)
+    fill_tiles(chunk, TILE_WALL, 64, 74, 65, 75)
+    fill_tiles(chunk, TILE_WALL, 70, 78, 71, 79)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -3488,6 +3529,25 @@ def make_undead_settlement():
     fill_tiles(chunk, TILE_WALL, 108, 68, 109, 70)
     fill_tiles(chunk, TILE_WALL, 114, 72, 115, 74)
     fill_tiles(chunk, TILE_WALL, 100, 76, 101, 78)
+
+    # ================================================================
+    # SESSION 22 FIDELITY PASS — UndeadSettlement DS3 settlement details
+    # ================================================================
+    # Market stall debris (DS3: wooden stalls in the settlement square)
+    fill_tiles(chunk, TILE_WALL, 28, 32, 29, 33)
+    fill_tiles(chunk, TILE_WALL, 34, 36, 35, 37)
+    fill_tiles(chunk, TILE_WALL, 40, 40, 41, 41)
+    fill_tiles(chunk, TILE_WALL, 46, 44, 47, 45)
+    # Tree hollow positions (DS3: hollows hanging from trees)
+    fill_tiles(chunk, TILE_WALL, 52, 48, 53, 49)
+    fill_tiles(chunk, TILE_WALL, 58, 52, 59, 53)
+    fill_tiles(chunk, TILE_WALL, 64, 56, 65, 57)
+    fill_tiles(chunk, TILE_WALL, 70, 60, 71, 61)
+    # Bridge support debris (DS3: broken bridge supports near settlement)
+    fill_tiles(chunk, TILE_WALL, 22, 58, 23, 59)
+    fill_tiles(chunk, TILE_WALL, 28, 62, 29, 63)
+    fill_tiles(chunk, TILE_WALL, 34, 66, 35, 67)
+    fill_tiles(chunk, TILE_WALL, 40, 70, 41, 71)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -11111,6 +11171,25 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_WALL, 126, 42, 128, 44)
 
     # ================================================================
+    # ================================================================
+    # SESSION 22 FIDELITY PASS — GrandArchives DS3 library details
+    # ================================================================
+    # Bookshelf debris (DS3: fallen bookshelves in the Archives)
+    fill_tiles(chunk, TILE_WALL, 22, 32, 23, 33)
+    fill_tiles(chunk, TILE_WALL, 28, 36, 29, 37)
+    fill_tiles(chunk, TILE_WALL, 34, 40, 35, 41)
+    fill_tiles(chunk, TILE_WALL, 40, 44, 41, 45)
+    # Candle cluster debris (DS3: wax clusters from the wax head mechanic)
+    fill_tiles(chunk, TILE_WALL, 46, 48, 47, 49)
+    fill_tiles(chunk, TILE_WALL, 52, 52, 53, 53)
+    fill_tiles(chunk, TILE_WALL, 58, 56, 59, 57)
+    fill_tiles(chunk, TILE_WALL, 64, 60, 65, 61)
+    # Crystal Sage debris (DS3: crystal formations from the Sage fight)
+    fill_tiles(chunk, TILE_WALL, 80, 78, 81, 79)
+    fill_tiles(chunk, TILE_WALL, 86, 82, 87, 83)
+    fill_tiles(chunk, TILE_WALL, 92, 86, 93, 87)
+    fill_tiles(chunk, TILE_WALL, 98, 90, 99, 91)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
