@@ -9566,6 +9566,31 @@ def make_lothric_castle():
     fill_tiles(chunk, TILE_WALL, 136, 94, 137, 95)
     fill_tiles(chunk, TILE_WALL, 132, 92, 133, 93)
 
+    # ================================================================
+    # SESSION 15 FIDELITY PASS — LothricCastle additional DS3 details
+    # ================================================================
+    # Dragonslayer Armour rooftop — storm-worn battlements (DS3: rooftop boss arena)
+    fill_tiles(chunk, TILE_WALL, 124, 64, 125, 65)
+    fill_tiles(chunk, TILE_WALL, 130, 68, 131, 69)
+    fill_tiles(chunk, TILE_WALL, 118, 66, 119, 67)
+    fill_tiles(chunk, TILE_WALL, 136, 72, 137, 73)
+    # Twin Dragon bridge — dragon corpse debris (DS3: two dragon corpses on bridge)
+    fill_tiles(chunk, TILE_WALL, 72, 68, 73, 69)
+    fill_tiles(chunk, TILE_WALL, 76, 72, 77, 73)
+    fill_tiles(chunk, TILE_WALL, 68, 70, 69, 71)
+    # Winged Knight stairs — armor stand alcoves (DS3: Winged Knights descend stairs)
+    fill_tiles(chunk, TILE_WALL, 96, 56, 97, 57)
+    fill_tiles(chunk, TILE_WALL, 100, 60, 101, 61)
+    fill_tiles(chunk, TILE_WALL, 92, 58, 93, 59)
+    fill_tiles(chunk, TILE_WALL, 104, 54, 105, 55)
+    # Boreal Outrider room — frost-cracked stones (DS3: frost knight in side room)
+    fill_tiles(chunk, TILE_WALL, 44, 52, 45, 53)
+    fill_tiles(chunk, TILE_WALL, 50, 56, 51, 57)
+    fill_tiles(chunk, TILE_WALL, 38, 54, 39, 55)
+    # Castle dungeon — sewer grate stones (DS3: underground passage beneath castle)
+    fill_tiles(chunk, TILE_WALL, 28, 62, 29, 63)
+    fill_tiles(chunk, TILE_WALL, 34, 66, 35, 67)
+    fill_tiles(chunk, TILE_WALL, 22, 64, 23, 65)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
