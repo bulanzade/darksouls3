@@ -1238,6 +1238,21 @@ def make_cemetery_of_ash():
     for tx in range(60, 70):
         chunk[50][tx] = TILE_WALLTOP  # arena stone
 
+    # --- SESSION 54 terrain (Cemetery of Ash final) ---
+    # DS3: Ash drift ridges along the path
+    for tx in range(40, 50):
+        chunk[30][tx] = TILE_WALLTOP  # ash ridge
+    # Broken stone bridge near the coiled sword
+    for tx in range(55, 62):
+        chunk[38][tx] = TILE_WALLTOP  # bridge debris
+    # Cliff side rockfall
+    for ty in range(25, 32):
+        chunk[ty][70] = TILE_WALL  # rockfall
+    # Gravestone cluster near the bonfire
+    for tx in range(22, 28):
+        if tx % 2 == 0:
+            chunk[12][tx] = TILE_WALLTOP  # headstone
+
     populate_entity_def_uids(entities)
 
     # Ensure connectivity from spawn to all entities
@@ -7891,6 +7906,20 @@ def make_catacombs_of_carthus():
     for ty in range(60, 65):
         chunk[ty][88] = TILE_WALL  # bracelet mount
 
+    # --- SESSION 54 terrain (Catacombs of Carthus final) ---
+    # DS3: Wolnir's sword embedded in the arena wall
+    for ty in range(62, 68):
+        chunk[ty][92] = TILE_WALL  # sword embedding
+    # Skeleton wheel track grooves (DS3: the rolling skeleton ball track)
+    for tx in range(30, 45):
+        chunk[55][tx] = TILE_WALLTOP  # track groove
+    # Burial chamber alcove walls
+    for ty in range(40, 48):
+        chunk[ty][72] = TILE_WALL  # alcove wall
+    # Torch sconce positions (DS3: torches light the catacombs)
+    for tx, ty in [(20, 30), (50, 35), (80, 40)]:
+        chunk[ty][tx] = TILE_WALLTOP  # sconce debris
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -10537,6 +10566,20 @@ def make_irithyll_dungeon():
     for tx, ty in [(60, 25), (75, 30)]:
         chunk[ty][tx] = TILE_WALLTOP  # key rack
 
+    # --- SESSION 54 terrain (Irithyll Dungeon final) ---
+    # DS3: Dungeon iron maiden frames (the iron maiden torture devices)
+    for tx, ty in [(22, 28), (38, 32)]:
+        chunk[ty][tx] = TILE_WALL  # iron maiden frame
+    # Prison cell bars (DS3: cells line the corridors)
+    for ty in range(30, 36):
+        chunk[ty][48] = TILE_WALL  # cell bars
+    # Profaned Capital view window (DS3: you can see the capital from the dungeon)
+    for ty in range(20, 25):
+        chunk[ty][85] = TILE_WALLTOP  # window frame
+    # Jailer brand rack (DS3: jailers carry glowing branding irons)
+    chunk[35][55] = TILE_WALLTOP  # brand rack debris
+    chunk[35][56] = TILE_WALLTOP
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -11839,6 +11882,28 @@ def make_anor_londo():
     # Giant Slave (DS3: the giant outside Anor Londo who shoots arrows)
     for tx, ty in [(72, 35)]:
         mapped = ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 54 DS3 enemies (Anor Londo diversity) ---
+    # DS3: Mimic in the Gwyndolin chamber (DS3: one mimic in Anor Londo)
+    for tx, ty in [(72, 48)]:
+        mapped = ENEMY_KIND_MAP.get("Mimic", "Mimic")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Gargoyle on the roof (DS3: gargoyles patrol the Anor Londo rooftops)
+    for tx, ty in [(42, 35), (58, 38)]:
+        mapped = ENEMY_KIND_MAP.get("Gargoyle", "Gargoyle")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Crystal Lizard near the boss room
+    for tx, ty in [(80, 55)]:
+        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # More Man Grubs near Rosaria's chamber
+    for tx, ty in [(48, 45), (55, 50)]:
+        mapped = ENEMY_KIND_MAP.get("ManGrub", "ManGrub")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
@@ -13321,6 +13386,21 @@ def make_lothric_castle():
     # Throne room debris (DS3: Lothric's throne room is in ruins)
     for tx in range(100, 108):
         chunk[42][tx] = TILE_WALLTOP  # throne debris
+
+    # --- SESSION 54 terrain (Lothric Castle final) ---
+    # DS3: Castle gatehouse stonework
+    for ty in range(15, 22):
+        chunk[ty][8] = TILE_WALL  # gatehouse wall
+        chunk[ty][12] = TILE_WALL  # gatehouse pillar
+    # Consumed King's Garden approach archway
+    for ty in range(68, 74):
+        chunk[ty][18] = TILE_WALL  # archway pillar
+    # Grand Archives bridge supports
+    for ty in range(42, 48):
+        chunk[ty][145] = TILE_WALL  # bridge support
+    # Castle courtyard fountain
+    chunk[48][65] = TILE_WALL  # fountain base
+    chunk[48][66] = TILE_WALLTOP  # fountain rim
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
