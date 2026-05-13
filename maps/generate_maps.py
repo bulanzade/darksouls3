@@ -5923,6 +5923,37 @@ def make_smouldering_lake():
     fill_tiles(chunk, TILE_WALL, 48, 56, 49, 57)
     fill_tiles(chunk, TILE_WALL, 56, 52, 57, 53)
 
+    # ================================================================
+    # SESSION 13 FIDELITY PASS — SmoulderingLake DS3 architecture
+    # ================================================================
+    # Ballista platform — bolt rack debris (DS3: giant ballista fires at you)
+    fill_tiles(chunk, TILE_WALL, 16, 82, 17, 83)
+    fill_tiles(chunk, TILE_WALL, 22, 86, 23, 87)
+    fill_tiles(chunk, TILE_WALL, 12, 90, 13, 91)
+    fill_tiles(chunk, TILE_WALL, 28, 84, 29, 85)
+    # Demon ruins — molten stone pillars (DS3: fire demon temple)
+    fill_tiles(chunk, TILE_WALL, 62, 58, 63, 59)
+    fill_tiles(chunk, TILE_WALL, 68, 62, 69, 63)
+    fill_tiles(chunk, TILE_WALL, 74, 56, 75, 57)
+    fill_tiles(chunk, TILE_WALL, 80, 64, 81, 65)
+    # Underground lake — volcanic rock formations (DS3: lava lake with rock islands)
+    fill_tiles(chunk, TILE_WALL, 42, 68, 43, 69)
+    fill_tiles(chunk, TILE_WALL, 50, 72, 51, 73)
+    fill_tiles(chunk, TILE_WALL, 58, 70, 59, 71)
+    fill_tiles(chunk, TILE_WALL, 66, 74, 67, 75)
+    fill_tiles(chunk, TILE_WALL, 46, 76, 47, 77)
+    # Tsorig area — magma pool edges (DS3: Knight Slayer Tsorig invades near lava)
+    fill_tiles(chunk, TILE_WALL, 30, 88, 31, 89)
+    fill_tiles(chunk, TILE_WALL, 36, 92, 37, 93)
+    fill_tiles(chunk, TILE_WALL, 24, 94, 25, 95)
+    fill_tiles(chunk, TILE_WALL, 34, 96, 35, 97)
+    fill_tiles(chunk, TILE_WALL, 26, 90, 27, 91)
+    # Demon King arena — scorched throne debris (DS3: Old Demon King arena)
+    fill_tiles(chunk, TILE_WALL, 130, 102, 131, 103)
+    fill_tiles(chunk, TILE_WALL, 138, 108, 139, 109)
+    fill_tiles(chunk, TILE_WALL, 126, 108, 127, 109)
+    fill_tiles(chunk, TILE_WALL, 142, 104, 143, 105)
+
     spawn_px, spawn_py = 15 * 16, 12 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
@@ -9881,6 +9912,34 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_WALL, 144, 82, 145, 84)
     fill_tiles(chunk, TILE_WALL, 134, 90, 135, 92)
     fill_tiles(chunk, TILE_WALL, 142, 94, 143, 96)
+
+    # ================================================================
+    # SESSION 13 FIDELITY PASS — GrandArchives DS3 architecture
+    # ================================================================
+    # Library entrance — wax candle debris (DS3: wax pools at archive entrance)
+    fill_tiles(chunk, TILE_WALL, 22, 28, 23, 29)
+    fill_tiles(chunk, TILE_WALL, 28, 34, 29, 35)
+    fill_tiles(chunk, TILE_WALL, 16, 32, 17, 33)
+    # Main library — bookshelf alcove walls (DS3: towering bookshelves)
+    fill_tiles(chunk, TILE_WALL, 40, 36, 41, 37)
+    fill_tiles(chunk, TILE_WALL, 46, 42, 47, 43)
+    fill_tiles(chunk, TILE_WALL, 52, 38, 53, 39)
+    fill_tiles(chunk, TILE_WALL, 58, 44, 59, 45)
+    fill_tiles(chunk, TILE_WALL, 64, 40, 65, 41)
+    # Crystal sage room — crystal growth clusters (DS3: Crystal Sage fight area)
+    fill_tiles(chunk, TILE_WALL, 36, 52, 37, 53)
+    fill_tiles(chunk, TILE_WALL, 42, 56, 43, 57)
+    fill_tiles(chunk, TILE_WALL, 48, 54, 49, 55)
+    fill_tiles(chunk, TILE_WALL, 54, 58, 55, 59)
+    # Archive roof — crystal-encrusted railings (DS3: crystal-covered rooftops)
+    fill_tiles(chunk, TILE_WALL, 18, 20, 19, 21)
+    fill_tiles(chunk, TILE_WALL, 24, 24, 25, 25)
+    fill_tiles(chunk, TILE_WALL, 30, 22, 31, 23)
+    fill_tiles(chunk, TILE_WALL, 12, 26, 13, 27)
+    # Gertrude's cage area — bird cage debris (DS3: Divine Pillars of Light location)
+    fill_tiles(chunk, TILE_WALL, 72, 28, 73, 29)
+    fill_tiles(chunk, TILE_WALL, 78, 32, 79, 33)
+    fill_tiles(chunk, TILE_WALL, 84, 30, 85, 31)
 
     # ================================================================
     populate_entity_def_uids(entities)
