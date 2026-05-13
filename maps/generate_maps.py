@@ -2690,8 +2690,8 @@ def make_undead_settlement():
         ("PeasantHollow", 146, 52),                                   # DS3: Hollow in lift tower area
         # Holy Knight Hodrick invasion (DS3: Mad Spirit invades near Dilapidated Bridge if Embered)
         ("MiniBoss", 64, 66),                                         # DS3: Hodrick, Mound-Makers member
-        # Irina's area — Skeletons (DS3: skeletons animate and attack in graveyard near Irina)
-        ("Skeleton", 140, 52), ("Skeleton", 142, 54), ("Skeleton", 144, 48),
+        # Irina's area — Peasant Hollows (DS3: hollows attack near Irina's graveyard, NOT skeletons)
+        ("PeasantHollow", 140, 52), ("PeasantHollow", 142, 54), ("PeasantHollow", 144, 48),
         # Crystal Lizard (DS3: near Hodrick invasion area / cliff path)
         ("CrystalLizard", 112, 46),
         # Additional DS3 enemies for fidelity
