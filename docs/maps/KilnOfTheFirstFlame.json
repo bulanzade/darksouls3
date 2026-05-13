@@ -166,6 +166,14 @@
           }
         ],
         "source_status": "route_landmark_projection"
+      },
+      {
+        "x": 1360,
+        "y": 2128,
+        "w": 480,
+        "h": 224,
+        "name": "补充区域-1",
+        "terrain_features": []
       }
     ]
   },
@@ -252,14 +260,14 @@
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
       "x": 640,
-      "y": 1920,
+      "y": 2016,
       "count": 1
     },
     {
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
       "x": 960,
-      "y": 1888,
+      "y": 2016,
       "count": 1
     },
     {
@@ -286,21 +294,21 @@
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 800,
-      "y": 1280,
+      "x": 1128,
+      "y": 1488,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 960,
-      "y": 1344,
+      "x": 1808,
+      "y": 1712,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 1120,
+      "x": 1232,
       "y": 1248,
       "count": 1
     },
@@ -335,22 +343,22 @@
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 1152,
-      "y": 320,
+      "x": 1232,
+      "y": 808,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 1056,
-      "y": 416,
+      "x": 1584,
+      "y": 1248,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 1168,
-      "y": 592,
+      "x": 1648,
+      "y": 1280,
       "count": 1
     },
     {
@@ -363,7 +371,7 @@
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 992,
+      "x": 1232,
       "y": 1088,
       "count": 1
     },
@@ -371,28 +379,28 @@
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
       "x": 1808,
-      "y": 320,
+      "y": 808,
       "count": 1
     },
     {
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
-      "x": 1680,
-      "y": 416,
+      "x": 2112,
+      "y": 864,
       "count": 1
     },
     {
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
       "x": 1488,
-      "y": 608,
+      "y": 808,
       "count": 1
     },
     {
       "kind": "BlackKnight",
       "name_en": "BlackKnight",
       "x": 1392,
-      "y": 704,
+      "y": 808,
       "count": 1
     },
     {
@@ -406,7 +414,7 @@
       "kind": "MiniBoss",
       "name_en": "MiniBoss",
       "x": 1280,
-      "y": 416,
+      "y": 808,
       "count": 1
     },
     {
@@ -433,8 +441,8 @@
       "name": "防火女",
       "name_en": "Fire Keeper",
       "kind": "Dialogue",
-      "x": 1248,
-      "y": 448,
+      "x": 1920,
+      "y": 912,
       "color": "#FFFFFF",
       "dialogue": [
         "Ashen one, link the fire.",

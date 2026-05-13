@@ -145,6 +145,14 @@
           "storm_ruler_pedestal"
         ],
         "source_status": "route_landmark_projection"
+      },
+      {
+        "x": 80,
+        "y": 96,
+        "w": 160,
+        "h": 160,
+        "name": "补充区域-1",
+        "terrain_features": []
       }
     ]
   },
@@ -167,105 +175,105 @@
     {
       "kind": "Gargoyle",
       "name_en": "Gargoyle",
-      "x": 704,
-      "y": 192,
+      "x": 708,
+      "y": 608,
       "count": 1
     },
     {
       "kind": "Gargoyle",
       "name_en": "Gargoyle",
       "x": 768,
-      "y": 224,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 832,
-      "y": 160,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 864,
-      "y": 224,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 960,
-      "y": 128,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 992,
-      "y": 288,
-      "count": 1
-    },
-    {
-      "kind": "Gargoyle",
-      "name_en": "Gargoyle",
-      "x": 1024,
-      "y": 224,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 1152,
-      "y": 160,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 1184,
-      "y": 256,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 1280,
-      "y": 192,
-      "count": 1
-    },
-    {
-      "kind": "Gargoyle",
-      "name_en": "Gargoyle",
-      "x": 1408,
-      "y": 128,
-      "count": 1
-    },
-    {
-      "kind": "Jailer",
-      "name_en": "Jailer",
-      "x": 320,
       "y": 608,
       "count": 1
     },
     {
       "kind": "Jailer",
       "name_en": "Jailer",
-      "x": 480,
+      "x": 832,
+      "y": 608,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer",
+      "x": 864,
+      "y": 608,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer",
+      "x": 960,
+      "y": 608,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer",
+      "x": 992,
+      "y": 608,
+      "count": 1
+    },
+    {
+      "kind": "Gargoyle",
+      "name_en": "Gargoyle",
+      "x": 1024,
+      "y": 608,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer",
+      "x": 1152,
+      "y": 608,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer",
+      "x": 1184,
+      "y": 608,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer",
+      "x": 1280,
+      "y": 608,
+      "count": 1
+    },
+    {
+      "kind": "Gargoyle",
+      "name_en": "Gargoyle",
+      "x": 1312,
+      "y": 608,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer",
+      "x": 1008,
+      "y": 1072,
+      "count": 1
+    },
+    {
+      "kind": "Jailer",
+      "name_en": "Jailer",
+      "x": 708,
       "y": 672,
       "count": 1
     },
     {
       "kind": "Jailer",
       "name_en": "Jailer",
-      "x": 608,
+      "x": 708,
       "y": 704,
       "count": 1
     },
     {
       "kind": "Gargoyle",
       "name_en": "Gargoyle",
-      "x": 544,
+      "x": 708,
       "y": 832,
       "count": 1
     },
@@ -279,28 +287,28 @@
     {
       "kind": "Jailer",
       "name_en": "Jailer",
-      "x": 416,
+      "x": 708,
       "y": 896,
       "count": 1
     },
     {
       "kind": "Jailer",
       "name_en": "Jailer",
-      "x": 384,
+      "x": 708,
       "y": 768,
       "count": 1
     },
     {
       "kind": "Jailer",
       "name_en": "Jailer",
-      "x": 640,
-      "y": 880,
+      "x": 1024,
+      "y": 688,
       "count": 1
     },
     {
       "kind": "Jailer",
       "name_en": "Jailer",
-      "x": 512,
+      "x": 708,
       "y": 960,
       "count": 1
     },
@@ -349,22 +357,22 @@
     {
       "kind": "MonstrosityOfSin",
       "name_en": "MonstrosityOfSin",
-      "x": 480,
-      "y": 1152,
+      "x": 708,
+      "y": 1132,
       "count": 1
     },
     {
       "kind": "MonstrosityOfSin",
       "name_en": "MonstrosityOfSin",
-      "x": 576,
-      "y": 1248,
+      "x": 720,
+      "y": 1072,
       "count": 1
     },
     {
       "kind": "MonstrosityOfSin",
       "name_en": "MonstrosityOfSin",
-      "x": 672,
-      "y": 1184,
+      "x": 1280,
+      "y": 704,
       "count": 1
     },
     {
@@ -385,7 +393,7 @@
       "kind": "MonstrosityOfSin",
       "name_en": "MonstrosityOfSin",
       "x": 1024,
-      "y": 1184,
+      "y": 1132,
       "count": 1
     },
     {
@@ -433,57 +441,57 @@
     {
       "kind": "Gargoyle",
       "name_en": "Gargoyle",
-      "x": 1728,
-      "y": 32,
+      "x": 784,
+      "y": 832,
       "count": 1
     },
     {
       "kind": "Gargoyle",
       "name_en": "Gargoyle",
-      "x": 2064,
-      "y": 240,
+      "x": 1232,
+      "y": 880,
       "count": 1
     },
     {
       "kind": "SewerCentipede",
       "name_en": "SewerCentipede",
-      "x": 1520,
-      "y": 176,
+      "x": 848,
+      "y": 960,
       "count": 1
     },
     {
       "kind": "SewerCentipede",
       "name_en": "SewerCentipede",
-      "x": 1840,
-      "y": 416,
+      "x": 1088,
+      "y": 896,
       "count": 1
     },
     {
       "kind": "Jailer",
       "name_en": "Jailer",
-      "x": 1440,
-      "y": 112,
+      "x": 864,
+      "y": 1056,
       "count": 1
     },
     {
       "kind": "Jailer",
       "name_en": "Jailer",
-      "x": 2048,
-      "y": 352,
+      "x": 1264,
+      "y": 912,
       "count": 1
     },
     {
       "kind": "Gargoyle",
       "name_en": "Gargoyle",
-      "x": 1984,
-      "y": 544,
+      "x": 816,
+      "y": 752,
       "count": 1
     },
     {
       "kind": "SewerCentipede",
       "name_en": "SewerCentipede",
-      "x": 1504,
-      "y": 496,
+      "x": 976,
+      "y": 720,
       "count": 1
     }
   ],

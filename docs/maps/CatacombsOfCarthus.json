@@ -137,6 +137,14 @@
           "abyss darkness",
           "golden bracelets"
         ]
+      },
+      {
+        "x": 208,
+        "y": 1168,
+        "w": 432,
+        "h": 480,
+        "name": "补充区域-4",
+        "terrain_features": []
       }
     ]
   },
@@ -151,22 +159,22 @@
     {
       "kind": "Skeleton",
       "name_en": "Skeleton",
-      "x": 288,
-      "y": 288,
+      "x": 496,
+      "y": 688,
       "count": 1
     },
     {
       "kind": "Skeleton",
       "name_en": "Skeleton",
-      "x": 352,
-      "y": 320,
+      "x": 976,
+      "y": 672,
       "count": 1
     },
     {
       "kind": "SkeletonSwordman",
       "name_en": "SkeletonSwordman",
-      "x": 256,
-      "y": 352,
+      "x": 1136,
+      "y": 1024,
       "count": 1
     },
     {
@@ -187,28 +195,28 @@
       "kind": "Skeleton",
       "name_en": "Skeleton",
       "x": 672,
-      "y": 416,
+      "y": 468,
       "count": 1
     },
     {
       "kind": "Archer",
       "name_en": "Archer",
-      "x": 320,
-      "y": 336,
+      "x": 832,
+      "y": 688,
       "count": 1
     },
     {
       "kind": "SkeletonSwordman",
       "name_en": "SkeletonSwordman",
-      "x": 576,
-      "y": 352,
+      "x": 864,
+      "y": 752,
       "count": 1
     },
     {
       "kind": "SkeletonSwordman",
       "name_en": "SkeletonSwordman",
       "x": 800,
-      "y": 336,
+      "y": 468,
       "count": 1
     },
     {
@@ -242,7 +250,7 @@
     {
       "kind": "Skeleton",
       "name_en": "Skeleton",
-      "x": 320,
+      "x": 416,
       "y": 768,
       "count": 1
     },
@@ -313,13 +321,13 @@
       "kind": "MiniBoss",
       "name_en": "MiniBoss",
       "x": 960,
-      "y": 1088,
+      "y": 1024,
       "count": 1
     },
     {
       "kind": "MiniBoss",
       "name_en": "MiniBoss",
-      "x": 1040,
+      "x": 1128,
       "y": 1152,
       "count": 1
     },
@@ -334,7 +342,7 @@
       "kind": "Skeleton",
       "name_en": "Skeleton",
       "x": 1008,
-      "y": 1120,
+      "y": 1024,
       "count": 1
     },
     {
@@ -556,8 +564,8 @@
       "name": "沉默的霍雷斯",
       "name_en": "Horace the Hushed",
       "kind": "Dialogue",
-      "x": 272,
-      "y": 304,
+      "x": 416,
+      "y": 624,
       "color": "#606060",
       "dialogue": [
         "......",

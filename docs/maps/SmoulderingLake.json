@@ -129,6 +129,14 @@
           "lava arena",
           "boss fog gate"
         ]
+      },
+      {
+        "x": 160,
+        "y": 1280,
+        "w": 400,
+        "h": 368,
+        "name": "补充区域-3",
+        "terrain_features": []
       }
     ]
   },
@@ -143,15 +151,15 @@
     {
       "kind": "DemonStatue",
       "name_en": "DemonStatue",
-      "x": 288,
-      "y": 288,
+      "x": 468,
+      "y": 468,
       "count": 1
     },
     {
       "kind": "DemonStatue",
       "name_en": "DemonStatue",
-      "x": 352,
-      "y": 352,
+      "x": 960,
+      "y": 592,
       "count": 1
     },
     {
@@ -178,7 +186,7 @@
     {
       "kind": "DemonStatue",
       "name_en": "DemonStatue",
-      "x": 288,
+      "x": 468,
       "y": 512,
       "count": 1
     },
@@ -235,7 +243,7 @@
       "kind": "DemonStatue",
       "name_en": "DemonStatue",
       "x": 928,
-      "y": 992,
+      "y": 928,
       "count": 1
     },
     {
@@ -291,20 +299,20 @@
       "kind": "Basilisk",
       "name_en": "Basilisk",
       "x": 832,
-      "y": 1040,
+      "y": 928,
       "count": 1
     },
     {
       "kind": "Basilisk",
       "name_en": "Basilisk",
-      "x": 928,
+      "x": 1088,
       "y": 1120,
       "count": 1
     },
     {
       "kind": "Basilisk",
       "name_en": "Basilisk",
-      "x": 880,
+      "x": 1088,
       "y": 1152,
       "count": 1
     },
@@ -361,7 +369,7 @@
       "kind": "Skeleton",
       "name_en": "Skeleton",
       "x": 1312,
-      "y": 832,
+      "y": 948,
       "count": 1
     },
     {
@@ -445,13 +453,13 @@
       "kind": "Rat",
       "name_en": "Rat",
       "x": 768,
-      "y": 1024,
+      "y": 928,
       "count": 1
     },
     {
       "kind": "Rat",
       "name_en": "Rat",
-      "x": 992,
+      "x": 1088,
       "y": 1088,
       "count": 1
     },
@@ -459,14 +467,14 @@
       "kind": "CarthusSandworm",
       "name_en": "CarthusSandworm",
       "x": 720,
-      "y": 1088,
+      "y": 928,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
-      "x": 1312,
-      "y": 880,
+      "x": 1184,
+      "y": 1040,
       "count": 1
     },
     {

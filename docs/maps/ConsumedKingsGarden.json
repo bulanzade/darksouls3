@@ -595,6 +595,14 @@
           }
         ],
         "source_status": "route_landmark_projection"
+      },
+      {
+        "x": 2880,
+        "y": 2200,
+        "w": 160,
+        "h": 160,
+        "name": "补充区域-5",
+        "terrain_features": []
       }
     ]
   },
@@ -631,7 +639,7 @@
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
       "x": 1568,
-      "y": 1088,
+      "y": 1232,
       "count": 1
     },
     {
@@ -651,7 +659,7 @@
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 1280,
+      "x": 1132,
       "y": 880,
       "count": 1
     },
@@ -659,7 +667,7 @@
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
       "x": 1520,
-      "y": 1152,
+      "y": 1232,
       "count": 1
     },
     {
@@ -673,14 +681,14 @@
       "kind": "Thrall",
       "name_en": "Thrall",
       "x": 1408,
-      "y": 992,
+      "y": 1232,
       "count": 1
     },
     {
       "kind": "Thrall",
       "name_en": "Thrall",
-      "x": 352,
-      "y": 352,
+      "x": 468,
+      "y": 468,
       "count": 1
     },
     {
@@ -694,21 +702,21 @@
       "kind": "Thrall",
       "name_en": "Thrall",
       "x": 1440,
-      "y": 928,
+      "y": 1232,
       "count": 1
     },
     {
       "kind": "Thrall",
       "name_en": "Thrall",
       "x": 1600,
-      "y": 1024,
+      "y": 1232,
       "count": 1
     },
     {
       "kind": "Thrall",
       "name_en": "Thrall",
       "x": 1728,
-      "y": 1120,
+      "y": 1232,
       "count": 1
     },
     {
@@ -728,8 +736,8 @@
     {
       "kind": "PusOfMan",
       "name_en": "PusOfMan",
-      "x": 768,
-      "y": 1216,
+      "x": 948,
+      "y": 1232,
       "count": 1
     },
     {
@@ -743,28 +751,28 @@
       "kind": "RottenSlug",
       "name_en": "RottenSlug",
       "x": 720,
-      "y": 1120,
+      "y": 892,
       "count": 1
     },
     {
       "kind": "RottenSlug",
       "name_en": "RottenSlug",
-      "x": 800,
-      "y": 1200,
+      "x": 1376,
+      "y": 1920,
       "count": 1
     },
     {
       "kind": "RottenSlug",
       "name_en": "RottenSlug",
-      "x": 880,
-      "y": 1248,
+      "x": 1488,
+      "y": 1952,
       "count": 1
     },
     {
       "kind": "RottenSlug",
       "name_en": "RottenSlug",
-      "x": 672,
-      "y": 1248,
+      "x": 1088,
+      "y": 1856,
       "count": 1
     },
     {
@@ -777,29 +785,29 @@
     {
       "kind": "RottenSlug",
       "name_en": "RottenSlug",
-      "x": 832,
-      "y": 1344,
+      "x": 1296,
+      "y": 1776,
       "count": 1
     },
     {
       "kind": "RottenSlug",
       "name_en": "RottenSlug",
-      "x": 768,
-      "y": 1152,
+      "x": 1456,
+      "y": 1392,
       "count": 1
     },
     {
       "kind": "RottenSlug",
       "name_en": "RottenSlug",
-      "x": 896,
-      "y": 1088,
+      "x": 1888,
+      "y": 1616,
       "count": 1
     },
     {
       "kind": "RottenSlug",
       "name_en": "RottenSlug",
-      "x": 704,
-      "y": 1312,
+      "x": 1504,
+      "y": 1888,
       "count": 1
     },
     {
@@ -834,7 +842,7 @@
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
       "x": 2192,
-      "y": 1664,
+      "y": 1568,
       "count": 1
     },
     {

@@ -352,8 +352,8 @@
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 480,
-      "y": 448,
+      "x": 528,
+      "y": 528,
       "count": 1
     },
     {
@@ -373,7 +373,7 @@
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 1280,
+      "x": 1184,
       "y": 800,
       "count": 1
     },
@@ -416,14 +416,14 @@
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
       "x": 1456,
-      "y": 784,
+      "y": 948,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
       "x": 1424,
-      "y": 864,
+      "y": 948,
       "count": 1
     },
     {
@@ -479,7 +479,7 @@
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
       "x": 1392,
-      "y": 1600,
+      "y": 1488,
       "count": 1
     },
     {

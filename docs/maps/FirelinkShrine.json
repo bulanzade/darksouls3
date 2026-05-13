@@ -129,7 +129,7 @@
       "kind": "SwordMaster",
       "name_en": "Sword Master",
       "x": 1088,
-      "y": 2176,
+      "y": 1912,
       "count": 1
     },
     {
@@ -313,7 +313,7 @@
       "name_en": "Ringfinger Leonhard",
       "kind": "Dialogue",
       "x": 1472,
-      "y": 1504,
+      "y": 1452,
       "color": "#8B0000",
       "dialogue": [
         "You have a good look.",

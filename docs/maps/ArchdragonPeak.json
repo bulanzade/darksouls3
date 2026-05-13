@@ -411,400 +411,400 @@
     {
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
-      "x": 352,
-      "y": 1840,
+      "x": 1128,
+      "y": 2832,
       "count": 1
     },
     {
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
-      "x": 448,
-      "y": 1920,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 608,
-      "y": 1568,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 720,
-      "y": 1728,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 672,
-      "y": 1632,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 768,
-      "y": 1520,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 880,
-      "y": 1600,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 832,
-      "y": 1408,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 928,
-      "y": 1472,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 880,
-      "y": 1200,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 992,
-      "y": 1280,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 768,
-      "y": 1088,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 1040,
-      "y": 1152,
+      "x": 1776,
+      "y": 2944,
       "count": 1
     },
     {
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
       "x": 1152,
-      "y": 1248,
+      "y": 3104,
       "count": 1
     },
     {
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
-      "x": 1088,
-      "y": 928,
+      "x": 1376,
+      "y": 3056,
       "count": 1
     },
     {
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
-      "x": 1280,
-      "y": 768,
+      "x": 1264,
+      "y": 2928,
       "count": 1
     },
     {
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
-      "x": 1200,
-      "y": 880,
+      "x": 1824,
+      "y": 3392,
       "count": 1
     },
     {
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
-      "x": 1360,
-      "y": 800,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 1440,
-      "y": 720,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 1472,
-      "y": 768,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 1520,
-      "y": 560,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 1600,
-      "y": 672,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 1680,
-      "y": 608,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 1728,
-      "y": 448,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 1888,
-      "y": 400,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 1840,
-      "y": 480,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 1920,
-      "y": 1200,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 2160,
-      "y": 448,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 2000,
-      "y": 1152,
-      "count": 1
-    },
-    {
-      "kind": "SerpentMan",
-      "name_en": "SerpentMan",
-      "x": 2080,
-      "y": 560,
+      "x": 2032,
+      "y": 2088,
       "count": 1
     },
     {
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
       "x": 2112,
-      "y": 640,
+      "y": 2384,
       "count": 1
     },
     {
-      "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 1152,
-      "y": 832,
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 2464,
+      "y": 2112,
       "count": 1
     },
     {
-      "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 1360,
-      "y": 672,
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 2064,
+      "y": 2128,
       "count": 1
     },
     {
-      "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 1568,
-      "y": 720,
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 2256,
+      "y": 2208,
       "count": 1
     },
     {
-      "kind": "RockLizard",
-      "name_en": "RockLizard",
-      "x": 560,
-      "y": 1760,
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 2544,
+      "y": 2400,
       "count": 1
     },
     {
-      "kind": "RockLizard",
-      "name_en": "RockLizard",
-      "x": 672,
-      "y": 1520,
-      "count": 1
-    },
-    {
-      "kind": "RockLizard",
-      "name_en": "RockLizard",
-      "x": 1888,
-      "y": 320,
-      "count": 1
-    },
-    {
-      "kind": "RockLizard",
-      "name_en": "RockLizard",
-      "x": 2080,
-      "y": 400,
-      "count": 1
-    },
-    {
-      "kind": "RockLizard",
-      "name_en": "RockLizard",
-      "x": 2272,
-      "y": 1360,
-      "count": 1
-    },
-    {
-      "kind": "RockLizard",
-      "name_en": "RockLizard",
-      "x": 1792,
-      "y": 1152,
-      "count": 1
-    },
-    {
-      "kind": "RockLizard",
-      "name_en": "RockLizard",
-      "x": 2368,
-      "y": 1520,
-      "count": 1
-    },
-    {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 800,
-      "y": 1152,
-      "count": 1
-    },
-    {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 448,
-      "y": 1888,
-      "count": 1
-    },
-    {
-      "kind": "DrakebloodKnight",
-      "name_en": "DrakebloodKnight",
-      "x": 1760,
-      "y": 480,
-      "count": 1
-    },
-    {
-      "kind": "DrakebloodKnight",
-      "name_en": "DrakebloodKnight",
-      "x": 2272,
-      "y": 1408,
-      "count": 1
-    },
-    {
-      "kind": "DrakebloodKnight",
-      "name_en": "DrakebloodKnight",
-      "x": 1248,
-      "y": 832,
-      "count": 1
-    },
-    {
-      "kind": "HavelKnight",
-      "name_en": "HavelKnight",
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
       "x": 2048,
-      "y": 1120,
+      "y": 2368,
       "count": 1
     },
     {
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
-      "x": 2336,
-      "y": 1328,
+      "x": 2224,
+      "y": 2448,
       "count": 1
     },
     {
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
-      "x": 2304,
-      "y": 1392,
+      "x": 2688,
+      "y": 2448,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 2592,
+      "y": 2304,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 2256,
+      "y": 2320,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 2624,
+      "y": 2224,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 2032,
+      "y": 2480,
       "count": 1
     },
     {
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
       "x": 2192,
-      "y": 1456,
+      "y": 2448,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 2688,
+      "y": 1588,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 3120,
+      "y": 1936,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 2976,
+      "y": 1744,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 2912,
+      "y": 1936,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 2784,
+      "y": 1680,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 3072,
+      "y": 1680,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 3056,
+      "y": 1936,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 3208,
+      "y": 1128,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 3312,
+      "y": 1856,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 3520,
+      "y": 1632,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 3440,
+      "y": 2064,
+      "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "DarkMage",
+      "x": 2576,
+      "y": 2144,
+      "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "DarkMage",
+      "x": 2416,
+      "y": 2128,
+      "count": 1
+    },
+    {
+      "kind": "DarkMage",
+      "name_en": "DarkMage",
+      "x": 3248,
+      "y": 1888,
+      "count": 1
+    },
+    {
+      "kind": "RockLizard",
+      "name_en": "RockLizard",
+      "x": 1984,
+      "y": 3200,
+      "count": 1
+    },
+    {
+      "kind": "RockLizard",
+      "name_en": "RockLizard",
+      "x": 1712,
+      "y": 3024,
+      "count": 1
+    },
+    {
+      "kind": "RockLizard",
+      "name_en": "RockLizard",
+      "x": 3408,
+      "y": 1664,
+      "count": 1
+    },
+    {
+      "kind": "RockLizard",
+      "name_en": "RockLizard",
+      "x": 2736,
+      "y": 1824,
+      "count": 1
+    },
+    {
+      "kind": "RockLizard",
+      "name_en": "RockLizard",
+      "x": 3472,
+      "y": 1888,
+      "count": 1
+    },
+    {
+      "kind": "RockLizard",
+      "name_en": "RockLizard",
+      "x": 2112,
+      "y": 2528,
+      "count": 1
+    },
+    {
+      "kind": "RockLizard",
+      "name_en": "RockLizard",
+      "x": 2928,
+      "y": 1696,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "CrystalLizard",
+      "x": 2416,
+      "y": 2224,
+      "count": 1
+    },
+    {
+      "kind": "CrystalLizard",
+      "name_en": "CrystalLizard",
+      "x": 1600,
+      "y": 3200,
+      "count": 1
+    },
+    {
+      "kind": "DrakebloodKnight",
+      "name_en": "DrakebloodKnight",
+      "x": 2848,
+      "y": 1968,
+      "count": 1
+    },
+    {
+      "kind": "DrakebloodKnight",
+      "name_en": "DrakebloodKnight",
+      "x": 3056,
+      "y": 1808,
+      "count": 1
+    },
+    {
+      "kind": "DrakebloodKnight",
+      "name_en": "DrakebloodKnight",
+      "x": 2720,
+      "y": 2224,
+      "count": 1
+    },
+    {
+      "kind": "HavelKnight",
+      "name_en": "HavelKnight",
+      "x": 3312,
+      "y": 1760,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 3232,
+      "y": 1840,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 2848,
+      "y": 2064,
+      "count": 1
+    },
+    {
+      "kind": "SerpentMan",
+      "name_en": "SerpentMan",
+      "x": 3072,
+      "y": 1856,
       "count": 1
     },
     {
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
       "x": 2112,
-      "y": 1520,
+      "y": 2088,
       "count": 1
     },
     {
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
-      "x": 2384,
-      "y": 1584,
+      "x": 3344,
+      "y": 1808,
       "count": 1
     },
     {
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
       "x": 2272,
-      "y": 1776,
+      "y": 2088,
       "count": 1
     },
     {
       "kind": "DarkMage",
       "name_en": "DarkMage",
-      "x": 2448,
+      "x": 2688,
       "y": 1712,
       "count": 1
     },
     {
       "kind": "SerpentMan",
       "name_en": "SerpentMan",
-      "x": 1952,
-      "y": 1840,
+      "x": 2080,
+      "y": 2208,
       "count": 1
     },
     {
       "kind": "MiniBoss",
       "name_en": "MiniBoss",
-      "x": 880,
-      "y": 1056,
+      "x": 2352,
+      "y": 2288,
       "count": 1
     },
     {
       "kind": "MiniBoss",
       "name_en": "MiniBoss",
-      "x": 992,
-      "y": 1216,
+      "x": 2304,
+      "y": 2128,
       "count": 1
     }
   ],

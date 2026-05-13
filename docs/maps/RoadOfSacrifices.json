@@ -246,7 +246,7 @@
       "kind": "DarkMage",
       "name_en": "DarkMage",
       "x": 1408,
-      "y": 880,
+      "y": 948,
       "count": 1
     },
     {
@@ -281,7 +281,7 @@
       "kind": "Corvian",
       "name_en": "Corvian",
       "x": 1440,
-      "y": 800,
+      "y": 948,
       "count": 1
     },
     {
@@ -337,27 +337,27 @@
       "kind": "PoisonhornBug",
       "name_en": "PoisonhornBug",
       "x": 1120,
-      "y": 1040,
+      "y": 972,
       "count": 1
     },
     {
       "kind": "PoisonhornBug",
       "name_en": "PoisonhornBug",
       "x": 992,
-      "y": 1120,
+      "y": 972,
       "count": 1
     },
     {
       "kind": "PoisonhornBug",
       "name_en": "PoisonhornBug",
       "x": 928,
-      "y": 1088,
+      "y": 972,
       "count": 1
     },
     {
       "kind": "GreatCrab",
       "name_en": "GreatCrab",
-      "x": 1216,
+      "x": 1268,
       "y": 1120,
       "count": 1
     },
@@ -434,70 +434,70 @@
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 1088,
+      "x": 1268,
       "y": 1280,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 1152,
+      "x": 1268,
       "y": 1360,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 1024,
+      "x": 1268,
       "y": 1312,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 1200,
-      "y": 1344,
+      "x": 1376,
+      "y": 1328,
       "count": 1
     },
     {
       "kind": "Basilisk",
       "name_en": "Basilisk",
-      "x": 976,
-      "y": 1392,
+      "x": 1840,
+      "y": 1024,
       "count": 1
     },
     {
       "kind": "Basilisk",
       "name_en": "Basilisk",
-      "x": 848,
-      "y": 1440,
+      "x": 1552,
+      "y": 1088,
       "count": 1
     },
     {
       "kind": "Corvian",
       "name_en": "Corvian",
-      "x": 992,
-      "y": 1472,
+      "x": 1888,
+      "y": 1056,
       "count": 1
     },
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
-      "x": 1136,
-      "y": 1616,
+      "x": 1616,
+      "y": 1056,
       "count": 1
     },
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
       "x": 1760,
-      "y": 1520,
+      "y": 1372,
       "count": 1
     },
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
-      "x": 1840,
+      "x": 1928,
       "y": 1600,
       "count": 1
     },
@@ -518,14 +518,14 @@
     {
       "kind": "DarkSpirit",
       "name_en": "DarkSpirit",
-      "x": 1728,
-      "y": 1600,
+      "x": 2464,
+      "y": 1840,
       "count": 1
     },
     {
       "kind": "DarkSpirit",
       "name_en": "DarkSpirit",
-      "x": 1840,
+      "x": 1928,
       "y": 1680,
       "count": 1
     },

@@ -228,8 +228,8 @@
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 224,
-      "y": 160,
+      "x": 308,
+      "y": 228,
       "count": 1
     },
     {
@@ -249,7 +249,7 @@
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 256,
+      "x": 308,
       "y": 320,
       "count": 1
     },
@@ -257,7 +257,7 @@
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
       "x": 768,
-      "y": 160,
+      "y": 228,
       "count": 1
     },
     {
@@ -284,7 +284,7 @@
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
-      "x": 256,
+      "x": 308,
       "y": 384,
       "count": 1
     },
@@ -341,14 +341,14 @@
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
       "x": 928,
-      "y": 768,
+      "y": 652,
       "count": 1
     },
     {
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
       "x": 768,
-      "y": 800,
+      "y": 652,
       "count": 1
     },
     {
@@ -362,28 +362,28 @@
       "kind": "LargeHollowSoldier",
       "name_en": "LargeHollowSoldier",
       "x": 896,
-      "y": 736,
+      "y": 652,
       "count": 1
     },
     {
       "kind": "HollowAssassin",
       "name_en": "HollowAssassin",
       "x": 608,
-      "y": 896,
+      "y": 652,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
       "x": 800,
-      "y": 864,
+      "y": 652,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 992,
-      "y": 864,
+      "x": 544,
+      "y": 432,
       "count": 1
     },
     {
@@ -397,20 +397,20 @@
       "kind": "Darkwraith",
       "name_en": "Darkwraith",
       "x": 864,
-      "y": 800,
+      "y": 652,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 800,
-      "y": 1056,
+      "x": 968,
+      "y": 1376,
       "count": 1
     },
     {
       "kind": "HollowAssassin",
       "name_en": "HollowAssassin",
-      "x": 992,
+      "x": 1232,
       "y": 1056,
       "count": 1
     },
@@ -424,56 +424,56 @@
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 640,
-      "y": 1184,
+      "x": 1088,
+      "y": 1952,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 896,
-      "y": 1184,
+      "x": 1216,
+      "y": 1408,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 320,
-      "y": 1344,
+      "x": 1600,
+      "y": 1456,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 704,
+      "x": 968,
       "y": 1536,
       "count": 1
     },
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
-      "x": 256,
+      "x": 968,
       "y": 1472,
       "count": 1
     },
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
-      "x": 736,
+      "x": 968,
       "y": 1408,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 544,
-      "y": 1504,
+      "x": 1392,
+      "y": 1952,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 832,
+      "x": 968,
       "y": 1440,
       "count": 1
     },
@@ -481,7 +481,7 @@
       "kind": "PusOfMan",
       "name_en": "PusOfMan",
       "x": 672,
-      "y": 960,
+      "y": 652,
       "count": 1
     },
     {
@@ -543,22 +543,22 @@
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 1408,
-      "y": 2016,
+      "x": 1504,
+      "y": 1696,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
       "x": 1216,
-      "y": 2144,
+      "y": 1952,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
       "x": 1504,
-      "y": 2208,
+      "y": 1952,
       "count": 1
     },
     {
@@ -572,7 +572,7 @@
       "kind": "HollowAssassin",
       "name_en": "HollowAssassin",
       "x": 960,
-      "y": 800,
+      "y": 652,
       "count": 1
     },
     {
@@ -592,14 +592,14 @@
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 704,
-      "y": 704,
+      "x": 576,
+      "y": 336,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 1024,
+      "x": 1232,
       "y": 928,
       "count": 1
     },
@@ -607,21 +607,21 @@
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
       "x": 448,
-      "y": 1088,
+      "y": 652,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 1152,
+      "x": 1232,
       "y": 1120,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 416,
-      "y": 1376,
+      "x": 1648,
+      "y": 1696,
       "count": 1
     },
     {
@@ -634,36 +634,36 @@
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 1312,
-      "y": 224,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "LothricKnight",
-      "x": 1696,
+      "x": 720,
       "y": 288,
       "count": 1
     },
     {
       "kind": "LothricKnight",
       "name_en": "LothricKnight",
-      "x": 1488,
-      "y": 368,
+      "x": 1728,
+      "y": 576,
+      "count": 1
+    },
+    {
+      "kind": "LothricKnight",
+      "name_en": "LothricKnight",
+      "x": 2416,
+      "y": 896,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
       "x": 1360,
-      "y": 448,
+      "y": 704,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
       "x": 1536,
-      "y": 592,
+      "y": 704,
       "count": 1
     },
     {
@@ -712,7 +712,7 @@
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
       "x": 1920,
-      "y": 1264,
+      "y": 1376,
       "count": 1
     },
     {

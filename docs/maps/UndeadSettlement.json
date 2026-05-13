@@ -69,8 +69,8 @@
     {
       "name": "下水道",
       "name_en": "Sewer",
-      "x": 1440,
-      "y": 1792,
+      "x": 1984,
+      "y": 1440,
       "source_status": "official_name_projected_position"
     }
   ],
@@ -237,6 +237,14 @@
           "gate to Road of Sacrifices"
         ],
         "source_status": "route_landmark_projection"
+      },
+      {
+        "x": 2160,
+        "y": 688,
+        "w": 256,
+        "h": 256,
+        "name": "补充区域-3",
+        "terrain_features": []
       }
     ]
   },
@@ -302,7 +310,7 @@
       "kind": "PeasantHollow",
       "name_en": "PeasantHollow",
       "x": 864,
-      "y": 672,
+      "y": 752,
       "count": 1
     },
     {
@@ -323,7 +331,7 @@
       "kind": "PeasantHollow",
       "name_en": "PeasantHollow",
       "x": 1056,
-      "y": 608,
+      "y": 752,
       "count": 1
     },
     {
@@ -343,8 +351,8 @@
     {
       "kind": "StarvedHound",
       "name_en": "StarvedHound",
-      "x": 928,
-      "y": 608,
+      "x": 912,
+      "y": 544,
       "count": 1
     },
     {
@@ -400,7 +408,7 @@
       "kind": "Thrall",
       "name_en": "Thrall",
       "x": 736,
-      "y": 608,
+      "y": 544,
       "count": 1
     },
     {
@@ -421,21 +429,21 @@
       "kind": "Thrall",
       "name_en": "Thrall",
       "x": 1024,
-      "y": 672,
+      "y": 752,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
       "x": 1440,
-      "y": 672,
+      "y": 752,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 1536,
-      "y": 704,
+      "x": 1472,
+      "y": 752,
       "count": 1
     },
     {
@@ -456,14 +464,14 @@
       "kind": "PeasantHollow",
       "name_en": "PeasantHollow",
       "x": 928,
-      "y": 1312,
+      "y": 1232,
       "count": 1
     },
     {
       "kind": "PeasantHollow",
       "name_en": "PeasantHollow",
       "x": 1088,
-      "y": 1376,
+      "y": 1232,
       "count": 1
     },
     {
@@ -511,7 +519,7 @@
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 1344,
+      "x": 1428,
       "y": 1408,
       "count": 1
     },
@@ -519,7 +527,7 @@
       "kind": "Thrall",
       "name_en": "Thrall",
       "x": 1312,
-      "y": 1312,
+      "y": 1232,
       "count": 1
     },
     {
@@ -568,7 +576,7 @@
       "kind": "CrystalLizard",
       "name_en": "CrystalLizard",
       "x": 1792,
-      "y": 736,
+      "y": 1008,
       "count": 1
     },
     {
@@ -610,7 +618,7 @@
       "kind": "PeasantHollow",
       "name_en": "PeasantHollow",
       "x": 1600,
-      "y": 928,
+      "y": 1008,
       "count": 1
     },
     {
@@ -623,49 +631,49 @@
     {
       "kind": "PeasantHollow",
       "name_en": "PeasantHollow",
-      "x": 1024,
-      "y": 1312,
+      "x": 1088,
+      "y": 768,
       "count": 1
     },
     {
       "kind": "PeasantHollow",
       "name_en": "PeasantHollow",
       "x": 1200,
-      "y": 1344,
+      "y": 1232,
       "count": 1
     },
     {
       "kind": "Thrall",
       "name_en": "Thrall",
       "x": 976,
-      "y": 1392,
+      "y": 1232,
       "count": 1
     },
     {
       "kind": "Thrall",
       "name_en": "Thrall",
       "x": 848,
-      "y": 1440,
+      "y": 1232,
       "count": 1
     },
     {
       "kind": "PeasantHollow",
       "name_en": "PeasantHollow",
-      "x": 992,
-      "y": 1472,
+      "x": 816,
+      "y": 912,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 1136,
-      "y": 1616,
+      "x": 1428,
+      "y": 1532,
       "count": 1
     },
     {
       "kind": "Rat",
       "name_en": "Rat",
-      "x": 1344,
+      "x": 1428,
       "y": 1488,
       "count": 1
     },
@@ -680,35 +688,35 @@
       "kind": "Rat",
       "name_en": "Rat",
       "x": 1504,
-      "y": 1632,
+      "y": 1532,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
       "x": 1472,
-      "y": 1696,
+      "y": 1532,
       "count": 1
     },
     {
       "kind": "HollowSoldier",
       "name_en": "HollowSoldier",
-      "x": 1376,
-      "y": 1760,
+      "x": 1568,
+      "y": 1280,
       "count": 1
     },
     {
       "kind": "Thrall",
       "name_en": "Thrall",
       "x": 1584,
-      "y": 1872,
+      "y": 1532,
       "count": 1
     },
     {
       "kind": "PeasantHollow",
       "name_en": "PeasantHollow",
-      "x": 1344,
-      "y": 1936,
+      "x": 1600,
+      "y": 1456,
       "count": 1
     }
   ],
