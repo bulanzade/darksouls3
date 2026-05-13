@@ -8428,6 +8428,36 @@ def make_catacombs_of_carthus():
     fill_tiles(chunk, TILE_WALL, 148, 92, 149, 93)
     fill_tiles(chunk, TILE_WALL, 136, 96, 137, 97)
 
+    # ================================================================
+    # DS3 STRUCTURAL WALLS — Catacombs of Carthus catacomb architecture
+    # DS3: underground catacombs with bone piles, narrow corridors,
+    # rolling skeleton balls, rope bridge, and Wolnir tomb
+    # ================================================================
+    # Entry stairs — stone step walls (DS3: descent into catacombs)
+    fill_tiles(chunk, TILE_WALL, 24, 22, 28, 28)    # Stair wall left
+    fill_tiles(chunk, TILE_WALL, 36, 20, 40, 26)    # Stair wall right
+    fill_tiles(chunk, TILE_WALL, 30, 30, 34, 34)    # Stair divider
+    # First skeleton ball corridor — narrow passage walls (DS3: rolling ball trap)
+    fill_tiles(chunk, TILE_WALL, 50, 40, 54, 46)    # Corridor wall left
+    fill_tiles(chunk, TILE_WALL, 62, 38, 66, 44)    # Corridor wall right
+    fill_tiles(chunk, TILE_WALL, 56, 46, 60, 50)    # Corridor center wall
+    # Upper catacombs — bone pile walls (DS3: bone piles with reanimating skeletons)
+    fill_tiles(chunk, TILE_WALL, 78, 54, 82, 60)    # Bone pile wall 1
+    fill_tiles(chunk, TILE_WALL, 92, 52, 96, 58)    # Bone pile wall 2
+    fill_tiles(chunk, TILE_WALL, 84, 62, 88, 68)    # Bone pile wall 3
+    # Second skeleton ball area — narrow corridor walls (DS3: another rolling ball)
+    fill_tiles(chunk, TILE_WALL, 100, 72, 104, 78)  # Corridor wall left
+    fill_tiles(chunk, TILE_WALL, 116, 70, 120, 76)  # Corridor wall right
+    fill_tiles(chunk, TILE_WALL, 108, 78, 112, 82)  # Corridor center wall
+    # Rope bridge area — bridge anchor walls (DS3: wooden rope bridge)
+    fill_tiles(chunk, TILE_WALL, 126, 84, 130, 90)  # Bridge anchor left
+    fill_tiles(chunk, TILE_WALL, 140, 82, 144, 88)  # Bridge anchor right
+    # Wolnir tomb — boss arena walls (DS3: dark abyss tomb with Wolnir)
+    fill_tiles(chunk, TILE_WALL, 130, 100, 134, 106) # Tomb wall NW
+    fill_tiles(chunk, TILE_WALL, 148, 98, 152, 104)  # Tomb wall NE
+    fill_tiles(chunk, TILE_WALL, 134, 110, 138, 116) # Tomb wall SW
+    fill_tiles(chunk, TILE_WALL, 146, 108, 150, 114) # Tomb wall SE
+
     spawn_px, spawn_py = 15 * 16, 12 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
@@ -16118,6 +16148,31 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_WALL, 134, 28, 135, 29)
     fill_tiles(chunk, TILE_WALL, 126, 30, 127, 31)
 
+
+    # ================================================================
+    # DS3 STRUCTURAL WALLS — Kiln of the First Flame ashen architecture
+    # DS3: desolate wasteland of ash and ember, iron girders, collapsed walls,
+    # ash mounds, ruined pillars, and the First Flame altar
+    # ================================================================
+    # Ashen wasteland — collapsed wall ruins (DS3: crumbling walls in ash)
+    fill_tiles(chunk, TILE_WALL, 70, 80, 74, 86)    # Collapsed wall 1
+    fill_tiles(chunk, TILE_WALL, 86, 78, 90, 84)    # Collapsed wall 2
+    fill_tiles(chunk, TILE_WALL, 78, 90, 82, 96)    # Collapsed wall 3
+    fill_tiles(chunk, TILE_WALL, 94, 88, 98, 94)    # Collapsed wall 4
+    # Iron girders — structural debris (DS3: iron beams jutting from ash)
+    fill_tiles(chunk, TILE_WALL, 66, 96, 70, 102)   # Iron girder 1
+    fill_tiles(chunk, TILE_WALL, 82, 100, 86, 106)  # Iron girder 2
+    fill_tiles(chunk, TILE_WALL, 98, 94, 102, 100)  # Iron girder 3
+    # First Flame arena — altar walls (DS3: final boss arena at the flame)
+    fill_tiles(chunk, TILE_WALL, 74, 40, 78, 46)    # Altar wall left
+    fill_tiles(chunk, TILE_WALL, 92, 38, 96, 44)    # Altar wall right
+    fill_tiles(chunk, TILE_WALL, 82, 46, 88, 52)    # Altar center wall
+    # Ruined pillars — ash-covered columns (DS3: pillars throughout kiln)
+    fill_tiles(chunk, TILE_WALL, 62, 60, 66, 66)    # Ruined pillar 1
+    fill_tiles(chunk, TILE_WALL, 78, 56, 82, 62)    # Ruined pillar 2
+    fill_tiles(chunk, TILE_WALL, 94, 58, 98, 64)    # Ruined pillar 3
+    fill_tiles(chunk, TILE_WALL, 70, 68, 74, 74)    # Ruined pillar 4
+    fill_tiles(chunk, TILE_WALL, 88, 66, 92, 72)    # Ruined pillar 5
         # ================================================================
     # PLAYER SPAWN & BONFIRES
     # ================================================================
@@ -17380,6 +17435,32 @@ def make_kiln_of_the_first_flame():
     fill_tiles(chunk, TILE_WALL, 66, 48, 67, 50)
     fill_tiles(chunk, TILE_WALL, 92, 48, 93, 50)
 
+
+    # ================================================================
+    # DS3 STRUCTURAL WALLS — Consumed King's Garden ruined architecture
+    # DS3: overgrown garden with crumbling walls, hidden passages,
+    # dark chambers, elevator shaft, and Oceiros boss arena
+    # ================================================================
+    # Garden entry — crumbling battlement walls (DS3: overgrown stone walls)
+    fill_tiles(chunk, TILE_WALL, 40, 34, 44, 40)    # Battlement wall left
+    fill_tiles(chunk, TILE_WALL, 56, 32, 60, 38)    # Battlement wall right
+    fill_tiles(chunk, TILE_WALL, 48, 40, 52, 46)    # Garden wall center
+    # Dark chamber — interior walls (DS3: dark room with Hollows)
+    fill_tiles(chunk, TILE_WALL, 62, 44, 66, 50)    # Chamber wall left
+    fill_tiles(chunk, TILE_WALL, 78, 42, 82, 48)    # Chamber wall right
+    fill_tiles(chunk, TILE_WALL, 70, 50, 74, 56)    # Chamber divider
+    # Garden overlook — terrace walls (DS3: overlook with dead trees)
+    fill_tiles(chunk, TILE_WALL, 86, 38, 90, 44)    # Terrace wall left
+    fill_tiles(chunk, TILE_WALL, 100, 36, 104, 42)  # Terrace wall right
+    fill_tiles(chunk, TILE_WALL, 94, 44, 98, 48)    # Terrace divider
+    # Oceiros arena — throne room walls (DS3: Oceiros boss in garden ruin)
+    fill_tiles(chunk, TILE_WALL, 64, 58, 68, 64)    # Arena wall NW
+    fill_tiles(chunk, TILE_WALL, 88, 56, 92, 62)    # Arena wall NE
+    fill_tiles(chunk, TILE_WALL, 72, 66, 76, 72)    # Arena wall SW
+    fill_tiles(chunk, TILE_WALL, 82, 64, 86, 70)    # Arena wall SE
+    # Elevator shaft area — shaft walls (DS3: lift shortcut)
+    fill_tiles(chunk, TILE_WALL, 34, 48, 38, 54)    # Shaft wall left
+    fill_tiles(chunk, TILE_WALL, 44, 50, 48, 56)    # Shaft wall right
         # ================================================================
     # ENTITIES
     # ================================================================
@@ -18277,6 +18358,31 @@ def make_consumed_kings_garden():
     fill_tiles(chunk, TILE_WALL, 90, 68, 91, 69)
     fill_tiles(chunk, TILE_WALL, 102, 72, 103, 73)
     fill_tiles(chunk, TILE_WALL, 96, 76, 97, 77)
+
+    # ================================================================
+    # DS3 STRUCTURAL WALLS — Untended Graves dark cemetery architecture
+    # DS3: mirror of Cemetery of Ash but in permanent darkness,
+    # with broken shrine walls, coiled sword stump, tombstone rows,
+    # and Champion Gundyr arena
+    # ================================================================
+    # Dark cemetery entry — broken wall ruins (DS3: cemetery in perpetual dark)
+    fill_tiles(chunk, TILE_WALL, 20, 24, 24, 30)    # Cemetery wall left
+    fill_tiles(chunk, TILE_WALL, 36, 22, 40, 28)    # Cemetery wall right
+    fill_tiles(chunk, TILE_WALL, 28, 32, 32, 38)    # Cemetery wall center
+    # Shrine walls — broken shrine structure (DS3: ruined Firelink Shrine)
+    fill_tiles(chunk, TILE_WALL, 48, 40, 52, 46)    # Shrine wall left
+    fill_tiles(chunk, TILE_WALL, 64, 38, 68, 44)    # Shrine wall right
+    fill_tiles(chunk, TILE_WALL, 56, 46, 60, 52)    # Shrine interior wall
+    # Tombstone rows — dense grave markers (DS3: packed cemetery with graves)
+    fill_tiles(chunk, TILE_WALL, 32, 48, 36, 54)    # Tombstone row 1
+    fill_tiles(chunk, TILE_WALL, 48, 50, 52, 56)    # Tombstone row 2
+    fill_tiles(chunk, TILE_WALL, 64, 48, 68, 54)    # Tombstone row 3
+    fill_tiles(chunk, TILE_WALL, 40, 56, 44, 62)    # Tombstone row 4
+    # Champion Gundyr arena — dark arena walls (DS3: dark version of Gundyr arena)
+    fill_tiles(chunk, TILE_WALL, 54, 64, 58, 70)    # Arena wall NW
+    fill_tiles(chunk, TILE_WALL, 74, 62, 78, 68)    # Arena wall NE
+    fill_tiles(chunk, TILE_WALL, 60, 72, 64, 78)    # Arena wall SW
+    fill_tiles(chunk, TILE_WALL, 70, 70, 74, 76)    # Arena wall SE
 
         # --- Player spawn ---
     spawn_px, spawn_py = 15 * 16, 15 * 16
