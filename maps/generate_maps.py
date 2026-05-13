@@ -11393,6 +11393,33 @@ def make_kiln_of_the_first_flame():
     fill_tiles(chunk, TILE_WALL, 64, 28, 65, 30)
     fill_tiles(chunk, TILE_WALL, 80, 32, 81, 34)
 
+    # ================================================================
+    # SESSION 19 FIDELITY PASS — KilnOfTheFirstFlame DS3 ash depth
+    # ================================================================
+    # Flameless Shrine interior — crumbling stone benches (DS3: dark Firelink mirror)
+    fill_tiles(chunk, TILE_WALL, 22, 40, 23, 42)
+    fill_tiles(chunk, TILE_WALL, 34, 44, 35, 46)
+    fill_tiles(chunk, TILE_WALL, 46, 48, 47, 50)
+    fill_tiles(chunk, TILE_WALL, 58, 52, 59, 54)
+    fill_tiles(chunk, TILE_WALL, 14, 36, 15, 38)
+    # Ashen Wasteland — collapsed roof tiles (DS3: buried structures in deep ash)
+    fill_tiles(chunk, TILE_WALL, 68, 48, 69, 50)
+    fill_tiles(chunk, TILE_WALL, 84, 52, 85, 54)
+    fill_tiles(chunk, TILE_WALL, 100, 48, 101, 50)
+    fill_tiles(chunk, TILE_WALL, 116, 52, 117, 54)
+    fill_tiles(chunk, TILE_WALL, 132, 48, 133, 50)
+    # Soul of Cinder arena — ancient column bases (DS3: vast ruined arena)
+    fill_tiles(chunk, TILE_WALL, 40, 8, 41, 10)
+    fill_tiles(chunk, TILE_WALL, 64, 10, 65, 12)
+    fill_tiles(chunk, TILE_WALL, 88, 8, 89, 10)
+    fill_tiles(chunk, TILE_WALL, 108, 12, 109, 14)
+    fill_tiles(chunk, TILE_WALL, 128, 10, 129, 12)
+    # Ashen corridor — ember crust deposits (DS3: glowing crusts on path)
+    fill_tiles(chunk, TILE_WALL, 18, 130, 19, 132)
+    fill_tiles(chunk, TILE_WALL, 26, 134, 27, 136)
+    fill_tiles(chunk, TILE_WALL, 34, 138, 35, 140)
+    fill_tiles(chunk, TILE_WALL, 42, 142, 43, 144)
+    fill_tiles(chunk, TILE_WALL, 50, 146, 51, 148)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -11988,6 +12015,28 @@ def make_consumed_kings_garden():
     fill_tiles(chunk, TILE_WALL, 36, 42, 37, 44)
     fill_tiles(chunk, TILE_WALL, 48, 36, 49, 38)
     fill_tiles(chunk, TILE_WALL, 56, 40, 57, 42)
+
+    # ================================================================
+    # SESSION 19 FIDELITY PASS — ConsumedKingsGarden DS3 garden depth
+    # ================================================================
+    # Castle garden steps — moss-covered stones (DS3: overgrown stone stairs)
+    fill_tiles(chunk, TILE_WALL, 22, 46, 23, 48)
+    fill_tiles(chunk, TILE_WALL, 30, 50, 31, 52)
+    fill_tiles(chunk, TILE_WALL, 38, 54, 39, 56)
+    fill_tiles(chunk, TILE_WALL, 46, 58, 47, 60)
+    fill_tiles(chunk, TILE_WALL, 54, 62, 55, 64)
+    # Crystal growth — crystal spike bases (DS3: Oceiros's crystal magic)
+    fill_tiles(chunk, TILE_WALL, 62, 66, 63, 68)
+    fill_tiles(chunk, TILE_WALL, 70, 70, 71, 72)
+    fill_tiles(chunk, TILE_WALL, 78, 74, 79, 76)
+    fill_tiles(chunk, TILE_WALL, 86, 78, 87, 80)
+    fill_tiles(chunk, TILE_WALL, 94, 82, 95, 84)
+    # Untended Graves path — dark stone debris (DS3: illusory wall to dark shrine)
+    fill_tiles(chunk, TILE_WALL, 102, 86, 103, 88)
+    fill_tiles(chunk, TILE_WALL, 110, 90, 111, 92)
+    fill_tiles(chunk, TILE_WALL, 118, 94, 119, 96)
+    fill_tiles(chunk, TILE_WALL, 126, 98, 127, 100)
+    fill_tiles(chunk, TILE_WALL, 134, 102, 135, 104)
 
 
     populate_entity_def_uids(entities)
