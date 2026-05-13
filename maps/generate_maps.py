@@ -7563,6 +7563,28 @@ def make_irithyll():
     fill_tiles(chunk, TILE_WALL, 106, 56, 107, 58)
     fill_tiles(chunk, TILE_WALL, 112, 60, 113, 62)
 
+    # ================================================================
+    # SESSION 19 FIDELITY PASS — IrithyllDungeon DS3 prison depth
+    # ================================================================
+    # Jailer patrol corridors — iron door frames (DS3: narrow prison corridors with Jailers)
+    fill_tiles(chunk, TILE_WALL, 14, 46, 15, 48)
+    fill_tiles(chunk, TILE_WALL, 22, 50, 23, 52)
+    fill_tiles(chunk, TILE_WALL, 30, 54, 31, 56)
+    fill_tiles(chunk, TILE_WALL, 38, 58, 39, 60)
+    fill_tiles(chunk, TILE_WALL, 46, 62, 47, 64)
+    # Rat tunnels — broken drain pipes (DS3: rats infest the lower passages)
+    fill_tiles(chunk, TILE_WALL, 54, 66, 55, 68)
+    fill_tiles(chunk, TILE_WALL, 62, 70, 63, 72)
+    fill_tiles(chunk, TILE_WALL, 70, 74, 71, 76)
+    fill_tiles(chunk, TILE_WALL, 78, 78, 79, 80)
+    fill_tiles(chunk, TILE_WALL, 86, 82, 87, 84)
+    # Siegward's cell — heavy door debris (DS3: Siegward locked in cell)
+    fill_tiles(chunk, TILE_WALL, 94, 86, 95, 88)
+    fill_tiles(chunk, TILE_WALL, 102, 90, 103, 92)
+    fill_tiles(chunk, TILE_WALL, 110, 94, 111, 96)
+    fill_tiles(chunk, TILE_WALL, 118, 98, 119, 100)
+    fill_tiles(chunk, TILE_WALL, 126, 102, 127, 104)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
