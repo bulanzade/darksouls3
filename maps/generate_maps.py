@@ -2088,6 +2088,13 @@ def make_lothric_wall():
         ("HollowSoldier", 44, 44), ("HollowSoldier", 64, 58),        # Tower area hollows
         ("HollowSoldier", 28, 68), ("HollowSoldier", 72, 70),        # Residential maze hollows
         ("HollowSoldier", 26, 86), ("HollowSoldier", 58, 98),        # Courtyard hollows
+        # Eastern rampart Q(1,0) — Lothric Knights patrol the eastern walls (DS3: knights on patrol routes)
+        ("LothricKnight", 82, 14), ("LothricKnight", 106, 18),      # Upper eastern rampart knights
+        ("LothricKnight", 93, 23), ("HollowSoldier", 85, 28),       # Mid-eastern wall patrol
+        ("HollowSoldier", 96, 37), ("LothricKnight", 88, 42),       # Eastern tower approach
+        ("StarvedHound", 100, 51), ("HollowSoldier", 83, 61),       # Eastern courtyard hounds
+        ("LothricKnight", 107, 65), ("HollowSoldier", 94, 70),      # Lower eastern walls
+        ("HollowAssassin", 86, 75), ("HollowSoldier", 120, 79),     # Eastern alleys
     ]
     for kind, tx, ty in enemy_positions:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -2770,6 +2777,14 @@ def make_undead_settlement():
         ("HollowSoldier", 76, 64),                                   # DS3: soldier near fire demon area
         ("PeasantHollow", 100, 58),                                  # DS3: hollow near cliff edge
         ("HollowSoldier", 104, 66),                                  # DS3: soldier on lower cliff
+        # Cliff underside Q(0,1) — Peasant Hollows and Thralls in lower settlement (DS3: enemies below cliffs)
+        ("PeasantHollow", 64, 82), ("PeasantHollow", 75, 84),       # Lower cliff hollows
+        ("Thrall", 61, 87), ("Thrall", 53, 90),                     # Thrall ambushes on lower paths
+        ("PeasantHollow", 62, 92), ("HollowSoldier", 71, 101),      # Settlement underside hollows
+        # Pit and sewers Q(1,1) — more rats and hollows in the depths (DS3: rats and hollows in sewers)
+        ("Rat", 84, 93), ("Rat", 87, 98), ("Rat", 94, 102),        # More sewer rats
+        ("HollowSoldier", 92, 106), ("HollowSoldier", 86, 110),     # Hollows in lower depths
+        ("Thrall", 99, 117), ("PeasantHollow", 84, 121),            # Thrall ambushes in pit area
     ]
     for kind, tx, ty in enemy_data:
         mapped = ENEMY_KIND_MAP.get(kind, kind)
@@ -3574,6 +3589,10 @@ def make_road_of_sacrifices():
         ("DarkMage", 125, 115), ("DarkMage", 135, 118),
         # South path toward Farron Keep — DS3: Exile NPCs guard the Farron Keep gate
         ("Corvian", 68, 80), ("Corvian", 72, 85),
+        # Lower forest Q(0,1) — Corvians and Basilisks in deep woods (DS3: dense forest enemies)
+        ("Corvian", 64, 82), ("Corvian", 75, 84),                   # Corvians in lower forest
+        ("Basilisk", 61, 87), ("Basilisk", 53, 90),                 # Basilisks near swamp edge
+        ("Corvian", 62, 92), ("StarvedHound", 71, 101),             # Deep forest Corvians and Lycanthrope
         ("StarvedHound", 110, 95), ("StarvedHound", 115, 100),    # Lycanthropes
         ("Archer", 100, 78), ("Archer", 120, 82),                 # Corvian archers
         # Exiles at Farron Keep gate (DS3: "two Exiles" guarding the gate with great weapons)
@@ -8632,10 +8651,10 @@ def make_anor_londo():
         ("SilverKnight", 108, 34), ("SilverKnight", 118, 36),
         # Giant Slave — giant archer on upper level (wiki: Giant Slave enemy)
         ("GiantSlave", 38, 52),
-        # Main chamber — Deacon pyromancers casting fireballs from other side
-        ("Deacon", 55, 45), ("Deacon", 68, 40), ("Deacon", 70, 46),
-        # Additional Deacon pyromancers in dark chamber (wiki: "deacon pyromancers and slimes")
-        ("Deacon", 72, 52), ("Deacon", 76, 48),
+        # Main chamber — Silver Knights patrolling the cathedral (DS3: knights guard the grand hall)
+        ("SilverKnight", 55, 45), ("SilverKnight", 68, 40), ("SilverKnight", 70, 46),
+        # Additional Man Grubs in dark chamber (DS3: slimes throughout the cathedral)
+        ("ManGrub", 72, 52), ("ManGrub", 76, 48),
         # Main chamber — Rotten Flesh of Aldrich / slimes (wiki: "dispatch slimes and deacons")
         ("ManGrub", 142, 75), ("ManGrub", 148, 82), ("ManGrub", 136, 68),
         ("ManGrub", 124, 88), ("ManGrub", 132, 92),
@@ -8644,8 +8663,8 @@ def make_anor_londo():
         ("ManGrub", 140, 95), ("ManGrub", 112, 80),  # More slimes in Aldrich arena corners
         # Corner — Deep Accursed at revolving switch (wiki: "Deep Accursed waiting for you")
         ("DeepAccursed", 100, 40),
-        # Hallway to fog gate — 3 Deacons (wiki: "three enemies from Deacons of the Deep boss fight")
-        ("Deacon", 125, 38), ("Deacon", 135, 44), ("Deacon", 138, 50),
+        # Hallway to fog gate — Silver Knight sentinels (DS3: knights guard approach to Aldrich)
+        ("SilverKnight", 125, 38), ("SilverKnight", 135, 44), ("SilverKnight", 138, 50),
         # Crystal Lizard near Yorshka path (DS3: crystal lizard on tower ledge)
         ("CrystalLizard", 56, 84),
         # Boss — Aldrich, Devourer of Gods
@@ -8653,9 +8672,9 @@ def make_anor_londo():
         # Additional DS3 enemies for fidelity
         ("SilverKnight", 28, 48),                                   # DS3: knight in side corridor
         ("SilverKnight", 58, 54),                                   # DS3: knight in royal chamber
-        ("Deacon", 65, 55),                                         # DS3: deacon in upper chamber
-        ("Deacon", 78, 52),                                         # DS3: deacon near dark room
-        ("Deacon", 82, 58),                                         # DS3: deacon in dark corners
+        ("SilverKnight", 65, 55),                                   # DS3: knight in upper chamber
+        ("ManGrub", 78, 52),                                        # DS3: slime near dark room
+        ("ManGrub", 82, 58),                                        # DS3: slime in dark corners
         ("ManGrub", 145, 88),                                       # DS3: slime near Aldrich arena
     ]
     for kind, tx, ty in enemy_data:
@@ -11723,12 +11742,14 @@ def make_untended_graves():
     # No Grave Wardens, Corvians, or Pus of Man in this area (those belong elsewhere).
     # Champion Gundyr is the boss.
     enemy_data = [
-        # Black Knights — DS3: 4 Black Knights patrol the dark cemetery
-        # (1 near cemetery path, 1 in middle courtyard, 1 near Gundyr approach, 1 near dark Firelink)
+        # Black Knights — DS3: 3 Black Knights patrol the dark cemetery
+        # (1 near cemetery path with greatsword, 1 in courtyard with sword+shield, 1 near Gundyr with halberd)
         ("BlackKnight", 45, 35),                                     # Cemetery path (greatsword)
         ("BlackKnight", 62, 45),                                     # Middle courtyard (sword+shield)
         ("BlackKnight", 75, 55),                                     # Gundyr approach (halberd)
-        ("BlackKnight", 88, 58),                                     # Near arena edge (greatsword)
+        # Hollow Soldiers — DS3: hollows in the dark version of Cemetery of Ash
+        ("HollowSoldier", 30, 28), ("HollowSoldier", 52, 40),
+        ("HollowSoldier", 38, 48), ("HollowSoldier", 80, 50),
         # Starved Hounds — DS3: 2 hounds in the dark cemetery
         ("StarvedHound", 48, 42), ("StarvedHound", 70, 52),
         # Crystal Lizard — DS3: 1 near cemetery path
