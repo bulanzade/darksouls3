@@ -6941,7 +6941,7 @@ def make_irithyll_dungeon():
         ("Consumable", "Great Magic Shield", 42, 38, 0),
         # Central cell block
         ("Consumable", "Rusted Gold Coin", 52, 56, 0),
-        ("TitaniteShard", "Large Titanite Shard", 60, 60, 0),
+        ("TitaniteShard", "Large Titanite Shard", 62, 58, 0),
         ("RingDrop", "Bellowing Dragoncrest Ring", 55, 62, 0),
         ("Consumable", "Jailbreaker's Key", 58, 58, 0),
         # Siegward area
@@ -6953,7 +6953,7 @@ def make_irithyll_dungeon():
         ("Consumable", "Dung Pie", 34, 82, 0),
         ("Consumable", "Dung Pie", 36, 84, 0),
         ("Consumable", "Dung Pie", 38, 86, 0),
-        ("Consumable", "Dung Pie", 40, 88, 0),
+        ("Consumable", "Dung Pie", 42, 86, 0),
         ("TitaniteShard", "Large Titanite Shard", 45, 85, 0),
         ("HomewardBone", "Homeward Bone", 55, 75, 0),
         ("HomewardBone", "Homeward Bone", 57, 77, 0),
@@ -7627,7 +7627,7 @@ def make_profaned_capital():
         ("UndeadBoneShard", "Undead Bone Shard", 14, 10, 0),
         ("Consumable", "Poison Arrow", 50, 38, 0),  # near Avaricious Being roof (wiki)
         # Boss path bridge
-        ("SoulOrb", "Large Soul of a Weary Warrior", 48, 14, 1000),
+        ("SoulOrb", "Large Soul of a Weary Warrior", 50, 12, 1000),
         ("Consumable", "Onislayer Greatarrow", 36, 12, 0),
         # First jailer room
         ("Consumable", "Rusted Coin", 62, 20, 0),
@@ -7654,7 +7654,7 @@ def make_profaned_capital():
         # Church — Monstrosity of Sin area
         ("WeaponDrop", "Eleonora", 36, 76, 0),
         # Court sorcerer rooftop
-        ("ArmorDrop", "Court Sorcerer Set", 48, 46, 0),
+        ("ArmorDrop", "Court Sorcerer Set", 46, 44, 0),
         ("Consumable", "Logan's Scroll", 52, 40, 0),
         ("Consumable", "Rubbish", 54, 42, 0),
         ("Consumable", "Stretch Out Gesture", 14, 14, 0),  # Gilligan body at bonfire tower (wiki)
