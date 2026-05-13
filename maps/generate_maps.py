@@ -2048,6 +2048,23 @@ def make_firelink_shrine():
     for tx in range(50, 70, 6):
         fill_tiles(chunk, TILE_WALL, tx, 70, tx+1, 71)              # Pathway stones
     fill_tiles(chunk, TILE_WALL, 75, 75, 77, 77)                    # Courtyard well
+    # SESSION 41 FIDELITY PASS — Firelink Shrine DS3 details
+    # DS3: Interior shrine pillars, courtyard path stones, Ludleth's throne, well structure
+    for tx in range(40, 70, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 48, tx+1, 49)             # Courtyard path stones
+        fill_tiles(chunk, TILE_WALL, tx, 72, tx+1, 73)
+    for ty in range(35, 55, 6):
+        fill_tiles(chunk, TILE_WALL, 95, ty, 96, ty+1)             # Interior pillars
+        fill_tiles(chunk, TILE_WALL, 115, ty, 116, ty+1)
+    fill_tiles(chunk, TILE_WALL, 50, 60, 52, 62)                    # Ludleth's throne base
+    fill_tiles(chunk, TILE_WALL, 75, 68, 77, 70)                    # Courtyard well structure
+    fill_tiles(chunk, TILE_WALL, 105, 48, 107, 50)                  # Shrine rear alcove
+    for tx in range(60, 85, 4):
+        fill_tiles(chunk, TILE_WALL, tx, 38, tx+1, 39)             # Entrance steps
+    fill_tiles(chunk, TILE_WALL, 125, 55, 127, 57)                  # Shrine garden stones
+    fill_tiles(chunk, TILE_WALL, 85, 80, 87, 82)                    # Training dummy area
+    for tx in range(30, 55, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 85, tx+1, 86)             # Exterior wall details
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -3257,6 +3274,21 @@ def make_undead_settlement():
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     for tx, ty in [(45, 58), (62, 62), (82, 58)]:
         mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Additional enemies — SESSION 41 DS3 fidelity (Undead Settlement)
+    # DS3: Peasant Hollows fill every street, Starved Hounds in alleys
+    for tx, ty in [(25, 50), (32, 55), (40, 52), (48, 58), (55, 50),
+                   (62, 55), (70, 52)]:
+        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(80, 65), (88, 70), (95, 68)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(35, 75), (50, 80)]:
+        mapped = ENEMY_KIND_MAP.get("Evangelist", "Evangelist")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # --- NPCs (DS3 Undead Settlement: Yoel, Siegward, Cornyx) ---
@@ -6414,6 +6446,22 @@ def make_cathedral_deep():
     for tx in range(100, 130, 5):
         fill_tiles(chunk, TILE_WALL, tx, 45, tx+1, 46)             # Exterior tombstones
     fill_tiles(chunk, TILE_WALL, 50, 95, 52, 97)                    # Cathedral entrance debris
+    # SESSION 41 FIDELITY PASS — Cathedral of the Deep DS3 details
+    # DS3: Deacon chamber, Rosaria's area, exterior graveyard, bridge supports
+    for tx in range(25, 60, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 55, tx+1, 56)             # Deacon chamber floor tiles
+        fill_tiles(chunk, TILE_WALL, tx, 95, tx+1, 96)
+    for tx in range(65, 100, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 60, tx+1, 61)             # Cathedral interior tiles
+        fill_tiles(chunk, TILE_WALL, tx, 100, tx+1, 101)
+    for ty in range(35, 65, 7):
+        fill_tiles(chunk, TILE_WALL, 50, ty, 51, ty+1)             # Interior arch columns
+        fill_tiles(chunk, TILE_WALL, 90, ty, 91, ty+1)
+    fill_tiles(chunk, TILE_WALL, 115, 50, 117, 52)                  # Rosaria's chamber entry
+    fill_tiles(chunk, TILE_WALL, 130, 65, 132, 67)                  # Exterior graveyard stone
+    fill_tiles(chunk, TILE_WALL, 40, 85, 42, 87)                    # Bridge support pillars
+    for tx in range(105, 135, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 55, tx+1, 56)             # Cathedral approach stones
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -11209,6 +11257,22 @@ def make_anor_londo():
     fill_tiles(chunk, TILE_WALL, 100, 90, 101, 91)
     fill_tiles(chunk, TILE_WALL, 106, 94, 107, 95)
 
+    # SESSION 41 FIDELITY PASS — Anor Londo DS3 details
+    # DS3: Grand hall columns, painting room frame, Aldrich chamber debris
+    for tx in range(20, 55, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 38, tx+2, 40)             # Grand hall columns
+        fill_tiles(chunk, TILE_WALL, tx, 78, tx+2, 80)
+    for tx in range(60, 95, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 42, tx+1, 43)             # Corridor arch stones
+        fill_tiles(chunk, TILE_WALL, tx, 82, tx+1, 83)
+    for ty in range(30, 65, 7):
+        fill_tiles(chunk, TILE_WALL, 35, ty, 36, ty+1)             # Interior buttresses
+        fill_tiles(chunk, TILE_WALL, 100, ty, 101, ty+1)
+    fill_tiles(chunk, TILE_WALL, 50, 60, 52, 62)                    # Painting room frame
+    fill_tiles(chunk, TILE_WALL, 115, 55, 117, 57)                  # Aldrich chamber debris
+    fill_tiles(chunk, TILE_WALL, 75, 90, 77, 92)                    # Silver Knight post
+    for tx in range(120, 145, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 48, tx+1, 49)             # Cathedral exterior
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -12057,6 +12121,20 @@ def make_lothric_castle():
     fill_tiles(chunk, TILE_WALL, 80, 85, 82, 87)                    # Dragon skeleton
     for tx in range(120, 145, 5):
         fill_tiles(chunk, TILE_WALL, tx, 45, tx+1, 46)             # Rooftop debris
+    # SESSION 41 FIDELITY PASS — Lothric Castle DS3 details
+    # DS3: Castle great hall, Dragon Slayer Armor arena, Lothric throne room
+    for tx in range(25, 60, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 45, tx+1, 46)             # Castle corridor tiles
+        fill_tiles(chunk, TILE_WALL, tx, 85, tx+1, 86)
+    for tx in range(65, 100, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 50, tx+1, 51)             # Dragon arena stones
+        fill_tiles(chunk, TILE_WALL, tx, 90, tx+1, 91)
+    for ty in range(40, 75, 7):
+        fill_tiles(chunk, TILE_WALL, 45, ty, 46, ty+1)             # Castle interior columns
+        fill_tiles(chunk, TILE_WALL, 105, ty, 106, ty+1)
+    fill_tiles(chunk, TILE_WALL, 55, 65, 57, 67)                    # Dragon Slayer Armor arena
+    fill_tiles(chunk, TILE_WALL, 120, 55, 122, 57)                  # Throne room approach
+    fill_tiles(chunk, TILE_WALL, 80, 95, 82, 97)                    # Lothric prince chamber
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -13627,6 +13705,20 @@ def make_kiln_of_the_first_flame():
         fill_tiles(chunk, TILE_WALL, 135, ty, 136, ty+1)
     fill_tiles(chunk, TILE_WALL, 60, 50, 62, 52)
     fill_tiles(chunk, TILE_WALL, 100, 60, 102, 62)
+    # SESSION 41 FIDELITY PASS — Kiln of the First Flame DS3 details
+    # DS3: Ember piles, collapsed architecture, Black Knight monuments, flame crater
+    for tx in range(20, 55, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 38, tx+1, 39)             # Ember pile markers
+        fill_tiles(chunk, TILE_WALL, tx, 78, tx+1, 79)
+    for tx in range(60, 95, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 42, tx+2, 44)             # Collapsed wall segments
+        fill_tiles(chunk, TILE_WALL, tx, 82, tx+2, 84)
+    for ty in range(35, 70, 7):
+        fill_tiles(chunk, TILE_WALL, 40, ty, 41, ty+1)             # Black Knight monuments
+        fill_tiles(chunk, TILE_WALL, 100, ty, 101, ty+1)
+    fill_tiles(chunk, TILE_WALL, 55, 55, 57, 57)                    # Flame crater rim
+    fill_tiles(chunk, TILE_WALL, 120, 50, 122, 52)                  # Ash pile
+    fill_tiles(chunk, TILE_WALL, 75, 90, 77, 92)                    # Collapsed archway
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -15155,6 +15247,20 @@ def make_untended_graves():
     fill_tiles(chunk, TILE_WALL, 50, 55, 52, 56)
     fill_tiles(chunk, TILE_WALL, 110, 75, 112, 76)
     fill_tiles(chunk, TILE_WALL, 70, 110, 72, 111)
+    # SESSION 41 FIDELITY PASS — Untended Graves DS3 details
+    # DS3: Dark tombstones, ash-covered paths, dark Firelink rubble, Gundyr arena
+    for tx in range(20, 55, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 38, tx+1, 39)             # Dark tombstone clusters
+        fill_tiles(chunk, TILE_WALL, tx, 78, tx+1, 79)
+    for tx in range(60, 95, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 42, tx+1, 43)             # Ash-covered paths
+        fill_tiles(chunk, TILE_WALL, tx, 82, tx+1, 83)
+    fill_tiles(chunk, TILE_WALL, 45, 55, 47, 57)                    # Dark Firelink rubble
+    fill_tiles(chunk, TILE_WALL, 80, 60, 82, 62)                    # Gundyr arena debris
+    fill_tiles(chunk, TILE_WALL, 110, 50, 112, 52)                  # Champion's gravestone
+    for ty in range(45, 70, 7):
+        fill_tiles(chunk, TILE_WALL, 100, ty, 101, ty+1)            # Dark path markers
+    fill_tiles(chunk, TILE_WALL, 70, 90, 72, 92)                    # Collapsed wall
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
