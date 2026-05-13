@@ -1333,6 +1333,24 @@ def make_cemetery_of_ash():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -2310,6 +2328,24 @@ def make_firelink_shrine():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -3492,6 +3528,24 @@ def make_lothric_wall():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -4647,6 +4701,24 @@ def make_undead_settlement():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -5733,6 +5805,24 @@ def make_road_of_sacrifices():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -6849,6 +6939,24 @@ def make_farron_keep():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -7899,6 +8007,24 @@ def make_cathedral_deep():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -8895,6 +9021,24 @@ def make_catacombs_of_carthus():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -9948,6 +10092,24 @@ def make_smouldering_lake():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -11226,6 +11388,24 @@ def make_irithyll():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -12263,6 +12443,24 @@ def make_irithyll_dungeon():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -13324,6 +13522,24 @@ def make_profaned_capital():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -14291,6 +14507,24 @@ def make_anor_londo():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -15456,6 +15690,24 @@ def make_lothric_castle():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -16597,6 +16849,24 @@ def make_grand_archives():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -17423,6 +17693,24 @@ def make_kiln_of_the_first_flame():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -18448,6 +18736,24 @@ def make_consumed_kings_garden():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -19357,6 +19663,24 @@ def make_untended_graves():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
@@ -20462,6 +20786,24 @@ def make_archdragon_peak():
         _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
 
         fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
+    # Add terrain feature obstacles (walls) from JSON doc
+    for _sec in _doc.get("map_layout", {}).get("sections", []):
+        for _feat in _sec.get("terrain_features", []):
+            if not isinstance(_feat, dict):
+                continue
+            _fk = _feat.get("kind", "")
+            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+                        "barricade", "collapsed_wall", "desk_cluster",
+                        "roof_structure", "chimney", "armor_display", "iron_girder",
+                        "coffin", "dragon_altar", "serpent_statue",
+                        "arena_ruin", "ruined_pillar"):
+                _fx2 = _feat["x"] // 16
+                _fy2 = _feat["y"] // 16
+                _fw = max(1, _feat["w"] // 16)
+                _fh = max(1, _feat["h"] // 16)
+                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
+
 
     snap_entities_to_walkable(chunk, entities)
 
