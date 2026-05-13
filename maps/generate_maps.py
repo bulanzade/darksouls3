@@ -10949,6 +10949,40 @@ def make_consumed_kings_garden():
     fill_tiles(chunk, TILE_WALL, 100, 78, 101, 79)
     fill_tiles(chunk, TILE_WALL, 96, 84, 97, 85)
 
+    # ================================================================
+    # SESSION 14 FIDELITY PASS — ConsumedKingsGarden DS3 terrain details
+    # ================================================================
+    # Crystal entrance — fractured crystal shards (DS3: crystal growths at entrance)
+    fill_tiles(chunk, TILE_WALL, 18, 10, 19, 11)
+    fill_tiles(chunk, TILE_WALL, 24, 14, 25, 15)
+    fill_tiles(chunk, TILE_WALL, 30, 12, 31, 13)
+    fill_tiles(chunk, TILE_WALL, 36, 16, 37, 17)
+    # Overgrown garden — toxic vine clusters (DS3: consumed by crystal growth)
+    fill_tiles(chunk, TILE_WALL, 42, 20, 43, 21)
+    fill_tiles(chunk, TILE_WALL, 48, 24, 49, 25)
+    fill_tiles(chunk, TILE_WALL, 54, 22, 55, 23)
+    fill_tiles(chunk, TILE_WALL, 60, 26, 61, 27)
+    # Oceiros throne room — royal debris (DS3: consumed king's throne room)
+    fill_tiles(chunk, TILE_WALL, 110, 85, 111, 86)
+    fill_tiles(chunk, TILE_WALL, 116, 88, 117, 89)
+    fill_tiles(chunk, TILE_WALL, 122, 82, 123, 83)
+    fill_tiles(chunk, TILE_WALL, 128, 86, 129, 87)
+    # Crystal garden — crystal formation bases (DS3: crystal clusters everywhere)
+    fill_tiles(chunk, TILE_WALL, 40, 34, 41, 35)
+    fill_tiles(chunk, TILE_WALL, 46, 38, 47, 39)
+    fill_tiles(chunk, TILE_WALL, 52, 36, 53, 37)
+    fill_tiles(chunk, TILE_WALL, 58, 40, 59, 41)
+    # Toxic swamp — corroded stone edges (DS3: toxic pools in lower garden)
+    fill_tiles(chunk, TILE_WALL, 72, 60, 73, 61)
+    fill_tiles(chunk, TILE_WALL, 78, 64, 79, 65)
+    fill_tiles(chunk, TILE_WALL, 84, 62, 85, 63)
+    fill_tiles(chunk, TILE_WALL, 90, 66, 91, 67)
+    # Serpent corridor — ruined arch columns (DS3: passage with Cathedral Knights)
+    fill_tiles(chunk, TILE_WALL, 20, 30, 21, 31)
+    fill_tiles(chunk, TILE_WALL, 26, 34, 27, 35)
+    fill_tiles(chunk, TILE_WALL, 32, 32, 33, 33)
+    fill_tiles(chunk, TILE_WALL, 38, 36, 39, 37)
+
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
