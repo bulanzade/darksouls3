@@ -14,8 +14,7 @@
     ],
     "to": [
       "UndeadSettlement",
-      "LothricCastle",
-      "ConsumedKingsGarden"
+      "LothricCastle"
     ]
   },
   "restoration": {
@@ -1160,7 +1159,7 @@
       "y": 2360,
       "w": 96,
       "h": 96,
-      "dest_area": "ConsumedKingsGarden",
+      "dest_area": "LothricCastle",
       "dest_x": 620,
       "dest_y": 620,
       "kind": "post_dancer",
