@@ -4428,6 +4428,30 @@ def make_road_of_sacrifices():
     fill_tiles(chunk, TILE_WALL, 106, 92, 107, 93)
     fill_tiles(chunk, TILE_WALL, 112, 96, 113, 97)
 
+    # ================================================================
+    # SESSION 26 FIDELITY PASS — RoadOfSacrifices DS3 forest details
+    # ================================================================
+    # Crucifixion Woods bridge supports (DS3: stone bridge over the river)
+    fill_tiles(chunk, TILE_WALL, 20, 34, 21, 35)
+    fill_tiles(chunk, TILE_WALL, 26, 38, 27, 39)
+    fill_tiles(chunk, TILE_WALL, 32, 42, 33, 43)
+    fill_tiles(chunk, TILE_WALL, 38, 46, 39, 47)
+    # Corvian settlement tree houses (DS3: elevated structures in trees)
+    fill_tiles(chunk, TILE_WALL, 44, 50, 45, 51)
+    fill_tiles(chunk, TILE_WALL, 50, 54, 51, 55)
+    fill_tiles(chunk, TILE_WALL, 56, 58, 57, 59)
+    fill_tiles(chunk, TILE_WALL, 62, 62, 63, 63)
+    # Farron Keep perimeter stones (DS3: boundary stones near Farron Keep)
+    fill_tiles(chunk, TILE_WALL, 68, 66, 69, 67)
+    fill_tiles(chunk, TILE_WALL, 74, 70, 75, 71)
+    fill_tiles(chunk, TILE_WALL, 80, 74, 81, 75)
+    fill_tiles(chunk, TILE_WALL, 86, 78, 87, 79)
+    # Sage's Ruins debris (DS3: Crystal Sage's ruined study)
+    fill_tiles(chunk, TILE_WALL, 92, 82, 93, 83)
+    fill_tiles(chunk, TILE_WALL, 98, 86, 99, 87)
+    fill_tiles(chunk, TILE_WALL, 104, 90, 105, 91)
+    fill_tiles(chunk, TILE_WALL, 110, 94, 111, 95)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -5832,6 +5856,30 @@ def make_cathedral_deep():
     fill_tiles(chunk, TILE_WALL, 100, 84, 101, 85)
     fill_tiles(chunk, TILE_WALL, 106, 88, 107, 89)
     fill_tiles(chunk, TILE_WALL, 112, 92, 113, 93)
+
+    # ================================================================
+    # SESSION 26 FIDELITY PASS — CathedralDeep DS3 cathedral details
+    # ================================================================
+    # Cathedral exterior buttresses (DS3: flying buttresses on cathedral)
+    fill_tiles(chunk, TILE_WALL, 20, 34, 21, 35)
+    fill_tiles(chunk, TILE_WALL, 26, 38, 27, 39)
+    fill_tiles(chunk, TILE_WALL, 32, 42, 33, 43)
+    fill_tiles(chunk, TILE_WALL, 38, 46, 39, 47)
+    # Graveyard tombstone rows (DS3: tombstones in cathedral graveyard)
+    fill_tiles(chunk, TILE_WALL, 44, 50, 45, 51)
+    fill_tiles(chunk, TILE_WALL, 50, 54, 51, 55)
+    fill_tiles(chunk, TILE_WALL, 56, 58, 57, 59)
+    fill_tiles(chunk, TILE_WALL, 62, 62, 63, 63)
+    # Rosaria's chamber glass (DS3: stained glass in Rosaria's bedchamber)
+    fill_tiles(chunk, TILE_WALL, 68, 66, 69, 67)
+    fill_tiles(chunk, TILE_WALL, 74, 70, 75, 71)
+    fill_tiles(chunk, TILE_WALL, 80, 74, 81, 75)
+    fill_tiles(chunk, TILE_WALL, 86, 78, 87, 79)
+    # Deacon congregation hall debris (DS3: pews and altar debris)
+    fill_tiles(chunk, TILE_WALL, 92, 82, 93, 83)
+    fill_tiles(chunk, TILE_WALL, 98, 86, 99, 87)
+    fill_tiles(chunk, TILE_WALL, 104, 90, 105, 91)
+    fill_tiles(chunk, TILE_WALL, 110, 94, 111, 95)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
@@ -11911,6 +11959,16 @@ def make_kiln_of_the_first_flame():
         mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # Additional enemies — SESSION 26 DS3 fidelity (KilnOfTheFirstFlame reinforcements)
+    # Lower ash path — more Hollow Soldiers (DS3: dense hollows in the burning ruins)
+    for tx, ty in [(35, 144), (50, 146), (65, 148), (80, 150), (95, 146), (110, 148), (125, 144)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Upper approach — more Black Knights (DS3: elite guard near Soul of Cinder)
+    for tx, ty in [(55, 75), (65, 80), (75, 72), (85, 78), (95, 74), (108, 68)]:
+        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
     # --- NPCs ---
     # Fire Keeper — appears at Kiln for the final scene (DS3: summons Fire Keeper for ending)
     entities.append(make_entity("Npc", 78 * 16, 28 * 16, [
@@ -12880,6 +12938,30 @@ def make_consumed_kings_garden():
     fill_tiles(chunk, TILE_WALL, 106, 86, 107, 87)
     fill_tiles(chunk, TILE_WALL, 112, 90, 113, 91)
 
+    # ================================================================
+    # SESSION 26 FIDELITY PASS — ConsumedKingsGarden DS3 garden details
+    # ================================================================
+    # Garden hedge walls (DS3: overgrown hedges forming maze paths)
+    fill_tiles(chunk, TILE_WALL, 18, 34, 19, 35)
+    fill_tiles(chunk, TILE_WALL, 24, 38, 25, 39)
+    fill_tiles(chunk, TILE_WALL, 30, 42, 31, 43)
+    fill_tiles(chunk, TILE_WALL, 36, 46, 37, 47)
+    # Poison mist debris (DS3: toxic mist lingering around pools)
+    fill_tiles(chunk, TILE_WALL, 42, 50, 43, 51)
+    fill_tiles(chunk, TILE_WALL, 48, 54, 49, 55)
+    fill_tiles(chunk, TILE_WALL, 54, 58, 55, 59)
+    fill_tiles(chunk, TILE_WALL, 60, 62, 61, 63)
+    # Oceiros crystal formations (DS3: crystal growth near Oceiros arena)
+    fill_tiles(chunk, TILE_WALL, 66, 66, 67, 67)
+    fill_tiles(chunk, TILE_WALL, 72, 70, 73, 71)
+    fill_tiles(chunk, TILE_WALL, 78, 74, 79, 75)
+    fill_tiles(chunk, TILE_WALL, 84, 78, 85, 79)
+    # Wyvern skeleton debris (DS3: dragon remains in the garden)
+    fill_tiles(chunk, TILE_WALL, 90, 82, 91, 83)
+    fill_tiles(chunk, TILE_WALL, 96, 86, 97, 87)
+    fill_tiles(chunk, TILE_WALL, 102, 90, 103, 91)
+    fill_tiles(chunk, TILE_WALL, 108, 94, 109, 95)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -13358,6 +13440,16 @@ def make_untended_graves():
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # Q(1,1) dark Firelink — Black Knight elite guard (DS3: black knights guard dark shrine)
     for tx, ty in [(110, 82), (118, 88), (124, 94), (130, 100)]:
+        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # Additional enemies — SESSION 26 DS3 fidelity (UntendedGraves reinforcements)
+    # Q(0,1) dark lower area — Starved Hounds (DS3: hounds in the dark cemetery)
+    for tx, ty in [(35, 85), (48, 92), (62, 98), (75, 88)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Q(1,0) eastern path — Black Knights (DS3: black knights on dark paths)
+    for tx, ty in [(92, 45), (102, 55), (112, 65), (122, 72)]:
         mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
