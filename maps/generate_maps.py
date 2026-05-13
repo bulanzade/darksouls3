@@ -2841,6 +2841,23 @@ def make_lothric_wall():
         mapped = ENEMY_KIND_MAP.get("PusOfMan", "MiniBoss")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 75 DS3 enemies (Lothric Wall round 6) ---
+    # DS3: Hollow Soldiers on the battlements
+    for tx, ty in [(14, 25), (22, 32), (30, 40), (38, 48), (46, 40), (54, 32), (62, 25), (70, 32), (78, 40), (86, 48), (94, 40), (102, 32), (110, 25)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # DS3: Lothric Knights at the gate and interior
+    for tx, ty in [(18, 55), (32, 60), (46, 55), (60, 60), (74, 55), (88, 60), (102, 55)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # DS3: Large Hollow Soldier near the greatsword
+    for tx, ty in [(50, 65)]:
+        mapped = ENEMY_KIND_MAP.get("LargeHollowSoldier", "Knight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # --- NPCs ---
     # Greirat — locked in cell below tower (DS3: basement cell, asks for Loretta's Bone)
     entities.append(make_entity("Npc", 36 * 16, 60 * 16, [
@@ -5373,6 +5390,33 @@ def make_road_of_sacrifices():
     # DS3: Basilisks near the Farron Keep entrance swamp
     for tx, ty in [(85, 95), (115, 98)]:
         mapped = ENEMY_KIND_MAP.get("Basilisk", "Basilisk")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 75 DS3 enemies (Road of Sacrifices round 3) ---
+    # DS3: Corvians throughout the deeper forest
+    for tx, ty in [(20, 22), (28, 30), (36, 38), (44, 45), (52, 30), (60, 38), (68, 45), (76, 30), (84, 38), (92, 45), (100, 30), (108, 38)]:
+        mapped = ENEMY_KIND_MAP.get("Corvian", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # DS3: Corvian Storytellers on elevated perches
+    for tx, ty in [(30, 52), (55, 52), (80, 52), (105, 52)]:
+        mapped = ENEMY_KIND_MAP.get("CorvianStoryteller", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # DS3: Starved Hounds in the undergrowth
+    for tx, ty in [(25, 58), (45, 62), (65, 58), (85, 62)]:
+        mapped = ENEMY_KIND_MAP.get("StarvedHound", "Dog")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # DS3: Dark Mages near the ruins
+    for tx, ty in [(35, 68), (55, 72), (75, 68), (95, 72)]:
+        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # DS3: Lesser Crabs in the swampy water
+    for tx, ty in [(40, 78), (60, 82), (80, 78), (100, 82)]:
+        mapped = ENEMY_KIND_MAP.get("LesserCrab", "Slime")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # NPCs - Anri and Horace at Halfway Fortress (DS3: they sit together at the bonfire)
@@ -15239,6 +15283,28 @@ def make_lothric_castle():
         mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 75 DS3 enemies (Lothric Castle round 4) ---
+    # DS3: Lothric Knights in the great hall and passages
+    for tx, ty in [(15, 25), (25, 32), (35, 40), (45, 32), (55, 25), (65, 32), (75, 40), (85, 32), (95, 25), (105, 32), (115, 40), (125, 32)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # DS3: Hollow Soldiers throughout the castle
+    for tx, ty in [(18, 45), (28, 52), (38, 58), (48, 45), (58, 52), (68, 58), (78, 45), (88, 52), (98, 58), (108, 45)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # DS3: Dogs in the lower castle area
+    for tx, ty in [(22, 62), (42, 66), (62, 62), (82, 66), (102, 62)]:
+        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # DS3: Hollow Assassins in the dark passages
+    for tx, ty in [(32, 70), (52, 74), (72, 70), (92, 74)]:
+        mapped = ENEMY_KIND_MAP.get("HollowAssassin", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # --- NPCs - DS3 Lothric Castle ---
     # NOTE: Emma is only at High Wall of Lothric (LothricWall) — she dies after giving Basin of Vows
     # NOTE: Eygon of Carim only appears near Irina (Undead Settlement) or Firelink Shrine, not here
@@ -16630,6 +16696,33 @@ def make_grand_archives():
     # DS3: Lothric Knights guarding the archives entrance
     for tx, ty in [(25, 58), (45, 62), (65, 58), (85, 62)]:
         mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+
+    # --- SESSION 75 DS3 enemies (Grand Archives round 4) ---
+    # DS3: More Hollow Slaves in the archive halls
+    for tx, ty in [(18, 25), (25, 32), (32, 40), (39, 32), (46, 25), (53, 32), (60, 40), (67, 32), (74, 25), (81, 32), (88, 40), (95, 32), (102, 25)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSlave", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # DS3: More Dark Mages (Scholars) casting
+    for tx, ty in [(20, 48), (32, 55), (44, 48), (56, 55), (68, 48), (80, 55), (92, 48), (104, 55)]:
+        mapped = ENEMY_KIND_MAP.get("DarkMage", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # DS3: Crystal Lizards on the roof garden
+    for tx, ty in [(38, 60), (68, 60), (98, 60)]:
+        mapped = ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # DS3: Lothric Knights at the archives entrance
+    for tx, ty in [(30, 65), (55, 65), (80, 65)]:
+        mapped = ENEMY_KIND_MAP.get("LothricKnight", "Knight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # DS3: MiniBoss (Crystal Sage)
+    for tx, ty in [(75, 55)]:
+        mapped = ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     print(f"  GrandArchives (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
