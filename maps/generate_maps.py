@@ -1183,6 +1183,20 @@ def make_cemetery_of_ash():
     fill_tiles(chunk, TILE_WALL, 106, 70, 107, 71)
     fill_tiles(chunk, TILE_WALL, 112, 74, 113, 75)
 
+    # SESSION 39 FIDELITY PASS — Cemetery of Ash DS3 details
+    # DS3: Ash drifts, broken fence posts, Gundyr arena stone ring, coffin debris
+    for tx in range(15, 50, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 40, tx+1, 41)             # Gravestone clusters
+        fill_tiles(chunk, TILE_WALL, tx, 80, tx+1, 81)
+    for tx in range(55, 90, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 35, tx+2, 36)             # Ash drift mounds
+        fill_tiles(chunk, TILE_WALL, tx, 75, tx+2, 76)
+    fill_tiles(chunk, TILE_WALL, 40, 55, 42, 57)                    # Broken fence posts
+    fill_tiles(chunk, TILE_WALL, 70, 60, 72, 62)                    # Coffin debris
+    fill_tiles(chunk, TILE_WALL, 100, 50, 102, 52)                  # Gundyr arena stone
+    for ty in range(45, 70, 8):
+        fill_tiles(chunk, TILE_WALL, 110, ty, 111, ty+1)            # Ash pile markers
+    fill_tiles(chunk, TILE_WALL, 120, 65, 122, 67)                  # Coiled sword ash
     populate_entity_def_uids(entities)
 
     # Ensure connectivity from spawn to all entities
@@ -3891,6 +3905,22 @@ def make_undead_settlement():
     fill_tiles(chunk, TILE_WALL, 110, 94, 111, 95)
     fill_tiles(chunk, TILE_WALL, 116, 98, 117, 99)
 
+    # SESSION 39 FIDELITY PASS — Undead Settlement DS3 details
+    # DS3: Market stall frames, bridge stone supports, giant tree root clusters
+    for tx in range(20, 55, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 30, tx+2, 32)             # Market stall frames
+        fill_tiles(chunk, TILE_WALL, tx, 70, tx+2, 72)
+    for tx in range(60, 100, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 35, tx+1, 36)             # Bridge stone supports
+        fill_tiles(chunk, TILE_WALL, tx, 75, tx+1, 76)
+    for ty in range(40, 65, 8):
+        fill_tiles(chunk, TILE_WALL, 35, ty, 36, ty+1)             # Tree root clusters
+        fill_tiles(chunk, TILE_WALL, 85, ty, 86, ty+1)
+    fill_tiles(chunk, TILE_WALL, 50, 50, 52, 52)                    # Giant tree base
+    fill_tiles(chunk, TILE_WALL, 110, 45, 112, 47)                  # Cage elevator mechanism
+    fill_tiles(chunk, TILE_WALL, 120, 60, 122, 62)                  # Cliff debris
+    for tx in range(100, 135, 7):
+        fill_tiles(chunk, TILE_WALL, tx, 50, tx+1, 51)             # Street cobblestones
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -6021,6 +6051,25 @@ def make_cathedral_deep():
     entities.append(make_entity("Item", 66 * 16, 76 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Twinkling Titanite")]))
     entities.append(make_entity("Item", 68 * 16, 78 * 16, [make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"), make_field("name", "String", "Twinkling Titanite")]))
 
+    # Additional enemies — SESSION 39 DS3 fidelity (Cathedral of the Deep)
+    # DS3: Deacons fill the cathedral, Cathedral Knights guard halls, Thralls ambush
+    for tx, ty in [(25, 40), (32, 45), (40, 42), (48, 50), (55, 45),
+                   (62, 40), (70, 48), (78, 42)]:
+        mapped = ENEMY_KIND_MAP.get("Deacon", "Deacon")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(30, 65), (45, 70), (60, 68), (75, 65)]:
+        mapped = ENEMY_KIND_MAP.get("CathedralKnight", "CathedralKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(35, 55), (50, 60), (65, 55)]:
+        mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(85, 50), (95, 55)]:
+        mapped = ENEMY_KIND_MAP.get("Deacon", "Deacon")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # NPCs - DS3 Cathedral of the Deep: Patches, Rosaria
     entities.append(make_entity("Npc", 52 * 16, 78 * 16, [make_field("name", "String", "Patches"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#808080"), make_field("dialogue", "String", "You're a parasite, only thinking of yourself|I know your kind, you're nothing but trouble|What's wrong? Something the matter?|Heh heh heh|I'm Patches, the one and only|You know what I'm talking about, don't you?")]))
     entities.append(make_entity("Npc", 38 * 16, 148 * 16, [make_field("name", "String", "Rosaria"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#D0A0B0"), make_field("dialogue", "String", "(No tongue, but her will is clear)|Offer me pale tongues, and I shall grant your desire|Rebirth, or fingers to invade others|I am Rosaria, Mother of Rebirth|The fingers of the gods stretch far and wide|Each rebirth costs a pale tongue")]))
@@ -6771,6 +6820,24 @@ def make_catacombs_of_carthus():
         mapped = ENEMY_KIND_MAP.get("SkeletonBall", "Skeleton")
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    # Additional enemies — SESSION 39 DS3 fidelity (Catacombs of Carthus)
+    # DS3: Skeletons in every corridor, Hounds in side rooms, Worms in sand
+    for tx, ty in [(25, 50), (32, 55), (40, 52), (48, 58), (55, 50)]:
+        mapped = ENEMY_KIND_MAP.get("Skeleton", "Skeleton")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(62, 60), (70, 55), (78, 62), (85, 58)]:
+        mapped = ENEMY_KIND_MAP.get("SkeletonSwordman", "Skeleton")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(95, 65), (105, 60)]:
+        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(40, 75), (55, 80)]:
+        mapped = ENEMY_KIND_MAP.get("SkeletonBall", "Skeleton")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # NPCs — DS3 Catacombs: Anri and Horace together at the entrance bonfire
     entities.append(make_entity("Npc", 15 * 16, 18 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello, we meet again|Have you seen Horace anywhere?|I have been separated from him|I am worried... Please tell me if you find him")]))
     entities.append(make_entity("Npc", 17 * 16, 19 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods slowly)|(points toward the deeper catacombs)|(holds shield tighter)|Anri... where are you...")]))
@@ -7080,6 +7147,22 @@ def make_catacombs_of_carthus():
     fill_tiles(chunk, TILE_WALL, 106, 94, 107, 95)
     fill_tiles(chunk, TILE_WALL, 112, 98, 113, 99)
 
+    # SESSION 39 FIDELITY PASS — Catacombs of Carthus DS3 details
+    # DS3: Chariot track grooves, burial niches, Wolnir bracelet pedestals, rope bridge anchors
+    for tx in range(20, 60, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 35, tx+1, 36)             # Chariot track grooves
+        fill_tiles(chunk, TILE_WALL, tx, 75, tx+1, 76)
+    for tx in range(65, 110, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 40, tx+1, 41)             # Burial niche frames
+        fill_tiles(chunk, TILE_WALL, tx, 80, tx+1, 81)
+    for ty in range(30, 70, 8):
+        fill_tiles(chunk, TILE_WALL, 30, ty, 31, ty+1)             # Skeleton bone piles
+        fill_tiles(chunk, TILE_WALL, 90, ty, 91, ty+1)
+    fill_tiles(chunk, TILE_WALL, 50, 55, 52, 57)                    # Wolnir bracelet pedestal
+    fill_tiles(chunk, TILE_WALL, 110, 50, 112, 52)                  # Rope bridge anchor
+    fill_tiles(chunk, TILE_WALL, 70, 95, 72, 97)                    # Skeleton pile
+    for tx in range(115, 140, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 60, tx+1, 61)             # Catacomb wall sconces
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -10635,6 +10718,25 @@ def make_anor_londo():
         mapped = ENEMY_KIND_MAP.get("ManGrub", "ManGrub")
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # Additional enemies — SESSION 39 DS3 fidelity (Anor Londo)
+    # DS3: Silver Knights patrol halls, Man Grubs in dark corners
+    for tx, ty in [(30, 45), (38, 50), (45, 48), (52, 55), (60, 50),
+                   (68, 45), (75, 52), (82, 48)]:
+        mapped = ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(35, 70), (50, 75), (65, 72), (80, 70)]:
+        mapped = ENEMY_KIND_MAP.get("ManGrub", "ManGrub")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(90, 55), (100, 60)]:
+        mapped = ENEMY_KIND_MAP.get("SilverKnight", "SilverKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(42, 80), (58, 85)]:
+        mapped = ENEMY_KIND_MAP.get("DeepAccursed", "DeepAccursed")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # --- NPCs ---
     # Anri of Astora — summon sign near main doors (wiki: "purple sign on the floor")
     entities.append(make_entity("Npc", 128 * 16, 72 * 16, [
@@ -14724,6 +14826,25 @@ def make_untended_graves():
         mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
         entities.append(make_entity("Enemy", tx * 16, ty * 16, [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # Additional enemies — SESSION 39 DS3 fidelity (Untended Graves)
+    # DS3: Dark versions of Cemetery enemies — Black Knights, Hollow Soldiers, Dogs
+    for tx, ty in [(25, 45), (32, 50), (40, 48), (48, 55), (55, 50),
+                   (62, 45), (70, 52), (78, 48)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(35, 70), (50, 75), (65, 72)]:
+        mapped = ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(85, 55), (95, 60)]:
+        mapped = ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(42, 85), (58, 80)]:
+        mapped = ENEMY_KIND_MAP.get("Dog", "Dog")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # --- NPCs ---
     # Dark Shrine Handmaid in Dark Firelink Shrine (different from normal Firelink)
     entities.append(make_entity("Npc", 132 * 16, 112 * 16, [
@@ -15721,6 +15842,20 @@ def make_archdragon_peak():
     for ty in range(30, 60, 10):
         fill_tiles(chunk, TILE_WALL, 75, ty, 76, ty+1)              # Cliff face detail
     fill_tiles(chunk, TILE_WALL, 115, 90, 117, 92)                  # Storm damaged pillar
+    # SESSION 39 FIDELITY PASS — Archdragon Peak DS3 details
+    # DS3: Dragon skeleton archways, serpent statues, meditation stones, storm markers
+    for tx in range(30, 70, 8):
+        fill_tiles(chunk, TILE_WALL, tx, 35, tx+3, 37)             # Dragon rib archways
+        fill_tiles(chunk, TILE_WALL, tx, 95, tx+3, 97)
+    for tx in range(80, 130, 8):
+        fill_tiles(chunk, TILE_WALL, tx, 40, tx+1, 42)             # Serpent statue bases
+        fill_tiles(chunk, TILE_WALL, tx, 100, tx+1, 102)
+    for ty in range(30, 80, 10):
+        fill_tiles(chunk, TILE_WALL, 50, ty, 51, ty+1)             # Stone path markers
+        fill_tiles(chunk, TILE_WALL, 110, ty, 111, ty+1)
+    fill_tiles(chunk, TILE_WALL, 60, 80, 62, 82)                    # Meditation stone circle
+    fill_tiles(chunk, TILE_WALL, 130, 60, 132, 62)                  # Ancient dragon skull
+    fill_tiles(chunk, TILE_WALL, 90, 110, 92, 112)                  # Storm debris pile
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
