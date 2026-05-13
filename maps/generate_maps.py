@@ -20389,6 +20389,41 @@ def make_archdragon_peak():
     # Path corridors — mountain passage walls (DS3: narrow paths between areas)
     fill_tiles(chunk, TILE_WALL, 44, 142, 48, 148)  # Passage wall left
     fill_tiles(chunk, TILE_WALL, 56, 140, 60, 146)  # Passage wall right
+
+    # ================================================================
+    # DS3 MOUNTAIN CLIFF WALLS — Archdragon Peak terrain depth
+    # DS3: mountain peak with steep cliffs, narrow paths, wind-blasted
+    # ruins, and serpent-man structures carved into the rock
+    # ================================================================
+    # Entry cliff — steep cliff face walls (DS3: narrow mountain path entry)
+    fill_tiles(chunk, TILE_WALL, 10, 180, 16, 200)  # Cliff face left
+    fill_tiles(chunk, TILE_WALL, 28, 178, 34, 198)  # Cliff face right
+    fill_tiles(chunk, TILE_WALL, 18, 190, 26, 210)  # Cliff center wall
+    # Serpent camp — barracks interior walls (DS3: serpent-men barracks)
+    fill_tiles(chunk, TILE_WALL, 48, 155, 54, 175)  # Barracks interior left
+    fill_tiles(chunk, TILE_WALL, 68, 150, 74, 170)  # Barracks interior right
+    fill_tiles(chunk, TILE_WALL, 56, 165, 64, 180)  # Barracks center divider
+    fill_tiles(chunk, TILE_WALL, 76, 160, 82, 178)  # Training yard wall
+    # Wyvern arena — cliff edge walls (DS3: arena on cliff edge)
+    fill_tiles(chunk, TILE_WALL, 100, 140, 106, 158) # Cliff edge NW
+    fill_tiles(chunk, TILE_WALL, 120, 138, 126, 156) # Cliff edge NE
+    fill_tiles(chunk, TILE_WALL, 108, 158, 116, 175) # Cliff edge SW
+    fill_tiles(chunk, TILE_WALL, 124, 155, 130, 172) # Cliff edge SE
+    # Mausoleum — ancient stone walls (DS3: dragon meditation chamber)
+    fill_tiles(chunk, TILE_WALL, 92, 112, 98, 128)  # Mausoleum wall left
+    fill_tiles(chunk, TILE_WALL, 112, 110, 118, 126) # Mausoleum wall right
+    fill_tiles(chunk, TILE_WALL, 100, 120, 108, 135) # Mausoleum center wall
+    # Havel area — rock formation walls (DS3: rocky outcrops)
+    fill_tiles(chunk, TILE_WALL, 132, 128, 138, 145) # Rock formation 1
+    fill_tiles(chunk, TILE_WALL, 142, 122, 148, 140) # Rock formation 2
+    # Path between areas — narrow passage walls (DS3: winding mountain paths)
+    fill_tiles(chunk, TILE_WALL, 36, 135, 42, 150)  # Passage wall
+    fill_tiles(chunk, TILE_WALL, 86, 130, 92, 145)  # Mid passage wall
+    # Nameless King peak — summit cliff walls (DS3: open sky summit)
+    fill_tiles(chunk, TILE_WALL, 70, 42, 76, 55)    # Summit cliff NW
+    fill_tiles(chunk, TILE_WALL, 100, 40, 106, 53)  # Summit cliff NE
+    fill_tiles(chunk, TILE_WALL, 80, 55, 86, 68)    # Summit cliff SW
+    fill_tiles(chunk, TILE_WALL, 92, 53, 98, 66)    # Summit cliff SE
         # --- Player spawn ---
     spawn_px, spawn_py = 18 * 16, 132 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
