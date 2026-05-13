@@ -6443,13 +6443,13 @@ def make_smouldering_lake():
         # Lake shore — Demon Statues and Smouldering Rotten Flesh
         ("DemonStatue", 28, 42), ("DemonStatue", 50, 60), ("DemonStatue", 65, 50),
         ("DemonStatue", 18, 32), ("DemonStatue", 35, 40),
-        ("InfestedCorpse", 62, 58), ("InfestedCorpse", 68, 62), ("InfestedCorpse", 72, 55),
-        ("InfestedCorpse", 42, 48), ("InfestedCorpse", 55, 52),                    # Smouldering Rotten Flesh (DS3: corpse-like enemies)
-        # Smouldering Rotten Flesh — DS3 wiki: 6 in corridor, 3 in demon ruins room (9 total)
-        ("InfestedCorpse", 48, 55), ("InfestedCorpse", 58, 62),
-        ("InfestedCorpse", 65, 60), ("InfestedCorpse", 70, 58),
-        ("InfestedCorpse", 72, 62), ("InfestedCorpse", 68, 65),
-        ("InfestedCorpse", 95, 62), ("InfestedCorpse", 98, 65), ("InfestedCorpse", 100, 60),
+        ("DemonStatue", 62, 58), ("DemonStatue", 68, 62), ("DemonStatue", 72, 55),
+        ("DemonStatue", 42, 48), ("DemonStatue", 55, 52),                    # DS3: Demon Statues patrol lake shore
+        # Demon Statues — DS3: many statues throughout Smouldering Lake
+        ("DemonStatue", 48, 55), ("DemonStatue", 58, 62),
+        ("DemonStatue", 65, 60), ("DemonStatue", 70, 58),
+        ("DemonStatue", 72, 62), ("DemonStatue", 68, 65),
+        ("DemonStatue", 95, 62), ("DemonStatue", 98, 65), ("DemonStatue", 100, 60),
         # Basilisks near lava pools
         ("Basilisk", 52, 65), ("Basilisk", 58, 70), ("Basilisk", 55, 72),
         # Great Crab in lake (rare giant enemy)
@@ -6484,9 +6484,9 @@ def make_smouldering_lake():
         ("DemonStatue", 100, 85), ("DemonStatue", 115, 100),
         ("DemonStatue", 130, 108), ("DemonStatue", 140, 98),
         ("DemonStatue", 148, 112), ("DemonStatue", 120, 120),
-        # Smouldering Rotten Flesh in deep ruins chambers
-        ("InfestedCorpse", 105, 90), ("InfestedCorpse", 125, 88),
-        ("InfestedCorpse", 132, 115), ("InfestedCorpse", 142, 105),
+        # Demon Statues in deep ruins chambers (DS3: more statues in demon ruins)
+        ("DemonStatue", 105, 90), ("DemonStatue", 125, 88),
+        ("DemonStatue", 132, 115), ("DemonStatue", 142, 105),
         # Basilisks near deep lava pools
         ("Basilisk", 115, 110), ("Basilisk", 130, 118),
         # Black Knight in deep ruins (DS3: Black Knight patrols demon ruins)
