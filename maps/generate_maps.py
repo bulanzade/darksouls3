@@ -10495,6 +10495,26 @@ def make_kiln_of_the_first_flame():
     entities.append(make_entity("Enemy", 80 * 16, 26 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", "MiniBoss")]))  # Soul of Cinder
 
+    # --- Enemies — DS3 Kiln of the First Flame ---
+    # DS3: ash corridor gauntlet with Hollow Soldiers and Black Knights before final boss
+    # Entry path — Hollow Soldiers rising from ash (DS3: hollows along the ash path)
+    for tx, ty in [(50, 140), (60, 138), (70, 142), (80, 136), (90, 140),
+                   (100, 138), (110, 142), (55, 134), (65, 130), (75, 132)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    # Mid-path — Black Knights guarding ascent (DS3: Black Knights along path to arena)
+    for tx, ty in [(40, 120), (60, 118), (80, 122), (100, 116), (120, 120)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", "BlackKnight")]))
+    # Upper approach — more Hollow Soldiers near arena (DS3: final wave before boss)
+    for tx, ty in [(50, 80), (60, 84), (70, 78), (80, 82), (90, 86),
+                   (100, 80), (110, 84)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", "HollowSoldier")]))
+    # Crystal Lizard near arena approach (DS3: crystal lizard on the path)
+    entities.append(make_entity("Enemy", 120 * 16, 90 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", "CrystalLizard")]))
+
     # --- NPCs ---
     # Fire Keeper — appears at Kiln for the final scene (DS3: summons Fire Keeper for ending)
     entities.append(make_entity("Npc", 78 * 16, 28 * 16, [
