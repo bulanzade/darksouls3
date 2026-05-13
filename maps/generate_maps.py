@@ -2887,6 +2887,22 @@ def make_lothric_wall():
     fill_tiles(chunk, TILE_WALL, 130, 140, 131, 141)
     fill_tiles(chunk, TILE_WALL, 135, 145, 136, 146)
 
+    # SESSION 38 FIDELITY PASS — High Wall of Lothric DS3 details
+    # DS3: Dragon scorch marks, portcullis gates, frost debris near Vordt
+    for tx in range(15, 45, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 32, tx+2, 33)             # Dragon scorch marks
+        fill_tiles(chunk, TILE_WALL, tx, 72, tx+2, 73)
+    for tx in range(60, 90, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 28, tx+1, 29)             # Wall embrasures
+        fill_tiles(chunk, TILE_WALL, tx, 68, tx+1, 69)
+    for ty in range(35, 65, 8):
+        fill_tiles(chunk, TILE_WALL, 20, ty, 21, ty+1)             # Interior column bases
+        fill_tiles(chunk, TILE_WALL, 100, ty, 101, ty+1)
+    fill_tiles(chunk, TILE_WALL, 50, 55, 52, 57)                    # Portcullis frame
+    fill_tiles(chunk, TILE_WALL, 110, 45, 112, 47)                  # Frost debris near Vordt
+    for tx in range(80, 120, 7):
+        fill_tiles(chunk, TILE_WALL, tx, 80, tx+1, 81)             # Courtyard cobblestones
+    fill_tiles(chunk, TILE_WALL, 70, 90, 72, 92)                    # Tower rubble
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -3197,6 +3213,25 @@ def make_undead_settlement():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
 
+    # Additional enemies — SESSION 38 DS3 fidelity (Undead Settlement)
+    # DS3: Peasant Hollows fill ALL streets, Evangelists patrol, Thralls ambush from rooftops
+    for tx, ty in [(35, 48), (42, 52), (50, 55), (58, 48), (65, 52),
+                   (72, 55), (80, 48), (88, 52), (95, 55)]:
+        mapped = ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(40, 72), (55, 78), (70, 75), (85, 72)]:
+        mapped = ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(60, 65), (75, 68)]:
+        mapped = ENEMY_KIND_MAP.get("Evangelist", "Evangelist")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(45, 58), (62, 62), (82, 58)]:
+        mapped = ENEMY_KIND_MAP.get("Thrall", "Thrall")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # --- NPCs (DS3 Undead Settlement: Yoel, Siegward, Cornyx) ---
     # Yoel of Londor — among the pilgrims at the entrance (DS3: offers free levels)
     entities.append(make_entity("Npc", 120 * 16, 34 * 16, [
@@ -5480,6 +5515,22 @@ def make_farron_keep():
     fill_tiles(chunk, TILE_WALL, 98, 110, 99, 111)
     fill_tiles(chunk, TILE_WALL, 104, 114, 105, 115)
 
+    # SESSION 38 FIDELITY PASS — Farron Keep DS3 details
+    # DS3: Torch platforms, ghru camp remains, Abyss Watcher memorials, darkwraith markers
+    for tx in range(20, 60, 7):
+        fill_tiles(chunk, TILE_WALL, tx, 45, tx+1, 46)             # Torch platforms
+        fill_tiles(chunk, TILE_WALL, tx, 85, tx+1, 86)
+    for tx in range(65, 110, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 50, tx+2, 52)             # Ghru camp remains
+        fill_tiles(chunk, TILE_WALL, tx, 90, tx+2, 92)
+    for ty in range(40, 80, 10):
+        fill_tiles(chunk, TILE_WALL, 35, ty, 37, ty+1)             # Abyss Watcher memorial stones
+        fill_tiles(chunk, TILE_WALL, 85, ty, 87, ty+1)
+    fill_tiles(chunk, TILE_WALL, 50, 60, 52, 62)                    # Darkwraith marker
+    fill_tiles(chunk, TILE_WALL, 110, 70, 112, 72)                  # Fallen knight debris
+    fill_tiles(chunk, TILE_WALL, 70, 95, 72, 97)                    # Swamp edge ruin
+    for tx in range(115, 140, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 55, tx+1, 56)             # Rotting wood piles
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -8281,6 +8332,21 @@ def make_irithyll():
         make_field("is_mimic", "Bool", False),
     ]))
 
+    # Additional enemies — SESSION 38 DS3 fidelity (Irithyll of the Boreal Valley)
+    # DS3: Irithyllian Slaves ambush throughout, Boreal Knights guard paths
+    for tx, ty in [(30, 45), (38, 50), (45, 48), (52, 55), (60, 50),
+                   (68, 45), (75, 52), (82, 48), (90, 55)]:
+        mapped = ENEMY_KIND_MAP.get("IrithyllianSlave", "Assassin")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(40, 65), (55, 70), (70, 68), (85, 65)]:
+        mapped = ENEMY_KIND_MAP.get("BorealKnight", "Knight")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
+    for tx, ty in [(50, 80), (65, 85), (80, 82)]:
+        mapped = ENEMY_KIND_MAP.get("SewerCentipede", "Wretch")
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", mapped)]))
     # NPCs — DS3 Irithyll: Anri (Church of Yorshka), Siegward (Distant Manor kitchen), Sirris
     entities.append(make_entity("Npc", 62 * 16, 38 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Hello again. We seem destined to cross paths|Are you also headed for Anor Londo?|I must reach Aldrich of the Deep|To avenge my companions who fell to him")]))
     entities.append(make_entity("Npc", 28 * 16, 80 * 16, [make_field("name", "String", "Siegward"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0A060"), make_field("dialogue", "String", "Oh, hello there! Fancy meeting you here|I'm cooking up some estus soup, my specialty|Care to join me? It's quite good, you know|Oh, very good indeed, to see a friendly face")]))
@@ -8612,6 +8678,22 @@ def make_irithyll():
     fill_tiles(chunk, TILE_WALL, 104, 96, 105, 97)
     fill_tiles(chunk, TILE_WALL, 110, 100, 111, 101)
 
+    # SESSION 38 FIDELITY PASS — Irithyll of the Boreal Valley DS3 details
+    # DS3: Icicle columns, fountain debris, Silver Knight barricades, distant manor steps
+    for tx in range(25, 60, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 30, tx+1, 31)             # Icicle columns
+        fill_tiles(chunk, TILE_WALL, tx, 70, tx+1, 71)
+    for tx in range(65, 100, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 35, tx+2, 36)             # Fountain debris
+        fill_tiles(chunk, TILE_WALL, tx, 75, tx+2, 76)
+    for ty in range(25, 65, 8):
+        fill_tiles(chunk, TILE_WALL, 40, ty, 41, ty+1)             # Street lantern bases
+        fill_tiles(chunk, TILE_WALL, 90, ty, 91, ty+1)
+    fill_tiles(chunk, TILE_WALL, 55, 55, 57, 57)                    # Central fountain
+    fill_tiles(chunk, TILE_WALL, 110, 40, 112, 42)                  # Silver Knight barricade
+    fill_tiles(chunk, TILE_WALL, 120, 65, 122, 67)                  # Distant Manor steps
+    for tx in range(100, 130, 7):
+        fill_tiles(chunk, TILE_WALL, tx, 50, tx+1, 51)             # Snow-covered rubble
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -9355,6 +9437,21 @@ def make_irithyll_dungeon():
     fill_tiles(chunk, TILE_WALL, 132, 48, 133, 49)
     fill_tiles(chunk, TILE_WALL, 138, 52, 139, 53)
 
+    # SESSION 38 FIDELITY PASS — Irithyll Dungeon DS3 details
+    # DS3: Cell door frames, torture rack debris, sewer pipe fragments
+    for tx in range(20, 60, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 35, tx+1, 36)             # Cell door frames
+        fill_tiles(chunk, TILE_WALL, tx, 75, tx+1, 76)
+    for tx in range(65, 110, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 30, tx+2, 31)             # Torture rack debris
+        fill_tiles(chunk, TILE_WALL, tx, 80, tx+2, 81)
+    for ty in range(40, 70, 8):
+        fill_tiles(chunk, TILE_WALL, 30, ty, 31, ty+1)             # Pipe fragments
+        fill_tiles(chunk, TILE_WALL, 80, ty, 81, ty+1)
+    fill_tiles(chunk, TILE_WALL, 45, 50, 47, 52)                    # Elevator mechanism
+    fill_tiles(chunk, TILE_WALL, 100, 60, 102, 62)                  # Jailor key rack
+    for tx in range(110, 140, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 45, tx+1, 46)             # Sewer grates
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -11775,6 +11872,22 @@ def make_lothric_castle():
     fill_tiles(chunk, TILE_WALL, 106, 92, 107, 93)
     fill_tiles(chunk, TILE_WALL, 112, 96, 113, 97)
 
+    # SESSION 38 FIDELITY PASS — Lothric Castle DS3 details
+    # DS3: Great hall pillars, dragon perches, throne room debris, Dancer arena
+    for tx in range(25, 65, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 30, tx+2, 32)             # Great hall pillars
+        fill_tiles(chunk, TILE_WALL, tx, 70, tx+2, 72)
+    for tx in range(75, 120, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 35, tx+1, 36)             # Dragon perch debris
+        fill_tiles(chunk, TILE_WALL, tx, 75, tx+1, 76)
+    for ty in range(40, 65, 8):
+        fill_tiles(chunk, TILE_WALL, 40, ty, 41, ty+1)             # Castle interior columns
+        fill_tiles(chunk, TILE_WALL, 100, ty, 101, ty+1)
+    fill_tiles(chunk, TILE_WALL, 55, 50, 57, 52)                    # Throne room debris
+    fill_tiles(chunk, TILE_WALL, 110, 60, 112, 62)                  # Dancer arena debris
+    fill_tiles(chunk, TILE_WALL, 80, 85, 82, 87)                    # Dragon skeleton
+    for tx in range(120, 145, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 45, tx+1, 46)             # Rooftop debris
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -12565,6 +12678,22 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_WALL, 102, 96, 103, 97)
     fill_tiles(chunk, TILE_WALL, 108, 100, 109, 101)
 
+    # SESSION 38 FIDELITY PASS — Grand Archives DS3 details
+    # DS3: Bookshelf debris, candle clusters, Crystal Sage crystals, wax pools
+    for tx in range(30, 70, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 25, tx+1, 26)             # Bookshelf debris
+        fill_tiles(chunk, TILE_WALL, tx, 65, tx+1, 66)
+    for tx in range(75, 120, 5):
+        fill_tiles(chunk, TILE_WALL, tx, 30, tx+1, 31)             # Candle clusters
+        fill_tiles(chunk, TILE_WALL, tx, 70, tx+1, 71)
+    for ty in range(35, 60, 8):
+        fill_tiles(chunk, TILE_WALL, 50, ty, 52, ty+1)             # Book pile stacks
+        fill_tiles(chunk, TILE_WALL, 100, ty, 102, ty+1)
+    fill_tiles(chunk, TILE_WALL, 60, 50, 62, 52)                    # Crystal Sage crystal
+    fill_tiles(chunk, TILE_WALL, 110, 55, 112, 57)                  # Wax head pool
+    fill_tiles(chunk, TILE_WALL, 80, 80, 82, 82)                    # Broken bookshelf
+    for tx in range(120, 145, 6):
+        fill_tiles(chunk, TILE_WALL, tx, 40, tx+1, 41)             # Scroll racks
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
