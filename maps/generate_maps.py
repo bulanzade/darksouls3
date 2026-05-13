@@ -5826,6 +5826,27 @@ def make_catacombs_of_carthus():
     fill_tiles(chunk, TILE_WALL, 28, 62, 29, 63)
     fill_tiles(chunk, TILE_WALL, 36, 66, 37, 67)
 
+    # ================================================================
+    # SESSION 15 FIDELITY PASS — CatacombsOfCarthus additional DS3 details
+    # ================================================================
+    # Skeleton ball tracks — groove debris (DS3: carved stone grooves for rolling balls)
+    fill_tiles(chunk, TILE_WALL, 44, 46, 45, 47)
+    fill_tiles(chunk, TILE_WALL, 50, 48, 51, 49)
+    fill_tiles(chunk, TILE_WALL, 56, 44, 57, 45)
+    fill_tiles(chunk, TILE_WALL, 62, 50, 63, 51)
+    # Wolnir tomb — golden bracelet debris (DS3: Wolnir's golden bracelets glow)
+    fill_tiles(chunk, TILE_WALL, 70, 60, 71, 61)
+    fill_tiles(chunk, TILE_WALL, 76, 64, 77, 65)
+    fill_tiles(chunk, TILE_WALL, 82, 62, 83, 63)
+    fill_tiles(chunk, TILE_WALL, 68, 66, 69, 67)
+    # Carthus worm alcove — sand debris (DS3: Carthus Sandworm emerges from sand)
+    fill_tiles(chunk, TILE_WALL, 84, 58, 85, 59)
+    fill_tiles(chunk, TILE_WALL, 90, 62, 91, 63)
+    fill_tiles(chunk, TILE_WALL, 88, 56, 89, 57)
+    # Abandoned tomb — coffin lid debris (DS3: broken coffins near Smouldering Lake entrance)
+    fill_tiles(chunk, TILE_WALL, 24, 68, 25, 69)
+    fill_tiles(chunk, TILE_WALL, 20, 72, 21, 73)
+    fill_tiles(chunk, TILE_WALL, 30, 70, 31, 71)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
