@@ -5435,9 +5435,9 @@ def make_catacombs_of_carthus():
         make_field("is_mimic", "Bool", True),
     ]))
 
-    # NPCs — DS3 Catacombs: Anri at the first bonfire area, Horace deeper in
+    # NPCs — DS3 Catacombs: Anri and Horace together at the entrance bonfire
     entities.append(make_entity("Npc", 15 * 16, 18 * 16, [make_field("name", "String", "Anri of Astora"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#C0C0C0"), make_field("dialogue", "String", "Oh, hello, we meet again|Have you seen Horace anywhere?|I have been separated from him|I am worried... Please tell me if you find him")]))
-    entities.append(make_entity("Npc", 50 * 16, 45 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods slowly)")]))
+    entities.append(make_entity("Npc", 17 * 16, 19 * 16, [make_field("name", "String", "Horace the Hushed"), make_field("kind", "LocalEnum.NpcKind", "Dialogue"), make_field("color", "Color", "#606060"), make_field("dialogue", "String", "...|(nods slowly)")]))
 
     entities.append(make_entity("FogGate", 25 * 16, 112 * 16, [
         make_field("dest_area", "String", "SmoulderingLake"),
@@ -9509,8 +9509,9 @@ def make_grand_archives():
     # ================================================================
     # NPC — DS3 Grand Archives
     # ================================================================
-    # Black Hand Gotthard (dead body at entrance — drops Grand Archives Key)
-    entities.append(make_entity("Npc", 30 * 16, 140 * 16, [
+    # Black Hand Gotthard (dead body at Grand Archives entrance — drops Grand Archives Key)
+    # DS3: Gotthard's corpse is at the doors of Grand Archives, not deep inside
+    entities.append(make_entity("Npc", 146 * 16, 85 * 16, [
         make_field("name", "String", "Black Hand Gotthard"),
         make_field("kind", "LocalEnum.NpcKind", "Dialogue"),
         make_field("color", "Color", "#606060"),

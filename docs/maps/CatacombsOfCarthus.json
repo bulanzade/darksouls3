@@ -535,8 +535,8 @@
       "name": "沉默的霍雷斯",
       "name_en": "Horace the Hushed",
       "kind": "Dialogue",
-      "x": 800,
-      "y": 720,
+      "x": 272,
+      "y": 304,
       "color": "#606060",
       "dialogue": [
         "...",
