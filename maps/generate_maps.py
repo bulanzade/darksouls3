@@ -1232,6 +1232,11 @@ def make_cemetery_of_ash():
     for tx in [72, 74, 76, 78, 82, 84]:
         for ty in [45, 46]:
             chunk[tx][ty] = TILE_WALL
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
 
     # Ensure connectivity from spawn to all entities
@@ -2144,6 +2149,11 @@ def make_firelink_shrine():
             chunk[tx][ty] = TILE_WALL
     for tx in range(48, 53):
         chunk[tx][34] = TILE_WALLTOP
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -3260,6 +3270,11 @@ def make_lothric_wall():
             chunk[tx][ty] = TILE_WALL
     for tx in range(80, 93):
         chunk[tx][31] = TILE_WALLTOP
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -4350,6 +4365,11 @@ def make_undead_settlement():
     for tx in [120, 128]:
         for ty in range(75, 81):
             chunk[tx][ty] = TILE_WALL
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -5371,6 +5391,11 @@ def make_road_of_sacrifices():
     entities.append(make_entity("Item", 210 * 16, 150 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
         make_field("name", "String", "Soul of the Crystal Sage")]))
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -6421,6 +6446,11 @@ def make_farron_keep():
     entities.append(make_entity("Item", 275 * 16, 216 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
         make_field("name", "String", "Soul of the Blood of the Wolf")]))
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -7405,6 +7435,11 @@ def make_cathedral_deep():
     # --- DS3 faithful chests ---
     entities.append(make_entity("Chest", 225 * 16, 53 * 16, [
         make_field("name", "String", "Unknown")]))
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -8335,6 +8370,11 @@ def make_catacombs_of_carthus():
     entities.append(make_entity("Item", 222 * 16, 188 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
         make_field("name", "String", "Soul of High Lord Wolnir")]))
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -9322,6 +9362,11 @@ def make_smouldering_lake():
     entities.append(make_entity("Item", 228 * 16, 175 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
         make_field("name", "String", "Soul of the Old Demon King")]))
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -10534,6 +10579,11 @@ def make_irithyll():
         make_field("name", "String", "Unknown")]))
     entities.append(make_entity("Chest", 235 * 16, 102 * 16, [
         make_field("name", "String", "Unknown")]))
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -11505,6 +11555,11 @@ def make_irithyll_dungeon():
         make_field("name", "String", "Unknown")]))
     entities.append(make_entity("Chest", 97 * 16, 165 * 16, [
         make_field("name", "String", "Unknown")]))
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -12500,6 +12555,11 @@ def make_profaned_capital():
     for tx in [10, 18]:
         for ty in range(30, 43):
             chunk[tx][ty] = TILE_WALL
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -13402,6 +13462,11 @@ def make_anor_londo():
     for tx in [80, 95]:
         for ty in range(25, 31):
             chunk[tx][ty] = TILE_WALL
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -14502,6 +14567,11 @@ def make_lothric_castle():
     for tx in [85, 95]:
         for ty in range(20, 36):
             chunk[tx][ty] = TILE_WALL
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -15578,6 +15648,11 @@ def make_grand_archives():
         make_field("name", "String", "Unknown")]))
     entities.append(make_entity("Chest", 118 * 16, 218 * 16, [
         make_field("name", "String", "Unknown")]))
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -16338,6 +16413,11 @@ def make_kiln_of_the_first_flame():
     for tx in range(42, 69):
         for ty in [60, 78]:
             chunk[tx][ty] = TILE_WALL
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -17298,6 +17378,11 @@ def make_consumed_kings_garden():
     for tx in range(60, 75):
         for ty in range(65, 72):
             chunk[tx][ty] = TILE_POISON
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -18142,6 +18227,11 @@ def make_untended_graves():
     for tx in range(5, 95):
         chunk[tx][8] = TILE_WALL
         chunk[tx][7] = TILE_WALLTOP
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -19182,6 +19272,11 @@ def make_archdragon_peak():
     for tx in [90, 91, 92]:
         for ty in [55, 56, 57]:
             chunk[tx][ty] = TILE_WALL
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
@@ -19370,6 +19465,12 @@ def generate_map_from_doc(doc_path):
             make_field("width", "Float", max(TILE_SIZE, gate.get("w", 64))),
             make_field("height", "Float", max(TILE_SIZE, gate.get("h", 64))),
         ])
+
+    # Snap entities to walkable tiles
+    for ent in entities:
+        if ent["__identifier"] not in ("FogGate", "PlayerSpawn", "TilePatch"):
+            snap_entity_to_walkable(chunk, ent)
+
 
     populate_entity_def_uids(entities)
     ground_count = sum(1 for row in chunk for tile in row if tile in (TILE_GROUND, TILE_POISON))
