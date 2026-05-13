@@ -7372,6 +7372,28 @@ def make_irithyll():
     fill_tiles(chunk, TILE_WALL, 146, 48, 147, 49)
     fill_tiles(chunk, TILE_WALL, 136, 46, 137, 47)
 
+    # SESSION 18 FIDELITY PASS — Irithyll DS3 frozen city details
+    # Entry bridge — ice-cracked stone arch (DS3: ornate bridge with silver knights)
+    fill_tiles(chunk, TILE_WALL, 22, 34, 23, 36)
+    fill_tiles(chunk, TILE_WALL, 28, 38, 29, 40)
+    fill_tiles(chunk, TILE_WALL, 34, 36, 35, 38)
+    fill_tiles(chunk, TILE_WALL, 40, 40, 41, 42)
+    # Church of Yorshka — candle altar stones (DS3: bonfire church with candle clusters)
+    fill_tiles(chunk, TILE_WALL, 46, 44, 47, 46)
+    fill_tiles(chunk, TILE_WALL, 52, 48, 53, 50)
+    fill_tiles(chunk, TILE_WALL, 58, 42, 59, 44)
+    fill_tiles(chunk, TILE_WALL, 64, 46, 65, 48)
+    # Distant Manor — frozen garden debris (DS3: manor with Siegward's soup)
+    fill_tiles(chunk, TILE_WALL, 70, 52, 71, 54)
+    fill_tiles(chunk, TILE_WALL, 76, 56, 77, 58)
+    fill_tiles(chunk, TILE_WALL, 82, 50, 83, 52)
+    fill_tiles(chunk, TILE_WALL, 88, 54, 89, 56)
+    # Sewer area — frozen grate stones (DS3: sewers beneath the city)
+    fill_tiles(chunk, TILE_WALL, 94, 58, 95, 60)
+    fill_tiles(chunk, TILE_WALL, 100, 62, 101, 64)
+    fill_tiles(chunk, TILE_WALL, 106, 56, 107, 58)
+    fill_tiles(chunk, TILE_WALL, 112, 60, 113, 62)
+
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
