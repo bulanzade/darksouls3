@@ -10576,7 +10576,7 @@ def make_irithyll():
 
     # Return to Cathedral of the Deep (DS3: shortcut back via bonfire warp path)
     entities.append(make_entity("FogGate", 32 * 16, 33 * 16, [
-        make_field("dest_area", "String", "CathedralDeep"),
+        make_field("dest_area", "String", "CatacombsOfCarthus"),
         make_field("dest_x", "Float", 2400.0), make_field("dest_y", "Float", 2200.0),
         make_field("width", "Float", 64.0), make_field("height", "Float", 80.0),
     ]))
