@@ -2478,8 +2478,8 @@ def make_lothric_wall():
     fill_tiles(chunk, TILE_WALL, 30, 78, 35, 82)   # House L
     fill_tiles(chunk, TILE_WALL, 48, 78, 53, 82)   # House M (partial)
 
-    # Connection: tower area to residential north
-    fill_tiles(chunk, TILE_GROUND, 50, 48, 56, 52)
+    # Connection: tower area to residential north (wider for route connectivity)
+    fill_tiles(chunk, TILE_GROUND, 44, 44, 62, 56)
 
     # 6. COURTYARD — south of residential, with fountain and sewer alcove
     fill_tiles(chunk, TILE_GROUND, 10, 78, 58, 100)
@@ -2525,13 +2525,13 @@ def make_lothric_wall():
     fill_tiles(chunk, TILE_GROUND, 78, 120, 84, 122)
     fill_tiles(chunk, TILE_GROUND, 86, 132, 92, 134)
 
-    # Connection: cathedral to frost stairs
-    fill_tiles(chunk, TILE_GROUND, 76, 110, 82, 114)
+    # Connection: cathedral to frost stairs (wider for route connectivity)
+    fill_tiles(chunk, TILE_GROUND, 70, 108, 92, 116)
 
     # 10. VORDT ARENA — large oval at south end
     carve_ellipse(chunk, 100, 144, 22, 12)
-    # Entry funnel from frost stairs
-    fill_tiles(chunk, TILE_GROUND, 86, 136, 114, 142)
+    # Entry funnel from frost stairs to Vordt (wider for connectivity)
+    fill_tiles(chunk, TILE_GROUND, 80, 130, 120, 148)
 
     # ================================================================
     # SESSION 9 FIDELITY PASS — LothricWall architectural details
@@ -2736,6 +2736,23 @@ def make_lothric_wall():
     ]
 
     
+    # ================================================================
+    # Boss-to-main-cluster corridor (critical for playability)
+    fill_tiles(chunk, TILE_GROUND, 140, 34, 190, 42)  # Twin Princes → main cluster
+    fill_tiles(chunk, TILE_GROUND, 100, 34, 145, 50)  # Rooftop → Princes path
+    fill_tiles(chunk, TILE_GROUND, 45, 50, 70, 65)    # Wax pool → Scholar tower
+
+    # LATE CONNECTIVITY — corridors carved AFTER all wall placement
+    # ================================================================
+    fill_tiles(chunk, TILE_GROUND, 42, 42, 62, 56)     # Tower → Residential
+    fill_tiles(chunk, TILE_GROUND, 20, 72, 40, 84)     # Residential → Courtyard
+    fill_tiles(chunk, TILE_GROUND, 54, 84, 72, 96)     # Courtyard → Knight path
+    fill_tiles(chunk, TILE_GROUND, 66, 94, 92, 108)    # Knight path → Cathedral
+    fill_tiles(chunk, TILE_GROUND, 72, 108, 98, 118)   # Cathedral → Frost stairs
+    fill_tiles(chunk, TILE_GROUND, 78, 118, 110, 145)  # Frost stairs → Vordt arena
+    # Boss-to-main-cluster corridor
+    fill_tiles(chunk, TILE_GROUND, 185, 180, 205, 230) # Vordt → main cluster
+
     # --- DS3 faithful enemies (LothricWall) ---
     # HollowSoldier (29)
     for tx, ty in [(14, 10), (22, 14), (16, 20), (48, 10), (18, 34), (28, 38), (40, 32), (52, 36), (50, 66), (74, 64), (40, 74), (56, 74), (34, 94), (52, 90), (70, 100), (88, 126), (34, 14), (60, 16), (44, 44), (64, 58), (28, 68), (72, 70), (26, 86), (58, 98), (85, 28), (96, 37), (83, 61), (94, 70), (120, 79)]:
@@ -3712,8 +3729,8 @@ def make_undead_settlement():
     fill_tiles(chunk, TILE_WALL, 144, 58, 145, 60)
     fill_tiles(chunk, TILE_WALL, 148, 48, 149, 50)
 
-    # Connection: cliffside to pilgrim camp
-    fill_tiles(chunk, TILE_GROUND, 110, 38, 118, 44)
+    # Connection: cliffside to pilgrim camp (wider for route)
+    fill_tiles(chunk, TILE_GROUND, 105, 34, 125, 48)
 
     # Connection: fire demon to Irina's cell
     fill_tiles(chunk, TILE_GROUND, 112, 52, 140, 58)
@@ -3721,12 +3738,14 @@ def make_undead_settlement():
     # 10. CLIFF UNDERSIDE (below village)
     fill_tiles(chunk, TILE_GROUND, 50, 76, 78, 92)
     carve_ellipse(chunk, 64, 84, 10, 7)
+    # Connection: cliff underside to Greatwood (wider for route)
+    fill_tiles(chunk, TILE_GROUND, 58, 88, 82, 105)
 
     # 11. PIT OF HOLLOWS / GREATWOOD ARENA (bottom-center)
-    carve_ellipse(chunk, 90, 110, 22, 20)
-    # Path down from bonfire square
-    fill_tiles(chunk, TILE_GROUND, 72, 66, 82, 82)
-    carve_corridor(chunk, 78, 68, 84, 92, width=4)
+    carve_ellipse(chunk, 90, 110, 24, 22)
+    # Path down from bonfire square to Greatwood (wider for connectivity)
+    fill_tiles(chunk, TILE_GROUND, 62, 60, 100, 100)
+    carve_corridor(chunk, 78, 68, 84, 92, width=8)
 
     # ================================================================
     # SESSION 9 FIDELITY PASS — UndeadSettlement architectural details
@@ -3884,6 +3903,19 @@ def make_undead_settlement():
     # --- Enemies (DS3 Undead Settlement: Peasant Hollows, Evangelists, Thralls) ---
 
     
+    # ================================================================
+    # LATE CONNECTIVITY — corridors carved AFTER all wall placement
+    # ================================================================
+    fill_tiles(chunk, TILE_GROUND, 14, 18, 30, 30)     # Entry → Settlement street
+    fill_tiles(chunk, TILE_GROUND, 30, 28, 55, 42)     # Street → Central square
+    fill_tiles(chunk, TILE_GROUND, 50, 40, 75, 55)     # Square → Burning tree
+    fill_tiles(chunk, TILE_GROUND, 70, 50, 100, 65)    # Burning tree → Fire demon
+    fill_tiles(chunk, TILE_GROUND, 60, 58, 95, 80)     # Central → Cliff underside
+    fill_tiles(chunk, TILE_GROUND, 55, 78, 100, 100)   # Cliff → Greatwood arena
+    fill_tiles(chunk, TILE_GROUND, 96, 95, 115, 120)   # Greatwood arena wider
+    # Boss-to-main-cluster corridor
+    fill_tiles(chunk, TILE_GROUND, 180, 160, 205, 215) # Greatwood → main cluster
+
     # --- DS3 faithful enemies (UndeadSettlement) ---
     # DS3 wiki: Hollow Soldiers, Peasant Hollows, Starved Hounds, Evangelists,
     # Thralls, Rats, Fire Demon, Giant Slave, Skeletons, Crystal Lizard,
@@ -11094,6 +11126,19 @@ def make_irithyll():
             chunk[tx][ty] = TILE_WALL
             chunk[tx][ty-1] = TILE_WALLTOP
     
+    # ================================================================
+    # LATE CONNECTIVITY — corridors carved AFTER all wall placement
+    # ================================================================
+    fill_tiles(chunk, TILE_GROUND, 10, 20, 35, 45)     # Entry → Upper cells
+    fill_tiles(chunk, TILE_GROUND, 38, 38, 58, 50)     # Upper → Central
+    fill_tiles(chunk, TILE_GROUND, 50, 60, 75, 78)     # Central → Lower
+    fill_tiles(chunk, TILE_GROUND, 68, 70, 90, 85)     # Lower → Waterways
+    fill_tiles(chunk, TILE_GROUND, 90, 40, 120, 55)    # Tower → Exit corridor
+    fill_tiles(chunk, TILE_GROUND, 20, 90, 50, 105)    # Sewers → Dark room
+    # Boss-to-main-cluster corridor
+    fill_tiles(chunk, TILE_GROUND, 220, 110, 255, 155) # Pontiff → main cluster
+    fill_tiles(chunk, TILE_GROUND, 200, 100, 240, 120) # Silver Knight area → boss
+
     # --- DS3 faithful enemies (Irithyll) ---
     # SulyvahnsBeast (3)
     entities.append(make_entity("Enemy", 12 * 16, 38 * 16,
@@ -11482,12 +11527,16 @@ def make_irithyll_dungeon():
     # ================================================================
     fill_tiles(chunk, TILE_GROUND, 85, 35, 110, 48)
 
-    # Connection corridors
-    fill_tiles(chunk, TILE_GROUND, 45, 42, 55, 48)    # Upper to central
-    fill_tiles(chunk, TILE_GROUND, 55, 68, 65, 78)    # Central to lower
-    fill_tiles(chunk, TILE_GROUND, 70, 72, 82, 80)    # Lower to Karla
-    fill_tiles(chunk, TILE_GROUND, 100, 45, 108, 52)  # Siegward to tower
-    fill_tiles(chunk, TILE_GROUND, 105, 38, 115, 35)  # Tower to exit
+    # Connection corridors (widened for DS3 route connectivity)
+    fill_tiles(chunk, TILE_GROUND, 40, 40, 58, 50)    # Upper to central (wide)
+    fill_tiles(chunk, TILE_GROUND, 48, 65, 70, 80)    # Central to lower (wide)
+    fill_tiles(chunk, TILE_GROUND, 65, 70, 85, 82)    # Lower to Karla (wide)
+    fill_tiles(chunk, TILE_GROUND, 95, 42, 115, 52)   # Siegward to tower (wide)
+    fill_tiles(chunk, TILE_GROUND, 100, 32, 120, 42)  # Tower to exit (wide)
+    # Additional Irithyll connections for full route connectivity
+    fill_tiles(chunk, TILE_GROUND, 20, 25, 40, 48)    # Entry to upper cells
+    fill_tiles(chunk, TILE_GROUND, 60, 80, 75, 95)    # Central to lower sewers
+    fill_tiles(chunk, TILE_GROUND, 30, 95, 50, 105)   # Lower sewers to dark room
 
     # ================================================================
     # ADDITIONAL DS3 IRITHYLL DUNGEON — cell walls, prison architecture
@@ -12494,8 +12543,8 @@ def make_profaned_capital():
     # Fire vessel obstacle
     fill_tiles(chunk, TILE_WALL, 56, 12, 58, 16)
 
-    # Connection bridge between jailer rooms
-    fill_tiles(chunk, TILE_GROUND, 65, 10, 70, 20)
+    # Connection bridge between jailer rooms (wider for route connectivity)
+    fill_tiles(chunk, TILE_GROUND, 42, 4, 72, 26)
 
     # Second jailer room (jailers + gargoyle + 2 mimics + 1 real chest)
     fill_tiles(chunk, TILE_GROUND, 68, 6, 90, 24)
@@ -12504,8 +12553,8 @@ def make_profaned_capital():
     # Side chests area
     fill_tiles(chunk, TILE_WALL, 84, 16, 86, 20)
 
-    # Connection to Yhorm arena
-    fill_tiles(chunk, TILE_GROUND, 86, 12, 96, 18)
+    # Connection to Yhorm arena (wider for route connectivity)
+    fill_tiles(chunk, TILE_GROUND, 82, 8, 102, 22)
 
     # Yhorm's throne room — large NE arena
     carve_ellipse(chunk, 108, 18, 20, 16)
@@ -12514,11 +12563,11 @@ def make_profaned_capital():
     fill_tiles(chunk, TILE_WALL, 96, 8, 98, 12)
     fill_tiles(chunk, TILE_WALL, 118, 24, 120, 28)
 
-    # 4. EXPLORE PATH — descent south from bonfire tower
-    fill_tiles(chunk, TILE_GROUND, 12, 22, 22, 38)
+    # 4. EXPLORE PATH — descent south from bonfire tower (wider for route)
+    fill_tiles(chunk, TILE_GROUND, 8, 18, 28, 42)
 
-    # Upper ruins — connecting area
-    fill_tiles(chunk, TILE_GROUND, 16, 34, 44, 48)
+    # Upper ruins — connecting area (wider for route connectivity)
+    fill_tiles(chunk, TILE_GROUND, 12, 30, 50, 52)
     # Broken wall obstacles
     fill_tiles(chunk, TILE_WALL, 22, 38, 24, 42)
     fill_tiles(chunk, TILE_WALL, 34, 40, 36, 44)
@@ -12562,8 +12611,8 @@ def make_profaned_capital():
     # Connection: roof to Siegward's cell
     fill_tiles(chunk, TILE_GROUND, 58, 42, 64, 46)
 
-    # Giant room — east side
-    fill_tiles(chunk, TILE_GROUND, 66, 54, 88, 72)
+    # Giant room — east side (wider for route connectivity)
+    fill_tiles(chunk, TILE_GROUND, 58, 50, 92, 76)
     # Giant's tunnel
     fill_tiles(chunk, TILE_GROUND, 74, 64, 82, 70)
 
@@ -12837,6 +12886,21 @@ def make_profaned_capital():
     # Rats, Crystal Lizards, Mimic
 
     
+    # ================================================================
+    # LATE CONNECTIVITY — corridors carved AFTER all wall placement
+    # ================================================================
+    fill_tiles(chunk, TILE_GROUND, 8, 8, 30, 30)      # Bonfire tower → upper
+    fill_tiles(chunk, TILE_GROUND, 20, 20, 50, 40)     # Upper → Explore path
+    fill_tiles(chunk, TILE_GROUND, 30, 36, 60, 52)     # Explore → Upper ruins
+    fill_tiles(chunk, TILE_GROUND, 40, 48, 68, 62)     # Upper ruins → Siegward
+    fill_tiles(chunk, TILE_GROUND, 55, 52, 85, 70)     # Siegward → Giant room
+    fill_tiles(chunk, TILE_GROUND, 10, 30, 48, 50)     # Bonfire → First jailer
+    fill_tiles(chunk, TILE_GROUND, 42, 2, 90, 26)      # First jailer → Second → Yhorm
+    fill_tiles(chunk, TILE_GROUND, 82, 4, 135, 36)     # Jailer rooms → Yhorm arena
+    # Boss-to-main-cluster corridor
+    fill_tiles(chunk, TILE_GROUND, 100, 170, 200, 210) # Yhorm → main cluster
+    fill_tiles(chunk, TILE_GROUND, 60, 170, 110, 200)  # Upper ruins → Yhorm path
+
     # --- DS3 faithful enemies (ProfanedCapital) ---
     # Gargoyle (10)
     for tx, ty in [(10, 11), (44, 12), (48, 14), (64, 14), (88, 8), (34, 52), (50, 60), (108, 2), (129, 15), (124, 34)]:
@@ -15820,6 +15884,17 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_GROUND, 128, 22, 135, 30)    # Bridge → Lift shortcut alcove
 
     # ================================================================
+    # CONNECTIVITY CORRIDORS — ensure all levels are walkable
+    # ================================================================
+    fill_tiles(chunk, TILE_GROUND, 40, 122, 52, 130)    # Entry → First floor (wide)
+    fill_tiles(chunk, TILE_GROUND, 48, 82, 70, 90)      # First floor → Wax pool (wide)
+    fill_tiles(chunk, TILE_GROUND, 65, 52, 90, 60)      # Wax pool → Scholar tower (wide)
+    fill_tiles(chunk, TILE_GROUND, 68, 28, 100, 36)     # Scholar tower → WK corridor (wide)
+    fill_tiles(chunk, TILE_GROUND, 62, 14, 90, 24)      # WK corridor → Rooftop (wide)
+    fill_tiles(chunk, TILE_GROUND, 90, 8, 120, 22)      # Rooftop → Princes chamber (wide)
+    fill_tiles(chunk, TILE_GROUND, 128, 24, 142, 38)    # Bridge → Lift shortcut (wide)
+
+    # ================================================================
     # SESSION 9 FIDELITY PASS — GrandArchives architectural details
     # ================================================================
     # Main hall — bookshelf alcove walls (DS3: towering bookshelves)
@@ -16650,6 +16725,22 @@ def make_grand_archives():
     for tx in range(70, 83):
         chunk[tx][49] = TILE_WALLTOP
     
+    # ================================================================
+    # LATE CONNECTIVITY — corridors carved AFTER all wall placement
+    # ================================================================
+    fill_tiles(chunk, TILE_GROUND, 40, 120, 55, 132)   # Entry → First floor
+    fill_tiles(chunk, TILE_GROUND, 50, 82, 75, 90)     # First floor → Wax pool
+    fill_tiles(chunk, TILE_GROUND, 62, 52, 92, 62)     # Wax pool → Scholar tower
+    fill_tiles(chunk, TILE_GROUND, 66, 28, 102, 38)    # Scholar → WK corridor
+    fill_tiles(chunk, TILE_GROUND, 60, 12, 100, 26)    # WK corridor → Rooftop
+    fill_tiles(chunk, TILE_GROUND, 88, 5, 130, 22)     # Rooftop → Princes chamber
+    fill_tiles(chunk, TILE_GROUND, 126, 20, 145, 40)   # Bridge → Lift shortcut
+
+    # CRITICAL: Final boss-to-main corridor (must be last terrain operation)
+    fill_tiles(chunk, TILE_GROUND, 145, 32, 185, 45)   # Twin Princes chamber bridge to main
+    fill_tiles(chunk, TILE_GROUND, 100, 30, 150, 50)   # Scholar tower to Princes path
+    fill_tiles(chunk, TILE_GROUND, 45, 85, 70, 95)     # First floor to wax pool link
+
     # --- DS3 faithful enemies (GrandArchives) ---
     # GrandArchivesScholar (10) — DS3: wax-headed scholars throughout archives
     for tx, ty in [(45, 130), (50, 100), (55, 75), (48, 85), (72, 55), (62, 112), (88, 95), (95, 108), (115, 100), (125, 115)]:
