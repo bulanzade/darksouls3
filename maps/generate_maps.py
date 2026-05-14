@@ -134,6 +134,7 @@ ENEMY_KIND_MAP = {
     "Madwoman": "PeasantHollow",
     "ExileWarrior": "Knight",
     # Additional DS3 enemy aliases (added for wiki accuracy)
+    "ElderGhru": "Ghru",
     "SmolderingGhru": "Ghru",
     "SmolderingRottenFlesh": "Rat",
     "DemonCleric": "FireDemon",
@@ -3933,8 +3934,8 @@ def make_undead_settlement():
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
 
-    # HollowSoldier (8) — DS3: gate lever enemy, road hollows, rooftops, cliff underside
-    for tx, ty in [(28, 20),    # gate lever enemy
+    # PeasantHollow (8 additional — DS3: pitchfork/torch hollows at gate, rooftops, cliff side)
+    for tx, ty in [(28, 20),    # gate lever hollow
                    (34, 26),    # road hollow near pilgrims
                    (52, 30),    # short hollow in house
                    (80, 45),    # rooftop hollow
@@ -3943,7 +3944,7 @@ def make_undead_settlement():
                    (200, 140),  # cliff underside hollow
                    (175, 190)]: # hollow near Greatwood courtyard
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier"))]))
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow"))]))
 
     # PeasantHollow (15) — DS3: pitchfork/hat hollows throughout settlement
     for tx, ty in [(42, 28),    # first house pitchfork hollow
@@ -5090,19 +5091,14 @@ def make_road_of_sacrifices():
     for tx, ty in [(25, 20), (35, 24), (28, 22), (56, 35), (62, 40), (75, 52), (82, 58), (65, 45), (78, 48), (90, 50), (58, 55), (118, 88), (122, 92), (125, 96), (112, 82), (128, 85), (68, 80), (72, 85), (64, 82), (75, 84), (62, 92)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Corvian", "Corvian"))]))
-    # StarvedHound (6)
-    entities.append(make_entity("Enemy", 42 * 16, 26 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 48 * 16, 28 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 45 * 16, 32 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 71 * 16, 101 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 110 * 16, 95 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 115 * 16, 100 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    # LesserCrab (3 additional — DS3: small crabs near water/swampy forest floor)
+    for tx, ty in [(42, 26), (48, 28), (45, 32)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LesserCrab", "Dog"))]))
+    # Corvian (3 additional — DS3: corvian ambushes near Crucifixion Woods lower paths)
+    for tx, ty in [(71, 101), (110, 95), (115, 100)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Corvian", "Corvian"))]))
     # DarkMage (4)
     entities.append(make_entity("Enemy", 70 * 16, 48 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
@@ -6294,19 +6290,17 @@ def make_farron_keep():
     for tx, ty in [(42, 82), (45, 85), (50, 88), (48, 105), (52, 110), (38, 60), (44, 65), (55, 70), (62, 75), (70, 80), (85, 75), (40, 90), (56, 95)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("RottenSlug", "RottenSlug"))]))
-    # GiantHollow (6)
+    # ElderGhru (3 — DS3: elite horned Ghru with staff/hammer near torch platforms)
     entities.append(make_entity("Enemy", 55 * 16, 62 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantHollow", "GiantHollow"))]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ElderGhru", "Ghru"))]))
     entities.append(make_entity("Enemy", 60 * 16, 68 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantHollow", "GiantHollow"))]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ElderGhru", "Ghru"))]))
     entities.append(make_entity("Enemy", 58 * 16, 75 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantHollow", "GiantHollow"))]))
-    entities.append(make_entity("Enemy", 110 * 16, 100 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantHollow", "GiantHollow"))]))
-    entities.append(make_entity("Enemy", 82 * 16, 60 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantHollow", "GiantHollow"))]))
-    entities.append(make_entity("Enemy", 90 * 16, 55 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantHollow", "GiantHollow"))]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ElderGhru", "Ghru"))]))
+    # Ghru (3 additional — DS3: more regular Ghrus patrolling deeper swamp)
+    for tx, ty in [(110, 100), (82, 60), (90, 55)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Ghru", "Ghru"))]))
     # GreatCrab (1)
     entities.append(make_entity("Enemy", 65 * 16, 62 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GreatCrab", "GreatCrab"))]))
