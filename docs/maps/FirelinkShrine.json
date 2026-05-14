@@ -387,6 +387,34 @@
         "I shall come to your aid whenever you need.",
         "Thank you, for accepting my knightly vows."
       ]
+    },
+    {
+      "name": "イリーナ",
+      "name_en": "Irina of Carim",
+      "kind": "Merchant",
+      "x": 2000,
+      "y": 800,
+      "color": "#D4C5A0",
+      "dialogue": [
+        "I am Irina of Carim.",
+        "I can teach you miracles, if you bring me tomes.",
+        "The tales of the gods are my specialty.",
+        "Please, I only wish to serve."
+      ]
+    },
+    {
+      "name": "アイゴン",
+      "name_en": "Eygon of Carim",
+      "kind": "Dialogue",
+      "x": 2050,
+      "y": 820,
+      "color": "#505050",
+      "dialogue": [
+        "I am Eygon of Carim.",
+        "Keep your hands off the woman.",
+        "She is under my protection.",
+        "Touch her, and you'll lose more than your hand."
+      ]
     }
   ],
   "lights": [

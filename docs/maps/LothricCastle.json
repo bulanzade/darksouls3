@@ -1568,7 +1568,36 @@
       "is_mimic": false
     }
   ],
-  "npcs": [],
+  "npcs": [
+    {
+      "name": "エマ",
+      "name_en": "Emma",
+      "kind": "Dialogue",
+      "x": 4480,
+      "y": 2020,
+      "color": "#C0C0C0",
+      "dialogue": [
+        "The Prince has refused his duty.",
+        "Please, fetch the Basin of Vows.",
+        "I leave this to you. The fate of the world.",
+        "Beware the dance of the Dancer."
+      ]
+    },
+    {
+      "name": "グレイラット",
+      "name_en": "Greirat",
+      "kind": "Merchant",
+      "x": 1200,
+      "y": 1080,
+      "color": "#8B6914",
+      "dialogue": [
+        "I've come to steal from the castle.",
+        "Don't worry about me. I know what I'm doing.",
+        "I'll return with the goods, I promise.",
+        "Loretta... I'm doing this for you."
+      ]
+    }
+  ],
   "lights": [
     {
       "x": 620,
