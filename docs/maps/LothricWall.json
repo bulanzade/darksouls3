@@ -827,7 +827,8 @@
       "dialogue": [
         "I am Greirat of the Undead Settlement.",
         "Please, I must see Loretta. I owe her so much.",
-        "I ask you, as a fellow Undead. Please, find Loretta."
+        "If you find her, please, tell her of me.",
+        "I ask you, as a fellow prisoner. Please, find Loretta."
       ],
       "note": "Locked in cell, requires Cell Key. Becomes a thief merchant after freeing."
     },
@@ -841,7 +842,8 @@
       "dialogue": [
         "Welcome to the High Wall of Lothric.",
         "I am Emma, High Priestess of Lothric.",
-        "The Prince has refused his duty. The Lords have left their thrones."
+        "The Prince has refused his duty. The Lords have left their thrones.",
+        "Please, fetch the Basin of Vows."
       ],
       "note": "Gives Small Lothric Banner. Triggers Dancer boss fight if killed or after placing basin."
     }

@@ -490,9 +490,10 @@
       "y": 2040,
       "color": "#d0d0ff",
       "dialogue": [
-        "Good day.",
-        "I am Anri of Astora.",
-        "Would you help me defeat Aldrich, together?"
+        "Oh, hello. We meet again.",
+        "Aldrich, Devourer of Gods... I must put him down.",
+        "If you would, help me defeat Aldrich. Please.",
+        "I have waited long for this."
       ]
     },
     {
@@ -505,7 +506,8 @@
       "dialogue": [
         "I am Yorshka, Captain of the Darkmoon Knights.",
         "The Darkmoon remains true to its duty.",
-        "I am here to carry on the legacy of the Darkmoon."
+        "Blade of the Darkmoon, I name thee.",
+        "May the Moonlight guide thy blade."
       ]
     }
   ],

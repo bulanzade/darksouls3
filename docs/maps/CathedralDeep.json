@@ -708,10 +708,10 @@
       "y": 2150,
       "color": "#C0A060",
       "dialogue": [
-        "Hello! Hello! Anyone there? Anyone at all?",
-        "Oh! I know that voice. Just how long has it been?",
-        "It's me, Siegward of Catarina.",
-        "I'm loathe to admit it, but I've been had. Someone's swiped my armour."
+        "Hello! Hello! Anyone there?",
+        "Oh! I know that voice. How long has it been?",
+        "It's me, Siegward! Siegward of Catarina!",
+        "Someone's made off with my armour! The absolute knave!"
       ]
     },
     {
@@ -724,7 +724,8 @@
       "dialogue": [
         "Heh heh, what have we here?",
         "You seem quite uninitiated.",
-        "That is a fine way to greet someone."
+        "That is a fine way to greet someone.",
+        "Trust me, I'm a friend. I'll pray for your safety."
       ]
     },
     {
