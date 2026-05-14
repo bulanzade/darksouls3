@@ -16736,10 +16736,16 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_GROUND, 88, 5, 130, 22)     # Rooftop → Princes chamber
     fill_tiles(chunk, TILE_GROUND, 126, 20, 145, 40)   # Bridge → Lift shortcut
 
-    # CRITICAL: Final boss-to-main corridor (must be last terrain operation)
-    fill_tiles(chunk, TILE_GROUND, 145, 32, 185, 45)   # Twin Princes chamber bridge to main
-    fill_tiles(chunk, TILE_GROUND, 100, 30, 150, 50)   # Scholar tower to Princes path
-    fill_tiles(chunk, TILE_GROUND, 45, 85, 70, 95)     # First floor to wax pool link
+    # CRITICAL: Final connectivity corridors (must be last terrain operations)
+    # These connect ALL clusters to the main playable area
+    fill_tiles(chunk, TILE_GROUND, 115, 190, 125, 285)  # Entry hall south -> lower archives
+    fill_tiles(chunk, TILE_GROUND, 135, 190, 150, 225)  # Mid-level -> lower library
+    fill_tiles(chunk, TILE_GROUND, 38, 22, 55, 35)      # Upper tower alcove -> main
+    fill_tiles(chunk, TILE_GROUND, 42, 28, 52, 38)      # Small upper alcove -> main
+    fill_tiles(chunk, TILE_GROUND, 85, 85, 100, 92)     # Wax pool island -> main
+    fill_tiles(chunk, TILE_GROUND, 68, 72, 78, 80)      # Small wax pool island -> main
+    fill_tiles(chunk, TILE_GROUND, 145, 32, 185, 45)    # Twin Princes -> main cluster
+    fill_tiles(chunk, TILE_GROUND, 100, 30, 150, 50)    # Scholar tower -> Princes path
 
     # --- DS3 faithful enemies (GrandArchives) ---
     # GrandArchivesScholar (10) — DS3: wax-headed scholars throughout archives
