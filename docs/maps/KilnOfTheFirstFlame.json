@@ -188,94 +188,173 @@
   "enemies": [
     {
       "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
       "x": 800,
-      "y": 2240,
-      "count": 1
+      "y": 2240
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
       "x": 960,
-      "y": 2208,
-      "count": 1
+      "y": 2208
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
       "x": 1120,
-      "y": 2272,
-      "count": 1
+      "y": 2272
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
       "x": 1280,
-      "y": 2176,
-      "count": 1
+      "y": 2176
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
       "x": 1440,
-      "y": 2240,
-      "count": 1
+      "y": 2240
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
       "x": 1600,
-      "y": 2208,
-      "count": 1
+      "y": 2208
     },
     {
-      "kind": "BlackKnight",
-      "name_en": "BlackKnight",
-      "x": 640,
-      "y": 2016,
-      "count": 1
+      "kind": "HollowSoldier",
+      "x": 1760,
+      "y": 2272
     },
     {
-      "kind": "BlackKnight",
-      "name_en": "BlackKnight",
-      "x": 960,
-      "y": 2016,
-      "count": 1
+      "kind": "HollowSoldier",
+      "x": 880,
+      "y": 2144
     },
     {
-      "kind": "BlackKnight",
-      "name_en": "BlackKnight",
+      "kind": "HollowSoldier",
+      "x": 1040,
+      "y": 2080
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1200,
+      "y": 2112
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 784,
+      "y": 1264
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 944,
+      "y": 1344
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1120,
+      "y": 1248
+    },
+    {
+      "kind": "HollowSoldier",
       "x": 1280,
-      "y": 1952,
-      "count": 1
+      "y": 1312
     },
     {
-      "kind": "BlackKnight",
-      "name_en": "BlackKnight",
+      "kind": "HollowSoldier",
+      "x": 1440,
+      "y": 1376
+    },
+    {
+      "kind": "HollowSoldier",
       "x": 1600,
-      "y": 1856,
-      "count": 1
+      "y": 1280
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1760,
+      "y": 1344
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1152,
+      "y": 320
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1056,
+      "y": 416
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1184,
+      "y": 592
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1184,
+      "y": 800
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 992,
+      "y": 1072
     },
     {
       "kind": "BlackKnight",
-      "name_en": "BlackKnight",
+      "x": 640,
+      "y": 1968
+    },
+    {
+      "kind": "BlackKnight",
+      "x": 960,
+      "y": 1872
+    },
+    {
+      "kind": "BlackKnight",
+      "x": 1280,
+      "y": 1952
+    },
+    {
+      "kind": "BlackKnight",
+      "x": 1600,
+      "y": 1856
+    },
+    {
+      "kind": "BlackKnight",
       "x": 1920,
-      "y": 1920,
-      "count": 1
+      "y": 1920
+    },
+    {
+      "kind": "BlackKnight",
+      "x": 1808,
+      "y": 320
+    },
+    {
+      "kind": "BlackKnight",
+      "x": 1680,
+      "y": 416
+    },
+    {
+      "kind": "BlackKnight",
+      "x": 1488,
+      "y": 592
+    },
+    {
+      "kind": "BlackKnight",
+      "x": 1392,
+      "y": 720
+    },
+    {
+      "kind": "BlackKnight",
+      "x": 1680,
+      "y": 800
     },
     {
       "kind": "MiniBoss",
-      "name_en": "MiniBoss",
       "x": 1280,
-      "y": 808,
-      "count": 1
+      "y": 416
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
       "x": 1920,
-      "y": 1440,
-      "count": 1
+      "y": 1440
     }
   ],
   "items": [

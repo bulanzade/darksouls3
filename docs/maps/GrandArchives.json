@@ -349,262 +349,348 @@
   "enemies": [
     {
       "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 1888,
-      "y": 2496,
-      "count": 1
+      "x": 704,
+      "y": 2080
     },
     {
       "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 2148,
-      "y": 1608,
-      "count": 1
+      "x": 800,
+      "y": 1584
     },
     {
       "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 2496,
-      "y": 968,
-      "count": 1
+      "x": 880,
+      "y": 1200
     },
     {
       "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 2704,
-      "y": 1264,
-      "count": 1
+      "x": 768,
+      "y": 1360
     },
     {
       "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 3040,
-      "y": 1936,
-      "count": 1
+      "x": 1152,
+      "y": 880
     },
     {
       "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 2368,
-      "y": 2112,
-      "count": 1
+      "x": 992,
+      "y": 1776
     },
     {
       "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 2560,
-      "y": 2080,
-      "count": 1
+      "x": 1408,
+      "y": 1520
     },
     {
       "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 2912,
-      "y": 1872,
-      "count": 1
+      "x": 1520,
+      "y": 1728
     },
     {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2704,
-      "y": 2864,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2368,
-      "y": 1744,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2148,
-      "y": 1728,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2672,
-      "y": 2112,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2240,
-      "y": 1664,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
+      "kind": "DarkMage",
       "x": 2112,
-      "y": 2640,
-      "count": 1
+      "y": 1600
     },
     {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2784,
-      "y": 1776,
-      "count": 1
+      "kind": "DarkMage",
+      "x": 2112,
+      "y": 1840
     },
     {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2960,
-      "y": 2048,
-      "count": 1
+      "kind": "DarkMage",
+      "x": 1360,
+      "y": 624
+    },
+    {
+      "kind": "DarkMage",
+      "x": 1200,
+      "y": 448
+    },
+    {
+      "kind": "DarkMage",
+      "x": 1568,
+      "y": 1920
+    },
+    {
+      "kind": "DarkMage",
+      "x": 992,
+      "y": 1520
+    },
+    {
+      "kind": "Thrall",
+      "x": 704,
+      "y": 2176
+    },
+    {
+      "kind": "Thrall",
+      "x": 880,
+      "y": 1568
+    },
+    {
+      "kind": "Thrall",
+      "x": 1088,
+      "y": 1728
+    },
+    {
+      "kind": "Thrall",
+      "x": 1200,
+      "y": 800
+    },
+    {
+      "kind": "Thrall",
+      "x": 976,
+      "y": 1024
+    },
+    {
+      "kind": "Thrall",
+      "x": 592,
+      "y": 2208
+    },
+    {
+      "kind": "Thrall",
+      "x": 816,
+      "y": 1472
+    },
+    {
+      "kind": "Thrall",
+      "x": 912,
+      "y": 1280
+    },
+    {
+      "kind": "Thrall",
+      "x": 1808,
+      "y": 128
+    },
+    {
+      "kind": "Thrall",
+      "x": 1824,
+      "y": 160
+    },
+    {
+      "kind": "Thrall",
+      "x": 1904,
+      "y": 240
+    },
+    {
+      "kind": "Thrall",
+      "x": 1936,
+      "y": 288
+    },
+    {
+      "kind": "Thrall",
+      "x": 2000,
+      "y": 112
+    },
+    {
+      "kind": "Thrall",
+      "x": 2064,
+      "y": 192
+    },
+    {
+      "kind": "Thrall",
+      "x": 1392,
+      "y": 1680
+    },
+    {
+      "kind": "Thrall",
+      "x": 1472,
+      "y": 1840
+    },
+    {
+      "kind": "Thrall",
+      "x": 1568,
+      "y": 2000
+    },
+    {
+      "kind": "Thrall",
+      "x": 1568,
+      "y": 1760
+    },
+    {
+      "kind": "Thrall",
+      "x": 2112,
+      "y": 2080
     },
     {
       "kind": "LothricKnight",
-      "name_en": "LothricKnight",
-      "x": 2752,
-      "y": 1680,
-      "count": 1
+      "x": 1072,
+      "y": 1472
     },
     {
       "kind": "LothricKnight",
-      "name_en": "LothricKnight",
-      "x": 2880,
-      "y": 1168,
-      "count": 1
+      "x": 1392,
+      "y": 720
     },
     {
       "kind": "LothricKnight",
-      "name_en": "LothricKnight",
-      "x": 2752,
-      "y": 2080,
-      "count": 1
+      "x": 848,
+      "y": 1040
     },
     {
       "kind": "LothricKnight",
-      "name_en": "LothricKnight",
-      "x": 2688,
-      "y": 1872,
-      "count": 1
+      "x": 1248,
+      "y": 768
     },
     {
-      "kind": "AscendedWingedKnight",
-      "name_en": "AscendedWingedKnight",
-      "x": 3056,
-      "y": 976,
-      "count": 1
+      "kind": "LothricKnight",
+      "x": 2080,
+      "y": 160
     },
     {
-      "kind": "AscendedWingedKnight",
-      "name_en": "AscendedWingedKnight",
-      "x": 3184,
-      "y": 1344,
-      "count": 1
+      "kind": "LothricKnight",
+      "x": 2112,
+      "y": 240
     },
     {
-      "kind": "AscendedWingedKnight",
-      "name_en": "AscendedWingedKnight",
-      "x": 2608,
-      "y": 1312,
-      "count": 1
+      "kind": "LothricKnight",
+      "x": 2112,
+      "y": 1920
     },
     {
-      "kind": "BorealOutriderKnight",
-      "name_en": "BorealOutriderKnight",
-      "x": 3056,
-      "y": 1888,
-      "count": 1
+      "kind": "WingedKnight",
+      "x": 1312,
+      "y": 592
+    },
+    {
+      "kind": "WingedKnight",
+      "x": 1488,
+      "y": 560
+    },
+    {
+      "kind": "WingedKnight",
+      "x": 1200,
+      "y": 512
+    },
+    {
+      "kind": "WingedKnight",
+      "x": 928,
+      "y": 1088
     },
     {
       "kind": "Gargoyle",
-      "name_en": "Gargoyle",
-      "x": 2656,
-      "y": 416,
-      "count": 1
+      "x": 1088,
+      "y": 192
     },
     {
       "kind": "Gargoyle",
-      "name_en": "Gargoyle",
-      "x": 3296,
-      "y": 752,
-      "count": 1
+      "x": 1328,
+      "y": 240
     },
     {
       "kind": "Gargoyle",
-      "name_en": "Gargoyle",
-      "x": 2768,
-      "y": 704,
-      "count": 1
+      "x": 1456,
+      "y": 160
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 2592,
-      "y": 1776,
-      "count": 1
+      "x": 832,
+      "y": 1360
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 2608,
-      "y": 1616,
-      "count": 1
+      "x": 768,
+      "y": 1136
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 2656,
-      "y": 1792,
-      "count": 1
+      "x": 1040,
+      "y": 848
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 3008,
-      "y": 1024,
-      "count": 1
+      "x": 1424,
+      "y": 336
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 2320,
+      "y": 1888
+    },
+    {
+      "kind": "Basilisk",
+      "x": 736,
+      "y": 1408
+    },
+    {
+      "kind": "Basilisk",
+      "x": 1120,
+      "y": 928
+    },
+    {
+      "kind": "Basilisk",
+      "x": 1424,
+      "y": 1584
+    },
+    {
+      "kind": "Basilisk",
+      "x": 1568,
+      "y": 1840
+    },
+    {
+      "kind": "ManGrub",
+      "x": 1248,
+      "y": 1040
+    },
+    {
+      "kind": "ManGrub",
+      "x": 1568,
+      "y": 1680
+    },
+    {
+      "kind": "ManGrub",
+      "x": 2112,
+      "y": 1952
+    },
+    {
+      "kind": "Assassin",
+      "x": 2000,
+      "y": 80
+    },
+    {
+      "kind": "Assassin",
+      "x": 2080,
+      "y": 176
+    },
+    {
+      "kind": "Assassin",
+      "x": 2160,
+      "y": 128
+    },
+    {
+      "kind": "DarkMage",
+      "x": 2064,
+      "y": 160
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 880,
+      "y": 2160
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 960,
+      "y": 2208
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1040,
+      "y": 2048
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1120,
+      "y": 2048
     },
     {
       "kind": "MiniBoss",
-      "name_en": "MiniBoss",
-      "x": 2496,
-      "y": 3136,
-      "count": 1
+      "x": 976,
+      "y": 1760
     },
     {
       "kind": "MiniBoss",
-      "name_en": "MiniBoss",
-      "x": 2304,
-      "y": 1984,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 2816,
-      "y": 416,
-      "count": 1
-    },
-    {
-      "kind": "HollowSlave",
-      "name_en": "HollowSlave",
-      "x": 3264,
-      "y": 736,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "LothricKnight",
-      "x": 3232,
-      "y": 480,
-      "count": 1
-    },
-    {
-      "kind": "LothricKnight",
-      "name_en": "LothricKnight",
-      "x": 2736,
-      "y": 912,
-      "count": 1
+      "x": 1024,
+      "y": 1728
     }
   ],
   "items": [

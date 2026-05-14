@@ -165,143 +165,228 @@
   "enemies": [
     {
       "kind": "SilverKnight",
-      "name_en": "SilverKnight",
-      "x": 768,
-      "y": 672,
-      "count": 1
+      "x": 336,
+      "y": 560
     },
     {
       "kind": "SilverKnight",
-      "name_en": "SilverKnight",
-      "x": 880,
-      "y": 672,
-      "count": 1
+      "x": 544,
+      "y": 672
     },
     {
       "kind": "SilverKnight",
-      "name_en": "SilverKnight",
-      "x": 864,
-      "y": 1008,
-      "count": 1
+      "x": 688,
+      "y": 592
     },
     {
       "kind": "SilverKnight",
-      "name_en": "SilverKnight",
       "x": 832,
-      "y": 672,
-      "count": 1
+      "y": 672
     },
     {
       "kind": "SilverKnight",
-      "name_en": "SilverKnight",
       "x": 1024,
-      "y": 768,
-      "count": 1
+      "y": 768
     },
     {
       "kind": "SilverKnight",
-      "name_en": "SilverKnight",
       "x": 768,
-      "y": 800,
-      "count": 1
+      "y": 800
     },
     {
       "kind": "SilverKnight",
-      "name_en": "SilverKnight",
       "x": 1120,
-      "y": 704,
-      "count": 1
+      "y": 704
     },
     {
       "kind": "SilverKnight",
-      "name_en": "SilverKnight",
       "x": 1312,
-      "y": 672,
-      "count": 1
+      "y": 608
     },
     {
       "kind": "SilverKnight",
-      "name_en": "SilverKnight",
-      "x": 1372,
-      "y": 672,
-      "count": 1
+      "x": 1440,
+      "y": 656
     },
     {
       "kind": "SilverKnight",
-      "name_en": "SilverKnight",
       "x": 1728,
-      "y": 896,
-      "count": 1
+      "y": 544
+    },
+    {
+      "kind": "SilverKnight",
+      "x": 1904,
+      "y": 576
+    },
+    {
+      "kind": "SilverKnight",
+      "x": 880,
+      "y": 720
+    },
+    {
+      "kind": "SilverKnight",
+      "x": 1088,
+      "y": 640
+    },
+    {
+      "kind": "SilverKnight",
+      "x": 1120,
+      "y": 736
+    },
+    {
+      "kind": "SilverKnight",
+      "x": 2000,
+      "y": 608
+    },
+    {
+      "kind": "SilverKnight",
+      "x": 2160,
+      "y": 704
+    },
+    {
+      "kind": "SilverKnight",
+      "x": 2224,
+      "y": 800
+    },
+    {
+      "kind": "SilverKnight",
+      "x": 432,
+      "y": 768
+    },
+    {
+      "kind": "SilverKnight",
+      "x": 928,
+      "y": 864
+    },
+    {
+      "kind": "SilverKnight",
+      "x": 1040,
+      "y": 880
     },
     {
       "kind": "GiantSlave",
-      "name_en": "GiantSlave",
-      "x": 768,
-      "y": 832,
-      "count": 1
+      "x": 592,
+      "y": 832
     },
     {
       "kind": "ManGrub",
-      "name_en": "ManGrub",
       "x": 1152,
-      "y": 832,
-      "count": 1
+      "y": 832
     },
     {
       "kind": "ManGrub",
-      "name_en": "ManGrub",
       "x": 1216,
-      "y": 768,
-      "count": 1
+      "y": 768
     },
     {
       "kind": "ManGrub",
-      "name_en": "ManGrub",
       "x": 2272,
-      "y": 1376,
-      "count": 1
+      "y": 1200
     },
     {
       "kind": "ManGrub",
-      "name_en": "ManGrub",
       "x": 2368,
-      "y": 1376,
-      "count": 1
+      "y": 1312
     },
     {
       "kind": "ManGrub",
-      "name_en": "ManGrub",
-      "x": 1952,
-      "y": 1088,
-      "count": 1
+      "x": 2176,
+      "y": 1088
     },
     {
       "kind": "ManGrub",
-      "name_en": "ManGrub",
       "x": 1984,
-      "y": 1408,
-      "count": 1
+      "y": 1408
     },
     {
       "kind": "ManGrub",
-      "name_en": "ManGrub",
       "x": 2112,
-      "y": 1472,
-      "count": 1
+      "y": 1472
+    },
+    {
+      "kind": "ManGrub",
+      "x": 2080,
+      "y": 1040
+    },
+    {
+      "kind": "ManGrub",
+      "x": 1840,
+      "y": 1152
+    },
+    {
+      "kind": "ManGrub",
+      "x": 2240,
+      "y": 1520
+    },
+    {
+      "kind": "ManGrub",
+      "x": 1792,
+      "y": 1280
+    },
+    {
+      "kind": "ManGrub",
+      "x": 880,
+      "y": 1360
+    },
+    {
+      "kind": "ManGrub",
+      "x": 1024,
+      "y": 1456
+    },
+    {
+      "kind": "ManGrub",
+      "x": 1104,
+      "y": 1488
+    },
+    {
+      "kind": "ManGrub",
+      "x": 976,
+      "y": 1616
+    },
+    {
+      "kind": "ManGrub",
+      "x": 1248,
+      "y": 832
+    },
+    {
+      "kind": "ManGrub",
+      "x": 1312,
+      "y": 928
+    },
+    {
+      "kind": "ManGrub",
+      "x": 2320,
+      "y": 1408
+    },
+    {
+      "kind": "Assassin",
+      "x": 1424,
+      "y": 576
+    },
+    {
+      "kind": "Assassin",
+      "x": 1472,
+      "y": 640
+    },
+    {
+      "kind": "Assassin",
+      "x": 1520,
+      "y": 624
     },
     {
       "kind": "DeepAccursed",
-      "name_en": "DeepAccursed",
-      "x": 1328,
-      "y": 704,
-      "count": 1
+      "x": 1584,
+      "y": 640
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 896,
+      "y": 1344
     },
     {
       "kind": "MiniBoss",
-      "name_en": "MiniBoss",
-      "x": 1952,
-      "y": 1248,
-      "count": 1
+      "x": 2048,
+      "y": 1248
     }
   ],
   "items": [

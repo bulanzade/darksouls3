@@ -180,158 +180,279 @@
   },
   "enemies": [
     {
-      "kind": "Corvian",
-      "name_en": "Corvian",
+      "kind": "Assassin",
       "x": 400,
-      "y": 320,
-      "count": 1
+      "y": 320
     },
     {
-      "kind": "Corvian",
-      "name_en": "Corvian",
+      "kind": "Assassin",
       "x": 560,
-      "y": 384,
-      "count": 1
+      "y": 384
     },
     {
-      "kind": "Corvian",
-      "name_en": "Corvian",
+      "kind": "Assassin",
       "x": 448,
-      "y": 352,
-      "count": 1
+      "y": 352
     },
     {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 672,
-      "y": 416,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 768,
-      "y": 448,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 720,
-      "y": 512,
-      "count": 1
-    },
-    {
-      "kind": "Corvian",
-      "name_en": "Corvian",
+      "kind": "Assassin",
       "x": 896,
-      "y": 560,
-      "count": 1
+      "y": 560
     },
     {
-      "kind": "Corvian",
-      "name_en": "Corvian",
+      "kind": "Assassin",
       "x": 992,
-      "y": 640,
-      "count": 1
+      "y": 640
     },
     {
-      "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 1120,
-      "y": 768,
-      "count": 1
-    },
-    {
-      "kind": "DarkMage",
-      "name_en": "DarkMage",
-      "x": 1408,
-      "y": 948,
-      "count": 1
-    },
-    {
-      "kind": "Corvian",
-      "name_en": "Corvian",
+      "kind": "Assassin",
       "x": 1200,
-      "y": 832,
-      "count": 1
+      "y": 832
     },
     {
-      "kind": "Corvian",
-      "name_en": "Corvian",
+      "kind": "Assassin",
       "x": 1312,
-      "y": 928,
-      "count": 1
+      "y": 928
     },
     {
-      "kind": "Corvian",
-      "name_en": "Corvian",
+      "kind": "Assassin",
       "x": 1040,
-      "y": 720,
-      "count": 1
+      "y": 720
     },
     {
-      "kind": "PoisonhornBug",
-      "name_en": "PoisonhornBug",
-      "x": 1040,
-      "y": 992,
-      "count": 1
+      "kind": "Assassin",
+      "x": 1248,
+      "y": 752
     },
     {
-      "kind": "PoisonhornBug",
-      "name_en": "PoisonhornBug",
-      "x": 1120,
-      "y": 972,
-      "count": 1
+      "kind": "Assassin",
+      "x": 1440,
+      "y": 784
     },
     {
-      "kind": "PoisonhornBug",
-      "name_en": "PoisonhornBug",
-      "x": 992,
-      "y": 972,
-      "count": 1
-    },
-    {
-      "kind": "PoisonhornBug",
-      "name_en": "PoisonhornBug",
+      "kind": "Assassin",
       "x": 928,
-      "y": 972,
-      "count": 1
+      "y": 880
     },
     {
-      "kind": "GreatCrab",
-      "name_en": "GreatCrab",
-      "x": 1268,
-      "y": 1120,
-      "count": 1
+      "kind": "Assassin",
+      "x": 1888,
+      "y": 1408
     },
     {
-      "kind": "Basilisk",
-      "name_en": "Basilisk",
+      "kind": "Assassin",
+      "x": 1952,
+      "y": 1472
+    },
+    {
+      "kind": "Assassin",
+      "x": 2000,
+      "y": 1536
+    },
+    {
+      "kind": "Assassin",
+      "x": 1792,
+      "y": 1312
+    },
+    {
+      "kind": "Assassin",
+      "x": 2048,
+      "y": 1360
+    },
+    {
+      "kind": "Assassin",
+      "x": 1088,
+      "y": 1280
+    },
+    {
+      "kind": "Assassin",
+      "x": 1152,
+      "y": 1344
+    },
+    {
+      "kind": "Assassin",
+      "x": 1024,
+      "y": 1312
+    },
+    {
+      "kind": "Assassin",
+      "x": 1184,
+      "y": 1344
+    },
+    {
+      "kind": "Assassin",
+      "x": 992,
+      "y": 1472
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 672,
+      "y": 416
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 768,
+      "y": 448
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 720,
+      "y": 512
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 1136,
+      "y": 1616
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 1760,
+      "y": 1536
+    },
+    {
+      "kind": "StarvedHound",
       "x": 1840,
-      "y": 1024,
-      "count": 1
+      "y": 1584
+    },
+    {
+      "kind": "DarkMage",
+      "x": 1120,
+      "y": 768
+    },
+    {
+      "kind": "DarkMage",
+      "x": 1408,
+      "y": 880
+    },
+    {
+      "kind": "DarkMage",
+      "x": 2000,
+      "y": 1840
+    },
+    {
+      "kind": "DarkMage",
+      "x": 2160,
+      "y": 1888
+    },
+    {
+      "kind": "Knight",
+      "x": 1152,
+      "y": 880
+    },
+    {
+      "kind": "Knight",
+      "x": 1360,
+      "y": 960
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 800,
+      "y": 416
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 1536,
+      "y": 992
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 1792,
+      "y": 1424
     },
     {
       "kind": "Basilisk",
-      "name_en": "Basilisk",
-      "x": 1552,
-      "y": 1088,
-      "count": 1
+      "x": 1040,
+      "y": 976
     },
     {
-      "kind": "DarkSpirit",
-      "name_en": "DarkSpirit",
-      "x": 2464,
-      "y": 1840,
-      "count": 1
+      "kind": "Basilisk",
+      "x": 1120,
+      "y": 1040
     },
     {
-      "kind": "DarkSpirit",
-      "name_en": "DarkSpirit",
-      "x": 1928,
-      "y": 1680,
-      "count": 1
+      "kind": "Basilisk",
+      "x": 992,
+      "y": 1136
+    },
+    {
+      "kind": "Basilisk",
+      "x": 928,
+      "y": 1088
+    },
+    {
+      "kind": "GiantSlave",
+      "x": 1216,
+      "y": 1120
+    },
+    {
+      "kind": "Dog",
+      "x": 1248,
+      "y": 1088
+    },
+    {
+      "kind": "Dog",
+      "x": 1280,
+      "y": 1152
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1472,
+      "y": 1248
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1536,
+      "y": 1312
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1600,
+      "y": 1376
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1680,
+      "y": 1280
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1408,
+      "y": 1360
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 608,
+      "y": 480
+    },
+    {
+      "kind": "BlackKnight",
+      "x": 1728,
+      "y": 1360
+    },
+    {
+      "kind": "Basilisk",
+      "x": 992,
+      "y": 1392
+    },
+    {
+      "kind": "Basilisk",
+      "x": 992,
+      "y": 1424
+    },
+    {
+      "kind": "Knight",
+      "x": 1728,
+      "y": 1600
+    },
+    {
+      "kind": "Knight",
+      "x": 1840,
+      "y": 1680
+    },
+    {
+      "kind": "MiniBoss",
+      "x": 2080,
+      "y": 1792
     }
   ],
   "items": [

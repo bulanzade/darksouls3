@@ -329,39 +329,109 @@
   },
   "enemies": [
     {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 528,
-      "y": 528,
-      "count": 1
+      "kind": "BlackKnight",
+      "x": 2720,
+      "y": 2960
     },
     {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 832,
-      "y": 640,
-      "count": 1
+      "kind": "BlackKnight",
+      "x": 2880,
+      "y": 3040
     },
     {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 608,
-      "y": 768,
-      "count": 1
+      "kind": "BlackKnight",
+      "x": 2640,
+      "y": 3120
     },
     {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 1184,
-      "y": 800,
-      "count": 1
+      "kind": "BlackKnight",
+      "x": 2800,
+      "y": 3200
     },
     {
-      "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
-      "x": 1456,
-      "y": 948,
-      "count": 1
+      "kind": "CathedralGraveWarden",
+      "x": 1520,
+      "y": 1280
+    },
+    {
+      "kind": "CathedralGraveWarden",
+      "x": 1600,
+      "y": 1360
+    },
+    {
+      "kind": "CathedralGraveWarden",
+      "x": 800,
+      "y": 720
+    },
+    {
+      "kind": "CathedralGraveWarden",
+      "x": 880,
+      "y": 800
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 960,
+      "y": 880
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 1040,
+      "y": 960
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 1360,
+      "y": 1120
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 1440,
+      "y": 1200
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 1760,
+      "y": 1600
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 2080,
+      "y": 1920
+    },
+    {
+      "kind": "Assassin",
+      "x": 560,
+      "y": 560
+    },
+    {
+      "kind": "Assassin",
+      "x": 640,
+      "y": 608
+    },
+    {
+      "kind": "Assassin",
+      "x": 720,
+      "y": 672
+    },
+    {
+      "kind": "DarkMage",
+      "x": 672,
+      "y": 640
+    },
+    {
+      "kind": "PusOfMan",
+      "x": 1280,
+      "y": 1040
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 1680,
+      "y": 1200
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 1760,
+      "y": 1280
     }
   ],
   "items": [
@@ -471,6 +541,19 @@
         "What is it?",
         "The fire has long been out.",
         "I will tend to the ash."
+      ]
+    },
+    {
+      "name": "结晶之娘克里姆希尔德",
+      "name_en": "Daughter of Crystal Kriemhild",
+      "kind": "Invader",
+      "x": 1840,
+      "y": 1520,
+      "color": "#4A6A8A",
+      "dialogue": [
+        "I am Kriemhild, daughter of crystal.",
+        "The dark is not to be feared.",
+        "It is merely the absence of fire."
       ]
     }
   ],

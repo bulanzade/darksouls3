@@ -126,11 +126,14 @@
   "boss": null,
   "enemies": [
     {
-      "kind": "SwordMaster",
-      "name_en": "Sword Master",
+      "kind": "Assassin",
       "x": 1088,
-      "y": 1912,
-      "count": 1
+      "y": 1760
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 1952,
+      "y": 992
     }
   ],
   "items": [

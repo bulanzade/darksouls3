@@ -171,53 +171,64 @@
   },
   "enemies": [
     {
-      "kind": "MiniBoss",
-      "name_en": "MiniBoss",
-      "x": 1428,
-      "y": 768,
-      "count": 1
-    },
-    {
       "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
       "x": 640,
-      "y": 2432,
-      "count": 1
+      "y": 2432
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
       "x": 896,
-      "y": 2432,
-      "count": 1
+      "y": 2432
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
       "x": 1024,
-      "y": 2400,
-      "count": 1
+      "y": 2400
     },
     {
       "kind": "HollowSoldier",
-      "name_en": "HollowSoldier",
       "x": 1280,
-      "y": 2176,
-      "count": 1
+      "y": 2176
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1216,
+      "y": 2016
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1376,
+      "y": 1728
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1088,
+      "y": 1472
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1216,
+      "y": 1120
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1312,
+      "y": 992
     },
     {
       "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 912,
-      "y": 1440,
-      "count": 1
+      "x": 1248,
+      "y": 1856
     },
     {
       "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 912,
-      "y": 1280,
-      "count": 1
+      "x": 800,
+      "y": 1376
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 2176,
+      "y": 1728
     }
   ],
   "items": [

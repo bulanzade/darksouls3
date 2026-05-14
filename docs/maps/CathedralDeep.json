@@ -170,353 +170,413 @@
   "enemies": [
     {
       "kind": "InfestedCorpse",
-      "name_en": "InfestedCorpse",
       "x": 448,
-      "y": 468,
-      "count": 1
+      "y": 80
     },
     {
       "kind": "InfestedCorpse",
-      "name_en": "InfestedCorpse",
       "x": 544,
-      "y": 468,
-      "count": 1
+      "y": 128
     },
     {
       "kind": "InfestedCorpse",
-      "name_en": "InfestedCorpse",
-      "x": 1120,
-      "y": 896,
-      "count": 1
+      "x": 400,
+      "y": 160
     },
     {
       "kind": "InfestedCorpse",
-      "name_en": "InfestedCorpse",
-      "x": 752,
-      "y": 752,
-      "count": 1
+      "x": 560,
+      "y": 176
+    },
+    {
+      "kind": "InfestedCorpse",
+      "x": 480,
+      "y": 448
+    },
+    {
+      "kind": "InfestedCorpse",
+      "x": 576,
+      "y": 480
+    },
+    {
+      "kind": "InfestedCorpse",
+      "x": 1216,
+      "y": 1056
+    },
+    {
+      "kind": "InfestedCorpse",
+      "x": 608,
+      "y": 1344
+    },
+    {
+      "kind": "InfestedCorpse",
+      "x": 704,
+      "y": 1376
+    },
+    {
+      "kind": "InfestedCorpse",
+      "x": 608,
+      "y": 1376
+    },
+    {
+      "kind": "InfestedCorpse",
+      "x": 688,
+      "y": 1408
+    },
+    {
+      "kind": "InfestedCorpse",
+      "x": 480,
+      "y": 1728
+    },
+    {
+      "kind": "InfestedCorpse",
+      "x": 448,
+      "y": 1824
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
       "x": 608,
-      "y": 468,
-      "count": 1
+      "y": 64
     },
     {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
-      "x": 640,
-      "y": 468,
-      "count": 1
-    },
-    {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
-      "x": 720,
-      "y": 468,
-      "count": 1
-    },
-    {
-      "kind": "InfestedCorpse",
-      "name_en": "InfestedCorpse",
-      "x": 480,
-      "y": 448,
-      "count": 1
-    },
-    {
-      "kind": "InfestedCorpse",
-      "name_en": "InfestedCorpse",
-      "x": 576,
-      "y": 480,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 1184,
-      "y": 816,
-      "count": 1
-    },
-    {
-      "kind": "StarvedHound",
-      "name_en": "StarvedHound",
-      "x": 416,
-      "y": 448,
-      "count": 1
-    },
-    {
-      "kind": "CathedralGraveWarden",
-      "name_en": "CathedralGraveWarden",
-      "x": 512,
-      "y": 560,
-      "count": 1
-    },
-    {
-      "kind": "CathedralGraveWarden",
-      "name_en": "CathedralGraveWarden",
-      "x": 608,
-      "y": 512,
-      "count": 1
-    },
-    {
-      "kind": "Evangelist",
-      "name_en": "Evangelist",
-      "x": 544,
-      "y": 672,
-      "count": 1
-    },
-    {
-      "kind": "Thrall",
-      "name_en": "Thrall",
+      "kind": "CrystalLizard",
       "x": 960,
-      "y": 960,
-      "count": 1
-    },
-    {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 1024,
-      "y": 1040,
-      "count": 1
-    },
-    {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 1088,
-      "y": 992,
-      "count": 1
-    },
-    {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 992,
-      "y": 1088,
-      "count": 1
+      "y": 1216
     },
     {
       "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
+      "x": 624,
+      "y": 256
+    },
+    {
+      "kind": "CathedralKnight",
+      "x": 720,
+      "y": 320
+    },
+    {
+      "kind": "CathedralKnight",
       "x": 768,
-      "y": 864,
-      "count": 1
+      "y": 864
     },
     {
       "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
       "x": 832,
-      "y": 896,
-      "count": 1
+      "y": 896
+    },
+    {
+      "kind": "CathedralKnight",
+      "x": 800,
+      "y": 1120
+    },
+    {
+      "kind": "CathedralKnight",
+      "x": 880,
+      "y": 1152
+    },
+    {
+      "kind": "CathedralKnight",
+      "x": 1120,
+      "y": 992
+    },
+    {
+      "kind": "CathedralKnight",
+      "x": 768,
+      "y": 1408
+    },
+    {
+      "kind": "CathedralKnight",
+      "x": 848,
+      "y": 1536
+    },
+    {
+      "kind": "CathedralKnight",
+      "x": 976,
+      "y": 1760
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 352,
+      "y": 384
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 416,
+      "y": 448
+    },
+    {
+      "kind": "CathedralGraveWarden",
+      "x": 544,
+      "y": 416
+    },
+    {
+      "kind": "CathedralGraveWarden",
+      "x": 608,
+      "y": 512
+    },
+    {
+      "kind": "CathedralGraveWarden",
+      "x": 928,
+      "y": 1696
+    },
+    {
+      "kind": "CathedralGraveWarden",
+      "x": 992,
+      "y": 1712
     },
     {
       "kind": "Evangelist",
-      "name_en": "Evangelist",
+      "x": 544,
+      "y": 672
+    },
+    {
+      "kind": "Evangelist",
       "x": 736,
-      "y": 800,
-      "count": 1
+      "y": 800
     },
     {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
-      "x": 800,
-      "y": 1120,
-      "count": 1
+      "kind": "Evangelist",
+      "x": 672,
+      "y": 1184
     },
     {
-      "kind": "CathedralKnight",
-      "name_en": "CathedralKnight",
-      "x": 880,
-      "y": 1152,
-      "count": 1
+      "kind": "Evangelist",
+      "x": 1056,
+      "y": 1024
     },
     {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 768,
-      "y": 1112,
-      "count": 1
+      "kind": "Evangelist",
+      "x": 1152,
+      "y": 1088
     },
     {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 896,
-      "y": 1112,
-      "count": 1
+      "kind": "Evangelist",
+      "x": 592,
+      "y": 1536
     },
     {
-      "kind": "Thrall",
-      "name_en": "Thrall",
-      "x": 832,
-      "y": 1112,
-      "count": 1
+      "kind": "PeasantHollow",
+      "x": 448,
+      "y": 640
     },
     {
-      "kind": "Thrall",
-      "name_en": "Thrall",
+      "kind": "PeasantHollow",
       "x": 928,
-      "y": 1112,
-      "count": 1
+      "y": 1024
     },
     {
-      "kind": "InfestedCorpse",
-      "name_en": "InfestedCorpse",
-      "x": 1216,
-      "y": 1056,
-      "count": 1
+      "kind": "Thrall",
+      "x": 960,
+      "y": 960
+    },
+    {
+      "kind": "Thrall",
+      "x": 1024,
+      "y": 1040
+    },
+    {
+      "kind": "Thrall",
+      "x": 1088,
+      "y": 992
+    },
+    {
+      "kind": "Thrall",
+      "x": 992,
+      "y": 1088
+    },
+    {
+      "kind": "Thrall",
+      "x": 768,
+      "y": 1200
+    },
+    {
+      "kind": "Thrall",
+      "x": 896,
+      "y": 1248
+    },
+    {
+      "kind": "Thrall",
+      "x": 832,
+      "y": 1168
+    },
+    {
+      "kind": "Thrall",
+      "x": 928,
+      "y": 1200
+    },
+    {
+      "kind": "Thrall",
+      "x": 864,
+      "y": 1232
+    },
+    {
+      "kind": "Thrall",
+      "x": 736,
+      "y": 1600
+    },
+    {
+      "kind": "Thrall",
+      "x": 880,
+      "y": 1632
+    },
+    {
+      "kind": "Thrall",
+      "x": 560,
+      "y": 1504
+    },
+    {
+      "kind": "Thrall",
+      "x": 640,
+      "y": 1584
     },
     {
       "kind": "DeepAccursed",
-      "name_en": "DeepAccursed",
-      "x": 416,
-      "y": 608,
-      "count": 1
+      "x": 352,
+      "y": 608
+    },
+    {
+      "kind": "GiantSlave",
+      "x": 704,
+      "y": 1472
+    },
+    {
+      "kind": "GiantSlave",
+      "x": 896,
+      "y": 1568
+    },
+    {
+      "kind": "Deacon",
+      "x": 624,
+      "y": 1760
+    },
+    {
+      "kind": "Deacon",
+      "x": 672,
+      "y": 1728
+    },
+    {
+      "kind": "Deacon",
+      "x": 768,
+      "y": 1872
+    },
+    {
+      "kind": "Deacon",
+      "x": 832,
+      "y": 1856
+    },
+    {
+      "kind": "Deacon",
+      "x": 880,
+      "y": 1824
+    },
+    {
+      "kind": "Deacon",
+      "x": 640,
+      "y": 1888
+    },
+    {
+      "kind": "Deacon",
+      "x": 688,
+      "y": 1952
+    },
+    {
+      "kind": "Deacon",
+      "x": 816,
+      "y": 1984
+    },
+    {
+      "kind": "Deacon",
+      "x": 880,
+      "y": 1920
+    },
+    {
+      "kind": "Deacon",
+      "x": 560,
+      "y": 1984
+    },
+    {
+      "kind": "Deacon",
+      "x": 912,
+      "y": 1904
+    },
+    {
+      "kind": "Deacon",
+      "x": 512,
+      "y": 1920
+    },
+    {
+      "kind": "ManGrub",
+      "x": 544,
+      "y": 2160
+    },
+    {
+      "kind": "ManGrub",
+      "x": 608,
+      "y": 2208
+    },
+    {
+      "kind": "ManGrub",
+      "x": 672,
+      "y": 2240
+    },
+    {
+      "kind": "ManGrub",
+      "x": 576,
+      "y": 2272
+    },
+    {
+      "kind": "ManGrub",
+      "x": 640,
+      "y": 2288
     },
     {
       "kind": "InfestedCorpse",
-      "name_en": "InfestedCorpse",
-      "x": 576,
-      "y": 1112,
-      "count": 1
+      "x": 1024,
+      "y": 1120
     },
     {
-      "kind": "GiantSlave",
-      "name_en": "GiantSlave",
-      "x": 768,
-      "y": 816,
-      "count": 1
+      "kind": "InfestedCorpse",
+      "x": 832,
+      "y": 1168
     },
     {
-      "kind": "GiantSlave",
-      "name_en": "GiantSlave",
-      "x": 1312,
-      "y": 1568,
-      "count": 1
+      "kind": "InfestedCorpse",
+      "x": 896,
+      "y": 1248
     },
     {
-      "kind": "Deacon",
-      "name_en": "Deacon",
-      "x": 1344,
-      "y": 848,
-      "count": 1
+      "kind": "InfestedCorpse",
+      "x": 560,
+      "y": 1504
     },
     {
-      "kind": "Deacon",
-      "name_en": "Deacon",
-      "x": 480,
-      "y": 1040,
-      "count": 1
+      "kind": "Basilisk",
+      "x": 1088,
+      "y": 992
     },
     {
-      "kind": "Deacon",
-      "name_en": "Deacon",
-      "x": 1232,
-      "y": 2112,
-      "count": 1
+      "kind": "Basilisk",
+      "x": 992,
+      "y": 1088
     },
     {
-      "kind": "Deacon",
-      "name_en": "Deacon",
-      "x": 1536,
-      "y": 2528,
-      "count": 1
+      "kind": "Rat",
+      "x": 640,
+      "y": 1584
     },
     {
-      "kind": "Deacon",
-      "name_en": "Deacon",
-      "x": 1312,
-      "y": 1792,
-      "count": 1
-    },
-    {
-      "kind": "Deacon",
-      "name_en": "Deacon",
-      "x": 1872,
-      "y": 2432,
-      "count": 1
-    },
-    {
-      "kind": "Deacon",
-      "name_en": "Deacon",
-      "x": 1600,
-      "y": 2400,
-      "count": 1
-    },
-    {
-      "kind": "Deacon",
-      "name_en": "Deacon",
-      "x": 1424,
-      "y": 2464,
-      "count": 1
-    },
-    {
-      "kind": "Deacon",
-      "name_en": "Deacon",
-      "x": 1296,
-      "y": 2128,
-      "count": 1
-    },
-    {
-      "kind": "Deacon",
-      "name_en": "Deacon",
-      "x": 1904,
-      "y": 2224,
-      "count": 1
-    },
-    {
-      "kind": "CathedralGraveWarden",
-      "name_en": "CathedralGraveWarden",
-      "x": 1312,
-      "y": 1696,
-      "count": 1
-    },
-    {
-      "kind": "ManGrub",
-      "name_en": "ManGrub",
-      "x": 1232,
-      "y": 2160,
-      "count": 1
-    },
-    {
-      "kind": "ManGrub",
-      "name_en": "ManGrub",
-      "x": 1232,
-      "y": 2208,
-      "count": 1
-    },
-    {
-      "kind": "ManGrub",
-      "name_en": "ManGrub",
-      "x": 1232,
-      "y": 2240,
-      "count": 1
-    },
-    {
-      "kind": "ManGrub",
-      "name_en": "ManGrub",
-      "x": 1232,
-      "y": 2272,
-      "count": 1
-    },
-    {
-      "kind": "ManGrub",
-      "name_en": "ManGrub",
-      "x": 1232,
-      "y": 2304,
-      "count": 1
+      "kind": "Rat",
+      "x": 880,
+      "y": 1632
     },
     {
       "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 960,
-      "y": 1112,
-      "count": 1
+      "x": 672,
+      "y": 2240
     },
     {
       "kind": "MiniBoss",
-      "name_en": "MiniBoss",
-      "x": 1616,
-      "y": 2256,
-      "count": 1
+      "x": 720,
+      "y": 1824
     }
   ],
   "items": [

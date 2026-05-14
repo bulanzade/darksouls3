@@ -150,157 +150,313 @@
   "enemies": [
     {
       "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 468,
-      "y": 468,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 960,
-      "y": 592,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 448,
-      "y": 672,
-      "count": 1
-    },
-    {
-      "kind": "DemonStatue",
-      "name_en": "DemonStatue",
-      "x": 800,
-      "y": 960,
-      "count": 1
-    },
-    {
-      "kind": "Basilisk",
-      "name_en": "Basilisk",
-      "x": 832,
-      "y": 928,
-      "count": 1
-    },
-    {
-      "kind": "Basilisk",
-      "name_en": "Basilisk",
-      "x": 1088,
-      "y": 1120,
-      "count": 1
-    },
-    {
-      "kind": "Basilisk",
-      "name_en": "Basilisk",
-      "x": 1088,
-      "y": 1152,
-      "count": 1
-    },
-    {
-      "kind": "Skeleton",
-      "name_en": "Skeleton",
-      "x": 1312,
-      "y": 948,
-      "count": 1
-    },
-    {
-      "kind": "Skeleton",
-      "name_en": "Skeleton",
-      "x": 1408,
-      "y": 960,
-      "count": 1
-    },
-    {
-      "kind": "Skeleton",
-      "name_en": "Skeleton",
       "x": 288,
-      "y": 1472,
-      "count": 1
+      "y": 288
     },
     {
-      "kind": "Skeleton",
-      "name_en": "Skeleton",
-      "x": 400,
-      "y": 1408,
-      "count": 1
-    },
-    {
-      "kind": "Skeleton",
-      "name_en": "Skeleton",
-      "x": 480,
-      "y": 1440,
-      "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "MiniBoss",
-      "x": 1200,
-      "y": 800,
-      "count": 1
-    },
-    {
-      "kind": "MiniBoss",
-      "name_en": "MiniBoss",
+      "kind": "DemonStatue",
       "x": 352,
-      "y": 1408,
-      "count": 1
+      "y": 352
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
-      "x": 240,
-      "y": 1360,
-      "count": 1
+      "kind": "DemonStatue",
+      "x": 448,
+      "y": 672
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
-      "x": 320,
-      "y": 1440,
-      "count": 1
+      "kind": "DemonStatue",
+      "x": 800,
+      "y": 960
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
-      "x": 400,
-      "y": 1520,
-      "count": 1
+      "kind": "DemonStatue",
+      "x": 1040,
+      "y": 800
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
-      "x": 640,
-      "y": 928,
-      "count": 1
+      "kind": "DemonStatue",
+      "x": 288,
+      "y": 512
     },
     {
-      "kind": "Rat",
-      "name_en": "Rat",
-      "x": 768,
-      "y": 928,
-      "count": 1
+      "kind": "DemonStatue",
+      "x": 560,
+      "y": 640
     },
     {
-      "kind": "CarthusSandworm",
-      "name_en": "CarthusSandworm",
-      "x": 720,
-      "y": 928,
-      "count": 1
+      "kind": "DemonStatue",
+      "x": 992,
+      "y": 928
     },
     {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
-      "x": 1184,
-      "y": 1040,
-      "count": 1
+      "kind": "DemonStatue",
+      "x": 1088,
+      "y": 992
     },
     {
-      "kind": "CrystalLizard",
-      "name_en": "CrystalLizard",
+      "kind": "DemonStatue",
+      "x": 1152,
+      "y": 880
+    },
+    {
+      "kind": "DemonStatue",
+      "x": 672,
+      "y": 768
+    },
+    {
+      "kind": "DemonStatue",
+      "x": 880,
+      "y": 832
+    },
+    {
+      "kind": "DemonStatue",
+      "x": 1520,
+      "y": 992
+    },
+    {
+      "kind": "DemonStatue",
+      "x": 1600,
+      "y": 960
+    },
+    {
+      "kind": "DemonStatue",
       "x": 1792,
-      "y": 1248,
-      "count": 1
+      "y": 1312
+    },
+    {
+      "kind": "DemonStatue",
+      "x": 2080,
+      "y": 1728
+    },
+    {
+      "kind": "DemonStatue",
+      "x": 2240,
+      "y": 1568
+    },
+    {
+      "kind": "DemonStatue",
+      "x": 1680,
+      "y": 1440
+    },
+    {
+      "kind": "FireDemon",
+      "x": 912,
+      "y": 992
+    },
+    {
+      "kind": "FireDemon",
+      "x": 1568,
+      "y": 1040
+    },
+    {
+      "kind": "FireDemon",
+      "x": 2000,
+      "y": 1408
+    },
+    {
+      "kind": "Ghru",
+      "x": 768,
+      "y": 880
+    },
+    {
+      "kind": "Ghru",
+      "x": 1040,
+      "y": 960
+    },
+    {
+      "kind": "Ghru",
+      "x": 1600,
+      "y": 1360
+    },
+    {
+      "kind": "Ghru",
+      "x": 1840,
+      "y": 1600
+    },
+    {
+      "kind": "Ghru",
+      "x": 2368,
+      "y": 1792
+    },
+    {
+      "kind": "Rat",
+      "x": 1152,
+      "y": 992
+    },
+    {
+      "kind": "Rat",
+      "x": 1920,
+      "y": 1920
+    },
+    {
+      "kind": "Rat",
+      "x": 2272,
+      "y": 1680
+    },
+    {
+      "kind": "Basilisk",
+      "x": 816,
+      "y": 1040
+    },
+    {
+      "kind": "Basilisk",
+      "x": 912,
+      "y": 1120
+    },
+    {
+      "kind": "Basilisk",
+      "x": 880,
+      "y": 1136
+    },
+    {
+      "kind": "Basilisk",
+      "x": 1840,
+      "y": 1760
+    },
+    {
+      "kind": "Basilisk",
+      "x": 2080,
+      "y": 1888
+    },
+    {
+      "kind": "GiantSlave",
+      "x": 608,
+      "y": 720
+    },
+    {
+      "kind": "FireDemon",
+      "x": 928,
+      "y": 880
+    },
+    {
+      "kind": "FireDemon",
+      "x": 1520,
+      "y": 1120
+    },
+    {
+      "kind": "FireDemon",
+      "x": 1600,
+      "y": 1200
+    },
+    {
+      "kind": "FireDemon",
+      "x": 1888,
+      "y": 1408
+    },
+    {
+      "kind": "FireDemon",
+      "x": 2000,
+      "y": 1520
+    },
+    {
+      "kind": "FireDemon",
+      "x": 2160,
+      "y": 1632
+    },
+    {
+      "kind": "BlackKnight",
+      "x": 1248,
+      "y": 928
+    },
+    {
+      "kind": "BlackKnight",
+      "x": 1728,
+      "y": 1088
+    },
+    {
+      "kind": "BlackKnight",
+      "x": 2240,
+      "y": 1728
+    },
+    {
+      "kind": "Skeleton",
+      "x": 1312,
+      "y": 832
+    },
+    {
+      "kind": "Skeleton",
+      "x": 1408,
+      "y": 960
+    },
+    {
+      "kind": "Skeleton",
+      "x": 400,
+      "y": 1408
+    },
+    {
+      "kind": "Skeleton",
+      "x": 480,
+      "y": 1440
+    },
+    {
+      "kind": "Skeleton",
+      "x": 288,
+      "y": 1472
+    },
+    {
+      "kind": "MiniBoss",
+      "x": 1200,
+      "y": 800
+    },
+    {
+      "kind": "MiniBoss",
+      "x": 352,
+      "y": 1408
+    },
+    {
+      "kind": "MiniBoss",
+      "x": 448,
+      "y": 1472
+    },
+    {
+      "kind": "Rat",
+      "x": 240,
+      "y": 1360
+    },
+    {
+      "kind": "Rat",
+      "x": 400,
+      "y": 1520
+    },
+    {
+      "kind": "Rat",
+      "x": 640,
+      "y": 928
+    },
+    {
+      "kind": "Rat",
+      "x": 992,
+      "y": 1088
+    },
+    {
+      "kind": "Rat",
+      "x": 320,
+      "y": 1440
+    },
+    {
+      "kind": "Rat",
+      "x": 768,
+      "y": 1024
+    },
+    {
+      "kind": "MiniBoss",
+      "x": 720,
+      "y": 1088
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 1312,
+      "y": 880
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 1792,
+      "y": 1248
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 352,
+      "y": 1568
     }
   ],
   "items": [

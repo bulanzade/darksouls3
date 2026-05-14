@@ -130,6 +130,29 @@ ENEMY_KIND_MAP = {
     "GreatCrab": "GiantSlave",
     "SulyvahnsBeast": "GiantSlave",
     "CarthusSandworm": "MiniBoss",
+    "Lycanthrope": "PeasantHollow",
+    "Madwoman": "PeasantHollow",
+    "ExileWarrior": "Knight",
+    # Additional DS3 enemy aliases (added for wiki accuracy)
+    "SmolderingGhru": "Ghru",
+    "SmolderingRottenFlesh": "Rat",
+    "DemonCleric": "FireDemon",
+    "HollowPriest": "DarkMage",
+    "BurningStakeWitch": "DarkMage",
+    "DevoutHollow": "PeasantHollow",
+    "ReanimatedCorpse": "InfestedCorpse",
+    "CorpseGrub": "InfestedCorpse",
+    "WrithingRottenFlesh": "Rat",
+    "RottenFleshOfAldrich": "Rat",
+    "HoundRat": "Rat",
+    "LargeHoundRat": "Rat",
+    "PontiffKnight": "Knight",
+    "IrithyllianBeasthound": "Dog",
+    "CathedralEvangelist": "Evangelist",
+    "JailerHandmaid": "Jailer",
+    "SerpentManSummoner": "DarkMage",
+    "AvariciousBeing": "Mimic",
+    "PaintingGuardian": "Assassin",
 }
 
 def new_chunk(width=CHUNK_SIZE, height=CHUNK_SIZE):
@@ -942,31 +965,35 @@ def make_cemetery_of_ash():
 
     # --- Boss — Iudex Gundyr at arena center ---
 
-    # --- Enemies (DS3 Cemetery of Ash: Hollow Soldiers rise from graves, Starved Hounds) ---
-    # In DS3 the cemetery enemies are Hollow Soldiers that rise from the ground.
-    # DS3 enemies: Hollow Soldiers (sword, shield, crossbow variants) + Starved Hounds + 1 Ravenous Crystal Lizard.
-    # Layout follows the actual route: coffin → cemetery path → fountain → stairs → bonfire →
+    # --- Enemies (DS3 Cemetery of Ash: Grave Wardens + 1 Ravenous Crystal Lizard) ---
+    # Per DS3 wiki: only Grave Wardens and 1 Ravenous Crystal Lizard.
+    # No Hollow Soldiers, no Starved Hounds in this area.
+    # Route: coffin → cemetery path → fountain → stairs → bonfire →
     # firebomb cliff → Gundyr approach → arena.
 
-    
     # --- DS3 faithful enemies (CemeteryOfAsh) ---
-    # MiniBoss (1)
-    entities.append(make_entity("Enemy", 80 * 16, 48 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
-    # HollowSoldier (23)
-    for tx, ty in [(40, 152), (56, 152), (64, 150), (80, 136), (76, 126), (78, 116), (86, 108), (92, 109), (68, 92), (50, 86), (38, 86), (40, 84), (76, 70), (79, 21), (71, 36), (67, 44), (65, 47), (58, 57), (93, 35), (86, 43), (95, 51), (93, 54), (82, 62)]:
+    # DS3 enemies: Hollow (ashen hollow soldiers), Starved Hound, Crystal Lizard
+    # HollowSoldier (9) — DS3: ashen hollow soldiers patrol the cemetery paths
+    for tx, ty in [
+        (40, 152),  # first enemy near coffin
+        (56, 152),  # cemetery path right of start
+        (64, 150),  # cemetery path further along
+        (80, 136),  # near ash estus fountain
+        (76, 126),  # right branch past fountain
+        (86, 108),  # near crystal lizard ravine entrance
+        (68, 92),   # cliff path near bonfire clearing
+        (76, 70),   # near firebomb pickup
+        (82, 62),   # Gundyr approach archway
+    ]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier"))]))
-    # StarvedHound (3)
-    entities.append(make_entity("Enemy", 44 * 16, 90 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 48 * 16, 80 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 99 * 16, 39 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    # RavenousCrystalLizard (1)
+    # StarvedHound (2) — DS3: dogs in cemetery near fountain and approach
+    for tx, ty in [(78, 116), (50, 86)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    # RavenousCrystalLizard (1) — in the side ravine
     entities.append(make_entity("Enemy", 136 * 16, 108 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("RavenousCrystalLizard", "RavenousCrystalLizard"))]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("RavenousCrystalLizard", "CrystalLizard"))]))
 
 # --- Items (accurate DS3 placements) ---
 
@@ -1366,7 +1393,7 @@ def make_cemetery_of_ash():
 
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
 
     # print(f"  CemeteryOfAsh (faithful DS3 layout) "
     # f"ground={pct:.1f}% connectivity={coverage}%")
@@ -1679,10 +1706,13 @@ def make_firelink_shrine():
 
     
     # --- DS3 faithful enemies (FirelinkShrine) ---
-    # SwordMaster (1)
-    entities.append(make_entity("Enemy", 68 * 16, 136 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SwordMaster", "SwordMaster"))]))
-    # CrystalLizard (1)
+    # DS3: Firelink Shrine is a safe hub. Only exterior has:
+    # Sword Master (hostile NPC) and Crystal Lizard on rafters.
+    # No Grave Wardens or Starved Hounds in Firelink Shrine.
+    # SwordMaster (1) — DS3: hostile NPC patrolling exterior stairs
+    entities.append(make_entity("Enemy", 68 * 16, 110 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SwordMaster", "Assassin"))]))
+    # CrystalLizard (1) — DS3: on tower rafter area
     entities.append(make_entity("Enemy", 122 * 16, 62 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
 
@@ -2383,7 +2413,7 @@ def make_firelink_shrine():
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
 
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
     # print(f"  FirelinkShrine (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "FirelinkShrine", chunk, entities
 
@@ -2767,9 +2797,9 @@ def make_lothric_wall():
     # Darkwraith (1)
     entities.append(make_entity("Enemy", 54 * 16, 50 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith"))]))
-    # MiniBoss (1)
+    # Red-eyed LothricKnight — DS3: tough variant near Emma with buffed weapon
     entities.append(make_entity("Enemy", 82 * 16, 102 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight"))]))
 
 # --- NPCs ---
     # Greirat — locked in cell below tower (DS3: basement cell, asks for Loretta's Bone)
@@ -3582,7 +3612,7 @@ def make_lothric_wall():
 
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
     # print(f"  LothricWall (faithful DS3 layout) "
     # f"ground={pct:.1f}% connectivity={coverage}%")
     return "LothricWall", chunk, entities
@@ -3852,131 +3882,104 @@ def make_undead_settlement():
     entities.append(make_entity("BossSpawn", 187 * 16, 206 * 16))
 
     # --- Enemies (DS3 Undead Settlement: Peasant Hollows, Evangelists, Thralls) ---
-    enemy_data = [
-        # Entrance — hollow soldiers + Starved Hounds at portcullis (DS3: 3 hounds released through gate)
-        ("HollowSoldier", 22, 14), ("HollowSoldier", 26, 22),
-        ("StarvedHound", 18, 18), ("StarvedHound", 20, 20), ("StarvedHound", 16, 22),
-        # House streets — Peasant Hollows are the main enemy (DS3: pitchfork hollows, hat-wearing hollows)
-        ("PeasantHollow", 34, 28), ("PeasantHollow", 42, 36),
-        ("PeasantHollow", 54, 42), ("PeasantHollow", 48, 44),
-        ("PeasantHollow", 60, 34), ("PeasantHollow", 66, 38),
-        ("HollowSoldier", 38, 32),
-        # Starved Hounds in the streets (DS3: dogs behind overturned coach, near sewers)
-        ("StarvedHound", 30, 36), ("StarvedHound", 58, 38),
-        ("StarvedHound", 82, 50),                                    # DS3: dog guarding ember near sewers
-        # Evangelists — heavy mace women patrol the squares
-        ("Evangelist", 62, 46), ("Evangelist", 66, 52),
-        ("Evangelist", 76, 60), ("Evangelist", 86, 54),
-        # Thralls hiding on rooftops and rafters (DS3: many thrall drop ambushes)
-        ("Thrall", 56, 30), ("Thrall", 72, 50),
-        ("Thrall", 46, 38), ("Thrall", 80, 58),
-        ("Thrall", 50, 36), ("Thrall", 64, 42),                      # DS3: thralls drop from ceiling in houses
-        # Cliffside — more hollows
-        ("HollowSoldier", 90, 42), ("HollowSoldier", 96, 44),
-        ("PeasantHollow", 94, 50),
-        # Fire Demon (DS3: fights alongside Siegward)
-        ("FireDemon", 102, 62),
-        # Cliff Underside area
-        ("PeasantHollow", 58, 82), ("PeasantHollow", 68, 86),
-        ("HollowSoldier", 64, 78),
-        # Sewers — rats (DS3: 3 small rats + 1 big rat in sewers, drops Bloodbite Ring)
-        ("Rat", 78, 76), ("Rat", 80, 78), ("Rat", 82, 80),          # DS3: small rats in sewers
-        ("Rat", 84, 76),                                               # DS3: big rat in sewers (larger than others)
-        # Path to pit / Curse-Rotted Greatwood area
-        ("HollowSoldier", 78, 78), ("HollowSoldier", 84, 88),
-        ("Thrall", 82, 82),
-        # Giant Slave on tower (DS3: shoots great arrows at player throughout the level)
-        ("GiantSlave", 52, 22),                                       # DS3: Giant atop tower with great bow
-        # Boreal Outrider Knight at lift (DS3: Knight of the Boreal Valley guarding Road of Sacrifices exit)
-        ("PeasantHollow", 146, 52),                                   # DS3: Hollow in lift tower area
-        # Holy Knight Hodrick invasion (DS3: Mad Spirit invades near Dilapidated Bridge if Embered)
-        ("MiniBoss", 64, 66),                                         # DS3: Hodrick, Mound-Makers member
-        # Irina's area — Peasant Hollows (DS3: hollows attack near Irina's graveyard, NOT skeletons)
-        ("PeasantHollow", 140, 52), ("PeasantHollow", 142, 54), ("PeasantHollow", 144, 48),
-        # Crystal Lizard (DS3: near Hodrick invasion area / cliff path)
-        ("CrystalLizard", 112, 46),
-        # Additional DS3 enemies for fidelity
-        ("PeasantHollow", 36, 34),                                   # DS3: hollow in house near entrance
-        ("PeasantHollow", 72, 44),                                   # DS3: hollow in market square
-        ("Thrall", 88, 48),                                          # DS3: thrall ambush on rooftops
-        ("Thrall", 92, 52),                                          # DS3: thrall drops from ceiling
-        ("HollowSoldier", 76, 64),                                   # DS3: soldier near fire demon area
-        ("PeasantHollow", 100, 58),                                  # DS3: hollow near cliff edge
-        ("HollowSoldier", 104, 66),                                  # DS3: soldier on lower cliff
-        # Cliff underside Q(0,1) — Peasant Hollows and Thralls in lower settlement (DS3: enemies below cliffs)
-        ("PeasantHollow", 64, 82), ("PeasantHollow", 75, 84),       # Lower cliff hollows
-        ("Thrall", 61, 87), ("Thrall", 53, 90),                     # Thrall ambushes on lower paths
-        ("PeasantHollow", 62, 92), ("HollowSoldier", 71, 101),      # Settlement underside hollows
-        # Pit and sewers Q(1,1) — more rats and hollows in the depths (DS3: rats and hollows in sewers)
-        ("Rat", 84, 93), ("Rat", 87, 98), ("Rat", 94, 102),        # More sewer rats
-        ("HollowSoldier", 92, 106), ("HollowSoldier", 86, 110),     # Hollows in lower depths
-        ("Thrall", 99, 117), ("PeasantHollow", 84, 121),            # Thrall ambushes in pit area
-    ]
 
     
     # --- DS3 faithful enemies (UndeadSettlement) ---
-    # HollowSoldier (13)
-    for tx, ty in [(352, 224), (416, 352), (608, 512), (1440, 672), (1536, 704), (1024, 1248), (1248, 1248), (1344, 1408), (1216, 1024), (1664, 1056), (1136, 1616), (1472, 1696), (1376, 1760)]:
+    # DS3 wiki: Hollow Soldiers, Peasant Hollows, Starved Hounds, Evangelists,
+    # Thralls, Rats, Fire Demon, Giant Slave, Skeletons, Crystal Lizard,
+    # Boreal Knight, Holy Knight Hodrick
+
+    # StarvedHound (7) — DS3: 3 at portcullis, 2 behind overturned coach, 1 guarding ember, 1 at ladder
+    for tx, ty in [(20, 15), (22, 16), (18, 17),   # portcullis release (3)
+                   (36, 25), (38, 27),               # behind overturned coach (2)
+                   (88, 42),                          # guarding ember near sewers
+                   (168, 108)]:                       # at ladder near sewers
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+
+    # HollowSoldier (8) — DS3: gate lever enemy, road hollows, rooftops, cliff underside
+    for tx, ty in [(28, 20),    # gate lever enemy
+                   (34, 26),    # road hollow near pilgrims
+                   (52, 30),    # short hollow in house
+                   (80, 45),    # rooftop hollow
+                   (108, 48),   # second rooftop hollow
+                   (160, 105),  # hollow near dilapidated bridge
+                   (200, 140),  # cliff underside hollow
+                   (175, 190)]: # hollow near Greatwood courtyard
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier"))]))
-    # StarvedHound (6)
-    entities.append(make_entity("Enemy", 288 * 16, 288 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 320 * 16, 320 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 256 * 16, 352 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 480 * 16, 576 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 928 * 16, 608 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 1312 * 16, 800 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    # PeasantHollow (20)
-    for tx, ty in [(544, 448), (672, 576), (864, 672), (768, 704), (960, 544), (1056, 608), (1504, 800), (928, 1312), (1088, 1376), (2336, 832), (2240, 832), (2272, 864), (2304, 768), (576, 544), (1152, 704), (1600, 928), (1024, 1312), (1200, 1344), (992, 1472), (1344, 1936)]:
+
+    # PeasantHollow (15) — DS3: pitchfork/hat hollows throughout settlement
+    for tx, ty in [(42, 28),    # first house pitchfork hollow
+                   (46, 32),    # first house second
+                   (58, 38),    # house street
+                   (62, 42),    # house street lower
+                   (68, 48),    # near burning tree square
+                   (130, 80),   # gang of enemies beyond fire
+                   (135, 85),   # gang second
+                   (140, 82),   # gang third
+                   (92, 62),    # Cornyx area ledge
+                   (96, 66),    # Cornyx area ledge second
+                   (122, 70),   # mindless hollows sitting around
+                   (160, 195),  # Greatwood prayer hollows
+                   (170, 190),  # Greatwood prayer second
+                   (180, 195),  # Greatwood prayer third
+                   (148, 115)]: # lower settlement hollow
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow"))]))
-    # Evangelist (4)
-    entities.append(make_entity("Enemy", 992 * 16, 736 * 16,
+
+    # Evangelist (3) — DS3: 1 praying at blazing fire, 2 on upper structure near Fire Demon
+    entities.append(make_entity("Enemy", 132 * 16, 82 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
-    entities.append(make_entity("Enemy", 1056 * 16, 832 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
-    entities.append(make_entity("Enemy", 1216 * 16, 960 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
-    entities.append(make_entity("Enemy", 1376 * 16, 864 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
-    # Thrall (12)
-    for tx, ty in [(896, 480), (1152, 800), (736, 608), (1280, 928), (800, 576), (1024, 672), (1312, 1312), (1408, 768), (1472, 832), (976, 1392), (848, 1440), (1584, 1872)]:
+    for tx, ty in [(230, 95), (240, 100)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
+
+    # Thrall (10) — DS3: many drop ambushes from ceilings in houses and rooftops
+    for tx, ty in [(50, 30),    # drops in first house
+                   (55, 35),    # drops in house street
+                   (65, 40),    # drops near square
+                   (70, 46),    # ceiling drop near bonfire square
+                   (100, 55),   # thrall on rooftop path
+                   (105, 60),   # second rooftop thrall
+                   (150, 112),  # drops in hallway near sewers
+                   (156, 116),  # short hollow drops from ceiling
+                   (126, 76),   # thrall ambush near Cornyx area
+                   (166, 122)]: # thrall in lower area
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Thrall", "Thrall"))]))
-    # FireDemon (1)
-    entities.append(make_entity("Enemy", 1632 * 16, 992 * 16,
+
+    # Rat (6) — DS3: 3 small + 1 big in sewers, 2 more near sewer entrance
+    for tx, ty in [(155, 120), (158, 123), (162, 126),   # 3 small rats in sewers
+                   (166, 118),                             # big rat (drops Bloodbite Ring)
+                   (148, 116), (152, 119)]:                # 2 near sewer entrance
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+
+    # FireDemon (1) — DS3: fights alongside Siegward in lower area
+    entities.append(make_entity("Enemy", 220 * 16, 95 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("FireDemon", "FireDemon"))]))
-    # Rat (6)
-    entities.append(make_entity("Enemy", 1248 * 16, 1216 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
-    entities.append(make_entity("Enemy", 1280 * 16, 1248 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
-    entities.append(make_entity("Enemy", 1312 * 16, 1280 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
-    entities.append(make_entity("Enemy", 1344 * 16, 1488 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
-    entities.append(make_entity("Enemy", 1392 * 16, 1568 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
-    entities.append(make_entity("Enemy", 1504 * 16, 1632 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
-    # Dog (1)
-    entities.append(make_entity("Enemy", 1344 * 16, 1216 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
-    # GiantSlave (1)
-    entities.append(make_entity("Enemy", 832 * 16, 352 * 16,
+
+    # GiantSlave (1) — DS3: Giant atop tower with greatbow, shoots spears
+    entities.append(make_entity("Enemy", 195 * 16, 58 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave"))]))
-    # MiniBoss (1)
-    entities.append(make_entity("Enemy", 1024 * 16, 1056 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
-    # CrystalLizard (1)
-    entities.append(make_entity("Enemy", 1792 * 16, 736 * 16,
+
+    # Skeleton (5) — DS3: near Irina's cell behind Grave Key door, in graveyard
+    for tx, ty in [(188, 135), (192, 138), (196, 142), (200, 140), (204, 136)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
+
+    # CrystalLizard (1) — DS3: near Hodrick invasion area / cliff path
+    entities.append(make_entity("Enemy", 172 * 16, 110 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+
+    # BorealKnight (1) — DS3: Outrider Knight of the Boreal Valley at lift
+    entities.append(make_entity("Enemy", 265 * 16, 155 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BorealKnight", "Knight"))]))
+
+    # Hodrick (1) — DS3: Holy Knight Hodrick, Mad Spirit invades near Dilapidated Bridge
+    entities.append(make_entity("Enemy", 172 * 16, 115 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Hodrick", "MiniBoss"))]))
 
 # --- NPCs (DS3 Undead Settlement: Yoel, Siegward, Cornyx) ---
     # Yoel of Londor — among the pilgrims at the entrance (DS3: offers free levels)
@@ -4784,7 +4787,7 @@ def make_undead_settlement():
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
     # print(f"  UndeadSettlement (faithful DS3 layout) "
     # f"ground={pct:.1f}% connectivity={coverage}%")
     return "UndeadSettlement", chunk, entities
@@ -5044,49 +5047,6 @@ def make_road_of_sacrifices():
 
     # Enemies - DS3 faithful: Corvians (many throughout forest), Lycanthropes,
     # Corvian Storytellers, Black Knight, Exiles, Crabs, Crystal Lizards
-    enemy_data = [
-        # Entry dark woods — Corvians (winged hollows) patrolling the path
-        ("Corvian", 25, 20), ("Corvian", 35, 24),
-        ("Corvian", 28, 22),                                          # DS3: Corvian ambush near entry
-        # Near Halfway Fortress — Lycanthropes (DS3: "two Lycanthropes" at fortress entrance)
-        ("StarvedHound", 42, 26), ("StarvedHound", 48, 28),
-        ("StarvedHound", 45, 32),                                 # DS3: third Lycanthrope nearby
-        # Crucifixion Woods — DS3: Corvians everywhere in the woods, multiple groups
-        ("Corvian", 56, 35), ("Corvian", 62, 40),               # Corvians in woods
-        ("DarkMage", 70, 48),                                      # Corvian Storyteller (casts poison mist)
-        ("DarkMage", 88, 55),                                      # Corvian Storyteller
-        ("Corvian", 75, 52), ("Corvian", 82, 58),               # More Corvians
-        ("Corvian", 65, 45), ("Corvian", 78, 48),               # Additional Corvians deeper in woods
-        ("Corvian", 90, 50), ("Corvian", 58, 55),               # Corvians near crosses
-        ("LycanthropeHunter", 72, 55), ("LycanthropeHunter", 85, 60),                   # DS3: Lycanthrope Hunters (spear wielders)
-        ("CrystalLizard", 50, 26),                                 # Fortress crystal lizard
-        ("CrystalLizard", 96, 62), ("CrystalLizard", 112, 88),    # Additional Crystal Lizards in ruins
-        # Swamp area — Poisonhorn Bugs (poison mist mushrooms in lower woods)
-        ("PoisonhornBug", 65, 62), ("PoisonhornBug", 70, 65),
-        ("PoisonhornBug", 62, 70), ("PoisonhornBug", 58, 68),
-        # Swamp area — Lesser Crabs and Great Crab
-        ("GreatCrab", 76, 70),                                    # Great Crab in swamp (drops Great Swamp Ring)
-        ("LesserCrab", 78, 68), ("LesserCrab", 80, 72),                    # Lesser Crabs in swamp
-        # Black Knight guarding Farron Coal in ruins (DS3: "Black Knight in the ruins")
-        ("BlackKnight", 108, 85),
-        # Corvian forest — DS3: "dense forest with Corvians"
-        ("Corvian", 118, 88), ("Corvian", 122, 92), ("Corvian", 125, 96),
-        ("Corvian", 112, 82), ("Corvian", 128, 85),             # More Corvians in deep forest
-        # Crystal Sage cave — hollow sorcerers
-        ("DarkMage", 125, 115), ("DarkMage", 135, 118),
-        # South path toward Farron Keep — DS3: Exile NPCs guard the Farron Keep gate
-        ("Corvian", 68, 80), ("Corvian", 72, 85),
-        # Lower forest Q(0,1) — Corvians and Basilisks in deep woods (DS3: dense forest enemies)
-        ("Corvian", 64, 82), ("Corvian", 75, 84),                   # Corvians in lower forest
-        ("Basilisk", 61, 87), ("Basilisk", 53, 90),                 # Basilisks near swamp edge
-        ("Corvian", 62, 92), ("StarvedHound", 71, 101),             # Deep forest Corvians and Lycanthrope
-        ("StarvedHound", 110, 95), ("StarvedHound", 115, 100),    # Lycanthropes
-        ("Archer", 100, 78), ("Archer", 120, 82),                 # Corvian archers
-        # Exiles at Farron Keep gate (DS3: "two Exiles" guarding the gate with great weapons)
-        ("DarkSpirit", 108, 100), ("DarkSpirit", 115, 105),    # DS3: Exiles guarding Farron Keep gate
-        # Boss — Crystal Sage
-        ("MiniBoss", 130, 112),                                     # Crystal Sage boss entity
-    ]
 
     
     # --- DS3 faithful enemies (RoadOfSacrifices) ---
@@ -5145,7 +5105,14 @@ def make_road_of_sacrifices():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LesserCrab", "LesserCrab"))]))
     entities.append(make_entity("Enemy", 80 * 16, 72 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LesserCrab", "LesserCrab"))]))
-    # BlackKnight (1)
+    # Lycanthrope (5) — DS3: branch-wielding hollows in Crucifixion Woods
+    for tx, ty in [(92, 78), (96, 82), (100, 86), (105, 80), (88, 85)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Lycanthrope", "PeasantHollow"))]))
+    # Madwoman (1) — DS3: enemy NPC near beginning with Butcher Knife
+    entities.append(make_entity("Enemy", 38 * 16, 30 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Madwoman", "PeasantHollow"))]))
+    # BlackKnight (1) — DS3: patrols near Farron Coal room
     entities.append(make_entity("Enemy", 108 * 16, 85 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
     # Basilisk (2)
@@ -5153,17 +5120,12 @@ def make_road_of_sacrifices():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
     entities.append(make_entity("Enemy", 53 * 16, 90 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
-    # Archer (2)
-    entities.append(make_entity("Enemy", 100 * 16, 78 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Archer", "Archer"))]))
-    entities.append(make_entity("Enemy", 120 * 16, 82 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Archer", "Archer"))]))
-    # DarkSpirit (2)
+    # ExileWarrior (2) — DS3: two NPCs guarding Farron Keep entrance (Great Club + Exile Greatsword)
     entities.append(make_entity("Enemy", 108 * 16, 100 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkSpirit", "DarkSpirit"))]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ExileWarrior", "Knight"))]))
     entities.append(make_entity("Enemy", 115 * 16, 105 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkSpirit", "DarkSpirit"))]))
-    # MiniBoss (1)
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ExileWarrior", "Knight"))]))
+    # MiniBoss (1) — Crystal Sage
     entities.append(make_entity("Enemy", 130 * 16, 112 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
 
@@ -5909,7 +5871,7 @@ def make_road_of_sacrifices():
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
     # print(f"  RoadOfSacrifices (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "RoadOfSacrifices", chunk, entities
 
@@ -6258,57 +6220,6 @@ def make_farron_keep():
     # Enemies - DS3 faithful: Ghru (swarm the swamp), Elder Ghru (elite horned beasts),
     # Darkwraiths (abyss knights), Basilisks (curse cave), Rotten Slugs (leeches everywhere),
     # Great Crabs, Corvians + Storyteller, Crystal Lizards (5-6 total), Ravenous Crystal Lizard
-    enemy_data = [
-        # Left torch area — Ghru swarm (DS3: groups of Ghru Grunts/Leapers throughout swamp)
-        ("Ghru", 35, 45), ("Ghru", 40, 48), ("Ghru", 48, 50),
-        ("Ghru", 33, 50), ("Ghru", 42, 55), ("Ghru", 46, 58),
-        # Center torch area — more Ghru (DS3: crawling Ghru + Leaper near fire altar)
-        ("Ghru", 68, 48), ("Ghru", 72, 52), ("Ghru", 75, 55),
-        ("Ghru", 64, 55), ("Ghru", 70, 58),
-        # Right torch area — Ghru Grunts with spears
-        ("Ghru", 95, 42), ("Ghru", 100, 45), ("Ghru", 92, 48),
-        ("Ghru", 98, 52), ("Ghru", 105, 50),
-        # Keep Ruins — Ghru swarm + Ghru Shaman (DS3: "two Ghru Grunts + Shaman" at entrance)
-        ("Ghru", 65, 72), ("Ghru", 72, 76), ("Ghru", 78, 70),
-        ("Ghru", 68, 68), ("Ghru", 74, 65),
-        ("DarkMage", 70, 74),                                        # Ghru Shaman (casts poison)
-        # Darkwraith patrol — DS3: "first Darkwraith" on left path, one on stairs near boss,
-        # one in second half wooded area, one fighting other enemies
-        ("Darkwraith", 100, 88), ("Darkwraith", 108, 95),
-        ("Darkwraith", 125, 108),                                    # Near arena gate (DS3: on stairs)
-        ("Darkwraith", 88, 75),                                      # DS3: Darkwraith in second half wooded area
-        ("Darkwraith", 115, 90),                                     # DS3: wraith fighting other enemies
-        # Basilisk curse cave — DS3: "several basilisks" that cause curse
-        ("Basilisk", 24, 70), ("Basilisk", 30, 75), ("Basilisk", 32, 68),
-        ("Basilisk", 28, 78), ("Basilisk", 34, 72),                 # More basilisks in deep swamp
-        # Rotten Slugs (leeches) — DS3: "group of leeches", "surrounding corpse", "at ladder base",
-        # "crawling Ghru" areas, everywhere in the swamp water
-        ("RottenSlug", 42, 82), ("RottenSlug", 45, 85), ("RottenSlug", 50, 88),    # DS3: Rotten Slugs near leech building
-        ("RottenSlug", 48, 105), ("RottenSlug", 52, 110),                    # DS3: Rotten Slugs at ladder base
-        ("RottenSlug", 38, 60), ("RottenSlug", 44, 65), ("RottenSlug", 55, 70), # DS3: Rotten Slugs in deeper swamp
-        ("RottenSlug", 62, 75), ("RottenSlug", 70, 80), ("RottenSlug", 85, 75), # DS3: Rotten Slugs scattered
-        ("RottenSlug", 40, 90), ("RottenSlug", 56, 95),                      # DS3: Rotten Slugs near wall edges
-        # Elder Ghru — DS3: "three Elder Ghru huddled around an item", one near fire, more scattered
-        ("GiantHollow", 55, 62), ("GiantHollow", 60, 68), ("GiantHollow", 58, 75), # Elder Ghru trio around Poison Gem (wiki)
-        ("GiantHollow", 110, 100),                                        # Elder Ghru near gate
-        ("GiantHollow", 82, 60),                                          # Elder Ghru near second torch (wiki: "another of these beasts")
-        ("GiantHollow", 90, 55),                                          # Elder Ghru on ramp to third torch
-        # Great Crab in swamp — DS3: "giant crab which drops Lingering Dragoncrest Ring"
-        ("GreatCrab", 65, 62),                                      # Great Crab
-        # Corvian and Corvian Storyteller — DS3: in second half wooded area
-        ("Corvian", 115, 95), ("Corvian", 120, 100),              # Corvians in second half
-        ("DarkMage", 118, 98),                                       # Corvian Storyteller
-        # Crystal Lizards — DS3 wiki: 2 near dragon corpse, 1 near Old Wolf (illusory wall),
-        # 1 giant Ravenous Crystal Lizard near Perimeter, 1 ramp Crystal Lizard
-        ("CrystalLizard", 85, 82),                                   # Near gate
-        ("CrystalLizard", 48, 112),                                  # Near Old Wolf tower (illusory wall)
-        ("CrystalLizard", 122, 95), ("CrystalLizard", 128, 98),     # DS3: 2 near dragon corpse
-        ("CrystalLizard", 56, 65),                                   # DS3: on ramp/stone bridge area
-        # Ravenous Crystal Lizard — DS3: "giant Crystal Lizard" near Perimeter bonfire
-        ("MiniBoss", 108, 85),                                       # Ravenous Crystal Lizard (giant variant)
-        # Stray Demon — DS3: optional mini-boss accessed via lift, drops Soul of a Stray Demon
-        ("MiniBoss", 120, 98),                                       # Stray Demon
-    ]
 
     
     # --- DS3 faithful enemies (FarronKeep) ---
@@ -7050,13 +6961,36 @@ def make_farron_keep():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
+    # === SECTION-BASED GROUND EXPANSION (DS3 fidelity) ===
+    # Farron Keep: poison swamp with flame towers and Abyss Watchers mausoleum
+    fill_tiles(chunk, TILE_GROUND, 22, 32, 73, 71)   # Farron Keep Entry
+    fill_tiles(chunk, TILE_GROUND, 72, 53, 111, 86)   # First Flame Tower
+    fill_tiles(chunk, TILE_GROUND, 93, 26, 135, 73)   # Old Wolf Tower
+    fill_tiles(chunk, TILE_POISON, 106, 96, 188, 156)  # Central Swamp (poison)
+    fill_tiles(chunk, TILE_GROUND, 172, 76, 217, 111)  # Second Flame Tower
+    fill_tiles(chunk, TILE_GROUND, 196, 128, 243, 167) # Third Flame Tower
+    fill_tiles(chunk, TILE_GROUND, 141, 133, 188, 168) # Keep Ruins
+    fill_tiles(chunk, TILE_GROUND, 208, 40, 256, 73)   # Black Knight Side Path
+    fill_tiles(chunk, TILE_GROUND, 223, 157, 271, 190) # Keep Perimeter
+    fill_tiles(chunk, TILE_GROUND, 255, 198, 306, 237) # Abyss Watchers Mausoleum
+    # Corridors connecting sections
+    fill_tiles(chunk, TILE_GROUND, 46, 49, 93, 72)
+    fill_tiles(chunk, TILE_GROUND, 89, 48, 116, 72)
+    fill_tiles(chunk, TILE_GROUND, 112, 48, 149, 128)
+    fill_tiles(chunk, TILE_GROUND, 145, 91, 197, 128)
+    fill_tiles(chunk, TILE_GROUND, 193, 91, 222, 150)
+    fill_tiles(chunk, TILE_GROUND, 163, 146, 222, 153)
+    fill_tiles(chunk, TILE_GROUND, 163, 54, 234, 153)
+    fill_tiles(chunk, TILE_GROUND, 230, 54, 249, 175)
+    fill_tiles(chunk, TILE_GROUND, 245, 171, 282, 220)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
 
     # print(f"  FarronKeep (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "FarronKeep", chunk, entities
@@ -7414,68 +7348,6 @@ def make_cathedral_deep():
     # Writhing Rotten Flesh, Cage Spiders, Man-grubs, Deep Accursed, Mimic,
     # Longfinger Kirk invader, Starved Hounds, Corpse-grubs, Crystal Lizards,
     # Cathedral Grave Wardens, Ravenous Crystal Lizards)
-    enemy_data = [
-        # Cemetery entry — Infested Corpses among the graves (DS3: 4-5 infested corpses)
-        ("InfestedCorpse", 28, 6), ("InfestedCorpse", 34, 8),
-        ("InfestedCorpse", 25, 10), ("InfestedCorpse", 35, 12),
-        ("CrystalLizard", 38, 4),                                     # Ravenous Crystal Lizard
-        # Outer graveyard — Cathedral Knights, Starved Hounds, Grave Wardens
-        ("CathedralKnight", 40, 16), ("CathedralKnight", 45, 20),    # Cathedral Knight patrols
-        ("InfestedCorpse", 30, 28), ("InfestedCorpse", 36, 30),      # Graveyard corpses
-        ("StarvedHound", 22, 24), ("StarvedHound", 26, 28),                   # DS3: Starved Hounds prowl the graveyard
-        ("CathedralGraveWarden", 34, 26), ("CathedralGraveWarden", 38, 32),         # DS3: dual-wielding grave wardens
-        # Cleansing Chapel — Evangelist guards bonfire area
-        ("Evangelist", 34, 42),
-        ("PeasantHollow", 28, 40),                                    # Reanimated Corpse near chapel
-        # Side aisle — Thralls/Hollow Slaves ambush from above (DS3: drop from ceiling)
-        ("Thrall", 60, 60), ("Thrall", 64, 65), ("Thrall", 68, 62),
-        ("Thrall", 62, 68),                                           # Extra thrall in dark corner
-        ("PeasantHollow", 58, 64),                                    # Devout Hollow in side aisle
-        # Gate area — Cathedral Knights guard locked door
-        ("CathedralKnight", 48, 54), ("CathedralKnight", 52, 56),
-        ("Evangelist", 46, 50),                                       # Evangelist near gate
-        # Nave — heavy knight and evangelist presence (DS3: multiple knight patrols)
-        ("CathedralKnight", 50, 70), ("CathedralKnight", 55, 72),
-        ("Evangelist", 42, 74),                                       # Evangelist in nave corner
-        ("Thrall", 48, 76), ("Thrall", 56, 78),                       # Thrall ambush in nave
-        ("Thrall", 52, 73), ("Thrall", 58, 75), ("Thrall", 54, 77),       # DS3: rafter ambush (3 thralls on curved rafters)
-        # Upper gallery — Evangelists and knights
-        ("Evangelist", 66, 64), ("Evangelist", 72, 68),
-        ("CathedralKnight", 70, 62),                                  # Gallery guard
-        ("InfestedCorpse", 76, 66),                                   # Corpse in gallery
-        # Deep Accursed — lurks in side room (DS3: giant spider enemy near entrance shortcut)
-        ("DeepAccursed", 22, 38),
-        # Writhing Rotten Flesh in swampy area near giant room (DS3: writhing corpses in swamp)
-        ("InfestedCorpse", 36, 84), ("InfestedCorpse", 44, 86),                             # DS3: Writhing Rotten Flesh
-        ("InfestedCorpse", 38, 86), ("InfestedCorpse", 42, 88),                   # DS3: Writhing Rotten Flesh
-        ("GiantSlave", 44, 92), ("GiantSlave", 56, 98),
-        ("CathedralKnight", 48, 88), ("CathedralKnight", 52, 96),
-        ("Evangelist", 40, 96),
-        ("Thrall", 46, 100), ("Thrall", 54, 102),
-        # Cage Spider area (DS3: basilisks in dark room near giant)
-        ("Thrall", 36, 94), ("Thrall", 40, 98),                       # Hollow Slaves in dark room near giant
-        # Deacon hall — mass of Deacons before the boss (DS3: dozens of deacons)
-        ("Deacon", 38, 110), ("Deacon", 42, 108), ("Deacon", 48, 118),
-        ("Deacon", 52, 116), ("Deacon", 56, 114), ("Deacon", 40, 118),
-        ("Deacon", 45, 122), ("Deacon", 50, 124),
-        ("Deacon", 55, 120), ("Deacon", 35, 124),
-        ("Deacon", 58, 118), ("Deacon", 32, 120),                     # More deacons
-        ("CathedralKnight", 60, 110),                                 # Deacon hall guard
-        ("CathedralGraveWarden", 58, 106), ("CathedralGraveWarden", 62, 108),   # DS3: 2 grave wardens before Deacon stairs
-        # Slug corridor to Rosaria — Man-grubs (DS3: 4-5 along the corridor)
-        ("ManGrub", 34, 135), ("ManGrub", 38, 138),
-        ("ManGrub", 42, 140), ("ManGrub", 36, 142),
-        ("ManGrub", 40, 144),                                         # Extra man-grub near Rosaria
-        # Longfinger Kirk invasion (DS3: dark spirit invader in cathedral, Darkwraith closest match)
-        ("Darkwraith", 64, 70),                                       # Longfinger Kirk (wears Dark Set)
-        # Mimic in upper gallery handled as Chest entity below
-        # Corpse-grubs near deacon hall entrance
-        ("InfestedCorpse", 30, 108), ("InfestedCorpse", 28, 114),     # Corpse-grubs
-        # Crystal Lizard near nave
-        ("CrystalLizard", 60, 76),
-        # Boss — Deacons of the Deep
-        ("MiniBoss", 45, 114),                                      # Deacons of the Deep boss entity
-    ]
 
     
     # --- DS3 faithful enemies (CathedralDeep) ---
@@ -7519,11 +7391,10 @@ def make_cathedral_deep():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
     entities.append(make_entity("Enemy", 40 * 16, 96 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Evangelist", "Evangelist"))]))
-    # PeasantHollow (2)
-    entities.append(make_entity("Enemy", 28 * 16, 40 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow"))]))
-    entities.append(make_entity("Enemy", 58 * 16, 64 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PeasantHollow", "PeasantHollow"))]))
+    # DevoutHollow (2) — DS3: praying hollows in cathedral corridors
+    for tx, ty in [(28, 40), (58, 64)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DevoutHollow", "DevoutHollow"))]))
     # Thrall (13)
     for tx, ty in [(60, 60), (64, 65), (68, 62), (62, 68), (48, 76), (56, 78), (52, 73), (58, 75), (54, 77), (46, 100), (54, 102), (36, 94), (40, 98)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
@@ -7551,10 +7422,25 @@ def make_cathedral_deep():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ManGrub", "ManGrub"))]))
     entities.append(make_entity("Enemy", 40 * 16, 144 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ManGrub", "ManGrub"))]))
-    # Darkwraith (1)
+    # ReanimatedCorpse (1) — DS3: corpses that reanimate in cathedral halls
     entities.append(make_entity("Enemy", 64 * 16, 70 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Darkwraith", "Darkwraith"))]))
-    # MiniBoss (1)
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ReanimatedCorpse", "ReanimatedCorpse"))]))
+    # CorpseGrub (3) — DS3: grub-like creatures in cathedral corridors
+    for tx, ty in [(52, 73), (56, 78), (36, 94)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CorpseGrub", "CorpseGrub"))]))
+    # CageSpider (2) — DS3: spider-like enemies in cathedral upper levels
+    for tx, ty in [(68, 62), (62, 68)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CageSpider", "CageSpider"))]))
+    # WrithingRottenFlesh (2) — DS3: fleshy creatures in cathedral depths
+    for tx, ty in [(40, 98), (54, 102)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("WrithingRottenFlesh", "WrithingRottenFlesh"))]))
+    # RavenousCrystalLizard (1) — DS3: ravenous crystal lizard near Rosaria's chamber
+    entities.append(make_entity("Enemy", 42 * 16, 140 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("RavenousCrystalLizard", "RavenousCrystalLizard"))]))
+    # MiniBoss (1) — DS3: Deacons of the Deep (boss encounter)
     entities.append(make_entity("Enemy", 45 * 16, 114 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
 
@@ -8153,13 +8039,32 @@ def make_cathedral_deep():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
+    # === SECTION-BASED GROUND EXPANSION (DS3 fidelity) ===
+    # Cathedral of the Deep: massive cathedral with graveyard, rooftops, and Deacons altar
+    fill_tiles(chunk, TILE_GROUND, 22, 26, 87, 72)   # Cathedral Approach Graveyard
+    fill_tiles(chunk, TILE_GROUND, 78, 80, 121, 115)  # Cleansing Chapel
+    fill_tiles(chunk, TILE_GROUND, 115, 111, 172, 158) # Giant Graveyard
+    fill_tiles(chunk, TILE_GROUND, 153, 82, 215, 130)  # Cathedral Main Hall
+    fill_tiles(chunk, TILE_GROUND, 193, 35, 255, 76)   # Rooftops and Buttresses
+    fill_tiles(chunk, TILE_GROUND, 238, 67, 287, 106)  # Rosaria Route
+    fill_tiles(chunk, TILE_GROUND, 73, 128, 128, 161)   # Patches Bridge and Well
+    fill_tiles(chunk, TILE_GROUND, 162, 195, 226, 240)  # Deacons Altar
+    # Corridors connecting sections
+    fill_tiles(chunk, TILE_GROUND, 53, 47, 102, 99)
+    fill_tiles(chunk, TILE_GROUND, 98, 95, 145, 137)
+    fill_tiles(chunk, TILE_GROUND, 141, 104, 186, 137)
+    fill_tiles(chunk, TILE_GROUND, 182, 53, 226, 108)
+    fill_tiles(chunk, TILE_GROUND, 222, 53, 265, 88)
+    fill_tiles(chunk, TILE_GROUND, 99, 84, 265, 147)
+    fill_tiles(chunk, TILE_GROUND, 99, 143, 196, 219)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
     # print(f"  CathedralDeep (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "CathedralDeep", chunk, entities
 
@@ -8487,42 +8392,6 @@ def make_catacombs_of_carthus():
 
     # Enemies — DS3 Catacombs of Carthus: Skeleton Swordsmen, Skeleton Wheels,
     # Hound-Rats, Writhing Rotten Flesh, Black Knight (Tsorig invasion), Crystal Lizard
-    enemy_data = [
-        # Entry stairs — Skeleton Swordsman ambush
-        ("Skeleton", 18, 18), ("Skeleton", 22, 20),
-        ("SkeletonSwordman", 16, 22),                                  # Skeleton Swordsman (curved sword variant)
-        # Skeleton ball corridor — Skeletons in side alcoves
-        ("Skeleton", 25, 28), ("Skeleton", 35, 30), ("Skeleton", 42, 26),
-        ("Archer", 20, 21),                                    # Skeleton Swordsman (archer)
-        ("SkeletonSwordman", 36, 22), ("SkeletonSwordman", 50, 21),           # Skeleton Swordsmen in alcoves
-        ("Skeleton", 48, 32), ("Skeleton", 52, 34),
-        # Rope bridge area
-        ("Skeleton", 60, 30), ("SkeletonSwordman", 64, 32),
-        # Lower tomb chambers — dense skeleton groups
-        ("Skeleton", 20, 48), ("Skeleton", 28, 52),
-        ("SkeletonSwordman", 24, 55), ("SkeletonSwordman", 32, 50),           # Skeleton Swordsmen in tomb chambers
-        ("Skeleton", 35, 56), ("Skeleton", 40, 60), ("Skeleton", 45, 65),
-        ("Skeleton", 32, 58), ("Skeleton", 38, 62),
-        # Skeleton Wheel area — rapid rolling skeletons (use MiniBoss for wheels)
-        ("MiniBoss", 55, 62), ("MiniBoss", 60, 68),           # Skeleton Wheels
-        ("MiniBoss", 65, 72),                                  # Skeleton Wheel
-        ("Skeleton", 58, 66), ("Skeleton", 63, 70),
-        # Abandoned Tomb / Smouldering Lake passage — more skeletons (DS3: catacombs have skeletons only)
-        ("Skeleton", 20, 78), ("Skeleton", 25, 82), ("Skeleton", 30, 88),   # DS3: skeleton warriors
-        ("SkeletonSwordman", 18, 85), ("SkeletonSwordman", 22, 92),         # DS3: skeleton swordsmen
-        ("Skeleton", 28, 95),                                        # Skeleton in abandoned tomb passage
-        ("Skeleton", 35, 98),                                        # Skeleton patrol near lake entrance
-        ("SkeletonSwordman", 22, 96),                           # Skeleton Swordsman (DS3: no crabs in Catacombs)
-        # Crystal Lizard
-        ("CrystalLizard", 48, 50),
-        # Path to Wolnir — Knight Slayer Tsorig invasion
-        ("BlackKnight", 80, 60),                               # Knight Slayer Tsorig (Black Knight set)
-        ("Skeleton", 90, 70), ("SkeletonSwordman", 95, 66),
-        # Wolnir arena approach
-        ("Skeleton", 110, 85), ("Skeleton", 115, 90), ("Skeleton", 120, 95),
-        ("Skeleton", 130, 92), ("Skeleton", 135, 98),
-        ("Archer", 125, 88),                                   # Skeleton archer at arena entry
-    ]
     # Items — DS3 Catacombs of Carthus (verified against wiki)
     # 2x Sharp Gem, Dark Gem, Carthus Pyromancy Tome, Grave Warden Pyromancy Tome,
     # Grave Warden's Ashes, Witch's Ring, Carthus Bloodring, Carthus Milkring,
@@ -9054,22 +8923,40 @@ def make_catacombs_of_carthus():
             chunk[tx][ty] = TILE_WALL
     
     # --- DS3 faithful enemies (CatacombsOfCarthus) ---
-    # Skeleton (28)
-    for tx, ty in [(18, 18), (22, 20), (25, 28), (35, 30), (42, 26), (48, 32), (52, 34), (60, 30), (20, 48), (28, 52), (35, 56), (40, 60), (45, 65), (32, 58), (38, 62), (58, 66), (63, 70), (20, 78), (25, 82), (30, 88), (28, 95), (35, 98), (90, 70), (110, 85), (115, 90), (120, 95), (130, 92), (135, 98)]:
+    # DS3 wiki enemies: Skeleton, Skeleton Swordsman, Skeleton Wheel, Writhing Rotten Flesh,
+    # Lesser Crab, Hound-Rat, Black Knight, Crystal Lizard, Carthus Sandworm
+    # Skeleton (18) — basic skeleton warriors throughout catacombs
+    for tx, ty in [(18, 18), (22, 20), (25, 28), (35, 30), (42, 26), (52, 34), (20, 48), (35, 56), (45, 65), (32, 58), (63, 70), (25, 82), (28, 95), (35, 98), (110, 85), (120, 95), (130, 92), (115, 90)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
-    # SkeletonSwordman (10)
+    # SkeletonSwordman (10) — DS3: agile dual-wielding skeletons in corridors
     for tx, ty in [(16, 22), (36, 22), (50, 21), (64, 32), (24, 55), (32, 50), (18, 85), (22, 92), (22, 96), (95, 66)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SkeletonSwordman", "SkeletonSwordman"))]))
-    # Archer (2)
+    # SkeletonBall (4) — DS3: rolling skeleton ball traps in narrow corridors
+    for tx, ty in [(30, 24), (55, 38), (40, 52), (50, 56)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SkeletonBall", "SkeletonBall"))]))
+    # WrithingRottenFlesh (4) — DS3: fleshy creatures in lower tomb chambers
+    for tx, ty in [(48, 32), (40, 60), (30, 88), (90, 70)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("WrithingRottenFlesh", "WrithingRottenFlesh"))]))
+    # HoundRat (4) — DS3: rats scurrying in dark catacomb passages
+    for tx, ty in [(28, 52), (38, 62), (20, 78), (135, 98)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HoundRat", "HoundRat"))]))
+    # LesserCrab (2) — DS3: small crabs near flooded sections toward Smouldering Lake
+    for tx, ty in [(60, 30), (58, 66)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LesserCrab", "LesserCrab"))]))
+    # Archer (2) — DS3: skeleton archers on elevated positions
     entities.append(make_entity("Enemy", 20 * 16, 21 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Archer", "Archer"))]))
     entities.append(make_entity("Enemy", 125 * 16, 88 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Archer", "Archer"))]))
-    # MiniBoss (3)
+    # CarthusSandworm / MiniBoss (3) — DS3: Wolnir (boss), carthus worm mini-boss encounters
     entities.append(make_entity("Enemy", 55 * 16, 62 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CarthusSandworm", "CarthusSandworm"))]))
     entities.append(make_entity("Enemy", 60 * 16, 68 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
     entities.append(make_entity("Enemy", 65 * 16, 72 * 16,
@@ -9077,7 +8964,7 @@ def make_catacombs_of_carthus():
     # CrystalLizard (1)
     entities.append(make_entity("Enemy", 48 * 16, 50 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
-    # BlackKnight (1)
+    # BlackKnight (1) — DS3: Black Knight guarding path to Wolnir
     entities.append(make_entity("Enemy", 80 * 16, 60 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
 
@@ -9194,13 +9081,32 @@ def make_catacombs_of_carthus():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
+    # === SECTION-BASED GROUND EXPANSION (DS3 fidelity) ===
+    # Catacombs of Carthus: skeleton-filled underground with rolling bone balls and Wolnir
+    fill_tiles(chunk, TILE_GROUND, 22, 26, 78, 67)   # Entry Stairs
+    fill_tiles(chunk, TILE_GROUND, 67, 47, 118, 80)   # First Skeleton Ball
+    fill_tiles(chunk, TILE_GROUND, 98, 73, 160, 122)   # Upper Catacombs
+    fill_tiles(chunk, TILE_GROUND, 145, 116, 192, 155) # Second Skeleton Ball
+    fill_tiles(chunk, TILE_GROUND, 178, 147, 232, 182) # Rope Bridge
+    fill_tiles(chunk, TILE_GROUND, 96, 172, 141, 215)  # Bridge Ladder Descent
+    fill_tiles(chunk, TILE_GROUND, 202, 176, 257, 216) # Wolnir Tomb
+    fill_tiles(chunk, TILE_GROUND, 13, 73, 40, 103)    # Supplement area
+    # Corridors connecting sections
+    fill_tiles(chunk, TILE_GROUND, 48, 44, 95, 65)
+    fill_tiles(chunk, TILE_GROUND, 91, 61, 131, 100)
+    fill_tiles(chunk, TILE_GROUND, 127, 96, 170, 137)
+    fill_tiles(chunk, TILE_GROUND, 166, 133, 207, 167)
+    fill_tiles(chunk, TILE_GROUND, 116, 163, 207, 195)
+    fill_tiles(chunk, TILE_GROUND, 116, 191, 232, 198)
+    fill_tiles(chunk, TILE_GROUND, 24, 86, 232, 198)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
     # print(f"  CatacombsOfCarthus (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "CatacombsOfCarthus", chunk, entities
 
@@ -9553,61 +9459,6 @@ def make_smouldering_lake():
     # Enemies — DS3 Smouldering Lake: Demon Clerics, Demon Statues, Basilisks,
     # Smouldering Rotten Flesh, Great Crab, Carthus Sandworm,
     # Skeleton Swordsmen, Skeleton Wheels, Knight Slayer Tsorig NPC
-    enemy_data = [
-        # Entry cave
-        ("DemonStatue", 18, 18), ("DemonStatue", 22, 22),
-        # Lake shore — Demon Statues and Smouldering Rotten Flesh
-        ("DemonStatue", 28, 42), ("DemonStatue", 50, 60), ("DemonStatue", 65, 50),
-        ("DemonStatue", 18, 32), ("DemonStatue", 35, 40),
-        ("DemonStatue", 62, 58), ("DemonStatue", 68, 62), ("DemonStatue", 72, 55),
-        ("DemonStatue", 42, 48), ("DemonStatue", 55, 52),                    # DS3: Demon Statues patrol lake shore
-        # Demon Statues — DS3: many statues throughout Smouldering Lake
-        ("DemonStatue", 48, 55), ("DemonStatue", 58, 62),
-        ("DemonStatue", 65, 60), ("DemonStatue", 70, 58),
-        ("DemonStatue", 72, 62), ("DemonStatue", 68, 65),
-        ("DemonStatue", 95, 62), ("DemonStatue", 98, 65), ("DemonStatue", 100, 60),
-        # Basilisks near lava pools
-        ("Basilisk", 52, 65), ("Basilisk", 58, 70), ("Basilisk", 55, 72),
-        # Great Crab in lake (rare giant enemy)
-        ("GreatCrab", 38, 45),                                 # Great Crab
-        # Demon Clerics (FireDemon) at demon ruins
-        ("FireDemon", 58, 55),                                  # Demon ruins entrance
-        ("FireDemon", 95, 70), ("FireDemon", 100, 75),         # Inner demon ruins
-        ("FireDemon", 118, 88),                                 # Arena approach
-        # Black Knights (rare in demon ruins)
-        ("BlackKnight", 78, 58), ("BlackKnight", 108, 68),
-        # Skeleton remains from Carthus — walkthrough: group + red-eyed with shotels
-        ("Skeleton", 82, 52), ("Skeleton", 88, 60),            # Skeleton Swordsmen
-        ("Skeleton", 18, 92), ("Skeleton", 25, 88),            # Skeletons in ballista area
-        ("Skeleton", 30, 90),                                   # Red-eyed skeleton swordsman
-        ("MiniBoss", 75, 50),                                   # Skeleton Wheel 1
-        ("MiniBoss", 22, 88), ("MiniBoss", 28, 92),            # Skeleton Wheels 2-3 (ballista area)
-        # Hound-rats in ballista caves (DS3: Hound-rats, not Dogs)
-        ("Rat", 15, 85), ("Rat", 20, 90), ("Rat", 25, 95),
-        ("Rat", 40, 58), ("Rat", 48, 64),
-        # Large Hound-rat in lower ruins
-        ("Rat", 62, 68),
-        # Carthus Sandworm (giant enemy at lake center)
-        ("CarthusSandworm", 45, 68),                                 # Carthus Sandworm
-        # Crystal Lizards — wiki: 3 total (1 near bonfire, 2 in cavern after ballista)
-        ("CrystalLizard", 82, 55), ("CrystalLizard", 112, 78), ("CrystalLizard", 22, 98),
-        # Demon Statues at arena approach
-        ("DemonStatue", 112, 82),
-        # Inner Demon Ruins — Q(1,1) expanded coverage (DS3: demon ruins deep area)
-        # Demon Clerics (FireDemon) guard the inner demon ruins passages
-        ("FireDemon", 125, 95), ("FireDemon", 135, 102),
-        # Demon Statues in deep ruins corridors
-        ("DemonStatue", 100, 85), ("DemonStatue", 115, 100),
-        ("DemonStatue", 130, 108), ("DemonStatue", 140, 98),
-        ("DemonStatue", 148, 112), ("DemonStatue", 120, 120),
-        # Demon Statues in deep ruins chambers (DS3: more statues in demon ruins)
-        ("DemonStatue", 105, 90), ("DemonStatue", 125, 88),
-        ("DemonStatue", 132, 115), ("DemonStatue", 142, 105),
-        # Basilisks near deep lava pools
-        ("Basilisk", 115, 110), ("Basilisk", 130, 118),
-        # Black Knight in deep ruins (DS3: Black Knight patrols demon ruins)
-        ("BlackKnight", 140, 108),
-    ]
     # Items — DS3 Smouldering Lake: Black Knight Sword, Izalith Staff, Fume Ultra Greatsword,
     # Dragonrider Bow, Shield of Want, Chaos Gem, Quelana/Izalith Pyromancy Tomes, etc.
     items = [
@@ -10071,10 +9922,25 @@ def make_smouldering_lake():
         chunk[tx][79] = TILE_WALLTOP
     
     # --- DS3 faithful enemies (SmoulderingLake) ---
-    # DemonStatue (32)
-    for tx, ty in [(18, 18), (22, 22), (28, 42), (50, 60), (65, 50), (18, 32), (35, 40), (62, 58), (68, 62), (72, 55), (42, 48), (55, 52), (48, 55), (58, 62), (65, 60), (70, 58), (72, 62), (68, 65), (95, 62), (98, 65), (100, 60), (112, 82), (100, 85), (115, 100), (130, 108), (140, 98), (148, 112), (120, 120), (105, 90), (125, 88), (132, 115), (142, 105)]:
+    # DS3 wiki enemies: Demon Statue, Demon Cleric, Smoldering Ghru, Basilisk, Black Knight,
+    # Crystal Lizard, Great Crab, Hound-Rat, Skeleton Swordsman, Skeleton Wheel,
+    # Smoldering Rotten Flesh, Carthus Sandworm, Stray Demon (boss)
+    # DemonStatue (18) — DS3: stone demon statues scattered around lava lake
+    for tx, ty in [(18, 18), (22, 22), (28, 42), (50, 60), (65, 50), (18, 32), (35, 40), (62, 58), (68, 62), (72, 55), (42, 48), (55, 52), (95, 62), (100, 60), (112, 82), (130, 108), (140, 98), (105, 90)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DemonStatue", "DemonStatue"))]))
+    # DemonCleric (3) — DS3: demon clerics casting fire spells near lava
+    for tx, ty in [(58, 62), (98, 65), (125, 88)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DemonCleric", "DemonCleric"))]))
+    # SmolderingGhru (5) — DS3: goat-demons adapted to lava environment
+    for tx, ty in [(48, 55), (65, 60), (100, 85), (115, 100), (148, 112)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SmolderingGhru", "SmolderingGhru"))]))
+    # SmolderingRottenFlesh (3) — DS3: charred fleshy creatures near lava pools
+    for tx, ty in [(72, 62), (120, 120), (142, 105)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SmolderingRottenFlesh", "SmolderingRottenFlesh"))]))
     # Basilisk (5)
     entities.append(make_entity("Enemy", 52 * 16, 65 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
@@ -10109,19 +9975,14 @@ def make_smouldering_lake():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
     entities.append(make_entity("Enemy", 140 * 16, 108 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
-    # Skeleton (6)
-    entities.append(make_entity("Enemy", 82 * 16, 52 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
-    entities.append(make_entity("Enemy", 88 * 16, 60 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
-    entities.append(make_entity("Enemy", 18 * 16, 92 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
-    entities.append(make_entity("Enemy", 25 * 16, 88 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
-    entities.append(make_entity("Enemy", 30 * 16, 90 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
-    entities.append(make_entity("Enemy", 20 * 16, 88 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Skeleton", "Skeleton"))]))
+    # SkeletonSwordman (3) — DS3: skeleton swordsmen in tunnels connecting to Catacombs
+    for tx, ty in [(82, 52), (88, 60), (25, 88)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SkeletonSwordman", "SkeletonSwordman"))]))
+    # SkeletonBall (2) — DS3: rolling skeleton balls in tunnels
+    for tx, ty in [(30, 90), (18, 92)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SkeletonBall", "SkeletonBall"))]))
     # MiniBoss (3)
     entities.append(make_entity("Enemy", 75 * 16, 50 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
@@ -10129,19 +9990,14 @@ def make_smouldering_lake():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
     entities.append(make_entity("Enemy", 28 * 16, 92 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
-    # Rat (6)
-    entities.append(make_entity("Enemy", 15 * 16, 85 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
-    entities.append(make_entity("Enemy", 20 * 16, 90 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
-    entities.append(make_entity("Enemy", 25 * 16, 95 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
-    entities.append(make_entity("Enemy", 40 * 16, 58 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
-    entities.append(make_entity("Enemy", 48 * 16, 64 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
-    entities.append(make_entity("Enemy", 62 * 16, 68 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+    # HoundRat (4) — DS3: hound-rats in dark tunnels
+    for tx, ty in [(15, 85), (25, 95), (40, 58), (62, 68)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HoundRat", "HoundRat"))]))
+    # LargeHoundRat (2) — DS3: larger hound-rats in deeper tunnels
+    for tx, ty in [(20, 90), (48, 64)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LargeHoundRat", "LargeHoundRat"))]))
     # CarthusSandworm (1)
     entities.append(make_entity("Enemy", 45 * 16, 68 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CarthusSandworm", "CarthusSandworm"))]))
@@ -10283,7 +10139,7 @@ def make_smouldering_lake():
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
 
     # print(f"  SmoulderingLake (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "SmoulderingLake", chunk, entities
@@ -10586,74 +10442,6 @@ def make_irithyll():
     # Irithyllian Slaves (invisible cloaked ambushers in many rooms), Sulyvahn's Beasts,
     # Irithyllian Beast-hounds (dogs in packs), Sewer Centipedes, Silver Knights,
     # Giant Slaves (giants in post-Pontiff courtyard), Mimic, Evangelist, Deep Accursed
-    enemy_data = [
-        # Bridge entrance — Sulyvahn's Beast ambush (DS3: attacks on entry bridge)
-        ("SulyvahnsBeast", 12, 38),                                 # Sulyvahn's Beast at bridge
-        ("BorealKnight", 18, 42),                                      # Pontiff Knight patrol
-        # Main boulevard — Pontiff Knights (DS3: "encounter Pontiff Knights", "fast attack movements")
-        ("BorealKnight", 38, 50), ("BorealKnight", 55, 55),
-        ("BorealKnight", 75, 60), ("BorealKnight", 90, 58),
-        # Irithyllian Slaves (invisible hags) — DS3: "dispatch the other hag", "group of hags",
-        # "another group of hags", "invisible hag in corner", "slightly hidden hags",
-        # "eyes of hags in dark room", "many of these hags", "hags in each alcove"
-        ("IrithyllianSlave", 42, 48), ("IrithyllianSlave", 60, 52),
-        ("IrithyllianSlave", 78, 56),
-        ("IrithyllianSlave", 36, 44), ("IrithyllianSlave", 46, 46),             # More hags on upper streets
-        ("IrithyllianSlave", 52, 50), ("IrithyllianSlave", 56, 48),             # Hags near fountain area
-        ("IrithyllianSlave", 62, 56), ("IrithyllianSlave", 82, 52),             # More invisible hags
-        # Fire Witches (DarkMage) — DS3: "fire casting knight", "fire caster"
-        ("DarkMage", 42, 52), ("DarkMage", 95, 62),
-        ("DarkMage", 68, 58),
-        # Irithyllian Beast-hounds (Dog) — DS3: "three dogs (one sleeping in corner)",
-        # "two dogs" later, "several dogs" in upper area
-        ("Dog", 50, 48), ("Dog", 80, 55), ("Dog", 65, 54),
-        ("Dog", 48, 60), ("Dog", 52, 62), ("Dog", 76, 58),     # More dogs including sleeping one
-        ("Dog", 38, 65), ("Dog", 42, 68),                       # Dogs near staircase (wiki: "two dogs")
-        # Crystal Lizards (DS3: 1 near illusory wall stairs, 2 post-Pontiff courtyard, 1 lever path)
-        ("CrystalLizard", 65, 42), ("CrystalLizard", 128, 75),
-        ("CrystalLizard", 135, 80), ("CrystalLizard", 140, 72),
-        # Distant Manor area — Irithyllian Slaves and Pontiff Knights
-        ("IrithyllianSlave", 28, 70), ("IrithyllianSlave", 35, 75),            # Slaves near manor
-        ("BorealKnight", 32, 72), ("BorealKnight", 40, 82),
-        # Irithyllian Slave near the manor gardens (DS3: no Corvians in Irithyll)
-        ("IrithyllianSlave", 22, 68),
-        # Church of Yorshka area — Pontiff Knights guarding church
-        ("BorealKnight", 70, 45), ("BorealKnight", 72, 42),
-        ("IrithyllianSlave", 64, 44),                                   # Invisible hag near church entrance
-        # Irithyll Slave near hidden staircase (DS3: invisible ambushers in Irithyll)
-        ("IrithyllianSlave", 45, 55),
-        # Dark room / staircase area — DS3: "take stairs down, encounter many hags",
-        # "hags in each of these alcoves", "two more hags at foot of tree"
-        ("IrithyllianSlave", 48, 54), ("IrithyllianSlave", 58, 60),             # Hags in dark room
-        ("IrithyllianSlave", 50, 58), ("IrithyllianSlave", 56, 60),             # Hags in alcoves along stairs
-        # Sewers — Sewer Centipedes (DS3: "few Sewer Centipedes in the water")
-        ("SewerCentipede", 68, 80), ("SewerCentipede", 78, 85), ("SewerCentipede", 88, 90),
-        ("SewerCentipede", 72, 88), ("SewerCentipede", 82, 82),
-        # Sulyvahn's Beast at sewer reservoir — DS3 wiki: 1 beast in flooded waterway
-        ("SulyvahnsBeast", 72, 90),
-        # Silver Knight hall / rooftops — DS3: "several Silver Knights",
-        # "Silver Knight straight ahead and another to the left",
-        # "two archer Silver Knights"
-        ("SilverKnight", 30, 100), ("SilverKnight", 42, 110),
-        ("SilverKnight", 48, 118), ("SilverKnight", 36, 108),
-        ("SilverKnight", 44, 105), ("SilverKnight", 32, 104),  # More Silver Knights in hall
-        ("SilverKnight", 138, 64), ("SilverKnight", 146, 64),  # Archer Silver Knights on rooftops
-        # Post-Pontiff courtyard — DS3: "Giant will rise... Another Giant to your right"
-        ("GiantSlave", 126, 78), ("GiantSlave", 134, 82),      # Two Giants in courtyard
-        # Arena approach — Pontiff Knights + Fire Witch guard
-        ("BorealKnight", 105, 65), ("DarkMage", 110, 70),
-        ("BorealKnight", 100, 62),
-        ("BorealKnight", 108, 68),                                    # DS3: "2 Pontiff Knights" near fog gate
-        # Silver Knights on bridge to Anor Londo (DS3: knights guard the path to cathedral)
-        ("SilverKnight", 140, 50), ("SilverKnight", 142, 48), ("SilverKnight", 144, 52),
-        ("SilverKnight", 146, 54), ("SilverKnight", 148, 56),              # More knights on bridge
-        # Pontiff Knight patrol near church (DS3: Pontiff Knights guard the city streets)
-        ("BorealKnight", 132, 88),
-        # Mimic near boulevard (DS3: drops Golden Ritual Spear)
-        ("Mimic", 58, 56),
-        # Boss — Pontiff Sulyvahn
-        ("MiniBoss", 120, 76),                                      # Pontiff Sulyvahn boss entity
-    ]
     # Items — DS3 Irithyll of the Boreal Valley (verified against wiki)
     # Major items: Pontiff's Right Eye, Magic Clutch Ring, Ring of the Sun's First Born,
     # Leo Ring, Dark Stoneplate Ring, Ring of Favor, Sun Princess Ring, Aldrich's Ruby,
@@ -11314,27 +11102,22 @@ def make_irithyll():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SulyvahnsBeast", "SulyvahnsBeast"))]))
     entities.append(make_entity("Enemy", 78 * 16, 94 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SulyvahnsBeast", "SulyvahnsBeast"))]))
-    # BorealKnight (13)
+    # PontiffKnight (13) — DS3: Sulyvahn's elite knights patrolling Irithyll
     for tx, ty in [(18, 42), (38, 50), (55, 55), (75, 60), (90, 58), (32, 72), (40, 82), (70, 45), (72, 42), (105, 65), (100, 62), (108, 68), (132, 88)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BorealKnight", "BorealKnight"))]))
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PontiffKnight", "PontiffKnight"))]))
     # IrithyllianSlave (18)
     for tx, ty in [(42, 48), (60, 52), (78, 56), (36, 44), (46, 46), (52, 50), (56, 48), (62, 56), (82, 52), (28, 70), (35, 75), (22, 68), (64, 44), (45, 55), (48, 54), (58, 60), (50, 58), (56, 60)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("IrithyllianSlave", "IrithyllianSlave"))]))
-    # DarkMage (4)
-    entities.append(make_entity("Enemy", 42 * 16, 52 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
-    entities.append(make_entity("Enemy", 95 * 16, 62 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
-    entities.append(make_entity("Enemy", 68 * 16, 58 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
-    entities.append(make_entity("Enemy", 110 * 16, 70 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
-    # Dog (8)
+    # BurningStakeWitch (4) — DS3: witches with burning stakes patrolling Irithyll streets
+    for tx, ty in [(42, 52), (95, 62), (68, 58), (110, 70)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BurningStakeWitch", "BurningStakeWitch"))]))
+    # IrithyllianBeasthound (8) — DS3: ice beasts patrolling with Irithyllian slaves
     for tx, ty in [(50, 48), (80, 55), (65, 54), (48, 60), (52, 62), (76, 58), (38, 65), (42, 68)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("IrithyllianBeasthound", "IrithyllianBeasthound"))]))
     # CrystalLizard (4)
     entities.append(make_entity("Enemy", 65 * 16, 42 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
@@ -11344,17 +11127,10 @@ def make_irithyll():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
     entities.append(make_entity("Enemy", 140 * 16, 72 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
-    # SewerCentipede (5)
-    entities.append(make_entity("Enemy", 68 * 16, 80 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SewerCentipede", "SewerCentipede"))]))
-    entities.append(make_entity("Enemy", 78 * 16, 85 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SewerCentipede", "SewerCentipede"))]))
-    entities.append(make_entity("Enemy", 88 * 16, 90 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SewerCentipede", "SewerCentipede"))]))
-    entities.append(make_entity("Enemy", 72 * 16, 88 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SewerCentipede", "SewerCentipede"))]))
-    entities.append(make_entity("Enemy", 82 * 16, 82 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SewerCentipede", "SewerCentipede"))]))
+    # IrithyllianSlave (5 additional — DS3: slaves feigning death in waterway district)
+    for tx, ty in [(68, 80), (78, 85), (88, 90), (72, 88), (82, 82)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("IrithyllianSlave", "IrithyllianSlave"))]))
     # SilverKnight (13)
     for tx, ty in [(30, 100), (42, 110), (48, 118), (36, 108), (44, 105), (32, 104), (138, 64), (146, 64), (140, 50), (142, 48), (144, 52), (146, 54), (148, 56)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
@@ -11364,10 +11140,25 @@ def make_irithyll():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave"))]))
     entities.append(make_entity("Enemy", 134 * 16, 82 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave"))]))
+    # PontiffKnight (2 additional — DS3: Sulyvahn's knights patrolling near church)
+    for tx, ty in [(46, 50), (88, 60)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PontiffKnight", "PontiffKnight"))]))
+    # IrithyllianSlave (3 additional — DS3: slaves feigning death in Irithyll streets)
+    for tx, ty in [(22, 45), (30, 48), (58, 52)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("IrithyllianSlave", "IrithyllianSlave"))]))
+    # IrithyllianBeasthound (3 additional — DS3: ice beasts patrolling waterway areas)
+    for tx, ty in [(75, 85), (85, 90), (92, 88)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("IrithyllianBeasthound", "IrithyllianBeasthound"))]))
+    # DeepAccursed (1) — DS3: deep accursed in church basement
+    entities.append(make_entity("Enemy", 38 * 16, 100 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DeepAccursed", "DeepAccursed"))]))
     # Mimic (1)
     entities.append(make_entity("Enemy", 58 * 16, 56 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Mimic", "Mimic"))]))
-    # MiniBoss (1)
+    # MiniBoss (1) — DS3: Pontiff Sulyvahn (boss)
     entities.append(make_entity("Enemy", 120 * 16, 76 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
 
@@ -11619,7 +11410,7 @@ def make_irithyll():
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
 
     # print(f"  Irithyll (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "Irithyll", chunk, entities
@@ -11877,56 +11668,6 @@ def make_irithyll_dungeon():
     # Wretches (screaming enemies), Rats (swarms in drains), Basilisks (curse spawners),
     # Infested Corpses (corpse-grubs), Lycanthropes (Dog), Monstrosity of Sin (MonstrosityOfSin),
     # Sewer Centipedes (ManGrub), Gargoyles (tower guard), Crystal Lizards, Mimics
-    enemy_data = [
-        # Upper prison block — DS3: "3 jailers down stairs", jailers patrol corridors
-        ("Jailer", 22, 20), ("Jailer", 35, 30), ("Jailer", 48, 38),
-        ("Jailer", 25, 25), ("Jailer", 32, 32),
-        ("Jailer", 42, 28), ("Jailer", 58, 42),                 # More jailers on upper level
-        # Reanimated Corpses in cells (Wretches — DS3: bloated prisoners in cells)
-        ("Wretch", 20, 30), ("Wretch", 28, 35),
-        ("Wretch", 38, 28), ("Wretch", 45, 34),
-        # Central prison block — DS3: "room infested with jailers", "several jailers in large room"
-        ("Jailer", 55, 55), ("Jailer", 60, 60), ("Jailer", 68, 52),
-        ("Jailer", 48, 58), ("Jailer", 62, 65), ("Jailer", 70, 58),  # More jailers in central block
-        ("Jailer", 58, 70), ("Jailer", 65, 68),                 # DS3: "2 in next room"
-        ("Wretch", 50, 50), ("Wretch", 62, 55),
-        ("CrystalLizard", 52, 52),
-        # Siegward cell area — Wretches and Reanimated Corpses
-        ("Jailer", 88, 55), ("Jailer", 95, 62),                 # Jailer guards near Siegward
-        ("Wretch", 78, 60), ("Wretch", 82, 65),
-        ("Wretch", 85, 62), ("Wretch", 92, 58),
-        # Lower drains — DS3: rats, basilisks, corpse-grubs in sewer area
-        ("Rat", 28, 78), ("Rat", 35, 82), ("Rat", 42, 88),
-        ("Rat", 32, 85), ("Rat", 48, 90),
-        ("Rat", 25, 90), ("Rat", 55, 92),                       # More rats in deep drains
-        # Basilisks — DS3: "10+ basilisks spawn behind you" in drain area
-        ("Basilisk", 55, 80), ("Basilisk", 62, 85),
-        ("Basilisk", 40, 88), ("Basilisk", 65, 78),             # More basilisks in drains
-        ("Basilisk", 48, 82), ("Basilisk", 58, 90),             # Additional curse-spawners
-        ("Wretch", 38, 80), ("Wretch", 45, 86), # DS3: bloated prisoners in drain cells
-        # Wretches in drain area (DS3: centipedes belong in Profaned Capital, not Dungeon)
-        ("Wretch", 60, 75), ("Wretch", 50, 78),
-        # Cage Spider in drain area
-        ("CageSpider", 55, 88),                                       # DS3: Cage Spider in drain area (→ Basilisk)
-        # Wretch — DS3: bloated prisoner in lower drain (no Monstrosity in Irithyll Dungeon)
-        ("Wretch", 42, 75),
-        # Rats in dungeon tunnels (DS3: rats in the lower prison passages)
-        ("Rat", 22, 82), ("Rat", 38, 85),
-        # Exit corridor — DS3: Wretches (bloated prisoners) guard the upper exit path
-        ("Wretch", 95, 42), ("Wretch", 125, 30),
-        # Karla's cell area — DS3: jailers guard the lower cells
-        ("Jailer", 85, 85), ("Jailer", 95, 90),
-        ("Jailer", 82, 90),                                    # Additional jailer near Karla
-        ("Wretch", 88, 88), ("Wretch", 92, 82),
-        # Alva Seeker of the Spurned — invades near exit corridor (MiniBoss)
-        ("MiniBoss", 78, 82),
-        # Mimic near exit corridor (drops Lightning Blade)
-        ("Mimic", 118, 32),
-        # Mimic in sewer area (DS3 wiki: drops Dark Clutch Ring)
-        ("Mimic", 45, 82),
-        # Mimic near hooded enemies (DS3 wiki: drops Estus Shard)
-        ("Mimic", 62, 68),
-    ]
     # Items — DS3 Irithyll Dungeon (verified against wiki)
     for kind, name, tx, ty, val in [
         # Upper prison cells
@@ -12466,17 +12207,41 @@ def make_irithyll_dungeon():
     for tx, ty in [(22, 20), (35, 30), (48, 38), (25, 25), (32, 32), (42, 28), (58, 42), (55, 55), (60, 60), (68, 52), (48, 58), (62, 65), (70, 58), (58, 70), (65, 68), (88, 55), (95, 62), (85, 85), (95, 90), (82, 90)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Jailer", "Jailer"))]))
-    # Wretch (19)
-    for tx, ty in [(20, 30), (28, 35), (38, 28), (45, 34), (50, 50), (62, 55), (78, 60), (82, 65), (85, 62), (92, 58), (38, 80), (45, 86), (60, 75), (50, 78), (42, 75), (95, 42), (125, 30), (88, 88), (92, 82)]:
+    # Wretch (10) — DS3: naked prisoners in cells
+    for tx, ty in [(20, 30), (28, 35), (38, 28), (45, 34), (50, 50), (62, 55), (78, 60), (92, 58), (38, 80), (88, 88)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Wretch", "Wretch"))]))
+    # Wretch (8 additional — DS3: Irithyllian Slaves in cells throughout dungeon)
+    for tx, ty in [(55, 42), (65, 48), (45, 86), (25, 48), (35, 55), (48, 62), (85, 62), (32, 72)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Wretch", "Wretch"))]))
+    # JailerHandmaid (4 — DS3: stronger jailer variant with pyromancy, patrols lower cells)
+    for tx, ty in [(72, 52), (82, 58), (95, 42), (60, 75)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("JailerHandmaid", "Jailer"))]))
+    # Jailer (4 additional — DS3: more jailers patrolling deeper prison levels)
+    for tx, ty in [(42, 75), (50, 78), (52, 82), (92, 82)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Jailer", "Jailer"))]))
+    # HoundRat (3 additional — DS3: Big Irithyllian Rats in flooded lower passages)
+    for tx, ty in [(40, 76), (82, 65), (125, 30)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HoundRat", "Rat"))]))
+    # Basilisk (2 additional — DS3: in dark lower cells)
+    for tx, ty in [(85, 85), (40, 72)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
+    # GiantSlave (2) — DS3: giant in the large room, and one through shortcut
+    for tx, ty in [(78, 82), (120, 90)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GiantSlave", "GiantSlave"))]))
     # CrystalLizard (1)
     entities.append(make_entity("Enemy", 52 * 16, 52 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
-    # Rat (9)
-    for tx, ty in [(28, 78), (35, 82), (42, 88), (32, 85), (48, 90), (25, 90), (55, 92), (22, 82), (38, 85)]:
+    # HoundRat (4) — DS3: rats in the sewer passage
+    for tx, ty in [(28, 78), (35, 82), (42, 88), (32, 85)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Rat", "Rat"))]))
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HoundRat", "Rat"))]))
     # Basilisk (6)
     entities.append(make_entity("Enemy", 55 * 16, 80 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
@@ -12486,13 +12251,9 @@ def make_irithyll_dungeon():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
     entities.append(make_entity("Enemy", 65 * 16, 78 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
-    entities.append(make_entity("Enemy", 48 * 16, 82 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
-    entities.append(make_entity("Enemy", 58 * 16, 90 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Basilisk", "Basilisk"))]))
-    # CageSpider (1)
+    # Mimic (1 additional â DS3: mimic in lower cell, total 4 mimics in dungeon)
     entities.append(make_entity("Enemy", 55 * 16, 88 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CageSpider", "CageSpider"))]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Mimic", "Mimic"))]))
     # MiniBoss (1)
     entities.append(make_entity("Enemy", 78 * 16, 82 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
@@ -12697,7 +12458,7 @@ def make_irithyll_dungeon():
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
     # print(f"  IrithyllDungeon (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "IrithyllDungeon", chunk, entities
 
@@ -13074,47 +12835,6 @@ def make_profaned_capital():
     # DS3 Profaned Capital enemies: Handmaids (Jailer), Gargoyles (Headless),
     # Monstrosities of Sin (MonstrosityOfSin), Sewer Centipedes (SewerCentipede),
     # Rats, Crystal Lizards, Mimic
-    enemy_data = [
-        # Entry bridge — Headless Gargoyle ambush (DS3: gargoyle on bridge)
-        ("Gargoyle", 10, 11),
-        # Boss path bridge — Gargoyle patrol
-        ("Gargoyle", 44, 12), ("Gargoyle", 48, 14),
-        # First jailer room — Jailer Handmaids + fire-casting Gargoyle (wiki: 4 jailers in white + gargoyle)
-        ("Jailer", 52, 10), ("Jailer", 54, 14), ("Jailer", 60, 8),
-        ("Jailer", 62, 18), ("Gargoyle", 64, 14),
-        # Second jailer room — more jailers + gargoyle lurks up and to the right
-        ("Jailer", 72, 10), ("Jailer", 74, 16), ("Jailer", 80, 12),
-        ("Gargoyle", 88, 8),
-        # Upper ruins — Jailer patrols (wiki: 2 invisible jailers near Jailer's Key Ring)
-        ("Jailer", 20, 38), ("Jailer", 30, 42),
-        ("Jailer", 38, 44),
-        # Ruins/streets — Gargoyle patrols + jailer (DS3: no Fire Witches here, those are in Irithyll)
-        ("Gargoyle", 34, 52), ("Gargoyle", 50, 60),
-        ("Jailer", 26, 56),
-        ("Jailer", 24, 48), ("Jailer", 40, 55), ("Jailer", 32, 60),
-        # Toxic pool — Sewer Centipedes (DS3: centipede creatures in flooded cells)
-        ("SewerCentipede", 52, 64), ("SewerCentipede", 60, 72), ("SewerCentipede", 66, 68),
-        # Crystal Lizards (wiki: 3 — one at hole jump, one in left tunnel, one down hallway)
-        ("CrystalLizard", 56, 68), ("CrystalLizard", 62, 64), ("CrystalLizard", 56, 44),
-        # Church — Monstrosities of Sin (wiki: 3 in the church + 1 in separate room = 4)
-        ("MonstrosityOfSin", 30, 72), ("MonstrosityOfSin", 36, 78), ("MonstrosityOfSin", 42, 74),
-        # Monstrosity of Sin — separate room above church (wiki: "single Monstrosity of Sin")
-        ("MonstrosityOfSin", 48, 46),
-        # Monstrosities of Sin in toxic pool (DS3: bloated creatures in flooded cells)
-        ("MonstrosityOfSin", 58, 70), ("MonstrosityOfSin", 64, 74),
-        # Avaricious Being — hostile NPC with Gargoyle Flame Hammer (wiki: drops Logan's Scroll)
-        ("MiniBoss", 48, 42),
-        # Siegward cell area — Jailer guard
-        ("Jailer", 62, 48),
-        # Giant room — Sewer Centipedes in toxic swamp (DS3: centipedes in poison pools)
-        ("SewerCentipede", 70, 60), ("SewerCentipede", 74, 66), ("SewerCentipede", 80, 62),
-        ("GiantSlave", 76, 60),
-        # Yhorm throne room Q(1,0) — Gargoyles and Sewer Centipedes in the boss area (DS3: enemies near Yhorm)
-        ("Gargoyle", 108, 2), ("Gargoyle", 129, 15),
-        ("SewerCentipede", 95, 11), ("SewerCentipede", 115, 26),
-        ("Jailer", 90, 7), ("Jailer", 128, 22),
-        ("Gargoyle", 124, 34), ("SewerCentipede", 94, 31),
-    ]
 
     
     # --- DS3 faithful enemies (ProfanedCapital) ---
@@ -13150,6 +12870,13 @@ def make_profaned_capital():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MonstrosityOfSin", "MonstrosityOfSin"))]))
     entities.append(make_entity("Enemy", 64 * 16, 74 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MonstrosityOfSin", "MonstrosityOfSin"))]))
+    # JailerHandmaid (4 â DS3: stronger jailer variant in upper prison rooms)
+    for tx, ty in [(56, 10), (62, 18), (80, 12), (38, 44)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("JailerHandmaid", "Jailer"))]))
+    # AvariciousBeing (1 â DS3: on rooftop near bonfire, drops items when killed)
+    entities.append(make_entity("Enemy", 18 * 16, 12 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("AvariciousBeing", "Mimic"))]))
     # MiniBoss (1)
     entities.append(make_entity("Enemy", 48 * 16, 42 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
@@ -13788,7 +13515,7 @@ def make_profaned_capital():
 
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
     # print(f"  ProfanedCapital (faithful DS3 layout) "
     # f"ground={pct:.1f}% connectivity={coverage}%")
     return "ProfanedCapital", chunk, entities
@@ -14045,49 +13772,6 @@ def make_anor_londo():
 
     # --- Enemies — DS3 Anor Londo: Silver Knights, Giant Slave (archer),
     # Deep Accursed, Deacons (pyromancers + 3 before fog), Rotten Flesh of Aldrich (slimes)
-    enemy_data = [
-        # Cathedral entrance stairs — 2 Silver Knights (wiki: "two silver knights attack")
-        ("SilverKnight", 20, 35), ("SilverKnight", 34, 42),
-        # Right side — red-eyed Silver Knight (wiki: "red eyed Silver Knight")
-        ("SilverKnight", 42, 38),
-        # Royal avenue patrol — Silver Knights guard the corridor (DS3: knights throughout)
-        ("SilverKnight", 52, 42), ("SilverKnight", 64, 48),
-        ("SilverKnight", 48, 50), ("SilverKnight", 70, 44),
-        # Silver Knight hall — knight pair guarding council chamber entrance
-        ("SilverKnight", 82, 38), ("SilverKnight", 90, 42),
-        # Silver Knight archers in upper hallway — DS3: "two archer Silver Knights"
-        ("SilverKnight", 108, 34), ("SilverKnight", 118, 36),
-        # Giant Slave — giant archer on upper level (wiki: Giant Slave enemy)
-        ("GiantSlave", 38, 52),
-        # Main chamber — Silver Knights patrolling the cathedral (DS3: knights guard the grand hall)
-        ("SilverKnight", 55, 45), ("SilverKnight", 68, 40), ("SilverKnight", 70, 46),
-        # Additional Man Grubs in dark chamber (DS3: slimes throughout the cathedral)
-        ("ManGrub", 72, 52), ("ManGrub", 76, 48),
-        # Main chamber — Rotten Flesh of Aldrich / slimes (wiki: "dispatch slimes and deacons")
-        ("ManGrub", 142, 75), ("ManGrub", 148, 82), ("ManGrub", 136, 68),
-        ("ManGrub", 124, 88), ("ManGrub", 132, 92),
-        # Additional slimes in dark corners of main hall
-        ("ManGrub", 130, 65), ("ManGrub", 115, 72),
-        ("ManGrub", 140, 95), ("ManGrub", 112, 80),  # More slimes in Aldrich arena corners
-        # Yorshka tower area Q(0,1) — Man Grubs on invisible bridge path (DS3: slimes near Darkmoon Tomb)
-        ("ManGrub", 55, 85), ("ManGrub", 64, 91),
-        ("ManGrub", 69, 93), ("ManGrub", 61, 101),
-        # Corner — Deep Accursed at revolving switch (wiki: "Deep Accursed waiting for you")
-        ("DeepAccursed", 100, 40),
-        # Hallway to fog gate — Silver Knight sentinels (DS3: knights guard approach to Aldrich)
-        ("SilverKnight", 125, 38), ("SilverKnight", 135, 44), ("SilverKnight", 138, 50),
-        # Crystal Lizard near Yorshka path (DS3: crystal lizard on tower ledge)
-        ("CrystalLizard", 56, 84),
-        # Boss — Aldrich, Devourer of Gods
-        ("MiniBoss", 128, 78),                                      # Aldrich boss entity
-        # Additional DS3 enemies for fidelity
-        ("SilverKnight", 28, 48),                                   # DS3: knight in side corridor
-        ("SilverKnight", 58, 54),                                   # DS3: knight in royal chamber
-        ("SilverKnight", 65, 55),                                   # DS3: knight in upper chamber
-        ("ManGrub", 78, 52),                                        # DS3: slime near dark room
-        ("ManGrub", 82, 58),                                        # DS3: slime in dark corners
-        ("ManGrub", 145, 88),                                       # DS3: slime near Aldrich arena
-    ]
 
     # --- Items — DS3 Anor Londo (wiki-verified) ---
     items = [
@@ -14135,6 +13819,10 @@ def make_anor_londo():
     for tx, ty in [(72, 52), (76, 48), (142, 75), (148, 82), (136, 68), (124, 88), (132, 92), (130, 65), (115, 72), (140, 95), (112, 80), (55, 85), (64, 91), (69, 93), (61, 101), (78, 52), (82, 58), (145, 88)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ManGrub", "ManGrub"))]))
+    # PaintingGuardian (3) — DS3: guardians near the painting room
+    for tx, ty in [(88, 36), (92, 40), (96, 38)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Assassin", "Assassin"))]))
     # DeepAccursed (1)
     entities.append(make_entity("Enemy", 100 * 16, 40 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DeepAccursed", "DeepAccursed"))]))
@@ -14805,7 +14493,7 @@ def make_anor_londo():
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
     # print(f"  AnorLondo (faithful DS3 layout) "
     # f"ground={pct:.1f}% connectivity={coverage}%")
     return "AnorLondo", chunk, entities
@@ -16013,6 +15701,25 @@ def make_lothric_castle():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
+    # === SECTION-BASED GROUND EXPANSION (DS3 fidelity) ===
+    # Lothric Castle is the largest DS3 area — many rooms, wyvern bridge, boss arena
+    fill_tiles(chunk, TILE_GROUND, 26, 40, 73, 80)   # Dancer Ladder Hall
+    fill_tiles(chunk, TILE_GROUND, 62, 67, 110, 102)  # Lothric Castle Entry
+    fill_tiles(chunk, TILE_GROUND, 128, 48, 195, 92)  # Twin Dragon Bridge
+    fill_tiles(chunk, TILE_GROUND, 136, 93, 193, 133)  # Barracks Interior
+    fill_tiles(chunk, TILE_GROUND, 206, 123, 257, 158) # Dragonslayer Bridge
+    fill_tiles(chunk, TILE_GROUND, 241, 136, 288, 175) # Dragonslayer Armour Arena
+    fill_tiles(chunk, TILE_GROUND, 280, 126, 310, 155) # Grand Archives Door
+    fill_tiles(chunk, TILE_GROUND, 47, 100, 86, 132)   # Consumed King Garden Branch
+    # Corridors connecting sections
+    fill_tiles(chunk, TILE_GROUND, 48, 58, 88, 87)
+    fill_tiles(chunk, TILE_GROUND, 84, 68, 163, 87)
+    fill_tiles(chunk, TILE_GROUND, 159, 68, 167, 115)
+    fill_tiles(chunk, TILE_GROUND, 163, 111, 233, 143)
+    fill_tiles(chunk, TILE_GROUND, 229, 139, 267, 157)
+    fill_tiles(chunk, TILE_GROUND, 263, 138, 297, 157)
+    fill_tiles(chunk, TILE_GROUND, 64, 114, 297, 142)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -16021,7 +15728,7 @@ def make_lothric_castle():
 
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
     # print(f"  LothricCastle (faithful DS3 layout) "
     # f"ground={pct:.1f}% connectivity={coverage}%")
     return "LothricCastle", chunk, entities
@@ -16235,57 +15942,6 @@ def make_grand_archives():
     # ================================================================
     # ENEMIES — DS3 Grand Archives (wiki-complete)
     # ================================================================
-    enemy_data = [
-        # Grand Archives Scholars (DarkMage — candle-wielding wax priests)
-        # DS3: ~10 scholars throughout, wax-headed, cast magic and melee
-        ("DarkMage", 45, 130), ("DarkMage", 62, 95),
-        ("DarkMage", 85, 40), ("DarkMage", 75, 28),
-        ("DarkMage", 50, 100), ("DarkMage", 55, 75),
-        ("DarkMage", 48, 85), ("DarkMage", 72, 55),
-        ("DarkMage", 62, 112),  # Mage Kriemhild (hostile NPC, DarkMage type)
-        # Hollow Slaves (Thrall — drop from ceilings, walls)
-        # DS3: ambush enemies throughout the library, NOT Hollow Soldiers
-        ("HollowSlave", 44, 136), ("HollowSlave", 55, 98),
-        ("HollowSlave", 68, 108), ("HollowSlave", 75, 50),
-        ("HollowSlave", 62, 65), ("HollowSlave", 40, 138),
-        ("HollowSlave", 52, 92), ("HollowSlave", 58, 80),
-        # Lothric Knights — including red-eyed knight guard
-        ("LothricKnight", 70, 92), ("LothricKnight", 88, 45),
-        ("LothricKnight", 55, 65), ("LothricKnight", 78, 48),
-        # Ascended Winged Knights (golden, 3 — DS3: drop Titanite Slab when all 3 killed)
-        ("AscendedWingedKnight", 82, 38), ("AscendedWingedKnight", 92, 35),
-        ("AscendedWingedKnight", 75, 32),
-        # Boreal Outrider Knight (DS3: dead/frozen in entry, drops Outrider Armor Set)
-        ("BorealOutriderKnight", 58, 68),
-        # Gargoyles — DS3: rooftop guardians (3 on roof)
-        ("Gargoyle", 68, 12), ("Gargoyle", 82, 15), ("Gargoyle", 95, 10),
-        # Crystal Lizards (DS3: ~4 throughout)
-        ("CrystalLizard", 52, 85), ("CrystalLizard", 48, 72),
-        ("CrystalLizard", 65, 55), ("CrystalLizard", 88, 22),
-        # Black Hand Gotthard's party — hostile NPCs in courtyard
-        # (DS3: 3 Black Hand NPCs — warrior, mage, dual katana)
-        ("MiniBoss", 60, 110),
-        ("MiniBoss", 64, 108),
-        # Bridge of Glory — barricade gauntlet
-        # DS3: Hollow Slaves and Lothric Knights guard the bridge to Twin Princes
-        ("HollowSlave", 112, 8), ("HollowSlave", 114, 10),
-        ("HollowSlave", 119, 15), ("HollowSlave", 121, 18),
-        ("HollowSlave", 125, 7), ("HollowSlave", 127, 12),
-        ("LothricKnight", 130, 10), ("LothricKnight", 132, 15),
-        # Lower library stacks — Q(1,1) expanded coverage (DS3: scholars and thralls in lower archives)
-        # Scholars patrol the lower wax-pool library sections
-        ("DarkMage", 88, 95), ("DarkMage", 95, 108),
-        ("DarkMage", 105, 120), ("DarkMage", 115, 100),
-        ("DarkMage", 125, 115),
-        # Hollow Slaves ambush from lower bookshelves
-        ("HollowSlave", 85, 105), ("HollowSlave", 92, 115),
-        ("HollowSlave", 100, 125), ("HollowSlave", 110, 110),
-        ("HollowSlave", 120, 130),
-        # Lothric Knight guard in lower archives corridor
-        ("LothricKnight", 130, 120),
-        # Crystal Lizard in lower stacks
-        ("CrystalLizard", 145, 118),
-    ]
 
     # ================================================================
     # ITEMS — DS3 Grand Archives (wiki-complete)
@@ -16995,8 +16651,15 @@ def make_grand_archives():
         chunk[tx][49] = TILE_WALLTOP
     
     # --- DS3 faithful enemies (GrandArchives) ---
-    # DarkMage (14)
-    for tx, ty in [(45, 130), (62, 95), (85, 40), (75, 28), (50, 100), (55, 75), (48, 85), (72, 55), (62, 112), (88, 95), (95, 108), (105, 120), (115, 100), (125, 115)]:
+    # GrandArchivesScholar (10) — DS3: wax-headed scholars throughout archives
+    for tx, ty in [(45, 130), (50, 100), (55, 75), (48, 85), (72, 55), (62, 112), (88, 95), (95, 108), (115, 100), (125, 115)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GrandArchivesScholar", "DarkMage"))]))
+    # CrystalSage (1) — DS3: boss-like sage that teleports in the archives
+    entities.append(make_entity("Enemy", 85 * 16, 40 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalSage", "DarkMage"))]))
+    # DarkMage (3) — DS3: remaining spell casters in upper archives
+    for tx, ty in [(75, 28), (105, 120), (62, 95)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
     # HollowSlave (19)
@@ -17035,6 +16698,25 @@ def make_grand_archives():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
     entities.append(make_entity("Enemy", 145 * 16, 118 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
+    # ClawedCurse (4) — DS3: curse hands that emerge from bookshelves
+    for tx, ty in [(46, 88), (70, 58), (90, 98), (110, 115)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ClawedCurse", "Basilisk"))]))
+    # ManGrub (3) — DS3: grub-like creatures on beams and rafters
+    for tx, ty in [(78, 65), (100, 105), (120, 122)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("ManGrub", "ManGrub"))]))
+    # Corvian (3) — DS3: crow-people on rooftops near storyteller
+    for tx, ty in [(125, 5), (130, 12), (135, 8)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Corvian", "Assassin"))]))
+    # CorvianStoryteller (1) — DS3: storyteller with corvian group on rooftop
+    entities.append(make_entity("Enemy", 128 * 16, 10 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CorvianStoryteller", "DarkMage"))]))
+    # HollowSoldier (4) — DS3: hollow soldiers in barricades near Twin Princes
+    for tx, ty in [(55, 135), (60, 138), (65, 132), (70, 136)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier"))]))
     # MiniBoss (2)
     entities.append(make_entity("Enemy", 60 * 16, 110 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
@@ -17243,7 +16925,7 @@ def make_grand_archives():
     entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
 
     # print(f"  GrandArchives (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
     return "GrandArchives", chunk, entities
@@ -18114,7 +17796,7 @@ def make_kiln_of_the_first_flame():
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
     # print(f"  KilnOfTheFirstFlame (faithful DS3 layout) "
     # f"ground={pct:.1f}% connectivity={coverage}%")
     return "KilnOfTheFirstFlame", chunk, entities
@@ -18443,32 +18125,6 @@ def make_consumed_kings_garden():
     # Cathedral Knights patrol the garden. Hollow Slaves ambush from dark corners.
     # Pus of Man on wyvern-like creatures. Rotten Slugs in toxic water.
     # No Serpent Men here (those are only in Archdragon Peak).
-    enemy_data = [
-        # Lothric Knights — castle guards throughout the garden (DS3: Lothric Knights patrol Garden)
-        ("LothricKnight", 32, 30), ("LothricKnight", 55, 40), ("LothricKnight", 112, 82),
-        ("LothricKnight", 98, 68), ("LothricKnight", 42, 38), ("LothricKnight", 72, 48),
-        ("LothricKnight", 80, 55), ("LothricKnight", 95, 72),
-        # Hollow Slaves (Thrall) — ambush throughout the garden
-        ("Thrall", 35, 35), ("Thrall", 88, 62),
-        ("Thrall", 22, 22), ("Thrall", 60, 32),
-        ("Thrall", 90, 58), ("Thrall", 100, 64), ("Thrall", 108, 70),
-        ("Thrall", 118, 78),
-        # Pus of Man — x3 on wyvern corpses (DS3 accurate count)
-        ("PusOfMan", 52, 42), ("PusOfMan", 48, 76), ("PusOfMan", 58, 84),
-        # Rotten Slugs in poison swamp (DS3: several slugs in toxic mist)
-        ("RottenSlug", 45, 70), ("RottenSlug", 50, 75), ("RottenSlug", 55, 78),
-        ("RottenSlug", 42, 78), ("RottenSlug", 60, 82), ("RottenSlug", 52, 84),
-        ("RottenSlug", 48, 72), ("RottenSlug", 56, 68), ("RottenSlug", 44, 82),
-        # Crystal Lizard
-        ("CrystalLizard", 68, 42),
-        # Lower garden Q(1,1) — Lothric Knights and Thralls in Oceiros approach (DS3: guards near boss)
-        ("LothricKnight", 121, 83), ("LothricKnight", 135, 92),
-        ("LothricKnight", 128, 101), ("LothricKnight", 137, 104),
-        ("Thrall", 125, 86), ("Thrall", 136, 89),
-        ("Thrall", 135, 98), ("Thrall", 112, 113),
-        # Boss — Oceiros, the Consumed King
-        ("MiniBoss", 120, 88),                                      # Oceiros boss entity
-    ]
 
     # --- Items — DS3 Consumed King's Garden (complete per wiki) ---
     # Wiki items: Estus Shard, Titanite Chunk x3, Titanite Scale x3 (1 ground + 2 chests),
@@ -18524,10 +18180,14 @@ def make_consumed_kings_garden():
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan"))]))
     entities.append(make_entity("Enemy", 58 * 16, 84 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan"))]))
-    # RottenSlug (9)
-    for tx, ty in [(45, 70), (50, 75), (55, 78), (42, 78), (60, 82), (52, 84), (48, 72), (56, 68), (44, 82)]:
+    # RottenSlug (5) — DS3: slugs in the garden swamp
+    for tx, ty in [(45, 70), (50, 75), (55, 78), (42, 78), (60, 82)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("RottenSlug", "RottenSlug"))]))
+    # HollowSoldier (4) — DS3: hollow soldiers on the garden paths
+    for tx, ty in [(48, 72), (56, 68), (44, 82), (52, 84)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier"))]))
     # CrystalLizard (1)
     entities.append(make_entity("Enemy", 68 * 16, 42 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
@@ -19172,6 +18832,20 @@ def make_consumed_kings_garden():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
+    # === SECTION-BASED GROUND EXPANSION (DS3 fidelity) ===
+    fill_tiles(chunk, TILE_GROUND, 26, 26, 73, 58)   # Lower Dancer Lift
+    fill_tiles(chunk, TILE_GROUND, 56, 73, 131, 125)  # Poison Garden
+    fill_tiles(chunk, TILE_GROUND, 117, 61, 168, 101)  # Lothric Knight Platform
+    fill_tiles(chunk, TILE_GROUND, 172, 148, 223, 188) # Oceiros Arena
+    fill_tiles(chunk, TILE_GROUND, 203, 135, 236, 161) # Untended Graves Illusory Wall
+    fill_tiles(chunk, TILE_GROUND, 180, 137, 190, 147) # Supplement area
+    # Corridors connecting sections
+    fill_tiles(chunk, TILE_GROUND, 48, 40, 95, 101)
+    fill_tiles(chunk, TILE_GROUND, 91, 79, 145, 101)
+    fill_tiles(chunk, TILE_GROUND, 141, 79, 200, 170)
+    fill_tiles(chunk, TILE_GROUND, 196, 146, 222, 170)
+    fill_tiles(chunk, TILE_GROUND, 183, 140, 222, 150)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -19179,7 +18853,7 @@ def make_consumed_kings_garden():
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
     # print(f"  ConsumedKingsGarden (faithful DS3 layout) "
     # f"ground={pct:.1f}% connectivity={coverage}%")
     return "ConsumedKingsGarden", chunk, entities
@@ -19547,72 +19221,43 @@ def make_untended_graves():
     # Black Knights are the primary enemies — dark mirror of Cemetery of Ash.
     # No Grave Wardens, Corvians, or Pus of Man in this area (those belong elsewhere).
     # Champion Gundyr is the boss.
-    enemy_data = [
-        # Black Knights — DS3: 3 Black Knights patrol the dark cemetery
-        # (1 near cemetery path with greatsword, 1 in courtyard with sword+shield, 1 near Gundyr with halberd)
-        ("BlackKnight", 45, 35),                                     # Cemetery path (greatsword)
-        ("BlackKnight", 62, 45),                                     # Middle courtyard (sword+shield)
-        ("BlackKnight", 75, 55),                                     # Gundyr approach (halberd)
-        # Hollow Soldiers — DS3: hollows in the dark version of Cemetery of Ash
-        ("HollowSoldier", 30, 28), ("HollowSoldier", 52, 40),
-        ("HollowSoldier", 38, 48), ("HollowSoldier", 80, 50),
-        # Starved Hounds — DS3: 2 hounds in the dark cemetery
-        ("StarvedHound", 48, 42), ("StarvedHound", 70, 52),
-        # Crystal Lizard — DS3: 1 near cemetery path
-        ("CrystalLizard", 40, 32),
-        # Ravenous Crystal Lizard — DS3: 2 near Dark Firelink area
-        ("CrystalLizard", 125, 105), ("CrystalLizard", 130, 110),
-        # Dark cemetery Q(1,0) — Hollow Soldiers in the dark eastern cemetery (DS3: hollows in shadow version)
-        ("HollowSoldier", 91, 49), ("HollowSoldier", 89, 54),
-        ("HollowSoldier", 97, 59), ("HollowSoldier", 88, 65),
-        ("StarvedHound", 96, 71), ("StarvedHound", 103, 73),
-        # Dark Firelink area Q(1,1) — more Hollow Soldiers in the shadow shrine (DS3: hollows near dark shrine)
-        ("HollowSoldier", 119, 86), ("HollowSoldier", 114, 90),
-        ("HollowSoldier", 115, 94), ("HollowSoldier", 87, 100),
-        ("StarvedHound", 134, 104), ("StarvedHound", 141, 110),
-        ("HollowSoldier", 146, 115), ("HollowSoldier", 128, 126),
-        # Boss — Champion Gundyr
-        ("MiniBoss", 105, 78),                                      # Champion Gundyr boss entity
-    ]
 
     # --- Items (DS3 Untended Graves) ---
 
     
     # --- DS3 faithful enemies (UntendedGraves) ---
-    # BlackKnight (3)
-    entities.append(make_entity("Enemy", 45 * 16, 35 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
-    entities.append(make_entity("Enemy", 62 * 16, 45 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
-    entities.append(make_entity("Enemy", 75 * 16, 55 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
-    # HollowSoldier (14)
-    for tx, ty in [(30, 28), (52, 40), (38, 48), (80, 50), (91, 49), (89, 54), (97, 59), (88, 65), (119, 86), (114, 90), (115, 94), (87, 100), (146, 115), (128, 126)]:
+    # DS3 wiki enemies: Pus of Man, Cathedral Grave Warden, Black Knight,
+    # Grave Warden, Starved Hound, Corvian, Corvian Storyteller, Ravenous Crystal Lizard
+    # BlackKnight (4) — DS3: guard Dark Firelink Shrine (greataxe, greatsword, stairs, Hornet Ring)
+    for tx, ty in [(170, 185), (180, 190), (165, 195), (175, 200)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier"))]))
-    # StarvedHound (6)
-    entities.append(make_entity("Enemy", 48 * 16, 42 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 70 * 16, 52 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 96 * 16, 71 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 103 * 16, 73 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 134 * 16, 104 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 141 * 16, 110 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    # CrystalLizard (3)
-    entities.append(make_entity("Enemy", 40 * 16, 32 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
-    entities.append(make_entity("Enemy", 125 * 16, 105 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
-    entities.append(make_entity("Enemy", 130 * 16, 110 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
-    # MiniBoss (1)
-    entities.append(make_entity("Enemy", 105 * 16, 78 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BlackKnight", "BlackKnight"))]))
+    # CathedralGraveWarden (2) — DS3: in the pool/water area of dark cemetery
+    for tx, ty in [(95, 80), (100, 85)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CathedralGraveWarden", "CathedralGraveWarden"))]))
+    # GraveWarden (2) — DS3: dark cemetery, one at archway, one to the left
+    for tx, ty in [(50, 45), (55, 50)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GraveWarden", "CathedralGraveWarden"))]))
+    # StarvedHound (6) — DS3: throughout area, pool area, near arena approach
+    for tx, ty in [(60, 55), (65, 60), (85, 70), (90, 75), (110, 100), (130, 120)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    # Corvian (3) — DS3: group near bonfire guarding Ashen Estus Ring area
+    for tx, ty in [(35, 35), (40, 38), (45, 42)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Corvian", "Assassin"))]))
+    # CorvianStoryteller (1) — DS3: with the Corvian group
+    entities.append(make_entity("Enemy", 42 * 16, 40 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CorvianStoryteller", "DarkMage"))]))
+    # PusOfMan (1) — DS3: in the dark cemetery
+    entities.append(make_entity("Enemy", 80 * 16, 65 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan"))]))
+    # RavenousCrystalLizard (2) — DS3: right section where Cemetery of Ash had 1
+    for tx, ty in [(105, 75), (110, 80)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("RavenousCrystalLizard", "CrystalLizard"))]))
 
 # --- NPCs ---
     # Dark Shrine Handmaid in Dark Firelink Shrine (different from normal Firelink)
@@ -19623,8 +19268,16 @@ def make_untended_graves():
         make_field("dialogue", "String",
             "What is it? There is only dark here|The fire has long been out|I will tend to the ash, as I always have|There is nothing else for it"),
     ]))
+    # Daughter of Crystal Kriemhild — DS3: NPC invader on center path heading up the hill
+    entities.append(make_entity("Npc", 115 * 16, 95 * 16, [
+        make_field("name", "String", "Daughter of Crystal Kriemhild"),
+        make_field("kind", "LocalEnum.NpcKind", "Invader"),
+        make_field("color", "Color", "#4A6A8A"),
+        make_field("dialogue", "String",
+            "I am Kriemhild, daughter of crystal|The dark is not to be feared|It is merely the absence of fire"),
+    ]))
 
-    
+
     # --- DS3 faithful items ---
     entities.append(make_entity("Item", 201 * 16, 211 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "EstusShard"),
@@ -20096,6 +19749,21 @@ def make_untended_graves():
                 _fh = max(1, _feat["h"] // 16)
                 fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
 
+    # === SECTION-BASED GROUND EXPANSION (DS3 fidelity) ===
+    # Cover all JSON doc sections with walkable ground
+    fill_tiles(chunk, TILE_GROUND, 30, 30, 77, 65)   # Dark Cemetery Entry
+    fill_tiles(chunk, TILE_GROUND, 65, 56, 121, 96)   # Dark Cemetery Path
+    fill_tiles(chunk, TILE_GROUND, 92, 88, 146, 127)  # Untended Graves Bonfire
+    fill_tiles(chunk, TILE_GROUND, 126, 115, 173, 145) # Champion Gundyr Approach
+    fill_tiles(chunk, TILE_GROUND, 138, 123, 195, 167) # Champion Gundyr Arena
+    fill_tiles(chunk, TILE_GROUND, 156, 177, 223, 225) # Dark Firelink Shrine
+    # Corridors connecting sections
+    fill_tiles(chunk, TILE_GROUND, 51, 45, 95, 78)
+    fill_tiles(chunk, TILE_GROUND, 91, 74, 121, 110)
+    fill_tiles(chunk, TILE_GROUND, 117, 106, 152, 132)
+    fill_tiles(chunk, TILE_GROUND, 148, 128, 168, 147)
+    fill_tiles(chunk, TILE_GROUND, 164, 143, 192, 203)
+
     snap_entities_to_walkable(chunk, entities)
 
     populate_entity_def_uids(entities)
@@ -20103,7 +19771,7 @@ def make_untended_graves():
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
     # print(f"  UntendedGraves (faithful DS3 layout) "
     # f"ground={pct:.1f}% connectivity={coverage}%")
     return "UntendedGraves", chunk, entities
@@ -20435,59 +20103,6 @@ def make_archdragon_peak():
 
     # --- Enemies (DS3 Archdragon Peak: dense Serpent-Men, Summoners, Drakeblood Knights,
     # Havel Knight, Rock Lizards, Wyvern) ---
-    enemy_data = [
-        # Serpent-Men — main enemy throughout the peak
-        # DS3 walkthrough: 2 at entry, several fire-casters, 2 on overhang, many in buildings,
-        # 3 big ones at end before altar — total ~23 Serpent-Men across the peak
-        # Mountain entry — 2 guarding the path
-        ("SerpentMan", 22, 115), ("SerpentMan", 28, 120),
-        # Serpent barracks — fire-casting group and patrols
-        ("SerpentMan", 38, 98), ("SerpentMan", 45, 108), ("SerpentMan", 42, 102),
-        ("SerpentMan", 48, 95), ("SerpentMan", 55, 100),
-        # Barracks overhang — 2 on top (wiki: "2 more Man-serpents on top of overhang")
-        ("SerpentMan", 52, 88), ("SerpentMan", 58, 92),
-        # Wyvern arena — dragon bone guards
-        ("SerpentMan", 55, 75), ("SerpentMan", 62, 80), ("SerpentMan", 48, 68),
-        ("SerpentMan", 65, 72), ("SerpentMan", 72, 78),
-        # Dragon-Kin Mausoleum — interior guards
-        ("SerpentMan", 68, 58), ("SerpentMan", 80, 48), ("SerpentMan", 75, 55),
-        ("SerpentMan", 85, 50),
-        # Mausoleum side room (wiki: "2 Man-serpents in room leading out")
-        ("SerpentMan", 90, 45), ("SerpentMan", 92, 48),
-        # Storm path — patrols along the ridge
-        ("SerpentMan", 95, 35), ("SerpentMan", 100, 42), ("SerpentMan", 105, 38),
-        # Great Belfry area — guarding the bell tower approach
-        ("SerpentMan", 108, 28), ("SerpentMan", 118, 25), ("SerpentMan", 115, 30),
-        # Path to altar — 3 big Serpent-Men (wiki: "three big ones" before altar)
-        ("SerpentMan", 120, 75), ("SerpentMan", 135, 28), ("SerpentMan", 125, 72),
-        # Altar approach — additional guards
-        ("SerpentMan", 130, 35), ("SerpentMan", 132, 40),
-        # Serpent-Man Summoners (DarkMage type — they cast spells and summon NPC phantoms)
-        # DS3: Serpent-Man Sorcerers in upper rooms (Dragonkin Mausoleum + Belfry)
-        ("DarkMage", 72, 52), ("DarkMage", 85, 42), ("DarkMage", 98, 45),
-        # Rock Lizards — passive lizard enemies found throughout peak (DS3: ~6-8)
-        ("RockLizard", 35, 110), ("RockLizard", 42, 95),
-        ("RockLizard", 118, 20), ("RockLizard", 130, 25),
-        ("RockLizard", 142, 85), ("RockLizard", 112, 72),
-        ("RockLizard", 148, 95),
-        # Regular Crystal Lizards — drop titanite
-        ("CrystalLizard", 50, 72), ("CrystalLizard", 28, 118),
-        # Drakeblood Knights (Knight type) — summoned by Serpent-Man Summoners
-        # DS3: Drakeblood Knight + Ricard can be summoned by the sorcerers
-        ("DrakebloodKnight", 110, 30), ("DrakebloodKnight", 142, 88),
-        ("DrakebloodKnight", 78, 52),                                     # Additional summoned knight
-        # Havel Knight — appears at Great Belfry area (DS3: tough NPC near fallen wyvern)
-        ("HavelKnight", 128, 70),
-        # Lower peak Q(1,1) — Serpent-Men guarding the altar descent (DS3: serpent-men in lower ruins)
-        ("SerpentMan", 146, 83), ("SerpentMan", 144, 87),
-        ("SerpentMan", 137, 91), ("SerpentMan", 132, 95),
-        ("SerpentMan", 149, 99), ("SerpentMan", 142, 111),
-        ("DarkMage", 153, 107), ("SerpentMan", 122, 115),
-        # Ancient Wyvern — DS3: sleeps on bridge, must be sniped or dropped onto
-        # Two wyverns in the dragon-path area; MiniBoss fits the "dragon" role
-        ("MiniBoss", 55, 66),                                   # Ancient Wyvern (bridge)
-        ("MiniBoss", 62, 76),                                   # Wyvern (path approach)
-    ]
 
     # --- Items — DS3 Archdragon Peak (complete per wiki walkthrough) ---
     items = [
@@ -20563,15 +20178,15 @@ def make_archdragon_peak():
     for tx, ty in [(22, 115), (28, 120), (38, 98), (45, 108), (42, 102), (48, 95), (55, 100), (52, 88), (58, 92), (55, 75), (62, 80), (48, 68), (65, 72), (72, 78), (68, 58), (80, 48), (75, 55), (85, 50), (90, 45), (92, 48), (95, 35), (100, 42), (105, 38), (108, 28), (118, 25), (115, 30), (120, 75), (135, 28), (125, 72), (130, 35), (132, 40), (146, 83), (144, 87), (137, 91), (132, 95), (149, 99), (142, 111), (122, 115)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
             [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SerpentMan", "SerpentMan"))]))
-    # DarkMage (4)
+    # SerpentManSummoner (4 â DS3: casts spells from elevated positions in mausoleum/belfry)
     entities.append(make_entity("Enemy", 72 * 16, 52 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SerpentManSummoner", "DarkMage"))]))
     entities.append(make_entity("Enemy", 85 * 16, 42 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SerpentManSummoner", "DarkMage"))]))
     entities.append(make_entity("Enemy", 98 * 16, 45 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SerpentManSummoner", "DarkMage"))]))
     entities.append(make_entity("Enemy", 153 * 16, 107 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SerpentManSummoner", "DarkMage"))]))
     # RockLizard (7)
     for tx, ty in [(35, 110), (42, 95), (118, 20), (130, 25), (142, 85), (112, 72), (148, 95)]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
@@ -21289,7 +20904,7 @@ def make_archdragon_peak():
     coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
     ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
                        if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (CHUNK_SIZE * CHUNK_SIZE) * 100
+    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
     # print(f"  ArchdragonPeak (faithful DS3 layout) "
     # f"ground={pct:.1f}% connectivity={coverage}%")
     return "ArchdragonPeak", chunk, entities
