@@ -12251,6 +12251,24 @@ def make_irithyll_dungeon():
         for ty in range(65, 81):
             chunk[tx][ty] = TILE_WALL
     
+    # CRITICAL: Cell block connections (must be last terrain operations)
+    # Connect upper cell blocks to main corridor
+    fill_tiles(chunk, TILE_GROUND, 15, 8, 25, 25)      # Upper entry cells
+    fill_tiles(chunk, TILE_GROUND, 15, 28, 28, 40)      # Upper cells row 2
+    fill_tiles(chunk, TILE_GROUND, 15, 38, 28, 50)      # Upper cells row 3
+    fill_tiles(chunk, TILE_GROUND, 15, 48, 28, 60)      # Upper cells row 4
+    fill_tiles(chunk, TILE_GROUND, 15, 58, 28, 70)      # Upper cells row 5
+    fill_tiles(chunk, TILE_GROUND, 15, 68, 30, 80)      # Upper cells row 6
+    fill_tiles(chunk, TILE_GROUND, 15, 78, 28, 90)      # Lower cells row 7
+    fill_tiles(chunk, TILE_GROUND, 15, 88, 28, 98)      # Lower cells row 8
+    # Connect disconnected cell blocks to main corridors
+    fill_tiles(chunk, TILE_GROUND, 140, 90, 175, 115)   # Upper right block to main
+    fill_tiles(chunk, TILE_GROUND, 152, 180, 190, 220)   # Lower right block to main
+    fill_tiles(chunk, TILE_GROUND, 19, 10, 30, 15)      # Entry cells to corridor
+    fill_tiles(chunk, TILE_GROUND, 19, 25, 30, 35)      # Cell block link
+    fill_tiles(chunk, TILE_GROUND, 19, 45, 30, 55)      # Cell block link
+    fill_tiles(chunk, TILE_GROUND, 19, 65, 30, 75)      # Cell block link
+
     # --- DS3 faithful enemies (IrithyllDungeon) ---
     # Jailer (20)
     for tx, ty in [(22, 20), (35, 30), (48, 38), (25, 25), (32, 32), (42, 28), (58, 42), (55, 55), (60, 60), (68, 52), (48, 58), (62, 65), (70, 58), (58, 70), (65, 68), (88, 55), (95, 62), (85, 85), (95, 90), (82, 90)]:
