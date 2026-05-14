@@ -972,8 +972,9 @@ def make_cemetery_of_ash():
     # firebomb cliff → Gundyr approach → arena.
 
     # --- DS3 faithful enemies (CemeteryOfAsh) ---
-    # DS3 enemies: Hollow (ashen hollow soldiers), Starved Hound, Crystal Lizard
-    # HollowSoldier (9) — DS3: ashen hollow soldiers patrol the cemetery paths
+    # DS3 wiki enemies: Grave Warden, Ravenous Crystal Lizard
+    # Drops: Cleric's Sacred Chime, Fading Soul (from Grave Wardens)
+    # GraveWarden (9) — DS3: hooded wardens patrol cemetery paths (swords + crossbows)
     for tx, ty in [
         (40, 152),  # first enemy near coffin
         (56, 152),  # cemetery path right of start
@@ -986,12 +987,8 @@ def make_cemetery_of_ash():
         (82, 62),   # Gundyr approach archway
     ]:
         entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier"))]))
-    # StarvedHound (2) — DS3: dogs in cemetery near fountain and approach
-    for tx, ty in [(78, 116), (50, 86)]:
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    # RavenousCrystalLizard (1) — in the side ravine
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GraveWarden", "CathedralGraveWarden"))]))
+    # RavenousCrystalLizard (1) — in the side ravine, drops Titanite Scale
     entities.append(make_entity("Enemy", 136 * 16, 108 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("RavenousCrystalLizard", "CrystalLizard"))]))
 
@@ -1706,13 +1703,20 @@ def make_firelink_shrine():
 
     
     # --- DS3 faithful enemies (FirelinkShrine) ---
-    # DS3: Firelink Shrine is a safe hub. Only exterior has:
-    # Sword Master (hostile NPC) and Crystal Lizard on rafters.
-    # No Grave Wardens or Starved Hounds in Firelink Shrine.
-    # SwordMaster (1) — DS3: hostile NPC patrolling exterior stairs
+    # DS3 wiki enemies: Crystal Lizard, Grave Warden, Starved Hound, Sword Master
+    # Walkthrough: "undead dog" near right side, "two hollows" on stairs (Grave Wardens)
+    # Drops: Cleric's Sacred Chime, Fading Soul (from Grave Wardens)
+    # SwordMaster (1) — DS3: hostile NPC patrolling exterior stairs near grave area
     entities.append(make_entity("Enemy", 68 * 16, 110 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("SwordMaster", "Assassin"))]))
-    # CrystalLizard (1) — DS3: on tower rafter area
+    # GraveWarden (2) — DS3: two hollows on stairs right of exterior
+    for tx, ty in [(82, 102), (90, 98)]:
+        entities.append(make_entity("Enemy", tx * 16, ty * 16,
+            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("GraveWarden", "CathedralGraveWarden"))]))
+    # StarvedHound (1) — DS3: undead dog near right exterior path, guards Ember pickup
+    entities.append(make_entity("Enemy", 112 * 16, 108 * 16,
+        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
+    # CrystalLizard (1) — DS3: on tower rafter area, drops Twinkling Titanite
     entities.append(make_entity("Enemy", 122 * 16, 62 * 16,
         [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
 
