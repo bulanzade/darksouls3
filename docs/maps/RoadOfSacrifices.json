@@ -744,27 +744,30 @@
     },
     {
       "kind": "Consumable",
-      "name_en": "Gold Pine Bundle",
-      "x": 932,
-      "y": 897
-    },
-    {
-      "kind": "Consumable",
-      "name_en": "Gold Pine Bundle",
-      "x": 565,
-      "y": 932
-    },
-    {
-      "kind": "Consumable",
-      "name_en": "Gold Pine Bundle",
-      "x": 555,
-      "y": 337
-    },
-    {
-      "kind": "Consumable",
       "name_en": "Bloodred Moss Clump",
       "x": 402,
       "y": 976
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Twin Dragon Greatshield",
+      "x": 2000,
+      "y": 1200,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Sorcerer Set",
+      "x": 1400,
+      "y": 800,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Conjurator Set",
+      "x": 1800,
+      "y": 1800,
+      "value": 0
     }
   ],
   "chests": [],

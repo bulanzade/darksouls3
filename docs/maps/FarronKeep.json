@@ -818,13 +818,6 @@
       "value": 20000
     },
     {
-      "kind": "Consumable",
-      "name_en": "Wolf's Blood",
-      "x": 3200,
-      "y": 2600,
-      "value": 0
-    },
-    {
       "kind": "SoulOrb",
       "name_en": "Soul of the Blood of the Wolf",
       "x": 4400,
@@ -937,6 +930,55 @@
       "y": 3460,
       "value": 0,
       "note": "Dropped by Abyss Watchers"
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Gold Pine Bundle",
+      "x": 1200,
+      "y": 1400,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Gold Pine Bundle",
+      "x": 1600,
+      "y": 1800,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Gold Pine Bundle",
+      "x": 2000,
+      "y": 1200,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Gold Pine Bundle",
+      "x": 2400,
+      "y": 1600,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Gold Pine Bundle",
+      "x": 2800,
+      "y": 2000,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Black Bug Pellet",
+      "x": 1400,
+      "y": 1600,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Black Bug Pellet",
+      "x": 2200,
+      "y": 1800,
+      "value": 0
     }
   ],
   "chests": [],

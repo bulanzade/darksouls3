@@ -645,13 +645,6 @@
       "value": 0
     },
     {
-      "kind": "SoulOrb",
-      "name_en": "Soul of a Deserted Corpse",
-      "x": 700,
-      "y": 650,
-      "value": 200
-    },
-    {
       "kind": "TitaniteShard",
       "name_en": "Titanite Shard",
       "x": 900,
@@ -677,13 +670,6 @@
       "name_en": "Deep Ring",
       "x": 2000,
       "y": 2100,
-      "value": 0
-    },
-    {
-      "kind": "ArmorDrop",
-      "name_en": "Cathedral Knight Set",
-      "x": 2700,
-      "y": 1650,
       "value": 0
     },
     {
@@ -911,12 +897,6 @@
       "y": 1777
     },
     {
-      "kind": "Consumable",
-      "name_en": "Deep Gem",
-      "x": 1870,
-      "y": 1758
-    },
-    {
       "kind": "RingDrop",
       "name_en": "Poisonbite Ring",
       "x": 1125,
@@ -959,6 +939,125 @@
       "name_en": "Archdeacon Set",
       "x": 3080,
       "y": 3500,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Fading Soul",
+      "x": 1200,
+      "y": 1600,
+      "value": 50
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Nameless Soldier",
+      "x": 1800,
+      "y": 2000,
+      "value": 800
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Barbed Straight Sword",
+      "x": 2400,
+      "y": 1800,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dung Pie",
+      "x": 1600,
+      "y": 2200,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dung Pie",
+      "x": 2000,
+      "y": 2400,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dung Pie",
+      "x": 2800,
+      "y": 1800,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Duel Charm",
+      "x": 1400,
+      "y": 1800,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Duel Charm",
+      "x": 2200,
+      "y": 2000,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Duel Charm",
+      "x": 3000,
+      "y": 2200,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Repair Powder",
+      "x": 1000,
+      "y": 2400,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Repair Powder",
+      "x": 2600,
+      "y": 1600,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Red Bug Pellet",
+      "x": 1200,
+      "y": 2000,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Red Bug Pellet",
+      "x": 1800,
+      "y": 1600,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Red Bug Pellet",
+      "x": 2400,
+      "y": 2200,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Rusted Coin",
+      "x": 2800,
+      "y": 2400,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 3200,
+      "y": 2000,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 3400,
+      "y": 1600,
       "value": 0
     }
   ],
