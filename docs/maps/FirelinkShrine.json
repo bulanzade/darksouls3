@@ -126,14 +126,39 @@
   "boss": null,
   "enemies": [
     {
-      "kind": "Assassin",
-      "x": 1088,
-      "y": 1760
+      "kind": "GraveWarden",
+      "x": 1160,
+      "y": 1780
+    },
+    {
+      "kind": "GraveWarden",
+      "x": 1340,
+      "y": 1860
+    },
+    {
+      "kind": "GraveWarden",
+      "x": 1400,
+      "y": 1740
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 1200,
+      "y": 1860
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 1300,
+      "y": 1900
     },
     {
       "kind": "CrystalLizard",
-      "x": 1952,
-      "y": 992
+      "x": 960,
+      "y": 1680
+    },
+    {
+      "kind": "SwordMaster",
+      "x": 1280,
+      "y": 1720
     }
   ],
   "items": [
@@ -209,6 +234,48 @@
       "name_en": "Seed of a Giant Tree",
       "x": 1120,
       "y": 1700
+    },
+    {
+      "kind": "Ember",
+      "name_en": "Ember",
+      "x": 1080,
+      "y": 1760
+    },
+    {
+      "kind": "Ember",
+      "name_en": "Ember",
+      "x": 1400,
+      "y": 1720
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "East-West Shield",
+      "x": 1140,
+      "y": 1740
+    },
+    {
+      "kind": "HomewardBone",
+      "name_en": "Homeward Bone",
+      "x": 1160,
+      "y": 1720
+    },
+    {
+      "kind": "HomewardBone",
+      "name_en": "Homeward Bone",
+      "x": 1240,
+      "y": 1760
+    },
+    {
+      "kind": "HomewardBone",
+      "name_en": "Homeward Bone",
+      "x": 1300,
+      "y": 1800
+    },
+    {
+      "kind": "HomewardBone",
+      "name_en": "Homeward Bone",
+      "x": 1360,
+      "y": 1840
     }
   ],
   "chests": [
@@ -228,8 +295,8 @@
       "name": "防火女",
       "name_en": "Fire Keeper",
       "kind": "LevelUp",
-      "x": 1240,
-      "y": 960,
+      "x": 1280,
+      "y": 1024,
       "color": "#FFFFFF",
       "dialogue": [
         "Welcome to the bonfire, Unkindled One.",
@@ -241,14 +308,15 @@
     {
       "name": "库尔兰的鲁道斯",
       "name_en": "Ludleth of Courland",
-      "kind": "Dialogue",
-      "x": 1320,
-      "y": 1024,
+      "kind": "Merchant",
+      "x": 1400,
+      "y": 960,
       "color": "#DAA520",
       "dialogue": [
-        "Peace. I am Ludleth of Courland.",
-        "Let me ask you this. Is it not the nature of a Lord, to sacrifice himself for his people?",
-        "Ah, it singeth, to the bone."
+        "Oh, thou'rt unkindled, and a seeker of Lords. I am Ludleth of Courland. Look not in bewilderment as I say... I linked the fire long ago, becoming a Lord of Cinder. If substantiation be thy want, set thine eyes upon my charred corse. This sad cadav'r. No need to be coy, have a closer look.",
+        "Fret not, fret not. My feet are here firmly planted. For I am a Lord, and this is my throne.",
+        "Knowest thou of our purpose? Five thrones will take five Lords, as kindling for the linking of the Fire. The fast fading Flame must be linked to preserve this world. A re-enactment of the first linking of the fire. So it is, I became a Lord of Cinder. I may be but small, but I will die a colossus.",
+        "Treat the Fire Keeper not with discourtesy. She is much like thee. Prisoners, both, kept to link the fire."
       ]
     },
     {
@@ -259,9 +327,9 @@
       "y": 1080,
       "color": "#C0C0C0",
       "dialogue": [
-        "What do you need? A weapon? I'll smith it.",
-        "Name's Andre, and I smith weapons.",
-        "I can smith most anything. Blades, shields, armour. The whole lot."
+        "Well, a newcomer I see. I am Andre, I serve in this shrine as a humble smith forging new weapons. You're in search of the Lords of Cinder, I trust? A toilsome journey, I wager. You'll require good arms. Let me smith y' weapons. I am a smith, such is my purpose.",
+        "Prithee, be careful. I don't want to see m' work squandered!",
+        "There are two ways to smith weapons. Simple reinforcement is one, and infusion the other. Reinforcement strengthens a weapon without altering its property. Infusion infuses an element. Reinforcement requires titanite, and infusion requires gems. Bring the stones and I'll do the smithing."
       ]
     },
     {
@@ -272,64 +340,22 @@
       "y": 1080,
       "color": "#8B7355",
       "dialogue": [
-        "What is it? Buy something",
-        "I'll trade your souls for these goods",
-        "Visit again"
+        "A pleasure to make your acquaintance, Ashen One. I am but a humble handmaiden of the shrine. Weapons, armor, trinkets, and spells... I've lots of little things to ease the burden of a weary traveller. And yes, I'm Undead, too, but not so charitable as to give my goods away. Ashen One, fetch souls, and bring them to me.",
+        "Ah well met, ashen one. How may I be of service?",
+        "Ashen one, be sure to bring more souls."
       ]
     },
     {
       "name": "霍克伍德",
       "name_en": "Hawkwood",
       "kind": "Dialogue",
-      "x": 1400,
-      "y": 1100,
+      "x": 1340,
+      "y": 1300,
       "color": "#7F8C8D",
       "dialogue": [
-        "Oh, another Unkindled.",
-        "What do you want? I have nothing for you.",
-        "The Undead Legion of Farron. They were a fierce bunch."
-      ]
-    },
-    {
-      "name": "尤莉亚",
-      "name_en": "Yuria of Londor",
-      "kind": "Dialogue",
-      "x": 1824,
-      "y": 1216,
-      "color": "#2A1A3A",
-      "dialogue": [
-        "I am Yuria of Londor, a servant of the Lord of Hollows.",
-        "Thou art the Lord of Hollows.",
-        "The fire bendeth to thy will.",
-        "Let us embrace the age of hollows, together."
-      ]
-    },
-    {
-      "name": "指头的列奥纳德",
-      "name_en": "Ringfinger Leonhard",
-      "kind": "Dialogue",
-      "x": 1472,
-      "y": 1452,
-      "color": "#8B0000",
-      "dialogue": [
-        "You have a good look.",
-        "I am Leonhard. I have a proposition for you.",
-        "Take this Cracked Red Eye Orb.",
-        "Invade and pillage the souls of others."
-      ]
-    },
-    {
-      "name": "尤艾尔",
-      "name_en": "Yoel of Londor",
-      "kind": "Dialogue",
-      "x": 896,
-      "y": 1408,
-      "color": "#3A3A4A",
-      "dialogue": [
-        "I am Yoel of Londor. A pilgrim, as they call me.",
-        "I can draw out your true strength.",
-        "Come. Touch the darkness within me.",
-        "Take nourishment from these sovereignless souls."
+        "Ahhh, another one, roused from the sleep of death? Well, you're not alone. We Unkindled are worthless. Can't even die right. Gives me conniptions. And they'd have us seek the Lords of Cinder, and return them to their moulding thrones. But we're talking true legends with the mettle to link the fire. We're not fit to lick their boots. Don't you think?",
+        "The poor wretched souls... Be they lord or legend, the curse shows no mercy. What a shame.",
+        "Ooh, yet to give in, eh? Good. The Fire Keeper must be singing with delight. But what do you really know about these Lords of Cinder, these supposed legends? Let's take Aldrich, for one. A right and proper cleric, only, he developed a habit of devouring men. He ate so many that he bloated like a drowned pig, then softened into sludge, so they stuck him in the Cathedral of the Deep. And they made him a Lord of Cinder. Not for virtue, but for might. Such is a lord, I suppose. But here I ask. Do we have a sodding chance?"
       ]
     },
     {
@@ -340,80 +366,171 @@
       "y": 1472,
       "color": "#5A5A5A",
       "dialogue": [
-        "I am Greirat of the Undead Settlement.",
-        "You saved me from that cell. I owe you everything.",
-        "I can steal items for you, if you like.",
-        "Just leave it to old Greirat."
+        "Ahh, you're no jailer, are you? No, no, you're from far, far away... How unlikely. I am Greirat. Greirat of the Undead Settlement. Below the High Wall is a musty little town. An old woman, Loretta, lives there. Please give her this ring.",
+        "Ahh... Loretta... She's dead, then... I see... I see... Thank you. You've kept your end of the bargain. So I'll keep mine. I am Greirat of the Undead Settlement, and I promise to assist you. I'll find things of use, and offer them at a fair price. Ahh, Loretta, rest in peace...",
+        "Leave the small pickings to old Greirat. I'll find things of use, and offer them at a fair price. I am a thief, after all."
+      ]
+    },
+    {
+      "name": "尤艾尔",
+      "name_en": "Yoel of Londor",
+      "kind": "Dialogue",
+      "x": 960,
+      "y": 1320,
+      "color": "#3A3A4A",
+      "dialogue": [
+        "Ohh... Ohh, then it's true... A Champion of Ash, as I live and breathe. To be in your presence is a great honour. I am Yoel of Londor, a pilgrim as you can see, only... Somehow, I've failed to die as was ordained. Well, perhaps my calling lies elsewhere. Say, Champion of Ash, how does the idea of taking me into your service strike you?",
+        "Oh, our Champion of Ash, welcome home. This pilgrim, with a debt in death, hardly deserves to behold this divine flame. And I never would have, had you not taken me into your service. I thank you dearly for this... And assure you of my leal service.",
+        "As I have said, I was once a sorcerer. But more importantly... I believe that I can help tease out your true strength. We pilgrims of Londor are keenly aware. That those branded by the Darksign possess something quite special...",
+        "Be safe, Champion of Ash."
+      ]
+    },
+    {
+      "name": "伊莉娜",
+      "name_en": "Irina of Carim",
+      "kind": "Merchant",
+      "x": 1887,
+      "y": 962,
+      "color": "#D4C5A0",
+      "dialogue": [
+        "Ahh, who's there? Is someone there, anyone? The dark surrounds me, nibbles at my flesh. Little creatures, they never stop biting. So please, hold out your hand, and touch me...",
+        "Oh, Champion of Ash. Welcome back. I was not meant to be a Fire Keeper, but I am honoured to serve you beside the Bonfire. The gods are ever-merciful. My gratitude lies with them, and with you.",
+        "You know, in my home of Carim, I was a nun. I would be pleased to share the tales of miracles with you. But if I had a divine tome, I could tell you many tales and more.",
+        "Have a pleasant journey, Champion of Ash. I pray for your safety."
       ]
     },
     {
       "name": "科尔尼克斯",
       "name_en": "Cornyx",
       "kind": "Merchant",
-      "x": 1184,
-      "y": 1280,
+      "x": 1100,
+      "y": 600,
       "color": "#8B6914",
       "dialogue": [
-        "I am Cornyx, a pyromancer of the Great Swamp.",
-        "You freed me from my cage, and for that I am grateful.",
-        "Bring me pyromancy tomes, and I shall teach you their arts.",
-        "The flame is a wondrous thing."
+        "Ah-ha, Unkindled are we? Welcome to my abode. I am Cornyx, an old pyromancer. A crow in his cage as you see, now. But here we are, an encounter for the ages! I hear the Unkindled make for fine vessels. Care to learn pyromancies from this old man?",
+        "Ahh, there you are, Unkindled One. I wish to express my gratitude. For trusting a lowly pyromancer, and allowing me to gaze upon this majestic flame. As promised, I will impart pyromancies to you.",
+        "Heed my words, Unkindled One. Fear the fire. The home of pyromancy, Izalith, was scorched by the very fire it created.",
+        "Do not be gone for long. What's a teacher without a pupil?"
       ]
     },
     {
       "name": "维恩海姆的欧贝克",
       "name_en": "Orbeck of Vinheim",
       "kind": "Merchant",
-      "x": 1376,
-      "y": 1184,
+      "x": 1500,
+      "y": 560,
       "color": "#7090B0",
       "dialogue": [
-        "I am Orbeck of Vinheim. A sorcerer, and an assassin.",
-        "I shall teach you sorceries, as promised.",
-        "Bring me scrolls, and I shall decipher them.",
-        "But if you prove talentless, our arrangement ends."
+        "Well, this is unexpected. I don't often have visitors. What do you want? This is my study that you've happened upon.",
+        "Oh, you're back, then. Again, I'm Orbeck of Vinheim, here to teach you sorceries. Let us begin with the basics. The ideal sorcerer bears the twin faces of the dragon...",
+        "I don't mean to seem overbearing, but have you forgotten? In exchange for my sorceries, you are to bring me knowledge. In the form of scrolls detailing the secrets of sorcery.",
+        "Promise to stay safe."
       ]
     },
     {
-      "name": "日蚀的希里斯",
-      "name_en": "Sirris of the Sunless Realms",
-      "kind": "Dialogue",
-      "x": 1568,
-      "y": 1408,
-      "color": "#A0B0C0",
-      "dialogue": [
-        "I am Sirris of the Sunless Realms.",
-        "I have sworn an oath to serve you.",
-        "I shall come to your aid whenever you need.",
-        "Thank you, for accepting my knightly vows."
-      ]
-    },
-    {
-      "name": "イリーナ",
-      "name_en": "Irina of Carim",
+      "name": "卡拉",
+      "name_en": "Karla",
       "kind": "Merchant",
-      "x": 2000,
-      "y": 800,
-      "color": "#D4C5A0",
+      "x": 1200,
+      "y": 1500,
+      "color": "#4A2A5A",
       "dialogue": [
-        "I am Irina of Carim.",
-        "I can teach you miracles, if you bring me tomes.",
-        "The tales of the gods are my specialty.",
-        "Please, I only wish to serve."
+        "Oh, there you are. I thought you'd all but forgotten me. How sweet. Good to know that a skinny little heretic can still turn heads.",
+        "Ahh, there you are. As I said, I am Karla. And am grateful to you. Now, what shall we do. The only thing that might interest you is my sorcery. Although my dark arts are a detestable sort.",
+        "There is one thing that you should know. There is a darkness within man, and I am afraid you will peer into it. Whether the fear will spark self-reflection, or a ruinous nostalgia... is up to you entirely.",
+        "Do stay safe."
       ]
     },
     {
-      "name": "アイゴン",
+      "name": "指头的列奥纳德",
+      "name_en": "Leonhard",
+      "kind": "Dialogue",
+      "x": 1350,
+      "y": 500,
+      "color": "#8B0000",
+      "dialogue": [
+        "Mm, Unkindled, are we... And fast on the trail of the Lords absconded? Then these red eyes are for you. Use them to pillage embers, and briefly heighten your strength, for your duty.",
+        "Well, hasn't it been some time. I'm Leonhard, the Ringfinger. Remember me? I slipped you those red eyes some time ago.",
+        "I can see it in your eyes. If you didn't invade, didn't pillage, whatever would you do?",
+        "Now invade and pillage all you like. And if you grow weary of your duty, you, too, may become a Finger."
+      ]
+    },
+    {
+      "name": "尤莉亚",
+      "name_en": "Yuria of Londor",
+      "kind": "Merchant",
+      "x": 1700,
+      "y": 540,
+      "color": "#2A1A3A",
+      "dialogue": [
+        "Oh, prithee... art thou good Yoel's master? I am Yuria of Londor, a close friend of his. Thanks to thee, Yoel's soul is redeem'd.",
+        "Thou'rt a Lord, art thou not? Bearer of the dark sigil, and our Lord of Hollows. For the time thou remain'st our Lord, we of Londor shall serve thee.",
+        "Our Lord and Liege. Knowest thou of a youth named Anri? He/She is hollow, and will join thee in wedlock. For what Lord taketh no spouse?",
+        "Our Lord of Hollows, it shall be, who weareth the true face of mankind."
+      ]
+    },
+    {
+      "name": "アストラのアンリ",
+      "name_en": "Anri of Astora",
+      "kind": "Dialogue",
+      "x": 1000,
+      "y": 560,
+      "color": "#C0C0C0",
+      "appear_condition": "deacons_defeated",
+      "dialogue": [
+        "Oh. And we meet again. We spoke before on the Road of Sacrifices. Anri of Astora. I am well pleased to see you safe. We reached the Cathedral of the Deep, but Aldrich's coffin was empty. The man-eater must have left for his true home. The little doll in the empty coffin told me. Aldrich is said to hail from Irithyll in the Boreal Valley, an ancient fabled city.",
+        "A pilgrim told me that the city lies beyond Farron Keep. And so becomes our destination..."
+      ]
+    },
+    {
+      "name": "沉默的霍雷斯",
+      "name_en": "Horace the Hushed",
+      "kind": "Dialogue",
+      "x": 1060,
+      "y": 600,
+      "color": "#606060",
+      "appear_condition": "deacons_defeated",
+      "dialogue": [
+        "......",
+        "......"
+      ]
+    },
+    {
+      "name": "卡里的伊果",
       "name_en": "Eygon of Carim",
       "kind": "Dialogue",
-      "x": 2050,
-      "y": 820,
-      "color": "#505050",
+      "x": 1920,
+      "y": 1020,
+      "color": "#5A5A5A",
+      "appear_condition": "abyss_watchers_defeated",
       "dialogue": [
-        "I am Eygon of Carim.",
-        "Keep your hands off the woman.",
-        "She is under my protection.",
-        "Touch her, and you'll lose more than your hand."
+        "Ahh, I know you. Been some time, since we met in person. I just dropped in to see how she's getting on. Now, what are you playing at with this circus? This cesspool of doddering oldfolk and degenerates. Couldn't be better. She must fit in perfectly here."
+      ]
+    },
+    {
+      "name": "不屈不挠的帕奇",
+      "name_en": "Unbreakable Patches",
+      "kind": "Merchant",
+      "x": 1600,
+      "y": 480,
+      "color": "#8B7355",
+      "appear_condition": "cathedral_deep_visited",
+      "dialogue": [
+        "Ah, oh, you, you're alive... Now, hold your horses, let's have a nice talk about this. I'll come clean, I did you wrong. I didn't mean it, though, not one bit. You get these...urges...running the business and all...Oh, and I hate myself for it, I do. You know what I mean? Terrible, really. But I can see you'll forgive me. You're alive, after all, and that's what counts, right?",
+        "Oh fantastic! A wily second chance! I knew you'd understand, I just knew it. The heart of a lion. A model for the rest of us. A true friend, forever.",
+        "Hey, what happened to Greirat, anyhow? I haven't seen him at all lately. If you know where he's scurried off to, be sure and tell me. I need to stock up, and if he's gone and croaked, he'll have left a goldmine."
+      ]
+    },
+    {
+      "name": "腌瓜泵噜乌鸦",
+      "name_en": "Pickle Pee Pump-a-Rum Crow",
+      "kind": "Trade",
+      "x": 600,
+      "y": 240,
+      "color": "#2C2C2C",
+      "dialogue": [
+        "Pickle pee! Pump-a-rum!",
+        "Pickle pee! Pump-a-rum!"
       ]
     }
   ],

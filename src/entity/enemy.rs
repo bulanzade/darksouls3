@@ -46,6 +46,7 @@ pub enum EnemyKind {
     HollowAssassin,
     CathedralGraveWarden,
     Rat,
+    LargeHollowSoldier,
 }
 
 pub struct EnemyBehavior {
@@ -114,6 +115,7 @@ impl EnemyKind {
             Self::HollowAssassin => (200, 30, 110.0, 0.0, 40.0),
             Self::CathedralGraveWarden => (350, 45, 55.0, 0.3, 54.0),
             Self::Rat => (80, 10, 150.0, 0.0, 30.0),
+            Self::LargeHollowSoldier => (350, 40, 45.0, 0.3, 54.0),
             _ => (300, 35, 55.0, 0.0, 48.0), // fallback for base kinds
         }
     }
@@ -157,6 +159,7 @@ impl EnemyKind {
             Self::HollowAssassin => 200,
             Self::CathedralGraveWarden => 350,
             Self::Rat => 30,
+            Self::LargeHollowSoldier => 250,
         }
     }
 }
@@ -1182,6 +1185,7 @@ impl Entity for Enemy {
             EnemyKind::HollowAssassin => (22.0, [0.3, 0.3, 0.35, 1.0]),
             EnemyKind::CathedralGraveWarden => (30.0, [0.3, 0.35, 0.3, 1.0]),
             EnemyKind::Rat => (14.0, [0.45, 0.35, 0.25, 1.0]),
+            EnemyKind::LargeHollowSoldier => (36.0, [0.55, 0.5, 0.45, 1.0]),
             EnemyKind::MiniBoss => (40.0, [0.7, 0.3, 0.2, 1.0]),
         };
         if self.flash_timer > 0.0 {

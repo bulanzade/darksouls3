@@ -107,6 +107,37 @@
         "source_status": "route_landmark_projection"
       },
       {
+        "name": "绘画守护者房间",
+        "name_en": "Painting Guardian Room",
+        "kind": "main",
+        "x": 1300,
+        "y": 1100,
+        "w": 600,
+        "h": 400,
+        "terrain_features": [
+          "wooden_floor",
+          "large_painting",
+          "curved_sword_enemies"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "银骑士弓箭手长廊",
+        "name_en": "Silver Knight Archer Battlements",
+        "kind": "main",
+        "x": 1600,
+        "y": 700,
+        "w": 700,
+        "h": 500,
+        "terrain_features": [
+          "narrow_walkway",
+          "high_battlements",
+          "dragon_bows",
+          "ledge_path"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
         "name": "大教堂前厅",
         "name_en": "Cathedral Antechamber",
         "kind": "main",
@@ -133,6 +164,21 @@
           "stone_railings",
           "narrow_corridor",
           "dark_passage"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "艾尔德利奇深处",
+        "name_en": "Aldrich Depths",
+        "kind": "main",
+        "x": 2480,
+        "y": 1500,
+        "w": 800,
+        "h": 400,
+        "terrain_features": [
+          "deep_water",
+          "sludge_floor",
+          "collapsed_flooring"
         ],
         "source_status": "route_landmark_projection"
       },
@@ -165,18 +211,13 @@
   "enemies": [
     {
       "kind": "SilverKnight",
-      "x": 336,
-      "y": 560
+      "x": 750,
+      "y": 650
     },
     {
       "kind": "SilverKnight",
-      "x": 544,
+      "x": 750,
       "y": 672
-    },
-    {
-      "kind": "SilverKnight",
-      "x": 688,
-      "y": 592
     },
     {
       "kind": "SilverKnight",
@@ -190,203 +231,53 @@
     },
     {
       "kind": "SilverKnight",
-      "x": 768,
-      "y": 800
-    },
-    {
-      "kind": "SilverKnight",
       "x": 1120,
       "y": 704
     },
     {
-      "kind": "SilverKnight",
-      "x": 1312,
-      "y": 608
-    },
-    {
-      "kind": "SilverKnight",
-      "x": 1440,
-      "y": 656
-    },
-    {
-      "kind": "SilverKnight",
-      "x": 1728,
-      "y": 544
-    },
-    {
-      "kind": "SilverKnight",
-      "x": 1904,
-      "y": 576
-    },
-    {
-      "kind": "SilverKnight",
-      "x": 880,
-      "y": 720
-    },
-    {
-      "kind": "SilverKnight",
-      "x": 1088,
-      "y": 640
-    },
-    {
-      "kind": "SilverKnight",
-      "x": 1120,
-      "y": 736
-    },
-    {
-      "kind": "SilverKnight",
-      "x": 2000,
-      "y": 608
-    },
-    {
-      "kind": "SilverKnight",
-      "x": 2160,
-      "y": 704
-    },
-    {
-      "kind": "SilverKnight",
-      "x": 2224,
-      "y": 800
-    },
-    {
-      "kind": "SilverKnight",
-      "x": 432,
-      "y": 768
-    },
-    {
-      "kind": "SilverKnight",
-      "x": 928,
-      "y": 864
-    },
-    {
-      "kind": "SilverKnight",
-      "x": 1040,
-      "y": 880
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 592,
-      "y": 832
-    },
-    {
-      "kind": "ManGrub",
-      "x": 1152,
-      "y": 832
-    },
-    {
-      "kind": "ManGrub",
-      "x": 1216,
-      "y": 768
-    },
-    {
-      "kind": "ManGrub",
-      "x": 2272,
-      "y": 1200
-    },
-    {
-      "kind": "ManGrub",
-      "x": 2368,
-      "y": 1312
-    },
-    {
-      "kind": "ManGrub",
-      "x": 2176,
-      "y": 1088
-    },
-    {
-      "kind": "ManGrub",
+      "kind": "RottenFleshOfAldrich",
       "x": 1984,
       "y": 1408
     },
     {
-      "kind": "ManGrub",
+      "kind": "RottenFleshOfAldrich",
       "x": 2112,
       "y": 1472
     },
     {
-      "kind": "ManGrub",
-      "x": 2080,
-      "y": 1040
-    },
-    {
-      "kind": "ManGrub",
-      "x": 1840,
-      "y": 1152
-    },
-    {
-      "kind": "ManGrub",
+      "kind": "RottenFleshOfAldrich",
       "x": 2240,
       "y": 1520
     },
     {
-      "kind": "ManGrub",
-      "x": 1792,
-      "y": 1280
+      "kind": "RottenFleshOfAldrich",
+      "x": 1970,
+      "y": 1040
     },
     {
-      "kind": "ManGrub",
-      "x": 880,
-      "y": 1360
+      "kind": "Deacon",
+      "x": 2272,
+      "y": 1350
     },
     {
-      "kind": "ManGrub",
-      "x": 1024,
-      "y": 1456
+      "kind": "Deacon",
+      "x": 2368,
+      "y": 1350
     },
     {
-      "kind": "ManGrub",
-      "x": 1104,
-      "y": 1488
-    },
-    {
-      "kind": "ManGrub",
-      "x": 976,
-      "y": 1616
-    },
-    {
-      "kind": "ManGrub",
-      "x": 1248,
-      "y": 832
-    },
-    {
-      "kind": "ManGrub",
-      "x": 1312,
-      "y": 928
-    },
-    {
-      "kind": "ManGrub",
-      "x": 2320,
-      "y": 1408
-    },
-    {
-      "kind": "Assassin",
-      "x": 1424,
-      "y": 576
-    },
-    {
-      "kind": "Assassin",
-      "x": 1472,
-      "y": 640
-    },
-    {
-      "kind": "Assassin",
-      "x": 1520,
-      "y": 624
+      "kind": "Deacon",
+      "x": 2176,
+      "y": 1350
     },
     {
       "kind": "DeepAccursed",
       "x": 1584,
-      "y": 640
+      "y": 870
     },
     {
-      "kind": "CrystalLizard",
-      "x": 896,
-      "y": 1344
-    },
-    {
-      "kind": "MiniBoss",
-      "x": 2048,
-      "y": 1248
+      "kind": "GiantSlave",
+      "x": 940,
+      "y": 960
     }
   ],
   "items": [
@@ -423,14 +314,7 @@
       "name_en": "Moonlight Arrow",
       "x": 2580,
       "y": 1680,
-      "value": 0
-    },
-    {
-      "kind": "Consumable",
-      "name_en": "Moonlight Arrow",
-      "x": 2610,
-      "y": 1710,
-      "value": 0
+      "count": 5
     },
     {
       "kind": "RingDrop",
@@ -467,6 +351,14 @@
       "y": 2120,
       "value": 0,
       "note": "Boss soul from Aldrich, Devourer of Gods"
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Cinders of a Lord",
+      "x": 2720,
+      "y": 2120,
+      "value": 0,
+      "note": "Dropped by Aldrich"
     }
   ],
   "chests": [
@@ -486,14 +378,12 @@
       "name": "Anri of Astora",
       "name_en": "Anri of Astora",
       "kind": "Dialogue",
-      "x": 2740,
-      "y": 2040,
+      "x": 2350,
+      "y": 1850,
       "color": "#d0d0ff",
       "dialogue": [
-        "Oh, hello. We meet again.",
-        "Aldrich, Devourer of Gods... I must put him down.",
-        "If you would, help me defeat Aldrich. Please.",
-        "I have waited long for this."
+        "Ahh, I thought it might be you. No, this only bolsters my resolve. Please. Lend me your strength. Help me vanquish Aldrich, the man-eating fiend.",
+        "I owe this to you. Thank you. Truly. Horace, we've done it. We really have..."
       ]
     },
     {
@@ -504,10 +394,10 @@
       "y": 1560,
       "color": "#E0E8F0",
       "dialogue": [
-        "I am Yorshka, Captain of the Darkmoon Knights.",
-        "The Darkmoon remains true to its duty.",
-        "Blade of the Darkmoon, I name thee.",
-        "May the Moonlight guide thy blade."
+        "Name thyself, stranger. I am Yorshka, Captain of the Darkmoon Knights. What beckoned thee to such a place?",
+        "Thou think'st to join us? Very well. Captain to this knightless company, I remain. I will grant thee purpose. Thou'rt now a Blade of the Darkmoon. The only knight of our company.",
+        "Long ago, our father Gwyn, lamenting the waning of the fire, became cinder of his own will. Now, the fire is linked, by the champions who have come in his stead. Such is the will of father, and the gods. And so the Darkmoon knights took arms, to watch over those who link the fire.",
+        "The Darkmoon Knights were once led by my elder brother, the Dark Sun Gwyndolin. But he was stricken by illness, and leadership of the knights fell to me. Then Sulyvahn wrongfully proclaimed himself Pontiff, and took me prisoner."
       ]
     }
   ],

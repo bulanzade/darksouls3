@@ -285,6 +285,38 @@
         "source_status": "route_landmark_projection"
       },
       {
+        "name": "黑骑士庭院",
+        "name_en": "Black Knight Courtyard",
+        "kind": "main",
+        "x": 2200,
+        "y": 2600,
+        "w": 600,
+        "h": 500,
+        "terrain_features": [
+          "dark_courtyard",
+          "broken_pillars",
+          "ash_covered_ground",
+          "black_knight_patrol"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "暗祭祀场外部",
+        "name_en": "Dark Firelink Exterior",
+        "kind": "main",
+        "x": 2600,
+        "y": 2700,
+        "w": 700,
+        "h": 500,
+        "terrain_features": [
+          "dark_stone_path",
+          "dead_trees",
+          "collapsing_wall",
+          "dark_sky"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
         "name": "暗传火祭祀场",
         "name_en": "Dark Firelink Shrine",
         "kind": "main",
@@ -349,24 +381,14 @@
       "y": 3200
     },
     {
-      "kind": "CathedralGraveWarden",
+      "kind": "StarvedHound",
       "x": 1520,
       "y": 1280
     },
     {
-      "kind": "CathedralGraveWarden",
+      "kind": "StarvedHound",
       "x": 1600,
       "y": 1360
-    },
-    {
-      "kind": "CathedralGraveWarden",
-      "x": 800,
-      "y": 720
-    },
-    {
-      "kind": "CathedralGraveWarden",
-      "x": 880,
-      "y": 800
     },
     {
       "kind": "StarvedHound",
@@ -374,64 +396,69 @@
       "y": 880
     },
     {
-      "kind": "StarvedHound",
+      "kind": "BlackKnight",
       "x": 1040,
       "y": 960
     },
     {
-      "kind": "StarvedHound",
+      "kind": "BlackKnight",
       "x": 1360,
       "y": 1120
     },
     {
-      "kind": "StarvedHound",
-      "x": 1440,
-      "y": 1200
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 1760,
-      "y": 1600
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 2080,
-      "y": 1920
-    },
-    {
-      "kind": "Assassin",
-      "x": 560,
+      "kind": "PusOfMan",
+      "x": 860,
       "y": 560
     },
     {
-      "kind": "Assassin",
-      "x": 640,
-      "y": 608
+      "kind": "Corvian",
+      "x": 620,
+      "y": 580
     },
     {
-      "kind": "Assassin",
-      "x": 720,
-      "y": 672
+      "kind": "Corvian",
+      "x": 660,
+      "y": 620
     },
     {
-      "kind": "DarkMage",
+      "kind": "Corvian",
+      "x": 680,
+      "y": 660
+    },
+    {
+      "kind": "Corvian",
       "x": 672,
       "y": 640
     },
     {
-      "kind": "PusOfMan",
-      "x": 1280,
-      "y": 1040
-    },
-    {
-      "kind": "CrystalLizard",
+      "kind": "RavenousCrystalLizard",
       "x": 1680,
       "y": 1200
     },
     {
-      "kind": "CrystalLizard",
+      "kind": "RavenousCrystalLizard",
       "x": 1760,
       "y": 1280
+    },
+    {
+      "kind": "CorvianStoryteller",
+      "x": 1800,
+      "y": 1200
+    },
+    {
+      "kind": "CathedralGraveWarden",
+      "x": 1200,
+      "y": 1040
+    },
+    {
+      "kind": "CathedralGraveWarden",
+      "x": 1400,
+      "y": 1100
+    },
+    {
+      "kind": "CathedralGraveWarden",
+      "x": 1600,
+      "y": 1060
     }
   ],
   "items": [
@@ -459,8 +486,8 @@
     {
       "kind": "RingDrop",
       "name_en": "Ashen Estus Ring",
-      "x": 1280,
-      "y": 1040,
+      "x": 1300,
+      "y": 1020,
       "value": 0
     },
     {
@@ -526,6 +553,20 @@
       "y": 2160,
       "value": 0,
       "note": "Boss soul from Champion Gundyr"
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Wolf Knight Set",
+      "x": 600,
+      "y": 1800,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Hollow's Ashes",
+      "x": 500,
+      "y": 1600,
+      "value": 0
     }
   ],
   "chests": [],
@@ -538,9 +579,9 @@
       "y": 3220,
       "color": "#606060",
       "dialogue": [
-        "What is it?",
-        "The fire has long been out.",
-        "I will tend to the ash."
+        "Well, fancy that. A lost lamb wandereth in, with nary a peep from the bell. Well, thou shouldst my purpose know. What can this old handmaid provide thee?",
+        "To skirt the curse's grasp... tarry not for long. Tis dark for now, and not a soul stirs. But remember, fires are known to fade in quiet.",
+        "Best not tarry long."
       ]
     },
     {
@@ -551,9 +592,7 @@
       "y": 1520,
       "color": "#4A6A8A",
       "dialogue": [
-        "I am Kriemhild, daughter of crystal.",
-        "The dark is not to be feared.",
-        "It is merely the absence of fire."
+        "(No dialogue - invader does not speak)"
       ]
     }
   ],

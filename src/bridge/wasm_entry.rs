@@ -416,6 +416,9 @@ pub(crate) enum NpcKind {
     Merchant,     // Buy items with souls
     Blacksmith,   // Upgrade weapons
     Dialogue,     // Story NPC — no shop
+    Summon,       // NPC summon sign
+    Hostile,      // Hostile NPC (attacks on sight)
+    Invader,      // NPC invader
 }
 
 pub(crate) struct FogGate {
@@ -1719,6 +1722,7 @@ pub(crate) fn load_area(game: &mut Game, area: AreaId) {
                 EnemySpawnKind::HollowAssassin => Enemy::new_ds3(id, s.x, s.y, EnemyKind::HollowAssassin),
                 EnemySpawnKind::CathedralGraveWarden => Enemy::new_ds3(id, s.x, s.y, EnemyKind::CathedralGraveWarden),
                 EnemySpawnKind::Rat => Enemy::new_ds3(id, s.x, s.y, EnemyKind::Rat),
+                EnemySpawnKind::LargeHollowSoldier => Enemy::new_ds3(id, s.x, s.y, EnemyKind::LargeHollowSoldier),
             }
         }).collect();
 
@@ -1764,6 +1768,9 @@ pub(crate) fn load_area(game: &mut Game, area: AreaId) {
                 NpcSpawnKind::Merchant => NpcKind::Merchant,
                 NpcSpawnKind::Blacksmith => NpcKind::Blacksmith,
                 NpcSpawnKind::Dialogue => NpcKind::Dialogue,
+                NpcSpawnKind::Summon => NpcKind::Summon,
+                NpcSpawnKind::Hostile => NpcKind::Hostile,
+                NpcSpawnKind::Invader => NpcKind::Invader,
             };
             Npc { x: s.x, y: s.y, name: s.name, color: s.color, dialogue: s.dialogue, dialogue_index: 0, talking: false, kind }
         }).collect();

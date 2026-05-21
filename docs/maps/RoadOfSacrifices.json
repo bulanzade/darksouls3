@@ -162,7 +162,6 @@
         "h": 560,
         "terrain_features": [
           "forest path to Cathedral",
-          "Black Knight patrol",
           "dense trees",
           "ruined archway"
         ],
@@ -180,279 +179,264 @@
   },
   "enemies": [
     {
-      "kind": "Assassin",
-      "x": 400,
-      "y": 320
+      "kind": "Corvian",
+      "x": 380,
+      "y": 340
     },
     {
-      "kind": "Assassin",
-      "x": 560,
-      "y": 384
+      "kind": "Corvian",
+      "x": 460,
+      "y": 380
     },
     {
-      "kind": "Assassin",
-      "x": 448,
-      "y": 352
+      "kind": "Corvian",
+      "x": 540,
+      "y": 420
     },
     {
-      "kind": "Assassin",
-      "x": 896,
-      "y": 560
+      "kind": "Corvian",
+      "x": 640,
+      "y": 480
     },
     {
-      "kind": "Assassin",
-      "x": 992,
+      "kind": "Corvian",
+      "x": 780,
+      "y": 520
+    },
+    {
+      "kind": "Corvian",
+      "x": 900,
+      "y": 580
+    },
+    {
+      "kind": "Corvian",
+      "x": 980,
       "y": 640
     },
     {
-      "kind": "Assassin",
-      "x": 1200,
-      "y": 832
+      "kind": "Corvian",
+      "x": 1050,
+      "y": 700
     },
     {
-      "kind": "Assassin",
-      "x": 1312,
-      "y": 928
+      "kind": "Corvian",
+      "x": 1100,
+      "y": 760
     },
     {
-      "kind": "Assassin",
-      "x": 1040,
+      "kind": "Corvian",
+      "x": 840,
+      "y": 680
+    },
+    {
+      "kind": "CorvianStoryteller",
+      "x": 700,
+      "y": 440
+    },
+    {
+      "kind": "CorvianStoryteller",
+      "x": 1000,
+      "y": 660
+    },
+    {
+      "kind": "LycanthropeHunter",
+      "x": 500,
+      "y": 500
+    },
+    {
+      "kind": "LycanthropeHunter",
+      "x": 750,
+      "y": 560
+    },
+    {
+      "kind": "Lycanthrope",
+      "x": 600,
+      "y": 540
+    },
+    {
+      "kind": "Lycanthrope",
+      "x": 860,
+      "y": 600
+    },
+    {
+      "kind": "Lycanthrope",
+      "x": 950,
       "y": 720
     },
     {
-      "kind": "Assassin",
-      "x": 1248,
-      "y": 752
-    },
-    {
-      "kind": "Assassin",
-      "x": 1440,
-      "y": 784
-    },
-    {
-      "kind": "Assassin",
-      "x": 928,
-      "y": 880
-    },
-    {
-      "kind": "Assassin",
-      "x": 1888,
-      "y": 1408
-    },
-    {
-      "kind": "Assassin",
-      "x": 1952,
-      "y": 1472
-    },
-    {
-      "kind": "Assassin",
-      "x": 2000,
-      "y": 1536
-    },
-    {
-      "kind": "Assassin",
-      "x": 1792,
-      "y": 1312
-    },
-    {
-      "kind": "Assassin",
-      "x": 2048,
-      "y": 1360
-    },
-    {
-      "kind": "Assassin",
-      "x": 1088,
-      "y": 1280
-    },
-    {
-      "kind": "Assassin",
-      "x": 1152,
-      "y": 1344
-    },
-    {
-      "kind": "Assassin",
-      "x": 1024,
-      "y": 1312
-    },
-    {
-      "kind": "Assassin",
-      "x": 1184,
-      "y": 1344
-    },
-    {
-      "kind": "Assassin",
-      "x": 992,
-      "y": 1472
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 672,
-      "y": 416
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 768,
-      "y": 448
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 720,
-      "y": 512
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 1136,
-      "y": 1616
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 1760,
-      "y": 1536
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 1840,
-      "y": 1584
-    },
-    {
-      "kind": "DarkMage",
-      "x": 1120,
-      "y": 768
-    },
-    {
-      "kind": "DarkMage",
-      "x": 1408,
-      "y": 880
-    },
-    {
-      "kind": "DarkMage",
-      "x": 2000,
-      "y": 1840
-    },
-    {
-      "kind": "DarkMage",
-      "x": 2160,
-      "y": 1888
-    },
-    {
-      "kind": "Knight",
-      "x": 1152,
-      "y": 880
-    },
-    {
-      "kind": "Knight",
-      "x": 1360,
-      "y": 960
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 800,
-      "y": 416
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 1536,
-      "y": 992
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 1792,
-      "y": 1424
-    },
-    {
-      "kind": "Basilisk",
-      "x": 1040,
-      "y": 976
-    },
-    {
-      "kind": "Basilisk",
-      "x": 1120,
-      "y": 1040
-    },
-    {
-      "kind": "Basilisk",
-      "x": 992,
-      "y": 1136
-    },
-    {
-      "kind": "Basilisk",
-      "x": 928,
-      "y": 1088
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 1216,
-      "y": 1120
-    },
-    {
-      "kind": "Dog",
-      "x": 1248,
-      "y": 1088
-    },
-    {
-      "kind": "Dog",
-      "x": 1280,
-      "y": 1152
+      "kind": "PeasantHollow",
+      "x": 1300,
+      "y": 940
     },
     {
       "kind": "PeasantHollow",
-      "x": 1472,
-      "y": 1248
+      "x": 1380,
+      "y": 1000
     },
     {
       "kind": "PeasantHollow",
-      "x": 1536,
-      "y": 1312
+      "x": 1500,
+      "y": 1060
     },
     {
       "kind": "PeasantHollow",
       "x": 1600,
-      "y": 1376
+      "y": 1100
     },
     {
       "kind": "PeasantHollow",
-      "x": 1680,
-      "y": 1280
+      "x": 1450,
+      "y": 1150
     },
     {
-      "kind": "PeasantHollow",
-      "x": 1408,
-      "y": 1360
+      "kind": "PoisonhornBug",
+      "x": 2000,
+      "y": 1400
     },
     {
-      "kind": "PeasantHollow",
-      "x": 608,
-      "y": 480
+      "kind": "PoisonhornBug",
+      "x": 2100,
+      "y": 1500
     },
     {
-      "kind": "BlackKnight",
-      "x": 1728,
-      "y": 1360
-    },
-    {
-      "kind": "Basilisk",
-      "x": 992,
-      "y": 1392
-    },
-    {
-      "kind": "Basilisk",
-      "x": 992,
-      "y": 1424
-    },
-    {
-      "kind": "Knight",
-      "x": 1728,
+      "kind": "PoisonhornBug",
+      "x": 2200,
       "y": 1600
     },
     {
-      "kind": "Knight",
-      "x": 1840,
+      "kind": "PoisonhornBug",
+      "x": 2300,
+      "y": 1700
+    },
+    {
+      "kind": "PoisonhornBug",
+      "x": 2400,
+      "y": 1800
+    },
+    {
+      "kind": "PoisonhornBug",
+      "x": 2150,
+      "y": 1750
+    },
+    {
+      "kind": "PoisonhornBug",
+      "x": 2050,
+      "y": 1650
+    },
+    {
+      "kind": "LesserCrab",
+      "x": 1950,
+      "y": 1350
+    },
+    {
+      "kind": "LesserCrab",
+      "x": 2050,
+      "y": 1420
+    },
+    {
+      "kind": "LesserCrab",
+      "x": 2150,
+      "y": 1480
+    },
+    {
+      "kind": "LesserCrab",
+      "x": 2250,
+      "y": 1550
+    },
+    {
+      "kind": "LesserCrab",
+      "x": 2350,
+      "y": 1620
+    },
+    {
+      "kind": "LesserCrab",
+      "x": 2450,
+      "y": 1700
+    },
+    {
+      "kind": "LesserCrab",
+      "x": 2500,
+      "y": 1800
+    },
+    {
+      "kind": "LesserCrab",
+      "x": 2100,
+      "y": 1580
+    },
+    {
+      "kind": "LesserCrab",
+      "x": 2200,
       "y": 1680
     },
     {
-      "kind": "MiniBoss",
-      "x": 2080,
-      "y": 1792
+      "kind": "LesserCrab",
+      "x": 2300,
+      "y": 1780
+    },
+    {
+      "kind": "LesserCrab",
+      "x": 2400,
+      "y": 1900
+    },
+    {
+      "kind": "GreatCrab",
+      "x": 2350,
+      "y": 2000
+    },
+    {
+      "kind": "GreatCrab",
+      "x": 2500,
+      "y": 2100
+    },
+    {
+      "kind": "GreatCrab",
+      "x": 2200,
+      "y": 2250
+    },
+    {
+      "kind": "Corvian",
+      "x": 1900,
+      "y": 1350
+    },
+    {
+      "kind": "Corvian",
+      "x": 2050,
+      "y": 1500
+    },
+    {
+      "kind": "CorvianStoryteller",
+      "x": 2150,
+      "y": 1700
+    },
+    {
+      "kind": "BlackKnight",
+      "x": 2200,
+      "y": 2400
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1600,
+      "y": 1320
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 3100,
+      "y": 2100
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 3200,
+      "y": 2200
+    },
+    {
+      "kind": "Madwoman",
+      "x": 1150,
+      "y": 820
+    },
+    {
+      "kind": "Evangelist",
+      "x": 3420,
+      "y": 2180
     }
   ],
   "items": [
@@ -493,7 +477,7 @@
     },
     {
       "kind": "TitaniteShard",
-      "name_en": "Titanite Shard (cliff cavern)",
+      "name_en": "Titanite Shard",
       "x": 1060,
       "y": 1020,
       "value": 0
@@ -514,28 +498,28 @@
     },
     {
       "kind": "Ember",
-      "name_en": "Ember (near storyteller)",
+      "name_en": "Ember",
       "x": 1460,
       "y": 1180,
       "value": 0
     },
     {
       "kind": "Consumable",
-      "name_en": "Blue Sentinels Covenant (from Horace)",
+      "name_en": "Blue Sentinels Covenant",
       "x": 1520,
       "y": 1140,
       "value": 0
     },
     {
       "kind": "TitaniteShard",
-      "name_en": "Titanite Shard (poison brumers)",
+      "name_en": "Titanite Shard",
       "x": 2020,
       "y": 1440,
       "value": 0
     },
     {
       "kind": "TitaniteShard",
-      "name_en": "Titanite Shard (near crosses)",
+      "name_en": "Titanite Shard",
       "x": 2140,
       "y": 1500,
       "value": 0
@@ -549,21 +533,21 @@
     },
     {
       "kind": "EstusShard",
-      "name_en": "Estus Shard (ledge drop)",
+      "name_en": "Estus Shard",
       "x": 1540,
       "y": 1340,
       "value": 0
     },
     {
       "kind": "Ember",
-      "name_en": "Ember (blazing fire, crucified hollows)",
-      "x": 2200,
-      "y": 1600,
+      "name_en": "Ember",
+      "x": 2220,
+      "y": 1580,
       "value": 0
     },
     {
       "kind": "SoulOrb",
-      "name_en": "Soul of an Unknown Traveler (ledge drop)",
+      "name_en": "Soul of an Unknown Traveler",
       "x": 1560,
       "y": 1390,
       "value": 500
@@ -577,21 +561,21 @@
     },
     {
       "kind": "Consumable",
-      "name_en": "Blue Bug Pellet (near Orbeck)",
+      "name_en": "Blue Bug Pellet",
       "x": 2490,
       "y": 1810,
       "value": 0
     },
     {
       "kind": "Consumable",
-      "name_en": "Blue Bug Pellet (ruins)",
+      "name_en": "Blue Bug Pellet",
       "x": 2680,
       "y": 1800,
       "value": 0
     },
     {
       "kind": "RingDrop",
-      "name_en": "Ring of Sacrifice (ledge drop)",
+      "name_en": "Ring of Sacrifice",
       "x": 2780,
       "y": 1900,
       "value": 0
@@ -612,98 +596,98 @@
     },
     {
       "kind": "TitaniteShard",
-      "name_en": "Twinkling Titanite (ruins 1)",
+      "name_en": "Twinkling Titanite",
       "x": 2980,
       "y": 1800,
       "value": 0
     },
     {
       "kind": "TitaniteShard",
-      "name_en": "Twinkling Titanite (ruins 2)",
+      "name_en": "Twinkling Titanite",
       "x": 2980,
       "y": 1900,
       "value": 0
     },
     {
       "kind": "Consumable",
-      "name_en": "Green Blossom (swamp edge 1)",
+      "name_en": "Green Blossom",
       "x": 2420,
       "y": 1900,
       "value": 0
     },
     {
       "kind": "Consumable",
-      "name_en": "Green Blossom (swamp edge 2)",
+      "name_en": "Green Blossom",
       "x": 2560,
       "y": 2060,
       "value": 0
     },
     {
       "kind": "Consumable",
-      "name_en": "Green Blossom (swamp 3)",
+      "name_en": "Green Blossom",
       "x": 2280,
       "y": 2220,
       "value": 0
     },
     {
       "kind": "Consumable",
-      "name_en": "Green Blossom (swamp 4)",
+      "name_en": "Green Blossom",
       "x": 2660,
       "y": 2100,
       "value": 0
     },
     {
       "kind": "ArmorDrop",
-      "name_en": "Grass Crest Shield (before giant crab)",
+      "name_en": "Grass Crest Shield",
       "x": 2380,
       "y": 2080,
       "value": 0
     },
     {
       "kind": "ArmorDrop",
-      "name_en": "Fallen Knight Set (in the swamp)",
+      "name_en": "Fallen Knight Set",
       "x": 2520,
       "y": 2250,
       "value": 0
     },
     {
       "kind": "TitaniteShard",
-      "name_en": "Titanite Shard (swamp area)",
+      "name_en": "Titanite Shard",
       "x": 2860,
       "y": 2080,
       "value": 0
     },
     {
       "kind": "WeaponDrop",
-      "name_en": "Great Club (Exile drop)",
+      "name_en": "Great Club",
       "x": 3560,
       "y": 1840,
       "value": 0
     },
     {
       "kind": "WeaponDrop",
-      "name_en": "Exile Greatsword (Exile drop)",
+      "name_en": "Exile Greatsword",
       "x": 3640,
       "y": 1810,
       "value": 0
     },
     {
       "kind": "HomewardBone",
-      "name_en": "Homeward Bone (Farron Keep castle 1)",
+      "name_en": "Homeward Bone",
       "x": 3600,
       "y": 1810,
       "value": 0
     },
     {
       "kind": "HomewardBone",
-      "name_en": "Homeward Bone (Farron Keep castle 2)",
+      "name_en": "Homeward Bone",
       "x": 3660,
       "y": 1810,
       "value": 0
     },
     {
       "kind": "ArmorDrop",
-      "name_en": "Golden Falcon Shield (ledge drop)",
+      "name_en": "Golden Falcon Shield",
       "x": 3590,
       "y": 1680,
       "value": 0
@@ -717,28 +701,35 @@
     },
     {
       "kind": "ArmorDrop",
-      "name_en": "Sellsword Set (ruins)",
+      "name_en": "Sellsword Set",
       "x": 3760,
       "y": 1800,
       "value": 0
     },
     {
       "kind": "WeaponDrop",
-      "name_en": "Sellsword Twinblades (ruins drop)",
+      "name_en": "Sellsword Twinblades",
       "x": 3820,
       "y": 1840,
       "value": 0
     },
     {
       "kind": "ArmorDrop",
-      "name_en": "Herald Set (past boss)",
+      "name_en": "Herald Set",
       "x": 3360,
       "y": 2200,
       "value": 0
     },
     {
+      "kind": "Consumable",
+      "name_en": "Farron Coal",
+      "x": 2300,
+      "y": 2500,
+      "value": 0
+    },
+    {
       "kind": "TitaniteShard",
-      "name_en": "Titanite Shard (Crystal Sage area)",
+      "name_en": "Titanite Shard",
       "x": 3300,
       "y": 2300,
       "value": 0
@@ -750,6 +741,30 @@
       "y": 2400,
       "value": 0,
       "note": "Boss soul from Crystal Sage"
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Gold Pine Bundle",
+      "x": 932,
+      "y": 897
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Gold Pine Bundle",
+      "x": 565,
+      "y": 932
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Gold Pine Bundle",
+      "x": 555,
+      "y": 337
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Bloodred Moss Clump",
+      "x": 402,
+      "y": 976
     }
   ],
   "chests": [],
@@ -762,9 +777,9 @@
       "y": 1140,
       "color": "#C0C0C0",
       "dialogue": [
-        "Oh, hello. We meet again.",
-        "I am Anri of Astora. We seek the Lords of Cinder.",
-        "Have you perhaps seen a misshapen figure nearby?"
+        "Oh, hello. How do you do? I am Anri of Astora. Unkindled, like you. This is Horace, a friend and travelling companion. Are you too in search of the Lords of Cinder?",
+        "We are well along the road of sacrifices. Below us is the Crucifixion Woods. Beyond the flooded woods lies Farron Keep, home of the Undead Legion. Further yet is the Cathedral of the Deep. We seek the cathedral, home of the grim Aldrich.",
+        "Oh, yes, Horace... He's not very talkative. But don't think ill of him. He's an upstanding, kind-hearted knight; a fine partner for this gruelling journey."
       ]
     },
     {
@@ -776,8 +791,8 @@
       "color": "#606060",
       "dialogue": [
         "......",
-        "Anri and I journey together.",
-        "We seek the Lords of Cinder."
+        "......",
+        "......"
       ]
     },
     {
@@ -788,8 +803,30 @@
       "y": 1840,
       "color": "#7090B0",
       "dialogue": [
-        "I am Orbeck of Vinheim. A sorcerer, and an assassin.",
-        "Bring me scrolls, and I shall teach you sorceries."
+        "Well, this is unexpected. I don't often have visitors. What do you want? This is my study that you've happened upon.",
+        "How intriguing. Very well. Indeed, I am a sorcerer. With plenty to share. But you will make me a promise. That in exchange for my teaching, you will bring me knowledge. In the form of scrolls detailing sorcery's secrets."
+      ]
+    },
+    {
+      "name": "黄指海瑟尔",
+      "name_en": "Yellowfinger Heysel",
+      "kind": "Invader",
+      "x": 2300,
+      "y": 1900,
+      "color": "#CFB53B",
+      "dialogue": [
+        "(No dialogue - invader does not speak)"
+      ]
+    },
+    {
+      "name": "Eygon of Carim",
+      "name_en": "Eygon of Carim",
+      "kind": "Summon",
+      "x": 2800,
+      "y": 2100,
+      "color": "#4A3A2A",
+      "dialogue": [
+        "(Summon sign for Crystal Sage boss fight)"
       ]
     }
   ],

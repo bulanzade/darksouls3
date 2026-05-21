@@ -42,9 +42,14 @@
     {
       "name": "伊鲁席尔地下牢",
       "name_en": "Irithyll Dungeon",
-      "x": 520,
-      "y": 520,
-      "source_status": "official_name_projected_position"
+      "x": 600,
+      "y": 600
+    },
+    {
+      "name": "罪都",
+      "name_en": "Profaned Capital",
+      "x": 2590,
+      "y": 2630
     }
   ],
   "map_layout": {
@@ -157,12 +162,19 @@
         "source_status": "route_landmark_projection"
       },
       {
+        "name": "拷问室",
+        "name_en": "Torture Chamber",
+        "kind": "optional",
         "x": 1808,
         "y": 400,
         "w": 272,
         "h": 192,
-        "name": "补充区域-4",
-        "terrain_features": []
+        "terrain_features": [
+          "iron_maidens",
+          "torture_devices",
+          "narrow_cells"
+        ],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
@@ -170,338 +182,373 @@
   "enemies": [
     {
       "kind": "Jailer",
-      "x": 352,
-      "y": 320
+      "x": 420,
+      "y": 380
     },
     {
       "kind": "Jailer",
-      "x": 560,
-      "y": 480
+      "x": 640,
+      "y": 460
     },
     {
       "kind": "Jailer",
-      "x": 768,
-      "y": 608
-    },
-    {
-      "kind": "Jailer",
-      "x": 400,
-      "y": 400
-    },
-    {
-      "kind": "Jailer",
-      "x": 512,
-      "y": 512
-    },
-    {
-      "kind": "Jailer",
-      "x": 672,
-      "y": 448
-    },
-    {
-      "kind": "Jailer",
-      "x": 928,
-      "y": 672
-    },
-    {
-      "kind": "Jailer",
-      "x": 880,
-      "y": 880
-    },
-    {
-      "kind": "Jailer",
-      "x": 960,
-      "y": 960
-    },
-    {
-      "kind": "Jailer",
-      "x": 1088,
-      "y": 832
-    },
-    {
-      "kind": "Jailer",
-      "x": 768,
-      "y": 912
-    },
-    {
-      "kind": "Jailer",
-      "x": 992,
-      "y": 1040
-    },
-    {
-      "kind": "Jailer",
-      "x": 1120,
-      "y": 928
-    },
-    {
-      "kind": "Jailer",
-      "x": 928,
-      "y": 1120
-    },
-    {
-      "kind": "Jailer",
-      "x": 1040,
-      "y": 1088
-    },
-    {
-      "kind": "Jailer",
-      "x": 1408,
-      "y": 880
-    },
-    {
-      "kind": "Jailer",
-      "x": 1520,
-      "y": 992
-    },
-    {
-      "kind": "Jailer",
-      "x": 1360,
-      "y": 1360
-    },
-    {
-      "kind": "Jailer",
-      "x": 1520,
-      "y": 1440
-    },
-    {
-      "kind": "Jailer",
-      "x": 1312,
-      "y": 1440
-    },
-    {
-      "kind": "Wretch",
-      "x": 304,
-      "y": 480
-    },
-    {
-      "kind": "Wretch",
-      "x": 448,
+      "x": 520,
       "y": 560
     },
     {
-      "kind": "Wretch",
-      "x": 608,
-      "y": 448
+      "kind": "Jailer",
+      "x": 1050,
+      "y": 780
     },
     {
-      "kind": "Wretch",
-      "x": 720,
-      "y": 544
+      "kind": "Jailer",
+      "x": 1200,
+      "y": 860
     },
     {
-      "kind": "Wretch",
-      "x": 800,
+      "kind": "Jailer",
+      "x": 1400,
+      "y": 900
+    },
+    {
+      "kind": "Jailer",
+      "x": 1100,
+      "y": 1000
+    },
+    {
+      "kind": "Jailer",
+      "x": 1350,
+      "y": 1100
+    },
+    {
+      "kind": "Jailer",
+      "x": 1500,
+      "y": 1200
+    },
+    {
+      "kind": "Jailer",
+      "x": 2300,
+      "y": 2400
+    },
+    {
+      "kind": "Jailer",
+      "x": 2500,
+      "y": 2500
+    },
+    {
+      "kind": "Jailer",
+      "x": 2700,
+      "y": 2450
+    },
+    {
+      "kind": "ReanimatedCorpse",
+      "x": 460,
+      "y": 420
+    },
+    {
+      "kind": "ReanimatedCorpse",
+      "x": 580,
+      "y": 500
+    },
+    {
+      "kind": "ReanimatedCorpse",
+      "x": 700,
+      "y": 380
+    },
+    {
+      "kind": "ReanimatedCorpse",
+      "x": 1050,
+      "y": 750
+    },
+    {
+      "kind": "ReanimatedCorpse",
+      "x": 1250,
+      "y": 850
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 520,
+      "y": 540
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 640,
+      "y": 620
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 760,
+      "y": 460
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1000,
       "y": 800
     },
     {
-      "kind": "Wretch",
-      "x": 992,
-      "y": 880
+      "kind": "PeasantHollow",
+      "x": 1150,
+      "y": 900
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1300,
+      "y": 1000
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1500,
+      "y": 800
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1450,
+      "y": 1100
     },
     {
       "kind": "Wretch",
-      "x": 1248,
-      "y": 960
+      "x": 1300,
+      "y": 2600
     },
     {
       "kind": "Wretch",
-      "x": 1472,
-      "y": 928
+      "x": 1500,
+      "y": 2700
     },
     {
       "kind": "Wretch",
-      "x": 608,
-      "y": 1296
+      "x": 1700,
+      "y": 2550
     },
     {
       "kind": "Wretch",
-      "x": 1408,
-      "y": 1408
+      "x": 1900,
+      "y": 2650
     },
     {
       "kind": "Wretch",
-      "x": 880,
-      "y": 672
+      "x": 1600,
+      "y": 2900
     },
     {
       "kind": "Wretch",
-      "x": 1040,
-      "y": 768
+      "x": 1400,
+      "y": 2800
     },
     {
-      "kind": "Wretch",
-      "x": 720,
-      "y": 1376
+      "kind": "HoundRat",
+      "x": 1250,
+      "y": 2500
     },
     {
-      "kind": "Wretch",
-      "x": 400,
-      "y": 768
+      "kind": "HoundRat",
+      "x": 1450,
+      "y": 2620
     },
     {
-      "kind": "Wretch",
-      "x": 560,
-      "y": 880
+      "kind": "HoundRat",
+      "x": 1650,
+      "y": 2540
     },
     {
-      "kind": "Wretch",
-      "x": 768,
-      "y": 976
+      "kind": "HoundRat",
+      "x": 1800,
+      "y": 2000
     },
     {
-      "kind": "Wretch",
-      "x": 1360,
-      "y": 992
-    },
-    {
-      "kind": "Wretch",
-      "x": 512,
-      "y": 1152
-    },
-    {
-      "kind": "Jailer",
-      "x": 1152,
-      "y": 832
-    },
-    {
-      "kind": "Jailer",
-      "x": 1312,
-      "y": 928
-    },
-    {
-      "kind": "Jailer",
-      "x": 1520,
-      "y": 656
-    },
-    {
-      "kind": "Jailer",
-      "x": 960,
-      "y": 1200
-    },
-    {
-      "kind": "Jailer",
-      "x": 672,
-      "y": 1200
-    },
-    {
-      "kind": "Jailer",
-      "x": 800,
-      "y": 1232
-    },
-    {
-      "kind": "Jailer",
-      "x": 832,
-      "y": 1312
-    },
-    {
-      "kind": "Jailer",
-      "x": 1472,
-      "y": 1312
-    },
-    {
-      "kind": "Rat",
-      "x": 640,
-      "y": 1216
-    },
-    {
-      "kind": "Rat",
-      "x": 1312,
-      "y": 1040
-    },
-    {
-      "kind": "Rat",
-      "x": 2000,
-      "y": 480
-    },
-    {
-      "kind": "Basilisk",
-      "x": 1360,
-      "y": 1360
-    },
-    {
-      "kind": "Basilisk",
-      "x": 640,
-      "y": 1136
+      "kind": "HoundRat",
+      "x": 1900,
+      "y": 2100
     },
     {
       "kind": "GiantSlave",
-      "x": 1248,
-      "y": 1312
+      "x": 1800,
+      "y": 1900
     },
     {
-      "kind": "GiantSlave",
-      "x": 1920,
-      "y": 1440
+      "kind": "Lycanthrope",
+      "x": 1050,
+      "y": 950
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 520,
+      "y": 640
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 680,
+      "y": 500
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1050,
+      "y": 820
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1200,
+      "y": 920
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1400,
+      "y": 1050
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1550,
+      "y": 1150
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1600,
+      "y": 1300
+    },
+    {
+      "kind": "CorpseGrub",
+      "x": 1100,
+      "y": 1050
+    },
+    {
+      "kind": "CorpseGrub",
+      "x": 1200,
+      "y": 1080
+    },
+    {
+      "kind": "CorpseGrub",
+      "x": 1150,
+      "y": 1120
+    },
+    {
+      "kind": "CageSpider",
+      "x": 1300,
+      "y": 1150
+    },
+    {
+      "kind": "CageSpider",
+      "x": 1450,
+      "y": 1200
+    },
+    {
+      "kind": "CageSpider",
+      "x": 1550,
+      "y": 1050
+    },
+    {
+      "kind": "CageSpider",
+      "x": 1600,
+      "y": 1350
     },
     {
       "kind": "CrystalLizard",
-      "x": 832,
-      "y": 832
+      "x": 850,
+      "y": 850
     },
     {
-      "kind": "Rat",
-      "x": 448,
-      "y": 1248
+      "kind": "CrystalLizard",
+      "x": 1700,
+      "y": 1700
     },
     {
-      "kind": "Rat",
-      "x": 544,
-      "y": 1312
+      "kind": "Jailer",
+      "x": 900,
+      "y": 700
     },
     {
-      "kind": "Rat",
-      "x": 688,
-      "y": 1408
+      "kind": "Jailer",
+      "x": 1600,
+      "y": 1400
     },
     {
-      "kind": "Rat",
-      "x": 512,
-      "y": 1360
+      "kind": "InfectedCorpse",
+      "x": 680,
+      "y": 520
     },
     {
-      "kind": "Basilisk",
-      "x": 880,
-      "y": 1264
+      "kind": "InfectedCorpse",
+      "x": 1070,
+      "y": 760
     },
     {
-      "kind": "Basilisk",
-      "x": 992,
-      "y": 1360
-    },
-    {
-      "kind": "Basilisk",
-      "x": 640,
-      "y": 1424
+      "kind": "InfectedCorpse",
+      "x": 1350,
+      "y": 880
     },
     {
       "kind": "Basilisk",
-      "x": 1040,
-      "y": 1248
+      "x": 1200,
+      "y": 2650
     },
     {
-      "kind": "Mimic",
-      "x": 880,
-      "y": 1392
+      "kind": "Basilisk",
+      "x": 1350,
+      "y": 2750
     },
     {
-      "kind": "MiniBoss",
-      "x": 1248,
-      "y": 1312
+      "kind": "Basilisk",
+      "x": 1500,
+      "y": 2600
     },
     {
-      "kind": "Mimic",
-      "x": 1888,
-      "y": 512
+      "kind": "Basilisk",
+      "x": 1210,
+      "y": 2580
     },
     {
-      "kind": "Mimic",
-      "x": 720,
-      "y": 1312
+      "kind": "Basilisk",
+      "x": 1280,
+      "y": 2700
     },
     {
-      "kind": "Mimic",
-      "x": 992,
-      "y": 1088
+      "kind": "Basilisk",
+      "x": 1420,
+      "y": 2800
+    },
+    {
+      "kind": "Basilisk",
+      "x": 1580,
+      "y": 2650
+    },
+    {
+      "kind": "Basilisk",
+      "x": 1700,
+      "y": 2750
+    },
+    {
+      "kind": "Basilisk",
+      "x": 1650,
+      "y": 2550
+    },
+    {
+      "kind": "Basilisk",
+      "x": 1210,
+      "y": 2800
+    },
+    {
+      "kind": "SewerCentipede",
+      "x": 1300,
+      "y": 2700
+    },
+    {
+      "kind": "SewerCentipede",
+      "x": 1600,
+      "y": 2750
+    },
+    {
+      "kind": "MonstrosityOfSin",
+      "x": 2300,
+      "y": 2500
+    },
+    {
+      "kind": "MonstrosityOfSin",
+      "x": 2500,
+      "y": 2600
+    },
+    {
+      "kind": "MonstrosityOfSin",
+      "x": 2400,
+      "y": 2700
     }
   ],
   "items": [
@@ -721,6 +768,62 @@
       "x": 3100,
       "y": 3600,
       "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Pale Pine Resin",
+      "x": 593,
+      "y": 506
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dung Pie",
+      "x": 1392,
+      "y": 915
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dung Pie",
+      "x": 1562,
+      "y": 1293
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dung Pie",
+      "x": 1010,
+      "y": 1363
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Rusted Coin",
+      "x": 721,
+      "y": 850
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Rusted Coin",
+      "x": 409,
+      "y": 464
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Alva Set",
+      "x": 1381,
+      "y": 1064
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Murakumo",
+      "x": 1255,
+      "y": 809
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Prisoner Chief's Ashes",
+      "x": 1800,
+      "y": 2000,
+      "value": 0,
+      "note": "Found in locked cell requiring Jailer's Key Ring"
     }
   ],
   "chests": [
@@ -784,10 +887,10 @@
       "y": 1620,
       "color": "#D4A520",
       "dialogue": [
-        "Hmm... Hmm... Ah, oh! Pardon me. I was absorbed in thought.",
-        "Look at me, trapped like a rat.",
-        "But you needn't worry. The moment has almost come.",
-        "My liberation requires a key. But the key is outside... A riddle for the ages..."
+        "Hmm... Hmm... Ah, oh! Pardon me. I was absorbed in thought. Look at me, trapped like a rat. But you needn't worry. I've just been sitting here, weighing my options. The moment has almost come. ...I just need a bit more time.",
+        "My liberation requires a key. But the key is outside... Hmm... A riddle for the ages...",
+        "Ah! You are a saint! Once again, you are my valiant saviour. I, Siegward of Catarina, express my deepest gratitude. Take this, a token of my thanks. Go on, it's all yours.",
+        "Ah, no, please, go on ahead. I've my own road to take. And a duty to fulfil, very soon..."
       ]
     },
     {
@@ -798,10 +901,21 @@
       "y": 2560,
       "color": "#4A0080",
       "dialogue": [
-        "Hmm. A visitor? How unusual.",
-        "I am Karla. I can teach you sorceries and pyromancies.",
-        "But nothing that could harm the Fire Keeper, understand?",
-        "The pygmy is not to be trifled with."
+        "Hm? Oh...you're not one of them, are you? Accept my apologies, for mistaking you for one of those leeches. So, what business have you here? This is a prison, and I am a prisoner. That should be enough for you.",
+        "You're here to save me...? But I am guilty. A wretched child of the Abyss. Is that something you can forgive?",
+        "Oh, really. You are no ordinary man. Very well. Besides, I've grown tired of imprisonment. I am Karla, and I accept your proposal.",
+        "The only thing that might interest you is my sorcery. Although my dark arts are a detestable sort. That wouldn't interest you, would it?"
+      ]
+    },
+    {
+      "name": "Alva",
+      "name_en": "Alva, Seeker of the Spurned",
+      "kind": "Invader",
+      "x": 1789,
+      "y": 1051,
+      "color": "#3A3A5A",
+      "dialogue": [
+        "(No dialogue - invader does not speak)"
       ]
     }
   ],
@@ -841,8 +955,8 @@
       "w": 96,
       "h": 96,
       "dest_area": "Irithyll",
-      "dest_x": 3060,
-      "dest_y": 2600,
+      "dest_x": 3960,
+      "dest_y": 1100,
       "kind": "area_transition",
       "source_status": "projected_transition"
     },

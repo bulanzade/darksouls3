@@ -338,6 +338,9 @@ pub(crate) fn tick_interactions(game: &mut Game, interact: bool) -> bool {
                                 }
                             }
                             NpcKind::Dialogue => {}
+                            NpcKind::Summon => {}
+                            NpcKind::Hostile => {}
+                            NpcKind::Invader => {}
                         }
                     }
                     break;
@@ -346,6 +349,7 @@ pub(crate) fn tick_interactions(game: &mut Game, interact: bool) -> bool {
         }
     } else if interact {
         for npc in &mut game.npcs {
+            if matches!(npc.kind, NpcKind::Hostile | NpcKind::Invader) { continue; }
             let dx = px - npc.x;
             let dy = py - npc.y;
             let dist = (dx * dx + dy * dy).sqrt();

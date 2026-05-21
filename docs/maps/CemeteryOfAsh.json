@@ -171,62 +171,52 @@
   },
   "enemies": [
     {
-      "kind": "HollowSoldier",
+      "kind": "GraveWarden",
       "x": 640,
       "y": 2432
     },
     {
-      "kind": "HollowSoldier",
+      "kind": "GraveWarden",
       "x": 896,
       "y": 2432
     },
     {
-      "kind": "HollowSoldier",
+      "kind": "GraveWarden",
       "x": 1024,
       "y": 2400
     },
     {
-      "kind": "HollowSoldier",
+      "kind": "GraveWarden",
       "x": 1280,
       "y": 2176
     },
     {
-      "kind": "HollowSoldier",
-      "x": 1216,
+      "kind": "GraveWarden",
+      "x": 1310,
       "y": 2016
     },
     {
-      "kind": "HollowSoldier",
+      "kind": "GraveWarden",
       "x": 1376,
       "y": 1728
     },
     {
-      "kind": "HollowSoldier",
+      "kind": "GraveWarden",
       "x": 1088,
       "y": 1472
     },
     {
-      "kind": "HollowSoldier",
+      "kind": "GraveWarden",
       "x": 1216,
       "y": 1120
     },
     {
-      "kind": "HollowSoldier",
+      "kind": "GraveWarden",
       "x": 1312,
       "y": 992
     },
     {
-      "kind": "StarvedHound",
-      "x": 1248,
-      "y": 1856
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 800,
-      "y": 1376
-    },
-    {
-      "kind": "CrystalLizard",
+      "kind": "RavenousCrystalLizard",
       "x": 2176,
       "y": 1728
     }
@@ -249,7 +239,8 @@
       "kind": "Firebomb",
       "name_en": "Firebomb",
       "x": 900,
-      "y": 1408
+      "y": 1408,
+      "count": 5
     },
     {
       "kind": "TitaniteShard",
@@ -265,31 +256,18 @@
       "value": 400
     },
     {
-      "kind": "TitaniteShard",
-      "name_en": "Twinkling Titanite",
-      "x": 2144,
-      "y": 1696
-    },
-    {
       "kind": "Consumable",
       "name_en": "Coiled Sword",
-      "x": 1420,
-      "y": 736
-    },
-    {
-      "kind": "Consumable",
-      "name_en": "Homeward Bone",
-      "x": 1420,
-      "y": 560,
-      "value": 0
+      "x": 1536,
+      "y": 1280,
+      "note": "Boss drop from Iudex Gundyr, planted in bonfire"
     },
     {
       "kind": "SoulOrb",
-      "name_en": "Soul of the Origin",
+      "name_en": "Fading Soul",
       "x": 1536,
-      "y": 1300,
-      "value": 0,
-      "note": "Boss soul from Iudex Gundyr"
+      "y": 931,
+      "value": 50
     }
   ],
   "chests": [],

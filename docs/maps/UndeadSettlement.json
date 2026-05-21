@@ -41,37 +41,32 @@
     {
       "name": "不死聚落",
       "name_en": "Undead Settlement",
-      "x": 420,
-      "y": 360,
-      "source_status": "official_name_projected_position"
+      "x": 800,
+      "y": 1000
     },
     {
-      "name": "颓旧桥端",
+      "name": "崩塌桥梁",
       "name_en": "Dilapidated Bridge",
-      "x": 2500,
-      "y": 1710,
-      "source_status": "official_name_projected_position"
+      "x": 2360,
+      "y": 1460
     },
     {
-      "name": "悬崖下地下室",
-      "name_en": "Cliff Underside",
-      "x": 3280,
-      "y": 2190,
-      "source_status": "official_name_projected_position"
-    },
-    {
-      "name": "游魂之渊",
+      "name": "空洞之穴",
       "name_en": "Pit of Hollows",
-      "x": 3000,
-      "y": 3300,
-      "source_status": "official_name_projected_position"
+      "x": 3020,
+      "y": 3200
     },
     {
-      "name": "下水道",
-      "name_en": "Sewer",
-      "x": 1984,
-      "y": 1440,
-      "source_status": "official_name_projected_position"
+      "name": "高壁の下",
+      "name_en": "Foot of the High Wall",
+      "x": 300,
+      "y": 400
+    },
+    {
+      "name": "崖下",
+      "name_en": "Cliff Underside",
+      "x": 2400,
+      "y": 1200
     }
   ],
   "map_layout": {
@@ -239,12 +234,19 @@
         "source_status": "route_landmark_projection"
       },
       {
+        "name": "树荫小径",
+        "name_en": "Tree-shaded Path",
+        "kind": "optional",
         "x": 2160,
         "y": 688,
         "w": 256,
         "h": 256,
-        "name": "补充区域-3",
-        "terrain_features": []
+        "terrain_features": [
+          "dead_trees",
+          "broken_fences",
+          "hollow_camp"
+        ],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
@@ -260,297 +262,345 @@
     {
       "kind": "StarvedHound",
       "x": 320,
-      "y": 240
+      "y": 260
     },
     {
       "kind": "StarvedHound",
-      "x": 352,
-      "y": 256
+      "x": 360,
+      "y": 280
     },
     {
       "kind": "StarvedHound",
-      "x": 288,
-      "y": 272
+      "x": 290,
+      "y": 300
     },
     {
-      "kind": "StarvedHound",
-      "x": 576,
-      "y": 400
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 608,
-      "y": 432
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 1424,
-      "y": 672
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 2688,
-      "y": 1728
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 448,
+      "kind": "PeasantHollow",
+      "x": 440,
       "y": 320
     },
     {
-      "kind": "HollowSoldier",
-      "x": 544,
-      "y": 416
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 832,
-      "y": 480
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1280,
-      "y": 720
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1712,
-      "y": 768
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 2560,
-      "y": 1680
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 3200,
-      "y": 2240
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 2800,
-      "y": 3040
+      "kind": "Thrall",
+      "x": 460,
+      "y": 350
     },
     {
       "kind": "PeasantHollow",
-      "x": 672,
-      "y": 448
+      "x": 520,
+      "y": 380
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 580,
+      "y": 440
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 620,
+      "y": 460
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 500,
+      "y": 570
     },
     {
       "kind": "PeasantHollow",
-      "x": 736,
-      "y": 512
+      "x": 800,
+      "y": 740
     },
     {
       "kind": "PeasantHollow",
-      "x": 928,
-      "y": 624
+      "x": 780,
+      "y": 760
+    },
+    {
+      "kind": "Thrall",
+      "x": 880,
+      "y": 760
     },
     {
       "kind": "PeasantHollow",
-      "x": 992,
-      "y": 688
+      "x": 860,
+      "y": 780
     },
     {
       "kind": "PeasantHollow",
-      "x": 1088,
-      "y": 768
+      "x": 920,
+      "y": 800
+    },
+    {
+      "kind": "Thrall",
+      "x": 1000,
+      "y": 840
+    },
+    {
+      "kind": "Thrall",
+      "x": 1100,
+      "y": 880
+    },
+    {
+      "kind": "GiantSlave",
+      "x": 3140,
+      "y": 940
     },
     {
       "kind": "PeasantHollow",
-      "x": 2080,
-      "y": 1280
+      "x": 1440,
+      "y": 1000
     },
     {
       "kind": "PeasantHollow",
-      "x": 2160,
+      "x": 2960,
+      "y": 1000
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1520,
+      "y": 1060
+    },
+    {
+      "kind": "Thrall",
+      "x": 1560,
+      "y": 1080
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 900,
+      "y": 1100
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1480,
+      "y": 1100
+    },
+    {
+      "kind": "Thrall",
+      "x": 1640,
+      "y": 1160
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 1680,
+      "y": 1200
+    },
+    {
+      "kind": "Thrall",
+      "x": 2040,
+      "y": 1240
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 2000,
+      "y": 1260
+    },
+    {
+      "kind": "Evangelist",
+      "x": 2120,
+      "y": 1320
+    },
+    {
+      "kind": "Thrall",
+      "x": 2200,
       "y": 1360
     },
     {
       "kind": "PeasantHollow",
       "x": 2240,
-      "y": 1312
+      "y": 1380
+    },
+    {
+      "kind": "Thrall",
+      "x": 2100,
+      "y": 1400
     },
     {
       "kind": "PeasantHollow",
-      "x": 1472,
-      "y": 992
+      "x": 2320,
+      "y": 1420
     },
     {
       "kind": "PeasantHollow",
-      "x": 1536,
-      "y": 1056
-    },
-    {
-      "kind": "PeasantHollow",
-      "x": 1952,
-      "y": 1120
-    },
-    {
-      "kind": "PeasantHollow",
-      "x": 2560,
-      "y": 3120
-    },
-    {
-      "kind": "PeasantHollow",
-      "x": 2720,
-      "y": 3040
-    },
-    {
-      "kind": "PeasantHollow",
-      "x": 2880,
-      "y": 3120
-    },
-    {
-      "kind": "PeasantHollow",
-      "x": 2368,
-      "y": 1840
+      "x": 3460,
+      "y": 1480
     },
     {
       "kind": "Evangelist",
-      "x": 2112,
-      "y": 1312
+      "x": 3660,
+      "y": 1500
+    },
+    {
+      "kind": "FireDemon",
+      "x": 3540,
+      "y": 1540
     },
     {
       "kind": "Evangelist",
-      "x": 3680,
-      "y": 1520
+      "x": 3780,
+      "y": 1580
     },
     {
-      "kind": "Evangelist",
-      "x": 3840,
-      "y": 1600
+      "kind": "StarvedHound",
+      "x": 1500,
+      "y": 1550
     },
     {
-      "kind": "Thrall",
-      "x": 800,
-      "y": 480
-    },
-    {
-      "kind": "Thrall",
-      "x": 880,
-      "y": 560
+      "kind": "PeasantHollow",
+      "x": 2380,
+      "y": 1720
     },
     {
       "kind": "Thrall",
-      "x": 1024,
-      "y": 640
+      "x": 2440,
+      "y": 1760
     },
     {
-      "kind": "Thrall",
-      "x": 1120,
-      "y": 736
+      "kind": "CrystalLizard",
+      "x": 2760,
+      "y": 1780
     },
     {
-      "kind": "Thrall",
-      "x": 1600,
-      "y": 880
-    },
-    {
-      "kind": "Thrall",
-      "x": 1680,
-      "y": 960
-    },
-    {
-      "kind": "Thrall",
-      "x": 2400,
-      "y": 1792
-    },
-    {
-      "kind": "Thrall",
-      "x": 2496,
-      "y": 1856
-    },
-    {
-      "kind": "Thrall",
-      "x": 2016,
-      "y": 1216
-    },
-    {
-      "kind": "Thrall",
-      "x": 2656,
-      "y": 1952
+      "kind": "HollowManservant",
+      "x": 1410,
+      "y": 1550,
+      "note": "Large hollow carrying basket, patrols main road"
     },
     {
       "kind": "Rat",
-      "x": 2480,
+      "x": 2460,
+      "y": 1860
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 2620,
+      "y": 1880
+    },
+    {
+      "kind": "Rat",
+      "x": 2640,
+      "y": 1900
+    },
+    {
+      "kind": "Rat",
+      "x": 2520,
       "y": 1920
     },
     {
       "kind": "Rat",
-      "x": 2528,
-      "y": 1968
+      "x": 2380,
+      "y": 1940
     },
     {
       "kind": "Rat",
-      "x": 2592,
-      "y": 2016
+      "x": 2580,
+      "y": 1960
     },
     {
       "kind": "Rat",
-      "x": 2656,
-      "y": 1888
+      "x": 2500,
+      "y": 2000
     },
     {
-      "kind": "Rat",
-      "x": 2368,
-      "y": 1856
+      "kind": "PeasantHollow",
+      "x": 3080,
+      "y": 2200
     },
     {
-      "kind": "Rat",
-      "x": 2432,
-      "y": 1904
+      "kind": "PeasantHollow",
+      "x": 3140,
+      "y": 2260
     },
     {
-      "kind": "FireDemon",
-      "x": 3520,
-      "y": 1520
+      "kind": "StarvedHound",
+      "x": 2330,
+      "y": 2300
     },
     {
-      "kind": "GiantSlave",
-      "x": 3120,
-      "y": 928
+      "kind": "HollowManservant",
+      "x": 2330,
+      "y": 2310,
+      "note": "Large hollow with saw, patrols near houses"
     },
     {
-      "kind": "Skeleton",
-      "x": 3008,
-      "y": 2160
+      "kind": "Evangelist",
+      "x": 2800,
+      "y": 2310
     },
     {
-      "kind": "Skeleton",
-      "x": 3072,
-      "y": 2208
+      "kind": "BorealOutriderKnight",
+      "x": 4240,
+      "y": 2500
     },
     {
-      "kind": "Skeleton",
-      "x": 3136,
-      "y": 2272
-    },
-    {
-      "kind": "Skeleton",
+      "kind": "HollowManservant",
       "x": 3200,
-      "y": 2240
+      "y": 2890,
+      "note": "Large hollow carrying cage"
     },
     {
-      "kind": "Skeleton",
-      "x": 3264,
-      "y": 2176
+      "kind": "PeasantHollow",
+      "x": 2680,
+      "y": 2980
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 2800,
+      "y": 3040
+    },
+    {
+      "kind": "PeasantHollow",
+      "x": 3000,
+      "y": 3120
     },
     {
       "kind": "CrystalLizard",
-      "x": 2752,
-      "y": 1760
+      "x": 3340,
+      "y": 3180
     },
     {
-      "kind": "Knight",
-      "x": 4240,
-      "y": 2480
+      "kind": "HollowManservant",
+      "x": 2490,
+      "y": 3200,
+      "note": "Large hollow with basket near lower area"
     },
     {
-      "kind": "MiniBoss",
-      "x": 2752,
-      "y": 1840
+      "kind": "CagedHollow",
+      "x": 2900,
+      "y": 3480,
+      "note": "Caged hollow near covenant"
+    },
+    {
+      "kind": "CagedHollow",
+      "x": 2800,
+      "y": 3500,
+      "note": "Caged hollow in Warriors of Sunlight hallway"
+    },
+    {
+      "kind": "CagedHollow",
+      "x": 2850,
+      "y": 3540,
+      "note": "Caged hollow in lower dwellings"
+    },
+    {
+      "kind": "CagedHollow",
+      "x": 2750,
+      "y": 3510,
+      "note": "Caged hollow in hallway"
+    },
+    {
+      "kind": "GiantRat",
+      "x": 2500,
+      "y": 1980
+    },
+    {
+      "kind": "RootSkeleton",
+      "x": 3200,
+      "y": 2150
+    },
+    {
+      "kind": "RootSkeleton",
+      "x": 3300,
+      "y": 2200
     }
   ],
   "items": [
@@ -619,7 +669,7 @@
     },
     {
       "kind": "Ember",
-      "name_en": "Ember (behind blazing fire)",
+      "name_en": "Ember",
       "x": 1480,
       "y": 1280,
       "value": 0
@@ -682,7 +732,7 @@
     },
     {
       "kind": "Ember",
-      "name_en": "Ember (past sewers)",
+      "name_en": "Ember",
       "x": 1820,
       "y": 1560,
       "value": 0
@@ -745,7 +795,7 @@
     },
     {
       "kind": "EstusShard",
-      "name_en": "Estus Shard (house near Dilapidated Bridge)",
+      "name_en": "Estus Shard",
       "x": 1640,
       "y": 1100,
       "value": 0
@@ -766,7 +816,7 @@
     },
     {
       "kind": "TitaniteShard",
-      "name_en": "Titanite Shard (lower house)",
+      "name_en": "Titanite Shard",
       "x": 1700,
       "y": 1340,
       "value": 0
@@ -780,7 +830,7 @@
     },
     {
       "kind": "TitaniteShard",
-      "name_en": "Titanite Shard (ladder to bridge)",
+      "name_en": "Titanite Shard",
       "x": 1900,
       "y": 1550,
       "value": 0
@@ -836,21 +886,21 @@
     },
     {
       "kind": "WeaponDrop",
-      "name_en": "Irithyll Straight Sword (Boreal Knight drop)",
+      "name_en": "Irithyll Straight Sword",
       "x": 4200,
       "y": 2540,
       "value": 0
     },
     {
       "kind": "Consumable",
-      "name_en": "Fading Soul (giant spear area)",
+      "name_en": "Fading Soul",
       "x": 3660,
       "y": 1600,
       "value": 0
     },
     {
       "kind": "Ember",
-      "name_en": "Ember (giant spear area)",
+      "name_en": "Ember",
       "x": 3700,
       "y": 1680,
       "value": 0
@@ -885,7 +935,7 @@
     },
     {
       "kind": "HomewardBone",
-      "name_en": "Homeward Bone (Pit of Hollows)",
+      "name_en": "Homeward Bone",
       "x": 3000,
       "y": 3200,
       "value": 0
@@ -899,25 +949,117 @@
     },
     {
       "kind": "TitaniteShard",
-      "name_en": "Titanite Shard (wall base)",
+      "name_en": "Titanite Shard",
       "x": 1580,
       "y": 1460,
       "value": 0
     },
     {
-      "kind": "WeaponDrop",
-      "name_en": "Pyromancy Flame",
-      "x": 2400,
-      "y": 1400,
-      "value": 0
-    },
-    {
-      "kind": "SoulOrb",
-      "name_en": "Soul of the Rotted",
+      "kind": "Consumable",
+      "name_en": "Transposing Kiln",
       "x": 3000,
       "y": 3320,
       "value": 0,
-      "note": "Boss soul from Curse-rotted Greatwood"
+      "note": "Key item from Curse-rotted Greatwood"
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Partizan",
+      "x": 1222,
+      "y": 917
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Charcoal Pine Bundle",
+      "x": 1075,
+      "y": 1203
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Charcoal Pine Bundle",
+      "x": 1045,
+      "y": 807
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Repair Powder",
+      "x": 1243,
+      "y": 830
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Human Pine Resin",
+      "x": 841,
+      "y": 745
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Human Pine Resin",
+      "x": 885,
+      "y": 972
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Northern Set",
+      "x": 960,
+      "y": 1146
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Mirrah Set",
+      "x": 1287,
+      "y": 1222
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Flame Stoneplate Ring",
+      "x": 1008,
+      "y": 1140
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Blue Wooden Shield",
+      "x": 850,
+      "y": 898
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Great Scythe",
+      "x": 1178,
+      "y": 732
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Wargod Wooden Shield",
+      "x": 1189,
+      "y": 1001
+    },
+    {
+      "kind": "ShieldDrop",
+      "name_en": "Blessed Red and White Shield",
+      "x": 1255,
+      "y": 1022
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Hawk Ring",
+      "x": 2298,
+      "y": 896,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Siegbrau",
+      "x": 2200,
+      "y": 1600,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Mound Makers",
+      "x": 4019,
+      "y": 1788,
+      "value": 0
     }
   ],
   "chests": [
@@ -937,13 +1079,13 @@
       "name": "Yoel of Londor",
       "name_en": "Yoel of Londor",
       "kind": "Dialogue",
-      "x": 3510,
-      "y": 1020,
+      "x": 350,
+      "y": 420,
       "color": "#4A4A5A",
       "dialogue": [
-        "I am Yoel of Londor. A pilgrim, as they call me.",
-        "Let me grant thee true strength.",
-        "Come. Touch the darkness within me."
+        "Please, grant me death, undo my shackles. Ohh... Ohh, then it's true... A Champion of Ash, as I live and breathe. To be in your presence is a great honour. I am Yoel of Londor, a pilgrim as you can see, only... Somehow, I've failed to die as was ordained.",
+        "Well, perhaps my calling lies elsewhere. Say, Champion of Ash, how does the idea of taking me into your service strike you?",
+        "I was once a sorcerer. Surely I can be of use."
       ]
     },
     {
@@ -954,9 +1096,11 @@
       "y": 1540,
       "color": "#C0A060",
       "dialogue": [
-        "Hmm... Mmm... Oh! Pardon me, I was absorbed in thought.",
-        "I am Siegward of Catarina.",
+        "Hmm... Mmm... Oh! Pardon me, I was absorbed in thought. I am Siegward of Catarina. To be honest, I'm in a bit of a pickle. Have you ever walked near a white birch, only to be struck by a great arrow? Well, if I'm not mistaken, they come from this tower. Whoever it is, I'm sure I can talk some sense into them. But I have to find a way up, and that's just the trouble.",
+        "This lift only goes down, you see, and... Well, that doesn't get me anywhere... Hmm... Mmm...",
+        "No! You should have waited! Well, it's too late now.",
         "I, Siegward of the Knights of Catarina, fight by your side!",
+        "That was quite the performance. But you musn't get in over your head. We Unkindled must put our duties first. But for the moment, we've a toast to make.",
         "To your valour, my sword, and our victory together. Long may the Sun shine!"
       ]
     },
@@ -968,9 +1112,9 @@
       "y": 960,
       "color": "#B8860B",
       "dialogue": [
-        "Oh, hello. You are a student of pyromancy?",
-        "I am Cornyx of the Great Swamp. A pyromancer.",
-        "Bring me pyromancy tomes, and I shall teach you their arts."
+        "Ah-ha, Unkindled are we? Welcome to my abode. I am Cornyx, an old pyromancer. A crow in his cage as you see, now. But here we are, an encounter for the ages! I hear the Unkindled make for fine vessels. Care to learn pyromancies from this old man?",
+        "Most wise. A chance encounter should not be squandered. To reiterate, I am Cornyx, of the Great Swamp.",
+        "Do not be gone for long. What's a teacher without a pupil?"
       ]
     },
     {
@@ -981,9 +1125,9 @@
       "y": 2260,
       "color": "#8B7D9B",
       "dialogue": [
-        "I am Irina of Carim, a servant of the gods.",
-        "I can teach you miracles.",
-        "Please, take me to Firelink Shrine."
+        "Ahh, who's there? Is someone there, anyone? The dark surrounds me, nibbles at my flesh. Little creatures, they never stop biting. So please, hold out your hand, and touch me...",
+        "Oh, forgive me. I am Irina of Carim. I came to this land so that I might be a Fire Keeper. Your touch has freed me from the darkness. You are a Champion, then? I am weak, and unfit to tend the flames. But if it would not trouble you, might I enter into your service, instead?",
+        "Oh, thank you, sweet Champion. I shall take my vows. I, Irina of Carim, solemnly swear to serve you."
       ]
     },
     {
@@ -994,9 +1138,46 @@
       "y": 2180,
       "color": "#4A3A2A",
       "dialogue": [
-        "I am Eygon of Carim.",
-        "Keep your hands off the woman.",
-        "She is under my protection."
+        "Hmm... Another one of those Unkindled, are you? All you faceless Undead, behaving as if you deserve respect. Hmph. No matter. Heed my words. If you've any sense, you'll go find a coffin to huddle up inside.",
+        "You here, in this land of Hollows, you're like a frail maiden on the front lines. If like the others, you're fool enough to play the champion... Then go on ahead, traipse right past the abandoned church. You'll face death, and it won't be pretty. Enough death to leave you broken, time after time.",
+        "Ah-hah, taken an interest in her, have you? Well she's a lost cause. Couldn't even become a Fire Keeper. After I brought her all this way, and got her all ready. She's beyond repair, I tell you."
+      ]
+    },
+    {
+      "name": "圣骑士 霍德瑞克",
+      "name_en": "Holy Knight Hodrick",
+      "kind": "Invader",
+      "x": 2760,
+      "y": 1860,
+      "color": "#C0A060",
+      "dialogue": [
+        "Well, what's happened here? This pit is for hollows, not for the likes of you sane folk.",
+        "Yes, yes. Then we're just fine. Put yourself at ease, and go jump into the pit.",
+        "Beware, the shackles of the Gods are fragile. A wee bit of bad faith, and your shackle will snap."
+      ]
+    },
+    {
+      "name": "The Giant",
+      "name_en": "The Giant",
+      "kind": "Dialogue",
+      "x": 3140,
+      "y": 940,
+      "color": "#8B7355",
+      "dialogue": [
+        "I'll shoot, I'll shoot... Told you I would. Anyone who trespasses, I shoot. But you, you're a friend. I can tell. Make yourself at home. I'll leave you be.",
+        "I used to be a mercenary, you know. Long, long ago. But now I'm a slave to that Archer on the tower. Well, free-will is overrated anyway."
+      ]
+    },
+    {
+      "name": "Caged Hollow",
+      "name_en": "Caged Hollow of the Mound-makers",
+      "kind": "Covenant",
+      "x": 2000,
+      "y": 1300,
+      "color": "#9B59B6",
+      "dialogue": [
+        "Who are you? A pious slave, or a conniving rat? If you'd soak yourself in blood, step into my cage. What is it? You wish to serve? To be true, there's but one thing to do. Prove your worth. Kill the holy man. Soak yourself in his blood. Then you'll be one of us.",
+        "We are Mound-makers. Our luck comes when we make our own burial mounds. Kill the holy man, and prove your devotion."
       ]
     }
   ],

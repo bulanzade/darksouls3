@@ -10,7 +10,8 @@
   },
   "connections": {
     "from": [
-      "IrithyllDungeon"
+      "IrithyllDungeon",
+      "GrandArchives"
     ],
     "to": []
   },
@@ -45,7 +46,7 @@
     },
     {
       "name": "龙人灵庙",
-      "name_en": "Dragon-Kin Mausoleum",
+      "name_en": "Dragonkin Mausoleum",
       "x": 2200,
       "y": 2300,
       "source_status": "official_name_projected_position"
@@ -211,7 +212,7 @@
       },
       {
         "name": "龙人灵庙",
-        "name_en": "Dragon-Kin Mausoleum",
+        "name_en": "Dragonkin Mausoleum",
         "kind": "main",
         "x": 1980,
         "y": 2040,
@@ -250,8 +251,23 @@
         "source_status": "route_landmark_projection"
       },
       {
-        "name": "屋顶飞龙桥",
-        "name_en": "Rooftop Wyvern Bridge",
+        "name": "雷 clutch 支路",
+        "name_en": "Lightning Clutch Side-Path",
+        "kind": "optional",
+        "x": 1200,
+        "y": 2340,
+        "w": 500,
+        "h": 400,
+        "terrain_features": [
+          "narrow_ledge",
+          "cliff_overlook",
+          "loot_corpse"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "第二条飞龙路径",
+        "name_en": "Second Wyvern Path",
         "kind": "main",
         "x": 2640,
         "y": 1540,
@@ -344,6 +360,96 @@
         "source_status": "route_landmark_projection"
       },
       {
+        "name": "蛇人术师楼阁",
+        "name_en": "Serpent-Man Summoner Building",
+        "kind": "main",
+        "x": 2800,
+        "y": 1780,
+        "w": 600,
+        "h": 400,
+        "terrain_features": [
+          "interior_room",
+          "summon_circle",
+          "stone_pillars"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "大钟机关室",
+        "name_en": "Bell Lever Chamber",
+        "kind": "main",
+        "x": 3400,
+        "y": 780,
+        "w": 500,
+        "h": 400,
+        "terrain_features": [
+          "bell_mechanism",
+          "stone_lever",
+          "tower_interior"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "哈维尔屋顶竞技场",
+        "name_en": "Havel Rooftop Arena",
+        "kind": "main",
+        "x": 3700,
+        "y": 1400,
+        "w": 600,
+        "h": 500,
+        "terrain_features": [
+          "fallen_wyvern",
+          "rooftop_arena",
+          "stone_parapets"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "蛇人斗技庭院",
+        "name_en": "Man-Serpent Gauntlet Courtyard",
+        "kind": "main",
+        "x": 3900,
+        "y": 1800,
+        "w": 600,
+        "h": 500,
+        "terrain_features": [
+          "ruined_courtyard",
+          "stone_debris",
+          "large_serpent_statues"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "古龙之道祭坛",
+        "name_en": "Path of the Dragon Altar",
+        "kind": "main",
+        "x": 3600,
+        "y": 1580,
+        "w": 500,
+        "h": 300,
+        "terrain_features": [
+          "stone_altar",
+          "dragon_skeleton",
+          "summit_overlook"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "雷云桥",
+        "name_en": "Storm Cloud Bridge",
+        "kind": "main",
+        "x": 3600,
+        "y": 400,
+        "w": 600,
+        "h": 400,
+        "terrain_features": [
+          "storm_clouds",
+          "lightning_strikes",
+          "floating_debris"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
         "name": "云海竞技场",
         "name_en": "Nameless King Storm Arena",
         "kind": "main",
@@ -399,299 +505,184 @@
       }
     ]
   },
-  "boss": {
-    "type": "NamelessKing",
-    "name": "无名王者",
-    "name_en": "Nameless King",
-    "x": 4200,
-    "y": 900,
-    "source_status": "official_identity_projected_position"
-  },
+  "boss": [
+    {
+      "type": "AncientWyvern",
+      "name": "古飞龙",
+      "name_en": "Ancient Wyvern",
+      "x": 1800,
+      "y": 1400,
+      "source_status": "official_identity_projected_position"
+    },
+    {
+      "type": "NamelessKing",
+      "name": "无名王者",
+      "name_en": "Nameless King",
+      "x": 4200,
+      "y": 900,
+      "source_status": "official_identity_projected_position"
+    }
+  ],
   "enemies": [
     {
-      "kind": "SerpentMan",
-      "x": 352,
-      "y": 1840
+      "kind": "RockLizard",
+      "x": 520,
+      "y": 3450
+    },
+    {
+      "kind": "RockLizard",
+      "x": 780,
+      "y": 3580
     },
     {
       "kind": "SerpentMan",
-      "x": 448,
-      "y": 1920
+      "x": 580,
+      "y": 3400
     },
     {
       "kind": "SerpentMan",
-      "x": 608,
-      "y": 1568
+      "x": 800,
+      "y": 3550
     },
     {
       "kind": "SerpentMan",
-      "x": 720,
-      "y": 1728
+      "x": 1180,
+      "y": 2880
     },
     {
       "kind": "SerpentMan",
-      "x": 672,
-      "y": 1632
+      "x": 1400,
+      "y": 3000
     },
     {
       "kind": "SerpentMan",
-      "x": 752,
-      "y": 1520
+      "x": 1650,
+      "y": 2920
     },
     {
       "kind": "SerpentMan",
-      "x": 864,
-      "y": 1584
+      "x": 1520,
+      "y": 3200
     },
     {
-      "kind": "SerpentMan",
-      "x": 832,
-      "y": 1408
+      "kind": "RockLizard",
+      "x": 1260,
+      "y": 3120
     },
     {
-      "kind": "SerpentMan",
-      "x": 928,
-      "y": 1472
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 848,
-      "y": 1200
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 992,
-      "y": 1264
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 768,
-      "y": 1088
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1040,
-      "y": 1152
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1136,
-      "y": 1248
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1104,
-      "y": 928
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1280,
-      "y": 768
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1200,
-      "y": 896
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1344,
-      "y": 784
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1440,
-      "y": 720
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1456,
-      "y": 768
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1504,
-      "y": 560
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1616,
-      "y": 624
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1680,
-      "y": 608
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1728,
-      "y": 448
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1888,
-      "y": 400
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1824,
-      "y": 480
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 1920,
-      "y": 1200
-    },
-    {
-      "kind": "SerpentMan",
-      "x": 2160,
-      "y": 448
+      "kind": "RockLizard",
+      "x": 1780,
+      "y": 2860
     },
     {
       "kind": "SerpentMan",
       "x": 2000,
-      "y": 1152
+      "y": 2620
     },
     {
       "kind": "SerpentMan",
-      "x": 2080,
-      "y": 560
+      "x": 2300,
+      "y": 2740
     },
     {
       "kind": "SerpentMan",
-      "x": 2112,
-      "y": 640
+      "x": 2500,
+      "y": 2860
+    },
+    {
+      "kind": "RockLizard",
+      "x": 2100,
+      "y": 2800
+    },
+    {
+      "kind": "AncientWyvern",
+      "x": 2200,
+      "y": 2580
     },
     {
       "kind": "SerpentMan",
-      "x": 2336,
-      "y": 1328
+      "x": 2100,
+      "y": 2120
     },
     {
       "kind": "SerpentMan",
-      "x": 2304,
-      "y": 1392
+      "x": 2350,
+      "y": 2200
     },
     {
       "kind": "SerpentMan",
-      "x": 2192,
-      "y": 1456
+      "x": 2500,
+      "y": 2100
+    },
+    {
+      "kind": "SerpentManSummoner",
+      "x": 2250,
+      "y": 2300
+    },
+    {
+      "kind": "DrakebloodKnight",
+      "x": 2200,
+      "y": 2180
+    },
+    {
+      "kind": "RockLizard",
+      "x": 2050,
+      "y": 2350
     },
     {
       "kind": "SerpentMan",
-      "x": 2112,
-      "y": 1520
+      "x": 2750,
+      "y": 1640
     },
     {
       "kind": "SerpentMan",
-      "x": 2384,
-      "y": 1584
+      "x": 3000,
+      "y": 1720
     },
     {
       "kind": "SerpentMan",
-      "x": 2272,
-      "y": 1776
+      "x": 3300,
+      "y": 1800
+    },
+    {
+      "kind": "RockLizard",
+      "x": 2900,
+      "y": 1850
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 3100,
+      "y": 1760
     },
     {
       "kind": "SerpentMan",
-      "x": 1952,
-      "y": 1840
+      "x": 3250,
+      "y": 1180
     },
     {
-      "kind": "DarkMage",
-      "x": 1104,
-      "y": 832
+      "kind": "SerpentMan",
+      "x": 3500,
+      "y": 1250
     },
     {
-      "kind": "DarkMage",
-      "x": 1360,
-      "y": 656
+      "kind": "SerpentManSummoner",
+      "x": 3400,
+      "y": 1320
     },
     {
-      "kind": "DarkMage",
-      "x": 1584,
-      "y": 736
+      "kind": "HavelKnight",
+      "x": 3480,
+      "y": 1280
     },
     {
-      "kind": "DarkMage",
-      "x": 2448,
-      "y": 1712
+      "kind": "RockLizard",
+      "x": 3300,
+      "y": 1400
     },
     {
-      "kind": "CrystalLizard",
-      "x": 560,
-      "y": 1744
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 672,
-      "y": 1520
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 1888,
-      "y": 304
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 2080,
-      "y": 384
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 2272,
-      "y": 1360
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 1792,
-      "y": 1136
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 2368,
-      "y": 1504
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 800,
-      "y": 1152
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 448,
-      "y": 1888
-    },
-    {
-      "kind": "Knight",
-      "x": 1760,
-      "y": 464
-    },
-    {
-      "kind": "Knight",
-      "x": 2272,
-      "y": 1392
-    },
-    {
-      "kind": "Knight",
-      "x": 1264,
-      "y": 832
-    },
-    {
-      "kind": "WingedKnight",
-      "x": 2048,
-      "y": 1120
-    },
-    {
-      "kind": "MiniBoss",
-      "x": 880,
-      "y": 1056
-    },
-    {
-      "kind": "MiniBoss",
-      "x": 992,
-      "y": 1216
+      "kind": "HavelKnight",
+      "x": 3780,
+      "y": 1110
     }
   ],
   "items": [
@@ -850,7 +841,7 @@
       "value": 1500
     },
     {
-      "kind": "Consumable",
+      "kind": "RingDrop",
       "name_en": "Calamity Ring",
       "x": 2400,
       "y": 2340,
@@ -941,12 +932,257 @@
       "value": 0
     },
     {
+      "kind": "Consumable",
+      "name_en": "Dragon Head Stone",
+      "x": 2664,
+      "y": 2127,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Dragonslayer Spear",
+      "x": 2035,
+      "y": 2449,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Storm Curved Sword",
+      "x": 2200,
+      "y": 2800,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Drakeblood Greatsword",
+      "x": 2291,
+      "y": 2195,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Ricard's Rapier",
+      "x": 2238,
+      "y": 2141,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Lightning Bolt",
+      "x": 2764,
+      "y": 2122,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Scale",
+      "x": 2702,
+      "y": 2449,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Scale",
+      "x": 2568,
+      "y": 2114,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Twinkling Titanite",
+      "x": 2614,
+      "y": 2286,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Twinkling Titanite",
+      "x": 2042,
+      "y": 2085,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Twinkling Titanite",
+      "x": 2105,
+      "y": 2181,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Twinkling Titanite",
+      "x": 2400,
+      "y": 2600,
+      "value": 0
+    },
+    {
       "kind": "SoulOrb",
       "name_en": "Soul of the Nameless King",
       "x": 4200,
       "y": 920,
       "value": 0,
       "note": "Boss soul from Nameless King"
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Lightning Bolt",
+      "x": 600,
+      "y": 3420,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Lightning Bolt",
+      "x": 640,
+      "y": 3460,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Lightning Bolt",
+      "x": 680,
+      "y": 3500,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Lightning Bolt",
+      "x": 720,
+      "y": 3540,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Stalk Dung Pie",
+      "x": 700,
+      "y": 3600,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Stalk Dung Pie",
+      "x": 750,
+      "y": 3640,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Chunk",
+      "x": 1200,
+      "y": 2920,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Chunk",
+      "x": 1300,
+      "y": 3000,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Chunk",
+      "x": 1600,
+      "y": 3060,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Lightning Bolt",
+      "x": 2100,
+      "y": 2600,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Lightning Bolt",
+      "x": 2200,
+      "y": 2700,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Lightning Bolt",
+      "x": 2300,
+      "y": 2800,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Stalk Dung Pie",
+      "x": 2000,
+      "y": 2640,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Stalk Dung Pie",
+      "x": 2400,
+      "y": 2880,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Chunk",
+      "x": 2150,
+      "y": 2160,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Chunk",
+      "x": 2300,
+      "y": 2240,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Lightning Bolt",
+      "x": 2800,
+      "y": 1680,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Lightning Bolt",
+      "x": 3000,
+      "y": 1760,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Lightning Bolt",
+      "x": 3100,
+      "y": 1800,
+      "value": 0
+    },
+    {
+      "kind": "Ember",
+      "name_en": "Ember",
+      "x": 2800,
+      "y": 1800,
+      "value": 0
+    },
+    {
+      "kind": "Ember",
+      "name_en": "Ember",
+      "x": 3200,
+      "y": 1300,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Homeward Bone",
+      "x": 2300,
+      "y": 2200,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Slab",
+      "x": 3600,
+      "y": 1400,
+      "value": 0
     }
   ],
   "chests": [
@@ -973,16 +1209,16 @@
   ],
   "npcs": [
     {
-      "name": "ホークウッド",
+      "name": "Hawkwood",
       "name_en": "Hawkwood",
-      "kind": "Dialogue",
+      "kind": "Summon",
       "x": 3360,
       "y": 1260,
       "color": "#7F8C8D",
       "dialogue": [
-        "The Nameless King awaits.",
-        "He is the firstborn of Gwyn, who inherited the lightning.",
-        "I must face him alone."
+        "I should have known. Well, I've decided to stop running from my fate. Loathe me all you like, I shall take what makes you dragon.",
+        "The Nameless King... The firstborn of Gwyn, who inherited the lightning. He chose to side with the ancient dragons.",
+        "Ahh, there you are. This shall be no petty theft. As the true dragon, I shall take what is rightfully mine."
       ]
     }
   ],
@@ -1042,6 +1278,17 @@
       "dest_area": "IrithyllDungeon",
       "dest_x": 3060,
       "dest_y": 1400,
+      "kind": "area_transition",
+      "source_status": "projected_transition"
+    },
+    {
+      "x": 500,
+      "y": 600,
+      "w": 96,
+      "h": 96,
+      "dest_area": "GrandArchives",
+      "dest_x": 2800,
+      "dest_y": 500,
       "kind": "area_transition",
       "source_status": "projected_transition"
     }

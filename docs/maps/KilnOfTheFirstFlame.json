@@ -37,18 +37,22 @@
   },
   "bonfires": [
     {
-      "name": "初始之火的火炉",
-      "name_en": "Kiln of the First Flame",
+      "name": "无火的祭祀场",
+      "name_en": "Flameless Shrine",
       "x": 620,
-      "y": 2200,
-      "source_status": "official_name_projected_position"
+      "y": 2200
     },
     {
-      "name": "初始之火",
-      "name_en": "The First Flame",
+      "name": "初始之火的火炉",
+      "name_en": "Kiln of the First Flame",
       "x": 1560,
-      "y": 1180,
-      "source_status": "official_name_projected_position"
+      "y": 1180
+    },
+    {
+      "name": "薪の王たち",
+      "name_en": "Soul of Cinder",
+      "x": 1600,
+      "y": 2240
     }
   ],
   "map_layout": {
@@ -168,12 +172,19 @@
         "source_status": "route_landmark_projection"
       },
       {
+        "name": "余烬废墟",
+        "name_en": "Ashen Ruins",
+        "kind": "main",
         "x": 1360,
         "y": 2128,
         "w": 480,
         "h": 224,
-        "name": "补充区域-1",
-        "terrain_features": []
+        "terrain_features": [
+          "ash_dunes",
+          "burned_pillars",
+          "ember_debris"
+        ],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
@@ -185,178 +196,7 @@
     "y": 1180,
     "source_status": "official_identity_projected_position"
   },
-  "enemies": [
-    {
-      "kind": "HollowSoldier",
-      "x": 800,
-      "y": 2240
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 960,
-      "y": 2208
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1120,
-      "y": 2272
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1280,
-      "y": 2176
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1440,
-      "y": 2240
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1600,
-      "y": 2208
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1760,
-      "y": 2272
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 880,
-      "y": 2144
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1040,
-      "y": 2080
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1200,
-      "y": 2112
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 784,
-      "y": 1264
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 944,
-      "y": 1344
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1120,
-      "y": 1248
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1280,
-      "y": 1312
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1440,
-      "y": 1376
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1600,
-      "y": 1280
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1760,
-      "y": 1344
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1152,
-      "y": 320
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1056,
-      "y": 416
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1184,
-      "y": 592
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1184,
-      "y": 800
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 992,
-      "y": 1072
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 640,
-      "y": 1968
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 960,
-      "y": 1872
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 1280,
-      "y": 1952
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 1600,
-      "y": 1856
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 1920,
-      "y": 1920
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 1808,
-      "y": 320
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 1680,
-      "y": 416
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 1488,
-      "y": 592
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 1392,
-      "y": 720
-    },
-    {
-      "kind": "BlackKnight",
-      "x": 1680,
-      "y": 800
-    },
-    {
-      "kind": "MiniBoss",
-      "x": 1280,
-      "y": 416
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 1920,
-      "y": 1440
-    }
-  ],
+  "enemies": [],
   "items": [
     {
       "kind": "SoulOrb",
@@ -377,10 +217,10 @@
       "y": 912,
       "color": "#FFFFFF",
       "dialogue": [
-        "Ashen one, to the First Flame.",
-        "My thanks, Ashen one. For thy service to the Fire Keeper.",
-        "The Lords have left their thrones. Please, return them.",
-        "Mayst thou thy peace discov'r."
+        "Ashen one, to the First Flame. My thanks, Ashen one. For thy service to the Fire Keeper.",
+        "The Lords have left their thrones, and must be deliver'd to them. To this end, I am at thy side.",
+        "Mayst thou thy peace discov'r. And the FireKeeper, too, by thy side.",
+        "Ashen one, hearest thou my voice, still?"
       ]
     }
   ],

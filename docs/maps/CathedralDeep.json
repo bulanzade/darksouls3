@@ -73,17 +73,18 @@
         ]
       },
       {
-        "name": "巨人墓地区",
-        "name_en": "Giant Graveyard",
+        "name": "外部墓地",
+        "name_en": "Exterior Cemetery",
         "kind": "main",
         "x": 1840,
         "y": 1780,
         "w": 920,
         "h": 760,
         "terrain_features": [
-          "giant arrows",
-          "open graveyard",
-          "deep accursed"
+          "giant_arrows",
+          "grave_stones",
+          "grave_wardens",
+          "reanimated_corpses"
         ]
       },
       {
@@ -157,6 +158,37 @@
           "deep fire",
           "deacon swarm"
         ]
+      },
+      {
+        "name": "深层受诅咒之间",
+        "name_en": "Deep Accursed Chamber",
+        "kind": "optional",
+        "x": 2200,
+        "y": 900,
+        "w": 600,
+        "h": 400,
+        "terrain_features": [
+          "ceiling_drop_ambush",
+          "stone_chamber",
+          "deep_curse_pools"
+        ],
+        "source_status": "route_landmark_projection"
+      },
+      {
+        "name": "内部桁架通道",
+        "name_en": "Interior Rafter Walkways",
+        "kind": "optional",
+        "x": 3300,
+        "y": 660,
+        "w": 700,
+        "h": 440,
+        "terrain_features": [
+          "narrow_wooden_beams",
+          "thrall_ambush_points",
+          "high_cathedral_ceiling",
+          "emit_force_knight"
+        ],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
@@ -169,414 +201,439 @@
   },
   "enemies": [
     {
-      "kind": "InfestedCorpse",
-      "x": 448,
-      "y": 80
-    },
-    {
-      "kind": "InfestedCorpse",
-      "x": 544,
-      "y": 128
-    },
-    {
-      "kind": "InfestedCorpse",
-      "x": 400,
-      "y": 160
-    },
-    {
-      "kind": "InfestedCorpse",
-      "x": 560,
-      "y": 176
-    },
-    {
-      "kind": "InfestedCorpse",
-      "x": 480,
-      "y": 448
-    },
-    {
-      "kind": "InfestedCorpse",
-      "x": 576,
+      "kind": "ReanimatedCorpse",
+      "x": 1024,
       "y": 480
     },
     {
-      "kind": "InfestedCorpse",
-      "x": 1216,
-      "y": 1056
+      "kind": "ReanimatedCorpse",
+      "x": 384,
+      "y": 800
     },
     {
-      "kind": "InfestedCorpse",
+      "kind": "ReanimatedCorpse",
+      "x": 640,
+      "y": 544
+    },
+    {
+      "kind": "ReanimatedCorpse",
       "x": 608,
-      "y": 1344
+      "y": 480
     },
     {
-      "kind": "InfestedCorpse",
-      "x": 704,
-      "y": 1376
-    },
-    {
-      "kind": "InfestedCorpse",
-      "x": 608,
-      "y": 1376
-    },
-    {
-      "kind": "InfestedCorpse",
-      "x": 688,
-      "y": 1408
-    },
-    {
-      "kind": "InfestedCorpse",
+      "kind": "ReanimatedCorpse",
       "x": 480,
-      "y": 1728
+      "y": 768
     },
     {
-      "kind": "InfestedCorpse",
-      "x": 448,
-      "y": 1824
+      "kind": "ReanimatedCorpse",
+      "x": 928,
+      "y": 480
     },
     {
-      "kind": "CrystalLizard",
-      "x": 608,
-      "y": 64
-    },
-    {
-      "kind": "CrystalLizard",
+      "kind": "ReanimatedCorpse",
       "x": 960,
-      "y": 1216
+      "y": 640
     },
     {
-      "kind": "CathedralKnight",
-      "x": 624,
-      "y": 256
+      "kind": "ReanimatedCorpse",
+      "x": 384,
+      "y": 448
     },
     {
-      "kind": "CathedralKnight",
-      "x": 720,
-      "y": 320
+      "kind": "ReanimatedCorpse",
+      "x": 448,
+      "y": 544
     },
     {
-      "kind": "CathedralKnight",
-      "x": 768,
-      "y": 864
-    },
-    {
-      "kind": "CathedralKnight",
-      "x": 832,
-      "y": 896
-    },
-    {
-      "kind": "CathedralKnight",
-      "x": 800,
-      "y": 1120
-    },
-    {
-      "kind": "CathedralKnight",
-      "x": 880,
-      "y": 1152
-    },
-    {
-      "kind": "CathedralKnight",
-      "x": 1120,
-      "y": 992
-    },
-    {
-      "kind": "CathedralKnight",
-      "x": 768,
-      "y": 1408
-    },
-    {
-      "kind": "CathedralKnight",
-      "x": 848,
-      "y": 1536
-    },
-    {
-      "kind": "CathedralKnight",
-      "x": 976,
-      "y": 1760
+      "kind": "ReanimatedCorpse",
+      "x": 608,
+      "y": 672
     },
     {
       "kind": "StarvedHound",
-      "x": 352,
-      "y": 384
+      "x": 448,
+      "y": 480
     },
     {
       "kind": "StarvedHound",
       "x": 416,
-      "y": 448
+      "y": 480
     },
     {
-      "kind": "CathedralGraveWarden",
+      "kind": "StarvedHound",
       "x": 544,
-      "y": 416
-    },
-    {
-      "kind": "CathedralGraveWarden",
-      "x": 608,
       "y": 512
     },
     {
       "kind": "CathedralGraveWarden",
       "x": 928,
-      "y": 1696
-    },
-    {
-      "kind": "CathedralGraveWarden",
-      "x": 992,
-      "y": 1712
-    },
-    {
-      "kind": "Evangelist",
-      "x": 544,
-      "y": 672
-    },
-    {
-      "kind": "Evangelist",
-      "x": 736,
       "y": 800
     },
     {
-      "kind": "Evangelist",
-      "x": 672,
-      "y": 1184
-    },
-    {
-      "kind": "Evangelist",
-      "x": 1056,
-      "y": 1024
-    },
-    {
-      "kind": "Evangelist",
-      "x": 1152,
-      "y": 1088
-    },
-    {
-      "kind": "Evangelist",
-      "x": 592,
-      "y": 1536
-    },
-    {
-      "kind": "PeasantHollow",
-      "x": 448,
-      "y": 640
-    },
-    {
-      "kind": "PeasantHollow",
-      "x": 928,
-      "y": 1024
-    },
-    {
-      "kind": "Thrall",
-      "x": 960,
-      "y": 960
-    },
-    {
-      "kind": "Thrall",
-      "x": 1024,
-      "y": 1040
-    },
-    {
-      "kind": "Thrall",
+      "kind": "CathedralGraveWarden",
       "x": 1088,
-      "y": 992
+      "y": 800
     },
     {
-      "kind": "Thrall",
-      "x": 992,
-      "y": 1088
+      "kind": "InfestedCorpse",
+      "x": 576,
+      "y": 672
     },
     {
-      "kind": "Thrall",
-      "x": 768,
-      "y": 1200
-    },
-    {
-      "kind": "Thrall",
-      "x": 896,
-      "y": 1248
-    },
-    {
-      "kind": "Thrall",
-      "x": 832,
-      "y": 1168
-    },
-    {
-      "kind": "Thrall",
-      "x": 928,
-      "y": 1200
-    },
-    {
-      "kind": "Thrall",
-      "x": 864,
-      "y": 1232
-    },
-    {
-      "kind": "Thrall",
-      "x": 736,
-      "y": 1600
-    },
-    {
-      "kind": "Thrall",
-      "x": 880,
-      "y": 1632
-    },
-    {
-      "kind": "Thrall",
-      "x": 560,
-      "y": 1504
-    },
-    {
-      "kind": "Thrall",
-      "x": 640,
-      "y": 1584
-    },
-    {
-      "kind": "DeepAccursed",
-      "x": 352,
+      "kind": "InfestedCorpse",
+      "x": 576,
       "y": 608
     },
     {
-      "kind": "GiantSlave",
-      "x": 704,
-      "y": 1472
+      "kind": "CorpseGrub",
+      "x": 544,
+      "y": 480
     },
     {
-      "kind": "GiantSlave",
-      "x": 896,
-      "y": 1568
-    },
-    {
-      "kind": "Deacon",
-      "x": 624,
-      "y": 1760
-    },
-    {
-      "kind": "Deacon",
+      "kind": "CorpseGrub",
       "x": 672,
-      "y": 1728
+      "y": 736
     },
     {
-      "kind": "Deacon",
-      "x": 768,
-      "y": 1872
+      "kind": "CorpseGrub",
+      "x": 480,
+      "y": 672
     },
     {
-      "kind": "Deacon",
-      "x": 832,
+      "kind": "CorpseGrub",
+      "x": 480,
+      "y": 736
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 960,
+      "y": 512
+    },
+    {
+      "kind": "CathedralKnight",
+      "x": 1568,
+      "y": 1376
+    },
+    {
+      "kind": "CathedralKnight",
+      "x": 1632,
+      "y": 1312
+    },
+    {
+      "kind": "CathedralEvangelist",
+      "x": 1344,
+      "y": 1440
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 1600,
+      "y": 1504
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 1472,
+      "y": 1312
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 1472,
+      "y": 1376
+    },
+    {
+      "kind": "CathedralGraveWarden",
+      "x": 2112,
+      "y": 2048
+    },
+    {
+      "kind": "CathedralGraveWarden",
+      "x": 2592,
       "y": 1856
     },
     {
-      "kind": "Deacon",
-      "x": 880,
-      "y": 1824
+      "kind": "DeepAccursed",
+      "x": 2080,
+      "y": 2112
     },
     {
-      "kind": "Deacon",
-      "x": 640,
-      "y": 1888
+      "kind": "GiantSlave",
+      "x": 2208,
+      "y": 2048
     },
     {
-      "kind": "Deacon",
-      "x": 688,
-      "y": 1952
-    },
-    {
-      "kind": "Deacon",
-      "x": 816,
-      "y": 1984
-    },
-    {
-      "kind": "Deacon",
-      "x": 880,
-      "y": 1920
-    },
-    {
-      "kind": "Deacon",
-      "x": 560,
-      "y": 1984
-    },
-    {
-      "kind": "Deacon",
-      "x": 912,
-      "y": 1904
-    },
-    {
-      "kind": "Deacon",
-      "x": 512,
-      "y": 1920
-    },
-    {
-      "kind": "ManGrub",
-      "x": 544,
-      "y": 2160
-    },
-    {
-      "kind": "ManGrub",
-      "x": 608,
-      "y": 2208
-    },
-    {
-      "kind": "ManGrub",
-      "x": 672,
+      "kind": "GiantSlave",
+      "x": 2496,
       "y": 2240
     },
     {
-      "kind": "ManGrub",
-      "x": 576,
+      "kind": "CathedralKnight",
+      "x": 2880,
+      "y": 1600
+    },
+    {
+      "kind": "CathedralKnight",
+      "x": 3136,
+      "y": 1920
+    },
+    {
+      "kind": "CathedralKnight",
+      "x": 2720,
+      "y": 1664
+    },
+    {
+      "kind": "CathedralKnight",
+      "x": 3264,
+      "y": 1376
+    },
+    {
+      "kind": "CathedralEvangelist",
+      "x": 2784,
+      "y": 1792
+    },
+    {
+      "kind": "CathedralEvangelist",
+      "x": 2560,
+      "y": 1792
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 2816,
+      "y": 1760
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 2752,
+      "y": 1408
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 2688,
+      "y": 1920
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 3232,
+      "y": 1664
+    },
+    {
+      "kind": "WrithingRottenFlesh",
+      "x": 2656,
+      "y": 1600
+    },
+    {
+      "kind": "WrithingRottenFlesh",
+      "x": 2976,
+      "y": 1760
+    },
+    {
+      "kind": "WrithingRottenFlesh",
+      "x": 2848,
+      "y": 1632
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 3680,
+      "y": 640
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 3968,
+      "y": 608
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 3552,
+      "y": 768
+    },
+    {
+      "kind": "RavenousCrystalLizard",
+      "x": 3616,
+      "y": 832
+    },
+    {
+      "kind": "CathedralKnight",
+      "x": 1632,
+      "y": 2304
+    },
+    {
+      "kind": "CorpseGrub",
+      "x": 1600,
+      "y": 2368
+    },
+    {
+      "kind": "CorpseGrub",
+      "x": 1568,
       "y": 2272
     },
     {
       "kind": "ManGrub",
-      "x": 640,
-      "y": 2288
+      "x": 4416,
+      "y": 1536
     },
     {
-      "kind": "InfestedCorpse",
-      "x": 1024,
-      "y": 1120
+      "kind": "ManGrub",
+      "x": 3840,
+      "y": 1440
     },
     {
-      "kind": "InfestedCorpse",
-      "x": 832,
-      "y": 1168
+      "kind": "ManGrub",
+      "x": 3936,
+      "y": 1440
     },
     {
-      "kind": "InfestedCorpse",
-      "x": 896,
-      "y": 1248
+      "kind": "ManGrub",
+      "x": 4384,
+      "y": 1472
     },
     {
-      "kind": "InfestedCorpse",
-      "x": 560,
-      "y": 1504
-    },
-    {
-      "kind": "Basilisk",
-      "x": 1088,
-      "y": 992
-    },
-    {
-      "kind": "Basilisk",
-      "x": 992,
-      "y": 1088
-    },
-    {
-      "kind": "Rat",
-      "x": 640,
-      "y": 1584
-    },
-    {
-      "kind": "Rat",
-      "x": 880,
-      "y": 1632
+      "kind": "ManGrub",
+      "x": 4096,
+      "y": 1472
     },
     {
       "kind": "CrystalLizard",
-      "x": 672,
-      "y": 2240
+      "x": 3968,
+      "y": 1408
     },
     {
-      "kind": "MiniBoss",
-      "x": 720,
-      "y": 1824
+      "kind": "WrithingRottenFlesh",
+      "x": 3872,
+      "y": 1536
+    },
+    {
+      "kind": "CathedralKnight",
+      "x": 3008,
+      "y": 3328
+    },
+    {
+      "kind": "CathedralKnight",
+      "x": 2880,
+      "y": 3264
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 2976,
+      "y": 3488
+    },
+    {
+      "kind": "DevoutHollow",
+      "x": 992,
+      "y": 448
+    },
+    {
+      "kind": "DevoutHollow",
+      "x": 980,
+      "y": 660
+    },
+    {
+      "kind": "DevoutHollow",
+      "x": 1120,
+      "y": 992
+    },
+    {
+      "kind": "DevoutHollow",
+      "x": 800,
+      "y": 640
+    },
+    {
+      "kind": "DevoutHollow",
+      "x": 832,
+      "y": 1024
+    },
+    {
+      "kind": "DevoutHollow",
+      "x": 800,
+      "y": 600
+    },
+    {
+      "kind": "DevoutHollow",
+      "x": 1152,
+      "y": 576
+    },
+    {
+      "kind": "DevoutHollow",
+      "x": 1088,
+      "y": 864
+    },
+    {
+      "kind": "DevoutHollow",
+      "x": 1568,
+      "y": 1312
+    },
+    {
+      "kind": "DevoutHollow",
+      "x": 1504,
+      "y": 1728
+    },
+    {
+      "kind": "DevoutHollow",
+      "x": 1376,
+      "y": 1472
+    },
+    {
+      "kind": "DevoutHollow",
+      "x": 1536,
+      "y": 1504
+    },
+    {
+      "kind": "DevoutHollow",
+      "x": 2496,
+      "y": 2432
+    },
+    {
+      "kind": "DevoutHollow",
+      "x": 2048,
+      "y": 2336
+    },
+    {
+      "kind": "DevoutHollow",
+      "x": 2624,
+      "y": 2048
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 400,
+      "y": 600
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 600,
+      "y": 800
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 800,
+      "y": 1000
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 1300,
+      "y": 1300
+    },
+    {
+      "kind": "HollowSlave",
+      "x": 1400,
+      "y": 1400
+    },
+    {
+      "kind": "ManGrub",
+      "x": 3200,
+      "y": 700
+    },
+    {
+      "kind": "ManGrub",
+      "x": 3300,
+      "y": 800
+    },
+    {
+      "kind": "CageSpider",
+      "x": 1200,
+      "y": 1100
+    },
+    {
+      "kind": "CageSpider",
+      "x": 1500,
+      "y": 1400
     }
   ],
   "items": [
@@ -602,13 +659,6 @@
       "value": 0
     },
     {
-      "kind": "WeaponDrop",
-      "name_en": "Astora Straight Sword",
-      "x": 1500,
-      "y": 1400,
-      "value": 0
-    },
-    {
       "kind": "UndeadBoneShard",
       "name_en": "Undead Bone Shard",
       "x": 1700,
@@ -627,13 +677,6 @@
       "name_en": "Deep Ring",
       "x": 2000,
       "y": 2100,
-      "value": 0
-    },
-    {
-      "kind": "RingDrop",
-      "name_en": "Red Tearstone Ring",
-      "x": 2100,
-      "y": 2300,
       "value": 0
     },
     {
@@ -658,13 +701,6 @@
       "value": 0
     },
     {
-      "kind": "WeaponDrop",
-      "name_en": "Sunlight Straight Sword",
-      "x": 3400,
-      "y": 800,
-      "value": 0
-    },
-    {
       "kind": "Consumable",
       "name_en": "Pale Tongue",
       "x": 4070,
@@ -680,11 +716,250 @@
     },
     {
       "kind": "SoulOrb",
-      "name_en": "Soul of the Boreal Valley",
+      "name_en": "Soul of the Deacons of the Deep",
       "x": 3040,
       "y": 3440,
       "value": 0,
       "note": "Boss soul from Deacons of the Deep"
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Astora Greatsword",
+      "x": 1023,
+      "y": 820
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Executioner's Greatsword",
+      "x": 1881,
+      "y": 1408
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Saint-Tree Bellvine",
+      "x": 1361,
+      "y": 1333
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Saint Bident",
+      "x": 1067,
+      "y": 683
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Arbalest",
+      "x": 900,
+      "y": 1100
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Drang Hammers",
+      "x": 1400,
+      "y": 1800
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Notched Whip",
+      "x": 1586,
+      "y": 1350
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Crest Shield",
+      "x": 1265,
+      "y": 688
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Curse Ward Greatshield",
+      "x": 1300,
+      "y": 1700
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Spiked Shield",
+      "x": 1393,
+      "y": 1504
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Maiden Set",
+      "x": 674,
+      "y": 914
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Drang Set",
+      "x": 1663,
+      "y": 1393
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Armor of Thorns",
+      "x": 1669,
+      "y": 1491
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Young White Branch",
+      "x": 604,
+      "y": 723
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Young White Branch",
+      "x": 1108,
+      "y": 1113
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Repair Powder",
+      "x": 463,
+      "y": 1073
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Red Bug Pellet",
+      "x": 1040,
+      "y": 625
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Ember",
+      "x": 1836,
+      "y": 1683
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Ember",
+      "x": 1540,
+      "y": 1393
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Large Soul of an Unknown Traveler",
+      "x": 1763,
+      "y": 1504,
+      "value": 800
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Large Soul of an Unknown Traveler",
+      "x": 1566,
+      "y": 1783,
+      "value": 800
+    },
+    {
+      "kind": "HomewardBone",
+      "name_en": "Homeward Bone",
+      "x": 1045,
+      "y": 1020
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Pale Tongue",
+      "x": 1514,
+      "y": 1660
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Duel Charm",
+      "x": 1622,
+      "y": 1741
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dung Pie",
+      "x": 1347,
+      "y": 1427
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Rusted Coin",
+      "x": 1322,
+      "y": 1722
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Exploding Bolt",
+      "x": 1613,
+      "y": 1515
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Undead Hunter Charm",
+      "x": 664,
+      "y": 517
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Twinkling Titanite",
+      "x": 1300,
+      "y": 1750
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Twinkling Titanite",
+      "x": 1350,
+      "y": 1780
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Blessed Gem",
+      "x": 1506,
+      "y": 1777
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Deep Gem",
+      "x": 1870,
+      "y": 1758
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Poisonbite Ring",
+      "x": 1125,
+      "y": 772
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Lloyd's Sword Ring",
+      "x": 1507,
+      "y": 1645
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Red Sign Soapstone",
+      "x": 1801,
+      "y": 1512
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Seek Guidance",
+      "x": 1295,
+      "y": 1108
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Small Doll",
+      "x": 3040,
+      "y": 3460,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Aldrich's Sapphire",
+      "x": 2339,
+      "y": 1956,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Archdeacon Set",
+      "x": 3080,
+      "y": 3500,
+      "value": 0
     }
   ],
   "chests": [
@@ -697,6 +972,16 @@
         "value": 0
       },
       "is_mimic": false
+    },
+    {
+      "x": 2800,
+      "y": 1600,
+      "loot": {
+        "kind": "Consumable",
+        "name_en": "Deep Braille Divine Tome",
+        "value": 0
+      },
+      "is_mimic": true
     }
   ],
   "npcs": [
@@ -708,10 +993,10 @@
       "y": 2150,
       "color": "#C0A060",
       "dialogue": [
-        "Hello! Hello! Anyone there?",
-        "Oh! I know that voice. How long has it been?",
-        "It's me, Siegward! Siegward of Catarina!",
-        "Someone's made off with my armour! The absolute knave!"
+        "Hello! Hello! Anyone there? Anyone at all?",
+        "Oh! I know that voice. Just how long has it been? It's me, Siegward of Catarina. I'm loathe to admit it, but I've been had. Someone's swiped my armour. Did you happen to see it anywhere?",
+        "Oh, yes, I see... Not to worry. Great planning begets great fortune. An old tenet of the Knights of Catarina. And I am a master planner, I do say!",
+        "I'm in quite a pickle indeed. I've got to use my head. And think. Hmm... Mmm..."
       ]
     },
     {
@@ -722,10 +1007,10 @@
       "y": 2200,
       "color": "#8B7355",
       "dialogue": [
-        "Heh heh, what have we here?",
-        "You seem quite uninitiated.",
-        "That is a fine way to greet someone.",
-        "Trust me, I'm a friend. I'll pray for your safety."
+        "Well, you look reasonably sane. I am a knight of Catarina. I've managed to track down this cathedral's store of treasure. It's right over there, across that narrow part.",
+        "Just hold your horses a moment. I know, I know, treasure is so sorely tempting...",
+        "Shame on you, you greedy guts. Thought you could outwit an onion? Well, say hello to the nice giant! He adores visitors.",
+        "Oh, yes, oh, hello, I don't believe we've met? I'm Patches. Unbreakable Patches. You seem to be Unkindled. Do you have business with me?"
       ]
     },
     {
@@ -736,8 +1021,52 @@
       "y": 1460,
       "color": "#D0B0D0",
       "dialogue": [
-        "(Rosaria gazes upon you in silence.)",
+        "(Rosaria does not speak. She gazes upon you in silence, awaiting your offering of Pale Tongues.)",
         "(Offer pale tongues to receive her blessing.)"
+      ]
+    },
+    {
+      "name": "ロンフィンガー・カーク",
+      "name_en": "Longfinger Kirk",
+      "kind": "Invader",
+      "x": 2800,
+      "y": 1600,
+      "color": "#8B0000",
+      "dialogue": [
+        "(No dialogue - invader does not speak)"
+      ]
+    },
+    {
+      "name": "Anri of Astora",
+      "name_en": "Anri of Astora",
+      "kind": "Summon",
+      "x": 2800,
+      "y": 3200,
+      "color": "#C0C0C0",
+      "dialogue": [
+        "(Summon sign before Deacons of the Deep boss fog)"
+      ]
+    },
+    {
+      "name": "Horace the Hushed",
+      "name_en": "Horace the Hushed",
+      "kind": "Summon",
+      "x": 2900,
+      "y": 3200,
+      "color": "#606060",
+      "dialogue": [
+        "(Summon sign next to Anri before Deacons of the Deep boss fog)"
+      ]
+    },
+    {
+      "name": "Sirris of the Sunless Realms",
+      "name_en": "Sirris of the Sunless Realms",
+      "kind": "Summon",
+      "x": 2700,
+      "y": 3150,
+      "color": "#C0C0C0",
+      "dialogue": [
+        "(Summon sign in Cathedral of the Deep, conditional on questline)"
       ]
     }
   ],

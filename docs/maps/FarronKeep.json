@@ -53,8 +53,8 @@
       "source_status": "official_name_projected_position"
     },
     {
-      "name": "要塞外围",
-      "name_en": "Keep Perimeter",
+      "name": "法兰要塞外围",
+      "name_en": "Farron Keep Perimeter",
       "x": 3860,
       "y": 2720,
       "source_status": "official_name_projected_position"
@@ -257,313 +257,303 @@
     {
       "kind": "Ghru",
       "x": 640,
-      "y": 768
+      "y": 780
     },
     {
       "kind": "Ghru",
-      "x": 768,
-      "y": 800
+      "x": 740,
+      "y": 820
     },
     {
       "kind": "Ghru",
-      "x": 528,
-      "y": 800
+      "x": 520,
+      "y": 840
     },
     {
       "kind": "Ghru",
-      "x": 672,
-      "y": 880
+      "x": 680,
+      "y": 900
     },
     {
       "kind": "Ghru",
-      "x": 736,
-      "y": 928
+      "x": 780,
+      "y": 940
     },
     {
-      "kind": "Ghru",
-      "x": 1088,
-      "y": 768
-    },
-    {
-      "kind": "Ghru",
-      "x": 1152,
-      "y": 832
-    },
-    {
-      "kind": "Ghru",
-      "x": 1200,
-      "y": 880
-    },
-    {
-      "kind": "Ghru",
-      "x": 1024,
-      "y": 880
-    },
-    {
-      "kind": "Ghru",
-      "x": 1120,
-      "y": 928
-    },
-    {
-      "kind": "Ghru",
-      "x": 1520,
-      "y": 672
-    },
-    {
-      "kind": "Ghru",
-      "x": 1600,
-      "y": 720
-    },
-    {
-      "kind": "Ghru",
-      "x": 1472,
-      "y": 768
-    },
-    {
-      "kind": "Ghru",
-      "x": 1568,
-      "y": 832
-    },
-    {
-      "kind": "Ghru",
-      "x": 1680,
-      "y": 800
-    },
-    {
-      "kind": "Ghru",
-      "x": 1040,
-      "y": 1152
-    },
-    {
-      "kind": "Ghru",
-      "x": 1152,
-      "y": 1216
-    },
-    {
-      "kind": "Ghru",
-      "x": 1248,
-      "y": 1120
-    },
-    {
-      "kind": "Ghru",
-      "x": 1088,
-      "y": 1088
-    },
-    {
-      "kind": "Ghru",
-      "x": 1184,
-      "y": 1040
-    },
-    {
-      "kind": "DarkMage",
-      "x": 1120,
-      "y": 1184
-    },
-    {
-      "kind": "DarkMage",
-      "x": 1888,
-      "y": 1568
-    },
-    {
-      "kind": "Darkwraith",
-      "x": 1600,
-      "y": 1392
-    },
-    {
-      "kind": "Darkwraith",
-      "x": 1728,
-      "y": 1520
-    },
-    {
-      "kind": "Darkwraith",
-      "x": 2000,
-      "y": 1728
-    },
-    {
-      "kind": "Darkwraith",
-      "x": 1408,
-      "y": 1200
-    },
-    {
-      "kind": "Darkwraith",
-      "x": 1840,
-      "y": 1440
-    },
-    {
-      "kind": "Basilisk",
-      "x": 384,
-      "y": 1120
-    },
-    {
-      "kind": "Basilisk",
+      "kind": "RottenSlug",
       "x": 480,
-      "y": 1200
+      "y": 700
     },
     {
-      "kind": "Basilisk",
-      "x": 512,
-      "y": 1088
+      "kind": "RottenSlug",
+      "x": 600,
+      "y": 850
     },
     {
-      "kind": "Basilisk",
-      "x": 448,
-      "y": 1232
-    },
-    {
-      "kind": "Basilisk",
-      "x": 544,
-      "y": 1152
-    },
-    {
-      "kind": "Rat",
-      "x": 672,
-      "y": 1312
-    },
-    {
-      "kind": "Rat",
+      "kind": "RottenSlug",
       "x": 720,
-      "y": 1344
+      "y": 960
     },
     {
-      "kind": "Rat",
-      "x": 800,
-      "y": 1408
+      "kind": "RottenSlug",
+      "x": 550,
+      "y": 920
     },
     {
-      "kind": "Rat",
-      "x": 768,
-      "y": 1680
+      "kind": "Ghru",
+      "x": 1100,
+      "y": 800
     },
     {
-      "kind": "Rat",
-      "x": 832,
+      "kind": "Ghru",
+      "x": 1180,
+      "y": 860
+    },
+    {
+      "kind": "Ghru",
+      "x": 1060,
+      "y": 900
+    },
+    {
+      "kind": "Ghru",
+      "x": 1220,
+      "y": 940
+    },
+    {
+      "kind": "ElderGhru",
+      "x": 1140,
+      "y": 920
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 1560,
+      "y": 520
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 1640,
+      "y": 620
+    },
+    {
+      "kind": "Ghru",
+      "x": 1800,
+      "y": 1600
+    },
+    {
+      "kind": "Ghru",
+      "x": 2000,
+      "y": 1700
+    },
+    {
+      "kind": "Ghru",
+      "x": 2200,
+      "y": 1640
+    },
+    {
+      "kind": "Ghru",
+      "x": 1900,
+      "y": 1820
+    },
+    {
+      "kind": "ElderGhru",
+      "x": 2100,
+      "y": 1560
+    },
+    {
+      "kind": "ElderGhru",
+      "x": 1950,
+      "y": 1750
+    },
+    {
+      "kind": "RottenSlug",
+      "x": 1750,
+      "y": 1650
+    },
+    {
+      "kind": "RottenSlug",
+      "x": 1850,
+      "y": 1720
+    },
+    {
+      "kind": "RottenSlug",
+      "x": 2050,
+      "y": 1640
+    },
+    {
+      "kind": "RottenSlug",
+      "x": 2150,
       "y": 1760
     },
     {
-      "kind": "Rat",
-      "x": 608,
-      "y": 960
+      "kind": "RottenSlug",
+      "x": 1900,
+      "y": 1900
     },
     {
-      "kind": "Rat",
-      "x": 704,
-      "y": 1040
+      "kind": "GreatCrab",
+      "x": 2350,
+      "y": 1850
     },
     {
-      "kind": "Rat",
-      "x": 880,
-      "y": 1120
+      "kind": "Darkwraith",
+      "x": 1400,
+      "y": 1300
     },
     {
-      "kind": "Rat",
-      "x": 976,
-      "y": 1184
+      "kind": "Darkwraith",
+      "x": 1550,
+      "y": 1350
     },
     {
-      "kind": "Rat",
-      "x": 1120,
-      "y": 1280
+      "kind": "Darkwraith",
+      "x": 1350,
+      "y": 1350
     },
     {
-      "kind": "Rat",
-      "x": 1360,
-      "y": 1200
+      "kind": "Basilisk",
+      "x": 1250,
+      "y": 1350
     },
     {
-      "kind": "Rat",
-      "x": 640,
-      "y": 1440
+      "kind": "Basilisk",
+      "x": 1320,
+      "y": 1350
     },
     {
-      "kind": "Rat",
-      "x": 896,
-      "y": 1520
+      "kind": "Basilisk",
+      "x": 1190,
+      "y": 1350
     },
     {
-      "kind": "GiantSlave",
-      "x": 880,
-      "y": 992
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 960,
-      "y": 1088
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 928,
-      "y": 1200
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 1760,
-      "y": 1600
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 1312,
-      "y": 960
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 1440,
-      "y": 880
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 1040,
-      "y": 992
-    },
-    {
-      "kind": "Assassin",
-      "x": 1840,
-      "y": 1520
-    },
-    {
-      "kind": "Assassin",
-      "x": 1920,
-      "y": 1600
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 1360,
-      "y": 1312
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 752,
-      "y": 1792
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 1952,
-      "y": 1520
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 2048,
-      "y": 1568
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 896,
-      "y": 1040
-    },
-    {
-      "kind": "MiniBoss",
-      "x": 1728,
+      "kind": "RottenSlug",
+      "x": 1380,
       "y": 1360
     },
     {
-      "kind": "MiniBoss",
-      "x": 1920,
-      "y": 1568
+      "kind": "Basilisk",
+      "x": 1190,
+      "y": 1150
+    },
+    {
+      "kind": "Basilisk",
+      "x": 1190,
+      "y": 1220
+    },
+    {
+      "kind": "Basilisk",
+      "x": 990,
+      "y": 1110
+    },
+    {
+      "kind": "RottenSlug",
+      "x": 1080,
+      "y": 1100
+    },
+    {
+      "kind": "Ghru",
+      "x": 2800,
+      "y": 1280
+    },
+    {
+      "kind": "Ghru",
+      "x": 2900,
+      "y": 1360
+    },
+    {
+      "kind": "Ghru",
+      "x": 2790,
+      "y": 1420
+    },
+    {
+      "kind": "ElderGhru",
+      "x": 2850,
+      "y": 1320
+    },
+    {
+      "kind": "ElderGhru",
+      "x": 2950,
+      "y": 1400
+    },
+    {
+      "kind": "Ghru",
+      "x": 3200,
+      "y": 2100
+    },
+    {
+      "kind": "Ghru",
+      "x": 3300,
+      "y": 2180
+    },
+    {
+      "kind": "Ghru",
+      "x": 3150,
+      "y": 2220
+    },
+    {
+      "kind": "ElderGhru",
+      "x": 3250,
+      "y": 2160
+    },
+    {
+      "kind": "RottenSlug",
+      "x": 2300,
+      "y": 2100
+    },
+    {
+      "kind": "RottenSlug",
+      "x": 2500,
+      "y": 2180
+    },
+    {
+      "kind": "RottenSlug",
+      "x": 2350,
+      "y": 2280
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 3420,
+      "y": 720
+    },
+    {
+      "kind": "RavenousCrystalLizard",
+      "x": 3600,
+      "y": 960
+    },
+    {
+      "kind": "Corvian",
+      "x": 3640,
+      "y": 2580
+    },
+    {
+      "kind": "Corvian",
+      "x": 3720,
+      "y": 2650
+    },
+    {
+      "kind": "Corvian",
+      "x": 3800,
+      "y": 2700
+    },
+    {
+      "kind": "Corvian",
+      "x": 3880,
+      "y": 2750
+    },
+    {
+      "kind": "CorvianStoryteller",
+      "x": 3760,
+      "y": 2600
+    },
+    {
+      "kind": "ElderGhru",
+      "x": 1530,
+      "y": 600
     }
   ],
   "items": [
     {
       "kind": "Consumable",
-      "name_en": "Iron Flesh (pyromancy)",
+      "name_en": "Iron Flesh",
       "x": 720,
       "y": 1140,
       "value": 0
@@ -584,13 +574,6 @@
     },
     {
       "kind": "Consumable",
-      "name_en": "Farron Coal (illusory wall near Old Wolf)",
-      "x": 1175,
-      "y": 1354,
-      "value": 0
-    },
-    {
-      "kind": "Consumable",
       "name_en": "Dreamchaser's Ashes",
       "x": 1720,
       "y": 2410,
@@ -598,7 +581,7 @@
     },
     {
       "kind": "Consumable",
-      "name_en": "Lightning Spear (miracle)",
+      "name_en": "Lightning Spear",
       "x": 3490,
       "y": 2250,
       "value": 0
@@ -619,21 +602,21 @@
     },
     {
       "kind": "Consumable",
-      "name_en": "Great Magic Weapon (sorcery)",
+      "name_en": "Great Magic Weapon",
       "x": 2340,
       "y": 1560,
       "value": 0
     },
     {
       "kind": "Consumable",
-      "name_en": "Atonement (miracle)",
+      "name_en": "Atonement",
       "x": 2790,
       "y": 1250,
       "value": 0
     },
     {
       "kind": "Consumable",
-      "name_en": "Wolf's Blood Swordgrass (covenant item)",
+      "name_en": "Wolf's Blood Swordgrass",
       "x": 1700,
       "y": 2450,
       "value": 0
@@ -688,14 +671,14 @@
       "value": 0
     },
     {
-      "kind": "TitaniteShard",
+      "kind": "Consumable",
       "name_en": "Heavy Gem",
       "x": 1880,
       "y": 1660,
       "value": 0
     },
     {
-      "kind": "TitaniteShard",
+      "kind": "Consumable",
       "name_en": "Hollow Gem",
       "x": 2020,
       "y": 1840,
@@ -780,21 +763,21 @@
     },
     {
       "kind": "PurpleMoss",
-      "name_en": "Purple Moss Clump (swamp 1)",
+      "name_en": "Purple Moss Clump",
       "x": 1240,
       "y": 1280,
       "value": 0
     },
     {
       "kind": "PurpleMoss",
-      "name_en": "Purple Moss Clump (swamp 2)",
+      "name_en": "Purple Moss Clump",
       "x": 1240,
       "y": 1380,
       "value": 0
     },
     {
       "kind": "PurpleMoss",
-      "name_en": "Purple Moss Clump (swamp 3)",
+      "name_en": "Purple Moss Clump",
       "x": 1210,
       "y": 1320,
       "value": 0
@@ -836,7 +819,7 @@
     },
     {
       "kind": "Consumable",
-      "name_en": "Wolf's Blood (key to Abyss Watchers)",
+      "name_en": "Wolf's Blood",
       "x": 3200,
       "y": 2600,
       "value": 0
@@ -848,6 +831,112 @@
       "y": 3460,
       "value": 0,
       "note": "Boss soul from Abyss Watchers"
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Dark Set",
+      "x": 2000,
+      "y": 1800,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Antiquated Set",
+      "x": 1180,
+      "y": 1380,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Nameless Knight Set",
+      "x": 2300,
+      "y": 2200,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Crown of Dusk",
+      "x": 2100,
+      "y": 1900,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Rusted Gold Coin",
+      "x": 1240,
+      "y": 1340,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Gold Pine Bundle",
+      "x": 1900,
+      "y": 1700,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Prism Stone",
+      "x": 1800,
+      "y": 1580,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Rotten Pine Resin",
+      "x": 2860,
+      "y": 1280,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Black Bug Pellet",
+      "x": 3680,
+      "y": 2620,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Repair Powder",
+      "x": 1628,
+      "y": 1349,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Large Soul of an Unknown Traveler",
+      "x": 2200,
+      "y": 2300,
+      "value": 800
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Homeward Bone",
+      "x": 1240,
+      "y": 1300,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Farron Ring",
+      "x": 2200,
+      "y": 1860,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Wolf Ring",
+      "x": 3600,
+      "y": 2600,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Cinders of a Lord",
+      "x": 4400,
+      "y": 3460,
+      "value": 0,
+      "note": "Dropped by Abyss Watchers"
     }
   ],
   "chests": [],
@@ -860,8 +949,7 @@
       "y": 2470,
       "color": "#8899AA",
       "dialogue": [
-        "(The wolf gazes silently upon you.)",
-        "(Its eyes reflect distant flames.)"
+        "(The Old Wolf does not speak. Offer Wolf's Blood Swordgrass to prove your devotion to the Watchdogs of Farron covenant.)"
       ]
     },
     {
@@ -872,9 +960,9 @@
       "y": 1840,
       "color": "#8B7355",
       "dialogue": [
-        "The Undead Legion used to be around here.",
-        "They were a fierce bunch. The Abyss Watchers.",
-        "They linked the fire long ago."
+        "The Undead Legion of Farron is a caravan of Undead. Sworn by the wolf's blood to contain the Abyss, the Legion will bury a kingdom at the first sign of exposure. Joyous bunch, really.",
+        "Gaining admission to the Legion is a matter of some ceremony. Inside their keep, snuffing out the flames of three altars opens the door to the wolf blood. Even accursed Undead want to believe they're special, it seems.",
+        "I pity the sorry souls."
       ]
     }
   ],

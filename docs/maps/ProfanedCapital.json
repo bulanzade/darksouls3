@@ -47,7 +47,7 @@
       "name": "巨人尤姆",
       "name_en": "Yhorm the Giant",
       "x": 3000,
-      "y": 3220,
+      "y": 3000,
       "source_status": "official_name_projected_position"
     }
   ],
@@ -147,12 +147,18 @@
         "source_status": "route_landmark_projection"
       },
       {
+        "name": "下水道入口",
+        "name_en": "Sewer Entrance",
+        "kind": "optional",
         "x": 80,
         "y": 96,
         "w": 160,
         "h": 160,
-        "name": "补充区域-1",
-        "terrain_features": []
+        "terrain_features": [
+          "drain_pipe",
+          "stone_arch"
+        ],
+        "source_status": "route_landmark_projection"
       }
     ]
   },
@@ -161,269 +167,154 @@
     "name": "巨人尤姆",
     "name_en": "Yhorm the Giant",
     "x": 3000,
-    "y": 3220,
+    "y": 3000,
     "source_status": "official_identity_projected_position"
   },
   "enemies": [
     {
-      "kind": "Gargoyle",
-      "x": 160,
-      "y": 176
+      "kind": "MonstrosityOfSin",
+      "x": 1000,
+      "y": 2500
     },
     {
-      "kind": "Gargoyle",
-      "x": 704,
-      "y": 192
-    },
-    {
-      "kind": "Gargoyle",
-      "x": 768,
-      "y": 208
-    },
-    {
-      "kind": "Gargoyle",
-      "x": 1024,
-      "y": 224
-    },
-    {
-      "kind": "Gargoyle",
-      "x": 1408,
-      "y": 128
-    },
-    {
-      "kind": "Gargoyle",
-      "x": 528,
-      "y": 832
-    },
-    {
-      "kind": "Gargoyle",
-      "x": 800,
-      "y": 960
-    },
-    {
-      "kind": "Gargoyle",
-      "x": 1728,
-      "y": 32
-    },
-    {
-      "kind": "Gargoyle",
-      "x": 2064,
-      "y": 240
-    },
-    {
-      "kind": "Gargoyle",
-      "x": 1984,
-      "y": 544
-    },
-    {
-      "kind": "Jailer",
-      "x": 832,
-      "y": 176
-    },
-    {
-      "kind": "Jailer",
-      "x": 864,
-      "y": 224
-    },
-    {
-      "kind": "Jailer",
-      "x": 960,
-      "y": 128
-    },
-    {
-      "kind": "Jailer",
-      "x": 1008,
-      "y": 288
-    },
-    {
-      "kind": "Jailer",
-      "x": 1152,
-      "y": 160
-    },
-    {
-      "kind": "Jailer",
+      "kind": "MonstrosityOfSin",
       "x": 1200,
-      "y": 240
+      "y": 2600
+    },
+    {
+      "kind": "MonstrosityOfSin",
+      "x": 1400,
+      "y": 2540
+    },
+    {
+      "kind": "MonstrosityOfSin",
+      "x": 2000,
+      "y": 1400
+    },
+    {
+      "kind": "HeadlessGargoyle",
+      "x": 1200,
+      "y": 1400
+    },
+    {
+      "kind": "HeadlessGargoyle",
+      "x": 1500,
+      "y": 1600
+    },
+    {
+      "kind": "HeadlessGargoyle",
+      "x": 2400,
+      "y": 2400
+    },
+    {
+      "kind": "HeadlessGargoyle",
+      "x": 2600,
+      "y": 2500
     },
     {
       "kind": "Jailer",
-      "x": 1280,
-      "y": 192
+      "x": 2350,
+      "y": 2340
     },
     {
       "kind": "Jailer",
-      "x": 336,
-      "y": 608
+      "x": 2450,
+      "y": 2400
     },
     {
       "kind": "Jailer",
-      "x": 496,
-      "y": 656
+      "x": 2550,
+      "y": 2460
     },
     {
       "kind": "Jailer",
-      "x": 592,
-      "y": 704
+      "x": 2650,
+      "y": 2500
     },
     {
       "kind": "Jailer",
-      "x": 432,
-      "y": 896
+      "x": 2750,
+      "y": 2580
     },
     {
       "kind": "Jailer",
-      "x": 384,
-      "y": 752
+      "x": 2850,
+      "y": 2640
     },
     {
       "kind": "Jailer",
-      "x": 640,
-      "y": 880
+      "x": 1950,
+      "y": 1280
     },
     {
       "kind": "Jailer",
-      "x": 512,
-      "y": 960
+      "x": 2100,
+      "y": 1350
     },
     {
       "kind": "Jailer",
-      "x": 992,
-      "y": 768
+      "x": 1800,
+      "y": 1700
     },
     {
-      "kind": "Jailer",
-      "x": 1440,
-      "y": 112
+      "kind": "JailerHandmaid",
+      "x": 1700,
+      "y": 1560
     },
     {
-      "kind": "Jailer",
-      "x": 2048,
-      "y": 352
+      "kind": "JailerHandmaid",
+      "x": 1750,
+      "y": 1640
     },
     {
-      "kind": "Wretch",
-      "x": 832,
-      "y": 1024
+      "kind": "SewerCentipede",
+      "x": 1100,
+      "y": 2450
     },
     {
-      "kind": "Wretch",
-      "x": 960,
-      "y": 1136
+      "kind": "SewerCentipede",
+      "x": 1300,
+      "y": 2550
     },
     {
-      "kind": "Wretch",
-      "x": 1056,
-      "y": 1088
+      "kind": "SewerCentipede",
+      "x": 1500,
+      "y": 2480
     },
     {
-      "kind": "Wretch",
-      "x": 1120,
-      "y": 960
-    },
-    {
-      "kind": "Wretch",
-      "x": 1184,
-      "y": 1056
-    },
-    {
-      "kind": "Wretch",
-      "x": 1280,
-      "y": 992
-    },
-    {
-      "kind": "Wretch",
-      "x": 1520,
-      "y": 144
-    },
-    {
-      "kind": "Wretch",
-      "x": 1840,
-      "y": 416
-    },
-    {
-      "kind": "Wretch",
-      "x": 1504,
-      "y": 496
+      "kind": "AvariciousBeing",
+      "x": 1680,
+      "y": 1540
     },
     {
       "kind": "CrystalLizard",
-      "x": 896,
-      "y": 1088
+      "x": 900,
+      "y": 900
     },
     {
       "kind": "CrystalLizard",
-      "x": 992,
-      "y": 1024
+      "x": 1050,
+      "y": 1150
     },
     {
       "kind": "CrystalLizard",
-      "x": 896,
-      "y": 704
+      "x": 1600,
+      "y": 1500
     },
     {
-      "kind": "GiantSlave",
-      "x": 480,
-      "y": 1168
+      "kind": "JailerHandmaid",
+      "x": 1330,
+      "y": 800
     },
     {
-      "kind": "GiantSlave",
-      "x": 576,
-      "y": 1248
+      "kind": "JailerHandmaid",
+      "x": 1800,
+      "y": 1250
     },
     {
-      "kind": "GiantSlave",
-      "x": 672,
-      "y": 1184
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 768,
-      "y": 736
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 928,
-      "y": 1120
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 1040,
-      "y": 1168
-    },
-    {
-      "kind": "Jailer",
-      "x": 896,
-      "y": 144
-    },
-    {
-      "kind": "Jailer",
-      "x": 1008,
-      "y": 288
-    },
-    {
-      "kind": "Jailer",
-      "x": 1280,
-      "y": 192
-    },
-    {
-      "kind": "Jailer",
-      "x": 592,
-      "y": 704
-    },
-    {
-      "kind": "Mimic",
-      "x": 304,
-      "y": 176
-    },
-    {
-      "kind": "MiniBoss",
-      "x": 768,
-      "y": 672
-    },
-    {
-      "kind": "GiantSlave",
-      "x": 1216,
-      "y": 960
+      "kind": "JailerHandmaid",
+      "x": 1700,
+      "y": 1900
     }
   ],
   "items": [
@@ -439,6 +330,7 @@
       "name_en": "Poison Arrow",
       "x": 1660,
       "y": 1640,
+      "count": 18,
       "value": 0
     },
     {
@@ -453,6 +345,7 @@
       "name_en": "Onislayer Greatarrow",
       "x": 1380,
       "y": 2360,
+      "count": 8,
       "value": 0
     },
     {
@@ -460,6 +353,7 @@
       "name_en": "Dung Pie",
       "x": 2080,
       "y": 1840,
+      "count": 4,
       "value": 0
     },
     {
@@ -467,6 +361,7 @@
       "name_en": "Rusted Coin",
       "x": 2980,
       "y": 2600,
+      "count": 2,
       "value": 0
     },
     {
@@ -474,6 +369,7 @@
       "name_en": "Blooming Purple Moss Clump",
       "x": 2900,
       "y": 2500,
+      "count": 3,
       "value": 0
     },
     {
@@ -481,6 +377,7 @@
       "name_en": "Lightning Bolt",
       "x": 1320,
       "y": 1600,
+      "count": 9,
       "value": 0
     },
     {
@@ -495,6 +392,7 @@
       "name_en": "Purging Stone",
       "x": 1700,
       "y": 1940,
+      "count": 2,
       "value": 0
     },
     {
@@ -516,13 +414,6 @@
       "name_en": "Shriving Stone",
       "x": 1900,
       "y": 2380,
-      "value": 0
-    },
-    {
-      "kind": "Consumable",
-      "name_en": "Dragonslayer Lightning Arrow",
-      "x": 1820,
-      "y": 1940,
       "value": 0
     },
     {
@@ -620,16 +511,31 @@
       "kind": "WeaponDrop",
       "name_en": "Storm Ruler",
       "x": 3000,
-      "y": 3200,
+      "y": 3056,
       "value": 0
     },
     {
       "kind": "SoulOrb",
       "name_en": "Soul of Yhorm the Giant",
-      "x": 3000,
-      "y": 3240,
+      "x": 3020,
+      "y": 3066,
       "value": 0,
       "note": "Boss soul from Yhorm the Giant"
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Onislayer Greatbow",
+      "x": 2400,
+      "y": 2300,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Cinders of a Lord",
+      "x": 3020,
+      "y": 3020,
+      "value": 0,
+      "note": "Dropped by Yhorm the Giant"
     }
   ],
   "chests": [
@@ -664,16 +570,6 @@
       "is_mimic": true
     },
     {
-      "x": 2140,
-      "y": 1840,
-      "loot": {
-        "kind": "Consumable",
-        "name_en": "Dragonslayer Lightning Arrow",
-        "value": 0
-      },
-      "is_mimic": true
-    },
-    {
       "x": 2860,
       "y": 2480,
       "loot": {
@@ -682,6 +578,17 @@
         "value": 0
       },
       "is_mimic": false
+    },
+    {
+      "x": 1500,
+      "y": 1800,
+      "loot": {
+        "kind": "Consumable",
+        "name_en": "Onislayer Greatarrow",
+        "count": 5,
+        "value": 0
+      },
+      "is_mimic": true
     }
   ],
   "npcs": [
@@ -693,10 +600,9 @@
       "y": 1780,
       "color": "#D4A520",
       "dialogue": [
-        "...Yhorm, old friend.",
-        "I, Siegward of Catarina, do solemnly swear... to uphold my promise!",
-        "A promise to put thee to rest should ye ever go mad.",
-        "Let the Sun shine upon this Lord of Cinder!"
+        "Yhorm, old friend. I, Siegward of the Knights of Catarina, have come to uphold my promise! Let the sun shine upon this Lord of Cinder.",
+        "It seems I'm in your debt once again. My thanks, I could not have kept my promise without you. Now, for a final toast. To your valour, and my old friend Yhorm. Long may the sun shine!",
+        "Well, I'm going to have myself a little nap. The only thing to do, really, after a nice toast. You are a true friend. Best of luck with your duty."
       ]
     }
   ],

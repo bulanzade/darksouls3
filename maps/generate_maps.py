@@ -13,6 +13,15 @@ TILE_WALL = 2
 TILE_WALLTOP = 3
 TILE_POISON = 4
 
+POISON_KEYWORDS = (
+    "毒", "沼泽", "沼", "污水", "浅水", "熔岩湖", "熔岩地面", "熔岩裂隙", "熔岩竞技场",
+    "lava", "flooded", "stagnant", "sludge", "poison_water",
+    "火焰废墟", "火焰大厅", "熔岩",
+)
+
+def poison_tile(features):
+    return TILE_POISON if any(kw in features for kw in POISON_KEYWORDS) else TILE_GROUND
+
 MARGIN = 6
 USABLE = CHUNK_SIZE - 2 * MARGIN
 BASE_MAP_PX = CHUNK_SIZE * TILE_SIZE
@@ -75,13 +84,13 @@ ENEMY_KIND_MAP = {
     "FireDemon": "FireDemon", "StarvedHound": "StarvedHound", "PusOfMan": "PusOfMan",
     "CathedralKnight": "CathedralKnight", "ManGrub": "ManGrub", "Gargoyle": "Gargoyle",
     "Dog": "Dog", "Basilisk": "Basilisk", "DemonStatue": "DemonStatue",
-    "InfestedCorpse": "InfestedCorpse", "Wretch": "Wretch", "PeasantHollow": "PeasantHollow",
+    "InfestedCorpse": "InfestedCorpse", "InfectedCorpse": "InfestedCorpse", "Wretch": "Wretch", "PeasantHollow": "PeasantHollow",
     "Mimic": "Mimic", "GiantSlave": "GiantSlave", "HollowAssassin": "HollowAssassin",
     "CathedralGraveWarden": "CathedralGraveWarden", "Rat": "Rat", "MiniBoss": "MiniBoss",
+    "LargeHollowSoldier": "LargeHollowSoldier",
     # Aliases for design-doc enemy kinds not in Rust enum
     "SwordMaster": "Assassin",
     "BorealKnight": "Knight",
-    "LargeHollowSoldier": "Knight",
     "LothricWyvern": "MiniBoss",
     "Hodrick": "MiniBoss",
     "CagedHollow": "PeasantHollow",
@@ -90,6 +99,7 @@ ENEMY_KIND_MAP = {
     "Berengaria": "DarkMage",
     "SkeletonSwordman": "Skeleton",
     "SkeletonBall": "Skeleton",
+    "SkeletonWheel": "Skeleton",
     "CarthusWorm": "MiniBoss",
     "GiantHollow": "GiantSlave",
     "AncientWyvern": "MiniBoss",
@@ -118,7 +128,6 @@ ENEMY_KIND_MAP = {
     "RottenSlug": "Rat",
     "LesserCrab": "Dog",
     "RockLizard": "CrystalLizard",
-    "ConsumedKingKnight": "CathedralKnight",
     "Hollow": "HollowSoldier",
     "DrakebloodKnight": "Knight",
     "HavelKnight": "WingedKnight",
@@ -133,7 +142,6 @@ ENEMY_KIND_MAP = {
     "Lycanthrope": "PeasantHollow",
     "Madwoman": "PeasantHollow",
     "ExileWarrior": "Knight",
-    # Additional DS3 enemy aliases (added for wiki accuracy)
     "ElderGhru": "Ghru",
     "SmolderingGhru": "Ghru",
     "SmolderingRottenFlesh": "Rat",
@@ -153,7 +161,14 @@ ENEMY_KIND_MAP = {
     "JailerHandmaid": "Jailer",
     "SerpentManSummoner": "DarkMage",
     "AvariciousBeing": "Mimic",
+    "HeadlessGargoyle": "Gargoyle",
     "PaintingGuardian": "Assassin",
+    "HollowManservant": "PeasantHollow",
+    "StrayDemon": "MiniBoss",
+    "LothricPriest": "DarkMage",
+    "GiantRat": "Rat",
+    "RootSkeleton": "Skeleton",
+    "WorkerHollow": "PeasantHollow",
 }
 
 def new_chunk(width=CHUNK_SIZE, height=CHUNK_SIZE):
@@ -187,6 +202,90 @@ def chunk_to_csv(chunk):
         for x in range(len(chunk[0])):
             csv.append(chunk[y][x])
     return csv
+
+def fix_terrain_connectivity(chunk):
+    """Carve minimal wall paths to connect all ground/poison regions."""
+    h = len(chunk)
+    w = len(chunk[0]) if h > 0 else 0
+    walkable = set()
+    for y in range(h):
+        for x in range(w):
+            if chunk[y][x] in (TILE_GROUND, TILE_POISON):
+                walkable.add((x, y))
+    if not walkable:
+        return
+    start = next(iter(walkable))
+    visited = set()
+    q = deque([start])
+    visited.add(start)
+    while q:
+        x, y = q.popleft()
+        for dx, dy in [(0,1),(0,-1),(1,0),(-1,0)]:
+            nx, ny = x+dx, y+dy
+            if (nx, ny) in walkable and (nx, ny) not in visited:
+                visited.add((nx, ny))
+                q.append((nx, ny))
+    disconnected = walkable - visited
+    if not disconnected:
+        return
+    remaining = set(disconnected)
+    while remaining:
+        s = next(iter(remaining))
+        cv = set()
+        q2 = deque([s])
+        cv.add(s)
+        remaining.discard(s)
+        while q2:
+            x, y = q2.popleft()
+            for dx, dy in [(0,1),(0,-1),(1,0),(-1,0)]:
+                nx, ny = x+dx, y+dy
+                if (nx, ny) in remaining:
+                    remaining.discard((nx, ny))
+                    cv.add((nx, ny))
+                    q2.append((nx, ny))
+        # Find shortest wall path from cv to visited
+        wall_parent = {}
+        q3 = deque()
+        for (cx, cy) in cv:
+            for dx, dy in [(0,1),(0,-1),(1,0),(-1,0)]:
+                nx, ny = cx+dx, cy+dy
+                if 0 <= nx < w and 0 <= ny < h and (nx, ny) not in cv and chunk[ny][nx] == TILE_WALL and (nx, ny) not in wall_parent:
+                    wall_parent[(nx, ny)] = (cx, cy)
+                    q3.append((nx, ny))
+        found = None
+        while q3 and found is None:
+            x, y = q3.popleft()
+            for dx, dy in [(0,1),(0,-1),(1,0),(-1,0)]:
+                nx, ny = x+dx, y+dy
+                if 0 <= nx < w and 0 <= ny < h:
+                    if (nx, ny) in visited:
+                        found = (x, y)
+                        break
+                    if chunk[ny][nx] == TILE_WALL and (nx, ny) not in wall_parent:
+                        wall_parent[(nx, ny)] = (x, y)
+                        q3.append((nx, ny))
+        if found:
+            path = []
+            cur = found
+            while cur not in cv:
+                path.append(cur)
+                cur = wall_parent[cur]
+        else:
+            path = []
+        for px, py in path:
+            chunk[py][px] = TILE_GROUND
+            walkable.add((px, py))
+            visited.add((px, py))
+        # Expand visited through newly connected cluster
+        q4 = deque(cv)
+        visited.update(cv)
+        while q4:
+            x, y = q4.popleft()
+            for dx, dy in [(0,1),(0,-1),(1,0),(-1,0)]:
+                nx, ny = x+dx, y+dy
+                if (nx, ny) in walkable and (nx, ny) not in visited:
+                    visited.add((nx, ny))
+                    q4.append((nx, ny))
 
 def chunk_width(chunk):
     return len(chunk[0]) if chunk else 0
@@ -326,7 +425,7 @@ def generate_official_terrain(doc):
         x1, y1 = doc_tile(section["x"], section["y"], width, height)
         x2, y2 = doc_tile(section["x"] + section["w"], section["y"] + section["h"], width, height)
         features = " ".join(section.get("terrain_features", []))
-        tile = TILE_POISON if any(word in features for word in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        tile = poison_tile(features)
         fill_tiles(chunk, tile, x1, y1, x2, y2)
         cx, cy = section_center_tile(section)
         centers.append((clamp_tile(cx, width), clamp_tile(cy, height)))
@@ -381,29 +480,33 @@ def bfs_reachable(chunk, sx, sy):
 
 def carve_corridor(chunk, x1, y1, x2, y2, width=3):
     """Carve an L-shaped corridor between two tile positions."""
+    cw = len(chunk[0]) if chunk else CHUNK_SIZE
+    ch = len(chunk) if chunk else CHUNK_SIZE
     half = width // 2
     # Horizontal then vertical
     for x in range(min(x1, x2), max(x1, x2) + 1):
         for dy in range(-half, half + 1):
             ny = y1 + dy
-            if 0 <= x < CHUNK_SIZE and 0 <= ny < CHUNK_SIZE:
+            if 0 <= x < cw and 0 <= ny < ch:
                 chunk[ny][x] = TILE_GROUND
     for y in range(min(y1, y2), max(y1, y2) + 1):
         for dx in range(-half, half + 1):
             nx = x2 + dx
-            if 0 <= nx < CHUNK_SIZE and 0 <= y < CHUNK_SIZE:
+            if 0 <= nx < cw and 0 <= y < ch:
                 chunk[y][nx] = TILE_GROUND
 
 def ensure_connected(chunk, spawn_px, spawn_py, entity_positions):
     """Ensure all entity tile positions are reachable from spawn. Returns coverage %."""
     sx, sy = int(spawn_px) // TILE_SIZE, int(spawn_py) // TILE_SIZE
+    chw = len(chunk[0]) if chunk else CHUNK_SIZE
+    chh = len(chunk) if chunk else CHUNK_SIZE
     # Make sure spawn is on ground
     cw(chunk, spawn_px, spawn_py, 2)
 
     targets = set()
     for px, py in entity_positions:
         tx, ty = int(px) // TILE_SIZE, int(py) // TILE_SIZE
-        if 0 <= tx < CHUNK_SIZE and 0 <= ty < CHUNK_SIZE:
+        if 0 <= tx < chw and 0 <= ty < chh:
             targets.add((tx, ty))
             # Ensure each entity has ground
             fill_tiles(chunk, TILE_GROUND, tx - 1, ty - 1, tx + 1, ty + 1)
@@ -959,10 +1062,10 @@ def make_cemetery_of_ash():
     entities.append(make_entity("BossSpawn", 96 * 16, 80 * 16, [make_field("name", "String", "Iudex Gundyr")]))
 
     # --- Bonfires ---
-    # Cemetery of Ash bonfire — dead tree clearing (midpoint)
-    entities.append(make_entity("Bonfire", 81 * 16, 153 * 16))
-    # Iudex Gundyr bonfire — arena entrance
-    entities.append(make_entity("Bonfire", 96 * 16, 80 * 16))
+    # Cemetery of Ash bonfire — dead tree clearing (DS3: bonfire at cliff overlook, midpoint)
+    entities.append(make_entity("Bonfire", 72 * 16, 95 * 16))
+    # Iudex Gundyr bonfire — after boss defeat, near arena exit (DS3: appears post-boss)
+    entities.append(make_entity("Bonfire", 80 * 16, 32 * 16))
 
     # --- Boss — Iudex Gundyr at arena center ---
 
@@ -1013,17 +1116,16 @@ def make_cemetery_of_ash():
         make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
         make_field("name", "String", "Soul of an Unknown Traveler")]))
     entities.append(make_entity("Item", 134 * 16, 106 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
-        make_field("name", "String", "Twinkling Titanite")]))
+        make_field("kind", "LocalEnum.ItemKind", "TitaniteScale"),
+        make_field("name", "String", "Titanite Scale")]))
     entities.append(make_entity("Item", 88 * 16, 46 * 16, [
         make_field("kind", "LocalEnum.ItemKind", "WeaponDrop"),
         make_field("name", "String", "Coiled Sword")]))
-    entities.append(make_entity("Item", 88 * 16, 35 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
-        make_field("name", "String", "Homeward Bone")]))
-    entities.append(make_entity("Item", 96 * 16, 81 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
-        make_field("name", "String", "Soul of the Origin")]))
+    # 4x Firebombs (cliff end behind sword/shield + crossbow hollows)
+    for fx, fy in [(40, 88), (42, 86), (38, 90)]:
+        entities.append(make_entity("Item", fx * 16, fy * 16, [
+            make_field("kind", "LocalEnum.ItemKind", "Firebomb"),
+            make_field("name", "String", "Firebomb")]))
 # --- Fog Gate to Firelink Shrine (arena exit) ---
     entities.append(make_entity("FogGate", 96 * 16, 43 * 16, [
         make_field("dest_area", "String", "FirelinkShrine"),
@@ -1312,7 +1414,7 @@ def make_cemetery_of_ash():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -1658,36 +1760,6 @@ def make_firelink_shrine():
     fill_tiles(chunk, TILE_WALL, 96, 134, 97, 135)
     fill_tiles(chunk, TILE_WALL, 100, 138, 101, 139)
 
-
-    # ================================================================
-    # DS3 STRUCTURAL WALLS — Lothric Wall castle architecture
-    # DS3: high wall with ramparts, wyvern bridge, knight plaza, chapel
-    # ================================================================
-    # High wall ramparts — stone battlement walls (DS3: castle walls with Lothric Knights)
-    fill_tiles(chunk, TILE_WALL, 68, 108, 72, 114)  # Battlement wall left
-    fill_tiles(chunk, TILE_WALL, 84, 110, 88, 116)  # Battlement wall right
-    fill_tiles(chunk, TILE_WALL, 76, 104, 80, 108)  # Battlement divider
-    # Tower on the wall — spiral staircase walls (DS3: stone tower interior)
-    fill_tiles(chunk, TILE_WALL, 92, 96, 96, 102)   # Tower wall outer
-    fill_tiles(chunk, TILE_WALL, 100, 92, 104, 98)  # Tower wall inner
-    fill_tiles(chunk, TILE_WALL, 96, 88, 100, 92)   # Tower top wall
-    # Wyvern fire bridge — scorched bridge walls (DS3: dragon scorches bridge)
-    fill_tiles(chunk, TILE_WALL, 52, 80, 56, 86)    # Bridge parapet left
-    fill_tiles(chunk, TILE_WALL, 68, 78, 72, 84)    # Bridge parapet right
-    fill_tiles(chunk, TILE_WALL, 60, 82, 64, 86)    # Bridge center obstacle
-    # Knight plaza — courtyard walls (DS3: open area with fountain and knights)
-    fill_tiles(chunk, TILE_WALL, 72, 64, 76, 70)    # Courtyard wall NW
-    fill_tiles(chunk, TILE_WALL, 88, 62, 92, 68)    # Courtyard wall NE
-    fill_tiles(chunk, TILE_WALL, 76, 68, 80, 72)    # Fountain wall
-    # Chapel interior — church pews and altar (DS3: small chapel with fire keeper)
-    fill_tiles(chunk, TILE_WALL, 66, 50, 70, 54)    # Chapel pew left
-    fill_tiles(chunk, TILE_WALL, 82, 50, 86, 54)    # Chapel pew right
-    fill_tiles(chunk, TILE_WALL, 72, 46, 78, 48)    # Chapel altar wall
-    # Vordt arena — battlement platform (DS3: Vordt fights on ice-covered wall)
-    fill_tiles(chunk, TILE_WALL, 56, 22, 60, 28)    # Arena wall NW
-    fill_tiles(chunk, TILE_WALL, 96, 22, 100, 28)   # Arena wall NE
-    fill_tiles(chunk, TILE_WALL, 64, 18, 68, 22)    # Arena wall left
-    fill_tiles(chunk, TILE_WALL, 88, 18, 92, 22)    # Arena wall right
     # ================================================================
     # ENTITIES
     # ================================================================
@@ -2346,7 +2418,7 @@ def make_firelink_shrine():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -3561,7 +3633,7 @@ def make_lothric_wall():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -4752,7 +4824,7 @@ def make_undead_settlement():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -5832,7 +5904,7 @@ def make_road_of_sacrifices():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -6926,7 +6998,7 @@ def make_farron_keep():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -7323,17 +7395,8 @@ def make_cathedral_deep():
     fill_tiles(chunk, TILE_WALL, 56, 148, 57, 149)
 
 
-    # ================================================================
-    # DS3 POISON TERRAIN — Cathedral of the Deep water areas
-    # DS3: flooded lower levels, cleansing chapel water, deep pools
-    # ================================================================
-    # Cleansing Chapel water basin (DS3: basin of cleansing water)
-    fill_tiles(chunk, TILE_POISON, 28, 42, 36, 50)
-    # Flooded lower cathedral area (DS3: water pools in lower cathedral)
-    fill_tiles(chunk, TILE_POISON, 40, 85, 50, 95)
-    fill_tiles(chunk, TILE_POISON, 55, 90, 65, 100)
-    # Slug corridor water (DS3: damp corridor with Man Grubs)
-    fill_tiles(chunk, TILE_POISON, 32, 136, 42, 142)
+    # DS3: Cathedral of the Deep has NO poison terrain — all water is regular water
+    # (cleansing chapel basin, exterior puddles, slug corridor are non-toxic)
 
     # ================================================================
     # DS3 CATHEDRAL NAVE — Cathedral of the Deep interior architecture
@@ -7674,28 +7737,6 @@ def make_cathedral_deep():
     fill_tiles(chunk, TILE_WALL, 78, 106, 79, 108)
     fill_tiles(chunk, TILE_WALL, 86, 110, 87, 112)
 
-    # SESSION 18 FIDELITY PASS — CatacombsOfCarthus DS3 catacomb details
-    # Entry bridge — rope bridge anchor stones (DS3: rope bridge over abyss)
-    fill_tiles(chunk, TILE_WALL, 14, 22, 15, 24)
-    fill_tiles(chunk, TILE_WALL, 20, 26, 21, 28)
-    fill_tiles(chunk, TILE_WALL, 26, 24, 27, 26)
-    fill_tiles(chunk, TILE_WALL, 32, 28, 33, 30)
-    # Skeleton arena — bone pile debris (DS3: skeleton groups in open chambers)
-    fill_tiles(chunk, TILE_WALL, 38, 32, 39, 34)
-    fill_tiles(chunk, TILE_WALL, 44, 36, 45, 38)
-    fill_tiles(chunk, TILE_WALL, 50, 30, 51, 32)
-    fill_tiles(chunk, TILE_WALL, 56, 34, 57, 36)
-    # Carthus worm tunnel — sand drift stones (DS3: underground sand passages)
-    fill_tiles(chunk, TILE_WALL, 62, 38, 63, 40)
-    fill_tiles(chunk, TILE_WALL, 68, 42, 69, 44)
-    fill_tiles(chunk, TILE_WALL, 74, 36, 75, 38)
-    fill_tiles(chunk, TILE_WALL, 80, 40, 81, 42)
-    # Skull room — skeleton mound debris (DS3: massive skeleton piles)
-    fill_tiles(chunk, TILE_WALL, 86, 44, 87, 46)
-    fill_tiles(chunk, TILE_WALL, 92, 48, 93, 50)
-    fill_tiles(chunk, TILE_WALL, 98, 42, 99, 44)
-    fill_tiles(chunk, TILE_WALL, 104, 46, 105, 48)
-
     # ================================================================
     # SESSION 22 FIDELITY PASS — CathedralDeep DS3 cathedral details
     # ================================================================
@@ -7818,11 +7859,6 @@ def make_cathedral_deep():
     for tx in range(15, 25):
         if tx % 3 == 0:
             chunk[40][tx] = TILE_WALLTOP
-    # Deep puddles near Rosaria's chamber
-    for tx in range(70, 78):
-        for ty in range(45, 48):
-            if chunk[ty][tx] == TILE_GROUND:
-                chunk[ty][tx] = TILE_POISON
 
     # --- SESSION 55 terrain (Cathedral of the Deep final) ---
     # DS3: Cathedral exterior ravine bridge (DS3: the bridge over the ravine)
@@ -7883,13 +7919,8 @@ def make_cathedral_deep():
     for tx in [100, 120]:
         for ty in range(75, 89):
             chunk[tx][ty] = TILE_WALL
-    # DS3: Deep puddles throughout the exterior
-    for tx in range(25, 40):
-        for ty in range(60, 68):
-            chunk[tx][ty] = TILE_POISON
-    for tx in range(60, 75):
-        for ty in range(80, 88):
-            chunk[tx][ty] = TILE_POISON
+    # DS3: Deep puddles throughout the exterior (non-toxic water in DS3)
+    # Removed TILE_POISON — Cathedral of the Deep has no poison terrain
 
     # --- SESSION 91 DS3 terrain round 2 (Cathedral of the Deep) ---
     # DS3: Cathedral exterior buttresses (arched supports)
@@ -7897,13 +7928,8 @@ def make_cathedral_deep():
         for ty in range(10, 18):
             chunk[tx][ty] = TILE_WALL
             chunk[tx][ty-1] = TILE_WALLTOP
-    # DS3: Deep puddles (toxic water in the cemetery)
-    for tx in range(30, 45):
-        for ty in range(65, 72):
-            chunk[tx][ty] = TILE_POISON
-    for tx in range(55, 70):
-        for ty in range(85, 92):
-            chunk[tx][ty] = TILE_POISON
+    # DS3: Deep puddles (non-toxic water in DS3 cemetery)
+    # Removed TILE_POISON — Cathedral of the Deep has no poison terrain
     # DS3: Patches' bridge (the spot where he kicks you)
     for tx in range(40, 55):
         chunk[tx][58] = TILE_WALL
@@ -8004,7 +8030,7 @@ def make_cathedral_deep():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -9046,7 +9072,7 @@ def make_catacombs_of_carthus():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -9262,6 +9288,20 @@ def make_smouldering_lake():
 
     # Connection from lake to ballista area
     fill_tiles(chunk, TILE_GROUND, 15, 75, 25, 82)
+
+    # ================================================================
+    # CONNECTIVITY CORRIDORS — wider paths between sections
+    # ================================================================
+    # Wide corridor: lake shore to demon ruins (east)
+    fill_tiles(chunk, TILE_GROUND, 40, 40, 60, 55)
+    # Wide corridor: demon ruins to cleric corridors (east)
+    fill_tiles(chunk, TILE_GROUND, 82, 55, 100, 65)
+    # Wide corridor: cleric corridors to arena (east)
+    fill_tiles(chunk, TILE_GROUND, 105, 70, 120, 90)
+    # Wide corridor: entry cave to lake (south)
+    fill_tiles(chunk, TILE_GROUND, 12, 18, 28, 35)
+    # Wide corridor: ballista to lake center
+    fill_tiles(chunk, TILE_GROUND, 20, 70, 40, 82)
 
     # ================================================================
     # ADDITIONAL INTERNAL STRUCTURES — Smouldering Lake DS3 fidelity
@@ -10098,7 +10138,7 @@ def make_smouldering_lake():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -10257,6 +10297,10 @@ def make_irithyll():
     fill_tiles(chunk, TILE_GROUND, 55, 65, 65, 75)    # Boulevard to sewers
     fill_tiles(chunk, TILE_GROUND, 45, 90, 55, 100)   # Manor to Silver Knight hall
     fill_tiles(chunk, TILE_GROUND, 100, 75, 110, 82)  # Sewers to arena approach
+    fill_tiles(chunk, TILE_GROUND, 55, 89, 65, 93)    # Sewers to distant manor sewers link
+    fill_tiles(chunk, TILE_GROUND, 140, 62, 150, 70)  # Pontiff arena to dungeon exit
+    fill_tiles(chunk, TILE_GROUND, 95, 100, 100, 112) # Sewers to lower city link
+    fill_tiles(chunk, TILE_GROUND, 170, 95, 180, 105) # Arena to eastern corridors
 
     # ================================================================
     # ADDITIONAL DS3 IRITHYLL ARCHITECTURE — city buildings, cathedral details
@@ -10411,16 +10455,8 @@ def make_irithyll():
     fill_tiles(chunk, TILE_WALL, 148, 66, 149, 67)
     fill_tiles(chunk, TILE_WALL, 142, 76, 143, 77)
 
-    # ================================================================
-    # DS3 POISON TERRAIN — Irithyll sewer water and drainage
-    # ================================================================
-    # Sewer area — shallow standing water (DS3: flooded basement with Man Grubs)
-    fill_tiles(chunk, TILE_POISON, 65, 80, 72, 88)
-    fill_tiles(chunk, TILE_POISON, 78, 85, 85, 92)
-    fill_tiles(chunk, TILE_POISON, 88, 78, 95, 85)
-    # Drainage channels (DS3: water channels in the sewer section)
-    fill_tiles(chunk, TILE_POISON, 62, 82, 68, 95)
-    fill_tiles(chunk, TILE_POISON, 72, 90, 80, 98)
+    # DS3: Irithyll has NO poison terrain — sewer water is non-toxic
+    # (flooded basement and drainage channels are regular water in DS3)
 
     # ================================================================
     # DS3 STRUCTURAL WALLS — Irithyll city buildings and church interior
@@ -10838,28 +10874,6 @@ def make_irithyll():
     fill_tiles(chunk, TILE_WALL, 100, 62, 101, 64)
     fill_tiles(chunk, TILE_WALL, 106, 56, 107, 58)
     fill_tiles(chunk, TILE_WALL, 112, 60, 113, 62)
-
-    # ================================================================
-    # SESSION 19 FIDELITY PASS — IrithyllDungeon DS3 prison depth
-    # ================================================================
-    # Jailer patrol corridors — iron door frames (DS3: narrow prison corridors with Jailers)
-    fill_tiles(chunk, TILE_WALL, 14, 46, 15, 48)
-    fill_tiles(chunk, TILE_WALL, 22, 50, 23, 52)
-    fill_tiles(chunk, TILE_WALL, 30, 54, 31, 56)
-    fill_tiles(chunk, TILE_WALL, 38, 58, 39, 60)
-    fill_tiles(chunk, TILE_WALL, 46, 62, 47, 64)
-    # Rat tunnels — broken drain pipes (DS3: rats infest the lower passages)
-    fill_tiles(chunk, TILE_WALL, 54, 66, 55, 68)
-    fill_tiles(chunk, TILE_WALL, 62, 70, 63, 72)
-    fill_tiles(chunk, TILE_WALL, 70, 74, 71, 76)
-    fill_tiles(chunk, TILE_WALL, 78, 78, 79, 80)
-    fill_tiles(chunk, TILE_WALL, 86, 82, 87, 84)
-    # Siegward's cell — heavy door debris (DS3: Siegward locked in cell)
-    fill_tiles(chunk, TILE_WALL, 94, 86, 95, 88)
-    fill_tiles(chunk, TILE_WALL, 102, 90, 103, 92)
-    fill_tiles(chunk, TILE_WALL, 110, 94, 111, 96)
-    fill_tiles(chunk, TILE_WALL, 118, 98, 119, 100)
-    fill_tiles(chunk, TILE_WALL, 126, 102, 127, 104)
 
     # ================================================================
     # SESSION 22 FIDELITY PASS — Irithyll DS3 frozen city details
@@ -11382,7 +11396,7 @@ def make_irithyll():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -12452,7 +12466,7 @@ def make_irithyll_dungeon():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -13514,6 +13528,12 @@ def make_profaned_capital():
 
         _doc = _json.load(_f)
 
+    # Wider connectivity corridors between boss path (N) and explore path (S)
+    fill_tiles(chunk, TILE_GROUND, 20, 20, 40, 35)   # Bonfire tower to upper ruins
+    fill_tiles(chunk, TILE_GROUND, 35, 35, 55, 50)   # Upper ruins to main streets
+    fill_tiles(chunk, TILE_GROUND, 48, 50, 70, 65)   # Streets to giant room
+    fill_tiles(chunk, TILE_GROUND, 60, 40, 80, 55)   # Court sorcerer to Siegward/giant
+
     for _sec in _doc.get("map_layout", {}).get("sections", []):
 
         _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
@@ -13522,7 +13542,7 @@ def make_profaned_capital():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -14501,7 +14521,7 @@ def make_anor_londo():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -15716,7 +15736,7 @@ def make_lothric_castle():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -15854,8 +15874,9 @@ def make_grand_archives():
 
     # 3. Wax pool hall (x=30-85, y=55-88)
     fill_tiles(chunk, TILE_GROUND, 30, 55, 85, 88)
-    # Wax pool — slows movement
-    fill_tiles(chunk, TILE_POISON, 42, 62, 72, 80)
+    # Wax pool — slows movement but does NOT cause poison in DS3
+    # Keep as TILE_GROUND (wax slows but is non-toxic)
+    fill_tiles(chunk, TILE_GROUND, 42, 62, 72, 80)
     # Walls around pool
     fill_tiles(chunk, TILE_WALL, 55, 60, 57, 65)
     fill_tiles(chunk, TILE_WALL, 68, 72, 70, 76)
@@ -15909,6 +15930,10 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_GROUND, 62, 14, 90, 24)      # WK corridor → Rooftop (wide)
     fill_tiles(chunk, TILE_GROUND, 90, 8, 120, 22)      # Rooftop → Princes chamber (wide)
     fill_tiles(chunk, TILE_GROUND, 128, 24, 142, 38)    # Bridge → Lift shortcut (wide)
+    fill_tiles(chunk, TILE_GROUND, 40, 150, 52, 175)    # Entry hall → lower archives
+    fill_tiles(chunk, TILE_GROUND, 60, 170, 120, 180)   # Lower archives horizontal link
+    fill_tiles(chunk, TILE_GROUND, 115, 170, 125, 195)  # Link to vertical tower shaft
+    fill_tiles(chunk, TILE_GROUND, 135, 175, 145, 195)  # Link to right side lower archives
 
     # ================================================================
     # SESSION 9 FIDELITY PASS — GrandArchives architectural details
@@ -15948,33 +15973,6 @@ def make_grand_archives():
     fill_tiles(chunk, TILE_WALL, 134, 28, 135, 29)
     fill_tiles(chunk, TILE_WALL, 126, 30, 127, 31)
 
-
-    # ================================================================
-    # DS3 STRUCTURAL WALLS — Kiln of the First Flame ashen architecture
-    # DS3: desolate wasteland of ash and ember, iron girders, collapsed walls,
-    # ash mounds, ruined pillars, and the First Flame altar
-    # ================================================================
-    # Ashen wasteland — collapsed wall ruins (DS3: crumbling walls in ash)
-    fill_tiles(chunk, TILE_WALL, 70, 80, 74, 86)    # Collapsed wall 1
-    fill_tiles(chunk, TILE_WALL, 86, 78, 90, 84)    # Collapsed wall 2
-    fill_tiles(chunk, TILE_WALL, 78, 90, 82, 96)    # Collapsed wall 3
-    fill_tiles(chunk, TILE_WALL, 94, 88, 98, 94)    # Collapsed wall 4
-    # Iron girders — structural debris (DS3: iron beams jutting from ash)
-    fill_tiles(chunk, TILE_WALL, 66, 96, 70, 102)   # Iron girder 1
-    fill_tiles(chunk, TILE_WALL, 82, 100, 86, 106)  # Iron girder 2
-    fill_tiles(chunk, TILE_WALL, 98, 94, 102, 100)  # Iron girder 3
-    # First Flame arena — altar walls (DS3: final boss arena at the flame)
-    fill_tiles(chunk, TILE_WALL, 74, 40, 78, 46)    # Altar wall left
-    fill_tiles(chunk, TILE_WALL, 92, 38, 96, 44)    # Altar wall right
-    fill_tiles(chunk, TILE_WALL, 82, 46, 88, 52)    # Altar center wall
-    # Ruined pillars — ash-covered columns (DS3: pillars throughout kiln)
-    fill_tiles(chunk, TILE_WALL, 62, 60, 66, 66)    # Ruined pillar 1
-    fill_tiles(chunk, TILE_WALL, 78, 56, 82, 62)    # Ruined pillar 2
-    fill_tiles(chunk, TILE_WALL, 94, 58, 98, 64)    # Ruined pillar 3
-    fill_tiles(chunk, TILE_WALL, 70, 68, 74, 74)    # Ruined pillar 4
-    fill_tiles(chunk, TILE_WALL, 88, 66, 92, 72)    # Ruined pillar 5
-        # ================================================================
-    # PLAYER SPAWN & BONFIRES
 
     # ================================================================
     # DS3 BOOKSHELF MAZE — Grand Archives narrow library corridors
@@ -16967,7 +16965,7 @@ def make_grand_archives():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -17275,31 +17273,6 @@ def make_kiln_of_the_first_flame():
 
 
     # ================================================================
-    # DS3 STRUCTURAL WALLS — Consumed King's Garden ruined architecture
-    # DS3: overgrown garden with crumbling walls, hidden passages,
-    # dark chambers, elevator shaft, and Oceiros boss arena
-    # ================================================================
-    # Garden entry — crumbling battlement walls (DS3: overgrown stone walls)
-    fill_tiles(chunk, TILE_WALL, 40, 34, 44, 40)    # Battlement wall left
-    fill_tiles(chunk, TILE_WALL, 56, 32, 60, 38)    # Battlement wall right
-    fill_tiles(chunk, TILE_WALL, 48, 40, 52, 46)    # Garden wall center
-    # Dark chamber — interior walls (DS3: dark room with Hollows)
-    fill_tiles(chunk, TILE_WALL, 62, 44, 66, 50)    # Chamber wall left
-    fill_tiles(chunk, TILE_WALL, 78, 42, 82, 48)    # Chamber wall right
-    fill_tiles(chunk, TILE_WALL, 70, 50, 74, 56)    # Chamber divider
-    # Garden overlook — terrace walls (DS3: overlook with dead trees)
-    fill_tiles(chunk, TILE_WALL, 86, 38, 90, 44)    # Terrace wall left
-    fill_tiles(chunk, TILE_WALL, 100, 36, 104, 42)  # Terrace wall right
-    fill_tiles(chunk, TILE_WALL, 94, 44, 98, 48)    # Terrace divider
-    # Oceiros arena — throne room walls (DS3: Oceiros boss in garden ruin)
-    fill_tiles(chunk, TILE_WALL, 64, 58, 68, 64)    # Arena wall NW
-    fill_tiles(chunk, TILE_WALL, 88, 56, 92, 62)    # Arena wall NE
-    fill_tiles(chunk, TILE_WALL, 72, 66, 76, 72)    # Arena wall SW
-    fill_tiles(chunk, TILE_WALL, 82, 64, 86, 70)    # Arena wall SE
-    # Elevator shaft area — shaft walls (DS3: lift shortcut)
-    fill_tiles(chunk, TILE_WALL, 34, 48, 38, 54)    # Shaft wall left
-    fill_tiles(chunk, TILE_WALL, 44, 50, 48, 56)    # Shaft wall right
-        # ================================================================
     # ENTITIES
     # ================================================================
 
@@ -17668,19 +17641,6 @@ def make_kiln_of_the_first_flame():
     fill_tiles(chunk, TILE_WALL, 106, 90, 107, 91)
     fill_tiles(chunk, TILE_WALL, 112, 94, 113, 95)
 
-    # SESSION 34 FIDELITY PASS — Consumed King's Garden DS3 details
-    # DS3: Oceiros crystal formations along walls, toxic pool edge stones
-    for tx in range(20, 60, 8):
-        fill_tiles(chunk, TILE_WALL, tx, 30, tx+1, 31)
-        fill_tiles(chunk, TILE_WALL, tx, 70, tx+1, 71)
-    for tx in range(80, 120, 8):
-        fill_tiles(chunk, TILE_WALL, tx, 35, tx+1, 36)
-        fill_tiles(chunk, TILE_WALL, tx, 75, tx+1, 76)
-    for ty in range(40, 80, 10):
-        fill_tiles(chunk, TILE_WALL, 25, ty, 26, ty+1)
-        fill_tiles(chunk, TILE_WALL, 135, ty, 136, ty+1)
-    fill_tiles(chunk, TILE_WALL, 60, 50, 62, 52)
-    fill_tiles(chunk, TILE_WALL, 100, 60, 102, 62)
     # SESSION 41 FIDELITY PASS — Kiln of the First Flame DS3 details
     # DS3: Ember piles, collapsed architecture, Black Knight monuments, flame crater
     for tx in range(20, 55, 5):
@@ -17837,7 +17797,7 @@ def make_kiln_of_the_first_flame():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -18197,32 +18157,7 @@ def make_consumed_kings_garden():
     fill_tiles(chunk, TILE_WALL, 102, 72, 103, 73)
     fill_tiles(chunk, TILE_WALL, 96, 76, 97, 77)
 
-    # ================================================================
-    # DS3 STRUCTURAL WALLS — Untended Graves dark cemetery architecture
-    # DS3: mirror of Cemetery of Ash but in permanent darkness,
-    # with broken shrine walls, coiled sword stump, tombstone rows,
-    # and Champion Gundyr arena
-    # ================================================================
-    # Dark cemetery entry — broken wall ruins (DS3: cemetery in perpetual dark)
-    fill_tiles(chunk, TILE_WALL, 20, 24, 24, 30)    # Cemetery wall left
-    fill_tiles(chunk, TILE_WALL, 36, 22, 40, 28)    # Cemetery wall right
-    fill_tiles(chunk, TILE_WALL, 28, 32, 32, 38)    # Cemetery wall center
-    # Shrine walls — broken shrine structure (DS3: ruined Firelink Shrine)
-    fill_tiles(chunk, TILE_WALL, 48, 40, 52, 46)    # Shrine wall left
-    fill_tiles(chunk, TILE_WALL, 64, 38, 68, 44)    # Shrine wall right
-    fill_tiles(chunk, TILE_WALL, 56, 46, 60, 52)    # Shrine interior wall
-    # Tombstone rows — dense grave markers (DS3: packed cemetery with graves)
-    fill_tiles(chunk, TILE_WALL, 32, 48, 36, 54)    # Tombstone row 1
-    fill_tiles(chunk, TILE_WALL, 48, 50, 52, 56)    # Tombstone row 2
-    fill_tiles(chunk, TILE_WALL, 64, 48, 68, 54)    # Tombstone row 3
-    fill_tiles(chunk, TILE_WALL, 40, 56, 44, 62)    # Tombstone row 4
-    # Champion Gundyr arena — dark arena walls (DS3: dark version of Gundyr arena)
-    fill_tiles(chunk, TILE_WALL, 54, 64, 58, 70)    # Arena wall NW
-    fill_tiles(chunk, TILE_WALL, 74, 62, 78, 68)    # Arena wall NE
-    fill_tiles(chunk, TILE_WALL, 60, 72, 64, 78)    # Arena wall SW
-    fill_tiles(chunk, TILE_WALL, 70, 70, 74, 76)    # Arena wall SE
-
-        # --- Player spawn ---
+    # --- Player spawn ---
     spawn_px, spawn_py = 15 * 16, 15 * 16
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py, [make_field("heal", "Bool", True)]))
 
@@ -18880,7 +18815,7 @@ def make_consumed_kings_garden():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -19640,17 +19575,6 @@ def make_untended_graves():
     fill_tiles(chunk, TILE_WALL, 96, 78, 97, 79)
     fill_tiles(chunk, TILE_WALL, 102, 82, 103, 83)
 
-    # SESSION 34 FIDELITY PASS — Archdragon Peak DS3 details
-    # DS3: Dragon skeleton debris along the paths, meditation stone circles
-    for tx in range(30, 70, 10):
-        fill_tiles(chunk, TILE_WALL, tx, 40, tx+2, 41)
-        fill_tiles(chunk, TILE_WALL, tx, 90, tx+2, 91)
-    for tx in range(90, 140, 10):
-        fill_tiles(chunk, TILE_WALL, tx, 45, tx+2, 46)
-        fill_tiles(chunk, TILE_WALL, tx, 95, tx+2, 96)
-    fill_tiles(chunk, TILE_WALL, 50, 55, 52, 56)
-    fill_tiles(chunk, TILE_WALL, 110, 75, 112, 76)
-    fill_tiles(chunk, TILE_WALL, 70, 110, 72, 111)
     # SESSION 41 FIDELITY PASS — Untended Graves DS3 details
     # DS3: Dark tombstones, ash-covered paths, dark Firelink rubble, Gundyr arena
     for tx in range(20, 55, 5):
@@ -19797,7 +19721,7 @@ def make_untended_graves():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -20937,6 +20861,14 @@ def make_archdragon_peak():
 
         _doc = _json.load(_f)
 
+    # Wider connectivity corridors between sections
+    fill_tiles(chunk, TILE_GROUND, 25, 95, 50, 115)   # Entry to barracks
+    fill_tiles(chunk, TILE_GROUND, 40, 70, 65, 90)    # Barracks to wyvern
+    fill_tiles(chunk, TILE_GROUND, 65, 40, 95, 60)    # Wyvern to mausoleum
+    fill_tiles(chunk, TILE_GROUND, 90, 25, 130, 50)   # Storm path to belfry
+    fill_tiles(chunk, TILE_GROUND, 110, 35, 140, 70)  # Belfry to Nameless arena
+    fill_tiles(chunk, TILE_GROUND, 80, 55, 120, 80)   # Mausoleum to Nameless arena
+
     for _sec in _doc.get("map_layout", {}).get("sections", []):
 
         _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
@@ -20945,7 +20877,7 @@ def make_archdragon_peak():
 
         _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
 
-        _tile = TILE_POISON if any(_w in _features for _w in ("毒", "沼", "污水", "浅水", "熔岩", "火焰", "lava", "fire", "flooded", "stagnant")) else TILE_GROUND
+        _tile = poison_tile(_features)
 
         fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
 
@@ -21084,14 +21016,18 @@ def map_item_kind(item):
 def map_npc_kind(npc):
     kind = npc.get("kind", "Dialogue")
     return {"LevelUp": "LevelUp", "Merchant": "Merchant", "Blacksmith": "Blacksmith",
-            "Trade": "Merchant", "Covenant": "Dialogue"}.get(kind, "Dialogue")
+            "Trade": "Merchant", "Summon": "Summon", "Hostile": "Hostile",
+            "Invader": "Invader", "Covenant": "Dialogue"}.get(kind, "Dialogue")
 
 def map_chest_kind(loot):
     kind = loot.get("kind", "")
-    if kind == "EstusShard": return "EstusShard"
+    if kind in ("EstusShard", "TitaniteShard", "UndeadBoneShard", "Ember",
+                "HomewardBone", "Consumable", "Firebomb", "PurpleMoss"):
+        return kind
     if "Weapon" in kind: return "WeaponDrop"
     if "Armor" in kind: return "ArmorDrop"
     if "Ring" in kind: return "RingDrop"
+    if "Shield" in kind: return "ArmorDrop"
     if "Key" in kind: return "Consumable"
     if "Item" in kind: return "Consumable"
     return "SoulOrb"
@@ -21112,8 +21048,13 @@ def create_entities_from_doc(chunk, doc):
     bonfires = doc.get("bonfires", [])
     if bonfires:
         first = bonfires[0]
+        # Ensure spawn position has walkable ground
+        sx, sy = first["x"] // TILE_SIZE, first["y"] // TILE_SIZE
+        fill_tiles(chunk, TILE_GROUND, sx - 3, sy - 3, sx + 3, sy + 3)
         add_entity("PlayerSpawn", first["x"], first["y"], [make_field("heal", "Bool", True)])
-        for bonfire in bonfires:
+        for bonfire in bonfires[1:]:
+            bx, by = bonfire["x"] // TILE_SIZE, bonfire["y"] // TILE_SIZE
+            fill_tiles(chunk, TILE_GROUND, bx - 2, by - 2, bx + 2, by + 2)
             add_entity("Bonfire", bonfire["x"], bonfire["y"])
     else:
         sections = doc.get("map_layout", {}).get("sections", [])
@@ -21131,6 +21072,8 @@ def create_entities_from_doc(chunk, doc):
     for boss_def in bosses:
         if not isinstance(boss_def, dict):
             continue
+        bx, by = boss_def.get("x", 0) // TILE_SIZE, boss_def.get("y", 0) // TILE_SIZE
+        fill_tiles(chunk, TILE_GROUND, bx - 5, by - 5, bx + 5, by + 5)
         add_entity("BossSpawn", boss_def.get("x", 0), boss_def.get("y", 0))
 
     for enemy in doc.get("enemies", []):
@@ -21215,6 +21158,7 @@ def generate_map_from_doc(doc_path):
     return map_id, chunk, entities
 
 def make_level(identifier, chunk, entities, uid):
+    fix_terrain_connectivity(chunk)
     width = chunk_width(chunk)
     height = chunk_height(chunk)
     return {
@@ -21293,7 +21237,7 @@ def build_enum_defs():
              ("Basilisk", 0x2ECC71), ("DemonStatue", 0x839192), ("InfestedCorpse", 0x6B5B4E),
              ("Wretch", 0x5D5347), ("PeasantHollow", 0x8B7765), ("Mimic", 0xD4AC0D),
              ("GiantSlave", 0x7F6B52), ("HollowAssassin", 0x4A4A55), ("CathedralGraveWarden", 0x3D4A3D),
-             ("Rat", 0x7B6B55),
+             ("Rat", 0x7B6B55), ("LargeHollowSoldier", 0x8B7355),
          ]]},
         {"externalFileChecksum": None, "externalRelPath": None, "iconTilesetUid": None,
          "identifier": "ItemKind", "tags": [], "uid": ENUM_UIDS["ItemKind"],

@@ -227,8 +227,8 @@
   "enemies": [
     {
       "kind": "HollowSoldier",
-      "x": 224,
-      "y": 160
+      "x": 944,
+      "y": 267
     },
     {
       "kind": "HollowSoldier",
@@ -237,23 +237,18 @@
     },
     {
       "kind": "HollowSoldier",
-      "x": 256,
-      "y": 320
+      "x": 544,
+      "y": 224
     },
     {
       "kind": "HollowSoldier",
-      "x": 768,
-      "y": 144
+      "x": 315,
+      "y": 589
     },
     {
       "kind": "HollowSoldier",
       "x": 288,
       "y": 544
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 448,
-      "y": 608
     },
     {
       "kind": "HollowSoldier",
@@ -267,93 +262,38 @@
     },
     {
       "kind": "HollowSoldier",
-      "x": 800,
-      "y": 1056
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1184,
-      "y": 1024
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 640,
-      "y": 1136
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 896,
-      "y": 1184
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 544,
-      "y": 1504
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 832,
-      "y": 1440
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1120,
-      "y": 1600
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1408,
-      "y": 2016
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 544,
-      "y": 224
-    },
-    {
-      "kind": "HollowSoldier",
       "x": 960,
       "y": 256
     },
     {
-      "kind": "HollowSoldier",
-      "x": 704,
-      "y": 656
+      "kind": "StarvedHound",
+      "x": 571,
+      "y": 335
     },
     {
-      "kind": "HollowSoldier",
-      "x": 1024,
-      "y": 912
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 448,
-      "y": 1088
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1152,
-      "y": 1120
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 416,
-      "y": 1376
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 928,
-      "y": 1568
-    },
-    {
-      "kind": "HollowSoldier",
-      "x": 1360,
+      "kind": "StarvedHound",
+      "x": 320,
       "y": 448
     },
     {
+      "kind": "PusOfMan",
+      "x": 800,
+      "y": 192
+    },
+    {
+      "kind": "LothricKnight",
+      "x": 480,
+      "y": 288
+    },
+    {
+      "kind": "HollowAssassin",
+      "x": 704,
+      "y": 640
+    },
+    {
       "kind": "HollowSoldier",
-      "x": 1520,
-      "y": 592
+      "x": 1438,
+      "y": 751
     },
     {
       "kind": "HollowSoldier",
@@ -362,28 +302,18 @@
     },
     {
       "kind": "HollowSoldier",
-      "x": 1504,
-      "y": 1120
+      "x": 1314,
+      "y": 1026
     },
     {
       "kind": "HollowSoldier",
-      "x": 1920,
-      "y": 1328
+      "x": 1768,
+      "y": 724
     },
     {
       "kind": "LothricKnight",
-      "x": 480,
-      "y": 288
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 800,
-      "y": 864
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 992,
-      "y": 864
+      "x": 894,
+      "y": 426
     },
     {
       "kind": "LothricKnight",
@@ -392,73 +322,8 @@
     },
     {
       "kind": "LothricKnight",
-      "x": 320,
-      "y": 1344
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 704,
-      "y": 1536
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 992,
-      "y": 1504
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 1344,
-      "y": 1568
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 1376,
-      "y": 1536
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 1120,
-      "y": 1696
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 1440,
-      "y": 1728
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 1472,
-      "y": 1840
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 1280,
-      "y": 1888
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 1216,
-      "y": 2144
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 1504,
-      "y": 2192
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 1312,
-      "y": 400
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 1696,
-      "y": 528
-    },
-    {
-      "kind": "LothricKnight",
-      "x": 1488,
-      "y": 400
+      "x": 1242,
+      "y": 695
     },
     {
       "kind": "LothricKnight",
@@ -466,104 +331,24 @@
       "y": 672
     },
     {
-      "kind": "LothricKnight",
-      "x": 1712,
-      "y": 1040
+      "kind": "LargeHollowSoldier",
+      "x": 1280,
+      "y": 720
     },
     {
-      "kind": "Archer",
-      "x": 864,
-      "y": 224
-    },
-    {
-      "kind": "PusOfMan",
-      "x": 800,
-      "y": 192
-    },
-    {
-      "kind": "PusOfMan",
-      "x": 656,
-      "y": 944
-    },
-    {
-      "kind": "MiniBoss",
-      "x": 384,
-      "y": 512
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 256,
-      "y": 368
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 320,
-      "y": 448
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 288,
-      "y": 352
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 256,
-      "y": 1456
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 736,
-      "y": 1408
-    },
-    {
-      "kind": "StarvedHound",
-      "x": 1600,
-      "y": 816
-    },
-    {
-      "kind": "WingedKnight",
-      "x": 992,
-      "y": 656
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 928,
-      "y": 752
-    },
-    {
-      "kind": "CrystalLizard",
-      "x": 768,
-      "y": 800
-    },
-    {
-      "kind": "Mimic",
-      "x": 672,
-      "y": 608
-    },
-    {
-      "kind": "Knight",
-      "x": 896,
-      "y": 736
+      "kind": "LargeHollowSoldier",
+      "x": 1568,
+      "y": 960
     },
     {
       "kind": "HollowAssassin",
-      "x": 608,
-      "y": 880
+      "x": 385,
+      "y": 321
     },
     {
       "kind": "HollowAssassin",
-      "x": 992,
-      "y": 1056
-    },
-    {
-      "kind": "HollowAssassin",
-      "x": 704,
-      "y": 640
-    },
-    {
-      "kind": "HollowAssassin",
-      "x": 976,
-      "y": 800
+      "x": 528,
+      "y": 468
     },
     {
       "kind": "HollowAssassin",
@@ -571,14 +356,124 @@
       "y": 1200
     },
     {
-      "kind": "Darkwraith",
-      "x": 864,
-      "y": 800
+      "kind": "StarvedHound",
+      "x": 1600,
+      "y": 816
+    },
+    {
+      "kind": "LothricWyvern",
+      "x": 2160,
+      "y": 560
     },
     {
       "kind": "LothricKnight",
-      "x": 1312,
-      "y": 1632
+      "x": 1696,
+      "y": 528
+    },
+    {
+      "kind": "PusOfMan",
+      "x": 2400,
+      "y": 720
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 906,
+      "y": 223
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1413,
+      "y": 1046
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 955,
+      "y": 569
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1508,
+      "y": 1779
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 928,
+      "y": 1568
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1120,
+      "y": 1600
+    },
+    {
+      "kind": "WingedKnight",
+      "x": 992,
+      "y": 656
+    },
+    {
+      "kind": "LothricKnight",
+      "x": 515,
+      "y": 439
+    },
+    {
+      "kind": "LothricKnight",
+      "x": 1553,
+      "y": 1634
+    },
+    {
+      "kind": "LothricKnight",
+      "x": 992,
+      "y": 1504
+    },
+    {
+      "kind": "LargeHollowSoldier",
+      "x": 1088,
+      "y": 1728
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 296,
+      "y": 598
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 1775,
+      "y": 1513
+    },
+    {
+      "kind": "HollowAssassin",
+      "x": 1642,
+      "y": 854
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1920,
+      "y": 1328
+    },
+    {
+      "kind": "HollowSoldier",
+      "x": 1234,
+      "y": 1509
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 510,
+      "y": 600
+    },
+    {
+      "kind": "CrystalLizard",
+      "x": 634,
+      "y": 262
+    },
+    {
+      "kind": "Darkwraith",
+      "x": 384,
+      "y": 404
+    },
+    {
+      "kind": "StarvedHound",
+      "x": 2120,
+      "y": 1650
     }
   ],
   "items": [
@@ -639,13 +534,6 @@
       "value": 0
     },
     {
-      "kind": "SoulOrb",
-      "name_en": "Soul of a Nameless Soldier",
-      "x": 1460,
-      "y": 1080,
-      "value": 800
-    },
-    {
       "kind": "Consumable",
       "name_en": "Throwing Knives",
       "x": 1780,
@@ -703,27 +591,6 @@
       "value": 0
     },
     {
-      "kind": "SoulOrb",
-      "name_en": "Soul of a Nameless Soldier",
-      "x": 2700,
-      "y": 2420,
-      "value": 800
-    },
-    {
-      "kind": "Consumable",
-      "name_en": "Undead Bone Shard",
-      "x": 2600,
-      "y": 2700,
-      "value": 0
-    },
-    {
-      "kind": "SoulOrb",
-      "name_en": "Soul of a Crestfallen Knight",
-      "x": 2540,
-      "y": 2840,
-      "value": 1000
-    },
-    {
       "kind": "Consumable",
       "name_en": "Small Lothric Banner",
       "x": 2730,
@@ -732,24 +599,175 @@
       "note": "Given by Emma to trigger Dancer / progress"
     },
     {
-      "kind": "Consumable",
-      "name_en": "Purple Moss",
-      "x": 3000,
-      "y": 3300,
-      "value": 0
-    },
-    {
-      "kind": "SoulOrb",
-      "name_en": "Soul of a Nameless Soldier",
-      "x": 3200,
-      "y": 3480,
-      "value": 800
-    },
-    {
       "kind": "EstusShard",
       "name_en": "Estus Shard",
       "x": 3060,
       "y": 2340,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Claymore",
+      "x": 2100,
+      "y": 580,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Binoculars",
+      "x": 780,
+      "y": 320,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Black Firebomb",
+      "x": 2400,
+      "y": 1580,
+      "count": 3
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Standard Arrow",
+      "x": 560,
+      "y": 440,
+      "count": 12
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Undead Hunter Charm",
+      "x": 2520,
+      "y": 1660,
+      "count": 2
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Refined Gem",
+      "x": 2480,
+      "y": 1800,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Ring of Sacrifice",
+      "x": 1360,
+      "y": 1640,
+      "value": 0
+    },
+    {
+      "kind": "RingDrop",
+      "name_en": "Blue Tearstone Ring",
+      "x": 2280,
+      "y": 1900,
+      "value": 0,
+      "note": "Given by Greirat after freeing him"
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Way of Blue",
+      "x": 2720,
+      "y": 2660,
+      "value": 0,
+      "note": "Covenant from Emma"
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Broadsword",
+      "x": 1180,
+      "y": 1200,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Rapier",
+      "x": 1100,
+      "y": 1600,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Mail Breaker",
+      "x": 1980,
+      "y": 860,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Lucerne",
+      "x": 2740,
+      "y": 2320,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Dungeon Cell Key",
+      "x": 2400,
+      "y": 1780,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of Boreal Valley Vordt",
+      "x": 3160,
+      "y": 3560,
+      "value": 0,
+      "note": "Boss soul from Vordt of the Boreal Valley"
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Astora Straight Sword",
+      "x": 1960,
+      "y": 1640,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Silver Eagle Kite Shield",
+      "x": 1580,
+      "y": 740,
+      "value": 0
+    },
+    {
+      "kind": "WeaponDrop",
+      "name_en": "Club",
+      "x": 1200,
+      "y": 1340,
+      "value": 0
+    },
+    {
+      "kind": "UndeadBoneShard",
+      "name_en": "Undead Bone Shard",
+      "x": 2700,
+      "y": 2400,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Alluring Skull",
+      "x": 1600,
+      "y": 1060,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Red Eye Orb",
+      "x": 1100,
+      "y": 1800,
+      "value": 0,
+      "note": "Behind locked door (Lift Chamber Key / Leonhard quest)"
+    },
+    {
+      "kind": "Ember",
+      "name_en": "Ember",
+      "x": 1800,
+      "y": 1400,
+      "value": 0
+    },
+    {
+      "kind": "Ember",
+      "name_en": "Ember",
+      "x": 2200,
+      "y": 1600,
       "value": 0
     }
   ],
@@ -825,10 +843,10 @@
       "y": 1900,
       "color": "#A0C0E0",
       "dialogue": [
-        "I am Greirat of the Undead Settlement.",
-        "Please, I must see Loretta. I owe her so much.",
-        "If you find her, please, tell her of me.",
-        "I ask you, as a fellow prisoner. Please, find Loretta."
+        "Ahh, you're no jailer, are you? No, no, you're from far, far away... How unlikely. I am Greirat. Greirat of the Undead Settlement. Below the High Wall is a musty little town. An old woman, Loretta, lives there. Please give her this ring.",
+        "I-I may be a petty thief, but I've more wits than most royalty. What do you say, then? Will you do an old thief this one last favour?",
+        "Very well. I humbly place my faith in you. I am Greirat of the Undead Settlement, and I promise to assist you. Give this ring to old Loretta at the base of the High Wall. ...Do your part, and I'll do mine.",
+        "Do me a favour, and don't forget our promise. Give this ring to old Loretta at the base of the High Wall."
       ],
       "note": "Locked in cell, requires Cell Key. Becomes a thief merchant after freeing."
     },
@@ -840,10 +858,10 @@
       "y": 2660,
       "color": "#F0E0C0",
       "dialogue": [
-        "Welcome to the High Wall of Lothric.",
-        "I am Emma, High Priestess of Lothric.",
-        "The Prince has refused his duty. The Lords have left their thrones.",
-        "Please, fetch the Basin of Vows."
+        "Ahh, the wait has been long, Unkindled One. I am Emma, High Priestess of Lothric Castle. Allow me to speak frankly. You will not find the Lords of Cinder here. They have left, gone. To their churning homes, converging at the base of this castle. Head to the bottom of the High Wall. Forge on through the great gate, and raise this banner to proceed.",
+        "This farewell gift is for you. It is the insignia of an old covenant. If you fear trespassers, dark spirits drawn by the embers. Then etch this upon your heart. And the old concord will beckon noble Blue Sentinels to hunt these foul spirits.",
+        "Unkindled One. Head to the High Wall's base. Go through the great gate, and raise the banner to proceed. But beware. The dog keeps a close eye on things. The vile watchdog of the Boreal Valley.",
+        "What is wrong, Unkindled One? Are you not a Lordseeker? Head to the base of the High Wall and seek the Lords of Cinder. Is this not the calling of your kind, since ages past?"
       ],
       "note": "Gives Small Lothric Banner. Triggers Dancer boss fight if killed or after placing basin."
     }
@@ -981,17 +999,6 @@
     }
   ],
   "fog_gates": [
-    {
-      "x": 560,
-      "y": 300,
-      "w": 96,
-      "h": 96,
-      "dest_area": "CemeteryOfAsh",
-      "dest_x": 1280,
-      "dest_y": 120,
-      "kind": "area_transition",
-      "source_status": "projected_transition"
-    },
     {
       "x": 3160,
       "y": 3740,

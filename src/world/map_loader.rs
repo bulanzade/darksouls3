@@ -50,6 +50,7 @@ pub enum EnemySpawnKind {
     HollowAssassin,
     CathedralGraveWarden,
     Rat,
+    LargeHollowSoldier,
 }
 
 #[derive(Debug)]
@@ -108,6 +109,9 @@ pub enum NpcSpawnKind {
     Merchant,
     Blacksmith,
     Dialogue,
+    Summon,
+    Hostile,
+    Invader,
 }
 
 #[derive(Debug)]
@@ -242,6 +246,7 @@ impl ParsedLevel {
                         "HollowAssassin" => EnemySpawnKind::HollowAssassin,
                         "CathedralGraveWarden" => EnemySpawnKind::CathedralGraveWarden,
                         "Rat" => EnemySpawnKind::Rat,
+                        "LargeHollowSoldier" => EnemySpawnKind::LargeHollowSoldier,
                         other => return Err(format!("Unknown enemy kind: {}", other)),
                     };
                     enemies.push(EnemySpawn { x: px, y: py, kind });
@@ -261,6 +266,9 @@ impl ParsedLevel {
                         "Merchant" => NpcSpawnKind::Merchant,
                         "Blacksmith" => NpcSpawnKind::Blacksmith,
                         "Dialogue" => NpcSpawnKind::Dialogue,
+                        "Summon" => NpcSpawnKind::Summon,
+                        "Hostile" => NpcSpawnKind::Hostile,
+                        "Invader" => NpcSpawnKind::Invader,
                         other => return Err(format!("Unknown NPC kind: {}", other)),
                     };
                     let name = fld.str_val("name");
