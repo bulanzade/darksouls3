@@ -1075,13 +1075,6 @@
     },
     {
       "kind": "Consumable",
-      "name_en": "Homeward Bone",
-      "x": 1948,
-      "y": 1553,
-      "value": 0
-    },
-    {
-      "kind": "Consumable",
       "name_en": "Cinders of a Lord",
       "x": 2500,
       "y": 310,

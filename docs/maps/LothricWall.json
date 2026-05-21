@@ -563,13 +563,6 @@
     },
     {
       "kind": "Consumable",
-      "name_en": "Homeward Bone",
-      "x": 1680,
-      "y": 1600,
-      "value": 0
-    },
-    {
-      "kind": "Consumable",
       "name_en": "Cell Key",
       "x": 2200,
       "y": 1400,
@@ -769,6 +762,111 @@
       "x": 2200,
       "y": 1600,
       "value": 0
+    },
+    {
+      "kind": "Firebomb",
+      "name_en": "Firebomb",
+      "x": 600,
+      "y": 800,
+      "value": 0
+    },
+    {
+      "kind": "Firebomb",
+      "name_en": "Firebomb",
+      "x": 800,
+      "y": 1000,
+      "value": 0
+    },
+    {
+      "kind": "Firebomb",
+      "name_en": "Firebomb",
+      "x": 1000,
+      "y": 1200,
+      "value": 0
+    },
+    {
+      "kind": "Firebomb",
+      "name_en": "Firebomb",
+      "x": 1200,
+      "y": 1400,
+      "value": 0
+    },
+    {
+      "kind": "Firebomb",
+      "name_en": "Firebomb",
+      "x": 1400,
+      "y": 1600,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Throwing Knife",
+      "x": 500,
+      "y": 900,
+      "value": 8
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Throwing Knife",
+      "x": 900,
+      "y": 1100,
+      "value": 6
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Green Blossom",
+      "x": 700,
+      "y": 1300,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Green Blossom",
+      "x": 1100,
+      "y": 1500,
+      "value": 0
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Deserted Corpse",
+      "x": 400,
+      "y": 700,
+      "value": 200
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Deserted Corpse",
+      "x": 600,
+      "y": 1100,
+      "value": 200
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Deserted Corpse",
+      "x": 800,
+      "y": 1300,
+      "value": 200
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Deserted Corpse",
+      "x": 1000,
+      "y": 1500,
+      "value": 200
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Soul of a Deserted Corpse",
+      "x": 1200,
+      "y": 1700,
+      "value": 200
+    },
+    {
+      "kind": "SoulOrb",
+      "name_en": "Large Soul of a Deserted Corpse",
+      "x": 1500,
+      "y": 1800,
+      "value": 500
     }
   ],
   "chests": [

@@ -276,6 +276,13 @@
       "name_en": "Homeward Bone",
       "x": 1360,
       "y": 1840
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Homeward Bone",
+      "x": 800,
+      "y": 1800,
+      "value": 0
     }
   ],
   "chests": [

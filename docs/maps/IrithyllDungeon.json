@@ -794,25 +794,13 @@
       "y": 1363
     },
     {
-      "kind": "Consumable",
-      "name_en": "Rusted Coin",
-      "x": 721,
-      "y": 850
-    },
-    {
-      "kind": "Consumable",
-      "name_en": "Rusted Coin",
-      "x": 409,
-      "y": 464
-    },
-    {
       "kind": "ArmorDrop",
       "name_en": "Alva Set",
       "x": 1381,
       "y": 1064
     },
     {
-      "kind": "Consumable",
+      "kind": "WeaponDrop",
       "name_en": "Murakumo",
       "x": 1255,
       "y": 809
@@ -824,6 +812,20 @@
       "y": 2000,
       "value": 0,
       "note": "Found in locked cell requiring Jailer's Key Ring"
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 900,
+      "y": 1500,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 2400,
+      "y": 2800,
+      "value": 0
     }
   ],
   "chests": [
@@ -863,7 +865,7 @@
       "loot": {
         "kind": "TitaniteShard",
         "name_en": "Titanite Scale",
-        "value": 0
+        "value": 2
       },
       "is_mimic": true
     },

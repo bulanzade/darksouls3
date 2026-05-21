@@ -565,7 +565,7 @@
       "loot": {
         "kind": "Consumable",
         "name_en": "Rusted Gold Coin",
-        "value": 0
+        "value": 2
       },
       "is_mimic": true
     },
@@ -584,9 +584,9 @@
       "y": 1800,
       "loot": {
         "kind": "Consumable",
-        "name_en": "Onislayer Greatarrow",
+        "name_en": "Dragonslayer Lightning Arrow",
         "count": 5,
-        "value": 0
+        "value": 10
       },
       "is_mimic": true
     }

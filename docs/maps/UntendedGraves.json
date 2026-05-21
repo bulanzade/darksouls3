@@ -555,13 +555,6 @@
       "note": "Boss soul from Champion Gundyr"
     },
     {
-      "kind": "ArmorDrop",
-      "name_en": "Wolf Knight Set",
-      "x": 600,
-      "y": 1800,
-      "value": 0
-    },
-    {
       "kind": "Consumable",
       "name_en": "Hollow's Ashes",
       "x": 500,

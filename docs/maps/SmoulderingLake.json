@@ -726,11 +726,38 @@
     },
     {
       "kind": "ArmorDrop",
-      "name_en": "Old Sage's Blindfold",
-      "x": 2100,
-      "y": 2450,
-      "value": 0,
-      "note": "Found in Demon Ruins near basilisk area"
+      "name_en": "Black Knight Shield",
+      "x": 1600,
+      "y": 1400,
+      "value": 0
+    },
+    {
+      "kind": "ArmorDrop",
+      "name_en": "Black Knight Set",
+      "x": 1700,
+      "y": 1500,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Yellow Bug Pellet",
+      "x": 1200,
+      "y": 1800,
+      "value": 0
+    },
+    {
+      "kind": "Consumable",
+      "name_en": "Yellow Bug Pellet",
+      "x": 2400,
+      "y": 2000,
+      "value": 0
+    },
+    {
+      "kind": "TitaniteShard",
+      "name_en": "Large Titanite Shard",
+      "x": 2600,
+      "y": 2200,
+      "value": 0
     }
   ],
   "chests": [],

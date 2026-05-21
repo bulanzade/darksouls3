@@ -236,7 +236,7 @@
       "value": 200
     },
     {
-      "kind": "Firebomb",
+      "kind": "Consumable",
       "name_en": "Firebomb",
       "x": 900,
       "y": 1408,
@@ -263,11 +263,11 @@
       "note": "Boss drop from Iudex Gundyr, planted in bonfire"
     },
     {
-      "kind": "SoulOrb",
-      "name_en": "Fading Soul",
-      "x": 1536,
-      "y": 931,
-      "value": 50
+      "kind": "TitaniteShard",
+      "name_en": "Titanite Scale",
+      "x": 600,
+      "y": 800,
+      "value": 0
     }
   ],
   "chests": [],
