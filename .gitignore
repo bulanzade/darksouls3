@@ -23,3 +23,7 @@ static/maps/
 # Python cache
 __pycache__/
 *.pyc
+
+# Claude local state
+.claude/ralph-loop.local.md
+.claude/scheduled_tasks.lock
