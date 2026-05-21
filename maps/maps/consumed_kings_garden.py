@@ -4,7 +4,7 @@ from maps.generate_maps import (
     new_chunk, fill_tiles, carve_ellipse, cw,
     carve_corridor, make_entity, make_field,
     ensure_connected, poison_tile,
-    populate_entity_def_uids, snap_entities_to_walkable,
+    apply_doc_terrain, finalize_map,
 )
 
 def make_consumed_kings_garden():
@@ -933,108 +933,8 @@ def make_consumed_kings_garden():
         for ty in range(65, 72):
             chunk[tx][ty] = TILE_POISON
     # Fill terrain from JSON doc sections for areas beyond hardcoded layout
-
     import json as _json
-
     with open("docs/maps/ConsumedKingsGarden.json") as _f:
-
         _doc = _json.load(_f)
-
-    for _sec in _doc.get("map_layout", {}).get("sections", []):
-
-        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
-
-        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
-
-        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
-
-        _tile = poison_tile(_features)
-
-        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
-
-    # Connect sections with corridors
-
-    _centers = []
-
-    for _sec in _doc.get("map_layout", {}).get("sections", []):
-
-        _cx = (_sec["x"] + _sec["w"] // 2) // 16
-
-        _cy = (_sec["y"] + _sec["h"] // 2) // 16
-
-        _centers.append((_cx, _cy))
-
-    for _i in range(len(_centers) - 1):
-
-        _cx1, _cy1 = _centers[_i]
-
-        _cx2, _cy2 = _centers[_i + 1]
-
-        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
-
-    # Ensure bonfire/boss positions have ground
-
-    for _bf in _doc.get("bonfires", []):
-
-        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
-
-        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
-
-    _boss = _doc.get("boss")
-
-    if _boss:
-
-        for _b in (_boss if isinstance(_boss, list) else [_boss]):
-
-            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
-
-            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
-
-    for _fg in _doc.get("fog_gates", []):
-
-        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
-
-        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
-    # Add terrain feature obstacles (walls) from JSON doc
-    for _sec in _doc.get("map_layout", {}).get("sections", []):
-        for _feat in _sec.get("terrain_features", []):
-            if not isinstance(_feat, dict):
-                continue
-            _fk = _feat.get("kind", "")
-            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
-                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
-                        "barricade", "collapsed_wall", "desk_cluster",
-                        "roof_structure", "chimney", "armor_display", "iron_girder",
-                        "coffin", "dragon_altar", "serpent_statue",
-                        "arena_ruin", "ruined_pillar"):
-                _fx2 = _feat["x"] // 16
-                _fy2 = _feat["y"] // 16
-                _fw = max(1, _feat["w"] // 16)
-                _fh = max(1, _feat["h"] // 16)
-                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
-
-    # === SECTION-BASED GROUND EXPANSION (DS3 fidelity) ===
-    fill_tiles(chunk, TILE_GROUND, 26, 26, 73, 58)   # Lower Dancer Lift
-    fill_tiles(chunk, TILE_GROUND, 56, 73, 131, 125)  # Poison Garden
-    fill_tiles(chunk, TILE_GROUND, 117, 61, 168, 101)  # Lothric Knight Platform
-    fill_tiles(chunk, TILE_GROUND, 172, 148, 223, 188) # Oceiros Arena
-    fill_tiles(chunk, TILE_GROUND, 203, 135, 236, 161) # Untended Graves Illusory Wall
-    fill_tiles(chunk, TILE_GROUND, 180, 137, 190, 147) # Supplement area
-    # Corridors connecting sections
-    fill_tiles(chunk, TILE_GROUND, 48, 40, 95, 101)
-    fill_tiles(chunk, TILE_GROUND, 91, 79, 145, 101)
-    fill_tiles(chunk, TILE_GROUND, 141, 79, 200, 170)
-    fill_tiles(chunk, TILE_GROUND, 196, 146, 222, 170)
-    fill_tiles(chunk, TILE_GROUND, 183, 140, 222, 150)
-
-    snap_entities_to_walkable(chunk, entities)
-
-    populate_entity_def_uids(entities)
-    entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
-    coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
-                       if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
-    # print(f"  ConsumedKingsGarden (faithful DS3 layout) "
-    # f"ground={pct:.1f}% connectivity={coverage}%")
-    return "ConsumedKingsGarden", chunk, entities
+    apply_doc_terrain(chunk, _doc)
+    return finalize_map("ConsumedKingsGarden", chunk, entities, spawn_px, spawn_py)

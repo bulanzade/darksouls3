@@ -28,8 +28,6 @@ POISON_KEYWORDS = (
 def poison_tile(features):
     return TILE_POISON if any(kw in features for kw in POISON_KEYWORDS) else TILE_GROUND
 
-MARGIN = 6
-USABLE = CHUNK_SIZE - 2 * MARGIN
 BASE_MAP_PX = CHUNK_SIZE * TILE_SIZE
 
 LEVEL_UIDS = {
@@ -373,40 +371,16 @@ def find_walkable_tile(chunk, tx, ty, max_radius=256):
     return None
 
 def snap_entities_to_walkable(chunk, entities, skip_types=("FogGate", "PlayerSpawn", "TilePatch")):
-    """Pre-compute walkable tiles then snap all entities to nearest one."""
+    """Snap all entities to nearest walkable tile using expanding-radius grid lookup."""
     h = len(chunk)
     w = len(chunk[0]) if h else 0
-    # Collect all walkable tile positions
-    walkable = []
-    for y in range(h):
-        row = chunk[y]
-        for x in range(w):
-            if row[x] in (TILE_GROUND, TILE_POISON):
-                walkable.append((x, y))
-    if not walkable:
-        return
-    # For each entity, find nearest walkable tile by Manhattan distance
-    import math
     for ent in entities:
         if ent["__identifier"] in skip_types:
             continue
         px = ent.get("px", [0, 0])
         if not isinstance(px, list) or len(px) < 2:
             continue
-        tx, ty = int(px[0]) // TILE_SIZE, int(px[1]) // TILE_SIZE
-        best = None
-        best_d = float('inf')
-        for wx, wy in walkable:
-            d = abs(wx - tx) + abs(wy - ty)
-            if d < best_d:
-                best_d = d
-                best = (wx, wy)
-                if d == 0:
-                    break
-        if best:
-            x, y = best
-            ent["px"] = [x * TILE_SIZE + TILE_SIZE // 2, y * TILE_SIZE + TILE_SIZE // 2]
-            ent["__grid"] = [x, y]
+        snap_entity_to_walkable(chunk, ent)
 
 def snap_entity_to_walkable(chunk, entity):
     px = entity.get("px", [0, 0])
@@ -460,6 +434,68 @@ def generate_official_terrain(doc):
         fill_tiles(chunk, TILE_GROUND, x - 3, y - 3, x + 3, y + 3)
 
     return chunk
+
+# --- Shared helpers for map modules ---
+
+WALL_FEATURE_KINDS = (
+    "tombstone", "bookshelf_wall", "pillar", "throne_pillar",
+    "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
+    "barricade", "collapsed_wall", "desk_cluster",
+    "roof_structure", "chimney", "armor_display", "iron_girder",
+    "coffin", "dragon_altar", "serpent_statue",
+    "arena_ruin", "ruined_pillar",
+)
+
+def apply_doc_terrain(chunk, doc):
+    """Fill sections, connect corridors, clear bonfire/boss/fog positions,
+    and add wall obstacles from JSON doc terrain_features."""
+    for sec in doc.get("map_layout", {}).get("sections", []):
+        sx, sy = sec["x"] // 16, sec["y"] // 16
+        sw, sh = sec["w"] // 16, sec["h"] // 16
+        features = " ".join(f for f in sec.get("terrain_features", []) if isinstance(f, str))
+        tile = poison_tile(features)
+        fill_tiles(chunk, tile, sx + 1, sy + 1, sx + sw - 2, sy + sh - 2)
+
+    centers = []
+    for sec in doc.get("map_layout", {}).get("sections", []):
+        cx = (sec["x"] + sec["w"] // 2) // 16
+        cy = (sec["y"] + sec["h"] // 2) // 16
+        centers.append((cx, cy))
+    for i in range(len(centers) - 1):
+        carve_corridor(chunk, centers[i][0], centers[i][1],
+                       centers[i + 1][0], centers[i + 1][1], width=5)
+
+    for bf in doc.get("bonfires", []):
+        bx, by = bf["x"] // 16, bf["y"] // 16
+        fill_tiles(chunk, TILE_GROUND, bx - 3, by - 3, bx + 3, by + 3)
+    boss = doc.get("boss")
+    if boss:
+        for b in (boss if isinstance(boss, list) else [boss]):
+            bx, by = b.get("x", 0) // 16, b.get("y", 0) // 16
+            fill_tiles(chunk, TILE_GROUND, bx - 5, by - 5, bx + 5, by + 5)
+    for fg in doc.get("fog_gates", []):
+        fx, fy = fg["x"] // 16, fg["y"] // 16
+        fill_tiles(chunk, TILE_GROUND, fx - 3, fy - 3, fx + 3, fy + 3)
+
+    for sec in doc.get("map_layout", {}).get("sections", []):
+        for feat in sec.get("terrain_features", []):
+            if not isinstance(feat, dict):
+                continue
+            if feat.get("kind", "") not in WALL_FEATURE_KINDS:
+                continue
+            fx = feat["x"] // 16
+            fy = feat["y"] // 16
+            fw = max(1, feat["w"] // 16)
+            fh = max(1, feat["h"] // 16)
+            fill_tiles(chunk, TILE_WALL, fx, fy, fx + fw - 1, fy + fh - 1)
+
+def finalize_map(map_id, chunk, entities, spawn_px, spawn_py):
+    """Snap entities, populate UIDs, ensure connectivity. Returns (map_id, chunk, entities)."""
+    snap_entities_to_walkable(chunk, entities)
+    populate_entity_def_uids(entities)
+    entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
+    ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
+    return map_id, chunk, entities
 
 # --- Connectivity ---
 
@@ -629,7 +665,6 @@ def create_entities_from_doc(chunk, doc):
 
     def add_entity(identifier, x, y, fields=None):
         entity = make_entity(identifier, x, y, fields)
-        snap_entity_to_walkable(chunk, entity)
         entities.append(entity)
         return entity
 
@@ -725,6 +760,24 @@ def create_entities_from_doc(chunk, doc):
     snap_entities_to_walkable(chunk, entities)
     populate_entity_def_uids(entities)
     return entities
+
+def map_id_from_doc(doc):
+    return {"IrithyllOfTheBorealValley": "Irithyll"}.get(doc.get("id", ""), doc.get("id", ""))
+
+def _make_level_summary(mid, uid, level):
+    return {
+        "__bgColor": level["__bgColor"],
+        "__neighbours": [], "__smartColor": level["__smartColor"],
+        "__bgPos": None, "bgColor": None,
+        "bgPivotX": 0.5, "bgPivotY": 0.5,
+        "bgPos": None, "bgRelPath": None,
+        "externalRelPath": f"ds2d/{mid}.ldtkl",
+        "fieldInstances": [], "identifier": mid,
+        "iid": level["iid"], "layerInstances": None,
+        "pxHei": level["pxHei"], "pxWid": level["pxWid"],
+        "uid": uid, "useAutoIdentifier": True,
+        "worldDepth": 0, "worldX": -1, "worldY": -1,
+    }
 
 def generate_map_from_doc(doc_path):
     with open(doc_path, encoding="utf-8") as f:
@@ -895,19 +948,7 @@ def main():
         pct = ground_count / total * 100
         label = f"{mid} (faithful DS3 layout)" if doc else f"{mid} (override, no doc)"
         print(f"  {label} ground={pct:.1f}% entities={len(entities)}")
-        level_summaries.append({
-            "__bgColor": level["__bgColor"],
-            "__neighbours": [], "__smartColor": level["__smartColor"],
-            "__bgPos": None, "bgColor": None,
-            "bgPivotX": 0.5, "bgPivotY": 0.5,
-            "bgPos": None, "bgRelPath": None,
-            "externalRelPath": f"ds2d/{mid}.ldtkl",
-            "fieldInstances": [], "identifier": mid,
-            "iid": level["iid"], "layerInstances": None,
-            "pxHei": level["pxHei"], "pxWid": level["pxWid"],
-            "uid": uid, "useAutoIdentifier": True,
-            "worldDepth": 0, "worldX": -1, "worldY": -1,
-        })
+        level_summaries.append(_make_level_summary(mid, uid, level))
 
     # Second pass: generate remaining maps from design docs (no terrain override)
     override_ids = set(TERRAIN_OVERRIDES.keys())
@@ -934,19 +975,7 @@ def main():
         with open(level_path, "w") as f:
             json.dump(level, f, indent=2)
         print(f"  wrote {level_path}")
-        level_summaries.append({
-            "__bgColor": level["__bgColor"],
-            "__neighbours": [], "__smartColor": level["__smartColor"],
-            "__bgPos": None, "bgColor": None,
-            "bgPivotX": 0.5, "bgPivotY": 0.5,
-            "bgPos": None, "bgRelPath": None,
-            "externalRelPath": f"ds2d/{mid}.ldtkl",
-            "fieldInstances": [], "identifier": mid,
-            "iid": level["iid"], "layerInstances": None,
-            "pxHei": level["pxHei"], "pxWid": level["pxWid"],
-            "uid": uid, "useAutoIdentifier": True,
-            "worldDepth": 0, "worldX": -1, "worldY": -1,
-        })
+        level_summaries.append(_make_level_summary(mid, uid, level))
 
     # Generate project file
     project = {

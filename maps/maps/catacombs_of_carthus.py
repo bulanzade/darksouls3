@@ -4,7 +4,7 @@ from maps.generate_maps import (
     new_chunk, fill_tiles, carve_ellipse, cw,
     carve_corridor, make_entity, make_field,
     ensure_connected, poison_tile,
-    populate_entity_def_uids, snap_entities_to_walkable,
+    apply_doc_terrain, finalize_map,
 )
 
 def make_catacombs_of_carthus():
@@ -940,111 +940,8 @@ def make_catacombs_of_carthus():
         make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
         make_field("name", "String", "Soul of High Lord Wolnir")]))
     # Fill terrain from JSON doc sections for areas beyond hardcoded layout
-
     import json as _json
-
     with open("docs/maps/CatacombsOfCarthus.json") as _f:
-
         _doc = _json.load(_f)
-
-    for _sec in _doc.get("map_layout", {}).get("sections", []):
-
-        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
-
-        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
-
-        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
-
-        _tile = poison_tile(_features)
-
-        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
-
-    # Connect sections with corridors
-
-    _centers = []
-
-    for _sec in _doc.get("map_layout", {}).get("sections", []):
-
-        _cx = (_sec["x"] + _sec["w"] // 2) // 16
-
-        _cy = (_sec["y"] + _sec["h"] // 2) // 16
-
-        _centers.append((_cx, _cy))
-
-    for _i in range(len(_centers) - 1):
-
-        _cx1, _cy1 = _centers[_i]
-
-        _cx2, _cy2 = _centers[_i + 1]
-
-        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
-
-    # Ensure bonfire/boss positions have ground
-
-    for _bf in _doc.get("bonfires", []):
-
-        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
-
-        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
-
-    _boss = _doc.get("boss")
-
-    if _boss:
-
-        for _b in (_boss if isinstance(_boss, list) else [_boss]):
-
-            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
-
-            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
-
-    for _fg in _doc.get("fog_gates", []):
-
-        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
-
-        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
-    # Add terrain feature obstacles (walls) from JSON doc
-    for _sec in _doc.get("map_layout", {}).get("sections", []):
-        for _feat in _sec.get("terrain_features", []):
-            if not isinstance(_feat, dict):
-                continue
-            _fk = _feat.get("kind", "")
-            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
-                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
-                        "barricade", "collapsed_wall", "desk_cluster",
-                        "roof_structure", "chimney", "armor_display", "iron_girder",
-                        "coffin", "dragon_altar", "serpent_statue",
-                        "arena_ruin", "ruined_pillar"):
-                _fx2 = _feat["x"] // 16
-                _fy2 = _feat["y"] // 16
-                _fw = max(1, _feat["w"] // 16)
-                _fh = max(1, _feat["h"] // 16)
-                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
-
-    # === SECTION-BASED GROUND EXPANSION (DS3 fidelity) ===
-    # Catacombs of Carthus: skeleton-filled underground with rolling bone balls and Wolnir
-    fill_tiles(chunk, TILE_GROUND, 22, 26, 78, 67)   # Entry Stairs
-    fill_tiles(chunk, TILE_GROUND, 67, 47, 118, 80)   # First Skeleton Ball
-    fill_tiles(chunk, TILE_GROUND, 98, 73, 160, 122)   # Upper Catacombs
-    fill_tiles(chunk, TILE_GROUND, 145, 116, 192, 155) # Second Skeleton Ball
-    fill_tiles(chunk, TILE_GROUND, 178, 147, 232, 182) # Rope Bridge
-    fill_tiles(chunk, TILE_GROUND, 96, 172, 141, 215)  # Bridge Ladder Descent
-    fill_tiles(chunk, TILE_GROUND, 202, 176, 257, 216) # Wolnir Tomb
-    fill_tiles(chunk, TILE_GROUND, 13, 73, 40, 103)    # Supplement area
-    # Corridors connecting sections
-    fill_tiles(chunk, TILE_GROUND, 48, 44, 95, 65)
-    fill_tiles(chunk, TILE_GROUND, 91, 61, 131, 100)
-    fill_tiles(chunk, TILE_GROUND, 127, 96, 170, 137)
-    fill_tiles(chunk, TILE_GROUND, 166, 133, 207, 167)
-    fill_tiles(chunk, TILE_GROUND, 116, 163, 207, 195)
-    fill_tiles(chunk, TILE_GROUND, 116, 191, 232, 198)
-    fill_tiles(chunk, TILE_GROUND, 24, 86, 232, 198)
-
-    snap_entities_to_walkable(chunk, entities)
-
-    populate_entity_def_uids(entities)
-    entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
-    coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0])) if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
-    # print(f"  CatacombsOfCarthus (faithful DS3 layout) ground={pct:.1f}% connectivity={coverage}%")
-    return "CatacombsOfCarthus", chunk, entities
+    apply_doc_terrain(chunk, _doc)
+    return finalize_map("CatacombsOfCarthus", chunk, entities, spawn_px, spawn_py)

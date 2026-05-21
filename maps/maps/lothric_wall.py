@@ -4,7 +4,7 @@ from maps.generate_maps import (
     new_chunk, fill_tiles, carve_ellipse, cw,
     carve_corridor, make_entity, make_field,
     ensure_connected, poison_tile,
-    populate_entity_def_uids, snap_entities_to_walkable,
+    apply_doc_terrain, finalize_map,
 )
 
 def make_lothric_wall():
@@ -262,70 +262,8 @@ def make_lothric_wall():
     # Vordt of the Boreal Valley — main boss at south arena
 
     # --- Enemies (DS3 High Wall of Lothric: Lothric Knights, Dogs, Hollow Soldiers) ---
-    enemy_positions = [
-        # Wall entrance rampart — hollow soldiers on guard
-        ("HollowSoldier", 14, 10), ("HollowSoldier", 22, 14),
-        ("LothricKnight", 30, 18), ("HollowSoldier", 16, 20),
-        # Longbow balcony — hollow soldier + archer
-        ("HollowSoldier", 48, 10), ("Archer", 54, 14),
-        # Pus of Man — praying hollow transforms (DS3: on balcony near Longbow)
-        ("PusOfMan", 50, 12),
-        # Lothric Wyvern — breathes fire on the bridge (DS3: key encounter)
-        ("LothricWyvern", 24, 32),
-        # Dragon walkway — dogs patrol near dead dragon
-        ("StarvedHound", 16, 24), ("StarvedHound", 20, 28),           # DS3: Starved Hounds patrol near dead dragon
-        ("StarvedHound", 18, 22),                          # Starved Hound near wyvern
-        # Dragon bridge — hollows burned by dragon fire
-        ("HollowSoldier", 18, 34), ("HollowSoldier", 28, 38),
-        ("HollowSoldier", 40, 32), ("HollowSoldier", 52, 36),
-        # Tower area — Winged Knight patrols the roof
-        ("WingedKnight", 62, 42),
-        ("CrystalLizard", 58, 48),
-        ("CrystalLizard", 48, 50),                         # Second crystal lizard on rooftops
-        # Mimic — chest near wyvern area (DS3: Deep Battle Axe mimic)
-        ("Mimic", 42, 38),
-        # Large Hollow Soldier — in tower with halberd
-        ("LargeHollowSoldier", 56, 46),                    # Halberd-wielding large hollow
-        # Residential maze — Assassins hide in alleys, Lothric Knights patrol
-        ("HollowAssassin", 38, 56), ("LothricKnight", 50, 54),
-        ("LothricKnight", 62, 54), ("LothricKnight", 74, 54),
-        ("Darkwraith", 54, 50),                    # Darkwraith in locked cell under Tower (Lift Chamber Key)
-        ("HollowSoldier", 50, 66),
-        ("HollowAssassin", 62, 66), ("HollowSoldier", 74, 64),
-        ("HollowSoldier", 40, 74), ("HollowSoldier", 56, 74),
-        # Courtyard — Lothric Knights guard the fountain area
-        ("LothricKnight", 20, 84), ("LothricKnight", 44, 96),
-        ("StarvedHound", 16, 92), ("StarvedHound", 46, 88),           # DS3: Starved Hounds near lower walls
-        ("HollowSoldier", 34, 94), ("HollowSoldier", 52, 90),
-        # Second Pus of Man — rooftop praying hollow (DS3: rooftop area)
-        ("PusOfMan", 42, 60),                             # Rooftop pus of man
-        # Knight path — heavy Lothric Knight presence
-        ("LothricKnight", 62, 94), ("LothricKnight", 84, 98),
-        ("HollowSoldier", 70, 100), ("LothricKnight", 86, 96),
-        # Cathedral area
-        ("LothricKnight", 70, 106), ("LothricKnight", 90, 108),
-        # Red-eyed Lothric Knight — tough variant (DS3: before Vordt)
-        ("LothricKnight", 92, 115),                       # Red-eyed knight near Emma
-        # Frost stairs descent
-        ("LothricKnight", 80, 118), ("HollowSoldier", 88, 126),
-        ("LothricKnight", 76, 134), ("LothricKnight", 94, 138),
-        # Hollow Assassins on rooftops (DS3: ambush near wyvern)
-        ("HollowAssassin", 44, 40), ("HollowAssassin", 60, 50),
-        # Additional DS3 High Wall enemies — more hollow soldiers (DS3: dense with hollow soldiers)
-        ("HollowSoldier", 34, 14), ("HollowSoldier", 60, 16),        # Wall rampart reinforcements
-        ("HollowSoldier", 44, 44), ("HollowSoldier", 64, 58),        # Tower area hollows
-        ("HollowSoldier", 28, 68), ("HollowSoldier", 72, 70),        # Residential maze hollows
-        ("HollowSoldier", 26, 86), ("HollowSoldier", 58, 98),        # Courtyard hollows
-        # Eastern rampart Q(1,0) — Lothric Knights patrol the eastern walls (DS3: knights on patrol routes)
-        ("LothricKnight", 82, 14), ("LothricKnight", 106, 18),      # Upper eastern rampart knights
-        ("LothricKnight", 93, 23), ("HollowSoldier", 85, 28),       # Mid-eastern wall patrol
-        ("HollowSoldier", 96, 37), ("LothricKnight", 88, 42),       # Eastern tower approach
-        ("StarvedHound", 100, 51), ("HollowSoldier", 83, 61),       # Eastern courtyard hounds
-        ("LothricKnight", 107, 65), ("HollowSoldier", 94, 70),      # Lower eastern walls
-        ("HollowAssassin", 86, 75), ("HollowSoldier", 120, 79),     # Eastern alleys
-    ]
 
-    
+
     # ================================================================
     # Boss-to-main-cluster corridor (critical for playability)
     fill_tiles(chunk, TILE_GROUND, 140, 34, 190, 42)  # Twin Princes → main cluster
@@ -425,81 +363,6 @@ def make_lothric_wall():
         make_field("dialogue", "String",
             "Hello, Unkindled One|I am Emma, High Priestess of Lothric|Seek the Basin of Vows and present it to the statue behind me|Then you may see the Prince"),
     ]))
-
-    # --- Items (DS3 High Wall of Lothric) ---
-    items = [
-        # Wall entrance — early pickups
-        ("SoulOrb", "Soul of a Deserted Corpse", 12, 8, 200),
-        ("Firebomb", "Firebomb", 26, 16, 0),
-        ("Consumable", "Throwing Knife", 20, 8, 0),
-        ("Consumable", "Firebomb", 32, 12, 0),
-        # Longbow balcony
-        ("WeaponDrop", "Longbow", 52, 10, 0),
-        ("Consumable", "Standard Arrow", 50, 8, 0),
-        ("Consumable", "Binoculars", 46, 8, 0),
-        # Dragon walkway — wyvern area
-        ("Consumable", "Gold Pine Resin", 16, 26, 0),
-        ("TitaniteShard", "Large Titanite Shard", 20, 30, 0),
-        ("Consumable", "Gold Pine Resin", 22, 28, 0),
-        # Dragon bridge
-        ("SoulOrb", "Large Soul of a Deserted Corpse", 30, 36, 400),
-        ("TitaniteShard", "Titanite Shard", 50, 34, 0),
-        ("Consumable", "Green Blossom", 38, 38, 0),
-        ("Consumable", "Black Firebomb", 44, 32, 0),
-        ("Consumable", "Black Firebomb", 28, 40, 0),
-        ("Consumable", "Black Firebomb", 36, 34, 0),
-        # Tower area
-        ("Consumable", "Cell Key", 56, 48, 0),
-        ("Consumable", "Throwing Knife", 60, 38, 0),
-        ("SoulOrb", "Soul of a Deserted Corpse", 58, 44, 200),
-        ("SoulOrb", "Soul of a Deserted Corpse", 44, 58, 200),
-        # Residential maze
-        ("EstusShard", "Estus Shard", 72, 58, 0),
-        ("SoulOrb", "Soul of a Deserted Corpse", 44, 70, 200),
-        ("TitaniteShard", "Titanite Shard", 68, 76, 0),
-        ("Consumable", "Firebomb", 36, 60, 0),
-        ("Consumable", "Throwing Knife", 58, 68, 0),
-        ("Consumable", "Alluring Skull", 46, 72, 0),
-        ("WeaponDrop", "Broadsword", 32, 56, 0),
-        ("WeaponDrop", "Mail Breaker", 64, 62, 0),
-        ("Consumable", "Red Eye Orb", 76, 58, 0),
-        ("Consumable", "Undead Hunter Charm", 38, 62, 0),
-        ("Consumable", "Undead Hunter Charm", 42, 66, 0),
-        # Courtyard
-        ("Consumable", "Firebomb", 40, 92, 0),
-        ("SoulOrb", "Soul of a Deserted Corpse", 50, 94, 200),
-        ("Consumable", "Green Blossom", 14, 86, 0),
-        ("Consumable", "Green Blossom", 48, 84, 0),
-        ("Consumable", "Green Blossom", 52, 96, 0),
-        ("Consumable", "Green Blossom", 18, 96, 0),
-        ("RingDrop", "Way of Blue", 34, 88, 0),
-        ("TitaniteShard", "Titanite Shard", 42, 90, 0),
-        ("Ember", "Ember", 30, 90, 0),
-        ("Ember", "Ember", 44, 94, 0),
-        ("SoulOrb", "Soul of a Deserted Corpse", 22, 88, 200),
-        ("SoulOrb", "Soul of a Deserted Corpse", 54, 86, 200),
-        ("SoulOrb", "Soul of a Deserted Corpse", 48, 92, 200),
-        # Knight path / cathedral
-        ("Consumable", "Firebomb", 74, 100, 0),                    # Replaces duplicate Estus Shard
-        ("TitaniteShard", "Titanite Shard", 88, 104, 0),
-        ("RingDrop", "Blue Tearstone Ring", 80, 112, 0),
-        ("Consumable", "Small Lothric Banner", 82, 108, 0),
-        ("WeaponDrop", "Lucerne", 90, 98, 0),
-        ("Consumable", "Firebomb", 66, 96, 0),
-        ("WeaponDrop", "Rapier", 76, 94, 0),
-        ("Consumable", "Refined Gem", 84, 102, 0),
-        ("SoulOrb", "Large Soul of a Deserted Corpse", 86, 100, 400),
-        ("RingDrop", "Ring of Sacrifice", 78, 98, 0),
-        # Frost stairs
-        ("Consumable", "Throwing Knife", 78, 132, 0),
-        ("TitaniteShard", "Titanite Shard", 96, 130, 0),
-        ("WeaponDrop", "Club", 88, 118, 0),
-    ]
-    for kind, name, tx, ty, val in items:
-        fields = [make_field("kind", "LocalEnum.ItemKind", kind),
-                  make_field("name", "String", name)]
-        if kind == "SoulOrb":
-            fields.append(make_field("value", "Int", val))
 
     # --- Chests (DS3 High Wall of Lothric) ---
 
@@ -1131,95 +994,8 @@ def make_lothric_wall():
     for tx in range(80, 93):
         chunk[tx][31] = TILE_WALLTOP
     # Fill terrain from JSON doc sections for areas beyond hardcoded layout
-
     import json as _json
-
     with open("docs/maps/LothricWall.json") as _f:
-
         _doc = _json.load(_f)
-
-    for _sec in _doc.get("map_layout", {}).get("sections", []):
-
-        _sx, _sy = _sec["x"] // 16, _sec["y"] // 16
-
-        _sw, _sh = _sec["w"] // 16, _sec["h"] // 16
-
-        _features = " ".join(f for f in _sec.get("terrain_features", []) if isinstance(f, str))
-
-        _tile = poison_tile(_features)
-
-        fill_tiles(chunk, _tile, _sx + 1, _sy + 1, _sx + _sw - 2, _sy + _sh - 2)
-
-    # Connect sections with corridors
-
-    _centers = []
-
-    for _sec in _doc.get("map_layout", {}).get("sections", []):
-
-        _cx = (_sec["x"] + _sec["w"] // 2) // 16
-
-        _cy = (_sec["y"] + _sec["h"] // 2) // 16
-
-        _centers.append((_cx, _cy))
-
-    for _i in range(len(_centers) - 1):
-
-        _cx1, _cy1 = _centers[_i]
-
-        _cx2, _cy2 = _centers[_i + 1]
-
-        carve_corridor(chunk, _cx1, _cy1, _cx2, _cy2, width=5)
-
-    # Ensure bonfire/boss positions have ground
-
-    for _bf in _doc.get("bonfires", []):
-
-        _bx, _by = _bf["x"] // 16, _bf["y"] // 16
-
-        fill_tiles(chunk, TILE_GROUND, _bx - 3, _by - 3, _bx + 3, _by + 3)
-
-    _boss = _doc.get("boss")
-
-    if _boss:
-
-        for _b in (_boss if isinstance(_boss, list) else [_boss]):
-
-            _bx, _by = _b.get("x", 0) // 16, _b.get("y", 0) // 16
-
-            fill_tiles(chunk, TILE_GROUND, _bx - 5, _by - 5, _bx + 5, _by + 5)
-
-    for _fg in _doc.get("fog_gates", []):
-
-        _fx, _fy = _fg["x"] // 16, _fg["y"] // 16
-
-        fill_tiles(chunk, TILE_GROUND, _fx - 3, _fy - 3, _fx + 3, _fy + 3)
-    # Add terrain feature obstacles (walls) from JSON doc
-    for _sec in _doc.get("map_layout", {}).get("sections", []):
-        for _feat in _sec.get("terrain_features", []):
-            if not isinstance(_feat, dict):
-                continue
-            _fk = _feat.get("kind", "")
-            if _fk in ("tombstone", "bookshelf_wall", "pillar", "throne_pillar",
-                        "barracks_wall", "bell_tower_column", "shrine_wall", "broken_wall",
-                        "barricade", "collapsed_wall", "desk_cluster",
-                        "roof_structure", "chimney", "armor_display", "iron_girder",
-                        "coffin", "dragon_altar", "serpent_statue",
-                        "arena_ruin", "ruined_pillar"):
-                _fx2 = _feat["x"] // 16
-                _fy2 = _feat["y"] // 16
-                _fw = max(1, _feat["w"] // 16)
-                _fh = max(1, _feat["h"] // 16)
-                fill_tiles(chunk, TILE_WALL, _fx2, _fy2, _fx2 + _fw - 1, _fy2 + _fh - 1)
-
-    snap_entities_to_walkable(chunk, entities)
-
-    populate_entity_def_uids(entities)
-    entity_positions = [(e["px"][0], e["px"][1]) for e in entities]
-    coverage = ensure_connected(chunk, spawn_px, spawn_py, entity_positions)
-
-    ground_count = sum(1 for y in range(len(chunk)) for x in range(len(chunk[0]))
-                       if chunk[y][x] in (TILE_GROUND, TILE_POISON))
-    pct = ground_count / (len(chunk) * len(chunk[0])) * 100
-    # print(f"  LothricWall (faithful DS3 layout) "
-    # f"ground={pct:.1f}% connectivity={coverage}%")
-    return "LothricWall", chunk, entities
+    apply_doc_terrain(chunk, _doc)
+    return finalize_map("LothricWall", chunk, entities, spawn_px, spawn_py)
