@@ -1,1137 +1,514 @@
 from maps.generate_maps import (
     TILE_GROUND, TILE_WALL, TILE_WALLTOP, TILE_POISON,
-    ENEMY_KIND_MAP,
-    new_chunk, fill_tiles, carve_ellipse, cw,
-    carve_corridor, make_entity, make_field,
-    ensure_connected, poison_tile,
-    apply_doc_terrain, finalize_map,
+    new_chunk, fill_tiles, carve_ellipse, carve_corridor,
+    make_entity, make_field, apply_doc_terrain, finalize_map,
+    load_doc,
 )
+
+
 
 def make_lothric_castle():
     """Lothric Castle - Dragonslayer Armour boss arena.
 
-    Faithful DS3 layout (spatial progression on 160x160 grid):
-    Entry from AnorLondo (west) -> castle gate -> outer corridor -> dragon barracks
-    (open, with dragon wall obstacles) -> inner castle stairs -> wall bridge
-    (Dragonslayer Armour arena, large open area) -> Grand Archives exit (NE).
-    Side path south to ConsumedKingsGarden.
+    DS3-faithful layout (256x384 tiles, 4096x6144 pixels):
+    Progression: Entry from LothricWall (west) -> Dancer ladder hall -> castle
+    entry hall -> Winged Knight tower side -> castle stairs -> Twin Dragon Bridge
+    (dragon corpses, Pus of Man) -> dark room below -> barracks interior ->
+    Boreal Outrider vault -> Pus of Man room -> castle chapel -> elevator tower ->
+    Dragonslayer Bridge -> Sunlight Altar rooftop -> Dragonslayer Armour arena ->
+    Grand Archives Door (NE exit). Side path south to ConsumedKingsGarden.
+
+    Sections from JSON doc (pixel // 16 = tile):
+      0  Dancer Ladder Hall       (26,40)-(73,80)    stone staircase, ladder shaft
+      1  Lothric Castle Entry      (62,67)-(110,102)  castle gate, grand archway
+      2  Winged Knight Tower       (37,62)-(68,87)    spiral staircase, drop hole
+      3  Castle Stairs             (106,43)-(143,68)  winding stairs, crossbow hollows
+      4  Twin Dragon Bridge        (128,48)-(195,92)  dragon corpses, fire hazard
+      5  Dark Room under Wyverns   (162,81)-(200,106) dark interior, firebarrels
+      6  Barracks Interior         (136,93)-(193,133) barracks bunks, weapon racks
+      7  Boreal Outrider Vault     (131,112)-(162,137) lower room, four chests
+      8  Pus of Man Room           (181,106)-(212,131) wyvern claw, shortcut
+      9  Castle Chapel             (200,93)-(237,125) chapel, red tearstone altar
+     10  Elevator Shortcut Tower   (225,100)-(250,125) elevator shaft, iron gate
+     11  Dragonslayer Bridge       (206,123)-(257,158) wide stone bridge, storms
+     12  Sunlight Altar Rooftop    (237,112)-(268,137) sunlight altar, knight ring
+     13  Dragonslayer Armour Arena (241,136)-(288,175) boss arena, battlements
+     14  Grand Archives Door       (280,126)-(310,155) grand doorway, candles
+     15  Consumed King Garden Br.  (47,100)-(86,132)  overgrown stone, moss walls
+
+    JSON doc (docs/maps/LothricCastle.json) is authoritative for entity positions.
     """
-    chunk = new_chunk(320, 256)
-    entities = []
+    chunk = new_chunk(320, 384)
 
     # ================================================================
-    # TERRAIN
+    # 0. DANCER LADDER HALL
+    # DS3: Stone staircase rising from Dancer's arena below. Dark walls with
+    #      torch sconces. Lothric Knights and Hollow Soldiers patrol the steps.
+    #      Ladder shaft leads up. Tight, atmospheric vertical passage.
+    # Tiles: (26,40)-(73,80)
     # ================================================================
-
-    # 1. Castle gate (SW entry from AnorLondo)
-    fill_tiles(chunk, TILE_GROUND, 6, 18, 35, 45)
-    # Pillar walls flanking the gate
-    fill_tiles(chunk, TILE_WALL, 12, 24, 14, 30)
-    fill_tiles(chunk, TILE_WALL, 24, 28, 26, 34)
-
-    # 2. Outer corridor (east from gate)
-    fill_tiles(chunk, TILE_GROUND, 30, 22, 68, 48)
-    # Statue walls along corridor
-    fill_tiles(chunk, TILE_WALL, 42, 28, 44, 33)
-    fill_tiles(chunk, TILE_WALL, 56, 35, 58, 40)
-
-    # 3. Dragon barracks (open area NE)
-    fill_tiles(chunk, TILE_GROUND, 58, 10, 102, 40)
-    # Dragon skeleton wall obstacles
-    fill_tiles(chunk, TILE_WALL, 68, 15, 72, 20)
-    fill_tiles(chunk, TILE_WALL, 88, 28, 92, 33)
-
-    # 4. Inner stairs (narrow passage NE)
-    fill_tiles(chunk, TILE_GROUND, 95, 35, 118, 58)
-    # Wall obstacles along stairs
-    fill_tiles(chunk, TILE_WALL, 102, 40, 104, 44)
-    fill_tiles(chunk, TILE_WALL, 110, 48, 112, 52)
-
-    # 5. Wall bridge / Dragonslayer Armour arena (NE large)
-    fill_tiles(chunk, TILE_GROUND, 108, 50, 155, 88)
-    # Rounded arena shape
-    carve_ellipse(chunk, 132, 68, 20, 16)
-    # Arena pillars
-    fill_tiles(chunk, TILE_WALL, 118, 58, 120, 63)
-    fill_tiles(chunk, TILE_WALL, 145, 72, 147, 77)
-
-    # 6. Garden side path (south)
-    fill_tiles(chunk, TILE_GROUND, 35, 45, 55, 68)
-    carve_ellipse(chunk, 45, 56, 8, 6)
-
-    # 7. Grand Archives exit (far NE)
-    fill_tiles(chunk, TILE_GROUND, 148, 55, 158, 72)
-
-    # --- Connections between areas ---
-    fill_tiles(chunk, TILE_GROUND, 58, 28, 62, 42)     # Corridor -> Dragon barracks
-    fill_tiles(chunk, TILE_GROUND, 95, 25, 102, 38)    # Barracks -> Inner stairs
-    fill_tiles(chunk, TILE_GROUND, 112, 52, 120, 58)   # Stairs -> Arena
-    fill_tiles(chunk, TILE_GROUND, 42, 45, 48, 50)     # Corridor -> Garden side path
+    # Hall perimeter walls (DS3: dark stone walls enclosing the staircase)
+    fill_tiles(chunk, TILE_WALL, 26, 40, 28, 80)      # West wall
+    fill_tiles(chunk, TILE_WALL, 71, 40, 73, 80)      # East wall
+    fill_tiles(chunk, TILE_WALL, 26, 40, 73, 42)      # North wall
+    fill_tiles(chunk, TILE_WALL, 26, 78, 73, 80)      # South wall
+    # Ladder shaft (DS3: ladder climbing up from lower level)
+    fill_tiles(chunk, TILE_WALL, 30, 44, 32, 48)      # Shaft west wall
+    fill_tiles(chunk, TILE_WALL, 38, 44, 40, 48)      # Shaft east wall
+    fill_tiles(chunk, TILE_WALL, 30, 44, 40, 45)      # Shaft top wall
+    # Staircase buttresses (DS3: stone supports along the staircase walls)
+    fill_tiles(chunk, TILE_WALL, 42, 50, 44, 55)      # Mid stair pillar left
+    fill_tiles(chunk, TILE_WALL, 55, 50, 57, 55)      # Mid stair pillar right
+    fill_tiles(chunk, TILE_WALL, 48, 62, 50, 67)      # Lower stair pillar
+    fill_tiles(chunk, TILE_WALL, 60, 62, 62, 67)      # Lower stair pillar
+    # Torch sconce alcoves (DS3: wall-mounted torches)
+    fill_tiles(chunk, TILE_WALL, 29, 55, 30, 57)      # West sconce alcove
+    fill_tiles(chunk, TILE_WALL, 69, 55, 70, 57)      # East sconce alcove
+    fill_tiles(chunk, TILE_WALL, 29, 70, 30, 72)      # Lower west sconce
+    fill_tiles(chunk, TILE_WALL, 69, 70, 70, 72)      # Lower east sconce
+    # Dark corner pillars (DS3: pillars in corners of the staircase hall)
+    fill_tiles(chunk, TILE_WALL, 33, 74, 35, 76)
+    fill_tiles(chunk, TILE_WALL, 64, 74, 66, 76)
 
     # ================================================================
-    # ADDITIONAL INTERNAL STRUCTURES — castle architecture
+    # 1. LOTHRIC CASTLE ENTRY
+    # DS3: Grand castle gate with stone floor, banners hung on walls, a great
+    #      archway entrance. Red-eyed Lothric Knight, Hollow Soldiers, Priests,
+    #      a Mimic chest. The main bonfire "Lothric Castle" is here.
+    # Tiles: (62,67)-(110,102)
     # ================================================================
-    # Castle gate battlements
-    fill_tiles(chunk, TILE_WALL, 10, 20, 11, 24)
-    fill_tiles(chunk, TILE_WALL, 28, 22, 29, 26)
-    fill_tiles(chunk, TILE_WALL, 18, 34, 19, 38)
-    # Corridor pillars
-    fill_tiles(chunk, TILE_WALL, 38, 28, 39, 32)
-    fill_tiles(chunk, TILE_WALL, 48, 34, 49, 38)
-    fill_tiles(chunk, TILE_WALL, 62, 30, 63, 34)
-    # Dragon barracks — more dragon bones and debris
-    fill_tiles(chunk, TILE_WALL, 72, 12, 74, 15)
-    fill_tiles(chunk, TILE_WALL, 82, 16, 84, 18)
-    fill_tiles(chunk, TILE_WALL, 92, 22, 94, 25)
-    fill_tiles(chunk, TILE_WALL, 76, 30, 78, 32)
-    fill_tiles(chunk, TILE_WALL, 96, 34, 98, 37)
-    fill_tiles(chunk, TILE_WALL, 65, 18, 67, 20)
-    # Inner stairs — wall buttresses
-    fill_tiles(chunk, TILE_WALL, 98, 38, 100, 40)
-    fill_tiles(chunk, TILE_WALL, 105, 45, 107, 47)
-    fill_tiles(chunk, TILE_WALL, 115, 52, 117, 55)
-    # Arena — Dragonslayer Armour arena pillars
-    fill_tiles(chunk, TILE_WALL, 122, 55, 124, 58)
-    fill_tiles(chunk, TILE_WALL, 138, 60, 140, 63)
-    fill_tiles(chunk, TILE_WALL, 152, 68, 154, 72)
-    fill_tiles(chunk, TILE_WALL, 128, 78, 130, 82)
-    fill_tiles(chunk, TILE_WALL, 142, 82, 144, 86)
-    fill_tiles(chunk, TILE_WALL, 135, 72, 137, 75)
-    # Garden side path — overgrown walls
-    fill_tiles(chunk, TILE_WALL, 40, 52, 42, 55)
-    fill_tiles(chunk, TILE_WALL, 50, 58, 52, 60)
-    fill_tiles(chunk, TILE_WALL, 38, 62, 40, 65)
+    # Entry hall perimeter walls (DS3: grand stone gate walls)
+    fill_tiles(chunk, TILE_WALL, 62, 67, 64, 102)     # West wall
+    fill_tiles(chunk, TILE_WALL, 108, 67, 110, 102)   # East wall
+    fill_tiles(chunk, TILE_WALL, 62, 67, 110, 69)     # North wall
+    fill_tiles(chunk, TILE_WALL, 62, 100, 110, 102)   # South wall
+    # Grand archway pillars (DS3: massive stone pillars at the gate)
+    fill_tiles(chunk, TILE_WALL, 68, 72, 71, 80)      # Left gate pillar
+    fill_tiles(chunk, TILE_WALL, 101, 72, 104, 80)    # Right gate pillar
+    fill_tiles(chunk, TILE_WALL, 68, 90, 71, 97)      # Left inner pillar
+    fill_tiles(chunk, TILE_WALL, 101, 90, 104, 97)    # Right inner pillar
+    # Banner alcoves (DS3: Lothric banners on walls)
+    fill_tiles(chunk, TILE_WALL, 66, 82, 67, 85)      # West banner alcove
+    fill_tiles(chunk, TILE_WALL, 105, 82, 106, 85)    # East banner alcove
+    # Central stone columns (DS3: pillars supporting vaulted ceiling)
+    fill_tiles(chunk, TILE_WALL, 80, 76, 82, 79)
+    fill_tiles(chunk, TILE_WALL, 90, 76, 92, 79)
+    fill_tiles(chunk, TILE_WALL, 85, 88, 87, 91)
+    # Entry vestibule walls (DS3: small vestibule before main hall)
+    fill_tiles(chunk, TILE_WALL, 75, 95, 77, 98)
+    fill_tiles(chunk, TILE_WALL, 95, 95, 97, 98)
 
     # ================================================================
-    # ADDITIONAL DS3 CASTLE ARCHITECTURE — Lothric Castle fidelity
+    # 2. WINGED KNIGHT TOWER
+    # DS3: Spiral staircase tower. A Winged Knight drops from a hole above.
+    #      Hidden wall conceals a secret room. Upper room with item.
+    # Tiles: (37,62)-(68,87)
     # ================================================================
-    # Castle gate — entrance arch walls (DS3: grand stone archway from Anor Londo)
-    fill_tiles(chunk, TILE_WALL, 8, 22, 10, 26)
-    fill_tiles(chunk, TILE_WALL, 20, 32, 22, 36)
-    fill_tiles(chunk, TILE_WALL, 16, 38, 18, 42)
-    fill_tiles(chunk, TILE_WALL, 30, 40, 32, 44)
-    # Outer corridor — stone arches and buttresses (DS3: vaulted corridor)
-    fill_tiles(chunk, TILE_WALL, 34, 24, 36, 28)
-    fill_tiles(chunk, TILE_WALL, 52, 28, 54, 32)
-    fill_tiles(chunk, TILE_WALL, 60, 34, 62, 38)
-    fill_tiles(chunk, TILE_WALL, 44, 40, 46, 44)
-    fill_tiles(chunk, TILE_WALL, 55, 42, 57, 46)
-    # Dragon barracks — dragon ribcage and skull debris (DS3: two dead wyverns)
-    fill_tiles(chunk, TILE_WALL, 70, 22, 71, 24)
-    fill_tiles(chunk, TILE_WALL, 74, 26, 75, 28)
-    fill_tiles(chunk, TILE_WALL, 80, 20, 81, 22)
-    fill_tiles(chunk, TILE_WALL, 86, 24, 87, 26)
-    fill_tiles(chunk, TILE_WALL, 90, 18, 91, 20)
-    fill_tiles(chunk, TILE_WALL, 94, 30, 95, 32)
-    fill_tiles(chunk, TILE_WALL, 78, 32, 79, 34)
-    fill_tiles(chunk, TILE_WALL, 84, 36, 85, 38)
-    # Inner stairs — narrow passage walls (DS3: tight staircase with hollows)
-    fill_tiles(chunk, TILE_WALL, 96, 36, 98, 38)
-    fill_tiles(chunk, TILE_WALL, 100, 42, 102, 44)
-    fill_tiles(chunk, TILE_WALL, 108, 46, 110, 48)
-    fill_tiles(chunk, TILE_WALL, 114, 52, 116, 54)
-    fill_tiles(chunk, TILE_WALL, 120, 56, 122, 58)
-    # Arena perimeter — Dragonslayer Armour fights on castle wall (DS3: open parapet)
-    fill_tiles(chunk, TILE_WALL, 112, 62, 114, 65)
-    fill_tiles(chunk, TILE_WALL, 130, 55, 132, 58)
-    fill_tiles(chunk, TILE_WALL, 148, 60, 150, 63)
-    fill_tiles(chunk, TILE_WALL, 155, 72, 157, 75)
-    fill_tiles(chunk, TILE_WALL, 148, 82, 150, 85)
-    fill_tiles(chunk, TILE_WALL, 135, 85, 137, 88)
-    fill_tiles(chunk, TILE_WALL, 120, 82, 122, 85)
-    fill_tiles(chunk, TILE_WALL, 112, 78, 114, 80)
-    # Garden side path — overgrown ruin walls (DS3: consumed garden area)
-    fill_tiles(chunk, TILE_WALL, 36, 48, 38, 50)
-    fill_tiles(chunk, TILE_WALL, 44, 56, 46, 58)
-    fill_tiles(chunk, TILE_WALL, 52, 62, 54, 64)
-    fill_tiles(chunk, TILE_WALL, 48, 66, 50, 68)
-    # Grand Archives approach — bookshelves and stone arches
-    fill_tiles(chunk, TILE_WALL, 150, 58, 152, 60)
-    fill_tiles(chunk, TILE_WALL, 154, 64, 156, 66)
+    # Tower perimeter (DS3: round stone tower walls)
+    fill_tiles(chunk, TILE_WALL, 37, 62, 39, 87)      # West wall
+    fill_tiles(chunk, TILE_WALL, 66, 62, 68, 87)      # East wall
+    fill_tiles(chunk, TILE_WALL, 37, 62, 68, 64)      # North wall
+    fill_tiles(chunk, TILE_WALL, 37, 85, 68, 87)      # South wall
+    # Spiral staircase center column (DS3: central pillar of spiral stairs)
+    fill_tiles(chunk, TILE_WALL, 48, 70, 56, 78)
+    carve_ellipse(chunk, 52, 74, 3, 3)                 # Hollow center
+    # Dropping knight hole (DS3: hole in ceiling where Winged Knight drops)
+    fill_tiles(chunk, TILE_WALL, 42, 66, 44, 68)      # Hole frame left
+    fill_tiles(chunk, TILE_WALL, 60, 66, 62, 68)      # Hole frame right
+    # Hidden wall alcove (DS3: illusory wall concealing secret)
+    fill_tiles(chunk, TILE_WALL, 41, 80, 43, 83)
+    # Upper room partition (DS3: upper room accessed via ladder)
+    fill_tiles(chunk, TILE_WALL, 58, 72, 60, 75)
 
     # ================================================================
-    # ADDITIONAL DS3 LOTHRIC CASTLE DETAILS — wyvern bones, church, parapets
+    # 3. CASTLE STAIRS
+    # DS3: Long winding stone staircase. Crossbow hollows fire from above.
+    #      Tower top at the end with a Crystal Lizard. Stone railings.
+    # Tiles: (106,43)-(143,68)
     # ================================================================
-    # Castle gate — fortified entry (DS3: grand stone archway with Lothric banners)
-    fill_tiles(chunk, TILE_WALL, 6, 22, 8, 24)
-    fill_tiles(chunk, TILE_WALL, 12, 26, 14, 28)
-    fill_tiles(chunk, TILE_WALL, 22, 28, 24, 30)
-    fill_tiles(chunk, TILE_WALL, 26, 36, 28, 38)
-    fill_tiles(chunk, TILE_WALL, 15, 40, 17, 42)
-    fill_tiles(chunk, TILE_WALL, 32, 42, 34, 44)
-    # Dragon barracks — wyvern ribcage arches and burning debris (DS3: two dead wyverns, one with Pus of Man)
-    fill_tiles(chunk, TILE_WALL, 60, 14, 62, 16)
-    fill_tiles(chunk, TILE_WALL, 64, 20, 66, 22)
-    fill_tiles(chunk, TILE_WALL, 84, 14, 86, 16)
-    fill_tiles(chunk, TILE_WALL, 88, 20, 90, 22)
-    fill_tiles(chunk, TILE_WALL, 96, 26, 98, 28)
-    fill_tiles(chunk, TILE_WALL, 100, 30, 102, 32)
-    fill_tiles(chunk, TILE_WALL, 78, 26, 80, 28)
-    fill_tiles(chunk, TILE_WALL, 72, 34, 74, 36)
-    fill_tiles(chunk, TILE_WALL, 68, 10, 70, 12)
-    # Church interior — stone pews and altar walls (DS3: Emma's cathedral with Lothric banners)
-    fill_tiles(chunk, TILE_WALL, 120, 60, 122, 62)
-    fill_tiles(chunk, TILE_WALL, 126, 64, 128, 66)
-    fill_tiles(chunk, TILE_WALL, 132, 70, 134, 72)
-    fill_tiles(chunk, TILE_WALL, 136, 74, 138, 76)
-    fill_tiles(chunk, TILE_WALL, 124, 68, 126, 70)
-    fill_tiles(chunk, TILE_WALL, 130, 66, 132, 68)
-    # Inner stairs — narrow castle passage (DS3: tight spiral staircase with hollows)
-    fill_tiles(chunk, TILE_WALL, 106, 40, 108, 42)
-    fill_tiles(chunk, TILE_WALL, 118, 50, 120, 52)
-    # Arena perimeter — castle parapet walls (DS3: Dragonslayer Armour on open castle bridge)
-    fill_tiles(chunk, TILE_WALL, 116, 70, 118, 72)
-    fill_tiles(chunk, TILE_WALL, 140, 76, 142, 78)
-    fill_tiles(chunk, TILE_WALL, 146, 80, 148, 82)
-    fill_tiles(chunk, TILE_WALL, 125, 85, 127, 87)
-    fill_tiles(chunk, TILE_WALL, 150, 74, 152, 76)
-    # Grand Archives approach — stone staircase and fountain (DS3: grand fountain before Archives)
-    fill_tiles(chunk, TILE_WALL, 144, 56, 146, 58)
-    fill_tiles(chunk, TILE_WALL, 148, 62, 150, 64)
-    fill_tiles(chunk, TILE_WALL, 152, 70, 154, 72)
-    # Garden path — overgrown arches and crumbling walls (DS3: consumed garden ruins)
-    fill_tiles(chunk, TILE_WALL, 34, 54, 36, 56)
-    fill_tiles(chunk, TILE_WALL, 42, 60, 44, 62)
-    fill_tiles(chunk, TILE_WALL, 54, 64, 56, 66)
-
-    # === SESSION 6 FIDELITY PASS — Lothric Castle ===
-    # Castle gate — more entry fortification (DS3: grand Lothric Castle gate)
-    fill_tiles(chunk, TILE_WALL, 8, 18, 10, 20)
-    fill_tiles(chunk, TILE_WALL, 22, 36, 24, 38)
-    fill_tiles(chunk, TILE_WALL, 14, 42, 16, 44)
-    fill_tiles(chunk, TILE_WALL, 28, 44, 30, 46)
-    # Outer corridor — more stone arches (DS3: vaulted corridor with knight statues)
-    fill_tiles(chunk, TILE_WALL, 36, 30, 38, 32)
-    fill_tiles(chunk, TILE_WALL, 46, 36, 48, 38)
-    fill_tiles(chunk, TILE_WALL, 58, 38, 60, 40)
-    fill_tiles(chunk, TILE_WALL, 50, 44, 52, 46)
-    fill_tiles(chunk, TILE_WALL, 40, 42, 42, 44)
-    # Dragon barracks — more wyvern debris (DS3: massive dragon skeletons)
-    fill_tiles(chunk, TILE_WALL, 62, 16, 64, 18)
-    fill_tiles(chunk, TILE_WALL, 66, 22, 68, 24)
-    fill_tiles(chunk, TILE_WALL, 82, 28, 84, 30)
-    fill_tiles(chunk, TILE_WALL, 92, 20, 94, 22)
-    fill_tiles(chunk, TILE_WALL, 98, 32, 100, 34)
-    fill_tiles(chunk, TILE_WALL, 76, 34, 78, 36)
-    # Inner stairs — more passage walls (DS3: tight castle staircase)
-    fill_tiles(chunk, TILE_WALL, 104, 44, 106, 46)
-    fill_tiles(chunk, TILE_WALL, 112, 48, 114, 50)
-    fill_tiles(chunk, TILE_WALL, 116, 54, 118, 56)
-    fill_tiles(chunk, TILE_WALL, 122, 58, 124, 60)
-    # Arena — more parapet walls (DS3: open castle wall bridge)
-    fill_tiles(chunk, TILE_WALL, 110, 66, 112, 68)
-    fill_tiles(chunk, TILE_WALL, 126, 62, 128, 64)
-    fill_tiles(chunk, TILE_WALL, 144, 66, 146, 68)
-    fill_tiles(chunk, TILE_WALL, 152, 76, 154, 78)
-    fill_tiles(chunk, TILE_WALL, 142, 84, 144, 86)
-    fill_tiles(chunk, TILE_WALL, 118, 80, 120, 82)
-    fill_tiles(chunk, TILE_WALL, 132, 88, 134, 90)
-    fill_tiles(chunk, TILE_WALL, 150, 88, 152, 90)
-    # Garden side path — more overgrown walls (DS3: consumed garden)
-    fill_tiles(chunk, TILE_WALL, 38, 56, 40, 58)
-    fill_tiles(chunk, TILE_WALL, 46, 64, 48, 66)
-    fill_tiles(chunk, TILE_WALL, 56, 60, 58, 62)
-    # Grand Archives approach — stone pillars (DS3: grand fountain courtyard)
-    fill_tiles(chunk, TILE_WALL, 146, 60, 148, 62)
-    fill_tiles(chunk, TILE_WALL, 156, 68, 158, 70)
-
-    # ================================================================
-    # SESSION 9 FIDELITY PASS — LothricCastle architectural details
-    # ================================================================
-    # Dragon courtyard — burnt stone debris (DS3: dragon breath scorches area)
-    fill_tiles(chunk, TILE_WALL, 20, 34, 21, 35)
-    fill_tiles(chunk, TILE_WALL, 24, 38, 25, 39)
-    fill_tiles(chunk, TILE_WALL, 16, 42, 17, 43)
-    fill_tiles(chunk, TILE_WALL, 28, 30, 29, 31)
-    fill_tiles(chunk, TILE_WALL, 22, 46, 23, 47)
-    # Lothric Knight barracks — weapon rack stones (DS3: knight garrison area)
-    fill_tiles(chunk, TILE_WALL, 36, 50, 37, 51)
-    fill_tiles(chunk, TILE_WALL, 40, 54, 41, 55)
-    fill_tiles(chunk, TILE_WALL, 32, 58, 33, 59)
-    fill_tiles(chunk, TILE_WALL, 44, 48, 45, 49)
-    fill_tiles(chunk, TILE_WALL, 38, 62, 39, 63)
-    # Wyvern perch — scorched tower stones (DS3: wyvern roosts on castle wall)
-    fill_tiles(chunk, TILE_WALL, 50, 40, 51, 41)
-    fill_tiles(chunk, TILE_WALL, 54, 44, 55, 45)
-    fill_tiles(chunk, TILE_WALL, 46, 48, 47, 49)
-    fill_tiles(chunk, TILE_WALL, 58, 38, 59, 39)
-    fill_tiles(chunk, TILE_WALL, 52, 52, 53, 53)
-    # Grand Archives fountain courtyard — ornate fountain stones
-    fill_tiles(chunk, TILE_WALL, 142, 56, 143, 57)
-    fill_tiles(chunk, TILE_WALL, 150, 64, 151, 65)
-    fill_tiles(chunk, TILE_WALL, 138, 68, 139, 69)
-    fill_tiles(chunk, TILE_WALL, 154, 60, 155, 61)
-    # Dragonslayer Armour arena — shattered monument stones (DS3: storm-swept rooftop)
-    fill_tiles(chunk, TILE_WALL, 120, 80, 121, 81)
-    fill_tiles(chunk, TILE_WALL, 126, 84, 127, 85)
-    fill_tiles(chunk, TILE_WALL, 116, 88, 117, 89)
-    fill_tiles(chunk, TILE_WALL, 130, 76, 131, 77)
-    fill_tiles(chunk, TILE_WALL, 122, 90, 123, 91)
-    # Dancer's cathedral — stained glass debris (DS3: cathedral with stained glass)
-    fill_tiles(chunk, TILE_WALL, 60, 28, 61, 29)
-    fill_tiles(chunk, TILE_WALL, 66, 32, 67, 33)
-    fill_tiles(chunk, TILE_WALL, 56, 36, 57, 37)
-    fill_tiles(chunk, TILE_WALL, 70, 26, 71, 27)
-    fill_tiles(chunk, TILE_WALL, 64, 38, 65, 39)
-
-    # ================================================================
-    # SESSION 12 FIDELITY PASS — LothricCastle fine architectural details
-    # ================================================================
-    # Dragon Barracks — scorched stone walls (DS3: dragon-scorched fortress)
-    fill_tiles(chunk, TILE_WALL, 8, 28, 9, 29)
-    fill_tiles(chunk, TILE_WALL, 14, 32, 15, 33)
-    fill_tiles(chunk, TILE_WALL, 22, 36, 23, 37)
-    fill_tiles(chunk, TILE_WALL, 30, 34, 31, 35)
-    fill_tiles(chunk, TILE_WALL, 38, 38, 39, 39)
-    fill_tiles(chunk, TILE_WALL, 18, 40, 19, 41)
-    fill_tiles(chunk, TILE_WALL, 26, 42, 27, 43)
-    # Castle interior — tapestry alcoves (DS3: grand castle halls)
-    fill_tiles(chunk, TILE_WALL, 46, 22, 47, 23)
-    fill_tiles(chunk, TILE_WALL, 54, 28, 55, 29)
-    fill_tiles(chunk, TILE_WALL, 62, 24, 63, 25)
-    fill_tiles(chunk, TILE_WALL, 70, 30, 71, 31)
-    fill_tiles(chunk, TILE_WALL, 78, 26, 79, 27)
-    fill_tiles(chunk, TILE_WALL, 86, 32, 87, 33)
-    fill_tiles(chunk, TILE_WALL, 94, 28, 95, 29)
-    fill_tiles(chunk, TILE_WALL, 102, 34, 103, 35)
-    # Winged Knight ramparts — battlement stones (DS3: castle ramparts)
-    fill_tiles(chunk, TILE_WALL, 108, 36, 109, 37)
-    fill_tiles(chunk, TILE_WALL, 116, 40, 117, 41)
-    fill_tiles(chunk, TILE_WALL, 124, 44, 125, 45)
-    fill_tiles(chunk, TILE_WALL, 132, 42, 133, 43)
-    fill_tiles(chunk, TILE_WALL, 140, 46, 141, 47)
-    fill_tiles(chunk, TILE_WALL, 148, 44, 149, 45)
-    # Dragon perch — volcanic rock debris (DS3: wyvern roost)
+    # Stair walls (DS3: stone walls along winding staircase)
+    fill_tiles(chunk, TILE_WALL, 106, 43, 108, 68)    # West wall
+    fill_tiles(chunk, TILE_WALL, 141, 43, 143, 68)    # East wall
+    fill_tiles(chunk, TILE_WALL, 106, 43, 143, 45)    # North wall (tower top)
+    fill_tiles(chunk, TILE_WALL, 106, 66, 143, 68)    # South wall
+    # Stair landing buttresses (DS3: stone supports at each turn)
+    fill_tiles(chunk, TILE_WALL, 114, 48, 116, 51)
+    fill_tiles(chunk, TILE_WALL, 130, 48, 132, 51)
+    fill_tiles(chunk, TILE_WALL, 118, 55, 120, 58)
+    fill_tiles(chunk, TILE_WALL, 126, 55, 128, 58)
+    # Stone railing posts (DS3: stone balusters along stairs)
     fill_tiles(chunk, TILE_WALL, 110, 50, 111, 51)
-    fill_tiles(chunk, TILE_WALL, 118, 54, 119, 55)
-    fill_tiles(chunk, TILE_WALL, 126, 52, 127, 53)
-    fill_tiles(chunk, TILE_WALL, 134, 56, 135, 57)
-    fill_tiles(chunk, TILE_WALL, 142, 54, 143, 55)
-    fill_tiles(chunk, TILE_WALL, 150, 58, 151, 59)
-    # Archives bridge — stone arch fragments (DS3: bridge to Grand Archives)
-    fill_tiles(chunk, TILE_WALL, 130, 62, 131, 63)
-    fill_tiles(chunk, TILE_WALL, 136, 66, 137, 67)
-    fill_tiles(chunk, TILE_WALL, 142, 70, 143, 71)
-    fill_tiles(chunk, TILE_WALL, 148, 74, 149, 75)
-    fill_tiles(chunk, TILE_WALL, 152, 78, 153, 79)
-    # Dragonslayer arena — storm-swept debris (DS3: rooftop boss arena)
-    fill_tiles(chunk, TILE_WALL, 118, 78, 119, 79)
-    fill_tiles(chunk, TILE_WALL, 124, 82, 125, 83)
-    fill_tiles(chunk, TILE_WALL, 128, 86, 129, 87)
-    fill_tiles(chunk, TILE_WALL, 132, 80, 133, 81)
-    fill_tiles(chunk, TILE_WALL, 114, 84, 115, 85)
-    fill_tiles(chunk, TILE_WALL, 134, 88, 135, 89)
-    # Dancer cathedral — ornate column bases (DS3: gothic cathedral interior)
-    fill_tiles(chunk, TILE_WALL, 52, 30, 53, 31)
-    fill_tiles(chunk, TILE_WALL, 58, 34, 59, 35)
-    fill_tiles(chunk, TILE_WALL, 68, 28, 69, 29)
-    fill_tiles(chunk, TILE_WALL, 72, 36, 73, 37)
-    fill_tiles(chunk, TILE_WALL, 76, 30, 77, 31)
-    fill_tiles(chunk, TILE_WALL, 62, 40, 63, 41)
-    # Castle lower — sewer stones (DS3: underground passages)
-    fill_tiles(chunk, TILE_WALL, 34, 46, 35, 47)
-    fill_tiles(chunk, TILE_WALL, 42, 48, 43, 49)
-    fill_tiles(chunk, TILE_WALL, 50, 44, 51, 45)
-    fill_tiles(chunk, TILE_WALL, 58, 50, 59, 51)
-    fill_tiles(chunk, TILE_WALL, 66, 46, 67, 47)
+    fill_tiles(chunk, TILE_WALL, 138, 50, 139, 51)
+    fill_tiles(chunk, TILE_WALL, 112, 60, 113, 61)
+    fill_tiles(chunk, TILE_WALL, 136, 60, 137, 61)
+    # Crossbow hollow perches (DS3: elevated positions for hollow crossbowmen)
+    fill_tiles(chunk, TILE_WALL, 122, 46, 124, 48)
 
     # ================================================================
-    # DS3 STRUCTURAL WALLS — Lothric Castle interior architecture
-    # DS3: castle with stone gates, dragon bridge, barracks, grand halls
+    # 4. TWIN DRAGON BRIDGE
+    # DS3: Massive stone bridge with two dragon corpses. Fire breath hazard
+    #      sweeps across. Barricades provide cover. Pus of Man on dragon corpses.
+    #      Lothric Wyverns are the main hazard. Crystal Lizards at edges.
+    # Tiles: (128,48)-(195,92)
     # ================================================================
-    # Dancer hall — castle throne room walls (DS3: Dancer of the Boreal Valley)
-    fill_tiles(chunk, TILE_WALL, 30, 36, 34, 42)    # Throne room wall left
-    fill_tiles(chunk, TILE_WALL, 46, 38, 50, 44)    # Throne room wall right
-    fill_tiles(chunk, TILE_WALL, 38, 32, 42, 36)    # Throne room divider
-    # Castle gate — grand entrance arch (DS3: stone gate into Lothric Castle)
-    fill_tiles(chunk, TILE_WALL, 56, 64, 60, 70)    # Gate pillar left
-    fill_tiles(chunk, TILE_WALL, 72, 64, 76, 70)    # Gate pillar right
-    fill_tiles(chunk, TILE_WALL, 64, 66, 68, 72)    # Gate center wall
-    # Twin Dragon Bridge — bridge walls (DS3: dragon corpse on bridge)
-    fill_tiles(chunk, TILE_WALL, 100, 48, 104, 54)  # Bridge parapet left
-    fill_tiles(chunk, TILE_WALL, 120, 48, 124, 54)  # Bridge parapet mid
-    fill_tiles(chunk, TILE_WALL, 140, 48, 144, 54)  # Bridge parapet right
-    fill_tiles(chunk, TILE_WALL, 110, 42, 114, 46)  # Dragon corpse obstacle
-    fill_tiles(chunk, TILE_WALL, 130, 52, 134, 56)  # Dragon corpse 2
-    # Barracks interior — bunk walls and weapon racks (DS3: Lothric Knight barracks)
-    fill_tiles(chunk, TILE_WALL, 106, 92, 110, 98)  # Barracks wall left
-    fill_tiles(chunk, TILE_WALL, 120, 88, 124, 94)  # Barracks wall center
-    fill_tiles(chunk, TILE_WALL, 134, 90, 138, 96)  # Barracks wall right
-    fill_tiles(chunk, TILE_WALL, 112, 100, 116, 106) # Bunk partition
-    fill_tiles(chunk, TILE_WALL, 128, 102, 132, 108) # Bunk partition 2
-    # Dragonslayer bridge — wide bridge walls (DS3: bridge to Dragonslayer Armour)
-    fill_tiles(chunk, TILE_WALL, 170, 120, 174, 126) # Bridge wall left
-    fill_tiles(chunk, TILE_WALL, 186, 118, 190, 124) # Bridge wall right
-    fill_tiles(chunk, TILE_WALL, 178, 126, 182, 132) # Bridge center pillar
-    # Dragonslayer arena — boss arena walls (DS3: open bridge arena)
-    fill_tiles(chunk, TILE_WALL, 196, 130, 200, 136) # Arena wall NW
-    fill_tiles(chunk, TILE_WALL, 216, 128, 220, 134) # Arena wall NE
-    fill_tiles(chunk, TILE_WALL, 200, 142, 204, 148) # Arena wall SW
-    fill_tiles(chunk, TILE_WALL, 212, 140, 216, 146) # Arena wall SE
+    # Bridge perimeter walls (DS3: high stone bridge parapets)
+    fill_tiles(chunk, TILE_WALL, 128, 48, 130, 92)    # West wall
+    fill_tiles(chunk, TILE_WALL, 193, 48, 195, 92)    # East wall
+    fill_tiles(chunk, TILE_WALL, 128, 48, 195, 50)    # North parapet
+    fill_tiles(chunk, TILE_WALL, 128, 90, 195, 92)    # South parapet
+    # Dragon corpse 1 - western wyvern (DS3: massive dragon skeleton blocking bridge)
+    fill_tiles(chunk, TILE_WALL, 138, 55, 155, 60)    # Wyvern body
+    fill_tiles(chunk, TILE_WALL, 135, 53, 140, 55)    # Wyvern head
+    fill_tiles(chunk, TILE_WALL, 150, 57, 158, 62)    # Wyvern tail
+    # Dragon corpse 2 - eastern wyvern (DS3: second dragon corpse)
+    fill_tiles(chunk, TILE_WALL, 170, 65, 187, 70)    # Wyvern body
+    fill_tiles(chunk, TILE_WALL, 167, 63, 172, 65)    # Wyvern head
+    fill_tiles(chunk, TILE_WALL, 182, 67, 190, 72)    # Wyvern tail
+    # Barricades (DS3: wooden/stone barricades providing cover from fire)
+    fill_tiles(chunk, TILE_WALL, 145, 62, 148, 64)    # Barricade near wyvern 1
+    fill_tiles(chunk, TILE_WALL, 160, 55, 163, 57)    # Barricade mid-bridge
+    fill_tiles(chunk, TILE_WALL, 178, 72, 181, 74)    # Barricade near wyvern 2
+    # Fire scorched debris (DS3: scorched stone from dragon breath)
+    fill_tiles(chunk, TILE_WALL, 155, 80, 157, 82)
+    fill_tiles(chunk, TILE_WALL, 175, 82, 177, 84)
+    # Bridge arch supports (DS3: massive stone arches beneath bridge)
+    fill_tiles(chunk, TILE_WALL, 132, 85, 134, 88)
+    fill_tiles(chunk, TILE_WALL, 155, 85, 157, 88)
+    fill_tiles(chunk, TILE_WALL, 178, 85, 180, 88)
 
-        # ================================================================
-    # ENTITIES
     # ================================================================
+    # 5. DARK ROOM UNDER WYVERNS
+    # DS3: Dark interior room beneath the dragon bridge. Firebarrel hollows
+    #      hide here. Stone stairs lead down to barracks level.
+    # Tiles: (162,81)-(200,106)
+    # ================================================================
+    # Room perimeter (DS3: dark stone walls)
+    fill_tiles(chunk, TILE_WALL, 162, 81, 164, 106)   # West wall
+    fill_tiles(chunk, TILE_WALL, 198, 81, 200, 106)   # East wall
+    fill_tiles(chunk, TILE_WALL, 162, 81, 200, 83)    # North wall
+    fill_tiles(chunk, TILE_WALL, 162, 104, 200, 106)  # South wall
+    # Stone stairs down (DS3: stairs leading to barracks)
+    fill_tiles(chunk, TILE_WALL, 186, 96, 188, 103)   # Stair wall left
+    fill_tiles(chunk, TILE_WALL, 194, 96, 196, 103)   # Stair wall right
+    # Firebarrel positions (DS3: explosive barrels hollows use)
+    fill_tiles(chunk, TILE_WALL, 170, 88, 172, 90)
+    fill_tiles(chunk, TILE_WALL, 178, 92, 180, 94)
+    # Dark corner debris
+    fill_tiles(chunk, TILE_WALL, 166, 98, 168, 100)
+    fill_tiles(chunk, TILE_WALL, 190, 86, 192, 88)
 
-    # --- Player Spawn ---
-    spawn_px, spawn_py = 10 * 16, 30 * 16
+    # ================================================================
+    # 6. BARRACKS INTERIOR
+    # DS3: Lothric Knight barracks with bunks, weapon racks, iron grates.
+    #      Winged Knights, a Boreal Outrider Knight. Dense enemy area.
+    #      Estus Shard and other loot in chests.
+    # Tiles: (136,93)-(193,133)
+    # ================================================================
+    # Barracks perimeter walls (DS3: stone barrack walls)
+    fill_tiles(chunk, TILE_WALL, 136, 93, 138, 133)   # West wall
+    fill_tiles(chunk, TILE_WALL, 191, 93, 193, 133)   # East wall
+    fill_tiles(chunk, TILE_WALL, 136, 93, 193, 95)    # North wall
+    fill_tiles(chunk, TILE_WALL, 136, 131, 193, 133)  # South wall
+    # Bunk partitions (DS3: stone walls dividing sleeping quarters)
+    fill_tiles(chunk, TILE_WALL, 148, 98, 150, 108)   # Bunk wall left
+    fill_tiles(chunk, TILE_WALL, 165, 98, 167, 108)   # Bunk wall center
+    fill_tiles(chunk, TILE_WALL, 180, 98, 182, 108)   # Bunk wall right
+    # Weapon rack alcoves (DS3: weapon racks along walls)
+    fill_tiles(chunk, TILE_WALL, 140, 100, 142, 104)  # West weapon rack
+    fill_tiles(chunk, TILE_WALL, 140, 112, 142, 116)  # West lower rack
+    fill_tiles(chunk, TILE_WALL, 187, 100, 189, 104)  # East weapon rack
+    fill_tiles(chunk, TILE_WALL, 187, 112, 189, 116)  # East lower rack
+    # Iron grate supports (DS3: iron grates between rooms)
+    fill_tiles(chunk, TILE_WALL, 155, 115, 158, 118)  # Grate mid
+    fill_tiles(chunk, TILE_WALL, 172, 115, 175, 118)  # Grate east
+    # Boreal Outrider alcove (DS3: frost knight room)
+    fill_tiles(chunk, TILE_WALL, 138, 120, 140, 128)  # Frost room west
+    fill_tiles(chunk, TILE_WALL, 148, 120, 150, 128)  # Frost room east
+    fill_tiles(chunk, TILE_WALL, 138, 126, 150, 128)  # Frost room south
+    # Barracks central column (DS3: support column in middle of barracks)
+    fill_tiles(chunk, TILE_WALL, 158, 122, 160, 125)
+
+    # ================================================================
+    # 7. BOREAL OUTRIDER KNIGHT VAULT
+    # DS3: Lower room with iron door. Four chests inside, guarded by the
+    #      Boreal Outrider Knight who deals frost damage.
+    # Tiles: (131,112)-(162,137)
+    # ================================================================
+    # Vault perimeter (DS3: stone vault walls)
+    fill_tiles(chunk, TILE_WALL, 131, 112, 133, 137)  # West wall
+    fill_tiles(chunk, TILE_WALL, 160, 112, 162, 137)  # East wall
+    fill_tiles(chunk, TILE_WALL, 131, 112, 162, 114)  # North wall
+    fill_tiles(chunk, TILE_WALL, 131, 135, 162, 137)  # South wall
+    # Iron door frame (DS3: heavy iron door entrance)
+    fill_tiles(chunk, TILE_WALL, 143, 112, 145, 116)  # Door frame left
+    fill_tiles(chunk, TILE_WALL, 150, 112, 152, 116)  # Door frame right
+    # Chest alcove walls (DS3: chest niches in vault walls)
+    fill_tiles(chunk, TILE_WALL, 136, 118, 138, 122)  # NW chest alcove
+    fill_tiles(chunk, TILE_WALL, 155, 118, 157, 122)  # NE chest alcove
+    fill_tiles(chunk, TILE_WALL, 136, 128, 138, 132)  # SW chest alcove
+    fill_tiles(chunk, TILE_WALL, 155, 128, 157, 132)  # SE chest alcove
+    # Frost-cracked pillar (DS3: frost damage on stone)
+    fill_tiles(chunk, TILE_WALL, 145, 124, 148, 127)
+
+    # ================================================================
+    # 8. PUS OF MAN ROOM
+    # DS3: Interior room with wyvern claw reaching in. Pus of Man weak point
+    #      is here. Castle gate lever and shortcut mechanism inside.
+    # Tiles: (181,106)-(212,131)
+    # ================================================================
+    # Room perimeter (DS3: stone walls)
+    fill_tiles(chunk, TILE_WALL, 181, 106, 183, 131)  # West wall
+    fill_tiles(chunk, TILE_WALL, 210, 106, 212, 131)  # East wall
+    fill_tiles(chunk, TILE_WALL, 181, 106, 212, 108)  # North wall
+    fill_tiles(chunk, TILE_WALL, 181, 129, 212, 131)  # South wall
+    # Wyvern claw alcove (DS3: dragon claw reaching through wall)
+    fill_tiles(chunk, TILE_WALL, 185, 110, 190, 114)  # Claw debris NW
+    fill_tiles(chunk, TILE_WALL, 195, 110, 200, 114)  # Claw debris NE
+    # Shortcut mechanism (DS3: lever and gate mechanism)
+    fill_tiles(chunk, TILE_WALL, 204, 118, 208, 122)  # Mechanism housing
+    # Gate lever (DS3: iron lever)
+    fill_tiles(chunk, TILE_WALL, 186, 122, 188, 126)
+    # Interior debris (DS3: scattered stones)
+    fill_tiles(chunk, TILE_WALL, 193, 120, 195, 123)
+    fill_tiles(chunk, TILE_WALL, 200, 126, 202, 128)
+
+    # ================================================================
+    # 9. CASTLE CHAPEL
+    # DS3: Small chapel interior with red tearstone altar. Eygon summon spot.
+    #      Rusted coins near the altar. Sacred and solemn atmosphere.
+    # Tiles: (200,93)-(237,125)
+    # ================================================================
+    # Chapel perimeter (DS3: chapel stone walls)
+    fill_tiles(chunk, TILE_WALL, 200, 93, 202, 125)   # West wall
+    fill_tiles(chunk, TILE_WALL, 235, 93, 237, 125)   # East wall
+    fill_tiles(chunk, TILE_WALL, 200, 93, 237, 95)    # North wall
+    fill_tiles(chunk, TILE_WALL, 200, 123, 237, 125)  # South wall
+    # Altar (DS3: stone altar with red tearstone ring)
+    fill_tiles(chunk, TILE_WALL, 214, 98, 224, 103)   # Altar platform
+    fill_tiles(chunk, TILE_WALL, 216, 96, 222, 98)    # Altar back wall
+    # Chapel columns (DS3: stone columns flanking the nave)
+    fill_tiles(chunk, TILE_WALL, 206, 100, 208, 104)  # Left column front
+    fill_tiles(chunk, TILE_WALL, 230, 100, 232, 104)  # Right column front
+    fill_tiles(chunk, TILE_WALL, 206, 112, 208, 116)  # Left column rear
+    fill_tiles(chunk, TILE_WALL, 230, 112, 232, 116)  # Right column rear
+    # Pews (DS3: stone pews in chapel)
+    fill_tiles(chunk, TILE_WALL, 210, 106, 212, 109)  # Pew row 1 left
+    fill_tiles(chunk, TILE_WALL, 226, 106, 228, 109)  # Pew row 1 right
+    fill_tiles(chunk, TILE_WALL, 210, 113, 212, 116)  # Pew row 2 left
+    fill_tiles(chunk, TILE_WALL, 226, 113, 228, 116)  # Pew row 2 right
+
+    # ================================================================
+    # 10. ELEVATOR SHORTCUT TOWER
+    # DS3: Stone tower with elevator shaft. Iron gate at top and bottom.
+    #      Provides shortcut between Dragonslayer Bridge and lower castle.
+    # Tiles: (225,100)-(250,125)
+    # ================================================================
+    # Tower perimeter (DS3: cylindrical stone tower)
+    fill_tiles(chunk, TILE_WALL, 225, 100, 227, 125)  # West wall
+    fill_tiles(chunk, TILE_WALL, 248, 100, 250, 125)  # East wall
+    fill_tiles(chunk, TILE_WALL, 225, 100, 250, 102)  # North wall
+    fill_tiles(chunk, TILE_WALL, 225, 123, 250, 125)  # South wall
+    # Elevator shaft (DS3: central elevator mechanism)
+    fill_tiles(chunk, TILE_WALL, 233, 105, 243, 120)  # Shaft walls
+    fill_tiles(chunk, TILE_GROUND, 234, 106, 242, 119) # Shaft interior
+    # Iron gate frame at top (DS3: iron gate)
+    fill_tiles(chunk, TILE_WALL, 230, 100, 232, 104)  # Gate pillar left
+    fill_tiles(chunk, TILE_WALL, 244, 100, 246, 104)  # Gate pillar right
+    # Iron gate frame at bottom (DS3: iron gate)
+    fill_tiles(chunk, TILE_WALL, 230, 121, 232, 125)  # Gate pillar left
+    fill_tiles(chunk, TILE_WALL, 244, 121, 246, 125)  # Gate pillar right
+    # Tower stone steps (DS3: narrow steps alongside elevator)
+    fill_tiles(chunk, TILE_WALL, 228, 108, 230, 110)
+    fill_tiles(chunk, TILE_WALL, 228, 116, 230, 118)
+
+    # ================================================================
+    # 11. DRAGONSLAYER BRIDGE
+    # DS3: Wide stone bridge leading to Dragonslayer Armour. Dragon sculptures
+    #      on the parapets. Storm clouds overhead, wind-blasted atmosphere.
+    #      Lothric Knights patrol the bridge.
+    # Tiles: (206,123)-(257,158)
+    # ================================================================
+    # Bridge perimeter (DS3: wide stone bridge with parapets)
+    fill_tiles(chunk, TILE_WALL, 206, 123, 208, 158)  # West wall
+    fill_tiles(chunk, TILE_WALL, 255, 123, 257, 158)  # East wall
+    fill_tiles(chunk, TILE_WALL, 206, 123, 257, 125)  # North parapet
+    fill_tiles(chunk, TILE_WALL, 206, 156, 257, 158)  # South parapet
+    # Dragon sculptures (DS3: stone dragon statues on parapets)
+    fill_tiles(chunk, TILE_WALL, 215, 124, 219, 127)  # Dragon sculpture 1
+    fill_tiles(chunk, TILE_WALL, 240, 124, 244, 127)  # Dragon sculpture 2
+    fill_tiles(chunk, TILE_WALL, 215, 154, 219, 157)  # Dragon sculpture 3
+    fill_tiles(chunk, TILE_WALL, 240, 154, 244, 157)  # Dragon sculpture 4
+    # Bridge arch supports (DS3: massive arches supporting the bridge)
+    fill_tiles(chunk, TILE_WALL, 212, 138, 214, 148)  # Arch support 1
+    fill_tiles(chunk, TILE_WALL, 230, 138, 232, 148)  # Arch support 2
+    fill_tiles(chunk, TILE_WALL, 248, 138, 250, 148)  # Arch support 3
+    # Storm debris (DS3: wind-blown stone fragments)
+    fill_tiles(chunk, TILE_WALL, 222, 132, 224, 134)
+    fill_tiles(chunk, TILE_WALL, 236, 148, 238, 150)
+
+    # ================================================================
+    # 12. SUNLIGHT ALTAR ROFTOP
+    # DS3: Rooftop with Sunlight Altar (covenant). Knight's Ring in tower.
+    #      Covered bridge connects to castle. Lothric Knights patrol.
+    # Tiles: (237,112)-(268,137)
+    # ================================================================
+    # Rooftop perimeter (DS3: castle rooftop walls)
+    fill_tiles(chunk, TILE_WALL, 237, 112, 239, 137)  # West wall
+    fill_tiles(chunk, TILE_WALL, 266, 112, 268, 137)  # East wall
+    fill_tiles(chunk, TILE_WALL, 237, 112, 268, 114)  # North wall
+    fill_tiles(chunk, TILE_WALL, 237, 135, 268, 137)  # South wall
+    # Sunlight Altar (DS3: covenant altar, stone platform)
+    fill_tiles(chunk, TILE_WALL, 248, 118, 257, 124)  # Altar platform
+    fill_tiles(chunk, TILE_WALL, 250, 116, 255, 118)  # Altar back
+    # Knight's Ring tower (DS3: small tower with the ring)
+    fill_tiles(chunk, TILE_WALL, 260, 120, 264, 130)  # Tower walls
+    fill_tiles(chunk, TILE_GROUND, 261, 121, 263, 129) # Tower interior
+    # Covered bridge entrance (DS3: covered walkway to castle)
+    fill_tiles(chunk, TILE_WALL, 240, 128, 242, 132)  # Bridge wall left
+    fill_tiles(chunk, TILE_WALL, 246, 128, 248, 132)  # Bridge wall right
+
+    # ================================================================
+    # 13. DRAGONSLAYER ARMOUR ARENA
+    # DS3: Large boss arena on a widened castle bridge. Battlement walls
+    #      overlook the castle below. Storm-swept atmosphere. The boss
+    #      Dragonslayer Armour fights here with a greatshield and greataxe.
+    # Tiles: (241,136)-(288,175)
+    # ================================================================
+    # Arena perimeter (DS3: high battlement walls)
+    fill_tiles(chunk, TILE_WALL, 241, 136, 243, 175)  # West wall
+    fill_tiles(chunk, TILE_WALL, 286, 136, 288, 175)  # East wall
+    fill_tiles(chunk, TILE_WALL, 241, 136, 288, 138)  # North wall
+    fill_tiles(chunk, TILE_WALL, 241, 173, 288, 175)  # South wall
+    # Battlement merlons (DS3: crenellated stone battlements)
+    fill_tiles(chunk, TILE_WALL, 250, 137, 252, 139)
+    fill_tiles(chunk, TILE_WALL, 262, 137, 264, 139)
+    fill_tiles(chunk, TILE_WALL, 274, 137, 276, 139)
+    fill_tiles(chunk, TILE_WALL, 250, 174, 252, 176)
+    fill_tiles(chunk, TILE_WALL, 262, 174, 264, 176)
+    fill_tiles(chunk, TILE_WALL, 274, 174, 276, 176)
+    # Arena columns (DS3: stone columns at arena edges)
+    fill_tiles(chunk, TILE_WALL, 248, 145, 250, 152)  # NW column
+    fill_tiles(chunk, TILE_WALL, 280, 145, 282, 152)  # NE column
+    fill_tiles(chunk, TILE_WALL, 248, 160, 250, 167)  # SW column
+    fill_tiles(chunk, TILE_WALL, 280, 160, 282, 167)  # SE column
+    # Bridge widening markers (DS3: bridge widens into arena)
+    fill_tiles(chunk, TILE_WALL, 255, 143, 257, 145)
+    fill_tiles(chunk, TILE_WALL, 273, 143, 275, 145)
+    fill_tiles(chunk, TILE_WALL, 255, 168, 257, 170)
+    fill_tiles(chunk, TILE_WALL, 273, 168, 275, 170)
+    # Overlooking castle parapet (DS3: view of castle below)
+    fill_tiles(chunk, TILE_WALL, 260, 150, 270, 155)
+
+    # ================================================================
+    # 14. GRAND ARCHIVES DOOR
+    # DS3: Grand doorway to the Grand Archives. Candle sconces on walls.
+    #      Stone steps lead up. Wax accumulations from candles. Crystal Lizards.
+    # Tiles: (280,126)-(310,155)
+    # ================================================================
+    # Doorway perimeter (DS3: grand stone doorway)
+    fill_tiles(chunk, TILE_WALL, 280, 126, 282, 155)  # West wall
+    fill_tiles(chunk, TILE_WALL, 308, 126, 310, 155)  # East wall
+    fill_tiles(chunk, TILE_WALL, 280, 126, 310, 128)  # North wall
+    fill_tiles(chunk, TILE_WALL, 280, 153, 310, 155)  # South wall
+    # Grand door frame (DS3: massive double door frame)
+    fill_tiles(chunk, TILE_WALL, 288, 130, 291, 142)  # Left door pillar
+    fill_tiles(chunk, TILE_WALL, 299, 130, 302, 142)  # Right door pillar
+    fill_tiles(chunk, TILE_WALL, 288, 130, 302, 132)  # Door lintel
+    # Stone steps (DS3: steps leading up to archives)
+    fill_tiles(chunk, TILE_WALL, 292, 140, 294, 145)  # Step wall left
+    fill_tiles(chunk, TILE_WALL, 297, 140, 299, 145)  # Step wall right
+    # Candle sconces (DS3: wall-mounted candles)
+    fill_tiles(chunk, TILE_WALL, 284, 135, 285, 137)  # West sconce
+    fill_tiles(chunk, TILE_WALL, 305, 135, 306, 137)  # East sconce
+    fill_tiles(chunk, TILE_WALL, 284, 145, 285, 147)  # Lower west sconce
+    fill_tiles(chunk, TILE_WALL, 305, 145, 306, 147)  # Lower east sconce
+    # Wax accumulation (DS3: wax dripping from candles)
+    fill_tiles(chunk, TILE_WALL, 303, 142, 305, 144)
+
+    # ================================================================
+    # 15. CONSUMED KING GARDEN BRANCH
+    # DS3: Overgrown stone path branching south from the castle. Moss-covered
+    #      walls, crumbling stairs, vine-choked arches lead down to the garden.
+    # Tiles: (47,100)-(86,132)
+    # ================================================================
+    # Path perimeter (DS3: crumbling overgrown walls)
+    fill_tiles(chunk, TILE_WALL, 47, 100, 49, 132)    # West wall
+    fill_tiles(chunk, TILE_WALL, 84, 100, 86, 132)    # East wall
+    fill_tiles(chunk, TILE_WALL, 47, 100, 86, 102)    # North wall
+    fill_tiles(chunk, TILE_WALL, 47, 130, 86, 132)    # South wall
+    # Crumbling stairs (DS3: broken stone steps descending)
+    fill_tiles(chunk, TILE_WALL, 58, 106, 60, 110)    # Step debris 1
+    fill_tiles(chunk, TILE_WALL, 70, 112, 72, 116)    # Step debris 2
+    fill_tiles(chunk, TILE_WALL, 58, 120, 60, 124)    # Step debris 3
+    # Vine-choked arch (DS3: overgrown stone arch)
+    fill_tiles(chunk, TILE_WALL, 52, 115, 54, 122)    # Arch pillar left
+    fill_tiles(chunk, TILE_WALL, 78, 115, 80, 122)    # Arch pillar right
+    fill_tiles(chunk, TILE_WALL, 55, 113, 77, 115)    # Arch top
+    # Moss-covered walls (DS3: vegetation on stone)
+    fill_tiles(chunk, TILE_WALL, 63, 125, 66, 128)    # Moss wall 1
+    fill_tiles(chunk, TILE_WALL, 73, 118, 76, 121)    # Moss wall 2
+
+    # ================================================================
+    # CORRIDOR CONNECTIONS — ensure section adjacency is walkable
+    # Additional corridors beyond what apply_doc_terrain provides
+    # ================================================================
+    # Dancer Hall -> Castle Entry (DS3: stairs from dancer hall into castle)
+    carve_corridor(chunk, 49, 70, 72, 78, width=5)
+    # Castle Entry -> Winged Knight Tower (DS3: side path to tower)
+    carve_corridor(chunk, 72, 85, 52, 74, width=5)
+    # Castle Entry -> Castle Stairs (DS3: main path up into castle)
+    carve_corridor(chunk, 100, 75, 115, 55, width=5)
+    # Castle Stairs -> Twin Dragon Bridge (DS3: stairs emerge onto bridge)
+    carve_corridor(chunk, 130, 55, 145, 60, width=5)
+    # Twin Dragon Bridge -> Dark Room (DS3: stairs down under bridge)
+    carve_corridor(chunk, 170, 85, 175, 90, width=5)
+    # Dark Room -> Barracks (DS3: continues down into barracks)
+    carve_corridor(chunk, 178, 100, 165, 110, width=5)
+    # Barracks -> Boreal Vault (DS3: side room in barracks)
+    carve_corridor(chunk, 148, 120, 146, 125, width=5)
+    # Barracks -> Pus of Man Room (DS3: passage to wyvern interior)
+    carve_corridor(chunk, 190, 115, 195, 118, width=5)
+    # Barracks -> Castle Chapel (DS3: path from barracks to chapel)
+    carve_corridor(chunk, 180, 105, 210, 110, width=5)
+    # Castle Chapel -> Elevator Tower (DS3: chapel connects to shortcut)
+    carve_corridor(chunk, 230, 110, 237, 112, width=5)
+    # Elevator Tower -> Dragonslayer Bridge (DS3: elevator emerges at bridge)
+    carve_corridor(chunk, 237, 115, 220, 135, width=5)
+    # Dragonslayer Bridge -> Sunlight Altar (DS3: bridge side to rooftop)
+    carve_corridor(chunk, 240, 130, 250, 125, width=5)
+    # Dragonslayer Bridge -> Dragonslayer Arena (DS3: bridge leads to arena)
+    carve_corridor(chunk, 245, 150, 255, 150, width=5)
+    # Sunlight Altar -> Dragonslayer Arena (DS3: rooftop to arena)
+    carve_corridor(chunk, 255, 130, 258, 140, width=5)
+    # Dragonslayer Arena -> Grand Archives Door (DS3: after boss, to archives)
+    carve_corridor(chunk, 280, 150, 290, 140, width=5)
+    # Castle Entry -> Consumed King Garden (DS3: side path to garden)
+    carve_corridor(chunk, 75, 95, 65, 115, width=5)
+
+    # ================================================================
+    # PLAYER SPAWN
+    # DS3: Player enters from LothricWall (fog gate at west of Dancer Hall).
+    #      Spawn near the fog gate entry point.
+    # Fog gate at doc: x=620,y=800 -> tile (38,50)
+    # ================================================================
+    spawn_px, spawn_py = 38 * 16, 50 * 16
+
+    entities = []
     entities.append(make_entity("PlayerSpawn", spawn_px, spawn_py,
         [make_field("heal", "Bool", True)]))
-    entities.append(make_entity("BossSpawn", 257 * 16, 142 * 16, [make_field("name", "String", "Dragonslayer Armour")]))
-
-    # --- Bonfires --- DS3: Dragon Barracks, Lothric Castle, Grand Archives, Dragonslayer Armour
-    entities.append(make_entity("Bonfire", 38 * 16, 56 * 16))    # Dragon Barracks (entry)
-    entities.append(make_entity("Bonfire", 78 * 16, 80 * 16))    # Lothric Castle
-    entities.append(make_entity("Bonfire", 157 * 16, 68 * 16))   # Dragonslayer Armour (boss)
-    entities.append(make_entity("Bonfire", 253 * 16, 148 * 16))    # Dragonslayer Armour
-    # Grand Archives bonfire (DS3: after Dragonslayer Armour, entrance to Grand Archives)
-    entities.append(make_entity("Bonfire", 292 * 16, 137 * 16, [
-        make_field("name", "String", "Grand Archives"),
-        make_field("kind", "LocalEnum.BonfireKind", "Bonfire"),
-    ]))    # Grand Archives
-
-    # --- Boss ---
-
-    # --- Enemies ---
-    # DS3 Lothric Castle enemies: Lothric Knights, Hollow Soldiers, Hollow Assassins,
-    # Hollow Priests (DarkMage), Winged Knights, Pus of Man, Boreal Outrider Knight,
-    # Mimic, Crystal Lizards, Lothric Wyverns
-    enemy_positions = [
-        # Castle gate area — Lothric Knight + Hollow Priest healing combo
-        ("LothricKnight", 18, 28), ("DarkMage", 22, 30),              # Priest heals knight (DS3)
-        ("HollowSoldier", 14, 34), ("HollowSoldier", 20, 40),        # Crossbow hollows at gate
-        # Outer corridor — Lothric Knights, Hollow Assassins, Starved Hounds
-        ("LothricKnight", 35, 32), ("HollowAssassin", 32, 38),
-        ("HollowSoldier", 28, 36),                                    # Crossbow hollow
-        ("StarvedHound", 30, 30), ("StarvedHound", 38, 36),         # DS3: dogs in corridors
-        ("HollowSoldier", 40, 40), ("HollowAssassin", 44, 44),      # Hollow ambushes in corridor
-        # Corridor -> barracks transition
-        ("LothricKnight", 55, 38), ("WingedKnight", 50, 38),
-        ("DarkMage", 48, 42),                                         # Priest healer
-        ("LothricKnight", 58, 44), ("LothricKnight", 62, 34),       # Knight pair guards stairs
-        # Dragon barracks — Wyvern area (Pus of Man on dragon corpses)
-        ("HollowSoldier", 68, 18), ("PusOfMan", 78, 18),
-        ("HollowSoldier", 75, 22), ("CrystalLizard", 82, 22),
-        ("HollowSoldier", 85, 28), ("PusOfMan", 95, 32),             # Second Pus of Man
-        ("HollowSoldier", 70, 25), ("HollowSoldier", 92, 28),       # More hollows in barracks
-        ("LothricKnight", 88, 34),                                    # Knight patrolling barracks
-        # Boreal Outrider Knight (DS3: in a room with chests, frost damage)
-        ("BorealOutriderKnight", 45, 55),                             # DS3: frost knight in side room
-        ("StarvedHound", 48, 60),                                     # DS3: dog in side path
-        # Inner stairs — Winged Knight gauntlet
-        ("WingedKnight", 108, 48), ("CrystalLizard", 115, 45),
-        ("LothricKnight", 112, 52),                                   # Knight on stairs
-        ("LothricKnight", 100, 42),                                   # Red-eyed Lothric Knight
-        ("HollowAssassin", 105, 54), ("HollowAssassin", 118, 50),   # Assassin ambush on stairs
-        # Arena approaches
-        ("PusOfMan", 125, 55), ("LothricKnight", 132, 58),
-        ("HollowSoldier", 128, 62), ("HollowAssassin", 135, 55),      # Hollow gauntlet to boss
-        ("WingedKnight", 140, 60),                                    # Ascended Winged Knight near arena
-        ("HollowSoldier", 138, 68), ("HollowSoldier", 142, 72),     # Hollows at arena entrance
-        # Additional DS3 Lothric Castle enemies — more knights, dogs, hollows (DS3: dense with enemies)
-        ("LothricKnight", 22, 32), ("LothricKnight", 42, 38),       # Knights at gate courtyard
-        ("StarvedHound", 32, 34), ("StarvedHound", 46, 42), ("StarvedHound", 52, 48),  # DS3: hounds in castle corridors
-        ("StarvedHound", 65, 30), ("StarvedHound", 72, 25), ("StarvedHound", 98, 38),  # DS3: 8 hounds total
-        ("LothricKnight", 75, 30), ("LothricKnight", 82, 26),      # Knights patrolling wyvern area
-        ("LothricKnight", 95, 36), ("LothricKnight", 108, 44),     # Knights on inner stairs
-        ("HollowSoldier", 60, 36), ("HollowSoldier", 85, 32),      # More hollows in barracks
-        ("LothricKnight", 128, 60), ("LothricKnight", 136, 68),    # Knights near arena approach
-        ("DarkMage", 122, 60),                                        # Priest healing knights near arena
-        # Q(1,1) lower arena / throne room — DS3: hollows and knight near Lothric's empty throne
-        ("HollowSoldier", 130, 82), ("HollowSoldier", 138, 86),     # Hollows in lower arena
-        ("LothricKnight", 142, 90),                                   # Knight patrolling throne room approach
-        ("HollowSoldier", 118, 85), ("HollowSoldier", 125, 88),     # Hollows at arena south edge
-        ("DarkMage", 135, 92),                                        # Priest in lower castle chambers
-    ]
-
-    # --- Items - DS3 Lothric Castle (wiki-verified) ---
-    items = [
-        # Souls
-        ("SoulOrb", "Soul of a Crestfallen Knight", 25, 25, 600),      # Altar room
-        ("SoulOrb", "Soul of a Crestfallen Knight", 126, 60, 600),     # After wyvern dead
-        ("SoulOrb", "Soul of a Weary Warrior", 55, 36, 1000),          # Right of stairs
-        ("SoulOrb", "Soul of a Weary Warrior", 90, 35, 2000),          # Lever room
-        ("SoulOrb", "Large Soul of a Nameless Soldier", 75, 18, 1500), # Hanging corpse
-        ("SoulOrb", "Large Soul of a Nameless Soldier", 98, 28, 1500), # Tower top
-        ("SoulOrb", "Large Soul of a Nameless Soldier", 105, 40, 1500),# Over ledge
-        ("SoulOrb", "Large Soul of a Weary Warrior", 88, 30, 2000),    # Lever room
-        # Lightning Urn x7
-        ("Consumable", "Lightning Urn", 72, 15, 0),
-        ("Consumable", "Lightning Urn", 78, 12, 0),
-        ("Consumable", "Lightning Urn", 74, 18, 0),
-        ("Consumable", "Lightning Urn", 76, 14, 0),
-        ("Consumable", "Lightning Urn", 80, 16, 0),
-        ("Consumable", "Lightning Urn", 82, 18, 0),
-        ("Consumable", "Lightning Urn", 84, 15, 0),
-        # Other consumables
-        ("Consumable", "Sniper Bolt", 88, 25, 11),                     # Near sniper crossbow (11x)
-        ("Consumable", "Pale Pine Resin", 115, 55, 0),                 # Mimic room
-        ("Consumable", "Black Firebomb", 125, 62, 0),                  # Lower ladder room
-        ("Consumable", "Black Firebomb", 126, 63, 0),                  # Same pickup (3x total)
-        ("Consumable", "Black Firebomb", 124, 64, 0),                  # Same pickup (3x total)
-        ("Consumable", "Sunlight Medal", 140, 66, 0),                  # Corpse outside church
-        ("Consumable", "Rusted Coin", 125, 70, 0),                     # Church room
-        ("Consumable", "Rusted Coin", 128, 72, 0),                     # Church room
-        ("UndeadBoneShard", "Undead Bone Shard", 70, 20, 0),                # Under wyvern bridge
-        # Embers x5
-        ("Ember", "Ember", 68, 22, 0),                                 # Dragon barracks
-        ("Ember", "Ember", 62, 30, 0),                                 # Wyvern bridge
-        ("Ember", "Ember", 132, 63, 0),                                # Corner corpse
-        ("Ember", "Ember", 82, 20, 0),                                 # Wyvern area
-        ("Ember", "Ember", 135, 58, 0),                                # Post-wyvern
-        # Weapons
-        ("WeaponDrop", "Greatlance", 62, 28, 0),                       # Red-eye knight guards
-        ("WeaponDrop", "Sniper Crossbow", 87, 26, 0),                  # Tower top near WK
-        ("WeaponDrop", "Irithyll Rapier", 43, 53, 0),                  # Boreal Knight area
-        ("WeaponDrop", "Caitha's Chime", 128, 75, 0),                  # Church roof
-        ("WeaponDrop", "Sacred Bloom Shield", 52, 42, 0),              # Illusory wall
-        # Armor
-        ("ArmorDrop", "Winged Knight Set", 55, 42, 0),                 # Illusory wall
-        # Upgrade materials — Large Titanite Shard x2
-        ("TitaniteShard", "Large Titanite Shard", 75, 16, 0),
-        ("TitaniteShard", "Large Titanite Shard", 95, 30, 0),
-        # Titanite Chunk x10
-        ("TitaniteShard", "Titanite Chunk", 42, 40, 0),
-        ("TitaniteShard", "Titanite Chunk", 92, 30, 0),
-        ("TitaniteShard", "Titanite Chunk", 74, 23, 0),
-        ("TitaniteShard", "Titanite Chunk", 115, 48, 0),
-        ("TitaniteShard", "Titanite Chunk", 135, 60, 0),
-        ("TitaniteShard", "Titanite Chunk", 65, 20, 0),
-        ("TitaniteShard", "Titanite Chunk", 127, 53, 0),
-        ("TitaniteShard", "Titanite Chunk", 132, 42, 0),
-        ("TitaniteShard", "Titanite Chunk", 138, 58, 0),
-        ("TitaniteShard", "Titanite Chunk", 50, 44, 0),
-        # Twinkling Titanite (ground pickups)
-        ("TitaniteShard", "Twinkling Titanite", 52, 38, 0),            # Winged Knight room corpse
-        ("TitaniteShard", "Twinkling Titanite", 118, 55, 0),           # Wyvern bridge far side
-        # Titanite Scale (ground pickup)
-        ("TitaniteShard", "Titanite Scale", 116, 50, 0),               # Outside mimic room corpse
-        ("TitaniteShard", "Titanite Scale", 130, 68, 0),               # Shortcut path
-        ("TitaniteShard", "Titanite Scale", 142, 62, 0),               # Shortcut path near Archives
-        # Titanite Slab (DS3: elevator shortcut going down from Prince fight)
-        ("TitaniteShard", "Titanite Slab", 148, 68, 0),                # Near Grand Archives exit
-        # Rings & key items
-        ("RingDrop", "Red Tearstone Ring", 132, 75, 0),                # Church jump
-        ("RingDrop", "Knight's Ring", 106, 46, 0),                     # Ladder room
-        ("Consumable", "Braille Divine Tome of Lothric", 102, 32, 0),  # Up stairs from mimic
-        # Gems
-        ("Consumable", "Raw Gem", 82, 35, 0),                          # Side room
-        ("Consumable", "Refined Gem", 78, 20, 0),                      # After wyvern kill
-    ]
-    for kind, name, tx, ty, val in items:
-        fields = [make_field("kind", "LocalEnum.ItemKind", kind),
-                  make_field("name", "String", name)]
-        if kind == "SoulOrb":
-            fields.append(make_field("value", "Int", val))
-
-    # --- Chests - DS3 Lothric Castle (wiki-verified, 9 chests: 7 regular + 2 mimics) ---
-
-    
-    # --- DS3 faithful enemies (LothricCastle) ---
-    # LothricKnight (18)
-    for tx, ty in [(18, 28), (35, 32), (55, 38), (58, 44), (62, 34), (88, 34), (112, 52), (100, 42), (132, 58), (22, 32), (42, 38), (75, 30), (82, 26), (95, 36), (108, 44), (128, 60), (136, 68), (142, 90)]:
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("LothricKnight", "LothricKnight"))]))
-    # DarkMage (4)
-    entities.append(make_entity("Enemy", 22 * 16, 30 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
-    entities.append(make_entity("Enemy", 48 * 16, 42 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
-    entities.append(make_entity("Enemy", 122 * 16, 60 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
-    entities.append(make_entity("Enemy", 135 * 16, 92 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("DarkMage", "DarkMage"))]))
-    # HollowSoldier (18)
-    for tx, ty in [(14, 34), (20, 40), (28, 36), (40, 40), (68, 18), (75, 22), (85, 28), (70, 25), (92, 28), (128, 62), (138, 68), (142, 72), (60, 36), (85, 32), (130, 82), (138, 86), (118, 85), (125, 88)]:
-        entities.append(make_entity("Enemy", tx * 16, ty * 16,
-            [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowSoldier", "HollowSoldier"))]))
-    # HollowAssassin (5)
-    entities.append(make_entity("Enemy", 32 * 16, 38 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowAssassin", "HollowAssassin"))]))
-    entities.append(make_entity("Enemy", 44 * 16, 44 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowAssassin", "HollowAssassin"))]))
-    entities.append(make_entity("Enemy", 105 * 16, 54 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowAssassin", "HollowAssassin"))]))
-    entities.append(make_entity("Enemy", 118 * 16, 50 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowAssassin", "HollowAssassin"))]))
-    entities.append(make_entity("Enemy", 135 * 16, 55 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("HollowAssassin", "HollowAssassin"))]))
-    # StarvedHound (3)
-    entities.append(make_entity("Enemy", 30 * 16, 30 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 38 * 16, 36 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    entities.append(make_entity("Enemy", 48 * 16, 60 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("StarvedHound", "StarvedHound"))]))
-    # WingedKnight (3)
-    entities.append(make_entity("Enemy", 50 * 16, 38 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("WingedKnight", "WingedKnight"))]))
-    entities.append(make_entity("Enemy", 108 * 16, 48 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("WingedKnight", "WingedKnight"))]))
-    entities.append(make_entity("Enemy", 140 * 16, 60 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("WingedKnight", "WingedKnight"))]))
-    # PusOfMan (3)
-    entities.append(make_entity("Enemy", 78 * 16, 18 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan"))]))
-    entities.append(make_entity("Enemy", 95 * 16, 32 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan"))]))
-    entities.append(make_entity("Enemy", 125 * 16, 55 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("PusOfMan", "PusOfMan"))]))
-    # CrystalLizard (2)
-    entities.append(make_entity("Enemy", 82 * 16, 22 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
-    entities.append(make_entity("Enemy", 115 * 16, 45 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("CrystalLizard", "CrystalLizard"))]))
-    # BorealOutriderKnight (1)
-    entities.append(make_entity("Enemy", 45 * 16, 55 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("BorealOutriderKnight", "BorealOutriderKnight"))]))
-    # Dog (6)
-    entities.append(make_entity("Enemy", 32 * 16, 34 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
-    entities.append(make_entity("Enemy", 46 * 16, 42 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
-    entities.append(make_entity("Enemy", 52 * 16, 48 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
-    entities.append(make_entity("Enemy", 65 * 16, 30 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
-    entities.append(make_entity("Enemy", 72 * 16, 25 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
-    entities.append(make_entity("Enemy", 98 * 16, 38 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("Dog", "Dog"))]))
-    # MiniBoss (1)
-    entities.append(make_entity("Enemy", 132 * 16, 62 * 16,
-        [make_field("kind", "LocalEnum.EnemyKind", ENEMY_KIND_MAP.get("MiniBoss", "MiniBoss"))]))
-
-# --- NPCs - DS3 Lothric Castle ---
-    # NOTE: Emma is only at High Wall of Lothric (LothricWall) — she dies after giving Basin of Vows
-    # NOTE: Eygon of Carim only appears near Irina (Undead Settlement) or Firelink Shrine, not here
-    # Lothric Castle NPCs in DS3: summon signs only (no dialogue NPCs roam the castle interior)
-
-    
-    # --- DS3 faithful items ---
-    entities.append(make_entity("Item", 30 * 16, 50 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Soul of a Weary Warrior")]))
-    entities.append(make_entity("Item", 47 * 16, 60 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
-        make_field("name", "String", "Large Titanite Shard")]))
-    entities.append(make_entity("Item", 67 * 16, 75 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Large Soul of a Nameless Soldier")]))
-    entities.append(make_entity("Item", 82 * 16, 80 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Shard")]))
-    entities.append(make_entity("Item", 97 * 16, 81 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Key"),
-        make_field("name", "String", "Grand Archives Key")]))
-    entities.append(make_entity("Item", 133 * 16, 56 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Soul of a Weary Warrior")]))
-    entities.append(make_entity("Item", 160 * 16, 65 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Large Soul of a Nameless Soldier")]))
-    entities.append(make_entity("Item", 171 * 16, 68 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "LargeTitaniteShard"),
-        make_field("name", "String", "Large Titanite Shard")]))
-    entities.append(make_entity("Item", 143 * 16, 60 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Firebomb"),
-        make_field("name", "String", "Firebomb")]))
-    entities.append(make_entity("Item", 145 * 16, 61 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Firebomb"),
-        make_field("name", "String", "Firebomb")]))
-    entities.append(make_entity("Item", 181 * 16, 73 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
-        make_field("name", "String", "Ember")]))
-    entities.append(make_entity("Item", 156 * 16, 107 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "SoulOrb"),
-        make_field("name", "String", "Large Soul of a Nameless Soldier")]))
-    entities.append(make_entity("Item", 146 * 16, 118 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Shard")]))
-    entities.append(make_entity("Item", 176 * 16, 117 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Weapon"),
-        make_field("name", "String", "Lothric Knight Greatshield")]))
-    entities.append(make_entity("Item", 172 * 16, 122 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Armor"),
-        make_field("name", "String", "Lothric Knight Set")]))
-    entities.append(make_entity("Item", 143 * 16, 107 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Consumable"),
-        make_field("name", "String", "Green Blossom")]))
-    entities.append(make_entity("Item", 162 * 16, 115 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Firebomb"),
-        make_field("name", "String", "Firebomb")]))
-    entities.append(make_entity("Item", 240 * 16, 147 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "Ember"),
-        make_field("name", "String", "Ember")]))
-    entities.append(make_entity("Item", 218 * 16, 136 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "HomewardBone"),
-        make_field("name", "String", "Homeward Bone")]))
-    entities.append(make_entity("Item", 253 * 16, 150 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "BossSoul"),
-        make_field("name", "String", "Soul of the Dragonslayer Armour")]))
-    entities.append(make_entity("Item", 288 * 16, 133 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TwinklingTitanite"),
-        make_field("name", "String", "Twinkling Titanite")]))
-    entities.append(make_entity("Item", 56 * 16, 113 * 16, [
-        make_field("kind", "LocalEnum.ItemKind", "TitaniteShard"),
-        make_field("name", "String", "Titanite Shard")]))
-    # --- DS3 faithful chests ---
-    entities.append(make_entity("Chest", 102 * 16, 83 * 16, [
-        make_field("name", "String", "Unknown")]))
-    entities.append(make_entity("Chest", 185 * 16, 77 * 16, [
-        make_field("name", "String", "Unknown")]))
-    entities.append(make_entity("Chest", 152 * 16, 112 * 16, [
-        make_field("name", "String", "Unknown")]))
-    entities.append(make_entity("Chest", 173 * 16, 120 * 16, [
-        make_field("name", "String", "Unknown")]))
-# --- Fog Gates ---
-    # Back to LothricWall (return to High Wall, DS3: castle connects back to high wall)
-    entities.append(make_entity("FogGate", 38 * 16, 50 * 16, [
-        make_field("dest_area", "String", "LothricWall"),
-        make_field("dest_x", "Float", 1600.0),
-        make_field("dest_y", "Float", 1600.0),
-        make_field("width", "Float", 64.0),
-        make_field("height", "Float", 80.0),
-    ]))
-    # To Grand Archives (NE exit)
-    entities.append(make_entity("FogGate", 292 * 16, 137 * 16, [
-        make_field("dest_area", "String", "GrandArchives"),
-        make_field("dest_x", "Float", 100.0),
-        make_field("dest_y", "Float", 2300.0),
-        make_field("width", "Float", 64.0),
-        make_field("height", "Float", 80.0),
-    ]))
-    # To Consumed King's Garden (south side path)
-    entities.append(make_entity("FogGate", 57 * 16, 110 * 16, [
-        make_field("dest_area", "String", "ConsumedKingsGarden"),
-        make_field("dest_x", "Float", 200.0),
-        make_field("dest_y", "Float", 400.0),
-        make_field("width", "Float", 64.0),
-        make_field("height", "Float", 80.0),
-    ]))
-
-    # --- Lights ---
-    # --- Lights (DS3 faithful positions from JSON) ---
-    entities.append(make_entity("Light", 38 * 16, 56 * 16, [
-        make_field("radius", "Float", 160.0),
-        make_field("r", "Float", 0.9), make_field("g", "Float", 0.75),
-        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.45)]))
-    entities.append(make_entity("Light", 31 * 16, 46 * 16, [
-        make_field("radius", "Float", 100.0),
-        make_field("r", "Float", 1.0), make_field("g", "Float", 0.8),
-        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.35)]))
-    entities.append(make_entity("Light", 78 * 16, 80 * 16, [
-        make_field("radius", "Float", 180.0),
-        make_field("r", "Float", 0.95), make_field("g", "Float", 0.85),
-        make_field("b", "Float", 0.6), make_field("intensity", "Float", 0.4)]))
-    entities.append(make_entity("Light", 68 * 16, 75 * 16, [
-        make_field("radius", "Float", 120.0),
-        make_field("r", "Float", 1.0), make_field("g", "Float", 0.8),
-        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.3)]))
-    entities.append(make_entity("Light", 93 * 16, 81 * 16, [
-        make_field("radius", "Float", 140.0),
-        make_field("r", "Float", 0.8), make_field("g", "Float", 0.7),
-        make_field("b", "Float", 0.5), make_field("intensity", "Float", 0.35)]))
-    entities.append(make_entity("Light", 157 * 16, 68 * 16, [
-        make_field("radius", "Float", 220.0),
-        make_field("r", "Float", 1.0), make_field("g", "Float", 0.6),
-        make_field("b", "Float", 0.2), make_field("intensity", "Float", 0.5)]))
-    entities.append(make_entity("Light", 137 * 16, 56 * 16, [
-        make_field("radius", "Float", 140.0),
-        make_field("r", "Float", 0.9), make_field("g", "Float", 0.75),
-        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.35)]))
-    entities.append(make_entity("Light", 178 * 16, 67 * 16, [
-        make_field("radius", "Float", 160.0),
-        make_field("r", "Float", 1.0), make_field("g", "Float", 0.7),
-        make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.4)]))
-    entities.append(make_entity("Light", 157 * 16, 106 * 16, [
-        make_field("radius", "Float", 160.0),
-        make_field("r", "Float", 0.9), make_field("g", "Float", 0.75),
-        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.4)]))
-    entities.append(make_entity("Light", 171 * 16, 116 * 16, [
-        make_field("radius", "Float", 120.0),
-        make_field("r", "Float", 0.8), make_field("g", "Float", 0.7),
-        make_field("b", "Float", 0.5), make_field("intensity", "Float", 0.3)]))
-    entities.append(make_entity("Light", 146 * 16, 113 * 16, [
-        make_field("radius", "Float", 100.0),
-        make_field("r", "Float", 1.0), make_field("g", "Float", 0.8),
-        make_field("b", "Float", 0.4), make_field("intensity", "Float", 0.35)]))
-    entities.append(make_entity("Light", 225 * 16, 136 * 16, [
-        make_field("radius", "Float", 200.0),
-        make_field("r", "Float", 0.7), make_field("g", "Float", 0.7),
-        make_field("b", "Float", 0.8), make_field("intensity", "Float", 0.35)]))
-    entities.append(make_entity("Light", 242 * 16, 145 * 16, [
-        make_field("radius", "Float", 140.0),
-        make_field("r", "Float", 0.8), make_field("g", "Float", 0.6),
-        make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.4)]))
-    entities.append(make_entity("Light", 253 * 16, 148 * 16, [
-        make_field("radius", "Float", 240.0),
-        make_field("r", "Float", 0.5), make_field("g", "Float", 0.5),
-        make_field("b", "Float", 0.7), make_field("intensity", "Float", 0.5)]))
-    entities.append(make_entity("Light", 247 * 16, 142 * 16, [
-        make_field("radius", "Float", 120.0),
-        make_field("r", "Float", 0.7), make_field("g", "Float", 0.7),
-        make_field("b", "Float", 0.9), make_field("intensity", "Float", 0.3)]))
-    entities.append(make_entity("Light", 260 * 16, 155 * 16, [
-        make_field("radius", "Float", 120.0),
-        make_field("r", "Float", 0.7), make_field("g", "Float", 0.7),
-        make_field("b", "Float", 0.9), make_field("intensity", "Float", 0.3)]))
-    entities.append(make_entity("Light", 292 * 16, 137 * 16, [
-        make_field("radius", "Float", 160.0),
-        make_field("r", "Float", 0.9), make_field("g", "Float", 0.85),
-        make_field("b", "Float", 0.6), make_field("intensity", "Float", 0.4)]))
-    entities.append(make_entity("Light", 285 * 16, 130 * 16, [
-        make_field("radius", "Float", 100.0),
-        make_field("r", "Float", 1.0), make_field("g", "Float", 0.9),
-        make_field("b", "Float", 0.5), make_field("intensity", "Float", 0.3)]))
-    entities.append(make_entity("Light", 57 * 16, 112 * 16, [
-        make_field("radius", "Float", 120.0),
-        make_field("r", "Float", 0.4), make_field("g", "Float", 0.6),
-        make_field("b", "Float", 0.3), make_field("intensity", "Float", 0.3)]))
-    # SESSION 10 FIDELITY PASS — Lothric Castle
-    # Additional DS3-faithful terrain: dragon courtyard scorch debris, knight barracks,
-    # wyvern perch stones, Dancer cathedral pillars, Grand Archives approach
-    # Dragon courtyard — scorch debris (DS3: dragon burns the courtyard)
-    fill_tiles(chunk, TILE_WALL, 48, 52, 49, 53)
-    fill_tiles(chunk, TILE_WALL, 54, 56, 55, 57)
-    fill_tiles(chunk, TILE_WALL, 60, 54, 61, 55)
-    fill_tiles(chunk, TILE_WALL, 42, 58, 43, 59)
-    fill_tiles(chunk, TILE_WALL, 50, 60, 51, 61)
-    # Knight barracks — barrack walls (DS3: Lothric Knight barracks)
-    fill_tiles(chunk, TILE_WALL, 68, 62, 69, 63)
-    fill_tiles(chunk, TILE_WALL, 74, 58, 75, 59)
-    fill_tiles(chunk, TILE_WALL, 80, 64, 81, 65)
-    fill_tiles(chunk, TILE_WALL, 72, 66, 73, 67)
-    # Wyvern perch — cliff stones (DS3: wyvern perches on castle wall)
-    fill_tiles(chunk, TILE_WALL, 88, 56, 89, 57)
-    fill_tiles(chunk, TILE_WALL, 94, 60, 95, 61)
-    fill_tiles(chunk, TILE_WALL, 84, 62, 85, 63)
-    fill_tiles(chunk, TILE_WALL, 90, 58, 91, 59)
-    # Dancer cathedral — cathedral pillars (DS3: grand cathedral entrance)
-    fill_tiles(chunk, TILE_WALL, 100, 68, 101, 69)
-    fill_tiles(chunk, TILE_WALL, 106, 72, 107, 73)
-    fill_tiles(chunk, TILE_WALL, 112, 70, 113, 71)
-    fill_tiles(chunk, TILE_WALL, 104, 74, 105, 75)
-    fill_tiles(chunk, TILE_WALL, 110, 76, 111, 77)
-    # Grand Archives approach — book and crystal debris (DS3: path to archives)
-    fill_tiles(chunk, TILE_WALL, 118, 80, 119, 81)
-    fill_tiles(chunk, TILE_WALL, 124, 84, 125, 85)
-    fill_tiles(chunk, TILE_WALL, 130, 82, 131, 83)
-    fill_tiles(chunk, TILE_WALL, 122, 88, 123, 89)
-    fill_tiles(chunk, TILE_WALL, 128, 86, 129, 87)
-    # Castle ramparts — wall stones (DS3: castle battlements)
-    fill_tiles(chunk, TILE_WALL, 36, 54, 37, 55)
-    fill_tiles(chunk, TILE_WALL, 40, 50, 41, 51)
-    fill_tiles(chunk, TILE_WALL, 56, 48, 57, 49)
-    fill_tiles(chunk, TILE_WALL, 64, 52, 65, 53)
-    # Lothric throne room — throne debris (DS3: Lothric's empty throne room)
-    fill_tiles(chunk, TILE_WALL, 134, 90, 135, 91)
-    fill_tiles(chunk, TILE_WALL, 140, 88, 141, 89)
-    fill_tiles(chunk, TILE_WALL, 136, 94, 137, 95)
-    fill_tiles(chunk, TILE_WALL, 132, 92, 133, 93)
 
     # ================================================================
-    # SESSION 15 FIDELITY PASS — LothricCastle additional DS3 details
+    # BOSS SPAWN
+    # DS3: Dragonslayer Armour at the center of the arena
     # ================================================================
-    # Dragonslayer Armour rooftop — storm-worn battlements (DS3: rooftop boss arena)
-    fill_tiles(chunk, TILE_WALL, 124, 64, 125, 65)
-    fill_tiles(chunk, TILE_WALL, 130, 68, 131, 69)
-    fill_tiles(chunk, TILE_WALL, 118, 66, 119, 67)
-    fill_tiles(chunk, TILE_WALL, 136, 72, 137, 73)
-    # Twin Dragon bridge — dragon corpse debris (DS3: two dragon corpses on bridge)
-    fill_tiles(chunk, TILE_WALL, 72, 68, 73, 69)
-    fill_tiles(chunk, TILE_WALL, 76, 72, 77, 73)
-    fill_tiles(chunk, TILE_WALL, 68, 70, 69, 71)
-    # Winged Knight stairs — armor stand alcoves (DS3: Winged Knights descend stairs)
-    fill_tiles(chunk, TILE_WALL, 96, 56, 97, 57)
-    fill_tiles(chunk, TILE_WALL, 100, 60, 101, 61)
-    fill_tiles(chunk, TILE_WALL, 92, 58, 93, 59)
-    fill_tiles(chunk, TILE_WALL, 104, 54, 105, 55)
-    # Boreal Outrider room — frost-cracked stones (DS3: frost knight in side room)
-    fill_tiles(chunk, TILE_WALL, 44, 52, 45, 53)
-    fill_tiles(chunk, TILE_WALL, 50, 56, 51, 57)
-    fill_tiles(chunk, TILE_WALL, 38, 54, 39, 55)
-    # Castle dungeon — sewer grate stones (DS3: underground passage beneath castle)
-    fill_tiles(chunk, TILE_WALL, 28, 62, 29, 63)
-    fill_tiles(chunk, TILE_WALL, 34, 66, 35, 67)
-    fill_tiles(chunk, TILE_WALL, 22, 64, 23, 65)
+    entities.append(make_entity("BossSpawn", 257 * 16, 148 * 16,
+        [make_field("name", "String", "Dragonslayer Armour")]))
 
     # ================================================================
-    # SESSION 17 FIDELITY PASS — LothricCastle DS3 castle ramparts
+    # APPLY DOC TERRAIN — fills section interiors with ground,
+    # connects section centers via corridors, clears bonfire/boss/fog
+    # positions, and adds wall features from terrain_features dicts.
     # ================================================================
-    # Dragon barracks — scorched earth debris (DS3: dragon-scorched garrison)
-    fill_tiles(chunk, TILE_WALL, 62, 12, 63, 14)
-    fill_tiles(chunk, TILE_WALL, 70, 16, 71, 18)
-    fill_tiles(chunk, TILE_WALL, 78, 14, 79, 16)
-    fill_tiles(chunk, TILE_WALL, 86, 18, 87, 20)
-    fill_tiles(chunk, TILE_WALL, 94, 14, 95, 16)
-    # Inner stairs — narrow passage buttresses (DS3: tight spiral staircase)
-    fill_tiles(chunk, TILE_WALL, 102, 38, 103, 40)
-    fill_tiles(chunk, TILE_WALL, 108, 42, 109, 44)
-    fill_tiles(chunk, TILE_WALL, 114, 46, 115, 48)
-    fill_tiles(chunk, TILE_WALL, 120, 50, 121, 52)
-    # Dragonslayer Armour arena — storm-worn parapet debris (DS3: rooftop arena with wind)
-    fill_tiles(chunk, TILE_WALL, 128, 56, 129, 58)
-    fill_tiles(chunk, TILE_WALL, 134, 60, 135, 62)
-    fill_tiles(chunk, TILE_WALL, 140, 64, 141, 66)
-    fill_tiles(chunk, TILE_WALL, 146, 58, 147, 60)
-    # Castle gate courtyard — statue pedestals (DS3: knight statues at gate)
-    fill_tiles(chunk, TILE_WALL, 14, 26, 15, 28)
-    fill_tiles(chunk, TILE_WALL, 20, 30, 21, 32)
-    fill_tiles(chunk, TILE_WALL, 26, 34, 27, 36)
-    fill_tiles(chunk, TILE_WALL, 32, 28, 33, 30)
-    # Grand Archives approach — fountain basin stones (DS3: grand fountain before archives)
-    fill_tiles(chunk, TILE_WALL, 148, 56, 149, 58)
-    fill_tiles(chunk, TILE_WALL, 152, 62, 153, 64)
-    fill_tiles(chunk, TILE_WALL, 156, 68, 157, 70)
+    apply_doc_terrain(chunk, load_doc("LothricCastle"))
 
-    # ================================================================
-    # SESSION 19 FIDELITY PASS — LothricCastle DS3 castle depth
-    # ================================================================
-    # Dragon barracks — burnt pillar bases (DS3: dragon-scorched barracks walls)
-    fill_tiles(chunk, TILE_WALL, 66, 20, 67, 22)
-    fill_tiles(chunk, TILE_WALL, 74, 22, 75, 24)
-    fill_tiles(chunk, TILE_WALL, 82, 20, 83, 22)
-    fill_tiles(chunk, TILE_WALL, 90, 24, 91, 26)
-    fill_tiles(chunk, TILE_WALL, 98, 22, 99, 24)
-    # Twin dragon bridge — ribcage debris (DS3: dragon skeletons on bridge)
-    fill_tiles(chunk, TILE_WALL, 76, 74, 77, 76)
-    fill_tiles(chunk, TILE_WALL, 82, 78, 83, 80)
-    fill_tiles(chunk, TILE_WALL, 88, 76, 89, 78)
-    fill_tiles(chunk, TILE_WALL, 94, 80, 95, 82)
-    fill_tiles(chunk, TILE_WALL, 100, 78, 101, 80)
-    # Lothric throne room — curtain rod pillars (DS3: ornate throne chamber)
-    fill_tiles(chunk, TILE_WALL, 138, 94, 139, 96)
-    fill_tiles(chunk, TILE_WALL, 144, 98, 145, 100)
-    fill_tiles(chunk, TILE_WALL, 150, 96, 151, 98)
-    fill_tiles(chunk, TILE_WALL, 142, 100, 143, 102)
-    fill_tiles(chunk, TILE_WALL, 148, 102, 149, 104)
-    # Castle lower passages — iron grate debris (DS3: passages beneath castle)
-    fill_tiles(chunk, TILE_WALL, 18, 56, 19, 58)
-    fill_tiles(chunk, TILE_WALL, 24, 60, 25, 62)
-    fill_tiles(chunk, TILE_WALL, 30, 58, 31, 60)
-    fill_tiles(chunk, TILE_WALL, 36, 62, 37, 64)
-    fill_tiles(chunk, TILE_WALL, 42, 66, 43, 68)
-
-    # ================================================================
-    # SESSION 22 FIDELITY PASS — LothricCastle DS3 castle details
-    # ================================================================
-    # Castle rampart merlons (DS3: stone battlements on castle walls)
-    fill_tiles(chunk, TILE_WALL, 22, 30, 23, 31)
-    fill_tiles(chunk, TILE_WALL, 28, 34, 29, 35)
-    fill_tiles(chunk, TILE_WALL, 34, 38, 35, 39)
-    fill_tiles(chunk, TILE_WALL, 40, 42, 41, 43)
-    # Dragon corpse debris (DS3: dragon remains on the castle wall)
-    fill_tiles(chunk, TILE_WALL, 46, 46, 47, 47)
-    fill_tiles(chunk, TILE_WALL, 52, 50, 53, 51)
-    fill_tiles(chunk, TILE_WALL, 58, 54, 59, 55)
-    fill_tiles(chunk, TILE_WALL, 64, 58, 65, 59)
-    # Lothric throne room debris (DS3: shattered throne in Lothric room)
-    fill_tiles(chunk, TILE_WALL, 70, 62, 71, 63)
-    fill_tiles(chunk, TILE_WALL, 76, 66, 77, 67)
-    fill_tiles(chunk, TILE_WALL, 82, 70, 83, 71)
-    fill_tiles(chunk, TILE_WALL, 88, 74, 89, 75)
-    # Wyvern perch stones (DS3: stones where wyverns land)
-    fill_tiles(chunk, TILE_WALL, 94, 78, 95, 79)
-    fill_tiles(chunk, TILE_WALL, 100, 82, 101, 83)
-    fill_tiles(chunk, TILE_WALL, 106, 86, 107, 87)
-    fill_tiles(chunk, TILE_WALL, 112, 90, 113, 91)
-
-    # ================================================================
-    # SESSION 28 FIDELITY PASS — LothricCastle DS3 castle details
-    # ================================================================
-    # Castle great hall pillars (DS3: stone pillars in the great hall)
-    fill_tiles(chunk, TILE_WALL, 18, 32, 19, 33)
-    fill_tiles(chunk, TILE_WALL, 24, 36, 25, 37)
-    fill_tiles(chunk, TILE_WALL, 30, 40, 31, 41)
-    fill_tiles(chunk, TILE_WALL, 36, 44, 37, 45)
-    # Dragon perch debris (DS3: dragon perching spots on castle walls)
-    fill_tiles(chunk, TILE_WALL, 42, 48, 43, 49)
-    fill_tiles(chunk, TILE_WALL, 48, 52, 49, 53)
-    fill_tiles(chunk, TILE_WALL, 54, 56, 55, 57)
-    fill_tiles(chunk, TILE_WALL, 60, 60, 61, 61)
-    # Dancer arena debris (DS3: shattered floor in Dancer's arena)
-    fill_tiles(chunk, TILE_WALL, 66, 64, 67, 65)
-    fill_tiles(chunk, TILE_WALL, 72, 68, 73, 69)
-    fill_tiles(chunk, TILE_WALL, 78, 72, 79, 73)
-    fill_tiles(chunk, TILE_WALL, 84, 76, 85, 77)
-    # Lothric throne room debris (DS3: debris in Lothric's chamber)
-    fill_tiles(chunk, TILE_WALL, 90, 80, 91, 81)
-    fill_tiles(chunk, TILE_WALL, 96, 84, 97, 85)
-    fill_tiles(chunk, TILE_WALL, 102, 88, 103, 89)
-    fill_tiles(chunk, TILE_WALL, 108, 92, 109, 93)
-
-    # ================================================================
-    # SESSION 32 FIDELITY PASS — LothricCastle DS3 castle details
-    # ================================================================
-    # Castle battlement merlons (DS3: stone battlements on the walls)
-    fill_tiles(chunk, TILE_WALL, 22, 36, 23, 37)
-    fill_tiles(chunk, TILE_WALL, 28, 40, 29, 41)
-    fill_tiles(chunk, TILE_WALL, 34, 44, 35, 45)
-    fill_tiles(chunk, TILE_WALL, 40, 48, 41, 49)
-    # Dragon perch stones (DS3: stones where dragons roost)
-    fill_tiles(chunk, TILE_WALL, 46, 52, 47, 53)
-    fill_tiles(chunk, TILE_WALL, 52, 56, 53, 57)
-    fill_tiles(chunk, TILE_WALL, 58, 60, 59, 61)
-    fill_tiles(chunk, TILE_WALL, 64, 64, 65, 65)
-    # Dancer of the Boreal Valley arena (DS3: shattered floor tiles)
-    fill_tiles(chunk, TILE_WALL, 70, 68, 71, 69)
-    fill_tiles(chunk, TILE_WALL, 76, 72, 77, 73)
-    fill_tiles(chunk, TILE_WALL, 82, 76, 83, 77)
-    fill_tiles(chunk, TILE_WALL, 88, 80, 89, 81)
-    # Lothric's study debris (DS3: debris in Prince Lothric's chamber)
-    fill_tiles(chunk, TILE_WALL, 94, 84, 95, 85)
-    fill_tiles(chunk, TILE_WALL, 100, 88, 101, 89)
-    fill_tiles(chunk, TILE_WALL, 106, 92, 107, 93)
-    fill_tiles(chunk, TILE_WALL, 112, 96, 113, 97)
-
-    # SESSION 38 FIDELITY PASS — Lothric Castle DS3 details
-    # DS3: Great hall pillars, dragon perches, throne room debris, Dancer arena
-    for tx in range(25, 65, 6):
-        fill_tiles(chunk, TILE_WALL, tx, 30, tx+2, 32)             # Great hall pillars
-        fill_tiles(chunk, TILE_WALL, tx, 70, tx+2, 72)
-    for tx in range(75, 120, 6):
-        fill_tiles(chunk, TILE_WALL, tx, 35, tx+1, 36)             # Dragon perch debris
-        fill_tiles(chunk, TILE_WALL, tx, 75, tx+1, 76)
-    for ty in range(40, 65, 8):
-        fill_tiles(chunk, TILE_WALL, 40, ty, 41, ty+1)             # Castle interior columns
-        fill_tiles(chunk, TILE_WALL, 100, ty, 101, ty+1)
-    fill_tiles(chunk, TILE_WALL, 55, 50, 57, 52)                    # Throne room debris
-    fill_tiles(chunk, TILE_WALL, 110, 60, 112, 62)                  # Dancer arena debris
-    fill_tiles(chunk, TILE_WALL, 80, 85, 82, 87)                    # Dragon skeleton
-    for tx in range(120, 145, 5):
-        fill_tiles(chunk, TILE_WALL, tx, 45, tx+1, 46)             # Rooftop debris
-    # SESSION 41 FIDELITY PASS — Lothric Castle DS3 details
-    # DS3: Castle great hall, Dragon Slayer Armor arena, Lothric throne room
-    for tx in range(25, 60, 5):
-        fill_tiles(chunk, TILE_WALL, tx, 45, tx+1, 46)             # Castle corridor tiles
-        fill_tiles(chunk, TILE_WALL, tx, 85, tx+1, 86)
-    for tx in range(65, 100, 5):
-        fill_tiles(chunk, TILE_WALL, tx, 50, tx+1, 51)             # Dragon arena stones
-        fill_tiles(chunk, TILE_WALL, tx, 90, tx+1, 91)
-    for ty in range(40, 75, 7):
-        fill_tiles(chunk, TILE_WALL, 45, ty, 46, ty+1)             # Castle interior columns
-        fill_tiles(chunk, TILE_WALL, 105, ty, 106, ty+1)
-    fill_tiles(chunk, TILE_WALL, 55, 65, 57, 67)                    # Dragon Slayer Armor arena
-    fill_tiles(chunk, TILE_WALL, 120, 55, 122, 57)                  # Throne room approach
-    fill_tiles(chunk, TILE_WALL, 80, 95, 82, 97)                    # Lothric prince chamber
-    # --- SESSION 49 terrain (Lothric Castle) ---
-    # DS3: Great hall pillars supporting the massive ceiling
-    for ty in range(30, 38):
-        chunk[ty][35] = TILE_WALL  # hall pillar
-        chunk[ty][50] = TILE_WALL  # hall pillar
-    # Dragon perch stones (DS3: where the dragon rests on the roof)
-    for tx in range(95, 102):
-        chunk[28][tx] = TILE_WALLTOP  # perch debris
-    # Dancer arena columns (DS3: the circular arena has pillars)
-    for ty in range(60, 68):
-        chunk[ty][72] = TILE_WALL  # arena column
-        chunk[ty][82] = TILE_WALL  # arena column
-    # Throne room debris (DS3: Lothric's throne room is in ruins)
-    for tx in range(100, 108):
-        chunk[42][tx] = TILE_WALLTOP  # throne debris
-
-    # --- SESSION 54 terrain (Lothric Castle final) ---
-    # DS3: Castle gatehouse stonework
-    for ty in range(15, 22):
-        chunk[ty][8] = TILE_WALL  # gatehouse wall
-        chunk[ty][12] = TILE_WALL  # gatehouse pillar
-    # Consumed King's Garden approach archway
-    for ty in range(68, 74):
-        chunk[ty][18] = TILE_WALL  # archway pillar
-    # Grand Archives bridge supports
-    for ty in range(42, 48):
-        chunk[ty][145] = TILE_WALL  # bridge support
-    # Castle courtyard fountain
-    chunk[48][65] = TILE_WALL  # fountain base
-    chunk[48][66] = TILE_WALLTOP  # fountain rim
-
-    # --- SESSION 89 DS3 terrain (Lothric Castle detail pass) ---
-    # DS3: Great hall pillars (massive columns in the throne room)
-    for tx in [20, 30, 40, 50, 60, 70, 80, 90]:
-        for ty in range(12, 28):
-            chunk[tx][ty] = TILE_WALL
-            chunk[tx][ty-1] = TILE_WALLTOP
-    # DS3: Dragon perch (the dead wyvern platform)
-    for tx in range(45, 58):
-        for ty in range(5, 10):
-            chunk[tx][ty] = TILE_WALL
-    for tx in range(45, 59):
-        chunk[tx][4] = TILE_WALLTOP
-    # DS3: Dancer arena columns (circular chamber)
-    for tx in [15, 25, 35, 45, 55]:
-        for ty in [40, 41]:
-            chunk[tx][ty] = TILE_WALL
-    # DS3: Throne debris (scattered stone blocks)
-    for tx in [65, 68, 72, 75, 78]:
-        for ty in [30, 31]:
-            chunk[tx][ty] = TILE_WALL
-    # DS3: Castle ramparts with battlements
-    for tx in range(10, 100):
-        chunk[tx][8] = TILE_WALL
-        chunk[tx][7] = TILE_WALLTOP
-    # DS3: Grand Archives entrance staircase
-    for tx in range(85, 100):
-        for ty in range(50, 65):
-            chunk[tx][ty] = TILE_GROUND
-    for tx in [85, 100]:
-        for ty in range(50, 66):
-            chunk[tx][ty] = TILE_WALL
-    # DS3: Castle kennel (enclosed area with dogs)
-    for tx in range(20, 30):
-        for ty in [55, 62]:
-            chunk[tx][ty] = TILE_WALL
-    for tx in [20, 30]:
-        for ty in range(55, 63):
-            chunk[tx][ty] = TILE_WALL
-    for tx in range(20, 31):
-        chunk[tx][54] = TILE_WALLTOP
-
-    # --- SESSION 92 DS3 terrain round 2 (Lothric Castle) ---
-    # DS3: Consumed King's Garden entrance
-    for tx in range(10, 20):
-        for ty in [60, 66]:
-            chunk[tx][ty] = TILE_WALL
-    for tx in [10, 20]:
-        for ty in range(60, 67):
-            chunk[tx][ty] = TILE_WALL
-    for tx in range(10, 21):
-        chunk[tx][59] = TILE_WALLTOP
-    # DS3: Lothric Wyvern perch (high tower)
-    for tx in range(50, 60):
-        for ty in [5, 10]:
-            chunk[tx][ty] = TILE_WALL
-    for tx in [50, 60]:
-        for ty in range(5, 11):
-            chunk[tx][ty] = TILE_WALL
-    for tx in range(50, 61):
-        chunk[tx][4] = TILE_WALLTOP
-    # DS3: Castle courtyard fountain
-    for tx in range(35, 45):
-        for ty in [45, 46]:
-            chunk[tx][ty] = TILE_WALL
-    for tx in [35, 45]:
-        for ty in [45, 46]:
-            chunk[tx][ty] = TILE_WALL
-    # DS3: Dark Mage study room
-    for tx in range(75, 85):
-        for ty in [55, 60]:
-            chunk[tx][ty] = TILE_WALL
-    for tx in [75, 85]:
-        for ty in range(55, 61):
-            chunk[tx][ty] = TILE_WALL
-    for tx in range(75, 86):
-        chunk[tx][54] = TILE_WALLTOP
-    # DS3: Twin Princes tower staircase
-    for tx in range(85, 95):
-        for ty in range(20, 35):
-            chunk[tx][ty] = TILE_GROUND
-    for tx in [85, 95]:
-        for ty in range(20, 36):
-            chunk[tx][ty] = TILE_WALL
-    # Fill terrain from JSON doc sections for areas beyond hardcoded layout
-    import json as _json
-    with open("docs/maps/LothricCastle.json") as _f:
-        _doc = _json.load(_f)
-    apply_doc_terrain(chunk, _doc)
     return finalize_map("LothricCastle", chunk, entities, spawn_px, spawn_py)

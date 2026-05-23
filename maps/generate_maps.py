@@ -904,6 +904,12 @@ def build_enum_defs():
          ]]},
     ]
 
+def load_doc(map_id):
+    """Load the JSON design doc for a map by its ID (e.g. 'CemeteryOfAsh')."""
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    docs_dir = os.path.join(os.path.dirname(script_dir), "docs", "maps")
+    return _load_doc_for_area(docs_dir, map_id)
+
 def _load_doc_for_area(docs_dir, map_id):
     """Find and load the JSON design doc for a given map_id."""
     aliases = {}  # doc filenames match map_id names directly
